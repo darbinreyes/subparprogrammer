@@ -31,8 +31,8 @@ Nice: https://guides.github.com/features/mastering-markdown/
 // Note: My mbp had the mac ports installation of apache2 already set up. For now, I decided revert to using the Mac OS X version which has apachectl in /usr/sbin/apachectl instead of /opt/local/apache2/bin.
 // That required me to update my .profile.
 // See screenshots for proof, note directories.
-7. Setup airport for local network access to index.html.
-8. Test connection to index.html from mba.
+7. Setup airport for local network access to index.html. // No extra work required.
+8. Test connection to index.html from mba. // No extra work required. I can already access the site via http://10.0.100.25/~darbinreyes/darbinreyes.com/ . I got the local IP from air port utility and from Network Preferences.
 9. Setup dns server.
 10. Test connection from mba and iphone via LTE.
 11. Decide what to do next. 
