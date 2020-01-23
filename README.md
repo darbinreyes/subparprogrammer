@@ -15,13 +15,22 @@ Nice: https://guides.github.com/features/mastering-markdown/
 
 ## Project 0: Create single page website. Render a triangle in canvas.
 
-0. Setup this repo.
-1. create local clone on mba. 
-2. Create index.html.
-3. Setup mbp.
-4. Clone repo to mbp.
-5. Setup apache.
-6. Setup test index.html locally.
+0. x Setup this repo.
+1. x create local clone on mba.
+2. x Create index.html.
+3. x Setup mbp.
+4. x Clone repo to mbp.
+5. x Setup apache. // Used this guide since my mbp is OS version is 10.12.6. https://medium.com/@JohnFoderaro/how-to-set-up-apache-in-macos-sierra-10-12-bca5a5dfffba
+6. x Setup test index.html locally.
+// On my mbp:
+// Remote desktop working great.
+// I had to re-setup my github ssh keys again.
+// mbp battery is trash. Hdd is almost full.
+// Xcode needs to be re-installed. Its gone, not sure why.
+// subl command was broken. I fixed it.
+// Note: My mbp had the mac ports installation of apache2 already set up. For now, I decided revert to using the Mac OS X version which has apachectl in /usr/sbin/apachectl instead of /opt/local/apache2/bin.
+// That required me to update my .profile.
+// See screenshots for proof, note directories.
 7. Setup airport for local network access to index.html.
 8. Test connection to index.html from mba.
 9. Setup dns server.
