@@ -1,5 +1,8 @@
 # subparprogrammer
 A collection of purposeless, subpar code written by me.
+
+![screenshot 0](https://github.com/darbinreyes/subparprogrammer/blob/master/Screen%20Shot%202020-01-23%20at%2011.20.31%20AM.png)
+
 First, lower your expections. 
 Second, this repository is public, but its only intended audience is me.
 I define production quality code as: specified, consistent style, unit tested, documented, version controlled.
@@ -33,6 +36,12 @@ Nice: https://guides.github.com/features/mastering-markdown/
 // See screenshots for proof, note directories.
 7. Setup airport for local network access to index.html. // No extra work required.
 8. Test connection to index.html from mba. // No extra work required. I can already access the site via http://10.0.100.25/~darbinreyes/darbinreyes.com/ . I got the local IP from air port utility and from Network Preferences.
+
+![screenshot 1](https://github.com/darbinreyes/subparprogrammer/blob/master/Screen%20Shot%202020-01-23%20at%205.55.06%20PM.png)
+
+![screenshot 2](https://github.com/darbinreyes/subparprogrammer/blob/master/Screen%20Shot%202020-01-23%20at%205.57.21%20PM.png)
+
 9. Setup dns server. // First setup airport port forwarding using IP address. See evernote. YAY.
 10. Test connection from mba and iphone via LTE.
 11. Decide what to do next. 
+
