@@ -34,14 +34,25 @@ Nice: https://guides.github.com/features/mastering-markdown/
 // Note: My mbp had the mac ports installation of apache2 already set up. For now, I decided revert to using the Mac OS X version which has apachectl in /usr/sbin/apachectl instead of /opt/local/apache2/bin.
 // That required me to update my .profile.
 // See screenshots for proof, note directories.
-7. Setup airport for local network access to index.html. // No extra work required.
-8. Test connection to index.html from mba. // No extra work required. I can already access the site via http://10.0.100.25/~darbinreyes/darbinreyes.com/ . I got the local IP from air port utility and from Network Preferences.
+7. x Setup airport for local network access to index.html. // No extra work required.
+8. x Test connection to index.html from mba. // No extra work required. I can already access the site via http://10.0.100.25/~darbinreyes/darbinreyes.com/ . I got the local IP from air port utility and from Network Preferences.
 
 ![screenshot 1](https://github.com/darbinreyes/subparprogrammer/blob/master/Screen%20Shot%202020-01-23%20at%205.55.06%20PM.png)
 
 ![screenshot 2](https://github.com/darbinreyes/subparprogrammer/blob/master/Screen%20Shot%202020-01-23%20at%205.57.21%20PM.png)
 
-9. Setup dns server. // First setup airport port forwarding using IP address. See evernote. YAY.
-10. Test connection from mba and iphone via LTE.
-11. Decide what to do next. 
+NEXT: Setup airport port forwarding using IP address.
+Try adding local ip+port80 and test connection on mba.
 
+10. Test connection from mba and iphone via LTE.
+11. Setup dns server. Test it by repeating 10.
+12. Define website update workflow.
+13. Test workflow.
+12. Decide what to do next.
+
+// Other
+Cleanup README.md. Check .md syntax for local dir images.
+Look into mbp high CPU usage.
+Determine best way to keep the server running continuously.
+Including possibly setting up static IP.
+Consider setting up ssh based workflow vs screen sharing. Get used to nano text editor.
