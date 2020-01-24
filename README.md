@@ -35,7 +35,7 @@ Nice: https://guides.github.com/features/mastering-markdown/
 NEXT: Setup airport port forwarding using IP address.
 Try adding local ip+port80 and test connection on mba.
 
-10. Test connection from mba and iphone via LTE.
+10. x Test connection from mba and iphone via LTE.
 11. Setup dns server. Test it by repeating 10.
 12. Define website update workflow.
 13. Test workflow.
