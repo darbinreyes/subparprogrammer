@@ -25,15 +25,6 @@ Nice: https://guides.github.com/features/mastering-markdown/
 4. x Clone repo to mbp.
 5. x Setup apache. // Used this guide since my mbp is OS version is 10.12.6. https://medium.com/@JohnFoderaro/how-to-set-up-apache-in-macos-sierra-10-12-bca5a5dfffba
 6. x Setup test index.html locally.
-// On my mbp:
-// Remote desktop working great.
-// I had to re-setup my github ssh keys again.
-// mbp battery is trash. Hdd is almost full.
-// Xcode needs to be re-installed. Its gone, not sure why.
-// subl command was broken. I fixed it.
-// Note: My mbp had the mac ports installation of apache2 already set up. For now, I decided revert to using the Mac OS X version which has apachectl in /usr/sbin/apachectl instead of /opt/local/apache2/bin.
-// That required me to update my .profile.
-// See screenshots for proof, note directories.
 7. x Setup airport for local network access to index.html. // No extra work required.
 8. x Test connection to index.html from mba. // No extra work required. I can already access the site via http://10.0.100.25/~darbinreyes/darbinreyes.com/ . I got the local IP from air port utility and from Network Preferences.
 
