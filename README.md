@@ -47,3 +47,4 @@ Look into mbp high CPU usage.
 Determine best way to keep the server running continuously.
 Including possibly setting up static IP.
 Consider setting up ssh based workflow vs screen sharing. Get used to nano text editor.
+Considering setting up https.
