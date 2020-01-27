@@ -17,7 +17,16 @@ Don't forget to review the .md syntax.
 Nice: https://guides.github.com/features/mastering-markdown/
 
 ## Project 0: Create single page website. Render a triangle in canvas.
+Current project status:
+HTTP server is running.
+DNS is working but I'm unsure about the configuration. E.g. darbinreyes.com returns Forbidden. darbinreyes.com/~darbinreyes/darbinreyes.com/ works.
+Next steps:
 
+0. Document the http server configuration.
+1. Document the DNS server configuration.
+2. Continue with below.
+
+## TEMP TODO
 0. x Setup this repo.
 1. x create local clone on mba.
 2. x Create index.html.
