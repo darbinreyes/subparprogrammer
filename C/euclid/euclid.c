@@ -100,6 +100,7 @@ VII_1_relatively_prime (
   The main function.
 
 **/
+/**
 int
 main (void)
 {
@@ -120,3 +121,4 @@ main (void)
 
   return 0;
 }
+**/
