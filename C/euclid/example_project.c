@@ -21,9 +21,9 @@ void test_fixture_two( void );
 
 void all_tests( void ) // der: a function to execute all tests. This is an argument seatest_testrunner().
 {
-	test_fixture_one();
-	test_fixture_two();
-	// add new test fixtures here.
+  test_fixture_one();
+  test_fixture_two();
+  // add new test fixtures here.
 }
 
 /**
@@ -32,19 +32,19 @@ void all_tests( void ) // der: a function to execute all tests. This is an argum
 **/
 void my_suite_setup( void )
 {
-	printf("I'm done before every single test in the suite\r\n");
+  printf("I'm done before every single test in the suite\r\n");
 }
 
 void my_suite_teardown( void )
 {
-	printf("I'm done after every single test in the suite\r\n");
+  printf("I'm done after every single test in the suite\r\n");
 }
 /**
   der: Main function for running tests. See below for alternate mechanisms.
 **/
 int main( int argc, char** argv )
 {
-	return seatest_testrunner(argc, argv, all_tests, my_suite_setup, my_suite_teardown);	
+  return seatest_testrunner(argc, argv, all_tests, my_suite_setup, my_suite_teardown);
 }
 
 /*************************************************************************************************************************************************************/
@@ -56,7 +56,7 @@ Use this if you don't have any global setup/teardown...
 */
 int main_no_setup_or_teardown( int argc, char** argv )
 {
-	return seatest_testrunner(argc, argv, all_tests, NULL, NULL);	
+  return seatest_testrunner(argc, argv, all_tests, NULL, NULL);
 }
 
 /*
@@ -64,16 +64,16 @@ Use this if you don't want to use the test runner...
 */
 int main_do_it_myself( int argc, char** argv )
 {
-	suite_setup(my_suite_setup);
-	suite_teardown(my_suite_teardown); 
-	return run_tests(all_tests);	
+  suite_setup(my_suite_setup);
+  suite_teardown(my_suite_teardown);
+  return run_tests(all_tests);
 }
 
 /*
 Use this if you don't want to use the test runner and don't have any global setup/teardown...
 */
 int main_do_it_myself_really_simply( int argc, char** argv )
-{	
-	return run_tests(all_tests);	
+{
+  return run_tests(all_tests);
 }
 
