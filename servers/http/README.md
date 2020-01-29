@@ -30,6 +30,7 @@ Steps to configure:
 ** The comments in this file are useful.
 ** The guide instructs you to comment out a single line in httpd-userdir.conf.
 * DONE with configuration. Lastly, restart apache with "sudo apachectl restart".
+* NEXT: Read optional steps in tutorial in case that’s useful.
 
 # Using the nano editor.
 
