@@ -151,6 +151,54 @@ VII_1_relatively_prime (
 }
 
 /**
+  "To find the greatest common measure of two given numbers not relatively
+  prime."
+
+  https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII2.html
+
+  Given two numbers not prime to one another, to determines their greatest
+  common measure(gcm)
+  a.k.a greatest common divisor.
+
+  @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
+  @retval -2 If (a == b).This is considered invalid input.
+  @retval 1 if a and b are prime to one another.
+  @retval returns the greatest common measure of a and b which is always > 1.
+
+**/
+int // Be careful, since arguments are unsigned it may be possible that the return value overflows a signed int. I am using negative numbers to indicate errors.
+VII_2_gcm (
+  unsigned int a,
+  unsigned int b
+  ) {
+  if (!( a > 1 && b > 1)) {
+    assert(0);
+    return -1;
+  }
+
+  if (a == b) {
+    // Proposition VII.1 specifies "two unequal numbers" so I'll enforce that here too.
+    assert(0);
+    return -2;
+  }
+
+  // Anteneresis.
+  while (a > 1 && b > 1) {
+    if (b > a)
+      swap(&a, &b);
+
+    a = a - b;
+  }
+
+  if(a == 0) // The lesser has measure the greater, b == gcm(a, b).
+    return b;
+  else { // a and b are prime to one another.
+    assert(a == 1);
+    return 1;
+  }
+}
+
+/**
 
   The main function.
 
