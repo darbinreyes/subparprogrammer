@@ -15,4 +15,13 @@ https://medium.com/@JohnFoderaro/how-to-set-up-apache-in-macos-sierra-10-12-bca5
 
 Steps to configure:
 
-0.
+* tell Apache where to serve content from.
+* your username on your Mac and ends with the .conf extension.
+
+
+# Using the nano editor.
+
+^ represents the control key.
+Close and save this file, using control + X, followed by Y, then Enter.
+
+
