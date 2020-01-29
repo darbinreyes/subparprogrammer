@@ -87,6 +87,7 @@ swap (
   @param  b The second number.
 
   @retval -1 If !(a > 1 && b > 1).This is considered invalid input.
+  @retval -2 If (a == b).This is considered invalid input.
   @retval 1  If the numbers are prime to one another.
   @retval 0  If the numbers have a common measure greater than 1.
 
@@ -97,9 +98,14 @@ VII_1_relatively_prime (
   unsigned int b
   )
 {
-  if (!( a > 1 && b > 1)){
+  if (!( a > 1 && b > 1)) {
     assert(0);
     return -1;
+  }
+
+  if (a == b) { // The proposition specifies "two unequal numbers".
+    assert(0);
+    return -2;
   }
 
   /**
