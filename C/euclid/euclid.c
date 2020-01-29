@@ -121,6 +121,7 @@ VII_1_relatively_prime (
   )
 {
   if (!( a > 1 && b > 1)) {
+    // Def.2. By definition, a number means a "whole positive numbers greater than 1"
     assert(0);
     return -1;
   }
