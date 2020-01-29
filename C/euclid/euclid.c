@@ -33,7 +33,7 @@ swap (
   if (a == NULL || b == NULL) {
     /**
       As a general rule, I will use asserts but it's important to handle such
-      errors gracefully in case asserts are disabled. i.e. the code should do
+      errors gracefully, in case asserts are disabled. i.e. the code should do
       something reasonable if the assert is removed.
     **/
     assert(0);
@@ -50,6 +50,32 @@ swap (
 }
 
 /**
+
+  Function header format.
+
+  If a function corresponds to a proposition the format is:
+
+  The proposition.
+
+  Link to proposition.
+
+  A description of the function.
+
+  Parameters.
+
+  Return values.
+
+  The naming convention for functions corresponding to propositions will be
+  "book number"_"proposition number"_"descriptive name"
+  Functions which do not follow the above format are helper functions e.g. swap().
+**/
+
+/**
+  "When two unequal numbers are set out, and the less is continually subtracted
+  in turn from the greater, if the number which is left never measures the one
+  before it until a unit is left, then the original numbers are relatively prime."
+
+  https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII1.html
 
   Determines if the given numbers are prime to one another,
   a.k.a. the numbers have no common measure greater than 1.
