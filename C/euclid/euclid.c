@@ -9,7 +9,29 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+/**
+  Notes on VII.Definitions
 
+  Def.1-2.
+
+  https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/defVII1.html
+
+  "all three books VII through IX on number theory."
+  "Books VII through IX are whole positive numbers"
+  "two kinds" of numbers
+  1. "numbers as objects of a theory". Def.2 = multitude of units. object language.
+  2. "numbers in the metalanguage". "not multiples of the unit"
+  "a, b, and c will be used for the formal numbers". "u will denote the unit".
+  Remark on conflation between formal and informal numbers.
+  "let n be the number of units u". "summarize definition 2 by the equation a = nu"
+  "every formal number a = nu is shadowed by the unnamed informal number n"
+  "definition 2 are meant to be whole positive numbers greater than 1"
+  "Euclid treats the unit, 1, separately from numbers, 2, 3"
+  "definition 2 are meant to be whole positive numbers greater than 1"
+  "Euclid exhibits his formal numbers as lines"
+  "unit line A is meant to be indivisible"
+  "Euclid never calls them lines"
+**/
 
 /**
   Swaps the values of the given integers.
