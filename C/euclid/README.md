@@ -15,5 +15,8 @@ https://www.youtube.com/watch?v=a0wo_yAh0Ps
 * x Add test cases using seatest. Starting here https://code.google.com/archive/p/seatest/
 * x Compiled and ran the seatest example successfully.
 * x I will try to adapt the example to euclid.c now.
-* Implement VII.2.
-* Add test cases using seatest.
+* x Implement VII.2.
+* x Add test cases using seatest.
+* review notes on VII.2
+* Implement VII.3.
+* Test VII.3.
