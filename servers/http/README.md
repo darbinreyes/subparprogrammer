@@ -15,14 +15,25 @@ https://medium.com/@JohnFoderaro/how-to-set-up-apache-in-macos-sierra-10-12-bca5
 
 Steps to configure:
 
-* tell Apache where to serve content from.
-* your username on your Mac and ends with the .conf extension.
-* cd /etc/apache2/users
-
+* Telling Apache where to serve content from.
+* Create the config. file.
+* The file name should be your username on your Mac and ends with the .conf extension.
+* The location of this file should be /etc/apache2/users
+** A copy of this file is in this repo. under ./servers/http/etc/apache2/users/
+* Set permissions for darbinreyes.conf with "sudo chmod 644 username.conf"
+** 644=owner=rw|group=r|other=r.
+* Next config. file: /etc/apache2/httpd.conf.
+** A copy of this file is in this repo. under ./servers/http/etc/apache2/
+** A this point the guide instructs you to comment out several lines in httpd.conf.
+* Next config. file: /etc/apache2/extra/httpd-userdir.conf
+** A copy of this file is in this repo. under ./servers/http/etc/apache2/extra/
+** The comments in this file are useful.
+** The guide instructs you to comment out a single line in httpd-userdir.conf.
+* DONE with configuration. Lastly, restart apache with "sudo apachectl restart".
 
 # Using the nano editor.
 
 * ^ represents the control key.
 * Close and save this file, using control + X, followed by Y, then Enter.
 * If a file doesn't exists, to create it specify the new file’s name while using nano.
-
+* control+W = text search a file. = control+F in GUI editors.
