@@ -81,6 +81,8 @@ swap (
 
   Link to proposition.
 
+  Proof summary.
+
   A description of the function.
 
   Parameters.
@@ -98,6 +100,14 @@ swap (
   before it until a unit is left, then the original numbers are relatively prime."
 
   https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII1.html
+
+  Proof Summary:
+  Reductio ad absurdum.
+  Let the two given numbers produce a final remainder of 1 under antenaresis.
+  Then they are prime to one another. For if not, then some number will measure
+  them. Following the antenaresis process for 3 remainders, the last of which is
+  1, leads to the conclusion that the hypothesized common measure also measures
+  1, which is impossible.
 
   Determines if the given numbers are prime to one another,
   a.k.a. the numbers have no common measure greater than 1.
@@ -132,7 +142,7 @@ VII_1_relatively_prime (
   }
 
   /**
-    Euclid's algorithm. This is called an "anteneresis process".
+    Euclid's algorithm. This is called an "antenaresis process".
 
     Continually subtract the smaller from the greater until an unit is left.
     The basis of this algorithm depends on the observation that if a number
@@ -182,7 +192,7 @@ VII_2_gcm (
     return -2;
   }
 
-  // Anteneresis.
+  // Antenaresis.
   while (a > 1 && b > 1) {
     if (b > a)
       swap(&a, &b);
