@@ -1,4 +1,5 @@
 #include "seatest.h"
+// der: "test suite" = group of individual tests in single file e.g. this file.
 
 int
 VII_1_relatively_prime (
@@ -14,14 +15,50 @@ VII_2_gcm (
 
 void test_VII_1()
 {
-  assert_true( VII_1_relatively_prime (12, 4) == 0);
-  assert_true( VII_1_relatively_prime (13, 4) == 1);
-  assert_true( VII_1_relatively_prime (54, 85) == 1);
+  /**
+  Here are the correct values for the test cases.
+  Obtained Python's built in functions.
+
+  >>> int(math.gcd(12,4) == 1)
+  0
+  >>> int(math.gcd(13,4) == 1)
+  1
+  >>> int(math.gcd(54,85) == 1)
+  1
+  >>> int(math.gcd(31,85) == 1)
+  1
+
+  TODO: Other test cases.
+
+  **/
+  unsigned int a, b;
+  int result;
+
+  a = 12;
+  b = 4;
+  result = 0;
+  printf ("a = %u, b = %u. rp = %d. expect rp = %d.\n", a, b, VII_1_relatively_prime(a, b), result);
+  assert_true( VII_1_relatively_prime (a, b) == result);
+  a = 13;
+  b = 4;
+  result = 1;
+  printf ("a = %u, b = %u. rp = %d. expect rp = %d.\n", a, b, VII_1_relatively_prime(a, b), result);
+  assert_true( VII_1_relatively_prime (a, b) == result);
+  a = 54;
+  b = 85;
+  result = 1;
+  printf ("a = %u, b = %u. rp = %d. expect rp = %d.\n", a, b, VII_1_relatively_prime(a, b), result);
+  assert_true( VII_1_relatively_prime (a, b) == result);
+  a = 31;
+  b = 85;
+  result = 1;
+  printf ("a = %u, b = %u. rp = %d. expect rp = %d.\n", a, b, VII_1_relatively_prime(a, b), result);
+  assert_true( VII_1_relatively_prime (a, b) == result);
 }
 
 void test_VII_2()
 {
-  int a, b, result;
+  int a, b, result; // TODO: make a, b unsigned.
 
   a = 884;
   b = 3009;
