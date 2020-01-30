@@ -166,8 +166,11 @@ VII_1_relatively_prime (
 
   https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII2.html
 
-  Given two numbers not prime to one another, to determines their greatest
-  common measure(gcm)
+  Proof summary:
+
+
+  Given two numbers not prime to one another, determines their greatest
+  common measure (gcm).
   a.k.a greatest common divisor.
 
   @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
@@ -200,7 +203,7 @@ VII_2_gcm (
     a = a - b;
   }
 
-  if(a == 0) // The lesser has measure the greater, b == gcm(a, b).
+  if(a == 0) // The lesser has measured the greater, b == gcm(a, b).
     return b;
   else { // a and b are prime to one another.
     assert(a == 1);
