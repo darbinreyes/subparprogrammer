@@ -47,7 +47,7 @@ https://medium.com/@JohnFoderaro/how-to-set-up-apache-in-macos-sierra-10-12-bca5
 ** A copy of this file is in this repo. under ./servers/http/etc/hosts
 * DONE with virtual host configuration. Lastly, restart apache with "sudo apachectl restart".
 ** CONFIRMED. "http://darbinreyes.com.localhost/" works.
-
+* Next: read through "Optional Step 2: Configuring PHP". // I won't be using PHP any time soon though.
 
 # Using the nano editor.
 
