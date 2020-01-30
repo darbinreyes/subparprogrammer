@@ -229,7 +229,7 @@ VII_2_gcm (
   @param  c The third number.
 
   @retval -1 if !(a > 1 && b > 1 && c > 1). This is considered invalid input.
-  @retval -2 If (a == b).This is considered invalid input.
+  @retval -2 If (a == b).This is considered invalid input. // FIX
   @retval 1 if any pair of a,b,c are prime to one another.
   @retval returns the greatest common measure of a, b, c which is always > 1.
 
@@ -246,9 +246,9 @@ VII_3_gcm (
     return -1;
   }
 
-  unsigned int d, e;
+  unsigned int d, e; // FIX.
 
-  d = VII_2_gcm (a, b);
+  d = VII_2_gcm (a, b); // FIX.
 
   if(!(d > 1)) {
     assert(d == 1);
