@@ -40,8 +40,12 @@ https://medium.com/@JohnFoderaro/how-to-set-up-apache-in-macos-sierra-10-12-bca5
 * Configuration of virutal hosts.
 ** Edit /etc/apache2/extra/httpd-vhosts.conf
 ** A copy of this file is in this repo. under ./servers/http/etc/apache2/extra/
-"# You may use the command line option '-S' to verify your virtual host
-# configuration."
+
+```
+# You may use the command line option '-S' to verify your virtual host
+# configuration.
+```
+
 * "edit the host file to create hostnames for Foo and Bar:"
 * edit config file "/etc/hosts"
 ** A copy of this file is in this repo. under ./servers/http/etc/hosts
