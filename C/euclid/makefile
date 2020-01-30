@@ -6,7 +6,7 @@ build: $(FILES)
 	$(CC) -o $(OUT_EXE) $(FILES) -I ./seatest/src
 
 abort_if_failed:
-	$(CC) -D ABORT_TEST_IF_ASSERT_FAIL -o $(OUT_EXE) $(FILES) -I ../../src
+	$(CC) -D ABORT_TEST_IF_ASSERT_FAIL -o $(OUT_EXE) $(FILES) -I ./seatest/src
 	
 clean:
 	rm -f *.o core
