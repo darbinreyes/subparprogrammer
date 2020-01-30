@@ -13,6 +13,13 @@ VII_2_gcm (
   unsigned int b
   );
 
+int
+VII_3_gcm (
+  unsigned int a,
+  unsigned int b,
+  unsigned int c
+  );
+
 void test_VII_1()
 {
   /**
@@ -110,6 +117,58 @@ void test_VII_2()
   assert_true( VII_2_gcm (a, b) == result);
 }
 
+void test_VII_3 ()
+{
+  /**
+
+  Here are the correct values for the test cases.
+  Obtained Python's built in functions.
+
+  >>> math.gcd(math.gcd(32,8), 4)
+  4
+  >>> math.gcd(math.gcd(32,64), 4)
+  4
+  >>> math.gcd(math.gcd(32,64), 5)
+  1
+  >>> math.gcd(math.gcd(32,64), 6)
+  2
+
+  TODO: Other test cases.
+
+  **/
+  unsigned int a, b, c;
+  int result;
+
+  a = 32;
+  b = 8;
+  c = 4;
+  result = 4;
+  printf ("a = %u, b = %u, c = %u. gcm = %d. expect gcm = %d.\n", a, b, c, VII_3_gcm(a, b, c), result);
+  assert_true( VII_3_gcm (a, b, c) == result);
+
+  a = 32;
+  b = 64;
+  c = 4;
+  result = 4;
+  printf ("a = %u, b = %u, c = %u. gcm = %d. expect gcm = %d.\n", a, b, c, VII_3_gcm(a, b, c), result);
+  assert_true( VII_3_gcm (a, b, c) == result);
+
+  a = 32;
+  b = 64;
+  c = 5;
+  result = 1;
+  printf ("a = %u, b = %u, c = %u. gcm = %d. expect gcm = %d.\n", a, b, c, VII_3_gcm(a, b, c), result);
+  assert_true( VII_3_gcm (a, b, c) == result);
+
+  a = 32;
+  b = 64;
+  c = 6;
+  result = 2;
+  printf ("a = %u, b = %u, c = %u. gcm = %d. expect gcm = %d.\n", a, b, c, VII_3_gcm(a, b, c), result);
+  assert_true( VII_3_gcm (a, b, c) == result);
+
+}
+
 /**
 void test_asserting()
 {
@@ -131,6 +190,7 @@ void test_fixture_two( void )
   test_fixture_start();
   run_test(test_VII_1);
   run_test(test_VII_2);
+  run_test(test_VII_3);
   // run_test(test_asserting);
   // run_test(test_assert_fails);
   test_fixture_end();
