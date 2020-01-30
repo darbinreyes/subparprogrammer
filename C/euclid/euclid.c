@@ -167,11 +167,14 @@ VII_1_relatively_prime (
   https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII2.html
 
   Proof summary:
-
+  TODO.
 
   Given two numbers not prime to one another, determines their greatest
   common measure (gcm).
   a.k.a greatest common divisor.
+
+  @param  a The first number.
+  @param  b The second number.
 
   @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
   @retval -2 If (a == b).This is considered invalid input.
@@ -209,6 +212,57 @@ VII_2_gcm (
     assert(a == 1);
     return 1;
   }
+}
+
+/**
+  "To find the greatest common measure of three given numbers not relatively prime."
+
+  https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII3.html
+
+  Proof summary.
+  TODO.
+
+  Given three numbers not prime to one another, returns their greatest common measure.
+
+  @param  a The first number.
+  @param  b The second number.
+  @param  c The third number.
+
+  @retval -1 if !(a > 1 && b > 1 && c > 1). This is considered invalid input.
+  @retval -2 If (a == b).This is considered invalid input.
+  @retval 1 if any pair of a,b,c are prime to one another.
+  @retval returns the greatest common measure of a, b, c which is always > 1.
+
+**/
+int // Be careful, since arguments are unsigned it may be possible that the return value overflows a signed int. I am using negative numbers to indicate errors.
+VII_3_gcm (
+  unsigned int a,
+  unsigned int b,
+  unsigned int c
+  ) {
+
+  if (!( a > 1 && b > 1 && c > 1)) {
+    assert(0);
+    return -1;
+  }
+
+  unsigned int d, e;
+
+  d = VII_2_gcm (a, b);
+
+  if(!(d > 1)) {
+    assert(d == 1);
+    return 1;
+  }
+
+  e = VII_2_gcm (d, c);
+
+  if(!(e > 1)) {
+    assert(e == 1);
+    return 1;
+  }
+
+  return e;
 }
 
 /**
