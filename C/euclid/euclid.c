@@ -167,7 +167,7 @@ VII_1_relatively_prime (
   https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII2.html
 
   Proof summary:
-  TODO.
+  TODO. See evernote.
 
   Given two numbers not prime to one another, determines their greatest
   common measure (gcm).
@@ -248,7 +248,7 @@ VII_3_gcm (
 
   unsigned int d, e; // FIX.
 
-  d = VII_2_gcm (a, b); // FIX.
+  d = VII_2_gcm (a, b); // FIX. Return value is signed.
 
   if(!(d > 1)) {
     assert(d == 1);
