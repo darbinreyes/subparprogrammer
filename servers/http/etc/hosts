@@ -9,5 +9,10 @@
 ::1             localhost
 fe80::1%lo0	localhost
 
+# Next two lines already existed from my first time setting this up years ago.
 #127.0.0.1	darbinreyes.com
 #fe80::1%lo0	darbinreyes.com
+
+# Next 2 lines are from the tutorial. See subparprogrammer/servers/http/README.md.
+#Local sites
+127.0.0.1       darbinreyes.com.localhost
