@@ -13,7 +13,7 @@ I will add configuration files to this repo in the same order as the guide I use
 
 https://medium.com/@JohnFoderaro/how-to-set-up-apache-in-macos-sierra-10-12-bca5a5dfffba
 
-Steps to configure:
+# Steps to configure:
 
 * Telling Apache where to serve content from.
 * Create the config. file.
@@ -30,7 +30,24 @@ Steps to configure:
 ** The comments in this file are useful.
 ** The guide instructs you to comment out a single line in httpd-userdir.conf.
 * DONE with configuration. Lastly, restart apache with "sudo apachectl restart".
-* NEXT: Read optional steps in tutorial in case that’s useful.
+## Optional steps.
+### Optional Step 1: Virtual Hosts
+* Currently my index.html is accessed via
+* "http://darbinreyes.com/~darbinreyes/darbinreyes.com/" == "http://localhost/~darbinreyes/darbinreyes.com/"
+* After this optional step I should be able to access index.html via
+* darbinreyes.com.localhost // currently this returns FORBIDDEN.
+* After this change you need to edit the Mac host file to add a unique name per project.
+* Configuration of virutal hosts.
+** Edit /etc/apache2/extra/httpd-vhosts.conf
+** A copy of this file is in this repo. under ./servers/http/etc/apache2/extra/
+"# You may use the command line option '-S' to verify your virtual host
+# configuration."
+* "edit the host file to create hostnames for Foo and Bar:"
+* edit config file "/etc/hosts"
+** A copy of this file is in this repo. under ./servers/http/etc/hosts
+* DONE with virtual host configuration. Lastly, restart apache with "sudo apachectl restart".
+** CONFIRMED. "http://darbinreyes.com.localhost/" works.
+
 
 # Using the nano editor.
 
