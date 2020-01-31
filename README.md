@@ -11,6 +11,8 @@ Another goal is to have a historical record of code I have written.
 Don't forget to think and plan before you code.
 In conclusion, focus on progress not perfection.
 
+> "my request, my prayer so to speak is, that you stop using the term bugs for program errors, but call them what they are: errors. Unless we change our language, and call an error an error, programming and computing science have not yet matured." -Edsger W. Dijkstra
+
 ## Testing 123
 
 Don't forget to review the .md syntax.
