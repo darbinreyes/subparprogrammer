@@ -2,15 +2,15 @@
 
 > "my request, my prayer so to speak is, that you stop using the term bugs for program errors, but call them what they are: errors. Unless we change our language, and call an error an error, programming and computing science have not yet matured." -Edsger W. Dijkstra
 
-I will use the following as a reference for the propositions:
+* I will use the following as a reference for the propositions:
 https://mathcs.clarku.edu/~djoyce/java/elements/toc.html
 
 ## Don't forget, geometry is deeper than you think.
 
-"Paul Steinhardt on Impossible Crystals"
+* "Paul Steinhardt on Impossible Crystals"
 https://www.youtube.com/watch?v=a0wo_yAh0Ps
 
-"Dijkstra: reasoning about programs. The triangle inequality."
+* "Dijkstra: reasoning about programs. The triangle inequality."
 
 # TODO:
 * x Implement VII.1.
@@ -19,6 +19,6 @@ https://www.youtube.com/watch?v=a0wo_yAh0Ps
 * x I will try to adapt the example to euclid.c now.
 * x Implement VII.2.
 * x Add test cases using seatest.
-* review notes on VII.2
-* Implement VII.3.
-* Test VII.3.
+* x review notes on VII.2
+* x Implement VII.3.
+* x Test VII.3.
