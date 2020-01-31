@@ -259,7 +259,7 @@ VII_3_gcm (
     return -1;
   }
 
-  assert( a > 1 && b > 1 && c > 1);
+  assert(a > 1 && b > 1 && c > 1);
 
   /**
     Verify that the numbers are distinct and that the three numbers are not
@@ -283,7 +283,7 @@ VII_3_gcm (
   e = VII_2_gcm (a, c);
   f = VII_2_gcm (b, c);
 
-  if (d != 0 || e != 0 || f != 0) {
+  if (d == 1 || e == 1 || f == 1) {
     // One or more of the pairs is prime to one another.
     return 1;
   }
