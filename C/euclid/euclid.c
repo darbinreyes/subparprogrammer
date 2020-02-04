@@ -302,6 +302,31 @@ VII_3_gcm (
 }
 
 /**
+  "Any number is either a part or parts of any number, the less of the greater."
+
+  https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII4.html
+
+  Proof Summary:
+  Let b < a.
+  Case a, b are relatively prime. Derive a is parts of b.
+  Case a, b are not relatively prime and b|a. Derive a is part of b.
+  Case a, b are not relatively prime and ¬(b|a). Derive a is parts of b.
+
+
+
+  Given two unequal numbers, determines if the lesser is part or parts of the
+  greater.
+
+  @param  b The lesser number.
+  @param  a The greater number.
+
+  @retval -1  If (b == a). This is considered invalid input.
+  @retval 0  If b is part of a.
+  @retval 1  If b is parts of a.
+
+**/
+
+/**
 
   The main function.
 
