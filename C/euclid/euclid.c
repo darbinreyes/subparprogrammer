@@ -71,9 +71,7 @@ swap (
   return;
 }
 
-/**
-
-  Function header format.
+/** Function header format.
 
   If a function corresponds to a proposition the format is:
 
@@ -82,6 +80,8 @@ swap (
   Link to proposition.
 
   Proof summary.
+
+
 
   A description of the function.
 
@@ -101,13 +101,10 @@ swap (
 
   https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII1.html
 
-  Proof Summary:
-  Reductio ad absurdum.
-  Let the two given numbers produce a final remainder of 1 under antenaresis.
-  Then they are prime to one another. For if not, then some number will measure
-  them. Following the antenaresis process for 3 remainders, the last of which is
-  1, leads to the conclusion that the hypothesized common measure also measures
-  1, which is impossible.
+  Proof Summary: (See evernote for details)
+  Antenaresis terminates with 1. Reductio ad absurdum leads to conclusion that some number > 1 measures 1. Impossible.
+
+
 
   Determines if the given numbers are prime to one another,
   a.k.a. the numbers have no common measure greater than 1.
@@ -166,8 +163,14 @@ VII_1_relatively_prime (
 
   https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII2.html
 
-  Proof summary:
-  TODO. See evernote.
+  Proof summary: (See evernote for details)
+  Anternaresis to derive a common measure. Reduction ad absurdum to show it is
+  the greatest common measure.
+
+
+
+
+  TODO: What about the corollary? a|b ∧ a|c => a|gcd(b,c). // "the notation a | b is typically used to indicate that a divides b.""
 
   Given two numbers not prime to one another, determines their greatest
   common measure (gcm).
@@ -187,16 +190,14 @@ VII_2_gcm (
   unsigned int a,
   unsigned int b
   ) {
-  if (!( a > 1 && b > 1)) {
-    assert(0);
-    return -1;
-  }
+  int rp;
 
-  if (a == b) {
-    // Proposition VII.1 specifies "two unequal numbers" so I'll enforce that here too.
-    assert(0);
-    return -2;
-  }
+  rp = VII_1_relatively_prime (a, b); // The proposition begins with the assertion that a, b are not relatively prime.
+
+  if (rp != 0)
+    return rp;
+
+  assert (rp == 0); // a, b are not relatively prime.
 
   // Antenaresis.
   while (a > 1 && b > 1) {
@@ -206,10 +207,14 @@ VII_2_gcm (
     a = a - b;
   }
 
-  if(a == 0) // The lesser has measured the greater, b == gcm(a, b).
+  assert(a == 0); // The lesser has measured the greater, b == gcm(a, b).
+
+  if (a == 0)
     return b;
-  else { // a and b are prime to one another.
-    assert(a == 1);
+  else {
+    // Should never execute. There is an error in VII_1_relatively_prime ().
+    // a and b are prime to one another.
+    assert(0);
     return 1;
   }
 }
@@ -219,17 +224,25 @@ VII_2_gcm (
 
   https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII3.html
 
-  Proof summary.
-  TODO.
+  Proof summary: (See evernote for details)
+  A, B, C are not relatively prime. Take D=gcd.(A,B).
+  Case D|C.
+  Derive D|A,B,C. Reductio add absurdum leads to conclusion D=gcd.(A,B,C).
+  Case ¬(D|C).
+  Derive that D, C are not relatively prime. Take E=gcd.(D,C).
+  Derive that E|A,B,C. Reduction ad absurdum leads to conclusion E=gcd.(A,B,C).
 
-  Given three numbers not prime to one another, returns their greatest common measure.
+
+
+  Given three numbers not prime to one another, returns their greatest common
+  measure.
 
   @param  a The first number.
   @param  b The second number.
   @param  c The third number.
 
   @retval -1 if !(a > 1 && b > 1 && c > 1). This is considered invalid input.
-  @retval -2 If (a == b).This is considered invalid input. // FIX
+  @retval -2 If (a == b || a == c || b  == c).This is considered invalid input.
   @retval 1 if any pair of a,b,c are prime to one another.
   @retval returns the greatest common measure of a, b, c which is always > 1.
 
@@ -241,29 +254,77 @@ VII_3_gcm (
   unsigned int c
   ) {
 
-  if (!( a > 1 && b > 1 && c > 1)) {
+  if (!( a > 1 && b > 1 && c > 1)) { // Valid arguments means integers > 1.
     assert(0);
     return -1;
   }
 
-  unsigned int d, e; // FIX.
+  assert(a > 1 && b > 1 && c > 1);
 
-  d = VII_2_gcm (a, b); // FIX. Return value is signed.
+  /**
+    Verify that the numbers are distinct and that the three numbers are not
+    relatively prime. The possible pairings are:
+    a,b
+    a,c
+    b,a // Since gcd.(a,b) == gcd.(b,a) this is a duplicate of the first pair.
+    b,c
+    c,a // dup.
+    c,b // dup.
+  **/
 
-  if(!(d > 1)) {
-    assert(d == 1);
+  if (a == b || a == c || b  == c) {
+    assert(0);
+    return -2;
+  }
+
+  int d, e, f;
+
+  d = VII_2_gcm (a, b);
+  e = VII_2_gcm (a, c);
+  f = VII_2_gcm (b, c);
+
+  if (d == 1 || e == 1 || f == 1) {
+    // One or more of the pairs is prime to one another.
     return 1;
   }
 
+  // Now we know a common measure exists. Compute it.
+
   e = VII_2_gcm (d, c);
 
-  if(!(e > 1)) {
-    assert(e == 1);
+  if (!(e > 1)) {
+    // Error. d and c should have a common measure. Euclid proved that.
+    assert(0);
     return 1;
   }
 
   return e;
 }
+
+/**
+  "Any number is either a part or parts of any number, the less of the greater."
+
+  https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII4.html
+
+  Proof Summary:
+  Let b < a.
+  Case a, b are relatively prime. Derive a is parts of b.
+  Case a, b are not relatively prime and b|a. Derive a is part of b.
+  Case a, b are not relatively prime and ¬(b|a). Derive a is parts of b.
+
+
+
+  Given two unequal numbers, determines if the lesser is part or parts of the
+  greater.
+
+  @param  b The lesser number.
+  @param  a The greater number.
+
+  @retval -1  If (b == a). This is considered invalid input.
+  @retval 0  If b is part of a.
+  @retval 1  If b is parts of a.
+
+**/
 
 /**
 
