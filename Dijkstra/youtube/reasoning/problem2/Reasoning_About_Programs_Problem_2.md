@@ -7,6 +7,8 @@ Our next example is very different. In passing it shows another form of the inte
 
 //p2.0
 
+![p2.0](p2.0.png)
+
 Let me explain the problem first. We are considering capital n blue points in the euclidian plane and an equal number of red points in the euclidian plane such that no three of them are in the same straight line. Now that is clearly satisfied in this example. 
 
 
@@ -18,14 +20,22 @@ Let me explain the problem first. We are considering capital n blue points in th
 // my comment: If four points lie on the same straight line you can draw a case in which the "flip operation” cannot remove the intersection. The lines partly overlap rather than intersect at a single point.
 
 // my comment: Three and four point on straight line cases.
+
 //p2.1
+
+IMAGE TOO BIG
+
 //p2.2
+
+![p2.2](./p2.2.png)
 
 Furthermore the next thing to do is that we consider a one to one correspondence between the blue points and the red points, that is, we form n pairs and each pair consists of a blue one and a red one. Each blue point is coupled to a red point and vice versa. And the two points of that pair are connected by a straight line. Now the number of ways in which you can do so of course increases rapidly with the number of points. If there is one red and one blue point you don’t have any freedom at all, you can only pair them in one way. Here we have three of each and then the number of one to one correspondences between reds and blues, the number of ways in which you can pair them, is n factorial, so it's in this case six. Now the theorem to be proved is that, there exists a one to one correspondence such that none of the n line segments intersect. 
 
 ### [30m35s](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=30m35s)
 
 //p2.3
+
+![p2.3](p2.3.png)
 
 Here we have another pairing, of the same six points and here you see that there is still an intersecting pair. I think that my next slide shows a possible solution. 
 
