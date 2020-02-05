@@ -27,7 +27,7 @@ IMAGE TOO BIG
 
 //p2.2
 
-![p2.2](./p2.2.png)
+![p2.2](p2.2.png)
 
 Furthermore the next thing to do is that we consider a one to one correspondence between the blue points and the red points, that is, we form n pairs and each pair consists of a blue one and a red one. Each blue point is coupled to a red point and vice versa. And the two points of that pair are connected by a straight line. Now the number of ways in which you can do so of course increases rapidly with the number of points. If there is one red and one blue point you don’t have any freedom at all, you can only pair them in one way. Here we have three of each and then the number of one to one correspondences between reds and blues, the number of ways in which you can pair them, is n factorial, so it's in this case six. Now the theorem to be proved is that, there exists a one to one correspondence such that none of the n line segments intersect. 
 
@@ -43,11 +43,15 @@ Here we have another pairing, of the same six points and here you see that there
 
 //p2.4
 
+![p2.4](p2.4.png)
+
 My guess is that for this situation of red and blue points this is the only solution. In general the solution is not unique. But OK, here we have a solution. The n line segments connecting the points of the pairs do not intersect. Now we have to show, that for any value of n this is true, such a solution exists. And we will do so by designing a program. 
 
 ### [31m52s](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=31m52s)
 
 //p2.5
+
+![p2.5](p2.5.png)
 
 Well, we are making life very easy, we say our program operates on a single variable, the variable named z, and it is of type one to one correspondence. I should have said it is of type one to one correspondence between the given n red points and the n blue points, but that long sentence could not, didn't fit, on the single view graph. So our variable z, type one to one correspondence, it just has n factorial possible values. 
 
@@ -66,6 +70,8 @@ Each of them representing one of the n factorial one to one correspondences. Now
 
 //p2.6
 
+![p2.6](p2.6.png)
+
 So let us investigate the situation that the statement "change z" has to cope with. Now listen, the preceding guard was "z has an intersection", so the precondition Q of the operation "change z” is z has one intersection, at least, more intersections cannot be guaranteed. So the as yet un-refined statement “change z”, has to be designed in such a way that, it copes with the situation "one intersection”. Now that is the situation we have drawn here, two red, two blue, two-red blue connections, and they intersect. Now the presence of this subfigure is the only thing we can rely on.
 
 How can the one to one correspondence be changed? Well the only way we can do that, is changing the solid lines by the dotted lines, the red point in the left top was coupled to one of the blues ones and now has to be paired to the other blue one. So the only freedom we have is, to change those two pairings, those two connections: the operation “flip". I did not give it a name. It's the operation "flip”. 
@@ -83,21 +89,31 @@ But we may have introduced more. Let me give you an example. We have the situati
 
 //p2.7
 
+![p2.7](p2.7.png)
+
 And the suggestion was to replace, to couple this red with that blue, and that red with that blue. 
 
 //p2.8
+
+![p2.8](p2.8.png)
 
 Now this intersection indeed has disappeared, 
 
 //p2.9
 
+![p2.9](p2.9.png)
+
 however, we don’t know, how many other pairs were here, 
 
 //p2.10
 
+![p2.10](p2.10.png)
+
 or for instance, here.
 
 //p2.11
+
+![p2.1](p2.11.png)
 
 ### [39m24s](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=39m24s)
 
@@ -118,17 +134,42 @@ no longer restricted to an integer function, counting something, as we did in th
 there is such a thing as the triangular inequality, in each triangle, the sum of two sides, exceeds the length of the third, now in this triangle the length of these two lengths summed, are more than that one
 
 //p2.12
+
+![p2.12](p2.12.png)
+
 //p2.13
+
+![p2.13](p2.13.png)
+
 //p2.14
+
+![p2.14](p2.14.png)
+
 //p2.15
+
+![p2.15](p2.15.png)
+
 //p2.16
+
+![p2.16](p2.16.png)
 
 and the sum of these two lengths exceeds the other dotted one. And we see that in this move, the length of, sorry, the sum of the length of these two connections, decreases.
 
 //p2.17
+
+![p2.17](p2.17.png)
+
 //p2.18
+
+![p2.18](p2.18.png)
+
 //p2.19
+
+![p2.19](p2.19.png)
+
 //p2.20
+
+![p2.20](p2.20.png)
 
 // my comment: i.e. for the upper triangle the length of the path from red to intersection to blue is greater, by the triangle inequality, than the length of the DOTTED path from red directly to blue. Same for the lower triangle. From this we can conclude also that the sum of the length of the solid pair of connections is greater than the sum of the length of the DOTTED pair of connections.
 
