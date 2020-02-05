@@ -24,7 +24,7 @@ Let me explain the problem first. We are considering capital n blue points in th
 //p2.1
 
 IMAGE TOO BIG
-
+<img src="p2.1.png" width="500">
 ![p2.1](p2.1.png)
 
 //p2.2
