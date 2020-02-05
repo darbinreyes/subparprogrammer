@@ -51,8 +51,52 @@ https://medium.com/@JohnFoderaro/how-to-set-up-apache-in-macos-sierra-10-12-bca5
 ** A copy of this file is in this repo. under ./servers/http/etc/hosts
 * DONE with virtual host configuration. Lastly, restart apache with "sudo apachectl restart".
 ** CONFIRMED. "http://darbinreyes.com.localhost/" works.
+
 * x Next: read through "Optional Step 2: Configuring PHP". // I won't be using PHP any time soon though.
 * Next: read docs/man-pages for conf files. Point darbinreyes.com to index.html.
+
+Currently,
+
+http://darbinreyes.com/~darbinreyes/darbinreyes.com/
+
+http://localhost/~darbinreyes/darbinreyes.com/
+
+http://darbinreyes.com.localhost/
+
+point to
+
+/Users/darbinreyes/Sites/darbinreyes.com/index.html
+
+and
+
+http://darbinreyes.com/
+
+returns "403 Forbidden" "You don't have permission to access / on this server."
+
+and
+
+http://darbinreyes.com.darbinreyes.com/
+
+results in "server IP address could not be found."
+
+### Decoding the apache config files.
+
+* /etc/apache2/users/darbinreyes.conf
+
+** Note use of xml style syntax in each .conf file.
+** Meaning of "<Directory>" http://httpd.apache.org/docs/2.4/mod/core.html#directory
+
+Apply the 3 given "directives" to the specified directory ONLY.
+Note that "directives" have "contexts" within which they apply. In this case, the
+context is server config and virtual host.
+
+1. http://httpd.apache.org/docs/2.4/mod/core.html#allowoverride
+
+* /etc/apache2/httpd.conf
+
+* /etc/apache2/extra/httpd-userdir.conf
+
+* /etc/apache2/extra/httpd-vhosts.conf
 
 # Using the nano editor.
 
