@@ -25,6 +25,8 @@ Let me explain the problem first. We are considering capital n blue points in th
 
 IMAGE TOO BIG
 
+![p2.1](p2.1.png)
+
 //p2.2
 
 ![p2.2](p2.2.png)
