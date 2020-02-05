@@ -34,3 +34,5 @@ Next steps:
 ### .md syntax. 
 
 * https://guides.github.com/features/mastering-markdown/
+* https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf
+* https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
