@@ -99,10 +99,7 @@ swap (
 
   https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII1.html
 
-  Proof Summary: (See evernote for details)
-  Antenaresis terminates with 1. Reductio ad absurdum leads to conclusion that some number > 1 measures 1. Impossible.
-
-
+  See Euclid.VII.1.md
 
   Determines if the given numbers are prime to one another,
   a.k.a. the numbers have no common measure greater than 1.
