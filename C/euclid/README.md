@@ -8,7 +8,7 @@ https://mathcs.clarku.edu/~djoyce/java/elements/toc.html
 
 #### Current project status: working on book VII.
 
-![Reasoning](ytho.jpeg)
+![Reasoning](ytho.jpg)
 
 ## Don't forget, geometry is deeper than you think.
 

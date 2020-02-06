@@ -11,8 +11,12 @@
 * [x] Read the proposition proof. Note comments for clarification.
 * [x] Write max 3 sentence proof summary. Use EWD notation for brevity and notation practice.
 * [x] Specify. What the program does. Design. Very high level pseudo code.
-* [ ] Implement on paper, in C. [x] v0 [] v1
-* [ ] Implement in EWD notation, on paper. [] v0 [] v1
+* [ ] Implement on paper, in C. 
+  * [x] v0 
+  * [] v1
+* [ ] Implement in EWD notation, on paper.
+  * [x] v0 
+  * [] v1
 * [ ] Write down 3 test cases.
 * [ ] Test on paper. Use table method.
 * [ ] Implement in C on computer. Fully commented. Handle all function call errors and asserts gracefully.
