@@ -2,7 +2,7 @@
 
 "Any number is either a part or parts of any number, the less of the greater."
 
-![VII.4 figure](VII.4.png)
+![VII.4 figure](./VII.4.png)
 
 ### TODO
 
@@ -13,13 +13,15 @@
 * [x] Specify. What the program does. Design. Very high level pseudo code.
 * [ ] Implement on paper, in C. 
   * [x] v0 
-  * [] v1
+  * [ ] v1
 * [ ] Implement in EWD notation, on paper.
   * [x] v0 
-  * [] v1
-* [ ] Write down 3 test cases.
-* [ ] Test on paper. Use table method.
+  * [ ] v1
+* [x] Write down 3 test cases.
+* [x] Test on paper. Use table method.
 * [ ] Implement in C on computer. Fully commented. Handle all function call errors and asserts gracefully.
+  * [x] v0 
+  * [ ] v1
 * [ ] Add and run test cases on computer. Use gdb debugging if needed.
 * [ ] Verify test case answers in python. Add results as comment in test.
 
@@ -77,4 +79,7 @@ On paper.
 
 ## Misc.
 
-"Examples are the exclusion of goto-statements and of procedures with more than **one** output parameter. " -Dijkstra
+"Examples are the exclusion of goto-statements and of procedures with more than **one** output parameter. " -Dijkstra // I will try to avoid more that one output in my C code, if possible.
+
+"If now CD measures AB, since it also measures itself" - VII.2 // This quote shows that the property that b|a holds in the case b = a. I use this in the implementation of measures().
+

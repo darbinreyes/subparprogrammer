@@ -79,9 +79,7 @@ swap (
 
   Link to proposition.
 
-  Proof summary.
-
-
+  See *.md.
 
   A description of the function.
 
@@ -302,29 +300,120 @@ VII_3_gcm (
 }
 
 /**
-  "Any number is either a part or parts of any number, the less of the greater."
-
-  https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII4.html
-
-  Proof Summary:
-  Let b < a.
-  Case a, b are relatively prime. Derive a is parts of b.
-  Case a, b are not relatively prime and b|a. Derive a is part of b.
-  Case a, b are not relatively prime and ¬(b|a). Derive a is parts of b.
-
-
-
-  Given two unequal numbers, determines if the lesser is part or parts of the
-  greater.
+  Determines if the lesser number measures the greater number.
+  Based on VII.2, a number measures itself,
+  i.e. if the given numbers are equal, this function considers that the one
+  number measures the other.
 
   @param  b The lesser number.
   @param  a The greater number.
 
-  @retval -1  If (b == a). This is considered invalid input.
+  @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
+  @retval -2  If !(b <= a). This is considered invalid input.
+  @retval 0  If b|a. Including b == a.
+  @retval 1  If !(b|a).
+**/
+int
+measures_v0 (
+  unsigned int b,
+  unsigned int a
+  )
+{
+  if (!(a > 1 && b > 1)) {
+    assert(0);
+    return -1;
+  }
+
+  if(!(b <= a)) {
+    assert(0);
+    return -2;
+  }
+
+  while (a >= b) {
+    a = a - b;
+  }
+
+  if (a == 0) {
+    return 0; // b|a
+  }
+
+  return 1; // !(b|a)
+}
+
+/**
+  "Any number is either a part or parts of any number, the less of the greater."
+
+  https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII4.html
+
+  See Euclid.VII.4.md.
+
+  Determines if the lesser number is part or parts of the greater number.
+
+  @param  b The lesser number.
+  @param  a The greater number.
+
+  @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
+  @retval -2  If !(b < a). This is considered invalid input.
+  @retval -3  Unexpected error.
   @retval 0  If b is part of a.
   @retval 1  If b is parts of a.
 
 **/
+int
+VII_4_part_or_parts (
+  unsigned int b,
+  unsigned int a
+  ) {
+
+  if (!(a > 1 && b > 1)) {
+    assert(0);
+    return -1;
+  }
+
+  if(!(b < a)) {
+    assert(0);
+    return -2;
+  }
+
+  int rp;
+
+  rp = VII_1_relatively_prime (b, a);
+
+  if (rp < 0) {
+    assert(0);
+    return -3;
+  }
+
+  if (rp == 1) {
+    return 1; // a is parts of b.
+  }
+
+  int mrs;
+
+  if (rp == 0) {
+    mrs = measures_v0 (b, a);
+
+    if (mrs < 0) {
+      return -3;
+    }
+
+    if (mrs == 0) {
+      return 0; // a is part of b.
+    }
+
+    if (mrs == 1) {
+      return 1; // a is parts of b.
+    }
+
+    assert(0); // mrs should have been == 0 or == 1.
+
+    return -3;
+  }
+
+  assert(0); // rp should have been == 0 or == 1.
+
+  return -3;
+}
 
 /**
 

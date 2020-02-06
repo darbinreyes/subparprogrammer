@@ -20,6 +20,12 @@ VII_3_gcm (
   unsigned int c
   );
 
+int
+VII_4_part_or_parts (
+  unsigned int b,
+  unsigned int a
+  );
+
 void test_VII_1()
 {
   /**
@@ -169,6 +175,48 @@ void test_VII_3 ()
 
 }
 
+void test_VII_4 ()
+{
+  unsigned int a, b;
+  int result;
+
+  b = 3;
+  a = 7;
+  result = 1; // parts.
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, VII_4_part_or_parts (b, a), result);
+  assert_true( VII_4_part_or_parts (b, a) == result);
+
+  b = 6;
+  a = 7;
+  result = 1; // parts.
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, VII_4_part_or_parts (b, a), result);
+  assert_true( VII_4_part_or_parts (b, a) == result);
+
+  b = 2;
+  a = 6;
+  result = 0; // part.
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, VII_4_part_or_parts (b, a), result);
+  assert_true( VII_4_part_or_parts (b, a) == result);
+
+  b = 3;
+  a = 12;
+  result = 0; // part.
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, VII_4_part_or_parts (b, a), result);
+  assert_true( VII_4_part_or_parts (b, a) == result);
+
+  b = 4;
+  a = 6;
+  result = 1; // parts.
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, VII_4_part_or_parts (b, a), result);
+  assert_true( VII_4_part_or_parts (b, a) == result);
+
+  b = 8;
+  a = 12;
+  result = 1; // parts.
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, VII_4_part_or_parts (b, a), result);
+  assert_true( VII_4_part_or_parts (b, a) == result);
+}
+
 /**
 void test_asserting()
 {
@@ -191,6 +239,7 @@ void test_fixture_two( void )
   run_test(test_VII_1);
   run_test(test_VII_2);
   run_test(test_VII_3);
+  run_test(test_VII_4);
   // run_test(test_asserting);
   // run_test(test_assert_fails);
   test_fixture_end();

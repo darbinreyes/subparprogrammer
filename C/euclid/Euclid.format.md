@@ -28,3 +28,6 @@ Proposition statement.
 ## Specification and Design
 
 ## Implementation in EWD notation.
+
+## Misc.
+
