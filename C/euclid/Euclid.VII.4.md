@@ -74,3 +74,7 @@ Else if no, then check if b|a, if yes, return part. Else return parts.
 ## Implementation in EWD notation.
 
 On paper.
+
+## Misc.
+
+"Examples are the exclusion of goto-statements and of procedures with more than **one** output parameter. " -Dijkstra
