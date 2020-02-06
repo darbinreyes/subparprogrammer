@@ -4,6 +4,8 @@
 
 > "A study of program structure had revealed that programs —even alternative programs for the same task and with the same mathematical content— can differ tremendously in their intellectual manageability. A number of rules have been discovered, violation of which will either seriously impair or totally destroy the intellectual manageability of the program."
 
+> "In this connection it might be worth-while to point out that the purpose of abstracting is not to be vague, but to create a new semantic level in which one can be absolutely precise."
+
 - Edsger W. Dijkstra
 
 I will use the following as a reference for the propositions:
