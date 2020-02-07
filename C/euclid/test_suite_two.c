@@ -184,14 +184,18 @@ void test_VII_4 ()
 
   Here are the correct values for the test cases computed separately in python.
 
-  >>> math.gcd(math.gcd(32,8), 4)
-  4
-  >>> math.gcd(math.gcd(32,64), 4)
-  4
-  >>> math.gcd(math.gcd(32,64), 5)
+  >>> int(7 % 3 > 0)
   1
-  >>> math.gcd(math.gcd(32,64), 6)
-  2
+  >>> int(7 % 6 > 0)
+  1
+  >>> int(6 % 2 > 0)
+  0
+  >>> int(12 % 3 > 0)
+  0
+  >>> int(6 % 4 > 0)
+  1
+  >>> int(12 % 8 > 0)
+  1
 
   TODO: Other test cases.
 

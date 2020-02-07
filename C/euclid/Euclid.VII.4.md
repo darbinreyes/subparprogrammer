@@ -23,7 +23,7 @@
   * [x] v0 
   * [ ] v1
 * [x] Add and run test cases on computer. Use gdb debugging if needed.
-* [ ] Verify test case answers in python. Add results as comment in test.
+* [x] Verify test case answers in python. Add results as comment in test.
 
 
 
