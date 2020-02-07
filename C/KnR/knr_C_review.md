@@ -1,29 +1,17 @@
-/Users/darbinreyes/Documents/Docs/Books/Computing/Programming-Languages/C/The C Programming Language by Brian W. Kernighan and Dennis M. Ritchie.pdf
+# /Users/darbinreyes/Documents/Docs/Books/Computing/Programming-Languages/C/The C Programming Language by Brian W. Kernighan and Dennis M. Ritchie.pdf
 
-/Users/darbinreyes/dev/private_dev/coding_interviews/goTenna/python3tutorial/c_review_ll.c
-
-next: pg. 12 "The type int means …"
-
-next: pg. 15 "1.3 The for statement”
-
-next: pg. 17 "1.4 Symbolic Constants”
-
-pg. 19
+## pg. 19
 
 assignment “=“ has lower precedence than relational operators like “!=", hence need for parenthesis.
 
-// next: pg. 22. "Every time the program encounters …"
+## 1.8 Arguments - Call by Value
 
-// next: pg. 25. 1.7 Functions
-
-// 1.8 Arguments - Call by Value
-
-// 1.9 Character Arrays
+## 1.9 Character Arrays
 
 array arguments to a function are treated as pointers inside the function.
 note the style of comments and pseudo code used by K&R.
 
-// 1.10 External Variables and Scope
+## 1.10 External Variables and Scope
 
 local variables in functions are called automatics variables. must be explicitly initialized.
 vs.
@@ -40,7 +28,7 @@ if the definition is in one file and the function that uses it is in another fil
 external variable. definition vs declaration == storage allocated vs just type stated.
 Don’t overuse external variables. They complicate inter function communication and lead to less reusable code.
 
-// next: pg. 35. Chapter 2 - Types, Operators and Expressions.
+# Chapter 2 - Types, Operators and Expressions.
 
 variables vs constants
 declarations = name + type + opt init.
@@ -84,7 +72,7 @@ const qualifier for variables = will not be changed. works for arrays too.
 
 function args can also be qualified as const. an attempt to change a const is C compiler implementation dependent.
 
-//next: pg. 39. 2.5 Arithmetic Operators.
+## 2.5 Arithmetic Operators.
 
 Beware of using % operator with negative operands. Machine dependent.
 
@@ -122,14 +110,9 @@ When we have a mix of signed and unsigned types the rules are more complicated. 
 But
 -1L > 1UL == true // because -1L is promoted to unsigned long, making it a large positive integer.
 
-
-// next pg.42. "Conversions take place across assignments”
-
 When assignment is involved the result must always be of the type of the assigned variable.
 
 For ints, wider is converted to narrower by bit truncation of the high order bits. e.g. converting from int to char.
-
-// next pg. 42 - 1. If x is float and i is int,
 
 float to integer conversion truncates the fractional part of the float. // is it possible that the integer part of a float overflows the int?
 
@@ -167,7 +150,7 @@ When in doubt about the use of an pre/post-increment in an expression transform 
 Applied to integer types only.
 
 bit shift operations can only be non-negative.
-left shift fiils vacated bits with zeros. same for right shifting an unsigned.
+left shift fills vacated bits with zeros. same for right shifting an unsigned.
 BUT! right shifting a signed quantity fills vacated bits either:
 1. with the sign bit aka arithmetic shift.
 2. with zeros. 
@@ -225,7 +208,7 @@ Note that the table is missing the address operator, unary &. It's clear it goes
 
 Recall associativity means how precedence level ties are decided in the absence of explicit parens. When in doubt, paren it out.
 
-Note BE CAREFULL:
+Note BE CAREFUL:
 
 a & b == c & d
 means, since == has higher precedence than &,
@@ -336,7 +319,7 @@ Always be explicit with types. especially function args and return values.
 
 >Functions themselves are always external, because C does not allow functions to be defined inside other functions. 
 
-The name of an external always references the same storage, even if the name is referenced from a function that was compiled seperately.
+The name of an external always references the same storage, even if the name is referenced from a function that was compiled separately.
 
 But, there is a mechanism for making things "visible only within a single source file." Probably the "static" keyword. 
 
