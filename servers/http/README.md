@@ -83,14 +83,45 @@ results in "server IP address could not be found."
 
 * /etc/apache2/users/darbinreyes.conf
 
-** Note use of xml style syntax in each .conf file.
-** Meaning of "<Directory>" http://httpd.apache.org/docs/2.4/mod/core.html#directory
+ * Note use of xml style syntax in each .conf file.
+ 
+ * List of all directives. http://httpd.apache.org/docs/2.4/mod/directives.html
+ 
+ * Meaning of "\<Directory\>" http://httpd.apache.org/docs/2.4/mod/core.html#directory
 
-Apply the 3 given "directives" to the specified directory ONLY.
-Note that "directives" have "contexts" within which they apply. In this case, the
-context is server config and virtual host.
+	 * Apply the 3 given "directives" to the specified directory ONLY (includes the whole dir. subtree). Note that "directives" have "contexts" within which they apply. In this case, the context is server config and virtual host.
 
-1. http://httpd.apache.org/docs/2.4/mod/core.html#allowoverride
+     * Directive 1. http://httpd.apache.org/docs/2.4/mod/core.html#allowoverride
+     
+	     * When the server finds an .htaccess file (as specified by AccessFileName), it needs to know which directives declared in that file can override earlier configuration directives.
+	     
+	     * When this directive is set to All, then any directive which has the .htaccess Context is allowed in .htaccess files.
+	     
+	     * What is an .htaccess file? ANS: http://httpd.apache.org/docs/2.4/mod/core.html#accessfilename
+     
+			    * It is the default name of a file called a "distributed configuration file". The default file name can be overiden using the "AccessFileName" directive. It tells the server where to look for directives when it receives a request.
+     
+     
+     
+     * Directive 2. http://httpd.apache.org/docs/2.4/mod/core.html#options
+     
+	       * The Options directive controls which server features are available in a particular directory.
+	     
+	         * Indexes If a URL which maps to a directory is requested and there is no DirectoryIndex (e.g., index.html) in that directory, then mod_autoindex will return a formatted listing of the directory.
+	
+	         * MultiViews Content negotiated "MultiViews" are allowed using mod_negotiation.
+	
+	             * mod_negotiation. Content negotiation, or more accurately content selection, is the selection of the document that best matches the clients capabilities, from one of several available documents. There are two implementations of this.  (1. A type map, 2. multiviews search). 
+	
+	
+	             * A Multiviews search is enabled by the Multiviews Options. If the server receives a request for /some/dir/foo and /some/dir/foo does not exist, then the server reads the directory looking for all files named foo.*
+	             
+	             * FollowSymLinks. The server will follow symbolic links in this directory. This is the default setting.
+
+     * Directive 3. http://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require
+	     * This directive tests whether an authenticated user is authorized according to a particular authorization provider and the specified restrictions. mod_authz_core provides the following generic authorization providers:
+	     * Require all granted. Access is allowed unconditionally.
+
 
 * /etc/apache2/httpd.conf
 
@@ -104,3 +135,5 @@ context is server config and virtual host.
 * Close and save this file, using control + X, followed by Y, then Enter.
 * If a file doesn't exists, to create it specify the new file’s name while using nano.
 * control+W = text search a file. = control+F in GUI editors.
+
+
