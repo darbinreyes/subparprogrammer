@@ -28,7 +28,7 @@ One of them is the concern for partial correctness and the other one is the conc
 
 In order to show you the general structure of those proofs, particularly for partial correctness, let me go for a moment to the black board. I will use a notation that has been introduced by C. A. R. Hoare in the late 60’s. Let S be a program fragment, let Q be the initial condition, and let R be a post condition. 
 
-### [3m42s](https://youtu.be/OeiSWZs3GfI?t=3m42s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=3m28s)
 
 * //  chalkboard
  * {Q} S {R} 
@@ -41,9 +41,7 @@ Precondition, postcondition, initial condition, final condition,  these are alte
 
 If firstly, prior to the execution of the whole repeatable statement, a condition P holds. P by the way is called the invariant. And if S has the property that the initial validity of P and the guard, guarantees that upon completion of S, P still holds, well then, clearly S is such that its execution does not destroy the validity of P. 
 
-// 5m33s
-
-### [5m33s](https://youtu.be/OeiSWZs3GfI?t=5m33s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=5m26s)
 
 // chalkboard
  
@@ -71,18 +69,14 @@ Now besides that urn with pebbles we have at our disposal as many white or black
 Furthermore there have to be at least two pebbles in the urn because a move is the following:
 What one does is, one shakes the urn, and then looks in the opposite direction, puts one's hand in the urn, picks up two pebbles, and looks at their color. And depending on the color of the two pebbles taken out, one puts a pebble into the urn. Here are the color rules stated: 
 
-// 8m40s
-
-### [8m40s](https://youtu.be/OeiSWZs3GfI?t=8m40s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=8m35s)
 
 // graphic
 // A move. Take two pebbles out of the urn; if colors different, a white pebble is put into the urn, if equal, a black one. 
 
 They are too complicated to remember but we will return to them later. The idea is that if we take out two pebbles of different color, we put back the white one. However, if we take out two pebbles of equal color, we put a black one into the urn. Now that's precisely the reason why we need to have pebbles in store, in stock, sorry, because if you have taken out two white ones then we have to put in a black one. So we have to have a sufficient supply of black pebbles or quickly drying black paint or something of that sort. Now this is the game, not very exiting to play perhaps, but it's a worthwhile exercise to think about. 
 
-// 9m42s
-
-### [9m42s](https://youtu.be/OeiSWZs3GfI?t=9m42s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=9m35s)
 
 Now the first question is, does this game terminate?
 Yes it does, you see because, we start with the urn filled with a finite number of pebbles in it,  and each move, taking out two pebbles and putting in one back reduces the number of pebbles by one. So as the game proceeds the number of pebbles in the urn decreases, now obviously that cannot go on forever. 
@@ -96,9 +90,7 @@ So this is an example in which the termination of the process is totally trivial
 
 You see because our problem is, given the initial contents of the urn, what can be said about the color of the final pebble. But this is cheating already a little bit, because here the question says that there is a final pebble. One pebble left in the urn, can we prove that? Yes we can. You see, because, here is a description of the game being played, but totally ignoring, the colors. We introduce an integer variable little k and k is initialized with the number of pebbles in the urn, whatever their color. 
 
-// 12m51s
-
-### [12m51s](https://youtu.be/OeiSWZs3GfI?t=12m51s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=12m45s)
 
 // graphic
 
@@ -111,9 +103,7 @@ Now the first statement little k becomes capital k is the initialization.
 
 And now we know that little k is at least one [ k >= 1 ] because we knew that before the game was started the urn was non-empty. And here are the rest of the game. There you get a repetition, and as long as there are at least two pebbles in the game, that is k at least 2 [ k >= 2 ], we get the two steps of our move. k becomes k minus 2 [ k := k - 2 ] models that two pebbles are taken out of the game, followed by k becomes k plus 1 [  k :=  k+1 ] modeling that a pebble is put back. Now if you combine those two things, those two steps, the net effect of taking out two and putting one back of course is k becomes k minus 1 [ k := k-1]. 
 
-// 13m54s
-
-### [13m54s](https://youtu.be/OeiSWZs3GfI?t=13m54s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=13m48s)
 
 //p1.3
 
@@ -125,17 +115,13 @@ Now here you see the annotated program, with an annotation very much in the styl
 
 Then we get the repetition, “do”, our previous guard, k at least 2 [ k >= 2 ], arrow, and at that moment we can assert the invariant P, that was that k was at least 1 [  k >= 1 ], also the guard B, that k is a least 2 [ k >= 2 ], so at that place we can assert that k is at least 2 [ k >= 2]. 
 
-// 14m21s
-
-### [14m21s](https://youtu.be/OeiSWZs3GfI?t=14m21s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=14m38s)
 
 // my comment: k >= 1 AND k >= 2 EQUIVALENT k >= 2
 
 Now obviously the precondition k at least 2 [ k >= 2 ] guarantees that after the decrease k becomes k-1 [ k := k - 1 ], k is at least 1 [ k >= 1 ]. So we see that the repeatable statement k becomes k-1 [ k := k - 1 ] nicely maintains the truth of the k at least 1 [ k >= 1 ], so upon completion, we know two things, that the guard is false, so k is no longer at least 2, so k is less than 2 [ k < 2 ], and furthermore k is at least 1 [ k >= 1 ]. Which, has only one solution, k equal 1 [ k = 1 ]. So using the techniques of invariance, we have proved the simple fact that our game terminates with one pebble in the urn. So we are indeed entitled to talk about the final pebble. 
 
-// 16m7s
-
-### [16m7s](https://youtu.be/OeiSWZs3GfI?t=16m7s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=15m51s)
 
 // my comment: note that the precondition for the repeatable statement seems to be written above the statement instead of to the left of the statement .
 
@@ -155,23 +141,17 @@ Let now return to the original question, and that is, given the initial contents
 
 And there we are, little b and little w represent the number of black pebbles currently in the urn and the number of white pebbles currently in the urn. The first line of this little program represents the initialization, the initial filling of the urn, now remember our move, our move required at least 2 pebbles in the urn, you took them out, and looked at the colors. Now they could have different color, there could be a white one and a black one, when is that a possible outcome? Well then initially there was at least a white and a black one in the urn, so the condition under which we could pick up a mixed set, a white one and a black one, is that w is at least 1 and b is at least 1. Well that is the guard of the first alternative, you see, little w at least 1 and little b at least 1, arrow, there I have sketched as a reminder between braces the rule of the game, and that says that when you take out a white one and a black one, a white one is returned. And then the assignment statement b becomes b minus 1, we see the net effect of that move, the number of black pebbles is decreased by 1, the number of white pebbles is unchanged. 
 
-// 19m1s
-
-### [19m1s](https://youtu.be/OeiSWZs3GfI?t=19m1s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=18m51s)
 
 The other two guarded commands deal with cases in which two pebbles of equal color are taken out. If b is at least two, two black pebbles can be taken out and a black will be returned. Again the net effect on the filling of the urn is b becomes b minus 1. The complicated case, when two white pebbles are taken out, well that’s the case where we might need the black paint, because w decreases by two, and b increases by b plus 1. So here we have a description of the game that takes the changes in the filling of the number of colors in the urn into account. Now a moments inspection of these three possibilities tells us that as far as the change in the urn is concerned we don’t need to distinguish between the first two, they just decrease b by 1, and leave w as is. 
 
-// 20m24s
-
-### [20m24s](https://youtu.be/OeiSWZs3GfI?t=20m24s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=20m20s)
 
 // my comment: notice that in this repetition there are three guarded commands, and recall that this notation is obtained by replacing the brackets for “if fi” with “do od”. With only a single guarded command the guard itself is the condition for repeating the statement, in this case, with three guards, what is the correct operational interpretation?
 
 The last one increases b by 1 and decreases b [ audio error: Dijkstra’s says "decreases b”, when he clearly intended to say “decreases w"] but decreases it by 2. So we see that whatever happens, w remains constant or w is decreased by 2. In other words, w is only decreased by 2. And that means that if w started even, it will remain even, if w started odd, it will remain odd. And I’ll show you the consequence of that on the blackboard. 
 
-// 21m13s
-
-### [21m13s](https://youtu.be/OeiSWZs3GfI?t=21m13s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=21m13s)
 
 Our original invariant for the repetition was that k was at least 1, but k is now equal to little b plus little w, so we translate that into little b plus little w is at least 1, and furthermore we have established that the parity of w does not change. That is, that even little w is equivalent to even big w.
 
@@ -187,9 +167,7 @@ And here we have answered our problem, you see because in the case of even [big]
 
 In formula the final condition is that little w equal 0 and little b equal 1. Of course if you start with an odd number of white ones in the urn, then the final pebble is white, because the final state is characterized by w equal 1 and b equal 0, as these are the only solutions of b plus w being natural equal to 1. So this settles the problem: what can be said about the color of the final pebble. 
 
-//23m34s
-
-### [23m34s](https://youtu.be/OeiSWZs3GfI?t=23m34s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=23m34s)
 
 //p1.7
 
@@ -201,14 +179,11 @@ He is not offered the ready made program and the rules of the game that I descri
 
 Suppose that his task would have been the following: you are given an urn with black and white pebbles, you are requested to remove all but the last pebble from this urn. The way in which you may do that, is, you are not allowed to just turn the urn over, you have to do that very carefully, you have to do that in a series of moves, and in each move you have satisfy two constraints, the one constraint is that you have to take out 2 pebbles and put one back in. Well there are all sorts of games with such restrictions, the famous puzzle of the missionaries and the cannibals, that have to cross a river and a little boat and the boat can contain two people and one goes back to take the boat to the other side. 
 
-// 25m58s
-
-### [25m58s](https://youtu.be/OeiSWZs3GfI?t=25m58s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=25m58s)
 
 // my comment: Dijkstra solves this problem on video in a lecture called “Power of counting arguments.” https://www.youtube.com/watch?v=jUGCe9-s5Ys&t=78s
 
 So the rule two out one in, is not too unusual. If you now impose upon someone the constraint that he has to do this in such a way that the parity of the number of white pebbles in the urn between moves remains constant, then precisely the rules of this game will come out. And of course the rules of the game, they were the analogue of the program. Well that’s what I wanted to tell about the first example, where the termination is trivial, and the invariant, the partial correctness considerations, take the majority of the load. 
 
-//27m3s
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=27m1s)
 
-### [27m3s](https://youtu.be/OeiSWZs3GfI?t=27m3s)
