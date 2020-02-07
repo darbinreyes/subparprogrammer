@@ -16,9 +16,11 @@
   * [ ] v1
 * [ ] Implement in EWD notation, on paper.
   * [x] v0 
-  * [ ] v1
+  * [x] v1
 * [x] Write down 3 test cases.
-* [x] Test on paper. Use table method.
+* [ ] Test on paper. Use table method.
+  * [x] v0 
+  * [ ] v1
 * [ ] Implement in C on computer. Fully commented. Handle all function call errors and asserts gracefully.
   * [x] v0 
   * [ ] v1
