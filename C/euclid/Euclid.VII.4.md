@@ -32,8 +32,7 @@
 Modern phrasing:
 
 For **b** < **a**, 
-**b** is either a unit fraction of **a** or a proper fraction of **a**.
-a.k.a. part or parts.
+**b** is either a unit fraction of **a** or a proper fraction of **a**. a.k.a. part or parts.
 
 **Example**: "2 is one part of 6, namely, one third part; but 4 is parts of 6, namely, 2 third parts of 6."
 
@@ -68,10 +67,16 @@ See above.
 
 ## Specification and Design
 
+**v0**
+
 Determines if the lesser number is part or parts of the greater number.
 
 Check if the given numbers are relatively prime. If yes, return parts.
 Else if no, then check if b|a, if yes, return part. Else return parts.
+
+**v1**
+
+Same as v0 but in addition, compute m, n. See guide above.
 
 ## Implementation in EWD notation.
 
