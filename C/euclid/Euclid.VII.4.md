@@ -22,7 +22,7 @@
 * [ ] Implement in C on computer. Fully commented. Handle all function call errors and asserts gracefully.
   * [x] v0 
   * [ ] v1
-* [ ] Add and run test cases on computer. Use gdb debugging if needed.
+* [x] Add and run test cases on computer. Use gdb debugging if needed.
 * [ ] Verify test case answers in python. Add results as comment in test.
 
 
@@ -81,5 +81,5 @@ On paper.
 
 "Examples are the exclusion of goto-statements and of procedures with more than **one** output parameter. " -Dijkstra // I will try to avoid more that one output in my C code, if possible.
 
-"If now CD measures AB, since it also measures itself" - VII.2 // This quote shows that the property that b|a holds in the case b = a. I use this in the implementation of measures().
+"If now CD measures AB, since it also measures **itself**" - VII.2 // This quote shows that the property that b|a holds in the case b = a. I use this in the implementation of measures().
 
