@@ -44,9 +44,11 @@
   @param  a Pointer to the first integer.
   @param  b Pointer to the second integer.
 
+  @retval -1  a or b was NULL.
+  @retval 0   Swap successful.
 
 **/
-void
+int
 swap (
   unsigned int *a,
   unsigned int *b
@@ -59,7 +61,7 @@ swap (
       something reasonable if the assert is removed.
     **/
     assert(0);
-    return;
+    return -1;
   }
 
   unsigned int t;
@@ -68,7 +70,7 @@ swap (
   *a = *b;
   *b = t;
 
-  return;
+  return 0;
 }
 
 /** Function header format.
@@ -109,6 +111,7 @@ swap (
 
   @retval -1 If !(a > 1 && b > 1).This is considered invalid input.
   @retval -2 If (a == b).This is considered invalid input.
+  @retval -3 Unexpected error.
   @retval 1  If the numbers are prime to one another.
   @retval 0  If the numbers have a common measure greater than 1.
 
@@ -140,8 +143,11 @@ VII_1_relatively_prime (
   **/
 
   while (a > 1 && b > 1) {
-    if (b > a)
-      swap(&a, &b);
+    if (b > a) {
+      if (swap(&a, &b) != 0) {
+        return -3;
+      }
+    }
 
     a = a - b;
   }
@@ -173,6 +179,7 @@ VII_1_relatively_prime (
 
   @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
   @retval -2 If (a == b).This is considered invalid input.
+  @retval -3 Unexpected error.
   @retval 1 if a and b are prime to one another.
   @retval returns the greatest common measure of a and b which is always > 1.
 
@@ -193,8 +200,11 @@ VII_2_gcm (
 
   // Antenaresis.
   while (a > 1 && b > 1) {
-    if (b > a)
-      swap(&a, &b);
+    if (b > a) {
+      if (swap(&a, &b) != 0) {
+        return -3;
+      }
+    }
 
     a = a - b;
   }
