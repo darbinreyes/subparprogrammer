@@ -3,12 +3,12 @@
 
   Coding style: following EDK2 coding standards since I am already familiar with it.
 
-  Testing: Hopefully I can get "seatest" working for testing functions in this file.
 **/
 
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+
 /**
   Notes on VII.Definitions
 
@@ -103,9 +103,6 @@ swap (
 
   Determines if the given numbers are prime to one another,
   a.k.a. the numbers have no common measure greater than 1.
-  For Euclid, the unit, 1, is not a number.
-  a.k.a. the numbers have no common divisor greater than 1.
-  a.k.a. the numbers are relatively prime.
 
   @param  a The first number.
   @param  b The second number.
@@ -123,7 +120,7 @@ VII_1_relatively_prime (
   )
 {
   if (!( a > 1 && b > 1)) {
-    // Def.2. By definition, a number means a "whole positive numbers greater than 1"
+    // VII.Def.2. By definition, a number means a "whole positive numbers greater than 1"
     assert(0);
     return -1;
   }
