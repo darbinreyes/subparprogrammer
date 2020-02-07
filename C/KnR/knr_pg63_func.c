@@ -2,6 +2,8 @@
 
 **/
 
+#include "knr_pg63_func.h"
+
 double
 poo (
   double a,
