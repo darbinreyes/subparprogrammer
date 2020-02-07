@@ -29,8 +29,8 @@ VII_4_part_or_parts (
 void test_VII_1()
 {
   /**
-  Here are the correct values for the test cases.
-  Obtained Python's built in functions.
+  Here are the correct values for the test cases computed separately in python.
+
 
   >>> int(math.gcd(12,4) == 1)
   0
@@ -88,8 +88,8 @@ void test_VII_1()
 void test_VII_2()
 {
   /**
-  Here are the correct values for the test cases.
-  Obtained Python's built in functions.
+  Here are the correct values for the test cases computed separately in python.
+
 
   >>> math.gcd(884,3009)
   17
@@ -127,8 +127,8 @@ void test_VII_3 ()
 {
   /**
 
-  Here are the correct values for the test cases.
-  Obtained Python's built in functions.
+  Here are the correct values for the test cases computed separately in python.
+
 
   >>> math.gcd(math.gcd(32,8), 4)
   4
@@ -180,6 +180,22 @@ void test_VII_4 ()
   unsigned int a, b;
   int result;
 
+  /**
+
+  Here are the correct values for the test cases computed separately in python.
+
+  >>> math.gcd(math.gcd(32,8), 4)
+  4
+  >>> math.gcd(math.gcd(32,64), 4)
+  4
+  >>> math.gcd(math.gcd(32,64), 5)
+  1
+  >>> math.gcd(math.gcd(32,64), 6)
+  2
+
+  TODO: Other test cases.
+
+  **/
   b = 3;
   a = 7;
   result = 1; // parts.
