@@ -113,48 +113,48 @@ results in "server IP address could not be found."
 
 * /etc/apache2/httpd.conf
 
- * This is the **main** Apache HTTP server configuration file. It contains the configuration **directives** that give the server its instructions.
- * ServerRoot. Prepended to control file paths. Directory tree under which the server's configuration, error, and log files are kept.
- * Listen.
- * LoadModule. to use the functionality of a module.
- * \<IfModule unixd_module>. User/Group setting.
- * 'Main' server configuration. defaults for any <VirtualHost> containers. All of these directives may appear inside <VirtualHost> containers. default settings will be overridden.
- * ServerAdmin.
- * ServerName.
- * \<Directory />. AllowOverride none. Require all denied. Deny access to the entirety of your server's filesystem.
- * DocumentRoot: The directory out of which you will serve your documents.
- * Require all granted. Controls who can get stuff from this server.
- * DirectoryIndex index.html. sets the file that Apache will serve if a directory is requested.
- * Apple specific filesystem protection.
- * ErrorLog: The location of the error log file.
- * LogLevel: Control the number of messages logged to the error_log.
- * \<IfModule log_config_module>. format nicknames. The location and format of the access logfile. 
- * Redirect: Allows you to tell clients about documents that used to exist in your server's namespace, but do not anymore.
- * Alias: Maps web paths into filesystem paths and is used to access content that does not live under the DocumentRoot.
- * ScriptAlias: This controls which directories contain server scripts. documents in the target directory are treated as applications.
- * ScriptSock: On threaded servers. socket used to communicate with the CGI daemon of mod_cgid.
- * \<IfModule headers_module>.
- * \<IfModule mime_module>. AddType allows you to add to or override the MIME configuration. AddEncoding allows you to have certain browsers uncompress information on the fly. AddType define those extensions to indicate media types. AddHandler allows you to map certain file extensions to "handlers". Filters allow you to process content before it is sent to the client.
- * MIMEMagicFile. The mod_mime_magic module allows the server to use various hints from the contents of the file itself to determine its type.
- * [ErrorDocument](http://httpd.apache.org/docs/2.4/mod/core.html#errordocument) 500 "The server made a boo boo." **Customizable error responses come in three flavors: 1) plain text 2) local redirects 3) external redirects**
- * MaxRanges: Maximum number of Ranges in a request before returning the entire resource.
- * EnableMMAP and EnableSendfile. This usually improves server performance.
- * TraceEnable. TraceEnable off causes the core server and mod_proxy to return a 405 (Method not allowed) error to the client.
+  * This is the **main** Apache HTTP server configuration file. It contains the configuration **directives** that give the server its instructions.
+  * ServerRoot. Prepended to control file paths. Directory tree under which the server's configuration, error, and log files are kept.
+  * Listen.
+  * LoadModule. to use the functionality of a module.
+  * \<IfModule unixd_module>. User/Group setting.
+  * 'Main' server configuration. defaults for any <VirtualHost> containers. All of these directives may appear inside <VirtualHost> containers. default settings will be overridden.
+  * ServerAdmin.
+  * ServerName.
+  * \<Directory />. AllowOverride none. Require all denied. Deny access to the entirety of your server's filesystem.
+  * DocumentRoot: The directory out of which you will serve your documents.
+  * Require all granted. Controls who can get stuff from this server.
+  * DirectoryIndex index.html. sets the file that Apache will serve if a directory is requested.
+  * Apple specific filesystem protection.
+  * ErrorLog: The location of the error log file.
+  * LogLevel: Control the number of messages logged to the error_log.
+  * \<IfModule log_config_module>. format nicknames. The location and format of the access logfile. 
+  * Redirect: Allows you to tell clients about documents that used to exist in your server's namespace, but do not anymore.
+  * Alias: Maps web paths into filesystem paths and is used to access content that does not live under the DocumentRoot.
+  * ScriptAlias: This controls which directories contain server scripts. documents in the target directory are treated as applications.
+  * ScriptSock: On threaded servers. socket used to communicate with the CGI daemon of mod_cgid.
+  * \<IfModule headers_module>.
+  * \<IfModule mime_module>. AddType allows you to add to or override the MIME configuration. AddEncoding allows you to have certain browsers uncompress information on the fly. AddType define those extensions to indicate media types. AddHandler allows you to map certain file extensions to "handlers". Filters allow you to process content before it is sent to the client.
+  * MIMEMagicFile. The mod_mime_magic module allows the server to use various hints from the contents of the file itself to determine its type.
+  * [ErrorDocument](http://httpd.apache.org/docs/2.4/mod/core.html#errordocument) 500 "The server made a boo boo." **Customizable error responses come in three flavors: 1) plain text 2) local redirects 3) external redirects**
+  * MaxRanges: Maximum number of Ranges in a request before returning the entire resource.
+  * EnableMMAP and EnableSendfile. This usually improves server performance.
+  * TraceEnable. TraceEnable off causes the core server and mod_proxy to return a 405 (Method not allowed) error to the client.
      * Doc for this directive mentions RFC2616(=HTTP). Recall request headers, request body, request method.
- * Supplemental configuration. The configuration files in the /private/etc/apache2/extra/ directory can be included. or you may simply copy their contents here and change as necessary.
-     * Server-pool management (MPM specific)
-     * Multi-language error messages
-     * Fancy directory listings
-     * Language settings
-     * User home directories
-     * Real-time info on requests and configuration
-     * Virtual hosts
-     * Local access to the Apache HTTP Server Manual
-     * Distributed authoring and versioning (WebDAV)
-     * Various default settings
-     * Configure mod_proxy_html to understand HTML4/XHTML1
-     * Secure (SSL/TLS) connections
- * END of httpd.conf.
+  * Supplemental configuration. The configuration files in the /private/etc/apache2/extra/ directory can be included. or you may simply copy their contents here and change as necessary.
+    * Server-pool management (MPM specific)
+    * Multi-language error messages
+    * Fancy directory listings
+    * Language settings
+    * User home directories
+    * Real-time info on requests and configuration
+    * Virtual hosts
+    * Local access to the Apache HTTP Server Manual
+    * Distributed authoring and versioning (WebDAV)
+    * Various default settings
+    * Configure mod_proxy_html to understand HTML4/XHTML1
+    * Secure (SSL/TLS) connections
+  * END of httpd.conf.
  
 * /etc/apache2/extra/httpd-userdir.conf
   * UserDir: The name of the directory that is appended onto a user's home directory if a ~user request is received. 
@@ -169,12 +169,12 @@ results in "server IP address could not be found."
   
 * /etc/apache2/extra/httpd-vhosts.conf
 
- * If you want to maintain multiple domains/hostnames on your machine you can setup VirtualHost containers for them.
- * Most configurations use only name-based virtual hosts so the server doesn't need to worry about IP addresses. This is indicated by the asterisks in the directives below.
-   * \<VirtualHost \*:80>
- * Almost any Apache directive may go into a VirtualHost container.
- *  The first VirtualHost section is used for all requests that do not match a ServerName or ServerAlias in any \<VirtualHost> block.
- * END of httpd-vhosts.conf.
+  * If you want to maintain multiple domains/hostnames on your machine you can setup VirtualHost containers for them.
+  * Most configurations use only name-based virtual hosts so the server doesn't need to worry about IP addresses. This is indicated by the asterisks in the directives below.
+    * \<VirtualHost \*:80>
+  * Almost any Apache directive may go into a VirtualHost container.
+  *  The first VirtualHost section is used for all requests that do not match a ServerName or ServerAlias in any \<VirtualHost> block.
+  * END of httpd-vhosts.conf.
  
 * /etc/hosts
 
