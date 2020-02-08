@@ -31,7 +31,7 @@ I will add configuration files to this repo in the same order as the [guide I us
 ## Optional steps.
 ### Optional Step 1: Virtual Hosts
 * Currently my index.html is accessed via
-* "http://darbinreyes.com/~darbinreyes/darbinreyes.com/" == "http://localhost/~darbinreyes/darbinreyes.com/"
+* http://darbinreyes.com/~darbinreyes/darbinreyes.com/ points to http://localhost/~darbinreyes/darbinreyes.com/
 * After this optional step I should be able to access index.html via
 * darbinreyes.com.localhost // currently this returns FORBIDDEN.
 * After this change you need to edit the Mac host file to add a unique name per project.
@@ -77,29 +77,20 @@ http://darbinreyes.com.darbinreyes.com/
 results in "server IP address could not be found."
 
 ### Decoding the apache config files.
-
 * Main doc page for [apache](http://httpd.apache.org/docs/2.4/).
 * List of all [modules](http://httpd.apache.org/docs/2.4/mod/).
 * List of all [directives](http://httpd.apache.org/docs/2.4/mod/directives.html).
+
 * /etc/apache2/users/darbinreyes.conf
 
- * Note use of xml style syntax in each .conf file.
- 
+ * Note use of xml style syntax in each .conf file. 
  * Meaning of [\<Directory>](http://httpd.apache.org/docs/2.4/mod/core.html#directory)
-
    * Apply the 3 given "directives" to the specified directory ONLY (includes the whole dir. subtree). Note that "directives" have "contexts" within which they apply. In this case, the context is server config and virtual host.
-
      * [Directive 1. allowoverride](http://httpd.apache.org/docs/2.4/mod/core.html#allowoverride)
-     
-       * When the server finds an .htaccess file (as specified by AccessFileName), it needs to know which directives declared in that file can override earlier configuration directives.
-
-       * When this directive is set to All, then any directive which has the .htaccess Context is allowed in .htaccess files.
-
+         * When the server finds an .htaccess file (as specified by AccessFileName), it needs to know which directives declared in that file can override earlier configuration directives.
+         * When this directive is set to All, then any directive which has the .htaccess Context is allowed in .htaccess files.
        * [What is an .htaccess file? ANS:](http://httpd.apache.org/docs/2.4/mod/core.html#accessfilename)
-     
           * It is the default name of a file called a "distributed configuration file". The default file name can be overridden using the "AccessFileName" directive. It tells the server where to look for directives when it receives a request.
-     
-     
      
      * [Directive 2. options](http://httpd.apache.org/docs/2.4/mod/core.html#options)
      
@@ -117,11 +108,11 @@ results in "server IP address could not be found."
                * FollowSymLinks. The server will follow symbolic links in this directory. This is the default setting.
 
      * [Directive 3. require](http://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require)
-       * This directive tests whether an authenticated user is authorized according to a particular authorization provider and the specified restrictions. mod_authz_core provides the following generic authorization providers:
-       * Require all granted. Access is allowed unconditionally.
-
+         * This directive tests whether an authenticated user is authorized according to a particular authorization provider and the specified restrictions. mod_authz_core provides the following generic authorization providers:
+         * Require all granted. Access is allowed unconditionally.
 
 * /etc/apache2/httpd.conf
+
  * This is the **main** Apache HTTP server configuration file. It contains the configuration **directives** that give the server its instructions.
  * ServerRoot. Prepended to control file paths. Directory tree under which the server's configuration, error, and log files are kept.
  * Listen.
@@ -145,7 +136,7 @@ results in "server IP address could not be found."
  * \<IfModule headers_module>.
  * \<IfModule mime_module>. AddType allows you to add to or override the MIME configuration. AddEncoding allows you to have certain browsers uncompress information on the fly. AddType define those extensions to indicate media types. AddHandler allows you to map certain file extensions to "handlers". Filters allow you to process content before it is sent to the client.
  * MIMEMagicFile. The mod_mime_magic module allows the server to use various hints from the contents of the file itself to determine its type.
- * ErrorDocument 500 "The server made a boo boo." **Customizable error responses come in three flavors: 1) plain text 2) local redirects 3) external redirects**
+ * [ErrorDocument](http://httpd.apache.org/docs/2.4/mod/core.html#errordocument) 500 "The server made a boo boo." **Customizable error responses come in three flavors: 1) plain text 2) local redirects 3) external redirects**
  * MaxRanges: Maximum number of Ranges in a request before returning the entire resource.
  * EnableMMAP and EnableSendfile. This usually improves server performance.
  * TraceEnable. TraceEnable off causes the core server and mod_proxy to return a 405 (Method not allowed) error to the client.
@@ -166,23 +157,27 @@ results in "server IP address could not be found."
  * END of httpd.conf.
  
 * /etc/apache2/extra/httpd-userdir.conf
- * UserDir: The name of the directory that is appended onto a user's home directory if a ~user request is received. 
+  * UserDir: The name of the directory that is appended onto a user's home directory if a ~user request is received. 
      * **Note that you must also set the default access control for these directories, as in the example below.**
      * This note is almost certainly the sole purpose of /etc/apache2/users/darbinreyes.conf.
- * Include /private/etc/apache2/users/*.conf. Control access to UserDir directories. The following is an example for a site where these directories are restricted to read-only.
+  * Include /private/etc/apache2/users/*.conf. Control access to UserDir directories. The following is an example for a site where these directories are restricted to read-only.
     * \<IfModule bonjour_module>. What is this module? It's not listed in the module list. It seems to be some sort of apple specific apache module.
       * https://habilis.net/mod-bonjour-fix/
       * https://opensource.apple.com/source/apache_mod_bonjour/apache_mod_bonjour-9/
       * https://developer.apple.com/bonjour/
-  * END of httpd-userdir.conf.
+   * END of httpd-userdir.conf.
+  
 * /etc/apache2/extra/httpd-vhosts.conf
+
  * If you want to maintain multiple domains/hostnames on your machine you can setup VirtualHost containers for them.
  * Most configurations use only name-based virtual hosts so the server doesn't need to worry about IP addresses. This is indicated by the asterisks in the directives below.
    * \<VirtualHost \*:80>
  * Almost any Apache directive may go into a VirtualHost container.
  *  The first VirtualHost section is used for all requests that do not match a ServerName or ServerAlias in any \<VirtualHost> block.
+ * END of httpd-vhosts.conf.
  
 * /etc/hosts
+
   * I don't think this is an apache conf file but rather a system file. But the guide asked me to change it so I'll decode it here.
   * Host Database.
   * localhost is used to configure the loopback interface **when** the system is booting. **Do not change this entry.**
@@ -193,6 +188,7 @@ results in "server IP address could not be found."
         * ::1             localhost
         * fe80::1%lo0	localhost
         * 127.0.0.1       darbinreyes.com.localhost // This is based on the tutorial.
+ * END of hosts.
 
 
 # TODO
