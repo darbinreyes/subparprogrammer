@@ -488,6 +488,60 @@ virtual=
 
 ## https://docs.python.org/3/tutorial/classes.html#a-word-about-names-and-objects
 
+## https://docs.python.org/3/tutorial/classes.html#python-scopes-and-namespaces
 
+The important thing to know about namespaces is that there is absolutely no relation between names in different namespaces;
+
+module1.max != module2.max
+
+attribute for any name following a dot 
+
+module’s attributes and the global names defined in the module: they share the same namespace!
+
+e.g. module1.__name__ and module1.max
+
+Attributes may be read-only or writable. 
+
+del modname.the_answer will remove the attribute the_answer from the object named by modname.
+
+Namespaces are created at different moments and have different lifetimes. 
+
+A scope is a textual region of a Python program where a namespace is directly accessible. 
+
+At any time during execution, there are ***at least three** nested scopes whose namespaces are directly accessible:
+
+local scope
+function scope
+module scope
+builtin scope
+
+global declarations
+nonlocal declarations
+
+if not declared nonlocal, those variables are read-only (an attempt to write to such a variable will simply create a new local variable in the innermost scope, leaving the identically named outer variable unchanged).
+
+Class definitions place yet another namespace in the local scope.
+
+It is important to realize that scopes are determined textually:
+
+assignments to names always go into the innermost scope. Assignments do not copy data — they just bind names to objects.
+
+### https://docs.python.org/3/tutorial/classes.html#scopes-and-namespaces-example
+
+// Here we see a big difference from C. Functions may be defined inside functions!
+
+print "test spam"
+
+print "nonlocal spam"
+
+print "nonlocal spam"
+
+print "global spam"
+
+// Note indentation level of "test spam"
+
+## https://docs.python.org/3/tutorial/classes.html#a-first-look-at-classes
+
+ 
 
 
