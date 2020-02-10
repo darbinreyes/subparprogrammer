@@ -325,7 +325,9 @@ But, there is a mechanism for making things "visible only within a single source
 
 As long as an external is explicitly declared it can be access from ANY function. Recall the "extern hack" in EDK2 that lets you access variables inside the standard library code.
 
-next: pg.64 "If a large number of variables"
+push(pop() - pop()); /* WRONG */ // Another example of order of **evaluation being ambiguous in C.**
+
+// next: pg. 67 "What are getch and ungetch?"
 
 
 
