@@ -190,6 +190,47 @@ results in "server IP address could not be found."
         * 127.0.0.1       darbinreyes.com.localhost // This is based on the tutorial.
  * END of hosts.
 
+# Creating symbolic links for apache conf files and darbinreyes.com web directory.
+
+* Here we have to make the decision wether the git repo should contain the symbolic link or wether the git repo should contain the actual file. It seems reasonable to choose one or the other and not a mix. In either case, I will be able to modify the files in the git repo and affect the apache server without having to copy files to keep them in sync. I choose to make the git repo contain the links and keep the original files where they currently are.
+
+* link from 
+* subparprogrammer/web/darbinreyes.com/
+* to
+* /Users/darbinreyes/Sites/darbinreyes.com
+
+```bash
+$ ln -s original_directory link_directory
+```
+
+* from 
+* subparprogrammer/servers/http/etc/hosts
+* to
+* /etc/hosts
+
+```bash
+$ ln originalfile
+```
+
+* link from
+* subparprogrammer/servers/http/etc/apache2/extra/httpd-vhosts.conf
+* to
+* /etc/apache2/extra/httpd-vhosts.conf
+
+* link from
+* subparprogrammer/servers/http/etc/apache2/extra/httpd-userdir.conf
+* to
+* /etc/apache2/extra/httpd-userdir.conf
+
+* link from
+* subparprogrammer/servers/http/etc/apache2/httpd.conf
+* to
+* /etc/apache2/httpd.conf
+
+* link from
+* subparprogrammer/servers/http/etc/apache2/users/darbinreyes.conf
+* to
+* /etc/apache2/users/darbinreyes.conf
 
 # TODO
 * [ ] Read [getting started.](http://httpd.apache.org/docs/2.4/getting-started.html)
