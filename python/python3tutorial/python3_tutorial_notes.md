@@ -542,6 +542,66 @@ print "global spam"
 
 ## https://docs.python.org/3/tutorial/classes.html#a-first-look-at-classes
 
+Class definitions must be executed like code, unlike in Java where a class is just a definition. This means class definitions can appear as part of a if statement or inside a function.
+
+Methods have special argument list form.
+
+Class definitions create a new namespace.
+
+The end of a class definition creates a "class object" to be created. = wrapper on the new namespace. ClassName becomes a new name in the namespace containing the class definition.
+
+### https://docs.python.org/3/tutorial/classes.html#class-objects
+
+Operations on class objects:
+
+1. attribute refs
+
+MyClass.i
+MyClass.f
+MyClass.__doc__
+
+2. instantiation.
+
+x = MyClass()
+
+builtin \__doc__ attribute.
+
+self keyword in method argument lists.
+
+Special method name for initialization upon instantiation. \__init__(self): self.data = "poop"
+
+### https://docs.python.org/3/tutorial/classes.html#instance-objects
+
+The only operation allowed is attribute references.
+
+Two kinds of attribute references.
+
+1. data attributes
+2. method attributes
+
+access to data attribute does not require declaration during class definition. They can be created upon assignment. You can delete them using del.
+
+method = function belonging to an object. In python class instances are distinct from other object types. Class object vs. instance object vs. list object. Both are considered to have methods.
+
+all class attributes that are function objects = methods of an instance object of that class.
+
+Python distinguishes between a method object and a function object.
+
+x = MyClass()
+x.foo() // is a method object.
+MyClass.foo() // is a function object.
+
+### https://docs.python.org/3/tutorial/classes.html#method-objects
+
+
+
+
+
+
+
+
+
+
  
 
 
