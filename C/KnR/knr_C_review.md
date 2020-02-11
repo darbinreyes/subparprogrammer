@@ -327,7 +327,28 @@ As long as an external is explicitly declared it can be access from ANY function
 
 push(pop() - pop()); /* WRONG */ // Another example of order of **evaluation being ambiguous in C.**
 
-// next: pg. 67 "What are getch and ungetch?"
+## 4.4 Scope Rules 
+
+Explicit use of extern is required if an external variable is used before it is defined or it is defined in another source file.
+
+external variable declaration vs definition. Definition allocates storage for the variable. A definition also serves as a declaration for the text appearing after a definition.
+
+int sp; // definition
+extern int sp; // declaration.
+
+array sizes must be specified for a definition. optional otherwise.
+
+## 4.5 Header Files 
+
+## 4.6 Static Variables 
+
+static keyword limits an external's scope to the source file in which it is defined. And within that file the scope is limited to the text appearing after the static definition.
+
+Can be applied to functions.
+
+Can be applied to internal variables. This provides a local variable with persistent storage across function calls.
+
+## 4.7 Register Variables 
 
 
 
