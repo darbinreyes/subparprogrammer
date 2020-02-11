@@ -82,7 +82,7 @@ Here are the color rules stated. They are too complicated to remember but we wil
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=9m35s)
 
 Now the first question is, does this game terminate?
-Yes it does, you see because, we start with the urn filled with a finite number of pebbles in it,  and each move, taking out two pebbles and putting in one back reduces the number of pebbles by one. So as the game proceeds the number of pebbles in the urn decreases, now obviously that cannot go on forever. 
+Yes it does, you see because, we start with the urn filled with a finite number of pebbles in it, and each move, taking out two pebbles and putting in one back reduces the number of pebbles by one. So as the game proceeds the number of pebbles in the urn decreases, now obviously that cannot go on forever. 
 
 // My comment: Clearly this part of the video is establishing that the game terminates, hence in the first problem the correctness concern plays the major role because it clearly terminates.
 
@@ -91,7 +91,7 @@ So this is an example in which the termination of the process is totally trivial
 // graphic
 // Problem: Given the initial contents of the urn, what can be said about the color of the final pebble?
 
-You see because our problem is, given the initial contents of the urn, what can be said about the color of the final pebble. But this is cheating already a little bit, because here the question says that there is a final pebble. One pebble left in the urn, can we prove that? Yes we can. You see, because, here is a description of the game being played, but totally ignoring, the colors. We introduce an integer variable little k and k is initialized with the number of pebbles in the urn, whatever their color. 
+You see because our problem is, given the initial contents of the urn, what can be said about the color of the final pebble. But this is cheating already a little bit, because here the question says that there is a final pebble. One pebble left in the urn, can we prove that? Yes we can. You see, because, here is a description of the game being played, but totally ignoring, the colors. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=12m45s)
 
@@ -101,10 +101,12 @@ You see because our problem is, given the initial contents of the urn, what can 
 
 ![p1.2](p1.2.png)
 
-Now the first statement little k becomes capital k is the initialization.
+We introduce an integer variable little k and k is initialized with the number of pebbles in the urn, whatever their color. Now the first statement little k becomes capital k is the initialization.
+
+
  // my comment: hence the line above with the “#” is not part of the program but a semantic definition of the meaning of variable k.
 
-And now we know that little k is at least one [ k >= 1 ] because we knew that before the game was started the urn was non-empty. And here are the rest of the game. There you get a repetition, and as long as there are at least two pebbles in the game, that is k at least 2 [ k >= 2 ], we get the two steps of our move. k becomes k minus 2 [ k := k - 2 ] models that two pebbles are taken out of the game, followed by k becomes k plus 1 [  k :=  k+1 ] modeling that a pebble is put back. Now if you combine those two things, those two steps, the net effect of taking out two and putting one back of course is k becomes k minus 1 [ k := k-1]. 
+And now we know that little k is at least one [ k >= 1 ] because we knew that before the game was started the urn was non-empty. And here are the rest of the game. There you get a repetition, and as long as there are at least two pebbles in the game, that is k at least 2 [ k >= 2 ], we get the two steps of our move. k becomes k minus 2 [ k := k - 2 ] models that two pebbles are taken out of the game, followed by k becomes k plus 1 [  k :=  k+1 ] modeling that a pebble is put back. Now if you combine those two things, those two steps, the net effect of taking out two and putting one back of course is k becomes k minus 1 [ k := k-1]. Now here you see the annotated program, with an annotation very much in the style as I showed on the blackboard.
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=13m48s)
 
@@ -112,7 +114,7 @@ And now we know that little k is at least one [ k >= 1 ] because we knew that be
 
 ![p1.3](p1.3.png)
 
-Now here you see the annotated program, with an annotation very much in the style as I showed on the blackboard. Little k becomes capital k [ k := K ], and since capital k was at least 1 [  K >= 1 ]to start with, here with have the initial condition for the repetition that little k is at least 1 [  k >=1 ]. 
+ Little k becomes capital k [ k := K ], and since capital k was at least 1 [  K >= 1 ]to start with, here with have the initial condition for the repetition that little k is at least 1 [  k >=1 ]. 
 
 // my comment: notice that there is no precondition for the initialization, since it is the first statement in the program.
 
@@ -128,7 +130,7 @@ Now obviously the precondition k at least 2 [ k >= 2 ] guarantees that after the
 
 // my comment: note that the precondition for the repeatable statement seems to be written above the statement instead of to the left of the statement .
 
-Let now return to the original question, and that is, given the initial contents of the urn, what can we say about the color of the final pebble. Well, this is clearly the moment to take the colors into account. So it is no longer sufficient to characterize the initial contents of the urn by the total number of pebbles, obviously we must know the number of black pebbles and the number of white pebbles, so what we used to call capital k, the initial number, we will now call capital b plus capital w, for the initial numbers of blacks and whites.
+Let now return to the original question, and that is, given the initial contents of the urn, what can we say about the color of the final pebble. Well, this is clearly the moment to take the colors into account. So it is no longer sufficient to characterize the initial contents of the urn by the total number of pebbles, obviously we must know the number of black pebbles and the number of white pebbles, so what we used to call capital k, the initial number, we will now call capital b plus capital w, for the initial numbers of blacks and whites. And there we are, little b and little w represent the number of black pebbles currently in the urn and the number of white pebbles currently in the urn.
 
 //p1.4
 
@@ -142,7 +144,7 @@ Let now return to the original question, and that is, given the initial contents
 
 // my comment: on the position of semicolons. when you want to append  an additional statement on the next line the semicolon is the first character on the new lone. when you want to append a new statement on the same line already containing a statement then the semicolon precedes the newly appended statement.
 
-And there we are, little b and little w represent the number of black pebbles currently in the urn and the number of white pebbles currently in the urn. The first line of this little program represents the initialization, the initial filling of the urn, now remember our move, our move required at least 2 pebbles in the urn, you took them out, and looked at the colors. Now they could have different color, there could be a white one and a black one, when is that a possible outcome? Well then initially there was at least a white and a black one in the urn, so the condition under which we could pick up a mixed set, a white one and a black one, is that w is at least 1 and b is at least 1. Well that is the guard of the first alternative, you see, little w at least 1 and little b at least 1, arrow, there I have sketched as a reminder between braces the rule of the game, and that says that when you take out a white one and a black one, a white one is returned. And then the assignment statement b becomes b minus 1, we see the net effect of that move, the number of black pebbles is decreased by 1, the number of white pebbles is unchanged. 
+The first line of this little program represents the initialization, the initial filling of the urn, now remember our move, our move required at least 2 pebbles in the urn, you took them out, and looked at the colors. Now they could have different color, there could be a white one and a black one, when is that a possible outcome? Well then initially there was at least a white and a black one in the urn, so the condition under which we could pick up a mixed set, a white one and a black one, is that w is at least 1 and b is at least 1. Well that is the guard of the first alternative, you see, little w at least 1 and little b at least 1, arrow, there I have sketched as a reminder between braces the rule of the game, and that says that when you take out a white one and a black one, a white one is returned. And then the assignment statement b becomes b minus 1, we see the net effect of that move, the number of black pebbles is decreased by 1, the number of white pebbles is unchanged. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=18m51s)
 
@@ -178,9 +180,9 @@ In formula the final condition is that little w equal 0 and little b equal 1. Of
 
 Now you may complain about this argument that the conjunct of the invariant, that the parity of w doesn’t change, that that is an invention that in general would be hard to make, well that complaint is to a certain extent justified, but fortunately the designing programmer lives in a different situation. 
 
-He is not offered the ready made program and the rules of the game that I described to you and has to invent the invariant. In actual practice, when a programmer develops correctness proof and program hand in hand he knows the invariant before the program has been written. 
+He is not offered the ready made program and the rules of the game that I described to you and has to invent the invariant. In actual practice, when a programmer develops correctness proof and program hand in hand **he knows the invariant before the program has been written.**
 
-Suppose that his task would have been the following: you are given an urn with black and white pebbles, you are requested to remove all but the last pebble from this urn. The way in which you may do that, is, you are not allowed to just turn the urn over, you have to do that very carefully, you have to do that in a series of moves, and in each move you have satisfy two constraints, the one constraint is that you have to take out 2 pebbles and put one back in. Well there are all sorts of games with such restrictions, the famous puzzle of the missionaries and the cannibals, that have to cross a river and a little boat and the boat can contain two people and one goes back to take the boat to the other side. 
+Suppose that his task would have been the following: you are given an urn with black and white pebbles, you are requested to remove all but the last pebble from this urn. The way in which you may do that, is, you are not allowed to just turn the urn over, you have to do that very carefully, you have to do that in a series of moves, and in each move you have satisfy two constraints, the one constraint is that you have to take out 2 pebbles, and put one back in. Well there are all sorts of games with such restrictions, the famous puzzle of the missionaries and the cannibals, that have to cross a river and a little boat and the boat can contain two people and one goes back to take the boat to the other side. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=25m58s)
 
