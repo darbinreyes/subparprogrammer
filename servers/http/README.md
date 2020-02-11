@@ -194,16 +194,20 @@ results in "server IP address could not be found."
 
 * Here we have to make the decision wether the git repo should contain the symbolic link or wether the git repo should contain the actual file. It seems reasonable to choose one or the other and not a mix. In either case, I will be able to modify the files in the git repo and affect the apache server without having to copy files to keep them in sync. I choose to make the git repo contain the links and keep the original files where they currently are.
 
-* link from 
-* subparprogrammer/web/darbinreyes.com/
-* to
+* Potential problem. By using hard links, I can now modify my original apache conf files and have any changes to those files be reflected as changes in my git repo. But git cannot distinguish the hard link to the conf files from the from the original files in the repository, it appears as the same file. This means that the result of changes those files is different on my MBP vs. my MBA. On my MBP, a change to the conf files in the repo will have an immediate affect on apache. On my MBA, the same changes will only affect the copy of the file in the repo. This is OK, but since it appears that git does not allow symbolic links to directories to be tracked (git add errors out) I will have to break the above "no mixing" rule. For my web content, the symbolic link will be from the Sites/darbinreyes.com directory to the files in the git repo at subparprogrammer/web/darbinreyes.com/.
+
+* [ ] Test httpd.conf link in the opposite direction.
+
+* [x] link from 
 * /Users/darbinreyes/Sites/darbinreyes.com
+* to
+* subparprogrammer/web/darbinreyes.com/
 
 ```bash
 $ ln -s original_directory link_directory
 ```
 
-* from 
+* [x] link from 
 * subparprogrammer/servers/http/etc/hosts
 * to
 * /etc/hosts
@@ -211,23 +215,33 @@ $ ln -s original_directory link_directory
 ```bash
 $ ln originalfile
 ```
+```bash
+$ pwd
+/Users/darbinreyes/Sites
+$ ln -s /Users/darbinreyes/dev/private_dev/subparprogrammer/web/darbinreyes.com/ darbinreyes.com
+```
+```bash
+$ pwd
+/Users/darbinreyes/dev/private_dev/subparprogrammer/servers/http/etc
+$ ln ./../../../../../../../../etc/hosts
+```
 
-* link from
+* [x] link from
 * subparprogrammer/servers/http/etc/apache2/extra/httpd-vhosts.conf
 * to
 * /etc/apache2/extra/httpd-vhosts.conf
 
-* link from
+* [x] link from
 * subparprogrammer/servers/http/etc/apache2/extra/httpd-userdir.conf
 * to
 * /etc/apache2/extra/httpd-userdir.conf
 
-* link from
+* [x] link from
 * subparprogrammer/servers/http/etc/apache2/httpd.conf
 * to
 * /etc/apache2/httpd.conf
 
-* link from
+* [x] link from
 * subparprogrammer/servers/http/etc/apache2/users/darbinreyes.conf
 * to
 * /etc/apache2/users/darbinreyes.conf
@@ -236,9 +250,9 @@ $ ln originalfile
 * [ ] Read [getting started.](http://httpd.apache.org/docs/2.4/getting-started.html)
 * [ ] URL [mapping.](http://httpd.apache.org/docs/2.4/urlmapping.html)
 * [ ] Virtual [hosts.](http://httpd.apache.org/docs/2.4/vhosts/)
-* [ ] Add a custom 403 error response.
+* [x] Add a custom 403 error response.
 * [ ] Point darbinreyes.com to index.html.
-* [ ] Since /etc/apache2/users/darbinreyes.conf contains "FollowSymLinks", it seems I should be able to make my current site directory /Users/darbinreyes/Sites/darbinreyes.com into a symbolic link which points to index.html in my git repo. This way I can change index.html in one place (the git repo on my MBP) instead of two. Can I do this for the conf files by telling apache to use the conf files in my git repo?
+* [x] Since /etc/apache2/users/darbinreyes.conf contains "FollowSymLinks", it seems I should be able to make my current site directory /Users/darbinreyes/Sites/darbinreyes.com into a symbolic link which points to index.html in my git repo. This way I can change index.html in one place (the git repo on my MBP) instead of two. Can I do this for the conf files by telling apache to use the conf files in my git repo?
     * I just discovered that when apache is restarted it copies /etc/apache2/users/darbinreyes.conf to /private/etc/apache2/users/darbinreyes.conf
 
 # Using the nano editor.
