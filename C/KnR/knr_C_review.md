@@ -350,6 +350,27 @@ Can be applied to internal variables. This provides a local variable with persis
 
 ## 4.7 Register Variables 
 
+keyword that tells the compiler that this variable will be used allot, if possible it should be placed in a machine register to improve performance. But the compiler is free to ignore this. 
 
+Only allowed for automatic variables. Including function arguments.
+
+## 4.8 Block Structure 
+
+Variable declarations inside any block delineated by curly braces limit to scope of that variable to the containing block. You can even declare variables of the same name as ones in the outer containing block. Their existence ends where the block ends. Such declarations also hide external variables and functions, doing this is not good since it can become confusing to have identically named variables even though the scope rules are well defined.
+
+## 4.9 Initialization 
+
+External and static variables are initialized to 0. Not so or automatic and register variables.
+
+External and static variables can only be initialized with a constant expression. This is not a restriction for automatic and register variables, in this case it can be any expression, even a function call.
+
+Array initialization. Without a size specification, the size is determined by the compiler from the initialization list in curly braces. With a size, if the initialization list has fewer elements than the size the remaining entries are set to 0. More initializers that the specified size is an error.
+
+For char arrays a special initialization format is allowed, viz. initialization with a string constant like "bro".
+
+
+## 4.10 Recursion 
+
+pg. 74. "Another good example of recursion is quicksort"
 
 
