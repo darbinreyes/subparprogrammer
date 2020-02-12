@@ -277,7 +277,7 @@ $ ln ./../../../../../../../../etc/hosts
 * [x] Point darbinreyes.com to index.html.
 * [x] Since /etc/apache2/users/darbinreyes.conf contains "FollowSymLinks", it seems I should be able to make my current site directory /Users/darbinreyes/Sites/darbinreyes.com into a symbolic link which points to index.html in my git repo. This way I can change index.html in one place (the git repo on my MBP) instead of two. Can I do this for the conf files by telling apache to use the conf files in my git repo?
     * I just discovered that when apache is restarted it copies /etc/apache2/users/darbinreyes.conf to /private/etc/apache2/users/darbinreyes.conf
-* [ ] Add a vitualhost under devtest.localhost. This will point to the copy of my website that I will make changes to and test. When I complete a change I can copy the completed and stable change to the main website directory. Remove symbolic link from Sites/darbinreyes.com.
+* [x] Add a vitualhost under devtest.localhost. This will point to the copy of my website that I will make changes to and test. When I complete a change I can copy the completed and stable change to the main website directory. Remove symbolic link from Sites/darbinreyes.com.
 * [ ] Add a vitualhost under devtest.darbinreyes.com. 
 
 # Using the nano editor.
