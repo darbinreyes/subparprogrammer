@@ -593,8 +593,27 @@ MyClass.foo() // is a function object.
 
 ### https://docs.python.org/3/tutorial/classes.html#method-objects
 
+the special thing about methods is that the instance object is passed as the first argument of the function. 
 
+the **instance object** and the **function object** just found **together** in an abstract object: this is the **method object**.
 
+### https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables
+
+Be careful about when creating classes with respect to shared and unshared data between instances of a class. Particularly for mutable objects like list objects.
+
+## https://docs.python.org/3/tutorial/classes.html#random-remarks
+
+nothing in Python makes it possible to enforce data hiding — it is all based upon convention. // i.e. you are not prevented from accessing data members directly, can always do that, even though a methods exists to do the same, like private data members in Java. Python also lets you add data members to an instance object on the fly. Another distinction with Java.
+
+Often, the first argument of a method is called self. This is nothing more than a **convention:**
+
+It is not necessary that the function definition is textually enclosed in the class definition: assigning a function object to a local variable in the class is also ok.
+
+Methods may reference **global names** in the same way as ordinary functions. The **global scope** associated with a method is the module containing its definition. 
+
+Special data attribute of class instances which store its type(a.k.a class)
+
+object.__class__
 
 
 
