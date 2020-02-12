@@ -194,9 +194,8 @@ results in "server IP address could not be found."
 
 * Here we have to make the decision wether the git repo should contain the symbolic link or wether the git repo should contain the actual file. It seems reasonable to choose one or the other and not a mix. In either case, I will be able to modify the files in the git repo and affect the apache server without having to copy files to keep them in sync. I choose to make the git repo contain the links and keep the original files where they currently are.
 
-* Potential problem. By using hard links, I can now modify my original apache conf files and have any changes to those files be reflected as changes in my git repo. But git cannot distinguish the hard link to the conf files from the from the original files in the repository, it appears as the same file. This means that the result of changes those files is different on my MBP vs. my MBA. On my MBP, a change to the conf files in the repo will have an immediate affect on apache. On my MBA, the same changes will only affect the copy of the file in the repo. This is OK, but since it appears that git does not allow symbolic links to directories to be tracked (git add errors out) I will have to break the above "no mixing" rule. For my web content, the symbolic link will be from the Sites/darbinreyes.com directory to the files in the git repo at subparprogrammer/web/darbinreyes.com/.
+* Potential problem. By using hard links, I can now modify my original apache conf files and have any changes to those files be reflected as changes in my git repo. But git cannot distinguish the hard link to the conf files from the from the original files in the repository, it appears as the same file. This means that the result of changes those files is different on my MBP vs. my MBA. On my MBP, a change to the conf files in the repo will have an immediate affect on apache. On my MBA, the same changes will only affect the copy of the file in the repo. This is OK, but since it appears that git does not allow symbolic links to directories to be tracked (git add errors out) I will have to break the above "no mixing" rule. For my web content, the symbolic link will be from the Sites/darbinreyes.com directory to the files in the git repo at subparprogrammer/web/darbinreyes.com/. For the .conf files and hosts file, it is the opposite, I created a hard link is from the git repo to the original files.
 
-* [ ] Test httpd.conf link in the opposite direction.
 
 * [x] link from 
 * /Users/darbinreyes/Sites/darbinreyes.com
@@ -246,14 +245,40 @@ $ ln ./../../../../../../../../etc/hosts
 * to
 * /etc/apache2/users/darbinreyes.conf
 
+# Pointing darbinreyes.com to /Users/darbinreyes/Sites/darbinreyes.com
+
+* Trial and error.
+
+* Added the following to httpd-vhosts.conf and restarting apache.
+
+```xml
+#Virtual Host Entry for darbinreyes.com
+<VirtualHost *:80>
+  DocumentRoot "/Users/darbinreyes/Sites/darbinreyes.com"
+  ServerName darbinreyes.com
+  ErrorLog "/private/var/log/apache2/darbinreyes.com-error_log"
+  CustomLog "/private/var/log/apache2/darbinreyes.com-access_log" common
+</VirtualHost>
+```
+
+* Result: Works over my WIFI but not over LTE.
+
+* Will adding the following to the hosts file fix it over LTE?
+
+127.0.0.1  darbinreyes.com
+
+* Result: Yes, that fixed it.
+
 # TODO
 * [ ] Read [getting started.](http://httpd.apache.org/docs/2.4/getting-started.html)
 * [ ] URL [mapping.](http://httpd.apache.org/docs/2.4/urlmapping.html)
 * [ ] Virtual [hosts.](http://httpd.apache.org/docs/2.4/vhosts/)
 * [x] Add a custom 403 error response.
-* [ ] Point darbinreyes.com to index.html.
+* [x] Point darbinreyes.com to index.html.
 * [x] Since /etc/apache2/users/darbinreyes.conf contains "FollowSymLinks", it seems I should be able to make my current site directory /Users/darbinreyes/Sites/darbinreyes.com into a symbolic link which points to index.html in my git repo. This way I can change index.html in one place (the git repo on my MBP) instead of two. Can I do this for the conf files by telling apache to use the conf files in my git repo?
     * I just discovered that when apache is restarted it copies /etc/apache2/users/darbinreyes.conf to /private/etc/apache2/users/darbinreyes.conf
+* [ ] Add a vitualhost under devtest.localhost. This will point to the copy of my website that I will make changes to and test. When I complete a change I can copy the completed and stable change to the main website directory. Remove symbolic link from Sites/darbinreyes.com.
+* [ ] Add a vitualhost under devtest.darbinreyes.com. 
 
 # Using the nano editor.
 

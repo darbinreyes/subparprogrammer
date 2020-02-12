@@ -15,4 +15,8 @@ fe80::1%lo0	localhost
 
 # Next 2 lines are from the tutorial. See subparprogrammer/servers/http/README.md.
 #Local sites
-127.0.0.1       darbinreyes.com.localhost
+#127.0.0.1       darbinreyes.com.localhost
+
+127.0.0.1  darbinreyes.com
+
+127.0.0.1  devtest.localhost
