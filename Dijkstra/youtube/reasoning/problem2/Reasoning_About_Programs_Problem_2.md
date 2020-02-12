@@ -8,7 +8,7 @@ Our next example is very different. In passing it shows another form of the inte
 
 ![p2.0](p2.0.png)
 
-Let me explain the problem first. We are considering capital n blue points in the euclidian plane and an equal number of red points in the euclidian plane such that no three of them are in the same straight line. Now that is clearly satisfied in this example. 
+Let me explain the problem first. We are considering capital n blue points in the euclidian plane and an equal number of red points in the euclidian plane, **such that no three of them are in the same straight line**. Now that is clearly satisfied in this example. 
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=29m00s)
 
@@ -70,12 +70,11 @@ Each of them representing one of the n factorial one to one correspondences. Now
 
 ![p2.6](p2.6.png)
 
-So let us investigate the situation that the statement "change z" has to cope with. Now listen, the preceding guard was "z has an intersection", so the precondition Q of the operation "change z” is z has one intersection, at least, more intersections cannot be guaranteed. So the as yet un-refined statement “change z”, has to be designed in such a way that, it copes with the situation "one intersection”. Now that is the situation we have drawn here, two red, two blue, two-red blue connections, and they intersect. Now the presence of this subfigure is the only thing we can rely on.
+So let us investigate the situation that the statement "change z" has to cope with. Now listen, the preceding guard was "z has an intersection", so the precondition Q of the operation "change z” is z has one intersection, at least, more intersections cannot be guaranteed. So the as yet un-refined statement “change z”, has to be designed in such a way that, it copes with the situation "one intersection”. Now that is the situation we have drawn here, two red, two blue, two red-blue connections, and they intersect. Now the presence of this subfigure is the only thing we can rely on.
 
 How can the one to one correspondence be changed? Well the only way we can do that, is changing the solid lines by the dotted lines, the red point in the left top was coupled to one of the blues ones and now has to be paired to the other blue one. So the only freedom we have is, to change those two pairings, those two connections: the operation “flip". I did not give it a name. It's the operation "flip”. 
 
 // my comment: When Dijkstra says “only freedom” he usually means that this is the only thing we can do, hence there is no choice to be made. No heuristic guidance is required in deciding how to proceed.
-
 
 I would like you to understand that in the design of that operation, we do not have, any choice, because the precondition Q only guarantees the existence of one intersecting pair of connections. Now of course we have to find a termination argument. Regrettably, we cannot argue that if we replace the solid lines by dotted lines, that then the number of intersections decreases. We have removed the one shown.
 
@@ -89,7 +88,7 @@ But we may have introduced more. Let me give you an example. We have the situati
 
 ![p2.7](p2.7.png)
 
-And the suggestion was to replace, to couple this red with that blue, and that red with that blue. 
+And the suggestion was to replace, to couple, this red with that blue, and that red with that blue. 
 
 //p2.8
 
@@ -115,7 +114,15 @@ or for instance, here.
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=39m14s)
 
-The fact that this new connection and this new connection may intersect, heaven knows how many of the other intersections that we did not take into consideration, that tells us that if we are looking for a termination argument that we cannot derive it in a decrease in the number of intersections, it may actually increase, but it tells us what we have to look for. We cannot count the number of intersections, because an intersection is a result of a pair of segments, and we do not know with how many unmentioned connections our two connections interfere. And it tells us that we have to find our termination argument from, an argument that considers the connections on a more individual basis. Now there is one great advantage in this example, and the advantage is that, our state space has only a finite number of possible values. Our state space consists of the single variable z, and the single variable z has only n factorial different values. So this is a problem with a finite state space, and we can ensure termination if execution of the algorithm never revisits the same state again. 
+The fact that this new connection
+
+//a.2.0
+
+and this new connection 
+
+//a.2.1
+
+may intersect, heaven knows how many of the other intersections that we did not take into consideration, that tells us that if we are looking for a termination argument that we cannot derive it in a decrease in the number of intersections, it may actually increase, but it tells us what we have to look for. We cannot count the number of intersections, because an intersection is a result of a pair of segments, and we do not know with how many unmentioned connections our two connections interfere. And it tells us that we have to find our termination argument from, an argument that considers the connections on a more individual basis. Now there is one great advantage in this example, and the advantage is that, our state space has only a finite number of possible values. Our state space consists of the single variable z, and the single variable z has only n factorial different values. So this is a problem with a finite state space, and we can ensure termination if execution of the algorithm never revisits the same state again. 
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=41m18s)
 
@@ -129,12 +136,13 @@ no longer restricted to an integer function, counting something, as we did in th
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=42m25s)
 
-there is such a thing as the triangular inequality, in each triangle, the sum of two sides, exceeds the length of the third, now in this triangle the length of these two lengths summed, are more than that one
+there is such a thing as the triangular inequality, in each triangle, the sum of two sides, exceeds the length of the third, 
 
 //p2.12
 
 ![p2.12](p2.12.png)
 
+now in this triangle the length of these two lengths summed,
 //p2.13
 
 ![p2.13](p2.13.png)
@@ -142,6 +150,8 @@ there is such a thing as the triangular inequality, in each triangle, the sum of
 //p2.14
 
 ![p2.14](p2.14.png)
+
+are more than that one
 
 //p2.15
 
@@ -151,7 +161,18 @@ there is such a thing as the triangular inequality, in each triangle, the sum of
 
 ![p2.16](p2.16.png)
 
-and the sum of these two lengths exceeds the other dotted one. And we see that in this move, the length of, sorry, the sum of the length of these two connections, decreases.
+and the sum of these two lengths 
+
+//a.2.2
+//a.2.3
+//a.2.4
+//a.2.5
+
+exceeds the other dotted one. 
+
+//a.2.6
+
+And we see that in this move, the length of, sorry, the sum of the length of these two connections, 
 
 //p2.17
 
@@ -171,7 +192,7 @@ and the sum of these two lengths exceeds the other dotted one. And we see that i
 
 // my comment: i.e. for the upper triangle the length of the path from red to intersection to blue is greater, by the triangle inequality, than the length of the DOTTED path from red directly to blue. Same for the lower triangle. From this we can conclude also that the sum of the length of the solid pair of connections is greater than the sum of the length of the DOTTED pair of connections.
 
-The other pairings in the one to one correspondence remaining what they are, we conclude that in the move, the sum of the lengths of the line segments decreases. And that is sufficient to demonstrate termination, and hence our program terminates, and hence our program establishes a one to one correspondence that has no intersections. 
+decreases. The other pairings in the one to one correspondence remaining what they are, we conclude that in the move, the sum of the lengths of the line segments decreases. And that is sufficient to demonstrate termination, and hence our program terminates, and hence our program establishes a one to one correspondence that has no intersections. 
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=43m35s)
 
