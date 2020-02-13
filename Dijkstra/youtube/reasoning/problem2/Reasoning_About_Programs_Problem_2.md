@@ -118,9 +118,13 @@ The fact that this new connection
 
 //a.2.0
 
+![a.2.0](a.2.0.png)
+
 and this new connection 
 
 //a.2.1
+
+![a.2.1](a.2.1.png)
 
 may intersect, heaven knows how many of the other intersections that we did not take into consideration, that tells us that if we are looking for a termination argument that we cannot derive it in a decrease in the number of intersections, it may actually increase, but it tells us what we have to look for. We cannot count the number of intersections, because an intersection is a result of a pair of segments, and we do not know with how many unmentioned connections our two connections interfere. And it tells us that we have to find our termination argument from, an argument that considers the connections on a more individual basis. Now there is one great advantage in this example, and the advantage is that, our state space has only a finite number of possible values. Our state space consists of the single variable z, and the single variable z has only n factorial different values. So this is a problem with a finite state space, and we can ensure termination if execution of the algorithm never revisits the same state again. 
 
@@ -164,13 +168,26 @@ are more than that one
 and the sum of these two lengths 
 
 //a.2.2
+
+![a.2.2](a.2.2.png)
+
 //a.2.3
+
+![a.2.3](a.2.3.png)
+
 //a.2.4
+
+![a.2.4](a.2.4.png)
+
 //a.2.5
+
+![a.2.5](a.2.5.png)
 
 exceeds the other dotted one. 
 
 //a.2.6
+
+![a.2.6](a.2.6.png)
 
 And we see that in this move, the length of, sorry, the sum of the length of these two connections, 
 
@@ -204,10 +221,10 @@ Two final remarks about this last program. One might ask what has happened to th
 
 Another remark to be made is, to compare this argument with how classical mathematics would formulate it. I think that the classical mathematical argument would be as follows. There is a finite number of one to one correspondences, consider now the one to one correspondences such that the sum of the lengths of the connections is minimal, and suppose that that one has a intersection. Now then comes the same argument that we had and you construct a shorter one to one correspondence, and then you have a contradiction and by a reductio ad absurdum the theorem is proved. 
 
-I think that our argument here is preferable for two reasons. First of all, we have avoided the reductio ad absurdum and gave completely constructive proof. Secondly, we are freed from the moral obligation that many a classical mathematician feels, and that is after he has given a proof as sketched, adds: "note that the shortest one to one correspondence need not be the only solution". In our case, we don’t need to do that because, the final value of our program can be any of the intersection free one to one correspondences. If there is another one to one correspondence, because we have left first statement initialize z completely undetermined, it could initialize z with that value and immediately the repetition terminates. So here we have a program that, for which each possible answer is possible, if I may say so. 
+I think that our argument here is preferable for two reasons. First of all, we have avoided the reductio ad absurdum and gave a completely constructive proof. Secondly, we are freed from the moral obligation that many a classical mathematician feels, and that is after he has given a proof as sketched, adds: "note that the shortest one to one correspondence need not be the only solution". In our case, we don’t need to do that because, the final value of our program can be any of the intersection free one to one correspondences. If there is another one to one correspondence, because we have left first statement initialize z completely undetermined, it could initialize z with that value and immediately the repetition terminates. So here we have a program that, for which each possible answer is possible, if I may say so. 
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=49m12s)
 
-Now this concludes the treatment of the second example. One final request, to you, having seen how we can convince ourselves that programs indeed are totally correct. Please realize that if you have written a program, and it's not correct, it is a little bit cowardly, to say that your program had a bug, to call errors bugs, is a very primitive animistic attitude, suggests that the bug has a life of itself, and that you’re not totally responsible for it. That the mean little bug crept in behind your back at the moment you were not looking. This is not true, if the program is not correct, you made an error. And my request, my prayer so to speak is, that you stop using the term bugs for program errors, but call them what they are: errors. Unless we change our language, and call an error an error, programming and computing science have not yet matured. Thank you for your attention.
+Now this concludes the treatment of the second example. One final request, to you, having seen how we can convince ourselves that programs indeed are totally correct. Please realize that if you have written a program, and it's not correct, it is a little bit **cowardly**, to say that your program had a bug, to call errors bugs, is a very primitive animistic attitude, suggests that the bug has a life of itself, and that you’re not totally responsible for it. That the mean little bug crept in behind your back at the moment you were not looking. This is not true, if the program is not correct, **you made an error**. And my request, my prayer so to speak is, that you stop using the term bugs for program errors, but call them what they are: errors. Unless we change our language, and call an error an error, programming and computing science have not yet matured. Thank you, for your attention.
 
 
