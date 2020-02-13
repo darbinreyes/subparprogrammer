@@ -188,7 +188,8 @@ int // Be careful, since arguments are unsigned it may be possible that the retu
 VII_2_gcm (
   unsigned int a,
   unsigned int b
-  ) {
+  )
+{
   int rp;
 
   rp = VII_1_relatively_prime (a, b); // The proposition begins with the assertion that a, b are not relatively prime.
@@ -254,7 +255,8 @@ VII_3_gcm (
   unsigned int a,
   unsigned int b,
   unsigned int c
-  ) {
+  )
+{
 
   if (!( a > 1 && b > 1 && c > 1)) { // Valid arguments means integers > 1.
     assert(0);
@@ -306,8 +308,7 @@ VII_3_gcm (
 /**
   Determines if the lesser number measures the greater number.
   Based on VII.2, a number measures itself,
-  i.e. if the given numbers are equal, this function considers that the one
-  number measures the other.
+  i.e. if the given numbers are equal, this function considers that b measures a.
 
   @param  b The lesser number.
   @param  a The greater number.
@@ -367,7 +368,8 @@ int
 VII_4_part_or_parts (
   unsigned int b,
   unsigned int a
-  ) {
+  )
+{
 
   if (!(a > 1 && b > 1)) {
     assert(0);
@@ -417,6 +419,147 @@ VII_4_part_or_parts (
   assert(0); // rp should have been == 0 or == 1.
 
   return -3;
+}
+
+/**
+
+  See measures_v0 (). This is an alternate implementation of measures_v0 ().
+  Determines how many times b measures a.
+
+  @param  b The lesser number.
+  @param  a The greater number.
+
+  @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
+  @retval -2  If !(b <= a). This is considered invalid input.
+  @retval 0    If !(b|a).
+  @retval > 0  If b|a. The return value = the number of times that b measures a, i.e. a/b.
+
+**/
+int
+measures_v1 (
+  unsigned int b,
+  unsigned int a
+  )
+{
+  if (!(a > 1 && b > 1)) {
+    assert(0);
+    return -1;
+  }
+
+  if(!(b <= a)) {
+    assert(0);
+    return -2;
+  }
+
+  int d;
+
+  d = 0;
+
+  while (a >= b) {
+    a = a - b;
+    d = d + 1;
+  }
+
+  if (a == 0) { // See EWD implementation in Euclid.VII.4.md.
+    ;
+  } else {
+    d = 0;
+  }
+
+  return d;
+}
+
+/**
+  See VII_4_part_or_parts (). This is an alternate implementation of VII_4_part_or_parts ().
+
+  Determines if the lesser number is part or parts of the greater number.
+  Also computes how many if what part, in least numbers, i.e., the least numbers
+  m and n such that a = (m/n)∙b.
+
+  @param  b The lesser number.
+  @param  a The greater number.
+
+  @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
+  @retval -2  If !(b < a). This is considered invalid input.
+  @retval -3 (m == NULL || n == NULL).
+  @retval -4  Unexpected error.
+  @retval 0  If b is part of a.
+  @retval 1  If b is parts of a.
+
+**/
+int
+VII_4_part_or_parts_v1 (
+  unsigned int b,
+  unsigned int a,
+  int         *m,
+  int         *n
+  )
+{
+
+  if (!(a > 1 && b > 1)) {
+    assert(0);
+    return -1;
+  }
+
+  if (!(b < a)) {
+    assert(0);
+    return -2;
+  }
+
+  if (m == NULL || n == NULL) {
+    assert(0);
+    return -3;
+  }
+
+  int rp;
+
+  rp = VII_1_relatively_prime (b, a);
+
+  if (rp < 0) {
+    assert(0);
+    return -4;
+  }
+
+  *n = measures_v1 (b, a);
+
+  if (*n < 0) {
+    assert(0);
+    return -4;
+  }
+
+  int p;
+
+  if (rp) {
+    p = 1;
+    *m = (int) b;
+    *n = (int) a;
+  } else if (!rp && *n > 0) {
+    p = 0;
+    *m = 1;
+  } else if (!rp && !(*n > 0)) {
+    p = 1;
+    int d;
+    d = VII_2_gcm (b, a);
+    if (d < 0) {
+      assert(0);
+      return -4;
+    }
+    *m = measures_v1 (d, b);
+    if (*m < 0) {
+      assert(0);
+      return -4;
+    }
+    *n = measures_v1 (d, a);
+    if (*n < 0) {
+      assert(0);
+      return -4;
+    }
+  } else {
+    assert(0);
+    return -4;
+  }
+
+  return p;
 }
 
 /**

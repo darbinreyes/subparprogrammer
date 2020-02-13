@@ -26,6 +26,14 @@ VII_4_part_or_parts (
   unsigned int a
   );
 
+int
+VII_4_part_or_parts_v1 (
+  unsigned int b,
+  unsigned int a,
+  int         *m,
+  int         *n
+  );
+
 void test_VII_1()
 {
   /**
@@ -237,6 +245,26 @@ void test_VII_4 ()
   assert_true( VII_4_part_or_parts (b, a) == result);
 }
 
+void test_VII_4_v1 (void)
+{
+  unsigned int a, b;
+  int result;
+  int m, n;
+  int result_m, result_n;
+
+  b = 3;
+  a = 7;
+  result = 1; // parts.
+  result_m = 3;
+  result_n = 7;
+  m = -1;
+  n = -1;
+  printf ("b = %u, a = %u. expect part_or_parts = %d. m = %d. n = %d.\n", b, a, result, result_m, result_n);
+  assert_int_equal(result, VII_4_part_or_parts_v1 (b, a, &m, &n));
+  assert_int_equal(result_m, m);
+  assert_int_equal(result_n, n);
+}
+
 /**
 void test_asserting()
 {
@@ -260,6 +288,7 @@ void test_fixture_two( void )
   run_test(test_VII_2);
   run_test(test_VII_3);
   run_test(test_VII_4);
+  run_test(test_VII_4_v1);
   // run_test(test_asserting);
   // run_test(test_assert_fails);
   test_fixture_end();

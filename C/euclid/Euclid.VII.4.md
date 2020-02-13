@@ -82,11 +82,48 @@ Same as v0 but in addition, compute m, n. See guide above.
 
 ## Implementation in EWD notation.
 
-On paper.
+**subroutine measures_v1:**
+// Determines how many times the number b measures the number a.
+integer a, b // input.
+integer d // output. 0 = ¬(b|a). > 0 (b|a) and d = a/b.
+
+{ b > 1 ∧ a > 1 ∧ b ≤ a }
+
+d := 0
+; _do_ a ≥ b → 
+  a := a - b; d := d + 1
+_od_
+; _if_ a = 0 → skip
+⌷ ¬(a = 0) → d := 0
+_fi_
+**end of subroutine.**
+
+**subroutine part_or_parts_v1:**
+// Determines if the number b is part of the number a, or, if the number b is part**s** of the number a. Also computes how many if what part, in least numbers, i.e., the least numbers m and n such that a = (m/n)∙b.
+
+
+integer b, a // input.
+boolean p // output. p = false if b is part of a. p = true if b is parts of a.
+integer m, n // output. a = (m/n)∙b, m and n are computed in least numbers.
+boolean rp
+integer d
+
+{ b > 1 ∧ a > 1 ∧ b < a }
+
+rp := relatively_prime.(b, a)
+; n := measures_v1.(b, a)
+; _if_ rp → p := true; m := b; n := a
+⌷ ¬rp ∧ n > 0 → p := false; m := 1
+⌷ ¬rp ∧ ¬(n > 0) → p := true; d := gcm.(b, a)
+; m := measures_v1.(d, b); n := measures_v1.(d, a)
+_fi_
+**end of subroutine.**
+
+I suck.
 
 ## Misc.
 
 "Examples are the exclusion of goto-statements and of procedures with more than **one** output parameter. " -Dijkstra // I will try to avoid more that one output in my C code, if possible.
 
-"If now CD measures AB, since it also measures **itself**" - VII.2 // This quote shows that the property that b|a holds in the case b = a. I use this in the implementation of measures().
+"If now CD measures AB, since it also measures **itself**" - VII.2 // This quote shows that the property that b|a holds in the case b = a. I use this in the implementation of measures_v0().
 
