@@ -411,7 +411,6 @@ When this is invoked, as in
 the macro is expanded into 
 `printf("x/y" " = &g\n", x/y)` 
 
-
-
+// next: pg. 76 The preprocessor operator ## 
 
 
