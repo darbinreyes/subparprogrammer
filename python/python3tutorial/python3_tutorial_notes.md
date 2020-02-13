@@ -615,6 +615,33 @@ Special data attribute of class instances which store its type(a.k.a class)
 
 object.__class__
 
+## https://docs.python.org/3/tutorial/classes.html#inheritance
+
+For attribute references, the derived class is checked first, if not there, a recursive search begins at the base class.
+
+Note on method overrides, a call to a base class method can end up calling an overiden method in the derived class:
+
+"a method of a base class that calls another method defined in the same base class may end up calling a method of a derived class that overrides it."
+
+If you want to "extend" rather than override a base class method you can call the base class method using:
+
+`BaseClassName.methodname(self, arguments)`
+
+`isinstance(obj, int)` will be True only if `obj.__class__` is int or some **class derived** from int.
+
+`issubclass(bool, int)` is True since bool is a subclass of int.
+
+### https://docs.python.org/3/tutorial/classes.html#multiple-inheritance
+
+> you can think of the search for attributes inherited from a parent class as depth-first, left-to-right, not searching twice in the same class where there is an overlap in the hierarchy.
+
+> if an attribute is not found in DerivedClassName, it is searched for in Base1, then (recursively) in the base classes of Base1, and if it was not found there, it was searched for in Base2, and so on.
+
+> it is slightly more complex than that; the method resolution order changes dynamically 
+
+### https://docs.python.org/3/tutorial/classes.html#private-variables
+
+next: this section.
 
 
 
