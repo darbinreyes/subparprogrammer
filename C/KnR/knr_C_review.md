@@ -371,6 +371,47 @@ For char arrays a special initialization format is allowed, viz. initialization 
 
 ## 4.10 Recursion 
 
-pg. 74. "Another good example of recursion is quicksort"
+Another good example of recursion is quicksort, a sorting algorithm developed by **C.A.R. Hoare in 1962.**
+
+## 4.11 The C Preprocessor 
+
+Conceptually the first step in compilation.
+
+### 4.11.1 File Inclusion 
+
+### 4.11.2 Macro Substitution 
+
+In a line like
+
+`#define name repl_text`
+
+`name` is called a token.
+
+Example with arguments:
+
+`#define max(A, B) ((A) > (B) ? (A) : (B))`
+
+Always use explicit parens to avoid errors.
+
+It's all bare bones text replacement.
+
+If you examine the expansion of max, you will notice some pitfalls. The expressions are **evaluated twice**; this is bad if they involve **side effects** like increment operators or input and output. For instance 
+`max(i++, j++) /* WRONG */`
+
+Some care also has to be taken with **parentheses** to make sure the order of evaluation is preserved; consider what happens when the macro 
+`#define square(x) x * x /* WRONG */ is invoked as square(z+1).`
+
+Use case, done in the standard libs. "macros to avoid the **run-time overhead** of a function call per character processed."
+
+You can convert a macro argument into a quoted string by preceding the argument name with a \# character. e.g.
+
+`#define dprint(expr) printf(#expr " = %g\n", expr)`
+When this is invoked, as in 
+`dprint(x/y)` 
+the macro is expanded into 
+`printf("x/y" " = &g\n", x/y)` 
+
+
+
 
 
