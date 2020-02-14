@@ -11,19 +11,19 @@
 * [x] Read the proposition proof. Note comments for clarification.
 * [x] Write max 3 sentence proof summary. Use EWD notation for brevity and notation practice.
 * [x] Specify. What the program does. Design. Very high level pseudo code.
-* [ ] Implement on paper, in C. 
+* [x] Implement on paper, in C. 
   * [x] v0 
-  * [ ] v1
-* [ ] Implement in EWD notation, on paper.
+  * [x] v1
+* [x] Implement in EWD notation, on paper.
   * [x] v0 
   * [x] v1
 * [x] Write down 3 test cases.
-* [ ] Test on paper. Use table method.
+* [x] Test on paper. Use table method.
   * [x] v0 
-  * [ ] v1
-* [ ] Implement in C on computer. Fully commented. Handle all function call errors and asserts gracefully.
+  * [x] v1
+* [x] Implement in C on computer. Fully commented. Handle all function call errors and asserts gracefully.
   * [x] v0 
-  * [ ] v1
+  * [x] v1
 * [x] Add and run test cases on computer. Use gdb debugging if needed.
 * [x] Verify test case answers in python. Add results as comment in test.
 
@@ -104,7 +104,7 @@ _fi_
 
 integer b, a // input.
 boolean p // output. p = false if b is part of a. p = true if b is parts of a.
-integer m, n // output. a = (m/n)∙b, m and n are computed in least numbers.
+integer m, n // output. b = (m/n)∙a, m and n are computed in least numbers.
 boolean rp
 integer d
 

@@ -11,10 +11,10 @@ Proposition statement.
 * [ ] Read the proposition proof. Note comments for clarification.
 * [ ] Write max 3 sentence proof summary. Use EWD notation for brevity and notation practice.
 * [ ] Specify. What the program does. Design. Very high level pseudo code.
-* [ ] Implement on paper, in C. 
 * [ ] Implement in EWD notation, on paper.
 * [ ] Write down 3 test cases.
 * [ ] Test on paper. Use table method.
+* [ ] Implement on paper, in C. 
 * [ ] Implement in C on computer. Fully commented. Handle all function call errors and asserts gracefully.
 * [ ] Add and run test cases on computer. Use gdb debugging if needed.
 * [ ] Verify test case answers in python. Add results as comment in test.
