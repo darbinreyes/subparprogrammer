@@ -247,22 +247,108 @@ void test_VII_4 ()
 
 void test_VII_4_v1 (void)
 {
-  unsigned int a, b;
-  int result;
-  int m, n;
-  int result_m, result_n;
+/**
+
+  Here are the correct values for the test cases computed separately in python.
+
+$ python3.8 VII_4_part_or_parts_v1.py
+ret, m, n =  (1, 3, 7)
+ret, m, n =  (1, 6, 7)
+ret, m, n =  (0, 1, 3)
+ret, m, n =  (0, 1, 4)
+ret, m, n =  (1, 2, 3)
+ret, m, n =  (1, 2, 3)
+
+**/
+  unsigned int a, b; // Input values.
+  int m, n; // Computed output argument values.
+  int ret; // Computed return value.
+  int expected_m, expected_n; // Expected output argument values.
+  int expected_ret; // Expected return value.
 
   b = 3;
   a = 7;
-  result = 1; // parts.
-  result_m = 3;
-  result_n = 7;
   m = -1;
   n = -1;
-  printf ("b = %u, a = %u. expect part_or_parts = %d. m = %d. n = %d.\n", b, a, result, result_m, result_n);
-  assert_int_equal(result, VII_4_part_or_parts_v1 (b, a, &m, &n));
-  assert_int_equal(result_m, m);
-  assert_int_equal(result_n, n);
+  ret = -1;
+  expected_ret = 1; // parts.
+  expected_m = 3;
+  expected_n = 7;
+  printf ("b = %u, a = %u. expect ret = %d. m = %d. n = %d.\n", b, a, expected_ret, expected_m, expected_n);
+  ret = VII_4_part_or_parts_v1 (b, a, &m, &n);
+  assert_int_equal(expected_ret, ret);
+  assert_int_equal(expected_m, m);
+  assert_int_equal(expected_n, n);
+
+  b = 6;
+  a = 7;
+  m = -1;
+  n = -1;
+  ret = -1;
+  expected_ret = 1; // parts.
+  expected_m = 6;
+  expected_n = 7;
+  printf ("b = %u, a = %u. expect ret = %d. m = %d. n = %d.\n", b, a, expected_ret, expected_m, expected_n);
+  ret = VII_4_part_or_parts_v1 (b, a, &m, &n);
+  assert_int_equal(expected_ret, ret);
+  assert_int_equal(expected_m, m);
+  assert_int_equal(expected_n, n);
+
+  b = 2;
+  a = 6;
+  m = -1;
+  n = -1;
+  ret = -1;
+  expected_ret = 0; // part.
+  expected_m = 1;
+  expected_n = 3;
+  printf ("b = %u, a = %u. expect ret = %d. m = %d. n = %d.\n", b, a, expected_ret, expected_m, expected_n);
+  ret = VII_4_part_or_parts_v1 (b, a, &m, &n);
+  assert_int_equal(expected_ret, ret);
+  assert_int_equal(expected_m, m);
+  assert_int_equal(expected_n, n);
+
+  b = 3;
+  a = 12;
+  m = -1;
+  n = -1;
+  ret = -1;
+  expected_ret = 0; // part.
+  expected_m = 1;
+  expected_n = 4;
+  printf ("b = %u, a = %u. expect ret = %d. m = %d. n = %d.\n", b, a, expected_ret, expected_m, expected_n);
+  ret = VII_4_part_or_parts_v1 (b, a, &m, &n);
+  assert_int_equal(expected_ret, ret);
+  assert_int_equal(expected_m, m);
+  assert_int_equal(expected_n, n);
+
+  b = 4;
+  a = 6;
+  m = -1;
+  n = -1;
+  ret = -1;
+  expected_ret = 1; // parts.
+  expected_m = 2;
+  expected_n = 3;
+  printf ("b = %u, a = %u. expect ret = %d. m = %d. n = %d.\n", b, a, expected_ret, expected_m, expected_n);
+  ret = VII_4_part_or_parts_v1 (b, a, &m, &n);
+  assert_int_equal(expected_ret, ret);
+  assert_int_equal(expected_m, m);
+  assert_int_equal(expected_n, n);
+
+  b = 8;
+  a = 12;
+  m = -1;
+  n = -1;
+  ret = -1;
+  expected_ret = 1; // parts.
+  expected_m = 2;
+  expected_n = 3;
+  printf ("b = %u, a = %u. expect ret = %d. m = %d. n = %d.\n", b, a, expected_ret, expected_m, expected_n);
+  ret = VII_4_part_or_parts_v1 (b, a, &m, &n);
+  assert_int_equal(expected_ret, ret);
+  assert_int_equal(expected_m, m);
+  assert_int_equal(expected_n, n);
 }
 
 /**
