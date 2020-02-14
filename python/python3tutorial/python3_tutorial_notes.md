@@ -641,13 +641,41 @@ If you want to "extend" rather than override a base class method you can call th
 
 ### https://docs.python.org/3/tutorial/classes.html#private-variables
 
-next: this section.
+a name prefixed with an underscore (e.g. _spam) should be treated as a non-public part of the API 
 
-
-
-
-
-
+for class-private members
  
+to avoid name clashes of names with names defined by subclasses
 
+name mangling. 
+
+Any identifier of the form __spam (**at least two** leading underscores, **at most one** trailing underscore) is **textually** replaced with _classname__spam, where classname is the current class name with **leading underscore(s) stripped**. This mangling is done without regard to the syntactic position of the identifier, as long as it occurs **within the definition of a class**.
+
+helpful for letting **subclasses override methods** without breaking intraclass method calls.
+
+```python
+class Mapping:
+    def __init__(self, iterable):
+        self.items_list = []
+        self.__update(iterable) # Note the use of __ here and below causes name mangling to occur. Also note that __update is used here before its introduction below. The existence of that name is evaluated at runtime.
+
+    def update(self, iterable):
+        for item in iterable:
+            self.items_list.append(item)
+
+    __update = update   # private copy of original update() method
+
+class MappingSubclass(Mapping):
+
+    def update(self, keys, values): # This method override has the effect of re-assigning to the name update() a new function object.
+        # provides new signature for update()
+        # but does not break __init__() # Because __init__() calls __update() not update().
+        for item in zip(keys, values):
+            self.items_list.append(item)
+            
+    __update = 'poo' # Does not collide with the base class's __update because name mangling prevents that.
+```
+Note that the mangling rules are designed mostly to avoid accidents; **it still is possible to access** or modify a variable that is considered **private**.
+
+Notice that code passed to exec() or eval() does not consider the classname of the invoking class to be the current class; // This remark is unclear, I think it refers to the classname prefix that is used when name mangling occurs.
 
