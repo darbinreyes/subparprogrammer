@@ -46,3 +46,27 @@
 * https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf
 * https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 
+# EWD special chars. 
+
+http://www.cs.utexas.edu/users/EWD/transcriptions/specialCharacters.html
+
+
+◦ // func composition
+⌷ // fat bar
+≠
+≡
+⇒
+⇐
+∧
+∨
+¬
+∀
+∃
+∈ // element of
+× // times
+→ // guarded command
+≤ // at most = less than or equal to.
+≥ // at least
+∙ // multiply
+
+
