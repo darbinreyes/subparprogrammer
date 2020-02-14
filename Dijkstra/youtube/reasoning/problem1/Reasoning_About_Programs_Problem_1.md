@@ -1,5 +1,7 @@
 # [Edsger W. Dijkstra Reasoning About Programs.](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=1s)
 
+![a.1.0](a.1.0.png)
+
 ## [Problem One](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=5s)
 
 Welcome to this talk on reasoning about programs. We all know that machines are so fast and stores are so big that they give us plenty of latitude to screw things up.
@@ -9,13 +11,19 @@ The one theme is, the general structure of correctness arguments about programs.
 
 Let me introduce the terms to you.
 
+![a.1.1](a.1.1.png)
+
 * // graphic // **“Total Correctness”** means: the program will produce the right result.
 
 Total correctness is our final target. “Total Correctness” means that the program will produce the right result.
 
+![a.1.2](a.1.2.png)
+
 * // graphic // **“Partial Correctness”** means: the program will produce the right result if its execution terminates.
 
 “Partial Correctness” is a weaker concept. It only guarantees that the program will produce the right result if its execution terminates. Now the introduction of the notion of partial correctness, now splits our concerns for total correctness into two separate ones. 
+
+![a.1.3](a.1.3.png)
 
 * // graphic 
 * **“Total Correctness”** means: 
@@ -39,7 +47,21 @@ In order to show you the general structure of those proofs, particularly for par
 
 Precondition, postcondition, initial condition, final condition,  these are alternative terms. Tony Hoare introduced this to mean that if the initial state for the execution of the program fragment S satisfies condition Q then upon termination the program will have taken the machine into a final state that satisfies condition R. Now it is in this formalism that I will describe the general proof rule for a repetitive construct. Well the repetitive construct I will take a very simple one, it contains of two things. A boolean expression B, saying that the repeatable statement should be executed once more, and here is the repeatable statement, and here is the final closing bracket "od".
 
-If firstly, prior to the execution of the whole repeatable statement, a condition P holds. P by the way is called the invariant. And if S has the property that the initial validity of P and the guard, guarantees that upon completion of S, P still holds, well then, clearly S is such that its execution does not destroy the validity of P. 
+![a.1.4](a.1.4.png)
+
+If firstly, prior to the execution of the whole repeatable statement, a condition P holds. 
+
+![a.1.5](a.1.5.png)
+
+P by the way is called the invariant. And if S has the property that the initial validity of P and the guard, 
+
+![a.1.6](a.1.6.png)
+
+guarantees that upon completion of S, P still holds, 
+
+![a.1.7](a.1.7.png)
+
+well then, clearly S is such that its execution does not destroy the validity of P. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=5m26s)
 
@@ -49,21 +71,25 @@ If firstly, prior to the execution of the whole repeatable statement, a conditio
 
 ![p1.1](p1.1.png) // move to after: no longer true.
 
-```
+
 {P}
-do B →
+_do_ B →
     {P ∧ ¬B} S {P}
-od {P ∧ ¬B}
-```
+_od_ {P ∧ ¬B}
+
 
 P holding at the beginning, P remains true no matter how often the statement is executed, so upon completion, P still holds, but furthermore because the repetition is terminated we know that the guard B is no longer true. Now here we have the general pattern that we will use over and over again to prove things about the repetitive construct “do B arrow S od”. P is called the invariant, B is called the guard, S is called the statement, and the post condition is P and the negation of the guard. 
 
 We shall now apply these patterns of reasoning to two different examples. The one of them, the first one, where the correctness concerns plays the major role, and the second one in which the termination concern plays the major role. For the first example, we shall consider a one person game, and the one person game is played with a big urn, full of pebbles, and each pebble is white or black. 
 
+![a.1.8](a.1.8.png)
+
 // graphic
 // Starting position: an urn containing one or more pebbles, each pebble being black or white.
 
 We don’t start with an empty urn. Now besides that urn with pebbles we have at our disposal as many white or black pebbles as the playing of the game might require. The game is such that a move is possible when there are at least two pebbles in the urn.
+
+![a.1.9](a.1.9.png)
 
 // graphic
 // Continue making moves as long as possible. A move is possible if the urn contains two or more pebbles.
@@ -73,6 +99,8 @@ And as with all such one person games, the rule is that one goes on playing as l
 What one does is, one shakes the urn, and then looks in the opposite direction, puts one's hand in the urn, picks up two pebbles, and looks at their color. And depending on the color of the two pebbles taken out, one puts a pebble into the urn.
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=8m35s)
+
+![a.1.10](a.1.10.png)
 
 // graphic
 // A move. Take two pebbles out of the urn; if colors different, a white pebble is put into the urn, if equal, a black one. 
@@ -87,6 +115,8 @@ Yes it does, you see because, we start with the urn filled with a finite number 
 // My comment: Clearly this part of the video is establishing that the game terminates, hence in the first problem the correctness concern plays the major role because it clearly terminates.
 
 So this is an example in which the termination of the process is totally trivial to determine. However, the question we are going to address now is about the final state, the final state of the urn when we can’t continue the game anymore. Now to begin with, that's again a separation of concerns. We could try to analyze what we can say about this game, if we totally ignore those complicated color rules, if we only capture, take into account from the move that, in each move, two pebbles are taken out, and one is turned back.
+
+![a.1.11](a.1.11.png)
 
 // graphic
 // Problem: Given the initial contents of the urn, what can be said about the color of the final pebble?
