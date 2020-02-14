@@ -411,6 +411,39 @@ When this is invoked, as in
 the macro is expanded into 
 `printf("x/y" " = &g\n", x/y)` 
 
-// next: pg. 76 The preprocessor operator ## 
+The preprocessor operator `##` provides a way to concatenate actual arguments 
+`#define paste(front, back) front ## back`
+so `paste(name, 1)` creates the token `name1`.
+
+### 4.11.3 Conditional Inclusion 
+
+Conditional preprocessor statements.
+`#if` etc.
+
+# Chapter 5 - Pointers and Arrays 
+
+## 5.1 Pointers and Addresses 
+
+`int *ip;`
+is intended as a mnemonic; it says that the expression *ip is an int. 
+
+The unary operators `*` and `&` bind more tightly than arithmetic operators, 
+
+`++*ip` 
+and 
+`(*ip)++` 
+The parentheses are necessary in this last example; without them, the expression would increment ip instead of what it points to, because unary operators like * and ++ associate **right to left**.
+
+## 5.2 Pointers and Function Arguments 
+
+Intro. to functions with pointer arguments.
+
+## 5.3 Pointers and Arrays 
+
+next: This section.
+ 
+
+
+
 
 
