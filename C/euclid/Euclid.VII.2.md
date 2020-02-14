@@ -1,8 +1,8 @@
-# [Proposition number](Link to it)
+# [VII.2](https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII2.html)
 
-Proposition statement.
+To find the greatest common measure of two given numbers not relatively prime.
 
-![VII.n](VII.n.png)
+![VII.2](VII.2.png)
 
 ## TODO
 
