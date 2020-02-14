@@ -9,7 +9,8 @@
 
 * [Reasoning About Programs. The triangle inequality. - Dijkstra](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=42m35s)
 * [The Humble Programmer - Dijkstra](https://www.youtube.com/watch?v=aADw3Z0gxeE&t=1576s)
-* [Tony Hoare](https://youtu.be/kz7DfbOuvOM?t=1572)
+* [Tony Hoare 1](https://youtu.be/kz7DfbOuvOM?t=1572)
+* [Tony Hoare 2](https://youtu.be/kz7DfbOuvOM?t=34m27s)
 
 I will use the following as a reference for the propositions:
 
