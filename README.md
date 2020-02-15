@@ -30,7 +30,9 @@
 
 ## Project 0: Create single page website. Render a triangle in canvas.
 
-* Current project status: See [./servers/http](https://github.com/darbinreyes/subparprogrammer/tree/master/servers/http) and [./web/darbinreyes.com](https://github.com/darbinreyes/subparprogrammer/tree/master/web/darbinreyes.com).
+* Current project status: COMPLETED.
+
+* See [./servers/http](https://github.com/darbinreyes/subparprogrammer/tree/master/servers/http) and [./web/darbinreyes.com](https://github.com/darbinreyes/subparprogrammer/tree/master/web/darbinreyes.com).
 
 ## Project 1: Implement propositions from Euclid's Elements in C.
 
@@ -49,24 +51,4 @@
 # EWD special chars. 
 
 http://www.cs.utexas.edu/users/EWD/transcriptions/specialCharacters.html
-
-
-◦ // func composition
-⌷ // fat bar
-≠
-≡
-⇒
-⇐
-∧
-∨
-¬
-∀
-∃
-∈ // element of
-× // times
-→ // guarded command
-≤ // at most = less than or equal to.
-≥ // at least
-∙ // multiply
-
 

@@ -22,7 +22,6 @@
     <h2>Subpar Engineering<img class="subparlogo" src="gascat2-v1.png" alt="gas cat"/></h2>
     <p>In the beginning, the Lord created index.html. Me
       <a href="https://www.linkedin.com/pub/darbin-reyes/34/32b/305">@LinkedIn</a>
-      <a href="https://twitter.com/darbinreyes">@Twitter</a>
       <a href="https://github.com/darbinreyes/subparprogrammer">@github</a>
     </p>
     <ul class="nav nav-tabs" role="tablist">
@@ -37,10 +36,66 @@
       level in which one can be absolutely precise." <br>
       -Dijkstra
     </pre>
-    <h4>...Progress not perfection...</h4>
+    <h4>Euclid for the win!!!!!!!!!</h4>
+    <!-- https://www.w3schools.com/graphics/canvas_intro.asp -->
+    <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
     </div>
     </div>
     </div>
+    <script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    // Draw a rectangle with red color filling.
+    //ctx.fillStyle = "#FF0000";
+    //ctx.fillRect(0, 0, 150, 75);
+    // Draw a black line.
+    ctx.fillStyle = "#000000";
+    ctx.moveTo(150, 200);
+    ctx.lineTo(250, 200);
+    ctx.stroke();
+    // Draw a circle.
+    ctx.beginPath();
+    x = 150;
+    y = 200;
+    r = 100;
+    startangle = 0;
+    endangle = 2 * Math.PI;
+    ctx.arc(x, y, r, startangle, endangle);
+    ctx.stroke();
+    // Draw another circle.
+    ctx.beginPath();
+    x = 250;
+    y = 200;
+    r = 100;
+    startangle = 0;
+    endangle = 2 * Math.PI;
+    ctx.arc(x, y, r, startangle, endangle);
+    ctx.stroke();
+    // TODO: I'm pretty sure the canvas must be cleared upon reload to prevent
+    // drawing on top on what is already drawn.
+    // Compute the height of the equilateral triangle.
+    // 100px*cos(30deg)= 100*cos(Pi/6)
+    etheight = 100 * Math.cos(Math.PI/6);
+    console.log(etheight);
+    // Draw the lines that form the equilateral triangle from VII.1!
+    // Draw a line.
+    ctx.moveTo(200, 200 - etheight);
+    ctx.lineTo(200 - 50, 200);
+    ctx.stroke();
+    // Draw a line.
+    ctx.moveTo(200, 200 - etheight);
+    ctx.lineTo(200 + 50, 200);
+    ctx.stroke();
+    // For shits and giggles. Draw the bottom equilateral triangle too.
+    // Draw a line.
+    ctx.moveTo(200, 200 + etheight);
+    ctx.lineTo(200 - 50, 200);
+    ctx.stroke();
+    // Draw a line.
+    ctx.moveTo(200, 200 + etheight);
+    ctx.lineTo(200 + 50, 200);
+    ctx.stroke();
+    </script>
     <!-- Optional: Include the jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
