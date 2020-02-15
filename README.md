@@ -33,7 +33,12 @@
 * Current project status: COMPLETED.
 
 * See [./servers/http](https://github.com/darbinreyes/subparprogrammer/tree/master/servers/http) and [./web/darbinreyes.com](https://github.com/darbinreyes/subparprogrammer/tree/master/web/darbinreyes.com).
-
+* Next ideas:
+  * Nice GUI front end to EWD UT site.
+  * Predicate Calculus and Program Semantics Errata page.
+  * Draw other Euclid propositions.
+  * Something involving motion.
+  * Blah.
 ## Project 1: Implement propositions from Euclid's Elements in C.
 
 * Current project status: See [./C/euclid](https://github.com/darbinreyes/subparprogrammer/tree/master/C/euclid).
