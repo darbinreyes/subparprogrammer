@@ -2,104 +2,113 @@
 <!-- http://www.w3schools.com/html/html_intro.asp -->
 <html lang="en-US">
   <head>
-    <title>Subpar Engineering</title>
+    <title>Subpar Programmer</title>
     <meta charset="utf-8"/>
     <!-- To ensure proper rendering and touch zooming, also add the viewport meta tag inside the <head> element -->
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="keywords" content="Darbin, Reyes, Dijkstra">
+    <meta name="description" content="Darbin Reyes's personal website.">
+    <meta name="author" content="Darbin Reyes">
     <!-- Latest compiled and minified CSS -->
     <!-- http://www.w3schools.com/css/css_intro.asp -->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
     <style>
-    img.subparlogo {
-      width:10%;
-      float:right;
-    }
+      img.subparlogo {
+        width:10%;
+        float:right;
+      }
     </style>
   </head>
 
   <body>
     <div class="container">
-    <h2>Subpar Programmer<img class="subparlogo" src="gascat2-v1.png" alt="gas cat"/></h2>
-    <p>Me
-      <a href="https://www.linkedin.com/pub/darbin-reyes/34/32b/305">@LinkedIn</a>
-      <a href="https://github.com/darbinreyes/subparprogrammer">@github</a>.
-    </p>
-    <ul class="nav nav-tabs" role="tablist">
-      <li class="active"><a href=".">Home</a></li>
-      <li><a href="./">About</a></li>
-    </ul>
-    <div class="row">
-    <div class="col-xs-12">
-    <pre>
-      "In this connection it might be worth-while to point out that the <br>
-      purpose of abstracting is not to be vague, but to create a new semantic <br>
-      level in which one can be absolutely precise." <br>
-      -Dijkstra
-    </pre>
-    <h4>Euclid for the win!!!!!!!!!</h4>
-    <!-- https://www.w3schools.com/graphics/canvas_intro.asp -->
-    <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
+      <h2>Subpar Programmer<img class="subparlogo" src="gascat2-v1.png" alt="gas cat"/></h2>
+
+      <p>Me
+        <a href="https://www.linkedin.com/pub/darbin-reyes/34/32b/305" target="_blank">@LinkedIn</a>
+        <a href="https://github.com/darbinreyes/subparprogrammer" target="_blank">@github</a>.
+      </p>
+
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href=".">Home</a></li>
+        <li><a href="./">About</a></li>
+      </ul>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <pre>
+            "In this connection it might be
+            worth-while to point out that the
+            purpose of abstracting is not to
+            be vague, but to create a new
+            semantic level in which one can
+            be absolutely precise."
+            -Dijkstra
+          </pre>
+          <h4>Euclid for the win!!!!!!!!!</h4>
+          <!-- https://www.w3schools.com/graphics/canvas_intro.asp -->
+          <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
+        </div>
+      </div>
     </div>
-    </div>
-    </div>
-    <script>
-    var canvas = document.getElementById("myCanvas");
-    var ctx = canvas.getContext("2d");
-    // Draw a rectangle with red color filling.
-    //ctx.fillStyle = "#FF0000";
-    //ctx.fillRect(0, 0, 150, 75);
-    // Draw a black line.
-    ctx.fillStyle = "#000000";
-    ctx.moveTo(150, 200);
-    ctx.lineTo(250, 200);
-    ctx.stroke();
-    // Draw a circle.
-    ctx.beginPath();
-    x = 150;
-    y = 200;
-    r = 100;
-    startangle = 0;
-    endangle = 2 * Math.PI;
-    ctx.arc(x, y, r, startangle, endangle);
-    ctx.stroke();
-    // Draw another circle.
-    ctx.beginPath();
-    x = 250;
-    y = 200;
-    r = 100;
-    startangle = 0;
-    endangle = 2 * Math.PI;
-    ctx.arc(x, y, r, startangle, endangle);
-    ctx.stroke();
-    // TODO: I'm pretty sure the canvas must be cleared upon reload to prevent
-    // drawing on top on what is already drawn.
-    // Compute the height of the equilateral triangle.
-    // 100px*cos(30deg)= 100*cos(Pi/6)
-    etheight = 100 * Math.cos(Math.PI/6);
-    console.log(etheight);
-    // Draw the lines that form the equilateral triangle from VII.1!
-    // Draw a line.
-    ctx.moveTo(200, 200 - etheight);
-    ctx.lineTo(200 - 50, 200);
-    ctx.stroke();
-    // Draw a line.
-    ctx.moveTo(200, 200 - etheight);
-    ctx.lineTo(200 + 50, 200);
-    ctx.stroke();
-    // For shits and giggles. Draw the bottom equilateral triangle too.
-    // Draw a line.
-    ctx.moveTo(200, 200 + etheight);
-    ctx.lineTo(200 - 50, 200);
-    ctx.stroke();
-    // Draw a line.
-    ctx.moveTo(200, 200 + etheight);
-    ctx.lineTo(200 + 50, 200);
-    ctx.stroke();
-    </script>
     <!-- Optional: Include the jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script>
+      var canvas = document.getElementById("myCanvas");
+      var ctx = canvas.getContext("2d");
+      // Draw a rectangle with red color filling.
+      //ctx.fillStyle = "#FF0000";
+      //ctx.fillRect(0, 0, 150, 75);
+      // Draw a black line.
+      ctx.fillStyle = "#000000";
+      ctx.moveTo(150, 200);
+      ctx.lineTo(250, 200);
+      ctx.stroke();
+      // Draw a circle.
+      ctx.beginPath();
+      x = 150;
+      y = 200;
+      r = 100;
+      startangle = 0;
+      endangle = 2 * Math.PI;
+      ctx.arc(x, y, r, startangle, endangle);
+      ctx.stroke();
+      // Draw another circle.
+      ctx.beginPath();
+      x = 250;
+      y = 200;
+      r = 100;
+      startangle = 0;
+      endangle = 2 * Math.PI;
+      ctx.arc(x, y, r, startangle, endangle);
+      ctx.stroke();
+      // TODO: I'm pretty sure the canvas must be cleared upon reload to prevent
+      // drawing on top on what is already drawn.
+      // Compute the height of the equilateral triangle.
+      // 100px*cos(30deg)= 100*cos(Pi/6)
+      etheight = 100 * Math.cos(Math.PI/6);
+      console.log(etheight);
+      // Draw the lines that form the equilateral triangle from VII.1!
+      // Draw a line.
+      ctx.moveTo(200, 200 - etheight);
+      ctx.lineTo(200 - 50, 200);
+      ctx.stroke();
+      // Draw a line.
+      ctx.moveTo(200, 200 - etheight);
+      ctx.lineTo(200 + 50, 200);
+      ctx.stroke();
+      // For shits and giggles. Draw the bottom equilateral triangle too.
+      // Draw a line.
+      ctx.moveTo(200, 200 + etheight);
+      ctx.lineTo(200 - 50, 200);
+      ctx.stroke();
+      // Draw a line.
+      ctx.moveTo(200, 200 + etheight);
+      ctx.lineTo(200 + 50, 200);
+      ctx.stroke();
+    </script>
   </body>
 
 
