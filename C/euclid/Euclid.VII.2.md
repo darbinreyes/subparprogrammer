@@ -4,6 +4,10 @@ To find the greatest common measure of two given numbers not relatively prime.
 
 ![VII.2](VII.2.png)
 
+**Corollary:**
+
+From this it is clear that, if a number measures two numbers, then it also measures their greatest common measure.
+
 ## TODO
 
 * [ ] Be neat. On paper. In text.
@@ -22,23 +26,69 @@ To find the greatest common measure of two given numbers not relatively prime.
 
 ## Guide 
 
+* Antenaresis again.
+
+* Notation. GCD.(m, n) = largest number that divides both m and n.
+
+* Antenresis until the smaller measures/divides the larger.
+
+* Example.  GCD.(884, 3009) = 17.
+
 * Foundations of number theory 
 
-* "he assumes that if a < b, then a can be repeatedly subtracted from b until there is eventually a remainder less than or equal to a.” 
-
-* "there are numbers than can be decreased by 1 infinitely many times but not ever reach 1.” // I think this alludes to transfinite numbers discovered by Georg Cantor.
-
-* "an axiom is needed to exclude such behavior." 
-
-* "assumption that the process of antenaresis eventually reaches an end when applied to numbers.” 
-
-* "Euclid certainly knew it needn’t halt for magnitudes” // I didn't understand this :confused:.
-
-* "One such axiom is a descending chain condition which states that there is no infinite decreasing sequence of numbers" 
+    * "he assumes that if a < b, then a can be repeatedly subtracted from b until there is eventually a remainder less than or equal to a.” 
+    
+    * "there are numbers than can be decreased by 1 infinitely many times but not ever reach 1.” // I think this alludes to transfinite numbers discovered by Georg Cantor.
+    
+    * "an axiom is needed to exclude such behavior." 
+    
+    * "assumption that the process of antenaresis eventually reaches an end when applied to numbers.” 
+    
+    * "Euclid certainly knew it needn’t halt for magnitudes” // I didn't understand this :confused:.
+    
+    * "One such axiom is a descending chain condition which states that there is no infinite decreasing sequence of numbers" 
 
 ## Proof 
 
 The process used here is antenaresis again, identical to VII.1. However in the proposition we assume the two numbers are not prime to one another, therefore the final remainder will not be 1. The final remainder will be a number greater than 1. The proof shows that this final remainder is in fact the greatest common measure of the two numbers. 
+
+* "Let AB and CD be the two given numbers not relatively prime."
+
+Let ¬relatively_prime.(AB, CD)
+
+* "If now CD measures AB, since it also measures itself, then CD is a common measure of CD and AB." 
+
+CD|AB ∧ CD|CD
+⇒ {CD measures both = CD is a common measure}
+CD|AB,CD
+
+* "And it is clear that it is also the greatest, for no greater number than CD measures CD."
+
+⇒ {For any CD < AB, their common measure ≤ CD}
+CD = GCM.(CD, AB).
+
+* "But, if CD does not measure AB, then, when the less of the numbers AB and CD being continually subtracted from the greater, some number is left which measures the one before it. For a unit is not left, otherwise AB and CD would be relatively prime, which is contrary to the hypothesis. Therefore some number is left which measures the one before it."
+
+¬(CD|AB) ∧ ¬relatively_prime.(AB, CD)
+⇒ {VII.1}
+antenaresis.(AB, CD) terminates with a number greater than one, and that measures the number before it.
+
+* "Now let CD, measuring BE, leave EA less than itself, 
+
+Let
+CD|BE ∧ BA - BE = EA
+
+* "let EA, measuring DF, leave FC less than itself," 
+
+Let
+EA|DF ∧ DC - DF = FC
+
+* "and let CF measure AE."
+
+Let
+CF|AE
+
+#NEXT
 
 * "Since then, CF measures AE, and AE measures DF, therefore CF also measures DF.”  
 //  
