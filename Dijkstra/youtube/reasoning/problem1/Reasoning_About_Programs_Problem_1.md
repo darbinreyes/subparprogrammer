@@ -123,7 +123,7 @@ So this is an example in which the termination of the process is totally trivial
 
 You see because our problem is, given the initial contents of the urn, what can be said about the color of the final pebble. But this is cheating already a little bit, because here the question says that there is a final pebble. One pebble left in the urn, can we prove that? Yes we can. You see, because, here is a description of the game being played, but totally ignoring, the colors. 
 
-[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=12m45s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=12m32s)
 
 // graphic
 
@@ -136,7 +136,11 @@ We introduce an integer variable little k and k is initialized with the number o
 
  // my comment: hence the line above with the “#” is not part of the program but a semantic definition of the meaning of variable k.
 
-And now we know that little k is at least one [ k >= 1 ] because we knew that before the game was started the urn was non-empty. And here are the rest of the game. There you get a repetition, and as long as there are at least two pebbles in the game, that is k at least 2 [ k >= 2 ], we get the two steps of our move. k becomes k minus 2 [ k := k - 2 ] models that two pebbles are taken out of the game, followed by k becomes k plus 1 [  k :=  k+1 ] modeling that a pebble is put back. Now if you combine those two things, those two steps, the net effect of taking out two and putting one back of course is k becomes k minus 1 [ k := k-1]. Now here you see the annotated program, with an annotation very much in the style as I showed on the blackboard.
+And now we know that little k is at least one [ k >= 1 ] because we knew that before the game was started the urn was non-empty. And here are the rest of the game. There you get a repetition, and as long as there are at least two pebbles in the game, that is k at least 2 [ k >= 2 ], we get the two steps of our move. k becomes k minus 2 [ k := k - 2 ] models that two pebbles are taken out of the game, followed by k becomes k plus 1 [  k :=  k+1 ] modeling that a pebble is put back. Now if you combine those two things, those two steps, the net effect of taking out two and putting one back of course is k becomes k minus 1 [ k := k-1]. 
+
+// my comment: Now we know that the number of pebbles in the urn decreases by one in each step, if the urn starts with only one pebble, no moves are possible and the game terminates with one pebble, if the urn starts with more than one pebble then we will decrease the number of pebbles by one until only one pebble is left, therefore in all cases the game will stop with one pebble in the urn.
+
+Now here you see the annotated program, with an annotation very much in the style as I showed on the blackboard.
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=13m48s)
 
@@ -144,7 +148,7 @@ And now we know that little k is at least one [ k >= 1 ] because we knew that be
 
 ![p1.3](p1.3.png)
 
- Little k becomes capital k [ k := K ], and since capital k was at least 1 [  K >= 1 ]to start with, here with have the initial condition for the repetition that little k is at least 1 [  k >=1 ]. 
+Little k becomes capital k [ k := K ], and since capital k was at least 1 [  K >= 1 ]to start with, here with have the initial condition for the repetition that little k is at least 1 [  k >=1 ]. 
 
 // my comment: notice that there is no precondition for the initialization, since it is the first statement in the program.
 
@@ -154,7 +158,7 @@ Then we get the repetition, “do”, our previous guard, k at least 2 [ k >= 2 
 
 // my comment: k >= 1 AND k >= 2 EQUIVALENT k >= 2
 
-Now obviously the precondition k at least 2 [ k >= 2 ] guarantees that after the decrease k becomes k-1 [ k := k - 1 ], k is at least 1 [ k >= 1 ]. So we see that the repeatable statement k becomes k-1 [ k := k - 1 ] nicely maintains the truth of the k at least 1 [ k >= 1 ], so upon completion, we know two things, that the guard is false, so k is no longer at least 2, so k is less than 2 [ k < 2 ], and furthermore k is at least 1 [ k >= 1 ]. Which, has only one solution, k equal 1 [ k = 1 ]. So using the techniques of invariance, we have proved the simple fact that our game terminates with one pebble in the urn. So we are indeed entitled to talk about the final pebble. 
+Now obviously the precondition k at least 2 [ k >= 2 ] guarantees that after the decrease k becomes k-1 [ k := k - 1 ], k is at least 1 [ k >= 1 ]. So we see that the repeatable statement k becomes k-1 [ k := k - 1 ] nicely maintains the truth of k at least 1 [ k >= 1 ], so upon completion, we know two things, that the guard is false, so k is no longer at least 2, so k is less than 2 [ k < 2 ], and furthermore k is at least 1 [ k >= 1 ]. Which, has only one solution, k equal 1 [ k = 1 ]. So using the techniques of invariance, we have proved the simple fact that our game terminates with one pebble in the urn. So we are indeed entitled to talk about the final pebble. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=15m51s)
 
@@ -221,4 +225,7 @@ Suppose that his task would have been the following: you are given an urn with b
 So the rule two out one in, is not too unusual. If you now impose upon someone the constraint that he has to do this in such a way that the parity of the number of white pebbles in the urn between moves remains constant, then precisely the rules of this game will come out. And of course the rules of the game, they were the analogue of the program. Well that’s what I wanted to tell about the first example, where the termination is trivial, and the invariant, the partial correctness considerations, take the majority of the load. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=27m1s)
+
+
+https://youtu.be/OeiSWZs3GfI?t=839
 
