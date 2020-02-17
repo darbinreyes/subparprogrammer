@@ -440,7 +440,25 @@ Intro. to functions with pointer arguments.
 
 ## 5.3 Pointers and Arrays 
 
-next: This section.
+There is **one difference** between an array name and a pointer that must be kept in mind. A pointer is a variable, so pa=a and pa++ are legal. But an **array name** is 
+**not* a variable; 
+constructions like 
+a=pa and a++ 
+are **illegal**. 
+
+As **formal** parameters in a **function** definition, 
+`char s[]; `
+and 
+`char *s; `
+are **equivalent**; 
+
+it is also possible to index backwards in an array; p[-1], p[-2], and so on are **syntactically legal**
+
+## 5.4 Address Arithmetic 
+
+# NEXT: This fact can be used to write yet another version of strlen: 
+ 
+
  
 
 
