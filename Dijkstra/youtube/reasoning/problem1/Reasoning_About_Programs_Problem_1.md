@@ -73,9 +73,9 @@ well then, clearly S is such that its execution does not destroy the validity of
 
 
 {P}
-_do_ B →
+do B →
     {P ∧ ¬B} S {P}
-_od_ {P ∧ ¬B}
+od {P ∧ ¬B}
 
 
 P holding at the beginning, P remains true no matter how often the statement is executed, so upon completion, P still holds, but furthermore because the repetition is terminated we know that the guard B is no longer true. Now here we have the general pattern that we will use over and over again to prove things about the repetitive construct “do B arrow S od”. P is called the invariant, B is called the guard, S is called the statement, and the post condition is P and the negation of the guard. 
@@ -148,7 +148,7 @@ Now here you see the annotated program, with an annotation very much in the styl
 
 ![p1.3](p1.3.png)
 
-Little k becomes capital k [ k := K ], and since capital k was at least 1 [  K >= 1 ]to start with, here with have the initial condition for the repetition that little k is at least 1 [  k >=1 ]. 
+Little k becomes capital k [ k := K ], and since capital k was at least 1 [  K >= 1 ]to start with, here we have the initial condition for the repetition that little k is at least 1 [  k >=1 ]. 
 
 // my comment: notice that there is no precondition for the initialization, since it is the first statement in the program.
 
@@ -204,7 +204,7 @@ And here we have answered our problem, you see because in the case of even [big]
 
 ![p1.6](p1.6.png)
 
-In formula the final condition is that little w equal 0 and little b equal 1. Of course if you start with an odd number of white ones in the urn, then the final pebble is white, because the final state is characterized by w equal 1 and b equal 0, as these are the only solutions of b plus w being natural equal to 1. So this settles the problem: what can be said about the color of the final pebble. 
+In formula the final condition is that little w equals 0 and little b equals 1. Of course if you start with an odd number of white ones in the urn, then the final pebble is white, because the final state is characterized by w equals 1 and b equals 0, as these are the only solutions of b plus w being natural equal to 1. So this settles the problem: what can be said about the color of the final pebble. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=23m34s)
 
@@ -212,7 +212,7 @@ In formula the final condition is that little w equal 0 and little b equal 1. Of
 
 ![p1.7](p1.7.png)
 
-Now you may complain about this argument that the conjunct of the invariant, that the parity of w doesn’t change, that that is an invention that in general would be hard to make, well that complaint is to a certain extent justified, but fortunately the designing programmer lives in a different situation. 
+Now you may complain about this argument that the conjunct of the invariant, that the parity of w doesn’t change, that that is an invention which in general would be hard to make, well that complaint is to a certain extent justified, but fortunately the designing programmer lives in a different situation. 
 
 He is not offered the ready made program and the rules of the game that I described to you and has to invent the invariant. In actual practice, when a programmer develops correctness proof and program hand in hand **he knows the invariant before the program has been written.**
 
@@ -220,12 +220,11 @@ Suppose that his task would have been the following: you are given an urn with b
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=25m58s)
 
-// my comment: Dijkstra solves this problem on video in a lecture called “Power of counting arguments.” https://www.youtube.com/watch?v=jUGCe9-s5Ys&t=78s
+// my comment: Dijkstra solves this problem on video in a lecture called [Power of counting arguments](https://www.youtube.com/watch?v=jUGCe9-s5Ys&t=3m14s).
 
 So the rule two out one in, is not too unusual. If you now impose upon someone the constraint that he has to do this in such a way that the parity of the number of white pebbles in the urn between moves remains constant, then precisely the rules of this game will come out. And of course the rules of the game, they were the analogue of the program. Well that’s what I wanted to tell about the first example, where the termination is trivial, and the invariant, the partial correctness considerations, take the majority of the load. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=27m1s)
 
 
-https://youtu.be/OeiSWZs3GfI?t=839
 
