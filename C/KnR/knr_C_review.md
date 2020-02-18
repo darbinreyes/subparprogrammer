@@ -456,7 +456,36 @@ it is also possible to index backwards in an array; p[-1], p[-2], and so on are 
 
 ## 5.4 Address Arithmetic 
 
-# NEXT: This fact can be used to write yet another version of strlen: 
+To avoid int overflow when calculating a difference between pointers use `ptrdiff_t` to hold the signed difference of two pointer values. 
+
+use `size_t` for the return value of strlen, to match the standard library version. size_t is the unsigned integer type returned by the sizeof operator. 
+
+It is **not legal** to 
+
+add two pointers, 
+
+or to multiply 
+
+or divide 
+
+or shift 
+
+or mask them, 
+
+or to add float 
+
+or double to them, 
+
+or even, except for void *, to assign
+ 
+a pointer of one type to a pointer of another type **without a cast.**
+
+## 5.5 Character Pointers and Functions 
+
+## 5.6 Pointer Arrays; Pointers to Pointers 
+
+next: "In Chapter 3, we presented a Shell sort function"
+
  
 
  
