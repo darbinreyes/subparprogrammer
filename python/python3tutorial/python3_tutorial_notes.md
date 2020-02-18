@@ -679,3 +679,37 @@ Note that the mangling rules are designed mostly to avoid accidents; **it still 
 
 Notice that code passed to exec() or eval() does not consider the classname of the invoking class to be the current class; // This remark is unclear, I think it refers to the classname prefix that is used when name mangling occurs.
 
+## https://docs.python.org/3/tutorial/classes.html#odds-and-ends
+
+Recommended way of creating something similar to a C “struct”. Empty class.
+
+If m is an "instance method object".
+m.__self__ # is the instance object associated with method m.
+
+m.__func__ # is the function object associated with method m.
+
+## https://docs.python.org/3/tutorial/classes.html#iterators
+
+Create an iterator by defining
+`__iter__()`
+and
+`__next__()`
+
+## https://docs.python.org/3/tutorial/classes.html#generators
+
+Alternative shorthand for creating iterators. Uses yield keyword.
+
+With yield, a function definition can be turned into an iterator. Most of the iterator is created automatically, hence the name "generator".
+
+## https://docs.python.org/3/tutorial/classes.html#generator-expressions
+
+Abbreviation for generators that are used only once. Same syntax as list compressions but with parenthesis in place of square brackets.
+
+# https://docs.python.org/3/tutorial/stdlib.html#brief-tour-of-the-standard-library
+
+## https://docs.python.org/3/tutorial/stdlib.html#operating-system-interface
+
+
+
+
+
