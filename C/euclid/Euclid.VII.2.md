@@ -10,19 +10,19 @@ From this it is clear that, if a number measures two numbers, then it also meas
 
 ## TODO
 
-* [ ] Be neat. On paper. In text.
-* [ ] Read the guide. Note Joyce’s notational conventions e.g. formal vs informal numbers. Divides. Measures.
-* [ ] Read the proposition proof. Note comments for clarification.
-* [ ] Write max 3 sentence proof summary. Use EWD notation for brevity and notation practice.
-* [ ] Specify. What the program does. Design. Very high level pseudo code.
-* [ ] Implement in EWD notation, on paper.
-* [ ] Write down 3 test cases.
-* [ ] Test on paper. Use table method.
-* [ ] Implement on paper, in C. 
-* [ ] Implement in C on computer. Fully commented. Handle all function call errors and asserts gracefully.
-* [ ] Add and run test cases on computer. Use gdb debugging if needed.
-* [ ] Verify test case answers in python. Add results as comment in test.
-* [ ] Check .md for typos.
+* [x] Be neat. On paper. In text.
+* [x] Read the guide. Note Joyce’s notational conventions e.g. formal vs informal numbers. Divides. Measures.
+* [x] Read the proposition proof. Note comments for clarification.
+* [x] Write max 3 sentence proof summary. Use EWD notation for brevity and notation practice.
+* [x] Specify. What the program does. Design. Very high level pseudo code.
+* [x] Implement in EWD notation, on paper.
+* [x] Write down 3 test cases.
+* [x] Test on paper. Use table method.
+* [x] Implement on paper, in C. 
+* [x] Implement in C on computer. Fully commented. Handle all function call errors and asserts gracefully.
+* [x] Add and run test cases on computer. Use gdb debugging if needed.
+* [x] Verify test case answers in python. Add results as comment in test.
+* [x] Check .md for typos.
 
 ## Guide 
 
@@ -54,67 +54,117 @@ The process used here is antenaresis again, identical to VII.1. However in the p
 
 * "Let AB and CD be the two given numbers not relatively prime."
 
-Let ¬relatively_prime.(AB, CD)
+  * Let ¬relatively_prime.(AB, CD)
 
 * "If now CD measures AB, since it also measures itself, then CD is a common measure of CD and AB." 
 
-CD|AB ∧ CD|CD
-⇒ {CD measures both = CD is a common measure}
-CD|AB,CD
+  * CD|AB ∧ CD|CD
+  * ⇒ {CD measures both = CD is a common measure}
+  * CD|AB,CD
 
 * "And it is clear that it is also the greatest, for no greater number than CD measures CD."
 
-⇒ {For any CD < AB, their common measure ≤ CD}
-CD = GCM.(CD, AB).
+  * ⇒ {For any CD < AB, their common measure ≤ CD}
+  * CD = GCM.(CD, AB).
 
 * "But, if CD does not measure AB, then, when the less of the numbers AB and CD being continually subtracted from the greater, some number is left which measures the one before it. For a unit is not left, otherwise AB and CD would be relatively prime, which is contrary to the hypothesis. Therefore some number is left which measures the one before it."
 
-¬(CD|AB) ∧ ¬relatively_prime.(AB, CD)
-⇒ {VII.1}
-antenaresis.(AB, CD) terminates with a number greater than one, and that measures the number before it.
+  * ¬(CD|AB) ∧ ¬relatively_prime.(AB, CD)
+  * ⇒ {VII.1}
+  * antenaresis.(AB, CD) terminates with a number greater than one, and that measures the number before it.
 
 * "Now let CD, measuring BE, leave EA less than itself, 
 
-Let
-CD|BE ∧ BA - BE = EA
+  * Let
+  * CD|BE ∧ BA - BE = EA ∧ EA < CD
 
 * "let EA, measuring DF, leave FC less than itself," 
 
-Let
-EA|DF ∧ DC - DF = FC
+  * Let
+  * EA|DF ∧ DC - DF = FC ∧ FC < EA
 
 * "and let CF measure AE."
 
-Let
-CF|AE
-
-#NEXT
+  * Let
+  * CF|AE
 
 * "Since then, CF measures AE, and AE measures DF, therefore CF also measures DF.”  
-//  
-CF|AE and AE|DF 
-=> {if a first number measures a second, and the second measures a third, the first measures the third} 
-CF|DF 
+  
+  * CF|AE ∧ AE|DF 
+  * ⇒ {if a first number measures a second, and the second measures a third, the first measures the third} 
+  * CF|DF 
 
 * "But it measures itself, therefore it also measures the whole CD.”  
-//  
-CF|CF and CF|DF  
-=> {if a number measures two numbers, it also measures their sum} 
-CF|CD 
+  
+  * CF|CF ∧ CF|DF  
+  * ⇒ {if a number measures two numbers, it also measures their sum} 
+  * CF|CD 
 
-* VII.2 Corollary proof 
-    * Let A = gcm(B, C), by def. A|B and A|C 
-    
-    * Let some other number D < A also  
-    D|B and D|C 
-    
-    * Conclusion D|A? <= D|X and X|A ??? 
+* "But CD measures BE, therefore CF also measures BE." 
+
+  * CF|CD ∧ CD|BE
+  * ⇒ {if a first number measures a second, and the second measures a third, the first measures the third}
+  * CF|BE
+  
+* "And it also measures EA, therefore it measures the whole BA."
+  * CF|EA ∧ CF|BE
+  * ⇒ {if a number measures two numbers, it also measures their sum} 
+  * CF|BA
+  
+* "But it also measures CD, therefore CF measures AB and CD. Therefore CFis a common measure of AB and CD."
+
+  * CF|AB ∧ CF|CD
+  * ⇒ {definition of common measure}
+  * CF is a common measure of AB and CD.
+  
+* "I say next that it is also the greatest.
+If CF is not the greatest common measure of AB and CD, then some number G, which is greater than CF, measures the numbers AB and CD."
+
+  * **Reductio ad absurdum.**
+  * ¬(CF = GCM.(AB, CD))
+  * G = GCM.(AB, CD) ∧ G > CF ∧ G|AB ∧ G|CD
+
+* "Now, since G measures CD, and CD measures BE, therefore G also measures BE." 
+
+  * G|CD ∧ CD|BE
+  * ⇒ {if a first number measures a second, and the second measures a third, the first measures the third}
+  * G|BE
+  
+* "But it also measures the whole BA, therefore it measures the remainder AE."
+  * G|BE ∧ G|BA
+  * ⇒ {if a number measures two numbers, it also measures their difference}
+  * G|AE
+  
+* "But AE measures DF, therefore G also measures DF."  
+  * G|AE ∧ AE|DF 
+  * ⇒ {if a first number measures a second, and the second measures a third, the first measures the third}
+  * G|DF
+  
+* "And it measures the whole DC, therefore it also measures the remainder CF, that is, the greater measures the less, which is impossible."
+  * G|DF ∧ G|DC
+  * ⇒ {if a number measures two numbers, it also measures their difference}
+  * G|CF ∧ G > CF. Impossible.
+  * ¬¬(CF = GCM.(AB, CD)) = (CF = GCM.(AB, CD))
+  
+* VII.2 Corollary 
+  * If A = GCM.(B, C), by def. A|B and A|C, then  
+  * for any D < A ∧ D|B ∧ D|C 
+  * ⇒
+  * D|A
 
 ## Proof Summary
 
+Anternaresis to derive a common measure. Reduction ad absurdum to show it is the greatest common measure.
+
 ## Specification and Design
+
+On paper.
 
 ## Implementation in EWD notation.
 
+On paper.
+
 ## Misc.
+
+### Next: check C implementation and test cases. 
 

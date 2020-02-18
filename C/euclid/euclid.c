@@ -159,20 +159,14 @@ VII_1_relatively_prime (
   "To find the greatest common measure of two given numbers not relatively
   prime."
 
+  Corollary:
+  From this it is clear that, if a number measures two numbers, then it also
+  measures their greatest common measure.
+
   https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII2.html
 
-  Proof summary: (See evernote for details)
-  Anternaresis to derive a common measure. Reduction ad absurdum to show it is
-  the greatest common measure.
-
-
-
-
-  TODO: What about the corollary? a|b ∧ a|c => a|gcd(b,c). // "the notation a | b is typically used to indicate that a divides b.""
-
   Given two numbers not prime to one another, determines their greatest
-  common measure (gcm).
-  a.k.a greatest common divisor.
+  common measure (gcm, a.k.a greatest common divisor).
 
   @param  a The first number.
   @param  b The second number.
