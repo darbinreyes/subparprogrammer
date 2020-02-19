@@ -8,6 +8,9 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <limits.h>
+#include "euclid.h"
+
 
 /**
   Notes on VII.Definitions
@@ -112,8 +115,8 @@ swap (
   @retval -1 If !(a > 1 && b > 1).This is considered invalid input.
   @retval -2 If (a == b).This is considered invalid input.
   @retval -3 Unexpected error.
-  @retval 1  If the numbers are prime to one another.
-  @retval 0  If the numbers have a common measure greater than 1.
+  @retval RELATIVELY_PRIME  If the numbers are prime to one another.
+  @retval NOT_RELATIVELY_PRIME  If the numbers have a common measure greater than 1.
 
 **/
 int
@@ -152,7 +155,15 @@ VII_1_relatively_prime (
     a = a - b;
   }
 
-  return a;
+  if (a == 1) {
+    return RELATIVELY_PRIME;
+  } else if (a == 0){
+    return NOT_RELATIVELY_PRIME;
+  } else {
+    // Something is wrong. The loop should have terminated with a == 0 or a == 1.
+    assert(0);
+    return -3;
+  }
 }
 
 /**
@@ -174,11 +185,12 @@ VII_1_relatively_prime (
   @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
   @retval -2 If (a == b).This is considered invalid input.
   @retval -3 Unexpected error.
-  @retval 1 if a and b are prime to one another.
-  @retval returns the greatest common measure of a and b which is always > 1.
+  @retval -4 If !(a < ((unsigned int)INT_MAX) && b < ((unsigned int)INT_MAX)).
+  @retval RELATIVELY_PRIME if a and b are prime to one another.
+  @retval > 1 The greatest common measure of a and b.
 
 **/
-int // Be careful, since arguments are unsigned it may be possible that the return value overflows a signed int. I am using negative numbers to indicate errors.
+int
 VII_2_gcm (
   unsigned int a,
   unsigned int b
@@ -186,12 +198,27 @@ VII_2_gcm (
 {
   int rp;
 
-  rp = VII_1_relatively_prime (a, b); // The proposition begins with the assertion that a, b are not relatively prime.
+  rp = VII_1_relatively_prime (a, b); // The proposition begins with the assertion that a, b are NOT relatively prime.
 
-  if (rp != 0)
-    return rp;
+  if (rp < 0) {
+    return -3;
+  }
 
-  assert (rp == 0); // a, b are not relatively prime.
+  if (rp == RELATIVELY_PRIME) {
+    return RELATIVELY_PRIME;
+  }
+
+  if (rp != NOT_RELATIVELY_PRIME) {
+    assert(0);
+    return -3;
+  }
+
+  // Prevent a possible overflow of the return value.
+  // Limit the inputs to max INT_MAX.
+  if (!(a < ((unsigned int)INT_MAX) && b < ((unsigned int)INT_MAX))) {
+    assert(0);
+    return -4;
+  }
 
   // Antenaresis.
   while (a > 1 && b > 1) {
@@ -204,15 +231,13 @@ VII_2_gcm (
     a = a - b;
   }
 
-  assert(a == 0); // The lesser has measured the greater, b == gcm(a, b).
-
-  if (a == 0)
+  if (a == 0) {
     return b;
-  else {
-    // Should never execute. There is an error in VII_1_relatively_prime ().
-    // a and b are prime to one another.
+  } else {
+    // Should never execute since we have already checked that a and b are NOT
+    // prime to one another.
     assert(0);
-    return 1;
+    return -3;
   }
 }
 

@@ -36,17 +36,17 @@ From this it is clear that, if a number measures two numbers, then it also meas
 
 * Foundations of number theory 
 
-    * "he assumes that if a < b, then a can be repeatedly subtracted from b until there is eventually a remainder less than or equal to a.” 
+  * "[Euclid] assumes that if a < b, then a can be repeatedly subtracted from b until there is eventually a remainder less than or equal to a.” 
     
-    * "there are numbers than can be decreased by 1 infinitely many times but not ever reach 1.” // I think this alludes to transfinite numbers discovered by Georg Cantor.
+  * "there are numbers than can be decreased by 1 infinitely many times but not ever reach 1.” // I think this alludes to transfinite numbers discovered by Georg Cantor.
     
-    * "an axiom is needed to exclude such behavior." 
+  * "an axiom is needed to exclude such behavior." 
     
-    * "assumption that the process of antenaresis eventually reaches an end when applied to numbers.” 
+  * "assumption that the process of antenaresis eventually reaches an end when applied to numbers.” 
     
-    * "Euclid certainly knew it needn’t halt for magnitudes” // I didn't understand this :confused:.
+  * "Euclid certainly knew it needn’t halt for magnitudes” // I didn't understand this :confused:.
     
-    * "One such axiom is a descending chain condition which states that there is no infinite decreasing sequence of numbers" 
+  * "One such axiom is a descending chain condition which states that there is no infinite decreasing sequence of numbers" 
 
 ## Proof 
 

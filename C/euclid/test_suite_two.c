@@ -1,38 +1,6 @@
 #include "seatest.h"
-// der: "test suite" = group of individual tests in single file e.g. this file.
-
-int
-VII_1_relatively_prime (
-  unsigned int a,
-  unsigned int b
-  );
-
-int
-VII_2_gcm (
-  unsigned int a,
-  unsigned int b
-  );
-
-int
-VII_3_gcm (
-  unsigned int a,
-  unsigned int b,
-  unsigned int c
-  );
-
-int
-VII_4_part_or_parts (
-  unsigned int b,
-  unsigned int a
-  );
-
-int
-VII_4_part_or_parts_v1 (
-  unsigned int b,
-  unsigned int a,
-  int         *m,
-  int         *n
-  );
+//  SEATEST NOTE. der: "test suite" = group of individual tests in single file e.g. this file.
+#include "euclid.h"
 
 void test_VII_1()
 {
@@ -52,34 +20,41 @@ void test_VII_1()
   TODO: Other test cases.
 
   **/
-  unsigned int a, b;
-  int result;
+  unsigned int a, b; // Inputs.
+  int ret; // Computed return value.
+  int expected_ret; // Expected return value.
 
   a = 12;
   b = 4;
-  result = 0;
-  printf ("a = %u, b = %u. rp = %d. expect rp = %d.\n", a, b, VII_1_relatively_prime(a, b), result);
-  assert_true( VII_1_relatively_prime (a, b) == result);
+  expected_ret = NOT_RELATIVELY_PRIME;
+  ret = VII_1_relatively_prime (a, b);
+  printf ("a = %u, b = %u. rp = %d. expect rp = %d.\n", a, b, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
+
   a = 13;
   b = 4;
-  result = 1;
-  printf ("a = %u, b = %u. rp = %d. expect rp = %d.\n", a, b, VII_1_relatively_prime(a, b), result);
-  assert_true( VII_1_relatively_prime (a, b) == result);
+  expected_ret = RELATIVELY_PRIME;
+  ret = VII_1_relatively_prime (a, b);
+  printf ("a = %u, b = %u. rp = %d. expect rp = %d.\n", a, b, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
+
   a = 54;
   b = 85;
-  result = 1;
-  printf ("a = %u, b = %u. rp = %d. expect rp = %d.\n", a, b, VII_1_relatively_prime(a, b), result);
-  assert_true( VII_1_relatively_prime (a, b) == result);
+  expected_ret = RELATIVELY_PRIME;
+  ret = VII_1_relatively_prime (a, b);
+  printf ("a = %u, b = %u. rp = %d. expect rp = %d.\n", a, b, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
+
   a = 31;
   b = 85;
-  result = 1;
-  printf ("a = %u, b = %u. rp = %d. expect rp = %d.\n", a, b, VII_1_relatively_prime(a, b), result);
-  assert_true( VII_1_relatively_prime (a, b) == result);
+  expected_ret = RELATIVELY_PRIME;
+  ret = VII_1_relatively_prime (a, b);
+  printf ("a = %u, b = %u. rp = %d. expect rp = %d.\n", a, b, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 
-  // assert_true( VII_1_relatively_prime (7, 7) == 0); // See comment below line.
-  /**
+  /** SEATEST NOTE.
   der:
-
+  // assert_true( VII_1_relatively_prime (7, 7) == 0); // See comment below.
   What does seatest do if an assert occurs inside VII_1_relatively_prime ()?
 
   ANS: Seatest doesn't continue. Assert forces immediate termination, same as
@@ -109,26 +84,31 @@ void test_VII_2()
   TODO: Other test cases.
 
   **/
-  unsigned int a, b;
-  int result;
+  unsigned int a, b; // Inputs.
+  int ret; // Computed return value.
+  int expected_ret; // Expected return value.
 
   a = 884;
   b = 3009;
-  result = 17;
-  printf ("a = %u, b = %u. gcm = %d. expect gcm = %d.\n", a, b, VII_2_gcm(a, b), result);
-  assert_true( VII_2_gcm (a, b) == result);
+  expected_ret = 17;
+  ret = VII_2_gcm (a, b);
+  printf ("a = %u, b = %u. gcm = %d. expect gcm = %d.\n", a, b, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 
   a = 32;
   b = 4;
-  result = 4;
-  printf ("a = %u, b = %u. gcm = %d. expect gcm = %d.\n", a, b, VII_2_gcm(a, b), result);
-  assert_true( VII_2_gcm (a, b) == result);
+  expected_ret = 4;
+  ret = VII_2_gcm (a, b);
+  printf ("a = %u, b = %u. gcm = %d. expect gcm = %d.\n", a, b, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 
   a = 32;
   b = 5;
-  result = 1;
-  printf ("a = %u, b = %u. gcm = %d. expect gcm = %d.\n", a, b, VII_2_gcm(a, b), result);
-  assert_true( VII_2_gcm (a, b) == result);
+  expected_ret = 1;
+  ret = VII_2_gcm (a, b);
+  printf ("a = %u, b = %u. gcm = %d. expect gcm = %d.\n", a, b, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
+
 }
 
 void test_VII_3 ()
@@ -378,7 +358,7 @@ void test_fixture_two( void )
   // run_test(test_asserting);
   // run_test(test_assert_fails);
   test_fixture_end();
-  /**
+  /** SEATEST NOTE.
 
   der: At the end of a test suite "4 run  3 failed":
   means
