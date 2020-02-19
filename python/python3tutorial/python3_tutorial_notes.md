@@ -709,6 +709,30 @@ Abbreviation for generators that are used only once. Same syntax as list compres
 
 ## https://docs.python.org/3/tutorial/stdlib.html#operating-system-interface
 
+## https://docs.python.org/3/tutorial/stdlib.html#operating-system-interface
+
+## https://docs.python.org/3/tutorial/stdlib.html#file-wildcards
+
+## https://docs.python.org/3/tutorial/stdlib.html#command-line-arguments
+
+## https://docs.python.org/3/tutorial/stdlib.html#error-output-redirection-and-program-termination
+
+## https://docs.python.org/3/tutorial/stdlib.html#string-pattern-matching
+
+## https://docs.python.org/3/tutorial/stdlib.html#mathematics
+
+## https://docs.python.org/3/tutorial/stdlib.html#internet-access
+
+## https://docs.python.org/3/tutorial/stdlib.html#dates-and-times
+
+## https://docs.python.org/3/tutorial/stdlib.html#data-compression
+
+## https://docs.python.org/3/tutorial/stdlib.html#performance-measurement
+
+## https://docs.python.org/3/tutorial/stdlib.html#quality-control
+
+Interesting. Comments turned into tests. Replacement for pytest?
+
 
 
 
