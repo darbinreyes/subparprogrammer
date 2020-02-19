@@ -487,9 +487,10 @@ a pointer of one type to a pointer of another type **without a cast.**
 next: "In Chapter 3, we presented a Shell sort function"
 
  
-
+ `p = alloc(len) == NULL` // Pg. 91. Is the precedence of = higher than ==? ANS: No. So this isa KnR bug.
  
 
+# 5.7 Multi-dimensional Arrays 
 
 
 
