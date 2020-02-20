@@ -483,15 +483,26 @@ a pointer of one type to a pointer of another type **without a cast.**
 ## 5.5 Character Pointers and Functions 
 
 ## 5.6 Pointer Arrays; Pointers to Pointers 
-
-next: "In Chapter 3, we presented a Shell sort function"
-
  
  `p = alloc(len) == NULL` // Pg. 91. Is the precedence of = higher than ==? ANS: No. So this isa KnR bug.
- 
 
-# 5.7 Multi-dimensional Arrays 
+## 5.7 Multi-dimensional Arrays 
 
 
+the number of rows is irrelevant, 
+
+
+`f(int daytab[2][13]) { ... } `
+
+It could also be 
+
+`f(int daytab[][13]) { ... } `
+
+since the number of rows is irrelevant, or it could be 
+
+`f(int (*daytab)[13]) { ... } `
+
+
+# The parentheses are necessary since brackets [] have higher precedence than *. 
 
 
