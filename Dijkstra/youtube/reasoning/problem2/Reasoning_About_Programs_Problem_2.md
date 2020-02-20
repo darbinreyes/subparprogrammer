@@ -46,7 +46,7 @@ Here we have another pairing, of the same six points and here you see that there
 
 My guess is that for this situation of red and blue points this is the only solution. In general the solution is not unique. But OK, here we have a solution. The n line segments connecting the points of the pairs do not intersect. Now we have to show, that for any value of n this is true, such a solution exists. And we will do so by designing a program. 
 
-[Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=31m52s)
+[Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=31m45s)
 
 //p2.5
 

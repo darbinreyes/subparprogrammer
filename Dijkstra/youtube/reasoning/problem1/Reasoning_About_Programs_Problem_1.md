@@ -98,7 +98,7 @@ And as with all such one person games, the rule is that one goes on playing as l
 
 What one does is, one shakes the urn, and then looks in the opposite direction, puts one's hand in the urn, picks up two pebbles, and looks at their color. And depending on the color of the two pebbles taken out, one puts a pebble into the urn.
 
-[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=8m35s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=8m30s)
 
 ![a.1.10](a.1.10.png)
 
@@ -184,7 +184,7 @@ The first line of this little program represents the initialization, the initial
 
 The other two guarded commands deal with cases in which two pebbles of equal color are taken out. If b is at least two, two black pebbles can be taken out and a black will be returned. Again the net effect on the filling of the urn is b becomes b minus 1. The complicated case, when two white pebbles are taken out, well that’s the case where we might need the black paint, because w decreases by two, and b increases by b plus 1. So here we have a description of the game that takes the changes in the filling of the number of colors in the urn into account. Now a moments inspection of these three possibilities tells us that as far as the change in the urn is concerned we don’t need to distinguish between the first two, they just decrease b by 1, and leave w as is. 
 
-[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=20m20s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=20m15s)
 
 // my comment: notice that in this repetition there are three guarded commands, and recall that this notation is obtained by replacing the brackets for “if fi” with “do od”. With only a single guarded command the guard itself is the condition for repeating the statement, in this case, with three guards, what is the correct operational interpretation?
 
@@ -206,7 +206,7 @@ And here we have answered our problem, you see because in the case of even [big]
 
 In formula the final condition is that little w equals 0 and little b equals 1. Of course if you start with an odd number of white ones in the urn, then the final pebble is white, because the final state is characterized by w equals 1 and b equals 0, as these are the only solutions of b plus w being natural equal to 1. So this settles the problem: what can be said about the color of the final pebble. 
 
-[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=23m34s)
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=23m30s)
 
 //p1.7
 
