@@ -32,7 +32,7 @@ Total correctness is our final target. “Total Correctness” means that the pr
  * (ii) termination
  * These are now two separated concerns.
 
-One of them is the concern for partial correctness and the other one is the concern for termination. We will see that the separation of these two concerns is really helpful because the considerations about partial correctness are totally independent of proofs of termination.
+One of them is the concern for partial correctness and the other one is the concern for termination. We will see that the separation of these two concerns is really helpful because the considerations about partial correctness are **totally independent** of proofs of termination.
 
 In order to show you the general structure of those proofs, particularly for partial correctness, let me go for a moment to the black board. I will use a notation that has been introduced by C. A. R. Hoare in the late 60’s. Let S be a program fragment, let Q be the initial condition, and let R be a post condition. 
 
