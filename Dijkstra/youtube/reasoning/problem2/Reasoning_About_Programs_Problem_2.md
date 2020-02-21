@@ -228,3 +228,40 @@ I think that our argument here is preferable for two reasons. First of all, we h
 Now this concludes the treatment of the second example. One final request, to you, having seen how we can convince ourselves that programs indeed are totally correct. Please realize that if you have written a program, and it's not correct, it is a little bit **cowardly**, to say that your program had a bug, to call errors bugs, is a very primitive animistic attitude, suggests that the bug has a life of itself, and that you’re not totally responsible for it. That the mean little bug crept in behind your back at the moment you were not looking. This is not true, if the program is not correct, **you made an error**. And my request, my prayer so to speak is, that you stop using the term bugs for program errors, but call them what they are: errors. Unless we change our language, and call an error an error, programming and computing science have not yet matured. Thank you, for your attention.
 
 
+# I'm dumb. How do you get n! for the size of the state space?
+
+Number of 1 to 1 correspondences of n-red and n-blue points.
+
+Let the red points be labeled 
+
+a,b,c,d
+
+and the blue points
+
+e,f,g,h
+
+Connect a-e,
+
+Each time you make a connection, 1 red and 1 blue node are removed
+
+a-e,
+
+b-e,f,g,
+
+a-f
+
+a-g
+
+a-h
+
+choose 4 choose 4/choose 2 choose 1
+4×4/2!=16/2=8 // WRONG.
+
+4! = 4×3×2×1=12×2×1=24×1=24. // RIGHT.
+
+choose 4, choose 3, choose 2, choose 1.
+
+Imagine a matrix representation of the connections. 0 means no connection, 1 means connected. The red points are the rows, blue points are the columns. Then in each column a 1 can only appear once. In each row a 1 can only occur once. Then the number of possible connections is determined by a choice of 4 (possible connections), choice of 3, choice of 2, choice of 1 = 4! = 24. 
+= 4 distinct letters, chosen in 4 tuples, without replacement, b,a != a,b.
+
+
