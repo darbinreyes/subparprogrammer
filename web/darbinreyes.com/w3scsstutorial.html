@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!-- http://www.w3schools.com/html/html_intro.asp -->
+<html lang="en-US">
+  <head>
+    <title>Subpar Programmer</title>
+    <meta charset="utf-8"/>
+    <!-- To ensure proper rendering and touch zooming, also add the viewport meta tag inside the <head> element -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="keywords" content="Darbin, Reyes, Dijkstra">
+    <meta name="description" content="Darbin Reyes's personal website.">
+    <meta name="author" content="Darbin Reyes">
+    <!-- Latest compiled and minified CSS -->
+    <!-- http://www.w3schools.com/css/css_intro.asp -->
+    <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <style>
+      img.subparlogo {
+        width:8%;
+        float:right;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Subpar Programmer <a href="."><img class="subparlogo" src="gascat2-v1.png" alt="gas cat"/></a></h2>
+      <ul class="nav nav-tabs" role="tablist">
+        <li><a href=".">Home</a></li>
+        <li><a href="./about.html">About</a></li>
+        <li class="active"><a href="./canvastest.html">Canvas Test</a></li>
+      </ul>
+
+      <div class="row">
+        <div class="col-xs-12">
+          <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas>
+        </div>
+      </div>
+    </div>
+    <!-- Optional: Include the jQuery library -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+    <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
+    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+    <script>
+      var canvas = document.getElementById("myCanvas");
+      var ctx = canvas.getContext("2d");
+    </script>
+  </body>
+
+
+</html>
