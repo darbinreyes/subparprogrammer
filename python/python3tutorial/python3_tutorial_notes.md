@@ -733,6 +733,18 @@ Abbreviation for generators that are used only once. Same syntax as list compres
 
 Interesting. Comments turned into tests. Replacement for pytest?
 
+## https://docs.python.org/3/tutorial/stdlib.html#batteries-included
+
+Other libs.
+Remote procedure calls
+Email. SMTP. POP.
+JSON
+Comma Separated Values.
+XML.
+SQL.
+
+# https://docs.python.org/3/tutorial/stdlib2.html#brief-tour-of-the-standard-library-part-ii
+
 
 
 
