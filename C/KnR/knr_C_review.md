@@ -503,6 +503,55 @@ since the number of rows is irrelevant, or it could be
 `f(int (*daytab)[13]) { ... } `
 
 
-# The parentheses are necessary since brackets [] have higher precedence than *. 
+The parentheses are **necessary** since brackets [] have higher precedence than *. 
+
+---
+
+// = a block of my writing, not quotes from KnR.
+
+Is this precedence reflected in the table given in ch.2? ANS: Yes. [] appears at the top * appears just below it.
+
+So clearly without the parens:
+
+`int *daytab[13]`
+
+"an array pointers, those pointers point to integers" 
+
+Remind me, as a function argument the size, 13, gets ignored right? ANS: Yes. A pointer to the first element of the array is passed. Pg. 84.
+
+`*daytab` is an integer, the first in the array, `*(daytab + 1)` points to the next integer in the array.
+
+And with parens:
+
+`int (*daytab)[13]`
+
+`*daytab` is a pointer to an array of 13 integers. In this case `*(daytab + 1)` would advance the pointer by 13 integers, to the subsequent size 13 integer array. 
+
+Fine, but I can just ignore this since daytab[][13] is clearer and gets the job done.
+
+//  = end of a block of my writing.
+
+---
+
+More generally, only the **first** dimension (subscript) of an array is **free**; **all** the others have to be **specified**. 
+
+---
+
+## 5.8 Initialization of Pointer Arrays 
+
+how that array of names is initialized. 
+
+// An array of strings = an array of pointers to chars.
+
+```
+char *name[] = { "Illegal month", 
+"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" 
+};
+``` 
+
+## 5.9 Pointers vs. Multi-dimensional Arrays 
+
+
+
 
 
