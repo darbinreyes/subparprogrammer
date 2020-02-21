@@ -745,6 +745,13 @@ SQL.
 
 # https://docs.python.org/3/tutorial/stdlib2.html#brief-tour-of-the-standard-library-part-ii
 
+## https://docs.python.org/3/tutorial/stdlib2.html#output-formatting
+
+Ways to print things nicely.
+
+## https://docs.python.org/3/tutorial/stdlib2.html#templating
+
+
 
 
 
