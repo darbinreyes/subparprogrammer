@@ -4,10 +4,14 @@
 
 ## [Problem One](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=5s)
 
-Welcome to this talk on reasoning about programs. We all know that machines are so fast and stores are so big that they give us plenty of latitude to screw things up.
-And in order to prevent that, we have to, prove that our programs indeed produce the results we would like them to produce. This talk will have two key themes.
+Welcome to this talk on reasoning about programs. We all know that machines are so fast and stores are so big that they give us plenty of latitude to **screw things up**.
+And in order to prevent that, we have to, **prove** that our programs indeed produce the **results** we would like them to produce. This talk will have **two key themes**.
 
-The one theme is, the general structure of correctness arguments about programs. The underlying theme is how to keep the arguments as clean and as simple as possible. One of the ways of achieving the latter is to separate our concerns as best as we can. One of the first separations of concerns we will encounter is the separation between total correctness and partial correctness. More precisely between partial correctness and termination.
+The one theme is, the **general structure of correctness arguments** about programs. The underlying theme is how to keep the **arguments as clean and as simple as possible**. **One** of the ways of achieving the latter is to **separate our concerns** as best as we can. 
+
+* // my comment: **separate our concerns** = break a problem up into smaller, easier, sub-problems.
+
+One of the first **separations of concerns** we will encounter is the separation between **total correctness** and **partial correctness**. More precisely between **partial correctness** and **termination**.
 
 Let me introduce the terms to you.
 
@@ -19,9 +23,9 @@ Total correctness is our final target. “Total Correctness” means that the pr
 
 ![a.1.2](a.1.2.png)
 
-* // graphic // **“Partial Correctness”** means: the program will produce the right result if its execution terminates.
+* // graphic // **“Partial Correctness”** means: the program will produce the right result **if** its execution terminates.
 
-“Partial Correctness” is a weaker concept. It only guarantees that the program will produce the right result if its execution terminates. Now the introduction of the notion of partial correctness, now splits our concerns for total correctness into two separate ones. 
+“Partial Correctness” is a weaker concept. It only guarantees that the program will produce the right result **if** its execution terminates. Now the introduction of the notion of partial correctness, now splits our concerns for total correctness into **two separate** ones. 
 
 ![a.1.3](a.1.3.png)
 
@@ -32,28 +36,26 @@ Total correctness is our final target. “Total Correctness” means that the pr
  * (ii) termination
  * These are now two separated concerns.
 
-One of them is the concern for partial correctness and the other one is the concern for termination. We will see that the separation of these two concerns is really helpful because the considerations about partial correctness are **totally independent** of proofs of termination.
+One of them is the concern for partial correctness and the other one is the concern for termination. We will see that the separation of these two concerns is **really helpful** because the considerations about partial correctness are **totally independent** of proofs of termination.
 
-In order to show you the general structure of those proofs, particularly for partial correctness, let me go for a moment to the black board. I will use a notation that has been introduced by C. A. R. Hoare in the late 60’s. Let S be a program fragment, let Q be the initial condition, and let R be a post condition. 
+In order to show you the general structure of those **proofs**, particularly for partial correctness, let me go for a moment to the black board. I will use a notation that has been introduced by C. A. R. Hoare in the late 60’s. Let S be a program fragment, let Q be the initial condition, and let R be a post condition. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=3m28s)
 
 * //  chalkboard
  * {Q} S {R} 
 
-//p1.0
-
 ![p1.0](p1.0.png)
 
-Precondition, postcondition, initial condition, final condition,  these are alternative terms. Tony Hoare introduced this to mean that if the initial state for the execution of the program fragment S satisfies condition Q then upon termination the program will have taken the machine into a final state that satisfies condition R. Now it is in this formalism that I will describe the general proof rule for a repetitive construct. Well the repetitive construct I will take a very simple one, it contains of two things. A boolean expression B, saying that the repeatable statement should be executed once more, and here is the repeatable statement, and here is the final closing bracket "od".
+Precondition, postcondition, initial condition, final condition,  these are alternative terms. Tony Hoare introduced this to **mean** that if the initial state for the execution of the program fragment S satisfies condition Q then upon termination the program will have taken the machine into a final state that satisfies condition R. Now it is in this formalism that I will describe the general **proof rule** for a **repetitive construct**. Well the repetitive construct, I will take a very simple one, it contains of **two** things. A **boolean expression B**, saying that the repeatable statement should be executed once more, and here is the **repeatable statement**, and here is the final closing bracket "od".
 
 ![a.1.4](a.1.4.png)
 
-If firstly, prior to the execution of the whole repeatable statement, a condition P holds. 
+If firstly, prior to the execution of the **whole** repeatable statement, a condition P holds. 
 
 ![a.1.5](a.1.5.png)
 
-P by the way is called the invariant. And if S has the property that the initial validity of P and the guard, 
+P by the way is called the **invariant**. And if S has the property that the initial validity of P **and** the guard, 
 
 ![a.1.6](a.1.6.png)
 
@@ -65,36 +67,33 @@ well then, clearly S is such that its execution does not destroy the validity of
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=5m26s)
 
-// chalkboard
- 
-//p1.1
-
 ![p1.1](p1.1.png) // move to after: no longer true.
 
+* // chalkboard
+  * {P} 
+  * do B → 
+  * {P ∧ B} S {P} 
+  * od {P ∧ ¬B}
 
-{P}
-do B →
-    {P ∧ ¬B} S {P}
-od {P ∧ ¬B}
+P holding at the beginning, P remains true no matter how often the statement is executed, so upon completion, P still holds, but furthermore because the repetition is terminated we know that the guard B is no longer true. Now here we have the **general pattern** that we will use **over and over again** to **prove** things about the **repetitive** construct “do B arrow S od”. P is called the **invariant**, B is called the **guard**, S is called the **statement**, and the **postcondition** is P **and** the negation of the guard. 
 
+We shall now apply these **patterns** of reasoning to **two** different **examples**. The one of them, the first one, where the **correctness** concerns plays the major role, and the second one in which the **termination** concern plays the major role. 
 
-P holding at the beginning, P remains true no matter how often the statement is executed, so upon completion, P still holds, but furthermore because the repetition is terminated we know that the guard B is no longer true. Now here we have the general pattern that we will use over and over again to prove things about the repetitive construct “do B arrow S od”. P is called the invariant, B is called the guard, S is called the statement, and the post condition is P and the negation of the guard. 
-
-We shall now apply these patterns of reasoning to two different examples. The one of them, the first one, where the correctness concerns plays the major role, and the second one in which the termination concern plays the major role. For the first example, we shall consider a one person game, and the one person game is played with a big urn, full of pebbles, and each pebble is white or black. 
+For the **first example**, we shall consider a one person game, and the one person game is played with a big urn, full of pebbles, and each pebble is white or black. 
 
 ![a.1.8](a.1.8.png)
 
-// graphic
-// Starting position: an urn containing one or more pebbles, each pebble being black or white.
+* // graphic
+  * **Starting** position: an urn containing **one or more** pebbles, each pebble being black or white.
 
-We don’t start with an empty urn. Now besides that urn with pebbles we have at our disposal as many white or black pebbles as the playing of the game might require. The game is such that a move is possible when there are at least two pebbles in the urn.
+We don’t start with an empty urn. Now besides that urn with pebbles we have at our disposal as many white or black pebbles as the playing of the game might require. The game is such that a **move** is possible when there are **at least two pebbles** in the urn.
 
 ![a.1.9](a.1.9.png)
 
-// graphic
-// Continue making moves as long as possible. A move is possible if the urn contains two or more pebbles.
+* // graphic
+  * Continue making moves as long as possible. A move is possible if the urn contains **two or more pebbles**.
 
-And as with all such one person games, the rule is that one goes on playing as long as moves are possible. Furthermore there have to be at least two pebbles in the urn because a move is the following:
+And as with all such one person games, the rule is that one goes on playing as long as moves are possible. Furthermore there have to be **at least two** pebbles in the urn because a move is the following:
 
 What one does is, one shakes the urn, and then looks in the opposite direction, puts one's hand in the urn, picks up two pebbles, and looks at their color. And depending on the color of the two pebbles taken out, one puts a pebble into the urn.
 
@@ -102,8 +101,10 @@ What one does is, one shakes the urn, and then looks in the opposite direction, 
 
 ![a.1.10](a.1.10.png)
 
-// graphic
-// A move. Take two pebbles out of the urn; if colors different, a white pebble is put into the urn, if equal, a black one. 
+* // graphic
+  * A **move**. Take two pebbles out of the urn; if colors **different**, a **white** pebble is put into the urn, if **equal**, a **black** one. 
+
+#NEXT
 
 Here are the color rules stated. They are too complicated to remember but we will return to them later. The idea is that if we take out two pebbles of different color, we put back the white one. However, if we take out two pebbles of equal color, we put a black one into the urn. Now that's precisely the reason why we need to have pebbles in store, in stock, sorry, because if you have taken out two white ones then we have to put in a black one. So we have to have a sufficient supply of black pebbles or quickly drying black paint or something of that sort. Now this is the game, not very exiting to play perhaps, but it's a worthwhile exercise to think about. 
 
