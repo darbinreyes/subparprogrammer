@@ -104,7 +104,7 @@ swap (
 
   https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII1.html
 
-  See Euclid.VII.1.md
+  See Euclid.VII.1.md.
 
   Determines if the given numbers are prime to one another,
   a.k.a. the numbers have no common measure greater than 1.
@@ -176,6 +176,8 @@ VII_1_relatively_prime (
 
   https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII2.html
 
+  See Euclid.VII.2.md.
+
   Given two numbers not prime to one another, determines their greatest
   common measure (gcm, a.k.a greatest common divisor).
 
@@ -185,7 +187,7 @@ VII_1_relatively_prime (
   @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
   @retval -2 If (a == b).This is considered invalid input.
   @retval -3 Unexpected error.
-  @retval -4 If !(a < ((unsigned int)INT_MAX) && b < ((unsigned int)INT_MAX)).
+  @retval -4 If a or b is greater than INT_MAX.
   @retval RELATIVELY_PRIME if a and b are prime to one another.
   @retval > 1 The greatest common measure of a and b.
 
@@ -215,7 +217,7 @@ VII_2_gcm (
 
   // Prevent a possible overflow of the return value.
   // Limit the inputs to max INT_MAX.
-  if (!(a < ((unsigned int)INT_MAX) && b < ((unsigned int)INT_MAX))) {
+  if (!(a <= ((unsigned int)INT_MAX) && b <= ((unsigned int)INT_MAX))) {
     assert(0);
     return -4;
   }
@@ -241,88 +243,8 @@ VII_2_gcm (
   }
 }
 
-/**
-  "To find the greatest common measure of three given numbers not relatively prime."
-
-  https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII3.html
-
-  Proof summary: (See evernote for details)
-  A, B, C are not relatively prime. Take D=gcd.(A,B).
-  Case D|C.
-  Derive D|A,B,C. Reductio add absurdum leads to conclusion D=gcd.(A,B,C).
-  Case ¬(D|C).
-  Derive that D, C are not relatively prime. Take E=gcd.(D,C).
-  Derive that E|A,B,C. Reduction ad absurdum leads to conclusion E=gcd.(A,B,C).
-
-
-
-  Given three numbers not prime to one another, returns their greatest common
-  measure.
-
-  @param  a The first number.
-  @param  b The second number.
-  @param  c The third number.
-
-  @retval -1 if !(a > 1 && b > 1 && c > 1). This is considered invalid input.
-  @retval -2 If (a == b || a == c || b  == c).This is considered invalid input.
-  @retval 1 if any pair of a,b,c are prime to one another.
-  @retval returns the greatest common measure of a, b, c which is always > 1.
-
-**/
-int // Be careful, since arguments are unsigned it may be possible that the return value overflows a signed int. I am using negative numbers to indicate errors.
-VII_3_gcm (
-  unsigned int a,
-  unsigned int b,
-  unsigned int c
-  )
-{
-
-  if (!( a > 1 && b > 1 && c > 1)) { // Valid arguments means integers > 1.
-    assert(0);
-    return -1;
-  }
-
-  assert(a > 1 && b > 1 && c > 1);
-
-  /**
-    Verify that the numbers are distinct and that the three numbers are not
-    relatively prime. The possible pairings are:
-    a,b
-    a,c
-    b,a // Since gcd.(a,b) == gcd.(b,a) this is a duplicate of the first pair.
-    b,c
-    c,a // dup.
-    c,b // dup.
-  **/
-
-  if (a == b || a == c || b  == c) {
-    assert(0);
-    return -2;
-  }
-
-  int d, e, f;
-
-  d = VII_2_gcm (a, b);
-  e = VII_2_gcm (a, c);
-  f = VII_2_gcm (b, c);
-
-  if (d == 1 || e == 1 || f == 1) {
-    // One or more of the pairs is prime to one another.
-    return 1;
-  }
-
-  // Now we know a common measure exists. Compute it.
-
-  e = VII_2_gcm (d, c);
-
-  if (!(e > 1)) {
-    // Error. d and c should have a common measure. Euclid proved that.
-    assert(0);
-    return 1;
-  }
-
-  return e;
-}
+#define MEASURES 0
+#define NOT_MEASURES 1
 
 /**
   Determines if the lesser number measures the greater number.
@@ -358,10 +280,113 @@ measures_v0 (
   }
 
   if (a == 0) {
-    return 0; // b|a
+    return MEASURES; // b|a
   }
 
-  return 1; // !(b|a)
+  return NOT_MEASURES; // !(b|a)
+}
+
+/**
+  "To find the greatest common measure of three given numbers not relatively prime."
+
+  https://mathcs.clarku.edu/~djoyce/java/elements/bookVII/propVII3.html
+
+  See Euclid.VII.3.md.
+
+  Given three numbers not prime to one another, returns their greatest common
+  measure.
+
+  @param  a The first number.
+  @param  b The second number.
+  @param  c The third number.
+
+  @retval -1 if !(a > 1 && b > 1 && c > 1). This is considered invalid input.
+  @retval -2 If (a == b || a == c || b  == c).This is considered invalid input.
+  @retval -3 If a, b, or c are greater than INT_MAX.
+  @retval -4 Unexpected error.
+  @retval 1 if any pair of a,b,c are prime to one another.
+  @retval > 1 The greatest common measure of a, b, c.
+
+**/
+int // Be careful, since arguments are unsigned it may be possible that the return value overflows a signed int. I am using negative numbers to indicate errors.
+VII_3_gcm (
+  unsigned int a,
+  unsigned int b,
+  unsigned int c
+  )
+{
+
+  if (!( a > 1 && b > 1 && c > 1)) { // Valid arguments means integers > 1.
+    assert(0);
+    return -1;
+  }
+
+  // Prevent a possible overflow of the return value.
+  // Limit the inputs to max INT_MAX.
+  if (!(a <= ((unsigned int)INT_MAX) && b <= ((unsigned int)INT_MAX)) && c <= ((unsigned int)INT_MAX)) {
+    assert(0);
+    return -3;
+  }
+
+  /**
+    Verify that the numbers are distinct and that the three numbers are not
+    relatively prime. The possible pairings are:
+    a,b
+    a,c
+    b,a // Since gcd.(a,b) == gcd.(b,a) this is a duplicate of the first pair.
+    b,c
+    c,a // dup.
+    c,b // dup.
+  **/
+
+  if (a == b || a == c || b  == c) {
+    assert(0);
+    return -2;
+  }
+
+  int d, e, f;
+
+  d = VII_2_gcm (a, b);
+  e = VII_2_gcm (a, c);
+  f = VII_2_gcm (b, c);
+
+  if (d < 0 || e < 0 || f < 0) {
+    assert(0);
+    return -4;
+  }
+
+  if (d == RELATIVELY_PRIME || e == RELATIVELY_PRIME || f == RELATIVELY_PRIME) {
+    // One or more of the pairs is prime to one another.
+    return RELATIVELY_PRIME;
+  }
+
+  int t;
+
+  t = measures_v0 (d, c);
+
+  if (t < 0) {
+    assert(0);
+    return -4;
+  }
+
+  if (t == MEASURES) { // This reflects the structure of Euclid's proof.
+    return d;
+  }
+
+  e = VII_2_gcm (d, c);
+
+  if (e < 0) {
+    assert(0);
+    return -4;
+  }
+
+  if (!(e > 1)) {
+    // At this point, d and c should have a common measure. Euclid proved that.
+    assert(0);
+    return -4;
+  }
+
+  return e;
 }
 
 /**

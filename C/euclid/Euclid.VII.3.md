@@ -23,49 +23,88 @@ To find the greatest common measure of three given numbers not relatively prime.
 ## Guide 
 
 * Notation:
-* "greatest common divisor of two numbers a and b" = GCD.(a, b) = "greatest common measure" = GCM.(a, b). 
+  * "greatest common divisor of two numbers a and b" = GCD.(a, b) = "greatest common measure" = GCM.(a, b). 
 
-* "a divides b" = "a measures b" = a|b 
+  * "a divides b" = "a measures b" = a|b 
 * Euclid constructs GCD.(a, b, c) = GCD.(GCD.(a, b), c).
 
 * Guide proof summary: 
 
-  * 4- Let d = GCD.(a, b) 
-  * ⇒
-  * 0- d|a ∧ d|b
-  * 7- Let e = GCD.(d, c)
-  * ⇒
-  * 1- e|d ∧ e|c
-  * {1-} e | d
-  * {0-} d | a
-  * {0-} d | b 
-  * ⇒ {transitivity of | operator}
-  * 2- e | a 
-  * ⇒ {transitivity of | operator}
-  * 3- e | b
-  * {1-, 2-, 3-}
-  * ⇒ 
-  * e|a,b,c
+---
 
-* Reductio ad absurdum to prove that e is the greatest common divisor.
+\#4 Let d = GCD.(a, b) 
 
-  * Let f > e ∧ f|a,b,c
-  * ⇒
-  * 6- f|a ∧ f|b ∧ f|c
-  * ⇒
-  * f|a ∧ f|b
-  * ⇒ {VII.2.Corollary}
-  * f|GCD.(a, b) 
-  * = {4-}
-  * 5- f|d
-  * Therefore
-  * ⇒{5-,6-}
-  * f|d ∧ f|c
-  * ⇒ {VII.2.Corollary}
-  * f|GCD.(d, c)
-  * = {7-}
-  * f|e
-  * The greater measures the less, which is impossible. Q.E.D. 
+⇒
+
+\#0 d|a ∧ d|b
+
+\#7 Let e = GCD.(d, c)
+
+⇒
+
+\#1 e|d ∧ e|c
+
+{\#1} e | d
+
+{\#0} d | a
+
+{\#0} d | b 
+
+⇒ {transitivity of | operator}
+
+\#2 e | a 
+
+⇒ {transitivity of | operator}
+
+\#3 e | b
+
+{\#1, \#2, \#3}
+
+⇒
+ 
+e|a,b,c
+
+---
+
+* Reductio ad absurdum to prove that e is the greatest common divisor. Assume there exists a number f, greater than e, which measures a, b, c.
+
+Let f > e ∧ f|a,b,c
+
+⇒
+
+\#6 f|a ∧ f|b ∧ f|c
+
+⇒
+
+f|a ∧ f|b
+
+⇒ {VII.2.Corollary}
+
+f|GCD.(a, b) 
+
+≡ {\#4}
+
+\#5 f|d
+
+Therefore
+
+⇒{\#5,\#6}
+
+f|d ∧ f|c
+
+⇒ {VII.2.Corollary}
+
+f|GCD.(d, c)
+
+≡ {\#7}
+
+f|e
+
+* The greater measures the less, which is **impossible**. Therefore e is the greatest common measure of a, b, c.
+
+* Q.E.D. 
+
+---
 
 ## Proof 
 
@@ -106,21 +145,21 @@ On paper.
 
 Given a,b,c
 How many groups of two can we form without replacement?
-choose 3, choose 2 = 3 x 2 = 6.
+choose 3, choose 2 = 3 × 2 = 6.
 
 Let "ordering is distinguishing" mean b,a is distinct from a,b. In this case the count remains the same, 6.
 
 Let "ordering is not distinguishing" mean b,a is the same as a,b.
 
 In this case each group of two letters has 
-choose 2 choose 1 duplicates = 2 x 1 = 2.
+choose 2 choose 1 duplicates = 2 × 1 = 2.
 
 **In general,**
 if we have n distinct letters to choose from, without replacement, in which "ordering is distinguishing (b,a!=a,b)", the number of m-tuple combinations is: = n! up to m-th term.
 
 * e.g. 
 
-* n = 3, m = 2, compute 3 x 2.
+* n = 3, m = 2, compute 3 × 2.
   * {a,b,c}. n = 3. 
   * m = 2. 
   
@@ -131,7 +170,7 @@ if we have n distinct letters to choose from, without replacement, in which "ord
 5. c,a
 6. c,b
 
-* n = 4, m = 2, compute 4 x 3.
+* n = 4, m = 2, compute 4 × 3.
   * {a,b,c,d}. n = 4. 
   * m = 2.
  
@@ -153,37 +192,11 @@ If we have n distinct letters to choose from, without replacement, in which "ord
 = (n! up to m-th term)/m!
 
 * e.g.
-* n = 3, m = 2, compute (3 x 2)/2! = 6/2 = 3.
+* n = 3, m = 2, compute (3 × 2)/2! = 6/2 = 3.
   * {a,b,c}. n = 3. 
   * m = 2. 
   
 1. a,b
 2. a,c
 3. b,c
-
-**TODO**
-
-Number of 1-1 correspondences of n-red and n-blue points.
-Let the red points be labeled 
-a,b,c,d
-and the blue points
-e,f,g,h
-
-a-e,
-each time you make a connection, 1 red and 1 blue node are removed
-a-e,b-e,f,g,
-a-f
-a-g
-a-h
-
-choose 4 choose 4/choose 2 choose 1
-4x4/2!=16/2=8 // WRONG.
-
-4! = 4x3x2x1=12x2x1=24x1=24. // RIGHT.
-
-choose 4, choose 3, choose 2, choose 1.
-
-Imagine a matrix representation of the connections. 0 means no connection, 1 means connected. The red points are the rows, blue points are the columns. Then in each column a 1 can only appear once. In each row a 1 can only occur once. Then the number of possible connections is determined by a choice of 4 (possible connections), choice of 3, choice of 2, choice of 1 = 4! = 24. 
-= 4 distinct letters, chosen in 4 tuples, without replacement, b,a != a,b.
-
 
