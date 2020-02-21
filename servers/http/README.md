@@ -279,7 +279,7 @@ $ ln ./../../../../../../../../etc/hosts
     * I just discovered that when apache is restarted it copies /etc/apache2/users/darbinreyes.conf to /private/etc/apache2/users/darbinreyes.conf
 * [x] Add a vitualhost under devtest.localhost. This will point to the copy of my website that I will make changes to and test. When I complete a change I can copy the completed and stable change to the main website directory. Remove symbolic link from Sites/darbinreyes.com.
 * [ ] Add a vitualhost under devtest.darbinreyes.com. 
-
+* [ ] Configure https.
 # Using the nano editor.
 
 * ^ represents the control key.
