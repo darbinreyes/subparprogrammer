@@ -751,8 +751,7 @@ Ways to print things nicely.
 
 ## https://docs.python.org/3/tutorial/stdlib2.html#templating
 
+A way to have text place holders filled into a hard coded text.
 
-
-
-
+## https://docs.python.org/3/tutorial/stdlib2.html#working-with-binary-data-record-layouts
 
