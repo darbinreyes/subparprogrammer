@@ -169,7 +169,46 @@ A notation for defining the structure (= lists, paragraph) of information (= mos
 <p>Japanese example: <span lang="ja">ご飯が熱い。</span>.</p>
 ```
 
+## [Introduction to HTML/HTML text fundamentals](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/HTML_text_fundamentals)
+
+15
+15
+12
+
+* best practices with \<h1-6>
+  * only use h1 once PER PAGE
+  * use them in the right order h1 h2 h3 not h1 h3 h2.
+  * aim to use 3/6 of them PER PAGE. Instead of deep hierarchy use separate pages.
+
+*  <span> element. It has no semantics = no op on the content by default. You use it to wrap content when you want to apply CSS to it (or do something to it with JavaScript)  
+  * You can use this to make the styling of its contents look like an \<h1> but it only looks that way, whereas by convention h1 has the meaning of top level information.
+  
+### Lists
+
+* unordered
+* ordered
+* can be nested.
+
+### Emphasis and importance
+
+* \<em> is for true emphasis, not just making something italic. If all you want is italic styling, use \<span> + CSS. or use  \<i>.
+* \<strong> also for true emphasis. For just bold style, use \<span> or \<b>.
+* \<em> + \<strong> can be used together nested
+
+### Italic, bold, underline...
+
+* practically deprecated. pre CSS. avoid use.
+* underlines \<u> can be confused with links. avoid.
+
+## [Introduction to HTML/Creating hyperlinks](https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Creating_hyperlinks)
+
+### What is a hyperlink?
+
+### Anatomy of a link
+
+### A quick primer on URLs and paths
+
+### Link best practices
 
 
- 
 
