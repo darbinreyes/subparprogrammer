@@ -9,7 +9,11 @@ And in order to prevent that, we have to, **prove** that our programs indeed pro
 
 The one theme is, the **general structure of correctness arguments** about programs. The underlying theme is how to keep the **arguments as clean and as simple as possible**. **One** of the ways of achieving the latter is to **separate our concerns** as best as we can. 
 
+---
+
 * // my comment: **separate our concerns** = break a problem up into smaller, easier, sub-problems.
+
+---
 
 One of the first **separations of concerns** we will encounter is the separation between **total correctness** and **partial correctness**. More precisely between **partial correctness** and **termination**.
 
@@ -104,42 +108,57 @@ What one does is, one shakes the urn, and then looks in the opposite direction, 
 * // graphic
   * A **move**. Take two pebbles out of the urn; if colors **different**, a **white** pebble is put into the urn, if **equal**, a **black** one. 
 
-#NEXT
-
 Here are the color rules stated. They are too complicated to remember but we will return to them later. The idea is that if we take out two pebbles of different color, we put back the white one. However, if we take out two pebbles of equal color, we put a black one into the urn. Now that's precisely the reason why we need to have pebbles in store, in stock, sorry, because if you have taken out two white ones then we have to put in a black one. So we have to have a sufficient supply of black pebbles or quickly drying black paint or something of that sort. Now this is the game, not very exiting to play perhaps, but it's a worthwhile exercise to think about. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=9m35s)
 
 Now the first question is, does this game terminate?
-Yes it does, you see because, we start with the urn filled with a finite number of pebbles in it, and each move, taking out two pebbles and putting in one back reduces the number of pebbles by one. So as the game proceeds the number of pebbles in the urn decreases, now obviously that cannot go on forever. 
+Yes it does, you see because, we start with the urn filled with a finite number of pebbles in it, and each move, taking out two pebbles and putting in one back reduces the number of pebbles **by one**. So as the game proceeds the number of pebbles in the urn decreases, now obviously that cannot go on forever. 
+
+---
 
 // My comment: Clearly this part of the video is establishing that the game terminates, hence in the first problem the correctness concern plays the major role because it clearly terminates.
 
-So this is an example in which the termination of the process is totally trivial to determine. However, the question we are going to address now is about the final state, the final state of the urn when we can’t continue the game anymore. Now to begin with, that's again a separation of concerns. We could try to analyze what we can say about this game, if we totally ignore those complicated color rules, if we only capture, take into account from the move that, in each move, two pebbles are taken out, and one is turned back.
+---
+
+So this is an example in which the termination of the process is totally trivial to determine. However, the question we are going to address now is about the final state, the final state of the urn when we can’t continue the game anymore. 
+
+---
+
+// my comment: I ask myself: what result is this program computing? e.g. the result could be wether a given number is. It seems that the program is not computing any result in this sense but rather the program is modeling the playing of the game.
+
+---
+
+Now to begin with, that's again a separation of concerns. We could try to analyze what we can say about this game, if we totally ignore those complicated color rules, if we only capture, take into account from the move that, in each move, two pebbles are taken out, and one is turned back.
 
 ![a.1.11](a.1.11.png)
 
-// graphic
-// Problem: Given the initial contents of the urn, what can be said about the color of the final pebble?
+* // graphic
+  * // Problem: Given the initial contents of the urn, what can be said about the color of the final pebble?
 
-You see because our problem is, given the initial contents of the urn, what can be said about the color of the final pebble. But this is cheating already a little bit, because here the question says that there is a final pebble. One pebble left in the urn, can we prove that? Yes we can. You see, because, here is a description of the game being played, but totally ignoring, the colors. 
+You see because our problem is, given the initial contents of the urn, what can be said about the color of the final pebble. But this is cheating already a little bit, because here the question says that there is a final pebble. One pebble left in the urn, can we **prove** that? Yes we can. You see, because, here is a description of the game being played, but totally ignoring, the colors. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=12m32s)
 
-// graphic
-
-//p1.2
+* // graphic
 
 ![p1.2](p1.2.png)
 
-We introduce an integer variable little k and k is initialized with the number of pebbles in the urn, whatever their color. Now the first statement little k becomes capital k is the initialization.
+We introduce an integer variable little k and k is initialized with the number of pebbles in the urn, whatever their color. Now the first statement little k **becomes** capital k is the initialization.
 
+---
 
- // my comment: hence the line above with the “#” is not part of the program but a semantic definition of the meaning of variable k.
+ // my comment: hence the line above with the “#” is not part of the program but a semantic definition of the meaning of variable k, since the initialization is the next line.
+ 
+---
 
-And now we know that little k is at least one [ k >= 1 ] because we knew that before the game was started the urn was non-empty. And here are the rest of the game. There you get a repetition, and as long as there are at least two pebbles in the game, that is k at least 2 [ k >= 2 ], we get the two steps of our move. k becomes k minus 2 [ k := k - 2 ] models that two pebbles are taken out of the game, followed by k becomes k plus 1 [  k :=  k+1 ] modeling that a pebble is put back. Now if you combine those two things, those two steps, the net effect of taking out two and putting one back of course is k becomes k minus 1 [ k := k-1]. 
+And now we know that little k is at least one [ k >= 1 ] because we knew that before the game was started the urn was **non-empty**. And here are the rest of the game. There you get a repetition, and as long as there are at least two pebbles in the game, that is k at least 2 [ k >= 2 ], we get the two steps of our move. k becomes k minus 2 [ k := k - 2 ] **models** that two pebbles are taken out of the game, followed by k becomes k plus 1 [  k :=  k+1 ] modeling that a pebble is put back. Now if you combine those two things, those two steps, the **net effect** of taking out two and putting one back of course is k becomes k minus 1 [ k := k-1]. 
+
+---
 
 // my comment: Now we know that the number of pebbles in the urn decreases by one in each step, if the urn starts with only one pebble, no moves are possible and the game terminates with one pebble, if the urn starts with more than one pebble then we will decrease the number of pebbles by one until only one pebble is left, therefore in all cases the game will stop with one pebble in the urn.
+
+---
 
 Now here you see the annotated program, with an annotation very much in the style as I showed on the blackboard.
 
@@ -149,15 +168,51 @@ Now here you see the annotated program, with an annotation very much in the styl
 
 ![p1.3](p1.3.png)
 
-Little k becomes capital k [ k := K ], and since capital k was at least 1 [  K >= 1 ]to start with, here we have the initial condition for the repetition that little k is at least 1 [  k >=1 ]. 
+Little k becomes capital k [ k := K ], and since capital k was at least 1 [  K >= 1 ] to start with, here we have the initial condition for the repetition that little k is at least 1 [  k >=1 ]. 
+
+---
 
 // my comment: notice that there is no precondition for the initialization, since it is the first statement in the program.
 
+---
+
 Then we get the repetition, “do”, our previous guard, k at least 2 [ k >= 2 ], arrow, and at that moment we can assert the invariant P, that was that k was at least 1 [  k >= 1 ], also the guard B, that k is a least 2 [ k >= 2 ], so at that place we can assert that k is at least 2 [ k >= 2]. 
 
-[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=14m38s)
+---
 
-// my comment: k >= 1 AND k >= 2 EQUIVALENT k >= 2
+// my comment: I'm a bit confused here but I think I can reconstruct was he meant . 
+
+We start with:
+k ≥ 1
+
+After the guard of the repetition, recall our general rule for the repetition, that we assert the invariant P and the guard, which can be simplified by the equivalence:
+
+ k ≥ 1 ∧ k ≥ 2 
+ 
+ ≡ 
+ 
+ k ≥ 2
+ 
+ This is the precondition for the repeatable statement. After the repeatable statement, subtracting on both sides:
+k ≥ 1
+
+Again, our rule for the repetition, at termination we assert the invariant and the negation of the guard:
+
+k ≥ 1 ∧ ¬(k ≥ 2)
+
+≡
+
+k ≥ 1 ∧ k < 2
+
+≡
+
+k = 1
+
+---
+
+#NEXT:
+
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=14m38s)
 
 Now obviously the precondition k at least 2 [ k >= 2 ] guarantees that after the decrease k becomes k-1 [ k := k - 1 ], k is at least 1 [ k >= 1 ]. So we see that the repeatable statement k becomes k-1 [ k := k - 1 ] nicely maintains the truth of k at least 1 [ k >= 1 ], so upon completion, we know two things, that the guard is false, so k is no longer at least 2, so k is less than 2 [ k < 2 ], and furthermore k is at least 1 [ k >= 1 ]. Which, has only one solution, k equal 1 [ k = 1 ]. So using the techniques of invariance, we have proved the simple fact that our game terminates with one pebble in the urn. So we are indeed entitled to talk about the final pebble. 
 
