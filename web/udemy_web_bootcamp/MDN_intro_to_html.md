@@ -204,11 +204,37 @@ A notation for defining the structure (= lists, paragraph) of information (= mos
 
 ### What is a hyperlink?
 
+href = hypertext reference.
+title = tool tip.
+
+#### Document fragments = linking to a specific section on a page.
+
+add id attribute to a tag. Then use \# in href links. Works on current or other pages.
+
+id="This_section"
+href="index.html#This_section"
+href="#This_section" // Called a doc frag ref.
+
+
 ### Anatomy of a link
 
 ### A quick primer on URLs and paths
 
 ### Link best practices
 
+keep accessibility in mind. Blind folks. Don't be redundant.
 
+Links in the same site should be relative.
+
+download attribute sets default save file name.
+
+### E-mail links
+
+href="mailto:nowhere@mozilla.org"
+
+use "query term/notation" ?x=1&y=0 to set cc, bcc, subject, etc..
+
+## Advanced text formatting
+
+#NEXT:
 
