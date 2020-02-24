@@ -551,6 +551,30 @@ char *name[] = { "Illegal month",
 
 ## 5.9 Pointers vs. Multi-dimensional Arrays 
 
+`int a[10][20];` // Multi-d array.
+
+vs. 
+
+`int *b[10];` // array of pointers.
+
+`a` causes storage for 200 ints to be allocated. Each row is of the same size, viz. 20 ints.
+
+`b` storage only for 10 pointers. But each entry can point to an array of ints of differing lengths.
+
+`char *name[] = { "Illegal month", "Jan", "Feb", "Mar" };` // Note each name is of a different length.
+
+vs. 
+
+`char aname[][15] = { "Illegal month", "Jan", "Feb", "Mar" };` // Here, 15 chars are allocated per row.
+
+"For b, however, the definition only allocates 10 pointers and does not initialize them;" //Do automatic int arrays get initialized to 0 but pointer arrays are not init to 0? 
+
+# ANS: TODO. Write test code.
+
+
+
+
+
 
 
 
