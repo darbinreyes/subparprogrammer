@@ -684,9 +684,9 @@ Notice that code passed to exec() or eval() does not consider the classname 
 Recommended way of creating something similar to a C “struct”. Empty class.
 
 If m is an "instance method object".
-m.__self__ # is the instance object associated with method m.
+m.__self__ \# is the instance object associated with method m.
 
-m.__func__ # is the function object associated with method m.
+m.__func__ \# is the function object associated with method m.
 
 ## https://docs.python.org/3/tutorial/classes.html#iterators
 
@@ -754,4 +754,12 @@ Ways to print things nicely.
 A way to have text place holders filled into a hard coded text.
 
 ## https://docs.python.org/3/tutorial/stdlib2.html#working-with-binary-data-record-layouts
+
+## https://docs.python.org/3/tutorial/stdlib2.html#multi-threading
+
+## https://docs.python.org/3/tutorial/stdlib2.html#logging
+
+## https://docs.python.org/3/tutorial/stdlib2.html#weak-references
+
+
 
