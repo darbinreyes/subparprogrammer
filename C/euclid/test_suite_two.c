@@ -130,43 +130,49 @@ void test_VII_3 ()
   TODO: Other test cases.
 
   **/
-  unsigned int a, b, c;
-  int expected_ret;
+  unsigned int a, b, c; // Inputs.
+  int ret; // Computed returned value.
+  int expected_ret; // Expected return value.
 
   a = 32;
   b = 8;
   c = 4;
   expected_ret = 4;
-  printf ("a = %u, b = %u, c = %u. gcm = %d. expect gcm = %d.\n", a, b, c, VII_3_gcm(a, b, c), expected_ret);
-  assert_true( VII_3_gcm (a, b, c) == expected_ret);
+  ret = VII_3_gcm (a, b, c);
+  printf ("a = %u, b = %u, c = %u. gcm = %d. expect gcm = %d.\n", a, b, c, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 
   a = 32;
   b = 64;
   c = 4;
   expected_ret = 4;
-  printf ("a = %u, b = %u, c = %u. gcm = %d. expect gcm = %d.\n", a, b, c, VII_3_gcm(a, b, c), expected_ret);
-  assert_true( VII_3_gcm (a, b, c) == expected_ret);
+  ret = VII_3_gcm (a, b, c);
+  printf ("a = %u, b = %u, c = %u. gcm = %d. expect gcm = %d.\n", a, b, c, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 
   a = 32;
   b = 64;
   c = 5;
   expected_ret = 1;
-  printf ("a = %u, b = %u, c = %u. gcm = %d. expect gcm = %d.\n", a, b, c, VII_3_gcm(a, b, c), expected_ret);
-  assert_true( VII_3_gcm (a, b, c) == expected_ret);
+  ret = VII_3_gcm (a, b, c);
+  printf ("a = %u, b = %u, c = %u. gcm = %d. expect gcm = %d.\n", a, b, c, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 
   a = 32;
   b = 64;
   c = 6;
   expected_ret = 2;
-  printf ("a = %u, b = %u, c = %u. gcm = %d. expect gcm = %d.\n", a, b, c, VII_3_gcm(a, b, c), expected_ret);
-  assert_true( VII_3_gcm (a, b, c) == expected_ret);
+  ret = VII_3_gcm (a, b, c);
+  printf ("a = %u, b = %u, c = %u. gcm = %d. expect gcm = %d.\n", a, b, c, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 
 }
 
 void test_VII_4 ()
 {
-  unsigned int a, b;
-  int expected_ret;
+  unsigned int a, b; // Inputs.
+  int ret; // Computed returned value.
+  int expected_ret; // Expected return value.
 
   /**
 
@@ -191,38 +197,45 @@ void test_VII_4 ()
   b = 3;
   a = 7;
   expected_ret = 1; // parts.
-  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, VII_4_part_or_parts (b, a), expected_ret);
-  assert_true( VII_4_part_or_parts (b, a) == expected_ret);
+  ret = VII_4_part_or_parts (b, a);
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 
   b = 6;
   a = 7;
   expected_ret = 1; // parts.
-  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, VII_4_part_or_parts (b, a), expected_ret);
-  assert_true( VII_4_part_or_parts (b, a) == expected_ret);
+  ret = VII_4_part_or_parts (b, a);
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 
   b = 2;
   a = 6;
   expected_ret = 0; // part.
-  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, VII_4_part_or_parts (b, a), expected_ret);
-  assert_true( VII_4_part_or_parts (b, a) == expected_ret);
+  ret = VII_4_part_or_parts (b, a);
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 
   b = 3;
   a = 12;
   expected_ret = 0; // part.
-  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, VII_4_part_or_parts (b, a), expected_ret);
-  assert_true( VII_4_part_or_parts (b, a) == expected_ret);
+  ret = VII_4_part_or_parts (b, a);
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 
   b = 4;
   a = 6;
   expected_ret = 1; // parts.
-  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, VII_4_part_or_parts (b, a), expected_ret);
-  assert_true( VII_4_part_or_parts (b, a) == expected_ret);
+  ret = VII_4_part_or_parts (b, a);
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 
   b = 8;
   a = 12;
   expected_ret = 1; // parts.
-  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, VII_4_part_or_parts (b, a), expected_ret);
-  assert_true( VII_4_part_or_parts (b, a) == expected_ret);
+  ret = VII_4_part_or_parts (b, a);
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
+
 }
 
 void test_VII_4_v1 (void)
