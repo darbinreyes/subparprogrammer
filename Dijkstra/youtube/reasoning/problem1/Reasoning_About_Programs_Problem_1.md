@@ -11,7 +11,11 @@ The one theme is, the **general structure of correctness arguments** about progr
 
 ---
 
-* // my comment: **separate our concerns** = break a problem up into smaller, easier, sub-problems.
+// 
+
+My comment: **separate our concerns** = break a problem up into smaller, easier, sub-problems.
+
+//
 
 ---
 
@@ -117,7 +121,11 @@ Yes it does, you see because, we start with the urn filled with a finite number 
 
 ---
 
-// My comment: Clearly this part of the video is establishing that the game terminates, hence in the first problem the correctness concern plays the major role because it clearly terminates.
+// 
+
+My comment: Clearly this part of the video is establishing that the game terminates, hence in the first problem the correctness concern plays the major role because it clearly terminates.
+
+//
 
 ---
 
@@ -125,7 +133,11 @@ So this is an example in which the termination of the process is totally trivial
 
 ---
 
-// my comment: I ask myself: what result is this program computing? e.g. the result could be wether a given number is. It seems that the program is not computing any result in this sense but rather the program is modeling the playing of the game.
+// 
+
+My comment: I ask myself: what result is this program computing? e.g. the result could be wether a given number is. It seems that the program is not computing any result in this sense but rather the program is modeling the playing of the game.
+
+//
 
 ---
 
@@ -148,7 +160,11 @@ We introduce an integer variable little k and k is initialized with the number o
 
 ---
 
- // my comment: hence the line above with the “#” is not part of the program but a semantic definition of the meaning of variable k, since the initialization is the next line.
+// 
+
+My comment: hence the line above with the “#” is not part of the program but a semantic definition of the meaning of variable k, since the initialization is the next line.
+ 
+//
  
 ---
 
@@ -156,7 +172,11 @@ And now we know that little k is at least one [ k >= 1 ] because we knew that be
 
 ---
 
-// my comment: Now we know that the number of pebbles in the urn decreases by one in each step, if the urn starts with only one pebble, no moves are possible and the game terminates with one pebble, if the urn starts with more than one pebble then we will decrease the number of pebbles by one until only one pebble is left, therefore in all cases the game will stop with one pebble in the urn.
+// 
+
+My comment: Now we know that the number of pebbles in the urn decreases by one in each step, if the urn starts with only one pebble, no moves are possible and the game terminates with one pebble, if the urn starts with more than one pebble then we will decrease the number of pebbles by one until only one pebble is left, therefore in all cases the game will stop with one pebble in the urn.
+
+//
 
 ---
 
@@ -172,95 +192,129 @@ Little k becomes capital k [ k := K ], and since capital k was at least 1 [  K >
 
 ---
 
-// my comment: notice that there is no precondition for the initialization, since it is the first statement in the program.
+// 
+
+My comment: notice that there is no precondition for the initialization, since it is the first statement in the program.
+
+//
 
 ---
 
 Then we get the repetition, “do”, our previous guard, k at least 2 [ k >= 2 ], arrow, and at that moment we can assert the invariant P, that was that k was at least 1 [  k >= 1 ], also the guard B, that k is a least 2 [ k >= 2 ], so at that place we can assert that k is at least 2 [ k >= 2]. 
 
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=14m38s)
+
 ---
 
-// my comment: I'm a bit confused here but I think I can reconstruct was he meant . 
+// 
+
+My comment: I'm a bit confused here but I think I can reconstruct was he meant . 
 
 We start with:
 k ≥ 1
 
 After the guard of the repetition, recall our general rule for the repetition, that we assert the invariant P and the guard, which can be simplified by the equivalence:
 
- k ≥ 1 ∧ k ≥ 2 
+k ≥ 1 ∧ k ≥ 2 
  
- ≡ 
+= { }
  
- k ≥ 2
+k ≥ 2 // "at that place we can assert that k is at least 2"
  
- This is the precondition for the repeatable statement. After the repeatable statement, subtracting on both sides:
+This is the precondition for the repeatable statement.
+
+//
+
+---
+
+Now obviously the precondition k at least 2 [ k >= 2 ] guarantees that after the decrease k becomes k-1 [ k := k - 1 ], k is at least 1 [ k >= 1 ]. So we see that the repeatable statement k becomes k-1 [ k := k - 1 ] nicely **maintains the truth** of k at least 1 [ k >= 1 ], so upon completion, we know two things, that the guard is false, so k is no longer at least 2, so k is less than 2 [ k < 2 ], and furthermore k is at least 1 [ k >= 1 ]. Which, has only one solution, k equal 1 [ k = 1 ]. So using the **techniques of invariance**, we have proved the simple fact that our game terminates with one pebble in the urn. So we are indeed entitled to talk about **the final pebble**. 
+
+[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=15m51s)
+
+---
+
+//
+
+My comment:
+
+After the repeatable statement, subtracting 1 from both sides:
 k ≥ 1
 
 Again, our rule for the repetition, at termination we assert the invariant and the negation of the guard:
 
 k ≥ 1 ∧ ¬(k ≥ 2)
 
-≡
+= { }
 
 k ≥ 1 ∧ k < 2
 
-≡
+= { }
 
 k = 1
 
+Note that the precondition for the repeatable statement is written above the statement instead of to the left of the statement.
+
+//
+
 ---
 
-#NEXT:
-
-[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=14m38s)
-
-Now obviously the precondition k at least 2 [ k >= 2 ] guarantees that after the decrease k becomes k-1 [ k := k - 1 ], k is at least 1 [ k >= 1 ]. So we see that the repeatable statement k becomes k-1 [ k := k - 1 ] nicely maintains the truth of k at least 1 [ k >= 1 ], so upon completion, we know two things, that the guard is false, so k is no longer at least 2, so k is less than 2 [ k < 2 ], and furthermore k is at least 1 [ k >= 1 ]. Which, has only one solution, k equal 1 [ k = 1 ]. So using the techniques of invariance, we have proved the simple fact that our game terminates with one pebble in the urn. So we are indeed entitled to talk about the final pebble. 
-
-[Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=15m51s)
-
-// my comment: note that the precondition for the repeatable statement seems to be written above the statement instead of to the left of the statement .
-
-Let now return to the original question, and that is, given the initial contents of the urn, what can we say about the color of the final pebble. Well, this is clearly the moment to take the colors into account. So it is no longer sufficient to characterize the initial contents of the urn by the total number of pebbles, obviously we must know the number of black pebbles and the number of white pebbles, so what we used to call capital k, the initial number, we will now call capital b plus capital w, for the initial numbers of blacks and whites. And there we are, little b and little w represent the number of black pebbles currently in the urn and the number of white pebbles currently in the urn.
-
-//p1.4
+Let now return to the original question, and that is, given the initial contents of the urn, what can we say about the color of the final pebble. Well, this is clearly the moment to take the **colors into account**. So it is no longer sufficient to characterize the initial contents of the urn by the total number of pebbles, obviously we must know the number of black pebbles and the number of white pebbles, so what we used to call capital k, the initial number, we will now call capital b plus capital w, for the initial numbers of blacks and whites. And there we are, little b and little w represent the number of black pebbles currently in the urn and the number of white pebbles currently in the urn.
 
 ![p1.4](p1.4.png)
 
-// my comment: in the above if b >= 2 and w >= 2 then all three guards are true. Does this imply that the order in which the guards appear changes its semantics? Otherwise, if we assume the guards are all evaluated simultaneously, then all statements could be executed simultaneously, and that makes no sense. The guards represent what one can infer about the contents of the urn before you took out the two pebbles and looked at them. The color of the two pebbles you took out and the rules of the game tell you how the state of the urn should be updated, this is modeled by the associated statement of the guard. On each iteration of the loop, the guard which is true is based on the physical act of looking at the color of the two pebbles you took out of the urn, in this way, only one guard’s statement is executed.
+---
 
-// my comment: The guards represent what we know must be true based on the two pebbles we just removed from the urn. So if you took out a mixed set, you can say for sure that before you took those two pebbles out there was at least 1 black and at least 1 white pebble in the urn, but you cannot say for sure that there were at least two blacks in the urn, it may be the case, but you cannot say for sure. Similarly in that case you can’t say for sure that there were at least two whites in the urn. In this way only one guard can hold per move.
+//
 
-// my comment: I am a bit confused as to why the pictures are inside curly braces. Are these curly braces in any way related to the curly braces used for preconditions and postconditions? 
+My comment: in the above if b >= 2 and w >= 2 then all three guards are true. Consider the case that b = 2 and w = 2. Does this imply that the order in which the guards appear changes its semantics? Otherwise, if we assume the guards are all evaluated simultaneously, then all statements could be executed simultaneously, and that makes no sense to me. The guards represent what one can infer about the contents of the urn before you took out the two pebbles and looked at them. The color of the two pebbles you took out and the rules of the game tell you how the state of the urn should be updated, this is modeled by the associated statement of the guard. On each iteration of the loop, the guard which is true is based on the **physical act** of looking at the color of the two pebbles you took out of the urn, in this way, only one guard’s statement is executed.
 
-// my comment: on the position of semicolons. when you want to append  an additional statement on the next line the semicolon is the first character on the new lone. when you want to append a new statement on the same line already containing a statement then the semicolon precedes the newly appended statement.
+The **guards represent** what we know must be true based on the two pebbles we just removed from the urn. So if you took out a mixed set, you can say for sure that before you took those two pebbles out there was at least 1 black and at least 1 white pebble in the urn, but you cannot say for sure that there were at least two blacks in the urn, it may be the case, but you cannot say for sure. Similarly in that case you can’t say for sure that there were at least two whites in the urn. In this way only one guard can hold per move.
 
-The first line of this little program represents the initialization, the initial filling of the urn, now remember our move, our move required at least 2 pebbles in the urn, you took them out, and looked at the colors. Now they could have different color, there could be a white one and a black one, when is that a possible outcome? Well then initially there was at least a white and a black one in the urn, so the condition under which we could pick up a mixed set, a white one and a black one, is that w is at least 1 and b is at least 1. Well that is the guard of the first alternative, you see, little w at least 1 and little b at least 1, arrow, there I have sketched as a reminder between braces the rule of the game, and that says that when you take out a white one and a black one, a white one is returned. And then the assignment statement b becomes b minus 1, we see the net effect of that move, the number of black pebbles is decreased by 1, the number of white pebbles is unchanged. 
+I am a bit confused as to why the pictures are inside **curly braces**. Are these curly braces in any way related to the curly braces used for preconditions and postconditions? 
+
+On the position of **semicolons**. When you want to append an additional statement on the next line the semicolon is the first character on the new line. When you want to append a new statement on the same line already containing a statement, then the semicolon precedes the newly appended statement.
+
+//
+
+---
+
+The first line of this little program represents the initialization, the initial filling of the urn, now remember our move, our move required at least 2 pebbles in the urn, you took them out, and looked at the colors. Now they could have different color, there could be a white one and a black one, when is that a **possible outcome**? Well then **initially** there was at least a white and a black one in the urn, so the condition under which we could pick up a mixed set, a white one and a black one, is that w is at least 1 and b is at least 1. Well that is the guard of the first **alternative**, you see, little w at least 1 and little b at least 1, arrow, there I have **sketched** as a reminder between braces the rule of the game, and that says that when you take out a white one and a black one, a white one is returned. And then the assignment statement b becomes b minus 1, we see the **net effect** of that move, the number of black pebbles is decreased by 1, the number of white pebbles is **unchanged**. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=18m51s)
 
-The other two guarded commands deal with cases in which two pebbles of equal color are taken out. If b is at least two, two black pebbles can be taken out and a black will be returned. Again the net effect on the filling of the urn is b becomes b minus 1. The complicated case, when two white pebbles are taken out, well that’s the case where we might need the black paint, because w decreases by two, and b increases by b plus 1. So here we have a description of the game that takes the changes in the filling of the number of colors in the urn into account. Now a moments inspection of these three possibilities tells us that as far as the change in the urn is concerned we don’t need to distinguish between the first two, they just decrease b by 1, and leave w as is. 
+The other two guarded commands deal with cases in which two pebbles of **equal color** are taken out. If b is at least two, two black pebbles can be taken out and a black will be returned. Again the net effect on the filling of the urn is b becomes b minus 1. The complicated case, when two white pebbles are taken out, well that’s the case where we might need the black paint, because w decreases by two, and b increases by b plus 1. So here we have a description of the game that takes the changes in the filling of the number of colors in the urn into account. Now a moments inspection of these three possibilities tells us that as far as the change in the urn is concerned we **don’t need to distinguish** between the first two, they just decrease b by 1, and leave w as is. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=20m15s)
 
-// my comment: notice that in this repetition there are three guarded commands, and recall that this notation is obtained by replacing the brackets for “if fi” with “do od”. With only a single guarded command the guard itself is the condition for repeating the statement, in this case, with three guards, what is the correct operational interpretation?
+---
 
-The last one increases b by 1 and decreases b [ audio error: Dijkstra’s says "decreases b”, when he clearly intended to say “decreases w"] but decreases it by 2. So we see that whatever happens, w remains constant or w is decreased by 2. In other words, w is only decreased by 2. And that means that if w started even, it will remain even, if w started odd, it will remain odd. And I’ll show you the consequence of that on the blackboard. 
+// 
+
+My comment: notice that in this repetition there are three guarded commands, and recall that this notation is obtained by replacing the brackets for “if fi” with “do od”. With only a single guarded command the guard itself is the condition for repeating the statement, in this case, with three guards, what is the correct operational interpretation? My guess is that, under the assumption that the guards are mutually exclusive, only the statement whose guard is true is executed.
+
+//
+
+---
+
+The last one increases b by 1 and decreases b [ audio error: Dijkstra’s says "decreases b”, when he clearly intended to say “decreases w"] but decreases it by 2. So we see that **whatever happens**, w remains constant or w is decreased by 2. In other words, w is only decreased by 2. And that means that if w started even, it will **remain even**, if w started odd, it will **remain odd**. And I’ll show you the consequence of that on the blackboard. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=21m13s)
 
 Our original invariant for the repetition was that k was at least 1, but k is now equal to little b plus little w, so we translate that into little b plus little w is at least 1, and furthermore we have established that the parity of w does not change. That is, that even little w is equivalent to even big w.
 
-//p1.5
-
 ![p1.5](p1.5.png)
 
-And here we have answered our problem, you see because in the case of even [big] W, we start with an even number of white pebbles in the urn, it remains even, upon completion, there is only one pebble in the urn, and that is odd, 1 is odd. So the result is that the final pebble is black.
+* // Blackboard
+  * b + w ≥ 1 ∧ even.w ≡ even.W
 
-//p1.6
+And here we have **answered our problem**, you see because in the case of even [big] W, we start with an even number of **white pebbles** in the urn, it remains even, upon completion, there is only **one pebble** in the urn, and that is odd, 1 is odd. So the result is that the **final pebble is black**.
 
 ![p1.6](p1.6.png)
 
-In formula the final condition is that little w equals 0 and little b equals 1. Of course if you start with an odd number of white ones in the urn, then the final pebble is white, because the final state is characterized by w equals 1 and b equals 0, as these are the only solutions of b plus w being natural equal to 1. So this settles the problem: what can be said about the color of the final pebble. 
+* // Blackboard
+  * even.W → final pebble is black. 
+
+In formula the **final condition** is that little w equals 0 and little b equals 1. Of course if you start with an odd number of **white ones** in the urn, then the **final pebble is white**, because the **final state** is characterized by w equals 1 and b equals 0, as these are the **only solutions** of b plus w being natural equal to 1. So this **settles the problem**: what can be said about the color of the final pebble. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=23m30s)
 
@@ -268,7 +322,13 @@ In formula the final condition is that little w equals 0 and little b equals 1. 
 
 ![p1.7](p1.7.png)
 
-Now you may complain about this argument that the conjunct of the invariant, that the parity of w doesn’t change, that that is an invention which in general would be hard to make, well that complaint is to a certain extent justified, but fortunately the designing programmer lives in a different situation. 
+* // Blackboard
+  * even.W → final pebble is black. 
+      * w = 0 ∧ b = 1.
+  * odd.W → white.  
+      * w = 1 ∧ b = 0.
+
+Now you may complain about this argument that the **conjunct** of the invariant, that the parity of w doesn’t change, that that is an invention which in general would be hard to make, well that complaint is to a certain extent justified, but fortunately the **designing programmer** lives in a different situation. 
 
 He is not offered the ready made program and the rules of the game that I described to you and has to invent the invariant. In actual practice, when a programmer develops correctness proof and program hand in hand **he knows the invariant before the program has been written.**
 
@@ -276,9 +336,17 @@ Suppose that his task would have been the following: you are given an urn with b
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=25m58s)
 
-// my comment: Dijkstra solves this problem on video in a lecture called [Power of counting arguments](https://www.youtube.com/watch?v=jUGCe9-s5Ys&t=3m14s).
+---
 
-So the rule two out one in, is not too unusual. If you now impose upon someone the constraint that he has to do this in such a way that the parity of the number of white pebbles in the urn between moves remains constant, then precisely the rules of this game will come out. And of course the rules of the game, they were the analogue of the program. Well that’s what I wanted to tell about the first example, where the termination is trivial, and the invariant, the partial correctness considerations, take the majority of the load. 
+// 
+
+My comment: Dijkstra solves this problem on video in a lecture called [Power of counting arguments](https://www.youtube.com/watch?v=jUGCe9-s5Ys&t=3m14s).
+
+//
+
+---
+
+So the rule two out one in, is not too unusual. If you now impose upon someone the constraint that he has to do this in such a way that the parity of the number of white pebbles in the urn between moves remains constant, then precisely the rules of this game will come out. And of course the rules of the game, they were the analogue of the program. Well that’s what I wanted to tell about the first example, where the termination is trivial, and the **invariant**, the **partial correctness** considerations, take the majority of the load. 
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=27m1s)
 
