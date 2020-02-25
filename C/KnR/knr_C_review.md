@@ -568,8 +568,13 @@ vs.
 `char aname[][15] = { "Illegal month", "Jan", "Feb", "Mar" };` // Here, 15 chars are allocated per row.
 
 "For b, however, the definition only allocates 10 pointers and does not initialize them;" //Do automatic int arrays get initialized to 0 but pointer arrays are not init to 0? 
+ANS: No, neither is initialized, just like automatic scalars. See knr_pg94.c.
 
-# ANS: TODO. Write test code.
+## 5.10 Command-line Arguments 
+
+## 5.11 Pointers to Functions 
+
+#next
 
 
 
