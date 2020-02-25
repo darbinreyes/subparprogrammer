@@ -235,6 +235,94 @@ href="mailto:nowhere@mozilla.org"
 use "query term/notation" ?x=1&y=0 to set cc, bcc, subject, etc..
 
 ## Advanced text formatting
+\<dl> \<dt> \<dd>
 
-#NEXT:
+\<blockquote cite="doodoo.com">
+
+\<q cite="caca.com">
+
+\<cite>
+
+\<abbr title="expansion text">
+
+\<address>
+
+\<sup> // superscript
+
+\<sub> // subscript
+
+\<code>
+
+\<pre> // keep my white space. 
+
+\<var> // variable names
+
+\<kbd> // kb shortcuts/cmd line input.
+
+\<samp> // cmd line output
+
+\<time datetime="2016-01-20">
+
+### Description lists
+
+### Quotations
+
+### Abbreviations
+
+### Marking up contact details
+
+### Superscript and subscript
+
+### Representing computer code
+
+### Marking up times and dates
+
+END.
+
+## Document and website structure
+
+### Basic sections of a document
+
+header \<header>
+
+nav bar \<nav>
+
+main content \<main> // subsections \<article> \<section> \<div>
+
+sidebar \<aside> // goes inside  main.
+
+footer \<footer>
+
+### HTML for structuring content
+
+```
+   <form>
+         <input type="search" name="q" placeholder="Search query">
+         <input type="submit" value="Go!">
+       </form>
+```
+
+### HTML layout elements in more detail
+		
+\<main> once per page.
+
+\<div> \<span> non-semantic wrappers , for grouping.
+
+\<br>
+
+\<hr>
+
+
+### Planning a simple website
+
+END.
+
+## Debugging HTML
+
+### Debugging isn't scary
+
+### HTML and debugging
+
+
+
 
