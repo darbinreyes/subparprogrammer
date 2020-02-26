@@ -761,5 +761,36 @@ A way to have text place holders filled into a hard coded text.
 
 ## https://docs.python.org/3/tutorial/stdlib2.html#weak-references
 
+normally
 
+memory is freed shortly after the last reference to it has been eliminated.
+
+for when
+
+ccasionally there is a need to track objects only as long as they are being used by something else.
+
+use case
+
+caching objects that are expensive to create:
+
+import weakref
+
+import gc # garbage collection API.
+
+## https://docs.python.org/3/tutorial/stdlib2.html#tools-for-working-with-lists
+
+alternative implementations with different performance trade-offs.
+
+import array # only homogeneous data and stores it more compactly
+
+
+from collections import deque # faster appends and pops
+
+import bisect # functions for manipulating sorted lists:
+
+import heapq #  implementing heaps based on regular lists.
+
+## https://docs.python.org/3/tutorial/stdlib2.html#decimal-floating-point-arithmetic
+
+#next
 
