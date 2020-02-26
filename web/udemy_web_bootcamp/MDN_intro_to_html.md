@@ -319,10 +319,29 @@ END.
 
 ## Debugging HTML
 
+15
+15
+
+tools that can help you find and fix errors in HTML.
+
 ### Debugging isn't scary
 
 ### HTML and debugging
 
+DOM inspector - how the browser has tried to fix our HTML errors. // The inspector shows you the auto fixed html.
 
+Use a Markup validator - https://validator.w3.org/
+
+END.
+
+## Marking up a letter
+
+END.
+
+## Structuring a page of content
+
+This has better error messages:
+
+https://validator.w3.org/nu 
 
 

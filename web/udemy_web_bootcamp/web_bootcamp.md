@@ -210,4 +210,24 @@ also has examples.
 
 27. Recreate Webpage Assignment: SOLUTION
 
+END.
+
+# Section 4: Intermediate HTML
+		
+## 29. HTML Tables
+		
+## 30. Tables Pokemon Exercise 
+## 31. Tables Pokemon Exercise: SOLUTION 
+## 32. Introduction to Forms  
+## 33. Playing with Inputs  
+## 34. The Form Tag  
+## 35. Labels  
+## 36. Form Validations
+	 
+## 37. Dropdowns and Radio Buttons	 
+## 38. Form Exercise  
+## 39. Note about the Form Exercise solution		
+## 40. Form Exercise: SOLUTION   
+
+
 
