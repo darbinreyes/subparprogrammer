@@ -574,6 +574,17 @@ ANS: No, neither is initialized, just like automatic scalars. See knr_pg94.c.
 
 ## 5.11 Pointers to Functions 
 
+`int (*comp)(void *, void *)` // which says that comp is a pointer to a function that has two void * arguments and returns an int. 
+
+
+`if ((*comp)(v[i], v[left]) < 0)` // comp is a pointer to a function, \*comp is the function, and 
+
+`(*comp)(v[i], v[left])` // is the call to it. 
+
+`int *comp(void *, void *) /* WRONG */` // says that comp is a function returning a pointer to an int
+
+## 5.12 Complicated Declarations 
+
 #next
 
 
