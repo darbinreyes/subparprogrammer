@@ -350,5 +350,41 @@ So the rule two out one in, is not too unusual. If you now impose upon someone t
 
 [Video Bookmark](https://youtu.be/OeiSWZs3GfI?t=27m1s)
 
+---
 
+//
+
+My comment:
+
+Summary.
+How not to screw things up.
+
+Keep the arguments as simple and clean as possible.
+
+By separation of concerns. 
+
+Total correctness = partial correctness + termination. Totally independent.
+
+Introduction to Hoare's triple notation. {Q} S {R}. Precondition Q, program fragment S, post condition R. If prior to the execution of S, condition Q holds, then after the execution of S, the machine will be left in a state satisfying condition R.
+
+Application of triple notation to a repetitive construct.
+
+Problem 1. One person game. Urn and black/white pebbles. Rules.
+
+Given the initial contents of the urn, what can be said about the color of the final pebble?
+
+Separation of concerns. First, analyze the game while ignoring the color rules.
+
+1. Prove that the game terminates with one pebble in the urn. Applying the techniques of invariance to a program modeling the game but ignoring the color rules ( = apply the proof rule for the repetitive construct). We derive that k = 1 upon termination because it is the only solution to the final condition ( = conjunction of invariant and negation of the guard).
+2. Take the color rules into account. Analyze program modeling the game including the color rules, observe that the parity of the number of white pebbles remains constant. Derive as the only solution to the final state b + w = 1, 
+
+If w started even, b = 1 w = 0, the final pebble is black.
+
+If w started odd, b = 0 w = 1, the final pebble is white.
+
+Remark. The most interesting lesson from this problem is that proof rule for the repetitive construct allowed us to explicitly calculate the answer to our question by analysis of the final state, e.g. conjunction of invariant and negation of the guard.
+
+//
+
+---
 
