@@ -2,9 +2,7 @@
 
 ## [Problem Two](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=27m06s)
 
-Our next example is very different. In passing it shows another form of the interplay between programming and mathematics. In this example, a mathematical theorem has to be proved. And, the theorem is an existence theorem. It tells us that a certain result exists. We shall prove that theorem by translating it into a programming exercise and writing a program of which we can demonstrate that it computes the desired result. Now if you can construct a program that computes a result, that result certainly exists. 
-
-//p2.0
+Our next example is very different. In passing it shows another form of the interplay between programming and **mathematics**. In this example, a mathematical theorem has to be **proved**. And, the theorem is an **existence** theorem. It tells us that a certain result exists. We shall prove that theorem by **translating** it into a programming exercise and writing a program of which we can demonstrate that it computes the desired result. Now if you can construct a program that **computes** a result, that result certainly **exists**.
 
 ![p2.0](p2.0.png)
 
@@ -12,43 +10,41 @@ Let me explain the problem first. We are considering capital n blue points in th
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=29m00s)
 
-// my comment: "such that no three of them are in the same straight line.” Are there cases in which three points lie on the same line and the "flip operation" (explained later) does not cause the sum of the lengths to decrease? Note that in the case of three points on the same line the picture is such that the intersection is one and the same as one of the points. I was not able to come up with a picture where the sum of the lengths increases nor stays equal. One thing to note about this case is that instead of forming two triangles after the flip operation, (solid lines + dotted lines) you get one triangle and one line segment. So maybe this condition about three points is to avoid having to worry about this case in the argument.
+---
 
-// my comment: If four points lie on the same straight line you can draw a case in which the "flip operation” cannot remove the intersection. The lines partly overlap rather than intersect at a single point.
+// 
 
-// my comment: Three and four point on straight line cases.
+My comment: "such that no three of them are in the same straight line." Are there cases in which three points lie on the same line and the "flip operation" (explained later) does not cause the sum of the lengths to decrease? Note that in the case of three points on the same line the picture is such that the intersection is one and the same as one of the points. I was not able to come up with a picture where the sum of the lengths increases nor stays equal. One thing to note about this case is that instead of forming two triangles after the flip operation, (solid lines + dotted lines) you get one triangle and one line segment. So maybe the condition "no three points lie on the same straight" is to avoid complicating the argument i.e. having to treat this situation separately. 
 
-//p2.1
+Note that if four points lie on the same straight line you can draw a case in which the "flip operation” cannot remove the intersection. The lines partly overlap rather than intersect at a single point. See image below (bottom right).
 
-IMAGE TOO BIG
-<img src="p2.1.png" width="500">
+In the image below, I draw cases in which three and four points lie on the same straight line. (Top left) In the case of 3 on the same one dotted line is part of a triangle and the other dotted line is equal to part of the original solid lines.
+
+//
+
+---
+
 ![p2.1](p2.1.png)
-
-//p2.2
 
 ![p2.2](p2.2.png)
 
-Furthermore the next thing to do is that we consider a one to one correspondence between the blue points and the red points, that is, we form n pairs and each pair consists of a blue one and a red one. Each blue point is coupled to a red point and vice versa. And the two points of that pair are connected by a straight line. Now the number of ways in which you can do so of course increases rapidly with the number of points. If there is one red and one blue point you don’t have any freedom at all, you can only pair them in one way. Here we have three of each and then the number of one to one correspondences between reds and blues, the number of ways in which you can pair them, is n factorial, so it's in this case six. Now the theorem to be proved is that, there exists a one to one correspondence such that none of the n line segments intersect. 
+Furthermore the next thing to do is that we consider a **one to one correspondence** between the blue points and the red points, that is, we form n pairs and each pair consists of a blue one and a red one. Each blue point is coupled to a red point and vice versa. And the two points of that pair are connected by a straight line. Now the number of ways in which you can do so of course increases rapidly with the number of points. If there is one red and one blue point you don’t have any freedom at all, you can only pair them in one way. Here we have three of each and then the number of one to one correspondences between reds and blues, the number of ways in which you can pair them, is n factorial, so it's in this case six. Now **the theorem to be proved** is that, there exists a one to one correspondence such that **none** of the n line segments **intersect**. 
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=30m25s)
 
-//p2.3
-
 ![p2.3](p2.3.png)
 
-Here we have another pairing, of the same six points and here you see that there is still an intersecting pair. I think that my next slide shows a possible solution. 
+Here we have another pairing, of the **same** six points and here you see that there is **still** an intersecting pair. I think that my next slide shows a **possible solution**. 
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=30m50s)
 
-//p2.4
-
 ![p2.4](p2.4.png)
 
-My guess is that for this situation of red and blue points this is the only solution. In general the solution is not unique. But OK, here we have a solution. The n line segments connecting the points of the pairs do not intersect. Now we have to show, that for any value of n this is true, such a solution exists. And we will do so by designing a program. 
+My guess is that for this situation of red and blue points this is the only solution. In general the solution is **not unique**. But OK, here we have a solution. The n line segments connecting the points of the pairs do not intersect. Now we have to show, that **for any value of n** this is **true**, such a **solution exists**. And we will do so **by designing a program**. 
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=31m45s)
 
-//p2.5
+#next
 
 ![p2.5](p2.5.png)
 
