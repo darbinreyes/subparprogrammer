@@ -792,5 +792,20 @@ import heapq #  implementing heaps based on regular lists.
 
 ## https://docs.python.org/3/tutorial/stdlib2.html#decimal-floating-point-arithmetic
 
-#next
+import decimal # financial applications. **Exact** representation of decimal numbers.
+
+```
+>>> Decimal('1.00') % Decimal('.10')
+Decimal('0.00')
+>>> 1.00 % 0.10 # this is surprising, must be careful with modulus and float operands. I expected remainder 0, as above. OH! I get it now, it has to do with how we represent floating point numbers using a finite number of bits. Each bit after the decimal point is equal to 1 divided by some power of 2. We can't express result of this operation as a sum of fractions which are powers of 2 in the denominator. The implementation of % must be involved too. Perhaps only use modulus for int operands.
+
+0.09999999999999995
+```
+
+"**modulo** calculations and **equality** tests that are unsuitable for binary floating point:"
+
+# https://docs.python.org/3/tutorial/venv.html
+
+## https://docs.python.org/3/tutorial/venv.html#introduction
+
 
