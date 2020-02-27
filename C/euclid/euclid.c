@@ -256,8 +256,8 @@ VII_2_gcm (
 
   @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
   @retval -2  If !(b <= a). This is considered invalid input.
-  @retval 0  If b|a. Including b == a.
-  @retval 1  If !(b|a).
+  @retval MEASURES  If b|a. Including b == a.
+  @retval NOT_MEASURES  If !(b|a).
 **/
 int
 measures_v0 (
@@ -270,6 +270,12 @@ measures_v0 (
     return -1;
   }
 
+  /*
+    At the moment I don't think it is worthwhile to place the assert before
+    the subsequent "if" because I would then need to maintain the negated and
+    unnegated expression.
+  */
+  // assert((b <= a));
   if(!(b <= a)) {
     assert(0);
     return -2;
@@ -362,26 +368,27 @@ VII_3_gcm (
 
   int t;
 
-  t = measures_v0 (d, c);
+  if (d <= c) {
+    t = measures_v0 (d, c);
 
-  if (t < 0) {
-    assert(0);
-    return -4;
-  }
+    if (t < 0) {
+      assert(0);
+      return -4;
+    }
 
-  if (t == MEASURES) { // This reflects the structure of Euclid's proof.
-    return d;
+    if (t == MEASURES) { // This reflects the structure of Euclid's proof.
+      return d;
+    }
   }
 
   e = VII_2_gcm (d, c);
 
-  if (e < 0) {
+  if (e < 0 || e == RELATIVELY_PRIME) {
     assert(0);
     return -4;
   }
 
   if (!(e > 1)) {
-    // At this point, d and c should have a common measure. Euclid proved that.
     assert(0);
     return -4;
   }

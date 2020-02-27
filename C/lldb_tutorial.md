@@ -2,7 +2,7 @@
 
 Debugging with print statements is my natural tendency. But using a debugger is more efficient. These are my notes on using lldb, the current debugger on Mac OS X, it replaces gdb.
 
-I currently have an assertion at euclid.c line 274. As an exercise, I want to stop execution before that assert and print the values of local variables.
+I currently have an assertion at euclid.c line 274. As an exercise, I want to stop execution before that assert and print the values of local variables. Done.
 
 ## [lldb tutorial](https://lldb.llvm.org/use/tutorial.html)
 

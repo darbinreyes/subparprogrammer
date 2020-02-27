@@ -24,6 +24,8 @@ void test_VII_1()
   int ret; // Computed return value.
   int expected_ret; // Expected return value.
 
+  printf("%s\n",__FUNCTION__);
+
   a = 12;
   b = 4;
   expected_ret = NOT_RELATIVELY_PRIME;
@@ -88,6 +90,8 @@ void test_VII_2()
   int ret; // Computed return value.
   int expected_ret; // Expected return value.
 
+  printf("%s\n",__FUNCTION__);
+
   a = 884;
   b = 3009;
   expected_ret = 17;
@@ -134,6 +138,8 @@ void test_VII_3 ()
   int ret; // Computed returned value.
   int expected_ret; // Expected return value.
 
+  printf("%s\n",__FUNCTION__);
+
   a = 32;
   b = 8;
   c = 4;
@@ -170,10 +176,6 @@ void test_VII_3 ()
 
 void test_VII_4 ()
 {
-  unsigned int a, b; // Inputs.
-  int ret; // Computed returned value.
-  int expected_ret; // Expected return value.
-
   /**
 
   Here are the correct values for the test cases computed separately in python.
@@ -194,6 +196,12 @@ void test_VII_4 ()
   TODO: Other test cases.
 
   **/
+  unsigned int a, b; // Inputs.
+  int ret; // Computed returned value.
+  int expected_ret; // Expected return value.
+
+  printf("%s\n",__FUNCTION__);
+
   b = 3;
   a = 7;
   expected_ret = 1; // parts.
@@ -258,6 +266,8 @@ ret, m, n =  (1, 2, 3)
   int ret; // Computed return value.
   int expected_m, expected_n; // Expected output argument values.
   int expected_ret; // Expected return value.
+
+  printf("%s\n",__FUNCTION__);
 
   b = 3;
   a = 7;
