@@ -192,42 +192,120 @@ also has examples.
 
 ---
 
-19. HTML Boilerplate and Comments
+## 19. HTML Boilerplate and Comments
+in subl
 
-20. Basic Tags
+html+tab
 
-21. HTML Lists
+## 20. Basic Tags
 
-22. HTML Lists Assignment
+## 21. HTML Lists
 
-23. HTML Lists Assignment: SOLUTION
+## 22. HTML Lists Assignment
 
-24. Divs and Spans
+## 23. HTML Lists Assignment: SOLUTION
 
-25. HTML Attributes
+## 24. Divs and Spans
 
-26. Recreate Webpage Assignment
+## 25. HTML Attributes
 
-27. Recreate Webpage Assignment: SOLUTION
+## 26. Recreate Webpage Assignment
+
+## 27. Recreate Webpage Assignment: SOLUTION
 
 END.
 
 # Section 4: Intermediate HTML
-		
+	
+Emmet = extension for sublimetext. Paige's rec.
+
 ## 29. HTML Tables
+	
+\<table>
+	
+\<tr>
+	
+\<td>
+	
+\<thead>
+	
+\<tbody>
 		
 ## 30. Tables Pokemon Exercise 
 ## 31. Tables Pokemon Exercise: SOLUTION 
-## 32. Introduction to Forms  
+## 32. Introduction to Forms 
+\<form action="" method=""\>
+
+\<input type="text" placeholder="">
+
+\<button>
+
+adding name to input appends a URL query upon submit. GET.
+
 ## 33. Playing with Inputs  
 ## 34. The Form Tag  
-## 35. Labels  
+## 35. Labels 
+\<label> 
+\<label for="username">
+
+\<input id="username">
+
 ## 36. Form Validations
-	 
-## 37. Dropdowns and Radio Buttons	 
+
+\<input id="username" required>
+
+\<input id="username" type="email" required>
+
+
+
+## 37. Dropdowns and Radio Buttons
+
+\<input type="radio">	// to make mutually exclisive, add common name. add value to override default "on". 
+\<input type="checkbox">
+
+\<select name="color"> \<option value="happy"> // dropdown
+
+\<textarea name="usercomment" rows="10" cols="80">
 ## 38. Form Exercise  
 ## 39. Note about the Form Exercise solution		
-## 40. Form Exercise: SOLUTION   
+## 40. Form Exercise: SOLUTION 
+END.
+
+# Section 5: Introduction to CSS
+
+## 42. CSS Basics
+
+csszengarden.com
+
+selector {
+  prop: val;
+}
+
+element selector e.g. h1 {}.
+
+/**/ css comments 
+
+boiler plate in subl
+
+link+tab
+ 
+## 43. Our First Stylesheet 
+## 44. Note about CSS Colors and Background and Border (next 2 lectures) 
+## 45. CSS Colors  
+color: #000000;
+color: rgb(0,0,0);
+color: black;
+ 
+## 46. Background and Border  
+## 47. Note about Selectors Basics Todo List  
+## 48. Selectors Basics Todo List  
+## 49. Introduction to Chrome Inspector  
+## 50. More Advanced Selectors  
+## 51. Note about Specificity and the Cascade  
+## 52. Specificity and the Cascade  
+## 53. Note about Selectors Practice Exercise  
+## 54. Selectors Practice Exercise  
+## 55. Selectors Practice Exercise: SOLUTION 
 
 
 
