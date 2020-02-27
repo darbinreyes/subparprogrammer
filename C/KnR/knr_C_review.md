@@ -585,7 +585,22 @@ ANS: No, neither is initialized, just like automatic scalars. See knr_pg94.c.
 
 ## 5.12 Complicated Declarations 
 
+"for the harder ones, because declarations cannot be read **left to right**, and because **parentheses** are over-used." // as a consequence of precedence and associativity rules.
+
+"* is a prefix operator and it has lower precedence than ()" // same with * and [].
+
+"`char (*(*x())[])()` x: function returning pointer to array[] of pointer to function returning char" // x is a function. That function returns a pointer. That pointer points to an array of pointers. The entries of that array are pointers to functions. Those functions return a char.
+
+"`char (*(*x[3])())[5]` x: array[3] of pointer to function returning pointer to array[5] of char" // x is array of size 3. The entries in that array are pointers to functions. Those functions return pointers to an array of size 5. That array is an array of chars.
+
+# Chapter 6 - Structures 
+
 #next
+
+
+
+
+
 
 
 
