@@ -20,11 +20,11 @@ Note that if four points lie on the same straight line you can draw a case in wh
 
 In the image below, I draw cases in which three and four points lie on the same straight line. (Top left) In the case of 3 on the same one dotted line is part of a triangle and the other dotted line is equal to part of the original solid lines.
 
+![p2.1](p2.1.png)
+
 //
 
 ---
-
-![p2.1](p2.1.png)
 
 ![p2.2](p2.2.png)
 
