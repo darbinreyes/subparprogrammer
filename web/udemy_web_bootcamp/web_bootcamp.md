@@ -296,10 +296,29 @@ color: #000000;
 color: rgb(0,0,0);
 color: black;
  
-## 46. Background and Border  
+## 46. Background and Border 
+* borders have
+  * color
+  * width 
+  * style.
+  
 ## 47. Note about Selectors Basics Todo List  
-## 48. Selectors Basics Todo List  
-## 49. Introduction to Chrome Inspector  
+## 48. Selectors Basics Todo List 
+element
+id - all ids should be unique. invalid html if duplicate. #special {}
+class - .theclass {}
+
+text-decoration: line-through; 
+## 49. Introduction to Chrome Inspector 
+element inspector allows live editing of CSS.
+
+editing works on all sites.
+
+beware of inherited CSS properties.
+
+click on magnify glass tool on upper left. e.g. inspect icon.
+
+ 
 ## 50. More Advanced Selectors  
 ## 51. Note about Specificity and the Cascade  
 ## 52. Specificity and the Cascade  
