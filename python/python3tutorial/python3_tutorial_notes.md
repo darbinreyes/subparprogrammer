@@ -804,6 +804,21 @@ Decimal('0.00')
 
 "**modulo** calculations and **equality** tests that are unsuitable for binary floating point:"
 
+Here is another case of floating point arithmetic being imperfect. Computing the intersection of two lines in the Euclidian plane.
+
+```
+# Line y = x - 2.
+# Line y = 10x - 50.
+# Intersection.
+# 0 = -9x + 48.
+# x = -48/-9 = 48/9 = 5+(1/3)
+# y = 5+(1/3) - 2 = 3+(1/3) = 3.333...
+>>> (48/9)-2
+3.333333333333333
+>>> 10*(48/9)-50
+3.3333333333333286
+```
+
 # https://docs.python.org/3/tutorial/venv.html
 
 ## https://docs.python.org/3/tutorial/venv.html#introduction
