@@ -13,9 +13,25 @@
     <!-- http://www.w3schools.com/css/css_intro.asp -->
     <link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" type="text/css" href="./index.css"/>
+    <script type="text/javascript">
+      function draw() {
+        var canvas = document.getElementById("myCanvas");
+
+        if (canvas.getContext){
+          var ctx = canvas.getContext("2d");
+          console.log(canvas.height);
+          ctx.font = "30px Courier";
+          ctx.fillText("EWD", 10, 50);
+        } else {
+          console.log("Canvas not supported.\n");
+        }
+
+
+      }
+    </script>
   </head>
 
-  <body>
+  <body onload="draw();">
     <div class="container">
 
       <h2>Subpar Programmer</h2>
@@ -28,19 +44,11 @@
 
       <div class="row">
         <div class="col-xs-12">
-          <!-- <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas> -->
+          <canvas id="myCanvas" width="400" height="400" >
+            Oops...Your browser doesn't support canvas.
+          </canvas>
         </div>
       </div>
     </div>
-    <!-- Optional: Include the jQuery library -->
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
-    <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
-    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
-<!--     <script>
-      var canvas = document.getElementById("myCanvas");
-      var ctx = canvas.getContext("2d");
-    </script> -->
   </body>
-
-
 </html>
