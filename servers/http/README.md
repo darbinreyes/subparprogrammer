@@ -270,16 +270,77 @@ $ ln ./../../../../../../../../etc/hosts
 * Result: Yes, that fixed it.
 
 # TODO
-* [ ] Read [getting started.](http://httpd.apache.org/docs/2.4/getting-started.html)
+* [x] Read [getting started.](http://httpd.apache.org/docs/2.4/getting-started.html)
+* [] Read. http://httpd.apache.org/docs/2.4/
+
+Binding to Addresses and Ports http://httpd.apache.org/docs/2.4/bind.html
+
+Configuration Files
+
+Configuration Sections
+
+Mapping URLs to the Filesystem
+
+Security Tips
+
+SSL/TLS Encryption
+
+URL Rewriting with mod_rewrite
+
+Virtual Hosts
+
 * [ ] URL [mapping.](http://httpd.apache.org/docs/2.4/urlmapping.html)
 * [ ] Virtual [hosts.](http://httpd.apache.org/docs/2.4/vhosts/)
+* [ ] Configure https. Read http://httpd.apache.org/docs/2.4/ssl/
 * [x] Add a custom 403 error response.
 * [x] Point darbinreyes.com to index.html.
 * [x] Since /etc/apache2/users/darbinreyes.conf contains "FollowSymLinks", it seems I should be able to make my current site directory /Users/darbinreyes/Sites/darbinreyes.com into a symbolic link which points to index.html in my git repo. This way I can change index.html in one place (the git repo on my MBP) instead of two. Can I do this for the conf files by telling apache to use the conf files in my git repo?
     * I just discovered that when apache is restarted it copies /etc/apache2/users/darbinreyes.conf to /private/etc/apache2/users/darbinreyes.conf
 * [x] Add a vitualhost under devtest.localhost. This will point to the copy of my website that I will make changes to and test. When I complete a change I can copy the completed and stable change to the main website directory. Remove symbolic link from Sites/darbinreyes.com.
 * [ ] Add a vitualhost under devtest.darbinreyes.com. 
-* [ ] Configure https.
+
+
+# [Apache: Getting Started](http://httpd.apache.org/docs/2.4/getting-started.html)
+
+"**More than one hostname** may point to the **same IP** address, and **more than one IP address** can be attached to the **same physical server**. Thus, you can run more than one web site on the **same physical server**, using a feature called **virtual hosts**."
+
+## Hostnames and DNS
+
+Purpose of the hosts file:
+
+you can put host names in your hosts file in order to do **local resolution**. 
+
+You can read more about the hosts file at Wikipedia.org/wiki/Hosts_(file)
+
+## Configuration Files and Directives
+
+A **directive** is a keyword followed by one or more arguments that set its value.
+
+If it is a global setting, it should appear in the configuration file, **outside** of any <Directory>, <Location>, <VirtualHost>, or other section. 
+
+In addition to the main configuration files, certain directives may go in .htaccess files located in the content directories. 
+
+for people who do not have access to the main server configuration file(s). 
+
+## Web Site Content
+
+broadly divided into **static** and **dynamic** content.
+
+
+Static: HTML, CSS ... .
+
+The **DocumentRoot** directive specifies where in your filesystem you should place these files. This directive is either set globally, or per virtual host.
+
+Dynamic: anything that is generated at request time. Handlers, CGI programs.
+
+## Log Files and Troubleshooting
+
+Troubleshooting any problem without the error log is like **driving with your eyes closed**.
+
+Each error log message contains an **error code**, which you can search for **online** for even more detailed
+
+You can also **configure** your error log to contain a **log ID** which you can then correlate to an access log entry, so that you can determine what **request caused the error** condition.
+
 # Using the nano editor.
 
 * ^ represents the control key.
