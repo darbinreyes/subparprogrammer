@@ -44,21 +44,51 @@ My guess is that for this situation of red and blue points this is the only solu
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=31m45s)
 
-#next
-
 ![p2.5](p2.5.png)
 
-Well, we are making life very easy, we say our program operates on a single variable, the variable named z, and it is of type one to one correspondence. I should have said it is of type one to one correspondence between the given n red points and the n blue points, but that long sentence could not, didn't fit, on the single view graph. So our variable z, type one to one correspondence, it just has n factorial possible values. 
+Well, we are making life very easy, we say our program operates on a **single** variable, the variable named z, and it is of **type** one to one correspondence. I should have said it is of type one to one correspondence between the given n red points and the n blue points, but that long sentence could not, didn't fit, on the single view graph. So our variable z, type one to one correspondence, it just has **n factorial** possible values. 
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=32m35s)
 
-// my comment: note the use of underlining keywords like var in the above. 
+---
 
-// my comment: From the fact the z has “n factorial possible values” I infer that it contains a description of how the points are connected. Perhaps a data structure containing a list of all the points (n blue and n red points) and an n by n boolean matrix in which the rows represent blue points and columns represent red points. True in the matrix value means the two points are connected and false means not connected. Since we only connect pairs of blue and red points each row/column is true in only one place. Each pair of points describes a line. Given any pair of lines we can determine if they intersect. Note also that there are always just n lines.
+//
 
-// my comment. y = x, vs. y = x + 1. x = x + 1. 0 = 1. No solution. // y = x, y = -x. x = -x. 2x = 0. x = 0. so in general two lines f.x and g.x intersect of the equation f.x - g.x = 0 has a solution.
+My comment: note the use of underlining keywords like **var** and **"do od"** in the above. 
 
-Each of them representing one of the n factorial one to one correspondences. Now in any program with a repetition it always starts with an initialization and then has the repetition. So the first statement is initialize z, and upon completion of that initialization z has a permissible value, that is, z represents one of the n factorial one to one correspondences. And here we have our little program, the program evaluates the boolean "z has intersection”, which is either true or false. If z has no intersection, the repetition terminates and we are done. If z has an intersection, the only thing the program has to do is to change z. Now reading this program, it’s quite clear that upon termination the value of z, is a one to one correspondence without intersections. So our only proof obligation is that, this program terminates. Well, as it stands we cannot prove that yet. You see because our program as written is a little bit nondeterministic, we have left completely open how z is initialized. And that is probably not very worrisome. What is worrisome is an incompleteness that is more serious, is that we haven’t indicated how z is going to be changed if it has an intersection. 
+From the fact z has “n factorial possible values” I infer that it contains a description of how the points are connected. Perhaps a data structure containing a list of all the points (n blue and n red points) and an n by n boolean matrix in which the rows represent blue points and columns represent red points. A value of true in the matrix means the two points are connected and false means not connected. Since we only connect pairs of blue and red points each row/column is true in only one place. Each pair of points describes a line. Given any pair of lines we can determine if they intersect. Note also that there are always just n lines.
+
+Here are some examples of determining if two lines intersect in the Euclidian plane:
+
+Line y = x.
+Line y = x + 1. 
+Intersection.
+x = x + 1. 
+0 = 1. No solution. 
+
+Line y = x.
+Line y = -x. 
+Intersection.
+x = -x. 
+2x = 0. 
+x = 0. 
+
+Line y = x - 2.
+Line y = 10x - 50.
+Intersection.
+0 = -9x + 48.
+x = -48/-9 = 48/9 = 5+(1/3)
+y = 5+(1/3) - 2 = 3+(1/3) = 3.333...
+
+So in general two lines f.x and g.x intersect of the equation f.x - g.x = 0 has a solution.
+
+//
+
+---
+
+Each of them representing one of the n factorial one to one correspondences. Now in **any** program with a **repetition** it always starts with an **initialization** and then has the repetition. So the first statement is initialize z, and upon completion of that initialization z has a **permissible** value, that is, z represents one of the n factorial one to one correspondences. And here we have our little program, the program evaluates the **boolean** "z has intersection”, which is either true or false. If z has no intersection, the repetition terminates and we are done. If z has an intersection, the **only** thing the program has to do is to change z. Now reading this program, it’s quite clear that upon termination the value of z, is a one to one correspondence without intersections. So our only **proof obligation** is that, this program **terminates**. Well, as it stands we **cannot** prove that yet. You see because our program as written is a **little bit nondeterministic**, we have left **completely open** how z is initialized. And that is probably not very worrisome. What is worrisome is an **incompleteness** that is more serious, is that we haven’t indicated **how** z is going to be changed **if** it has an intersection. 
+
+#next // think about how to implement flip, mentioned later.
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=35m00s)
 
