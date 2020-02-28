@@ -823,4 +823,23 @@ Here is another case of floating point arithmetic being imperfect. Computing the
 
 ## https://docs.python.org/3/tutorial/venv.html#introduction
 
+"If application A needs version 1.0 of a particular module but application B needs version 2.0, then the requirements are in conflict and installing either version 1.0 or 2.0 will leave one application unable to run."
+
+"virtual environment, a self-contained directory tree that contains a Python installation for a particular version of Python, plus a number of additional packages."
+
+## https://docs.python.org/3/tutorial/venv.html#creating-virtual-environments
+
+## https://docs.python.org/3/tutorial/venv.html#managing-packages-with-pip
+
+Python package index website.
+
+Works within a virtual environment too.
+
+Guide for publishing a python package  on the index website.
+
+# https://docs.python.org/3/tutorial/whatnow.html#what-now
+
+"apply Python to solving your real-world problems. Where should you go to learn more?"
+
+ 
 
