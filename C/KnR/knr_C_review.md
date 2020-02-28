@@ -595,6 +595,12 @@ ANS: No, neither is initialized, just like automatic scalars. See knr_pg94.c.
 
 # Chapter 6 - Structures 
 
+## 6.1 Basics of Structures 
+
+## 6.2 Structures and Functions 
+
+## 6.3 Arrays of Structures 
+
 #next
 
 
