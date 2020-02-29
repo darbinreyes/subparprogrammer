@@ -16,9 +16,13 @@ The element can be sized arbitrarily by CSS, but during rendering the image is 
 
 See here for styling the canvas. https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_usage
 
-Suddenly my canvas CSS started working. Maybe it was a caching problem?
+Suddenly my canvas CSS started working. Maybe it was a caching problem? 
 
-**Next time use element inspector to debug this, look at the CSS."
+ANS: Yes it was a caching problem. I determined this be opening my index.html in safari after noticing that my CSS changes were not taking effect in chrome. Reloading the page and opening a new tab in chrome does not fix the problem.
+
+FIX: In chrome, do a full reload using **shift+cmd+r**.
+
+**Next time use element inspector to debug this, look at the CSS.**
 
 ## 1.	Basic usage
 ## 2.	Drawing shapes

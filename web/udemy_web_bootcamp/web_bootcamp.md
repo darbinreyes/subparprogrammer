@@ -12,7 +12,11 @@ The only course you need to learn web development - HTML, CSS, JS, Node, and Mor
 
 # [Go to Course](https://www.udemy.com/course/the-web-developer-bootcamp/learn/lecture/3861710?components=buy_button%2Cdiscount_expiration%2Cgift_this_course%2Cintroduction_asset%2Cpurchase%2Cdeal_badge%2Credeem_coupon#overview)
 
+---
+
 # Section 1: Introduction to this Course
+
+---
 
 ## A Note On Asking For Help
 
@@ -66,18 +70,19 @@ In the Q&A
 
 Discord server and Facebook group.
 
-## Why This Course?
-
-## Syllabus Download
-
+### Why This Course?
+### Syllabus Download
 
 PDF versions of the course slides, here.
 
-## Syllabus Walkthrough
+### Syllabus Walkthrough
+### 8 Lecture Slides
 
-## 8 Lecture Slides
+---
 
 # Section 2: Introduction to Front End Development
+
+---
 
 ## 9. Unit Objectives
 
@@ -154,10 +159,13 @@ codepen.io - like the w3s tutorial examples, this lets you play with live HTML+C
 
 JS + CSS comment syntax = /*
 
+---
+
 # Section 3: Introduction to HTML
 
-## 15. Unit Objectives
+---
 
+### 15. Unit Objectives
 ## 16. HTML Basics
 
 Use **MDN** as reference.
@@ -187,8 +195,8 @@ also has examples.
 
 ---
 
-* [ ] Read intro to html. RTFM. https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML
-  * My notes on this are here: ./mdn_intri_to_html.md
+* [x] Read intro to html. RTFM. https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML
+  * My notes on this are here: ./MDN_intro_to_html.md
 
 ---
 
@@ -197,25 +205,22 @@ in subl
 
 html+tab
 
-## 20. Basic Tags
-
-## 21. HTML Lists
-
-## 22. HTML Lists Assignment
-
-## 23. HTML Lists Assignment: SOLUTION
-
-## 24. Divs and Spans
-
-## 25. HTML Attributes
-
-## 26. Recreate Webpage Assignment
-
-## 27. Recreate Webpage Assignment: SOLUTION
+### 20. Basic Tags
+### 21. HTML Lists
+### 22. HTML Lists Assignment
+### 23. HTML Lists Assignment: SOLUTION
+### 24. Divs and Spans
+### 25. HTML Attributes
+### 26. Recreate Webpage Assignment
+### 27. Recreate Webpage Assignment: SOLUTION
 
 END.
 
+---
+
 # Section 4: Intermediate HTML
+
+---
 	
 Emmet = extension for sublimetext. Paige's rec.
 
@@ -231,8 +236,8 @@ Emmet = extension for sublimetext. Paige's rec.
 	
 \<tbody>
 		
-## 30. Tables Pokemon Exercise 
-## 31. Tables Pokemon Exercise: SOLUTION 
+### 30. Tables Pokemon Exercise
+### 31. Tables Pokemon Exercise: SOLUTION
 ## 32. Introduction to Forms 
 \<form action="" method=""\>
 
@@ -242,9 +247,9 @@ Emmet = extension for sublimetext. Paige's rec.
 
 adding name to input appends a URL query upon submit. GET.
 
-## 33. Playing with Inputs  
-## 34. The Form Tag  
-## 35. Labels 
+### 33. Playing with Inputs
+### 34. The Form Tag
+### 35. Labels 
 \<label> 
 \<label for="username">
 
@@ -256,8 +261,6 @@ adding name to input appends a URL query upon submit. GET.
 
 \<input id="username" type="email" required>
 
-
-
 ## 37. Dropdowns and Radio Buttons
 
 \<input type="radio">	// to make mutually exclisive, add common name. add value to override default "on". 
@@ -266,12 +269,17 @@ adding name to input appends a URL query upon submit. GET.
 \<select name="color"> \<option value="happy"> // dropdown
 
 \<textarea name="usercomment" rows="10" cols="80">
-## 38. Form Exercise  
-## 39. Note about the Form Exercise solution		
-## 40. Form Exercise: SOLUTION 
+
+### 38. Form Exercise
+### 39. Note about the Form Exercise solution
+### 40. Form Exercise: SOLUTION 
 END.
 
+---
+
 # Section 5: Introduction to CSS
+
+---
 
 ## 42. CSS Basics
 
@@ -289,8 +297,8 @@ boiler plate in subl
 
 link+tab
  
-## 43. Our First Stylesheet 
-## 44. Note about CSS Colors and Background and Border (next 2 lectures) 
+### 43. Our First Stylesheet
+### 44. Note about CSS Colors and Background and Border (next 2 lectures)
 ## 45. CSS Colors  
 color: #000000;
 color: rgb(0,0,0);
@@ -302,7 +310,7 @@ color: black;
   * width 
   * style.
   
-## 47. Note about Selectors Basics Todo List  
+### 47. Note about Selectors Basics Todo List
 ## 48. Selectors Basics Todo List 
 * element
 * id - all ids should be unique. invalid html if duplicate. #special {}
@@ -349,37 +357,146 @@ https://specificity.keegan.st/
 a:hover
 input:checked
 
-## 53. Note about Selectors Practice Exercise  
-## 54. Selectors Practice Exercise  
-## 55. Selectors Practice Exercise: SOLUTION 
+### 53. Note about Selectors Practice Exercise
+### 54. Selectors Practice Exercise
+### 55. Selectors Practice Exercise: SOLUTION 
+---
+
 # Section 6: Intermediate CSS
 
-## 56. Unit Objectives 
+---
+
+### 56. Unit Objectives
 ## 57. Text and Fonts
 
 * font-
   * family
-  * size
-  * weight
-  * align 
-  * decoration
+  * size // 2.0em = twice the size of the parent. By default 1.0em = 16px,
+  * weight // normal, bold, depending on font numeric values 100, 200, ... 800.
+
+Use live editing of CSS via chrome element inspector e.g. to preview font size look.
 
 ## 58. More Text and Fonts
 	
-## 59. Note about Google Fonts  
-## 60. Using Google Fonts  
-## 61. Introduction to the Box Model  
-## 62. Creating a Tic Tac Toe Board  
-## 63. Creating a Tic Tac Toe Board: SOLUTION  
-## 64. Note about Image Gallery Code Along Pt. 1  
-## 65. Image Gallery Code Along Pt. 1  
-## 66. Note about changes to Google Fonts	 
-## 67. Image Gallery Code Along Pt. 2	 
-## 68. CSS Blog From Scratch Exercise Intro  
-## 69. CSS Blog From Scratch Exercise SOLUTION Pt. 1  
-## 70. CSS Blog From Scratch Exercise SOLUTION Pt. 2  
-## 71. CSS Blog From Scratch Exercise SOLUTION Pt. 3 
+* line-height  // 1.5, 2. 2=double default.
+* text-align // right, center
+* text-decoration // underline, line-through, overline.
 
+## 59. Note about Google Fonts 
+Navigate to https://fonts.google.com
+
+## 60. Using Google Fonts 
+Not all machines support all fonts. Using google fonts ensures that the font on a page is always available. This is done by essentially fetching a font file from google. You do this by adding a \<link> to your \<head> almost exactly like you do for a CSS file link. Then you set the font-family in CSS using the name of the font fetched from google.
+
+## 61. Introduction to the Box Model 
+All html elements have an associated rectangle container. You can see them by setting a border for all elements.
+
+The naming of the dimensions of these rectangles are called the box model.
+
+4 Dimensions/edges
+
+margin edge
+
+border edge
+
+padding edge
+
+content edge
+
+---
+
+Parts of the box
+
+* content
+width: 200px;
+width: 50%; // of the parent.
+height: 100px;
+
+* padding // inside
+padding: 10px;
+padding-left: ;
+
+* border // middle
+border: 1px solid blue;
+border-top: ;
+
+* margin // outside
+  * margin: 100px;
+  * margin: top right bottom left; // clockwise
+  * margin: 0 auto 0 auto; // beware, if not 0, must use px for numeric.
+  * margin: top_bottom right_left;
+  
+### 62. Creating a Tic Tac Toe Board
+### 63. Creating a Tic Tac Toe Board: SOLUTION
+### 64. Note about Image Gallery Code Along Pt. 1
+## 65. Image Gallery Code Along Pt. 1
+ 
+```css
+div {
+float: left; /* make vertically stacked divs horizontally stacked left to right // get rid of spacing between images that is added by the browser and not part of the box model. */
+}
+```
+
+sublimetext shortcut. **cmd+click lines, start typing.**
+
+
+### 66. Note about changes to Google Fonts
+## 67. Image Gallery Code Along Pt. 2	
+text-transform: uppercase;
+
+border-bottom: 2px solid red; 
+### 68. CSS Blog From Scratch Exercise Intro
+### 69. CSS Blog From Scratch Exercise SOLUTION Pt. 1
+### 70. CSS Blog From Scratch Exercise SOLUTION Pt. 2
+### 71. CSS Blog From Scratch Exercise SOLUTION Pt. 3 
+---
+
+# Section 7: Bootstrap
+
+---
+
+## 72. Unit Objectives
+
+Bootstrap is CSS and JS library.
+Nav, inputs.
+bootstrap based photo lib.
+BS gridsystem. 
+## 73. Note about Bootstrap versions 
+use the original documentation for version 3 and ensure that you're using version 3.3.7 in your code https://getbootstrap.com/docs/3.3/
+
+ you can use this guide to upgrade your code from Bootstrap 3 to version 4. 
+## 74. What is Bootstrap? 
+http://getbootstrap.com
+
+Its a framework i.e. it provides a frame within which you must fill in the rest of the construction.
+
+The frame involves HTML CSS JS.
+
+Enables responsiveness = fancy GUI features.
+
+Enables mobile **first** = tailored to iPhones etc.
+
+Just include two files.
+
+There is indeed no need to create things like nav bars from scratch. Hence bootstrap. You take the ready made part and customized if desired.
+
+* Docs
+  * CSS
+  * Components
+  * Expo 
+## 75. Adding Bootstrap to a Project  
+## 76. Forms and Inputs  
+## 77. Nav Bars  
+## 78. Note about The Grid System  
+## 79. The Grid System  
+## 80. Grid System Pt. 2  
+## 81. Note about Bootstrap Image Gallery Pt. 1  
+## 82. Bootstrap Image Gallery Pt. 1	 
+## 83. Note about Font Awesome  
+## 84. Bootstrap Image Gallery Pt. 2  
+## 85. Creating a Startup Landing Page Code Along		 
+## 86. Creating a Startup Landing Page Code Along Pt. 2  
+## 87. Note about making bootstrap responsive on mobile devices 
 
 
 
