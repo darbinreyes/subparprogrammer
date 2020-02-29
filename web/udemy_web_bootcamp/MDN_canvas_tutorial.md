@@ -18,6 +18,8 @@ See here for styling the canvas. https://developer.mozilla.org/en-US/docs/Web/AP
 
 Suddenly my canvas CSS started working. Maybe it was a caching problem?
 
+**Next time use element inspector to debug this, look at the CSS."
+
 ## 1.	Basic usage
 ## 2.	Drawing shapes
 ## 3.	Applying styles and colors

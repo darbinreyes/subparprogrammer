@@ -304,9 +304,9 @@ color: black;
   
 ## 47. Note about Selectors Basics Todo List  
 ## 48. Selectors Basics Todo List 
-element
-id - all ids should be unique. invalid html if duplicate. #special {}
-class - .theclass {}
+* element
+* id - all ids should be unique. invalid html if duplicate. #special {}
+* class - .theclass {}
 
 text-decoration: line-through; 
 ## 49. Introduction to Chrome Inspector 
@@ -316,15 +316,70 @@ editing works on all sites.
 
 beware of inherited CSS properties.
 
-click on magnify glass tool on upper left. e.g. inspect icon.
+click on magnify glass tool on upper left. e.g. inspect icon. 
+## 50. More Advanced Selectors 
+* "*" // selects all elements on page.
+* "li a" // descendant  selector - select a tags inside li tags
+  * "li .theclass" //  descendant  selector - selects .theclass inside li tags
+  * ".thisclass .thatclass" //  descendant  selector -
+ 
+* "h4 + ul" // adjacent selector = sibling selector = all ul after h4
 
- 
-## 50. More Advanced Selectors  
-## 51. Note about Specificity and the Cascade  
-## 52. Specificity and the Cascade  
+* a[href="darbinreyes.com"]// attribute selector.
+
+* ul:nth-of-type(10) // nth of type. e.g. every 10th ul.
+* ul:nth-of-type(even)// nth of type. e.g. every even ul.
+
+
+## 51. Note about Specificity and the Cascade
+ xxx
+
+## 52. Specificity and the Cascade
+ inheritance 
+
+use element inspector to view CSS inheritance.
+
+
+CSS specificity. When multiple styles target an element. The more specific style wins.
+
+https://specificity.keegan.st/
+
+**ANOTHER SELECTOR TYPE = Pseudo-class selectors**
+
+a:hover
+input:checked
+
 ## 53. Note about Selectors Practice Exercise  
 ## 54. Selectors Practice Exercise  
 ## 55. Selectors Practice Exercise: SOLUTION 
+# Section 6: Intermediate CSS
+
+## 56. Unit Objectives 
+## 57. Text and Fonts
+
+* font-
+  * family
+  * size
+  * weight
+  * align 
+  * decoration
+
+## 58. More Text and Fonts
+	
+## 59. Note about Google Fonts  
+## 60. Using Google Fonts  
+## 61. Introduction to the Box Model  
+## 62. Creating a Tic Tac Toe Board  
+## 63. Creating a Tic Tac Toe Board: SOLUTION  
+## 64. Note about Image Gallery Code Along Pt. 1  
+## 65. Image Gallery Code Along Pt. 1  
+## 66. Note about changes to Google Fonts	 
+## 67. Image Gallery Code Along Pt. 2	 
+## 68. CSS Blog From Scratch Exercise Intro  
+## 69. CSS Blog From Scratch Exercise SOLUTION Pt. 1  
+## 70. CSS Blog From Scratch Exercise SOLUTION Pt. 2  
+## 71. CSS Blog From Scratch Exercise SOLUTION Pt. 3 
+
 
 
 

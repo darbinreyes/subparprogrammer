@@ -33,3 +33,6 @@
 * [ ] Project - Can I add markdown to my web page?
 * [ ] Project - -setup https configuration.
 
+* [ ] - CSS re-styling on Joyce's Euclid propositions. 
+* [ ] - Something similar to the web bootcamp exercises but with my own twist.
+
