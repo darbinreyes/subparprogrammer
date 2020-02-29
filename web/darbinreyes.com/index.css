@@ -4,6 +4,8 @@ body {
   background-image: url("./gascatv2.png");
   background-repeat: no-repeat;
   background-size: cover;
+  /*border: 1px solid red;*/
+  font-family: "Courier Prime";
 }
 
 canvas {
@@ -11,3 +13,8 @@ canvas {
   border-color: black;
   border-width: 1px;
 }
+
+/** {
+  border: 1px solid black;
+}*/
+
