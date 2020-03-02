@@ -476,7 +476,11 @@ Enables responsiveness = fancy GUI features.
 
 Enables mobile **first** = tailored to iPhones etc.
 
-Just include two files.
+
+
+
+## 75. Adding Bootstrap to a Project
+ Just include two files! For now we just include the CSS, not the JS.
 
 There is indeed no need to create things like nav bars from scratch. Hence bootstrap. You take the ready made part and customized if desired.
 
@@ -484,9 +488,75 @@ There is indeed no need to create things like nav bars from scratch. Hence boots
   * CSS
   * Components
   * Expo 
-## 75. Adding Bootstrap to a Project  
-## 76. Forms and Inputs  
-## 77. Nav Bars  
+
+Example use case of bootstrap. To get a bootstrap style button simply lookup the class names in the CSS docs and add them to the class attribute of a button, a, or input. E.g.
+
+\<button class="btn btn-success bt-lg">Press me\<button>
+
+To customize a bootstrap default use CSS on the classes e.g.
+
+.btn-success {
+color: red;
+}
+
+Note everything so far has only involved a single CSS file! The bootstrap CSS.
+
+## 76. Forms and Inputs 
+Don't be intimidated by the size of the bootstrap docs, you don't need to read all the docs before you can use bootstrap. Its OK to just read about what you need at the moment. If we always read docs in their entirety we would not get much done. Theres a balance to RTFM and quick reference.
+
+Not expert in memorization. In reference. 
+
+---
+
+Jumbotron
+
+Grid system = size control
+
+div 
+
+.container
+
+.form-group
+.form-control
+.help-block
+
+// classes play main role in using bootstrap. plug and play.
+.form-inline
+
+## 77. Nav Bars 
+Note window resize behaviour
+
+"Hamburger" = mobile tab menu.
+
+Components->Navbar
+
+```html
+<nav class="navbar navbar-default">
+  <div class="navbar-header">
+  <a href="#" class="navbar-brand">Poo Poo</a>
+  </div>
+  <ul class="nav navbar-nav">
+    <li>
+      <a href="#" class="navbar-brand">Caca</a>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+    <li>
+      <a href="#" class="navbar-brand">Pipi</a>
+    </li>
+  </ul>
+</nav>
+```
+To fix the navbar links being up against the edge of the screen you put a \<div class="container"> immediately inside the \<nav> tag. This centers the nav links. Putting the same div immediately outside the \<nav> tag squeezes the nav bar. In general this div container squeezes its contents.
+
+To make the NAV drop downs to work you need to link the bootstrap JS.
+
+Once you do this you notice a JS error in the chrome JS console. 
+
+"bootstrap.min.js:6 Uncaught Error: Bootstrap's JavaScript requires jQuery"
+
+jQuery is obtained from http://code.jquery.com. or google "jquery cdn"
+
 ## 78. Note about The Grid System  
 ## 79. The Grid System  
 ## 80. Grid System Pt. 2  
