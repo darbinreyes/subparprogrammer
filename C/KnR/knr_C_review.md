@@ -601,18 +601,6 @@ ANS: No, neither is initialized, just like automatic scalars. See knr_pg94.c.
 
 ## 6.3 Arrays of Structures 
 
-#next
-
-
-
-
-
-
-
-
-
-
-
-
+#next: pg. 111. "itself if it is not alphabetic."
 
 
