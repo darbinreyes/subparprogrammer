@@ -226,22 +226,39 @@ Two final remarks about this last program. One might ask what has happened to th
 
 My comment. I don't quite understand why P is identically true here. However, I do see how by the predicate calculus the invariant P is eliminated from our pre/post conditions by the substitution P := true. e.g. {P ∧ B} = {true ∧ B} = {B}.
 
+I think that I do understand the termination argument. Since each flip operation always reduces the sum of the lengths of the connections and, under the assumption that we never revisit the same state again, the sum of the lengths cannot decrease forever, therefore the repetition must terminate. The one to one correspondence with a minimum sum of the lengths is a solution. There may be other solutions.
+
 //
 
 ---
 
-
-#next
-
-In a more realistic computation, the one to one correspondence would probably be represented as one of the n factorial permutations of the numbers from naught to n minus 1, or something of that sort, and you would probably use an array or sequence for that, and in that case, part of the invariant would be that, that array or sequence represents one of the permutations of the numbers from naught through n minus one. But by proper choice of the abstract type one to one correspondence, we have eliminated so to speak, the invariant P from our considerations. So much in favor of abstract programs. 
+In a more realistic computation, the one to one correspondence would probably be represented as one of the n factorial permutations of the numbers from naught to n minus 1, or something of that sort, and you would probably use an array or sequence for that, and in that case, part of the invariant would be that, that array or sequence represents one of the permutations of the numbers from naught through n minus one. But by proper choice of the abstract type one to one correspondence, we have **eliminated** so to speak, the invariant P from our considerations. So much in favor of abstract programs. 
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=46m12s)
 
-// my comment: Note the use of “abstract variable”. Recall that this is in contrast to a “primitive variable” such as an integer. Also, “abstract program”. Is this the same as Edgar Daylight's definition of “abstract program”?
+---
 
-Another remark to be made is, to compare this argument with how classical mathematics would formulate it. I think that the classical mathematical argument would be as follows. There is a finite number of one to one correspondences, consider now the one to one correspondences such that the sum of the lengths of the connections is minimal, and suppose that that one has a intersection. Now then comes the same argument that we had and you construct a shorter one to one correspondence, and then you have a contradiction and by a reductio ad absurdum the theorem is proved. 
+// 
 
-I think that our argument here is preferable for two reasons. First of all, we have avoided the reductio ad absurdum and gave a completely constructive proof. Secondly, we are freed from the moral obligation that many a classical mathematician feels, and that is after he has given a proof as sketched, adds: "note that the shortest one to one correspondence need not be the only solution". In our case, we don’t need to do that because, the final value of our program can be any of the intersection free one to one correspondences. If there is another one to one correspondence, because we have left first statement initialize z completely undetermined, it could initialize z with that value and immediately the repetition terminates. So here we have a program that, for which each possible answer is possible, if I may say so. 
+My comment: Note the use of “abstract variable”. Recall that this is in contrast to a “primitive variable” such as an integer. Also, “abstract program”. Is this the same as Edgar Daylight's definition of “abstract program”?
+
+//
+
+---
+
+Another remark to be made is, to compare this argument with how **classical mathematics** would formulate it. I think that the classical mathematical argument would be as follows. There is a finite number of one to one correspondences, consider now the one to one correspondences such that the sum of the lengths of the connections is minimal, and suppose that that one has a intersection. Now then comes the same argument that we had and you construct a shorter one to one correspondence, and then you have a contradiction and by a reductio ad absurdum the theorem is proved. 
+
+---
+
+//
+
+My comment. If we can construct a one to one correspondence with a shorter sum of the lengths then the one to one correspondence that was claim to have a minimum sum was in fact not the minimum sum, for we were able to construct a shorter one. We can do this forever, therefore the minimum sum one to one correspondence cannot contain an intersection.
+
+//
+
+---
+
+I think that our argument here is **preferable** for two reasons. First of all, we have avoided the reductio ad absurdum and gave a completely constructive proof. Secondly, we are freed from the moral obligation that many a classical mathematician feels, and that is after he has given a proof as sketched, adds: "note that the shortest one to one correspondence need not be the only solution". In our case, we don’t need to do that because, the final value of our program can be any of the intersection free one to one correspondences. If there is another one to one correspondence, because we have left first statement initialize z completely undetermined, it could initialize z with that value and immediately the repetition terminates. So here we have a program that, for which each possible answer is possible, if I may say so. 
 
 [Video Bookmark](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=49m12s)
 
