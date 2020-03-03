@@ -601,6 +601,19 @@ ANS: No, neither is initialized, just like automatic scalars. See knr_pg94.c.
 
 ## 6.3 Arrays of Structures 
 
-#next: pg. 111. "itself if it is not alphabetic."
+## 6.4 Pointers to Structures 
+
+"**Don't assume**, however, that the size of a structure is the sum of the sizes of its members. Because of **alignment** requirements for different objects, there may be unnamed ``holes'' in a structure. Thus, for instance, if a char is one byte and an int four bytes, the structure" 
+```
+struct {
+char c;
+int i; 
+};
+``` 
+"might well require eight bytes, not five." 
+## 6.5 Self-referential Structures 
+
+
+
 
 
