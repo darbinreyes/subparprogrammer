@@ -8,7 +8,7 @@ If a number is part of a number, and another is the same part of another, then t
 
 * [ ] Be neat. On paper. In text.
 * [x] Read the guide. Note Joyce’s notational conventions e.g. formal vs informal numbers. Divides. Measures.
-* [ ] Read the proposition proof. Note comments for clarification.
+* [x] Read the proposition proof. Note comments for clarification.
 * [ ] Write max 3 sentence proof summary. Use EWD notation for brevity and notation practice.
 * [ ] Specify. What the program does. Design. Very high level pseudo code.
 * [ ] Implement in EWD notation, on paper.
@@ -48,6 +48,59 @@ a + d = b/n + e/n = (b + e)/n
   * "the foundations of formal number theory in the Elements are principles of informal number theory."
   
 ## Proof 
+
+"Let the number A be a part of BC, and another number D be the same part of another number EF that A is of BC."
+
+part.(A, BC) = part.(D, EF)
+
+"I say that the sum of A and D is also the same part of the sum of BC and EF that A is of BC."
+
+part.(A + D, BC + EF) = part.(A, BC)
+
+"Since, whatever part A is of BC, D is also the same part of EF, therefore, there are as many numbers equal to D in EF as there are in BC equal to A."
+
+part.(A, BC) = part.(D, EF)
+
+⇒
+
+EF/D = BC/A
+
+"Divide BC into the numbers equal to A, namely BG and GC, and EF into the numbers equal to D, namely EH and HF. Then the multitude of BG and GC equals the multitude of EH and HF."
+
+BC = BG + GC = A + A
+EF = EH + HF = D + D
+multitude.(BG, GC) = multitude.(EH, HF)
+
+"And, since BG equals A, and EH equals D, therefore the sum of BG and EH also equals the sum of A and D. For the same reason the sum of GC and HF also equals the sum of A and D."
+
+BG = A ∧ EH = D
+
+⇒
+
+BG + EH = A + D
+
+GC = A ∧ HF = D
+
+⇒
+
+GC + HF = A + D
+
+"Therefore there are as many numbers in BC and EF equal to A and D as there are in BC equal to A."
+
+(BC + EF)/(A + D) = BC/A
+
+"Therefore, the sum of BC and EF is the same multiple of the sum of A and D that BC is of A." 
+
+(BC + EF)/(A + D) = m = BC/A
+
+"Therefore, the sum of A and D is the same part of the sum of BC and EF that A is of BC."
+
+part.(A + D, BC + EF) = part.(A, BC)
+
+Therefore etc. 
+
+Q.E.D.
+
 
 ## Proof Summary
 
