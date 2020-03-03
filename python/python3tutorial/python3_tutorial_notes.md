@@ -841,5 +841,9 @@ Guide for publishing a python package  on the index website.
 
 "apply Python to solving your real-world problems. Where should you go to learn more?"
 
- 
+https://code.activestate.com/recipes/langs/python/: The Python Cookbook 
+
+https://scipy.org: The Scientific Python project
+
+
 
