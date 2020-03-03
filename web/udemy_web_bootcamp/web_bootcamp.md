@@ -615,8 +615,29 @@ bootstrap does most of the CSS heavy listing.
 use chrome element inspector for CSS specificity battles.
 
 ## 85. Creating a Startup Landing Page Code Along		 
-## 86. Creating a Startup Landing Page Code Along Pt. 2  
+## 86. Creating a Startup Landing Page Code Along Pt. 2 
+```
+h1, h3 {
+  color: white;
+}
+
+html {
+  height: 100%;
+}
+
+hr {
+  width: 400px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+/*text-shadow: x y radius color */
+```
+ 
 ## 87. Note about making bootstrap responsive on mobile devices 
+If you want your bootstrap styled website to be responsive on mobile then be sure to add the following meta tag to your <head>  element, above the <title>  tag:
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 
 
 
