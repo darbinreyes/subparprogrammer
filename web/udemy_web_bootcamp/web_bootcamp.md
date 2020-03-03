@@ -558,12 +558,62 @@ Once you do this you notice a JS error in the chrome JS console.
 jQuery is obtained from http://code.jquery.com. or google "jquery cdn"
 
 ## 78. Note about The Grid System  
-## 79. The Grid System  
-## 80. Grid System Pt. 2  
-## 81. Note about Bootstrap Image Gallery Pt. 1  
-## 82. Bootstrap Image Gallery Pt. 1	 
-## 83. Note about Font Awesome  
-## 84. Bootstrap Image Gallery Pt. 2  
+## 79. The Grid System 
+Components - grid system
+
+12 columns
+
+div .container
+
+div .row
+
+div .col-lg-12 
+## 80. Grid System Pt. 2 
+.-lg- .-md-
+.-sm-
+.-xs-
+
+.rows can be nested to sub divide columns.
+
+if you set a col to .-md- and .-sm- the .-lg- gets as many columns as the .-md-
+
+see table for screen px breakpoints.
+
+
+
+## 81. Note about Bootstrap Image Gallery Pt. 1 
+If you don't mind the images being of varying heights, but want to get rid of the white space bug then see here 
+
+If you're looking for Pinterest-like presentation of thumbnails of varying heights and/or widths, you'll need to use a third-party plugin such as Masonry, Isotope, or Salvattore. 
+
+If you want to crop all of the images to the same size then see an example of this here 
+
+## 82. Bootstrap Image Gallery Pt. 1	 .navbar-inverse
+
+vs
+
+.navbar-default
+
+div .thumbnail // scales images
+
+using more than 12 cols in a single row automatically adds (wraps) rows to a new row even if you only have 1 div .row.
+
+span ."glyphicon glyphicon-camera" 
+
+nabar-fixed-top
+## 83. Note about Font Awesome 
+font/icon library called Font Awesome. Font Awesome can now be found at https://fontawesome.com/
+
+`<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">`
+
+## 84. Bootstrap Image Gallery Pt. 2 
+Make sure you link your custom CSS after the bootstrap CSS.
+
+fontawesome // more glyphicons 
+bootstrap does most of the CSS heavy listing.
+
+use chrome element inspector for CSS specificity battles.
+
 ## 85. Creating a Startup Landing Page Code Along		 
 ## 86. Creating a Startup Landing Page Code Along Pt. 2  
 ## 87. Note about making bootstrap responsive on mobile devices 
