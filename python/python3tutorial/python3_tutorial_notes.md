@@ -845,5 +845,25 @@ https://code.activestate.com/recipes/langs/python/: The Python Cookbook 
 
 https://scipy.org: The Scientific Python project
 
+# https://docs.python.org/3/tutorial/interactive.html#interactive-input-editing-and-history-substitution
+
+Tab completion and history features.
+
+.python_history file.
+
+## https://docs.python.org/3/tutorial/interactive.html#tab-completion-and-history-editing
+
+IPython
+bPython
+
+# https://docs.python.org/3/tutorial/floatingpoint.html#floating-point-arithmetic-issues-and-limitations
+
+most decimal fractions cannot be represented exactly as binary fractions. 
+
+decimal floating-point numbers you enter are only approximated by the binary floating-point numbers
+
+the actual stored value is the nearest representable binary fraction.
+
+#next: For more pleasant output,
 
 
