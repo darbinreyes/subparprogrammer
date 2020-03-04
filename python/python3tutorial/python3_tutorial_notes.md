@@ -864,6 +864,38 @@ decimal floating-point numbers you enter are only approximated by the binary flo
 
 the actual stored value is the nearest representable binary fraction.
 
-#next: For more pleasant output,
+For example, since 0.1 is not exactly 1/10, summing three values of 0.1 may not yield exactly 0.3, either:
+
+```
+>>> .1 + .1 + .1 == .3
+False
+
+# pre-rounding with round() function cannot help:
+
+>>> round(.1, 1) + round(.1, 1) + round(.1, 1) == round(.3, 1)
+False
+```
+
+See The Perils of Floating Point for a more complete account of other common surprises.
+
+cases which require exact decimal representation, try using the decimal module
+
+Another form of exact arithmetic is supported by the fractions module
+
+The float.as_integer_ratio() method expresses the value of a float as a fraction:
+
+## https://docs.python.org/3/tutorial/floatingpoint.html#representation-error
+
+
+# https://docs.python.org/3/tutorial/appendix.html#appendix
+
+## https://docs.python.org/3/tutorial/appendix.html#interactive-mode
+
+### https://docs.python.org/3/tutorial/appendix.html#error-handling
+
+
+
+
+
 
 
