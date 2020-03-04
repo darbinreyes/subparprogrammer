@@ -613,7 +613,11 @@ int i;
 "might well require eight bytes, not five." 
 ## 6.5 Self-referential Structures 
 
+Remark on storage allocation of different data types with possibly different alignment restrictions on particular machines. 
 
+alloc() doesn't ensure any sort of alignment but malloc() always meets alignment restrictions.
+
+## 6.6 Table Lookup 
 
 
 
