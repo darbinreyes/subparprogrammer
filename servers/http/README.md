@@ -271,9 +271,9 @@ $ ln ./../../../../../../../../etc/hosts
 
 # TODO
 * [x] Read [getting started.](http://httpd.apache.org/docs/2.4/getting-started.html)
-* [] Read. http://httpd.apache.org/docs/2.4/
+* [ ] Read. http://httpd.apache.org/docs/2.4/
 
-Binding to Addresses and Ports http://httpd.apache.org/docs/2.4/bind.html
+  * [x] Binding to Addresses and Ports http://httpd.apache.org/docs/2.4/bind.html
 
 Configuration Files
 
@@ -348,4 +348,41 @@ You can also **configure** your error log to contain a **log ID** which you can 
 * If a file doesn't exists, to create it specify the new file’s name while using nano.
 * control+W = text search a file. = control+F in GUI editors.
 
+# [Binding to Addresses and Ports](http://httpd.apache.org/docs/2.4/bind.html)
+
+## Overview
+
+Configuring Apache HTTP Server to listen on **specific** addresses and ports.
+
+default, it listens to all addresses on the machine.
+
+often combined with the Virtual Host feature
+
+The Listen directive
+
+## Changing Listen configuration on restart
+
+During a restart, httpd keeps ports bound (as in the original configuration) to avoid generating "Connection refused"
+
+ it is necessary to **stop** and then start the server.
+
+## Special IPv6 Considerations
+
+How to configure handling of both IPv4+IPv6.
+
+## Specifying the protocol with Listen
+
+The optional second protocol argument of Listen
+
+You only need to set the protocol if you are running on non-standard ports. For example,
+
+Listen 192.170.2.1:8443 https
+
+## How This Works With Virtual Hosts
+
+The Listen directive does not implement Virtual Hosts
+
+If no <VirtualHost> directives are used, the server will behave in the same way for all accepted requests.
+
+Note that if the <VirtualHost> is set for an address and port that the server is **not** listening to, it **cannot** be accessed.
 
