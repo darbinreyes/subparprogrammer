@@ -101,8 +101,48 @@ Therefore etc.
 
 Q.E.D.
 
-
 ## Proof Summary
+
+Given BC/A = m = EF/D.
+Prove BC/A = (BC + EF)/(A + D).
+
+BC/A = m
+
+⇒ {Laws of Arithmetic}
+
+\#0 BC = m×A.
+
+EF/D = m
+
+⇒ {Laws of Arithmetic}
+
+\#1 EF = m×D.
+
+BC + EF
+
+= {\#0, \#1}
+
+m×A + m×D
+
+= {Laws of Arithmetic}
+
+\#2 m×(A + D).
+
+(BC + EF)/(A + D)
+
+= {\#2}
+
+m×(A + D)/(A + D)
+
+= {Laws of Arithmetic}
+
+m
+
+= {Given}
+
+BC/A.
+
+Q.E.D.
 
 ## Specification and Design
 
