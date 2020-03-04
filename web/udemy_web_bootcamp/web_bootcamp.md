@@ -634,9 +634,157 @@ hr {
 ```
  
 ## 87. Note about making bootstrap responsive on mobile devices 
-If you want your bootstrap styled website to be responsive on mobile then be sure to add the following meta tag to your <head>  element, above the <title>  tag:
+If you want your bootstrap styled website to be responsive on mobile then be sure to add the following meta tag to your \<head>  element, above the \<title>  tag:
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+`<meta name="viewport" content="width=device-width, initial-scale=1">`
+
+# Section 8: Bootstrap 4!
+ 
+## 88. A History of Bootstrap 4  
+## 89. The Bootstrap 4 Documentation 
+Documentation
+
+Components on the left. 
+## 90. Changes from Bootstrap 3 to 4
+
+Syntax changes to class names.
+
+Migration tab on left. Change list. Per component. Removed added or changed.
+
+* Global changes.
+  * Flexbox. Layout features.
+  * rem=root em's. Scaling font size. Old default global size 14px new 16px.
+  * 5th size added, lg md ..
+  * util classes for CSS margins/padding. 
+  
+* Grid system.
+  * flexbox.
+  
+* Components.
+  * thumbnails+, replaced by cards.
+  
+* Glyphicons removed. Use font awesome.
+* Pager component removed.
+* Overall unnesting of classes.
+  * Per component changes. e.g. btn-default = btn-secondary
+  
+* New JS cdn file. popper.js. 
+## 91. Bootstrap 4 Code/Solutions Download 
+## 92. Getting Started With Bootstrap 4
+
+* order of JS includes matters.
+* Getting started - list of features implemented in JS. 
+
+## 93. Bootstrap 4 Colors and Backgrounds 
+* Utils->Colors
+  * text-primary ...
+  * bg + foreground colors have changed. e.g. .bg-warning
+  
+* Still start with .container
+  * .text-primary .bg-dark
+  
+* all colors are brighter.
+
+## 94. Typography 
+Documentation->Content->Typography.
+
+* Page headings
+  * .text- moved to utils.scss.
+  * Page-header bsv3 gone. - use .display-n
+* Blockquotes
+  * new way of doing blockquotes. 
+    * mb-0 = margin bottom 0.
+    * blockquote-reverse gone. use text-right.
+* rem units replace px's. root ems.
+  * root = toplevel html element.
+  * 1 rem = 16 pxs.  
+## 95. New Fancy Spacing Utilities 
+New feature in bsv4.
+
+margin, padding spacing shortcuts.
+
+compare to bsv3 "helper classes".
+
+Documentation->Utils->Borders.
+
+* Borders
+  * additive
+  * subtractive
+  * colors
+  * shape
+  
+Documentation->Utils->Spacing. (Non-responsive(=device size features) for this video)
+
+* Spacing [m|p][location]-[size 0-5]
+  * p= padding
+    * pt-5 = padding top 5(=biggest).
+    * pb-1
+    * pl-2
+    * px-1
+    * p-0, p-1, ... . rem based.
+    * "$spacer Sass map variable."= multiplier of rems.
+    * x=left right
+    * y=top bottom
+  * m= margin
+
+## 96. Responsive Breakpoints 
+Making things respond to device screen size.
+
+New size. xl. default=xs.
+
+Note sr-only, sr= screen reader.
+
+Documentation->Layout->Responsive Breakpoints.
+
+Setting margin and padding by screen size.
+
+* Documentation->Utils->Spacing.
+  * Notation
+    * {property}{sides}-{breakpoint}-{size} e.g.
+    * px-sm-1 // size 1 will be used for screen sizes sm and up.
+    * px-lg-3 // size 3 for lg and up.
+    * WRONG: px-xs-0 // No effect.
+    * RIGHT: px-0 // xs is the default without screen size. 
+
+VScode shortcut. To create a button with class btn. Type button.btn+tab. (Notice the tab completion says **"Emmet Abbreviation"**, the tool Paige mentioned.).
+
+Note the easyness of spacing by screensize(=breakpoints).
+ 
+## 97. Bootstrap4 Navbars 
+What's changed.
+Look. button look.
+Ability to set when hamburger appears easily.
+
+Documentation->Mirgration->Navbar. // full List of changes.
+
+"rewritten in flexbox"
+required class. .navbar-expand-{breakpoint}. .navbar-dark.
+.navbar-toggle now = navbar-toggler.
+No more default margin/border. Use utils.
+
+Note navbar breakpoint for hamburger. .navbar-expand-lg // when the hamburger disapears.
+
+.navbar-dark
+.bg-light // must set, default transparent. 
+## 98. The New Display Utility 
+In bsv3. Showing and hiding content based on screen size.
+ .hidden-xs
+.visible-lg.
+
+replaced in bsv4 by display=d.
+
+Documentation->Migration->Responsive Utils. // List of removed classes.
+
+Documentation->Utils->Display.
+
+.d-{value} for xs
+.d-{breakpoint}-{value} for sm, md, lg, and xl.
+
+Note: chrome CSS inspector has a search feature.
+
+.d-none // none means disappear.
+
+VScode/Emmet Abbreviation. lorem60+tab=insert 60 characters of lorem rand text.
 
 
 
