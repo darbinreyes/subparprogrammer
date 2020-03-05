@@ -22,9 +22,40 @@ Now let me first state the theorem, and that is for any finite number of distinc
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=02m55s)
 
-// BB
-1893
-1933 Erdüs
-1948 L. M. Kelly
+* // BB
+* 1893
+* 1933 Erdüs
+* 1948 L. M. Kelly
+* finite number of distinct points in the real Euclidian plane.
+* all the points are collinear or their exists a straight line through exactly 2 of them
+
+Now one of the things that may indicate that the theorem is possible and not completely trivial is that this is not a combinatorial theorem. You see because, oh yea sorry, for the sake of brevity, in the remaining of this hour, I will say points, I mean distinct points, and when I say line, I mean straight line.
+
+Well the Euclidian **axiom** that connects points and lines is that any two points uniquely determine a line through them
+
+* // BB
+* any 2 points determines uniquely a line through them
+
+Now let us translate the formulation of all these properties and theorems a little bit. Let us call, let us translate, points into persons, lines into clubs, a point lies on a line is that person is a member of the club.
+
+In that case, the axiom about club membership is that any two persons uniquely determine the club of which they are a member. That is the translation of this one.
+
+
+* // BB
+* any 2 persons uniquely determine the club of which they are a member
+
+However, the conjecture of Sylvester would be that in a finite population, where this club membership rule holds, either all persons are members of the same club, or there exists a club with exactly two members.
+
+[Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=05m40s)
+
+---
+
+// 
+
+My comment. I'm a bit confused about the statement of the theorem. As soon as you have more than one point there exists a line through exactly two of them, right? If you have 3 points on the same line and one point off that line the points are not collinear (all lie on the same line) and there exists a line through exactly two points. Can you draw a picture in which the points are not collinear and there is no line through exactly two points? I think I get it, as soon as we have a point that is not collinear with all the others you necessary create a line that passes through exactly two of them. Using the translation, all persons are members of the same club or their exists a club with only two persons. Note that there may be more than a single club containing only two members.
+
+//
+
+---
 
 
