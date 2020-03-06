@@ -410,9 +410,37 @@ one directive per line
 
 Use backslash "\" to continue on next line.
 
-# next: Directive args are separated by whitespace.
+Directive args are separated by whitespace.
    
-  
+Directives are are case-insensitive, but args might be case sensitive.
+
+Start line with \# = comment
+
+**In line comments not allowed.**
+
+Support for bash-like env variables. "Define servername test.example.com". Access value with $\{VAR\}.
+
+The is a max line length.
+
+check your configuration files for syntax errors without starting the server by using `apachectl configtest` or the `-t` command line option.
+
+`-DDUMP_CONFIG` to dump the configuration with all included files and environment variables resolved 
+
+## Modules
+
+most basic functionality is included in the core server.
+
+features are available through modules which can be loaded into httpd.
+
+modules can be compiled separately and added at any time using the LoadModule directive.
+
+Configuration directives may be included conditional on a presence of a particular module 
+
+to list modules currently compiled into the server, you can use the `-l` command
+
+# next:
+## Scope of Directives
+
 
 
 
