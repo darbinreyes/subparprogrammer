@@ -839,15 +839,94 @@ changing axis direction default. e.g.
 .flex-row-reverse
 .flex-column // top to bottom becomes default direction 
 .flex-md-row
-## 101. Navs and Flexbox  
-## 102. The Bootstrap 4 Grid  
-## 103. PATTERN PROJECT Part 1  
-## 104. PATTERN PROJECT Part 2  
-## 105. The Grid + Flexbox  
-## 106. Museum of Candy Project Part 1  
+
+## 101. Navs and Flexbox 
+in bsv4
+
+navs use flex 
+
+styling via unnested classes.
+
+.nav
+.navitem
+.nav-link
+
+Docs->Components->Nav
+
+Flex classes work on nav.
+
+responsive/breakpoint nav. 
+## 102. The Bootstrap 4 Grid 
+v3 grid similar
+
+12 cols
+
+New breakpoint xl.
+
+Docs->Layout->Grid
+
+flex built in
+
+.container 
+.row
+.col-6
+.col-sm-6
+.col-12 //=default for xm and up
+.col // equal spacing if no num cols specified
+.col .col-6 .col // 6 for center, equal size other
+
+## 103. PATTERN PROJECT Part 1 
+panels, thumbs, wells = cards in bsv4 
+\<a> tag can be made to look like a button by setting its class to btn btn-primary.
+
+bg: url() center center / cover no-repeat.
+
+
+## 104. PATTERN PROJECT Part 2 
+Docs->Components->Cards
+
+use chrome element inspector to see what CSS bsv4 adds with simply class applied to a div e.g. div.card. 
+.container
+.card
+img.card-img-top
+.card-body
+.card-title
+.card-text
+
+put your cards inside a grid
+
+To edit multiple lines simultaneously in VScode use option+click.
+
+.mb-4
+
+## 105. The Grid + Flexbox 
+Controlling things using flexbox within the grid systems. 
+Alt to Inserting empty cols - use flexbox classes. e.g.
+
+.justify-content-between // Much easier
+
+Recall how with flex buttons would be stretched vertically. This is the default .align-items-stretch, using align-items-end|start|center avoids the stretching.
+
+// per column align-items override
+.align-self
+
+// works with breakpoints too.
+.col-lg-5 
+.col-lg-5 // 2 cols empty
+.justify-content-between // 2 empty cols space looks nicer.
+ 
+## 106. Museum of Candy Project Part 1 
+Something that doesn't look "bootstrappy".
+
+"fictional instagram museum"
+
+responsive
+ 
 ## 107. Note about Museum of Candy Project Part 2
- 
-## 108. Museum of Candy Project Part 2  
+
+CSS code for the font-size of the navbar, but forgets to include it 
+## 108. Museum of Candy Project Part 2 
+NOTE: in VScode hovering over a CSS value shows the MDN docs for it as a tool tip. 
 ## 109. Museum of Candy Project Part 3  
 ## 110. Museum of Candy Project Part 4
  
