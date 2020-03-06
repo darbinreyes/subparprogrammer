@@ -166,14 +166,17 @@ If sum is the same part, return sum.
 
 ---
 
-```
+```C
 
 /**
-    Given two pairs, returns wether or not the sum of the pairs is the same part as each given pair. This is true if the given pairs are the same part.
-    
-    @retval < 0 Error.
-    @retval 1 The sum is the same part as the one is of the one.
-    @retval 0 The sum is not the same part.
+
+Given two pairs or numbers, verifies that if that if both given pairs are the same part, then the sum of the pairs is the same part.
+
+Given two pairs, returns wether or not the sum of the pairs is the same part as each given pair. This is true if the given pairs are the same part.
+
+  @retval < 0 Error.
+  @retval 1 The sum of the pairs is the same part as the given pairs.
+  @retval 0 The given pairs were not the same part. The sum of the pairs was not the same part as the given pairs (impossible).
 **/
 
 ```
@@ -181,4 +184,7 @@ If sum is the same part, return sum.
 ## Implementation in EWD notation.
 
 ## Misc.
+
+It is less clear how to implement this proposition in C compared to previous propositions. When you are computing something like "to find" the greatest common measure (VII.2) of two given numbers, it is easy to turn that into a program. But this proposition states that under a certain condition, something else can must be true. All I can think to do is to write a program which verifies the claim of the proposition in a given instance. In this case, the program verifies that if two given pairs of numbers are the same part, then the sum of the pairs is the same part as the given pairs.
+
 
