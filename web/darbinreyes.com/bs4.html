@@ -92,39 +92,93 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <div class="container border border-dark">
+      <h1 class="text-secondary">This is a plain container</h1>
+
       <h1 class="text-primary">Hay relax guy.</h1>
+
       <button class="btn btn-danger btn-lg">I'm not your guy.</button>
+      <button class="btn btn-success btn-lg">I'm not your friend.</button>
     </div>
 
     <div class="container border border-dark d-flex">
+      <h1 class="text-secondary">This is a container with .d-flex. Notice the block elments are now inline.</h1>
+
       <h1 class="text-primary">Hay relax guy.</h1>
+
       <button class="btn btn-danger btn-lg">I'm not your guy.</button>
+      <button class="btn btn-success btn-lg">I'm not your friend.</button>
     </div>
+
     <div class="container border border-dark d-flex justify-content-end">
+      <p>.justify-content-end moves everything to the right.</p>
       <h1 class="text-primary">Hay relax guy.</h1>
       <button class="btn btn-danger btn-lg">I'm not your guy.</button>
     </div>
     <div class="container border border-dark d-flex justify-content-center">
+      <p>.justify-content-end centers everything.</p>
+      <h1 class="text-primary">Hay relax guy.</h1>
+      <button class="btn btn-danger btn-lg">I'm not your guy.</button>
+    </div>
+    <div class="container border border-dark d-flex justify-content-center" style="height: 400px;">
+      <p>Same as above but height forced to 400px</p>
       <h1 class="text-primary">Hay relax guy.</h1>
       <button class="btn btn-danger btn-lg">I'm not your guy.</button>
     </div>
     <div class="container border border-dark d-flex justify-content-center align-items-end" style="height: 400px;">
+      <p>Same as above but with .align-items-end. Notice everything is moved to the bottom. Also the button shrunk.</p>
       <h1 class="text-primary">Hay relax guy.</h1>
       <button class="btn btn-danger btn-lg">I'm not your guy.</button>
     </div>
-    <div class="container border border-dark d-flex justify-content-end align-items-end flex-row-reverse" style="height: 400px;">
+    <div class="container border border-dark d-flex" style="height: 400px;">
+      <p class="text-primary">Plain d-flex. Hay relax guy.</p>
+      <button class="btn btn-primary btn-lg">I'm not your guy.</button>
+    </div>
+    <div class="container border border-dark d-flex flex-row-reverse" style="height: 400px;">
+      <p class="text-primary">.flex-row-reverse.
+      <br>Compared to justify-content-end the elements are reversed.
+      <br> Its like reversing the entries in an array. Hay relax guy.
+      </p>
+      <button class="btn btn-primary btn-lg">I'm not your guy.</button>
+    </div>
+    <div class="container border border-dark d-flex flex-row-reverse justify-content-end" style="height: 400px;">
+      <p class="text-primary">.flex-row-reverse.
+      <br>Same as above but with .justify-content-end.
+      <br>Notice .flex-row-reverse changes the meaning of "-end".
+      <br>"-end" meant "right" direction, now it means "left" direction.
+      <br>Hay relax guy.
+      </p>
+      <button class="btn btn-primary btn-lg">I'm not your guy.</button>
+    </div>
+    <div class="container border border-dark d-flex">
+      <p class="text-primary">Plain d-flex. Hay relax guy.</p>
       <h1 class="text-primary">Hay relax guy.</h1>
       <button class="btn btn-primary btn-lg">I'm not your guy.</button>
     </div>
-    <div class="container border border-dark d-flex flex-column" style="height: 400px;">
+    <div class="container border border-dark d-flex flex-column">
+      <p class="text-primary">.flex-column. 
+      <br> Notice everything is now vertically stacked.
+      <br>Also the button is stretched.
+      <br> Hay relax guy.
+      </p>
       <h1 class="text-primary">Hay relax guy.</h1>
       <button class="btn btn-primary btn-lg">I'm not your guy.</button>
     </div>
-    <div class="container border border-dark d-flex justify-content-end">
+    <div class="container border border-dark d-flex flex-column-reverse">
+      <p class="text-primary">Same as above but with .flex-column-reverse. 
+      <br>Like flex-row-reverse, the elements appear in reversed order but vertically.
+      <br>Hay relax guy.
+      </p>
       <h1 class="text-primary">Hay relax guy.</h1>
-      <button class="btn btn-danger btn-lg">I'm not your guy.</button>
-      <h1 class="text-primary">Hay relax buddy.</h1>
-      <button class="btn btn-danger btn-lg">Take a load off.</button>
+      <button class="btn btn-primary btn-lg">I'm not your guy.</button>
+    </div>
+    <div class="container border border-dark d-flex flex-column-reverse flex-lg-row">
+      <p class="text-primary">Same as above but with .flex-lg-row. 
+      <br>Notice that for screen size lg and up the elements are horizontally adjacent.
+      <br>Below lg they are vertically adjacent.
+      <br>Hay relax guy.
+      </p>
+      <h1 class="text-primary">Hay relax guy.</h1>
+      <button class="btn btn-primary btn-lg">I'm not your guy.</button>
     </div>
   </body>
 </html>
