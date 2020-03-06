@@ -619,5 +619,40 @@ alloc() doesn't ensure any sort of alignment but malloc() always meets alignment
 
 ## 6.6 Table Lookup 
 
+## 6.7 Typedef 
+
+In effect, typedef is like #define, except that since it is interpreted by the **compiler**, it can cope with textual substitutions that are beyond the capabilities of the preprocessor. 
+
+Notice that the type being declared in a typedef appears in the position of a **variable name**, 
+
+`typedef int (*PFI)(char *, char *);`
+ creates the type PFI, for ``pointer to **function** (of two char * arguments) returning int,'' 
+
+Uses.
+
+More Readable.
+
+parameterize a program against **portability** problems. e.g. use typedef names for various integer quantities 
+
+provide better documentation 
+
+## 6.8 Unions 
+
+the purpose of a union - a single variable that can legitimately hold any of one of several types. 
+
+```
+union u_tag { 
+  int ival; 
+  float fval; 
+  char *sval;
+} u;
+```
+
+u is a variable name. We can assign to you any of the above types. Use case, constants in a compiler symbol table, a constant can be an int, float, etc.
+
+#next: pg. 120. The variable u will be large enough 
+
+
+
 
 
