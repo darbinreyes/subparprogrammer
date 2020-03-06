@@ -640,6 +640,8 @@ provide better documentation
 
 the purpose of a union - a single variable that can legitimately hold any of one of several types. 
 
+Notice union syntax is very similar to the syntax for structures.
+
 ```
 union u_tag { 
   int ival; 
@@ -650,7 +652,37 @@ union u_tag {
 
 u is a variable name. We can assign to you any of the above types. Use case, constants in a compiler symbol table, a constant can be an int, float, etc.
 
-#next: pg. 120. The variable u will be large enough 
+The same operations are permitted on unions as on structures 
+
+A union may **only** be **initialized** with a value of the type of its **first** member; 
+
+## 6.9 Bit-fields 
+
+pack several objects into a single machine word 
+
+e.g. interfaces to hardware devices 
+
+set of one-bit flags in a single char or int 
+
+defining and accessing fields within a word directly rather than by bitwise logical operators. 
+
+Fields behave like small integers, and may participate in arithmetic expressions just like other integers. 
+
+unnamed fields (a colon and width only) are used for padding. 
+
+The special width 0 may be used to force alignment 
+
+Almost everything about fields is implementation-dependent. 
+
+Fields may be declared only as ints; 
+
+& operator cannot be applied on them. 
+
+# Chapter 7 - Input and Output 
+
+
+
+
 
 
 
