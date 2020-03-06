@@ -786,6 +786,70 @@ Note: chrome CSS inspector has a search feature.
 
 VScode/Emmet Abbreviation. lorem60+tab=insert 60 characters of lorem rand text.
 
+# Section 9: Bootstrap 4: Flexbox and Layout
 
+## 99. Bootstrap 4: Flexbox and Layout
 
+Flexbox is independent from bsv4, bsv4 uses flexbox.
+
+Documentation->Utils->Flex.
+
+e.g. recall display settings using
+
+.d-none
+.d-block
+.d-inline
+.d-sm-block
+
+flex is another display value e.g.
+
+.d-flex
+
+Flex can be used outside of boot strap, we will use flex within bsv4
+
+## 100. Flexbox Utilities Part 2 
+
+flex allows easy
+
+horiz.+vertical positioning. div.d-flex.
+
+two directions. 
+default axis = left-start right-end.
+cross axis = top-start bottom-end
+We can change direction start end.
+
+.justify-content-end // CSS=justify-content: flex-end;
+
+.justify-content-between
+
+.justify-content-around
+
+cross axis
+
+.align-items-end
+
+.align-items-center
+
+we can set screen size breakpoints for these too. e.g.
+
+justify-content-{breakpoint}-end
+
+changing axis direction default. e.g.
+
+.flex-row-reverse
+.flex-column // top to bottom becomes default direction 
+.flex-md-row
+## 101. Navs and Flexbox  
+## 102. The Bootstrap 4 Grid  
+## 103. PATTERN PROJECT Part 1  
+## 104. PATTERN PROJECT Part 2  
+## 105. The Grid + Flexbox  
+## 106. Museum of Candy Project Part 1  
+## 107. Note about Museum of Candy Project Part 2
+ 
+## 108. Museum of Candy Project Part 2  
+## 109. Museum of Candy Project Part 3  
+## 110. Museum of Candy Project Part 4
+ 
+## 111. Museum of Candy Project Part 5
 
