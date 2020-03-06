@@ -27,9 +27,9 @@ Now let me first state the theorem, and that is for any finite number of distinc
 * 1933 Erdüs
 * 1948 L. M. Kelly
 * finite number of distinct points in the real Euclidian plane.
-* all the points are collinear or their exists a straight line through exactly 2 of them
+* all the points are **collinear** or their exists a straight line through exactly 2 of them
 
-Now one of the things that may indicate that the theorem is possible and not completely trivial is that this is not a combinatorial theorem. You see because, oh yea sorry, for the sake of brevity, in the remaining of this hour, I will say points, I mean distinct points, and when I say line, I mean straight line.
+Now one of the things that may indicate that the theorem is possible and not completely trivial is that this is not a combinatorial theorem. You see because, oh yea sorry, for the sake of brevity, in the remaining of this hour, I will say points, I mean **distinct points**, and when I say line, I mean **straight line**.
 
 Well the Euclidian **axiom** that connects points and lines is that any two points uniquely determine a line through them
 
@@ -52,10 +52,44 @@ However, the conjecture of Sylvester would be that in a finite population, where
 
 // 
 
-My comment. I'm a bit confused about the statement of the theorem. As soon as you have more than one point there exists a line through exactly two of them, right? If you have 3 points on the same line and one point off that line the points are not collinear (all lie on the same line) and there exists a line through exactly two points. Can you draw a picture in which the points are not collinear and there is no line through exactly two points? I think I get it, as soon as we have a point that is not collinear with all the others you necessary create a line that passes through exactly two of them. Using the translation, all persons are members of the same club or their exists a club with only two persons. Note that there may be more than a single club containing only two members.
+My comment. I'm a bit confused about the statement of the theorem. As soon as you have more than one point there exists a line through exactly two of them, right? If you have 3 points on the same line and one point off that line the points are not collinear (all lie on the same line) and there exists a line through exactly two points. Can you draw a picture in which the points are not collinear and there is no line through exactly two points? 
+
+I think I get it, as soon as we have a point that is not collinear with all the others you necessarily create a line that passes through exactly two of them. Using the translation, all persons are members of the same club or there exists a club with only two persons. Note that there may be more than a single club containing only two members.
+
+I assume we ignore the case of a single point since no lines can be drawn. 
+
+In the case of only two points, they are both collinear and there exists a line through exactly two of them.
+
+The key is to focus on the existence of a line that goes through exactly two points. The theorem states that as soon as the points are not collinear we can be sure that a line through exactly two points exists.
 
 //
 
 ---
+
+In terms of members and clubs the theorem is not true. It is not too difficult to construct a counter example. Place a population of seven, yes, yea, place a population of seven persons in a regular fashion around a ring, 
+
+//a.0
+
+
+* // BB
+* 7 clubs of 3 members
+
+and now I'm going to create seven clubs, of three members.
+
+//a.1
+//a.2
+
+And I do that by putting these three members in one club. The remaining six clubs, you get by rotation of that **triangle**.
+
+// TODO: draw the remaining six by rotation of the triangle.
+
+Any **pair** of the complete 7 graph. The complete 7 graph has 7 times 6 over 2 is 21 edges. 
+
+* // BB
+* 7×6/2
+
+That is, in the complete, in the population of 7 persons, you can isolate 21 pairs, each pair uniquely determines the triangle to, each edge uniquely determines the triangle to which it belongs, however you see that with these 7 clubs of 3 members it is not true that all persons belong to the same club, because each club has at most 3 members, and it is not true that there exists a club with exactly two members.
+
+[Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=07m41s)
 
 
