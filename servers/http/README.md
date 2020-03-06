@@ -11,6 +11,37 @@ system.
 
 I will add configuration files to this repo in the same order as the [guide I used](https://medium.com/@JohnFoderaro/how-to-set-up-apache-in-macos-sierra-10-12-bca5a5dfffba)
 
+# TODO
+* [x] Read [getting started.](http://httpd.apache.org/docs/2.4/getting-started.html)
+* [ ] Read. http://httpd.apache.org/docs/2.4/
+
+  * [x] Binding to Addresses and Ports http://httpd.apache.org/docs/2.4/bind.html
+
+* [ ] Configuration Files http://httpd.apache.org/docs/2.4/configuring.html
+
+Configuration Sections
+
+Mapping URLs to the Filesystem
+
+Security Tips
+
+SSL/TLS Encryption
+
+URL Rewriting with mod_rewrite
+
+Virtual Hosts
+
+* [ ] URL [mapping.](http://httpd.apache.org/docs/2.4/urlmapping.html)
+* [ ] Virtual [hosts.](http://httpd.apache.org/docs/2.4/vhosts/)
+* [ ] Configure https. Read http://httpd.apache.org/docs/2.4/ssl/
+  * [x] Open https port 443 in Airport util. Also ssh port 22.
+* [x] Add a custom 403 error response.
+* [x] Point darbinreyes.com to index.html.
+* [x] Since /etc/apache2/users/darbinreyes.conf contains "FollowSymLinks", it seems I should be able to make my current site directory /Users/darbinreyes/Sites/darbinreyes.com into a symbolic link which points to index.html in my git repo. This way I can change index.html in one place (the git repo on my MBP) instead of two. Can I do this for the conf files by telling apache to use the conf files in my git repo?
+    * I just discovered that when apache is restarted it copies /etc/apache2/users/darbinreyes.conf to /private/etc/apache2/users/darbinreyes.conf
+* [x] Add a vitualhost under devtest.localhost. This will point to the copy of my website that I will make changes to and test. When I complete a change I can copy the completed and stable change to the main website directory. Remove symbolic link from Sites/darbinreyes.com.
+* [ ] Add a vitualhost under devtest.darbinreyes.com. 
+
 # Steps to configure:
 
 * Telling Apache where to serve content from.
@@ -269,37 +300,6 @@ $ ln ./../../../../../../../../etc/hosts
 
 * Result: Yes, that fixed it.
 
-# TODO
-* [x] Read [getting started.](http://httpd.apache.org/docs/2.4/getting-started.html)
-* [ ] Read. http://httpd.apache.org/docs/2.4/
-
-  * [x] Binding to Addresses and Ports http://httpd.apache.org/docs/2.4/bind.html
-
-Configuration Files
-
-Configuration Sections
-
-Mapping URLs to the Filesystem
-
-Security Tips
-
-SSL/TLS Encryption
-
-URL Rewriting with mod_rewrite
-
-Virtual Hosts
-
-* [ ] URL [mapping.](http://httpd.apache.org/docs/2.4/urlmapping.html)
-* [ ] Virtual [hosts.](http://httpd.apache.org/docs/2.4/vhosts/)
-* [ ] Configure https. Read http://httpd.apache.org/docs/2.4/ssl/
-* [x] Add a custom 403 error response.
-* [x] Point darbinreyes.com to index.html.
-* [x] Since /etc/apache2/users/darbinreyes.conf contains "FollowSymLinks", it seems I should be able to make my current site directory /Users/darbinreyes/Sites/darbinreyes.com into a symbolic link which points to index.html in my git repo. This way I can change index.html in one place (the git repo on my MBP) instead of two. Can I do this for the conf files by telling apache to use the conf files in my git repo?
-    * I just discovered that when apache is restarted it copies /etc/apache2/users/darbinreyes.conf to /private/etc/apache2/users/darbinreyes.conf
-* [x] Add a vitualhost under devtest.localhost. This will point to the copy of my website that I will make changes to and test. When I complete a change I can copy the completed and stable change to the main website directory. Remove symbolic link from Sites/darbinreyes.com.
-* [ ] Add a vitualhost under devtest.darbinreyes.com. 
-
-
 # [Apache: Getting Started](http://httpd.apache.org/docs/2.4/getting-started.html)
 
 "**More than one hostname** may point to the **same IP** address, and **more than one IP address** can be attached to the **same physical server**. Thus, you can run more than one web site on the **same physical server**, using a feature called **virtual hosts**."
@@ -385,4 +385,34 @@ The Listen directive does not implement Virtual Hosts
 If no <VirtualHost> directives are used, the server will behave in the same way for all accepted requests.
 
 Note that if the <VirtualHost> is set for an address and port that the server is **not** listening to, it **cannot** be accessed.
+
+# [Configuration Files](http://httpd.apache.org/docs/2.4/configuring.html)
+
+files used to configure Apache HTTP Server.
+
+## Main Configuration Files
+
+* The main configuration file is usually called httpd.conf.  
+
+* overridden with the -f command line flag.
+
+* other configuration files may be added using the Include directive
+
+* Any directive can occur in these files.
+
+* server must be started or restarted for changes to take effect.
+
+* server also reads a file containing mime document types. set by the TypesConfig directive, and is mime.types by default.
+
+## Syntax of the Configuration Files
+
+one directive per line
+
+Use backslash "\" to continue on next line.
+
+# next: Directive args are separated by whitespace.
+   
+  
+
+
 
