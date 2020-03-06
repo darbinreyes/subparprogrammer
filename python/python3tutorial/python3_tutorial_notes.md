@@ -893,8 +893,26 @@ The float.as_integer_ratio() method expresses the value of a float as a fracti
 
 ### https://docs.python.org/3/tutorial/appendix.html#error-handling
 
+### https://docs.python.org/3/tutorial/appendix.html#executable-python-scripts
 
+giving the **file** an **executable** mode. 
+The #! must be the first two characters of the file.
 
+### https://docs.python.org/3/tutorial/appendix.html#the-interactive-startup-file
+
+setting an environment variable named PYTHONSTARTUP to the name of a file containing your start-up commands.
+
+### https://docs.python.org/3/tutorial/appendix.html#the-customization-modules
+
+sitecustomize.py vs usercustomize.py file.
+
+Now you can create a file named usercustomize.py in that directory and put anything you want in it. It will **affect every** invocation of Python
+
+sitecustomize works in the same way, but is imported before usercustomize. 
+
+# This is the end of the Python 3 tutorial!
+
+# Decide on Next. https://docs.python.org/3/contents.html
 
 
 
