@@ -914,6 +914,16 @@ sitecustomize works in the same way, but is imported before usercustomize. 
 
 # Decide on Next. https://docs.python.org/3/contents.html
 
+Nothing in particular stands out. The library reference is way too long for a read through. How about we implement something in python...
+
+# Implementing the algorithm in EWD's Reasoning about programs problem 2.
+
+[Problem Two](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=27m06s)
+
+TODO
+
+Plan:
+
 
 
 
