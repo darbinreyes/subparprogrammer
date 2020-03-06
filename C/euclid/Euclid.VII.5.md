@@ -9,7 +9,7 @@ If a number is part of a number, and another is the same part of another, then t
 * [ ] Be neat. On paper. In text.
 * [x] Read the guide. Note Joyce’s notational conventions e.g. formal vs informal numbers. Divides. Measures.
 * [x] Read the proposition proof. Note comments for clarification.
-* [ ] Write max 3 sentence proof summary. Use EWD notation for brevity and notation practice.
+* [x] Write max 3 sentence proof summary. Use EWD notation for brevity and notation practice.
 * [ ] Specify. What the program does. Design. Very high level pseudo code.
 * [ ] Implement in EWD notation, on paper.
 * [ ] Write down 3 test cases.
@@ -146,7 +146,37 @@ Q.E.D.
 
 ## Specification and Design
 
-Given four numbers, checks that the first pair and the second pair are the same part and if so returns the sum per the proposition.
+Given four numbers, checks that the first pair and the second pair are the same part and if so, verifies that the sum is the same part of the sum, returns the sum per the proposition.
+
+---
+
+VII_5_sum_same_part()
+
+Determine the part of the first pair.
+
+Determine the part of the second pair.
+
+Check if the part is the same.
+
+Compute the sum.
+
+Check that the sum is the same part.
+
+If sum is the same part, return sum.
+
+---
+
+```
+
+/**
+    Given two pairs, returns wether or not the sum of the pairs is the same part as each given pair. This is true if the given pairs are the same part.
+    
+    @retval < 0 Error.
+    @retval 1 The sum is the same part as the one is of the one.
+    @retval 0 The sum is not the same part.
+**/
+
+```
 
 ## Implementation in EWD notation.
 

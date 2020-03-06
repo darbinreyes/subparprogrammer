@@ -314,7 +314,7 @@ measures_v0 (
   @retval > 1 The greatest common measure of a, b, c.
 
 **/
-int // Be careful, since arguments are unsigned it may be possible that the return value overflows a signed int. I am using negative numbers to indicate errors.
+int
 VII_3_gcm (
   unsigned int a,
   unsigned int b,
