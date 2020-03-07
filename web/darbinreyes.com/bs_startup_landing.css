@@ -46,3 +46,10 @@ hr {
   color: #fff;
   background-color: #000000;
 }
+
+/* This doesn't work if you don't explicitly include a distinct font weight with google fonts cdn. But some fonts don't have font weight options.*/
+/* using <strong> tags has no effect on the google font either.*/
+/* p {
+  font-weight: bold; 
+} 
+*/
