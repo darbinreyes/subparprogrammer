@@ -476,9 +476,6 @@ Enables responsiveness = fancy GUI features.
 
 Enables mobile **first** = tailored to iPhones etc.
 
-
-
-
 ## 75. Adding Bootstrap to a Project
  Just include two files! For now we just include the CSS, not the JS.
 
@@ -557,7 +554,7 @@ Once you do this you notice a JS error in the chrome JS console.
 
 jQuery is obtained from http://code.jquery.com. or google "jquery cdn"
 
-## 78. Note about The Grid System  
+## 78. Note about The Grid System
 ## 79. The Grid System 
 Components - grid system
 
@@ -579,16 +576,15 @@ if you set a col to .-md- and .-sm- the .-lg- gets as many columns as the .-md-
 
 see table for screen px breakpoints.
 
-
-
 ## 81. Note about Bootstrap Image Gallery Pt. 1 
 If you don't mind the images being of varying heights, but want to get rid of the white space bug then see here 
 
 If you're looking for Pinterest-like presentation of thumbnails of varying heights and/or widths, you'll need to use a third-party plugin such as Masonry, Isotope, or Salvattore. 
 
 If you want to crop all of the images to the same size then see an example of this here 
+## 82. Bootstrap Image Gallery Pt. 1
 
-## 82. Bootstrap Image Gallery Pt. 1	 .navbar-inverse
+.navbar-inverse
 
 vs
 
@@ -614,7 +610,7 @@ bootstrap does most of the CSS heavy listing.
 
 use chrome element inspector for CSS specificity battles.
 
-## 85. Creating a Startup Landing Page Code Along		 
+## 85. Creating a Startup Landing Page Code Along
 ## 86. Creating a Startup Landing Page Code Along Pt. 2 
 ```
 h1, h3 {
@@ -638,9 +634,13 @@ If you want your bootstrap styled website to be responsive on mobile then be s
 
 `<meta name="viewport" content="width=device-width, initial-scale=1">`
 
+---
+
 # Section 8: Bootstrap 4!
- 
-## 88. A History of Bootstrap 4  
+
+---
+
+## 88. A History of Bootstrap 4
 ## 89. The Bootstrap 4 Documentation 
 Documentation
 
@@ -669,7 +669,7 @@ Migration tab on left. Change list. Per component. Removed added or changed.
   * Per component changes. e.g. btn-default = btn-secondary
   
 * New JS cdn file. popper.js. 
-## 91. Bootstrap 4 Code/Solutions Download 
+## 91. Bootstrap 4 Code/Solutions Download
 ## 92. Getting Started With Bootstrap 4
 
 * order of JS includes matters.
@@ -786,7 +786,11 @@ Note: chrome CSS inspector has a search feature.
 
 VScode/Emmet Abbreviation. lorem60+tab=insert 60 characters of lorem rand text.
 
+---
+
 # Section 9: Bootstrap 4: Flexbox and Layout
+
+---
 
 ## 99. Bootstrap 4: Flexbox and Layout
 
@@ -924,11 +928,471 @@ responsive
  
 ## 107. Note about Museum of Candy Project Part 2
 
-CSS code for the font-size of the navbar, but forgets to include it 
+in CSS code for the font-size of the navbar, Cole forgets to include it 
 ## 108. Museum of Candy Project Part 2 
-NOTE: in VScode hovering over a CSS value shows the MDN docs for it as a tool tip. 
-## 109. Museum of Candy Project Part 3  
+NOTE: in **VScode** hovering over a CSS value shows the MDN docs for it as a tool tip.
+
+.navbar-expand-md // you set when it expands not when it hamburgers.
+
+button.data-target does not need to be an id.
+
+button[aria-label="Toggle Navigation"] // tells people using screen readers what the hamburger button does.
+
+\#mainNavbar .navbar-brand // select id=mainNavbar and inside that id select the class .navbar brand // select the class .navbar-brand nested inside id=mainNavbar
+
+font-size: 1.5rem; // Recall bsv4 uses rem unit, by default 1 rem = 16px. Note that a rem can be a float number.
+
+\#mainNavbar .nav-link:hover // Note we didn't select the \<a> tag but can still specify the pseudo class hover.
+
+navbar .fixed-top // make the nav bar stick as you scroll down.
+
+Making the nav bar change bg color // involves JS to trigger.
+
+## 109. Museum of Candy Project Part 3 
+\<section> tag // The guy uses this for separating content.
+
+\<section class="container-fluid px-0"> // making a div.container fill the entire width of the screen instead of having centered content with space on the left and right. // He uses \<section class="container-fluid px-0"> instead of \<div class="container-fluid px-0"> but I think both should work. px-0 is there because by default there is non-0 padding on the left and right.
+
+img .img-fluid // Make an image "responsive". fills its div.row.col-6 only, instead of being huge in the vertical and horizontal directions. Also forces scaling// see Docs->Content->Images
+ in chrome inspector - padding is green
+
+Web coding Efficiency // Before you embark on lots of copy pasting of HTML + CSS, think for a bit, think about how you might achieve your goal with more concise HTML+CSS. e.g. using the right CSS selectors
+
+Making the 7 candy headings shrink at size screen small. // Requires "Media query" - a new feature not discussed so far.  // I expected the 7 headings to be scaled like the image on the right but that isn't the case. //  "Media query" = Way to change CSS based on screen size.
+
+ "Media query" notation. In a CSS file:
+ 
+ ```css
+ /* When the screen width lies between 0-1200px apply the CSS below */
+ @media (max-width: 1200px) {
+    body {
+      background-color: black;
+    }
+ }
+ ```
+
+To center the text of milk.png WITH space on the left and right // nest a div.row inside the col-md-6, this divides that square with text on the right into further 12 cols. // Not sure why he didn't using padding. It may be because using he bootstrap grid is in general a better way. // Finally add .justify-content-center.
+
+in **VScode** the Emmet abbreviations works for ALL HTML tags including the simplest ones like \<p>. Just type p+TAB to avoid having to type the \<\>. Nice.
+
+Changing ordering at  breakpoints. // .order-2 .order-1 .order-md-1 order-md-2 // I expected he would use row-reverse/column-reverse.
+
+.blurb h2 // "all h2's inside of a class blurb." // The guy reads it out loud this way
+
 ## 110. Museum of Candy Project Part 4
- 
 ## 111. Museum of Candy Project Part 5
+
+.navbar.scrolled // select an element that has both classes .navbar and .scrolled //getting the nav bar bg fill on down scroll effect. // In CSS select a class say, .scrolled, then use JS to add/remove the class from the navbar. 
+```
+<script>
+  $(function () {
+    $(document).scroll(function(){ // scroll() is built-in function of document. The argument is a function. On scroll event.
+        var $nav = $("#mainNav"); // fetch the element with id=mainNav
+        $nav.toggleClass("scrolled", $(this).scrollTop() > $nav.height()); // first arg = class. second arg. is a boolean that specifies when to toggle. $(this) must be the ???. Note that the fact that we are toggling vs. just adding a class handles both turning the bg on and turning it off. Notice that the toggle value is an expression. 
+        
+        // "THIS IS JS AND JQUERY TOGETHER. "$", scroll(), toggleClass() comes from JQUERY.
+        
+    }) // End paren of scroll() function call.
+}) // End paren of unnamed function.
+</script>
+```
+
+NOTE element inspector in chrome shows live preview of scroll toggle event change in CSS. Nice.
+
+transition: background 500ms|1s; // when the background property changes apply the change over a time span of the specified time, milliseconds|seconds.  // to add the navbar bg FADE IN effect, one way is just CSS,
+
+In conclusion, we have something not "bootstrappy".
+
+---
+
+# Section 10: Introduction to JavaScript
+
+---
+
+## 112. Unit Objectives
+## 113. The JavaScript Console 
+works like the python interpreter 
+## 114. Primitives 
+number
+
+string
+
+boolean
+
+null
+
+undefined
+
+## 115. Primitives Exercises 
+1
+
+'h'
+
+5%3 == 2
+
+## 116. Variables 
+Syntax:
+
+var identifier = value; // notice absence of type
+
+By convention: camel case.
+snake case = caca_poo
+dash case = sassy-ho
+
+## 117. Null and Undefined 
+Difference
+
+var caca; // undefined
+
+null // you decide what it means when you assign it to a var.
+
+## 118. Useful Built-In Methods 
+// this is a comment
+
+clear() // clears console **method**.
+
+alert // alert("caca"); alert(9922); // Print a message to a pop up window.
+ console.log // console.log("doodoo"); console.log(777); // print something on the console
+
+prompt("Did you take a dump?"); // Get input from the user with a popup window
+
+TOOL NOTE: the chrome inspector+JS console can be used on any webpage e.g. change the width of the google home page logo.
+
+TOOL NOTE: Emmet abbreviation for script with src = script:src+TAB.
+
+## 119. Writing JavaScript in a Separate File
+## 120. JS Stalker Exercise
+## 121. JS Stalker Exercise: SOLUTION
+## 122. Age Calculator Exercise
+## 123. Age Calculator Exercise: SOLUTION 
+Notice that a script placed in the \<head> of your html forces the script to execute before the content is loaded. This is the reason that the browser window tab shows a spinner if your script calls alert(), the script doesn't finish executing until you close the alert popup window.
+
+One workaround is to put the script as the last element of the body.
+
+---
+
+# Section 11: Javascript Basics: Control Flow
+
+---
+
+## 124. Unit Objectives
+## 125. Boolean Logic 
+=== // equal value AND type
+
+in JS == is different from == in C
+
+in JS 5 == "5" is true even though one operand is a number and the other is a string.
+
+this is a consequence of "type coercion", in which JS tries to force its operands to a common type before the operation is evaluated.
+
+true == "1" // true
+true == "12" // false 
+0 == false // true
+
+null == undefined // true
+
+NaN == NaN // false
+
+## 126. Note about logical operators lecture		
+a couple of examples that use an empty string, or two quotes with nothing between them: "" 
+## 127. Logical Operators 
+// same as in C
+
+&&
+||
+!
+
+// When evaluating expressions in your head use the predicate calculus. // check your answer in the JS console.
+
+ex2. false 
+in JS every expression can be converted to a boolean. I suspect this is also a result of "type coercion" e.g.
+
+!"Hello" // false
+
+!"" // true
+
+!null // true
+
+!0 // true
+
+!-1 // false
+
+!NaN // true
+
+// use the JS console if you are unsure about an expression's value
+
+Explicitly false values:
+
+false
+0
+""
+NaN
+undefined
+null
+
+Otherwise, the value is true.
+
+ex.3 false
+
+## 128. Conditionals 
+```javascript
+if(age < 18) {
+  console.log("Suck my balls.");
+} 
+else if (age < 21) { // precond. !(age < 18) == age >= 18
+  console.log("The monkey claw is smelly.");
+} 
+else {
+  console.log("A smelly smell that smells.");
+}
+```
+
+## 129. Conditionals Exercise SOLUTION
+## 130. Guessing Game Code Along 
+// you can declare a var and initialize it with a function call
+
+`var myinput = prompt("Gimme candy or vodka.");` // returns a string type even if you input a plain number.
+
+`typeof myinput` // built in operator // type = "string" 
+=== // out loud "tripple equals"
+
+`Number(myinput)` // convert string to number.
+
+
+## 131. Note about Introduction to Loops lecture 
+**typo** in the slides at 8 minutes and 9 seconds, the slides should say that an infinite loop occurs when the terminating condition never returns false.
+
+## 132. Introduction to Loops 
+Just like in C
+
+```javascript
+while(true) {
+  console.log("Put your feet up, take a load off");
+}
+```
+Just like in C:
+
+count++; // increment
+count+=2; // increment by 2
+
+"caca".length // built in string length
+
+Just like in C:
+
+"caca"[2] // 0 based array indexing.
+
+
+## 133. 3 While Loop Exercises
+## 134. While Loops Problem Set
+## 135. While Loops Problem Set: SOLUTION
+## 136. Annoy-O-Matic Code Along 
+You can declare a variable inside a while loop.
+
+```javascript
+while(true) {
+    var myinput = prompt("You need a rest fellah.");
+}
+```
+
+!("Not without my anus".indexOf("anus") === -1) // -1 means substring is not in the string. checks if a string contains a specified substring. Note use of camel case for method names.
+
+## 137. Note about Intro to For Loops lecture 
+**typo** in the slides around the 56 second mark. It should say count = 1 instead of count = 0
+ 
+## 138. Intro to For Loops		 
+VERY similar to C: // is "var" ever require?? seems like python, you never declare variables, you just use them and they are created by context.
+
+```
+for(var i = 0; i < 7; i++) { // in his slides he uses var, but it works in the console without it.
+    console.log(i + " Only craft dinner can calm my nerves.");
+}
+```
+
+## 139. For Loops Quick Exercises 
+ex.1 "0" "8"
+
+ex.2 "h" "e" "1" "l" "o"
+
+## 140. Loops Problem Set
+## 141. Loops Problem Set: SOLUTION
+
+---
+
+# Section 12: Javascript Basics: Functions
+
+---
+
+## 142. Unit Objectives
+
+function declarations vs. function expressions.
+function definitions with arguments
+
+
+## 143. Introduction to Functions
+
+example:
+
+```javascript
+// DECLARE a function without args 
+function fart() {
+  console.log("Initiating fart now.");
+}
+// calling the function
+fart();
+```
+
+TOOL NOTE: in chrome JS console typing out the name of a previously declared function echos the function text itself.
+
+
+## 144. Arguments
+
+```javascript
+// a function with 1 arg
+function mrhanky(is_poo) {
+    if(is_poo === true) {
+      console.log("Howdy ho");
+    }
+    if(is_poo === false) {
+      console.log("Where is the christmas poo?");
+    }
+}
+
+// a function with 2 args
+function mrhanky(is_poo, is_christmas) {
+// do stuff
+}
+// IF YOU EXCLUDE AN ARGUMENT from a function call its value is set to undefined, so the following call of the above is valid, but is_christmas === undefined.
+
+mrhanky(true);
+
+```
+
+## 145. Note about Function Declaration vs. Function Expression
+
+Function Declaration vs. Function Expression
+
+whether or not you can **overwrite** both types of functions.
+
+The answer is yes,
+
+it can be overwritten if you assign that same variable to something else
+
+## 146. The Return Keyword
+
+if a function does not use "return" to return a value then by definition the function returns "undefined".
+
+```javascript
+// a function returning a value
+function cartman(x, y) {
+  return x+y;
+}
+
+// some built in string functions
+
+"christmas poo".charAt(0); // returns 0th char in str - "c"
+"christmas poo".charAt(0).toUpperCase(); // returns 0th char and uppercases it. - "C"
+"christmas poo".slice(1); // return the substring starting with the 1st char - "hristmas poo"
+
+// JUST LIKE IN C, "return" causes control to be immediately returned to the caller.
+
+//
+// 
+//
+
+// how to test that a variable has a specific type - typeof returns a string value
+
+typeof num === "number" // true if num is of type number. else false.
+
+//
+//
+//
+
+// The above functions are called function declarations
+// This is called a function expression:
+
+var myfunc = function (is_poo) { // the function doesn't have a name.
+  return !is_poo;
+}
+
+// this allows us to call the above function as follows:
+
+myfunc(); // similar to a pointer to a function like in C.
+
+```
+## 147. Functions Quiz
+ex.1. returns 40 - 10 = 30
+
+ex.3. return 40*2 = 80. No log.
+
+
+## 148. Functions Problem Set
+
+p1. isEven(n)
+
+p.2. factorial(n)
+
+p.3. kebabToSnake(str) - replace "-" with "_.
+
+e.g.
+
+hello-world >>> hello_world
+
+```javascript
+
+function isEven(n) {
+
+  if(typeof n !== "number") {
+    return false;
+  }
+
+  return ( n % 2 === 0);
+}
+
+function factorial(n) {
+
+// assuming n is a positive integer. if input not valid, return -1, assuming a negative factorial is invalid
+
+  if(typeof n !== "number") {
+    return undefined;
+  }
+  
+  if(n < 0) { //  0! = 1 by definition, so allow n = 0.
+    return undefined;
+  }
+  
+  if(!(Number.isInteger(n))) {
+    return undefined;
+  }
+  
+  var result;
+
+  for(result = 1; n > 1; n--) {
+    result = result * n
+  }
+  
+  return result;
+  
+}
+
+function kebabToSnake(namestr) {
+// return undefined if arg is not a string.
+  if(typeof namestr !== "string") {
+    return undefined;
+  }
+  
+return namestr.replace(/-/g, "_");
+}
+
+```
+## 149. Functions Problem Set: SOLUTION
+## 150. Scope Code Along
+## 151. Scope Quiz
+## 152. Higher Order Functions Code Along 
+# TODO - my web site.
+* [x] FIX SIGNUP AND LOGIN POSITION @ BREAKPOINT AROUND SMALL. http://devtest.localhost/bs_startup_landing.html
+
+Test above with default nav. If same problem occurs it might  be my custom CSS. Maybe font size.
+
+ANS: Fixed by removing the CONTACT tab. Navbar content was too wide so the elements on the right were pushed to a new row.
+
 
