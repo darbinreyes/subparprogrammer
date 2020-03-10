@@ -156,13 +156,13 @@ Determine the part of the first pair.
 
 Determine the part of the second pair.
 
-Check if the part is the same.
+Check if the part is the same for both pairs.
 
 Compute the sum.
 
-Check that the sum is the same part.
+Check that the sum is the same part of the sum as both pairs.
 
-If sum is the same part, return sum.
+If sum is the same part, return sum. // Maybe, if useful.
 
 ---
 
@@ -170,14 +170,31 @@ If sum is the same part, return sum.
 
 /**
 
-Given two pairs or numbers, verifies that if that if both given pairs are the same part, then the sum of the pairs is the same part.
+Description v0
+Verifies the truth of the proposition VII.5 in a given specific instance. Returns true (1) if the proposition holds in the specified instance and false (0) otherwise.
 
-Given two pairs, returns wether or not the sum of the pairs is the same part as each given pair. This is true if the given pairs are the same part.
+Description v1 
+Given two pairs of numbers, first checks if both pairs are the same part, if not then false is returned. Otherwise if the pairs are the same part, proceeds to check that the that
+the sum of the pairs is the same part, if so, returns true, otherwise (this should never happen) returns false.
+
+Description v2
+Given two pairs, returns wether or not the sum of the pairs is the same part as each given pair. 
 
   @retval < 0 Error.
   @retval 1 The sum of the pairs is the same part as the given pairs.
-  @retval 0 The given pairs were not the same part. The sum of the pairs was not the same part as the given pairs (impossible).
+  @retval 0 The given pairs were not the same part, or the sum of the pairs was not the same part as the given pairs (which should be impossible).
 **/
+
+typedef struct _PAIR {
+  unsigned int a,
+  unsigned int b
+} PAIR;
+
+int VII_5_sum_same_part(PAIR p1, PAIR p2) {
+// check that each pair contains numbers > 1
+// check < INT_MAX
+
+}
 
 ```
 
