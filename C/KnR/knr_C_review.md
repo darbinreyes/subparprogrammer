@@ -680,8 +680,17 @@ Fields may be declared only as ints;
 
 # Chapter 7 - Input and Output 
 
+Programs that confine their system interactions to facilities provided by the standard library can be moved from one system to another without change. 
 
+prog \<infile // simulates standard input via a file. "\<infile is hidden from argc, argv
 
+otherprog | prog // simulates standard input via a pipe from the standard output of otherprogram
+
+prog >outfile // simulates standard output via a file
+
+prog | otherprog // simulates standard output via a pipe to the standard input of otherprog.
+
+#next: pg. 125 Each source file that refers 
 
 
 
