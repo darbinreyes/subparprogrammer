@@ -92,4 +92,29 @@ That is, in the complete, in the population of 7 persons, you can isolate 21 pai
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=07m41s)
 
+So we know from this counter example that somewhere along the proof we have to use more of euclidian geometry, more properties of the euclidian plane, than just that any two points uniquely determine the line straight line through them. Now what I propose to do is to approach this problem as a programming exercise and what I shall do is show that if the given points are not collinear that then there exists a line through exactly two of those points. And I will show the existence of such a line by designing an algorithm that compute that line. 
+
+Well, I need one function, "nopo" that is short for the "number of point on". We will have one variable, q, of type line. I may need a little bit more space, I will develop the program here. We have one variable q of type line. And what can we do with. We have to initialize that variable, now since lines are determined by two points, my proposal is that the program initializes q such that upon initialization P holds. And what will be P be, well, there is no point in considering lines that go through no points and go through one point, so we shall initialize q in such a way, that the number on q, well ideally of course its exactly two, but I cannot guarantee that, it may larger. But in any case, we can confine our attention to q's that go through at least two points. So that's being done. Next is the test, we are now going to create a repetition, wether this q is acceptable, well, it is acceptable if the number of points on q equals 2, however if that number is larger than two, then something has to be done. Well upon completion of this loop, we know P, and the falsity of the guard, that is that nopo of q is at most 2, well, P says that nopo of q is at least 2, so hence the number of points on q equals 2 and we are done. Well the only thing of course is that here, as the repeatable statement, we have to **change q**, under invariable of P.
+
+[Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=12m15s)
+
+// My comment: notice here again, like in "Reasoning About Programs Problem 2", Dijkstra uses the phrase "change [variable in the repeatable statement]", it is a sort of abstraction for the as yet undetermined program statements, we know that the variable's value must be change and that therefore our attention is focus next on how that variable will be changed.
+
+// falsity of the guard = ¬(nopo.q > 2) = (nopo.q ≤ 2) = nopo.q is at most 2 = nopo of q is at most
+
+// P = nopo.q ≥ 2 = nopo of q is at least 2.
+
+* // BB
+* nopo = # of points on. 
+* P : nopo.q ≥ 2
+
+```
+q : line
+; initializes q {P
+; do nopo.q > 2 →
+  q := ... {P}
+od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
+```
+
+
 
