@@ -441,6 +441,33 @@ to list modules currently compiled into the server, you can use the `-l` comma
 # next:
 ## Scope of Directives
 
+directives in the main config file apply to whole server
+
+you can scope (= limit effect of directives to specified place, file dirs, URLs) your directives by placing them in \<Directory>, \<DirectoryMatch>, \<Files>, \<FilesMatch>, \<Location>, and \<LocationMatch> sections.
+
+Can be nested.
+
+having apache run several web sites is called virtual hosting, directives can be scoped to apply to a particular virtual hosts.
+
+some directive can't be nested inside others, see the context info for a directive for info on when nesting is allowed. e.g. process creation directives are usually global and therefore not nested.
+
+## .htaccess Files
+
+apache supports decentralized config. management = more than one person can change the behaviour of the server. via special files in the dir. tree.
+
+default file name = .htaccess = non-default set by the AccessFileName directive.
+
+they apply to the dir and all subdirs in which they are placed. 
+
+They are check by the server PER requests so directives in these files take effect immediately. 
+
+not all directives can go in these special files. See context.
+
+The server admin can control which directives are permitted in .htaccess files via the AllowOverride directive in the main config files.
+
+#DONE
+# next ?
+
 
 
 
