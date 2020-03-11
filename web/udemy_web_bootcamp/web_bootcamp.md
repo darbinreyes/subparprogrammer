@@ -1428,18 +1428,270 @@ ex.1. returns true.
 # Section 13: Javascript Basics: Arrays
  
 ## 153. Unit Objectives
+
+our first datastruture
+
+define and add and remove from arrays.
+
 ## 154. Introduction to Arrays
+
+// the syntax. square brackets. 0 start index.
+var southParkCharacters = ["MrHanky", "Cartman", "Stan", "Kyle"];
+
+// accessing array elements
+
+southParkCharacters[1];
+
+// changing a particular index value
+
+southParkCharacters[0] = "Chef";
+
+// appending to the end of the array
+
+southParkCharacters[4] = "MrKitty";
+
+// appending beyond the end does not cause an error, it fills between with "undefined"
+
+// other array creates
+
+var a0 = [];
+var a1 = new Array(); // equivalent. uncommon.
+
+// can hold different types
+var a2 = [7, true, "caca", null]; 
+
+// just like strings, arrays have a length member.
+a2.length // is = 4.
+
 ## 155. Arrays Methods
+
+// built in METHODS - similarity to Java
+
+**push/pop**
+
+var southParkCharacters = ["MrHanky", "Cartman", "Stan", "Kyle"];
+
+southParkCharacters.push("MrKitty"); // adds to the end with the higher index (= adds to the end of the array) // returns new length
+
+southParkCharacters.pop(); // removes from end of array // returns removed item
+
+**shift/unshift**
+
+southParkCharacters.unshift("MrKitty"); // adds to the end with lower index (= adds to the beginning of the array) // returns new length // like enqueue() to a queue
+
+southParkCharacters.shift(); // removes from the beginning of the array // returns removed item // // like dequeue() to a queue
+
+**indexOf**
+
+southParkCharacters.indexOf("Cartman"); // returns 1, the index of the given value in the array. // returns -1 if not in the array // returns lowest index if the array has duplicates.
+
+**slice**
+
+southParkCharacters.slice(1,3); // returns the subarray starting with index 1 up to the 6th index of the array. Note that the item at the end index is excluded from the returned array. // The returned array is a copy not a reference.
+
+southParkCharacters.slice() // with no args, a copy of the array is returned.
+
+// see MDN docs for JS arrays - ALL there.
+
 ## 156. Array Quiz
+
+ex.1. prints undefined.
+
+ex.2. prints "Mooney".
+// syntax for multidimensional arrays. array of arrays. e.g.
+
+var sqmatrix = [
+[2, 5],
+[7, 11]
+];
+
 ## 157. Note about Todo List Code Along
+
+How to circumvent the issue of the prompt function blocking the HTML from loading right away.
+
 ## 158. Todo List Code Along Part 1
 ## 159. Array Iteration
+
+for loop vs forEach loop.
+
+var southParkCharacters = ["MrHanky", "Cartman", "Stan", "Kyle"];
+
+// forEach syntax, note that this is not a keyword of JS but rather a method of the array data type.
+
+southParkCharacters.forEach(function(character){console.log(character)}) // the function arg is an item from the array. // the function arg can be excluded.
+
 ## 160. Quick Array Iteration Challenge
+
+ex.1. prints 3, 6, 9
 ## 161. Note about Todo List Code Along Part 2
+
+.forEach takes a callback function, that callback function is expected to have **at least 1**, but **up to 3**, arguments.
+
+arg1 array item
+
+arg2 item index
+
+arg3 the full array itself.
+
 ## 162. Todo List Code Along Part 2
+
+// removing an item from an array.
+
+arr.splice(start, delcount); // returns the removed items in an array. arr has been updated.
+
+southParkCharacters.splice(1, 1); // removes "Cartman" from the array. returns an ARRAY with only i.e. ["Cartman"].
+
+// In JS a function can be called before its definition in a single file. i.e. the following code works without error.
+
+```javascript
+printSouthPark(); // works fine. JS knows the function is defined below.
+
+function printSouthPark() {
+  console.log("The monkey claw is smelly.");
+}
+```
+
 ## 163. Array Problem Set
+
+```javascript
+//
+function printReverse(arr) {
+  console.log(arr.reverse());
+}
+
+// all elements same
+function isUniform(arr) {
+  if(typeof arr !== "object") {
+    return false; // not an arr.
+  }
+  if(arr.length === 0) {
+    return true; // consider an empty array uniform.
+  }
+  
+  var first = arr[0];
+  
+  for(var i = 1; i < arr.length; i++) {
+    if(first !== arr[i]) {
+      return false;
+    }
+  }
+  
+  return true; 
+}
+
+// add numbers, assume numbers
+function sumArray(arr) {
+  var s = 0;
+  
+  for(var i = 0; i < arr.length; i++) {
+    s += arr[i];  
+  }
+  
+  return s;
+}
+
+function arrmax(arr) {
+  if(arr.length === 0) {
+    return undefined;
+  }
+  
+  var tempMax = arr[0];
+  
+  for(var i = 1; i < arr.length; i++) {
+    if(arr[i] > tempMax) {
+        tempMax = arr[i];
+    }
+  }
+  
+  return tempMax;
+}
+```
 ## 164. Array Problem Set: SOLUTION
 ## 165. OPTIONAL: Building Our Own ForEach 
+example of a function that takes a function as an argument. Works similar to C function pointers except that you can define a function at the same time as you are passing it as an argument.
+
+FYI:  you must use parens around anonymous functions in the JS console. i.e.
+\> function(){console.log("Christmas poo")} // syntax error.
+
+\> (function(){console.log("Christmas poo")}) // works fine.
+
+// to call an anonymous function immediately, just append () 
+\> (function(){console.log("Christmas poo")})()
+
+// Adding a method to the built in Array object.
+
+Array.prototype.myForEach = function (somefunc) { 
+// "this" means the same as in Java.
+  for(var i = 0; i < this.length; i++) {
+    somefunc(this[i]);
+  }
+}
+
+// compare to 
+arr.forEach(function (item, i, thearr){console.log("poo")})
+
+# Section 14: Javascript Basics: Objects 
+## 166. Introduction to Objects 
+// object syntax example
+```javascript
+var person = {
+  name: "Darbin",
+  age: 100,
+  city: "NY",
+  "1MoreThing": "YahYah",
+  "A space": "in the member name"
+};
+
+// alternatively 
+
+var person = {};
+person.name = "Darbin";
+person.age = 100;
+person.city = "NY";
+person["1MoreThing"] = "YahYah";
+person["A space"] = "in the member name";
+
+// alternatively 
+var person = new Object();
+//... same shit as above, RECALL JSON.
+```
+
+// two ways to refer to object members.
+
+person.name // dot notation
+
+person["name"] // bracket notation
+
+// syntax quirks - 
+
+// if the member name starts with a number, you must use bracket notation
+
+person["1MoreThing"]
+
+// if you want to use a string to refer to a member, you must use bracket notation
+
+var str = "city"
+person[city]
+
+// if the member name has a space in it, you must use bracket notation 
+
+person["A space"]
+
+// member names are case sensitive
+
+person["A Space"] // undefined. "S" should be "s"
+
+// referencing a non-existing member returns undefined.
+
+person["caca"] // undefined. 
+
+
+## 167. Comparing Objects and Arrays 
+## 168. Nested Objects and Arrays 
+## 169. Objects Quiz 
+## 170. Movie Database Exercise 
+## 171. Adding Methods to Objects 
+## 172. The Keyword This
 
 # TODO - my web site.
 * [x] FIX SIGNUP AND LOGIN POSITION @ BREAKPOINT AROUND SMALL. http://devtest.localhost/bs_startup_landing.html
@@ -1448,4 +1700,6 @@ Test above with default nav. If same problem occurs it might  be my custom CSS. 
 
 ANS: Fixed by removing the CONTACT tab. Navbar content was too wide so the elements on the right were pushed to a new row.
 
+
+* [ ] use bs_startup_landing.html style as index.html.
 
