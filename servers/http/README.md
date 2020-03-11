@@ -14,22 +14,19 @@ I will add configuration files to this repo in the same order as the [guide I us
 # TODO
 * [x] Read [getting started.](http://httpd.apache.org/docs/2.4/getting-started.html)
 * [ ] Read. http://httpd.apache.org/docs/2.4/
+ * [x] Binding to Addresses and Ports http://httpd.apache.org/docs/2.4/bind.html
+ * [x] Configuration Files http://httpd.apache.org/docs/2.4/configuring.html
+ * [ ] Configuration Sections
 
-  * [x] Binding to Addresses and Ports http://httpd.apache.org/docs/2.4/bind.html
+ * [ ] Mapping URLs to the Filesystem
 
-* [ ] Configuration Files http://httpd.apache.org/docs/2.4/configuring.html
+ * [ ] Security Tips
 
-Configuration Sections
+ * [ ] SSL/TLS Encryption
 
-Mapping URLs to the Filesystem
+ * [ ] URL Rewriting with mod_rewrite
 
-Security Tips
-
-SSL/TLS Encryption
-
-URL Rewriting with mod_rewrite
-
-Virtual Hosts
+ * [ ] Virtual Hosts
 
 * [ ] URL [mapping.](http://httpd.apache.org/docs/2.4/urlmapping.html)
 * [ ] Virtual [hosts.](http://httpd.apache.org/docs/2.4/vhosts/)
@@ -438,7 +435,6 @@ Configuration directives may be included conditional on a presence of a particul
 
 to list modules currently compiled into the server, you can use the `-l` command
 
-# next:
 ## Scope of Directives
 
 directives in the main config file apply to whole server
