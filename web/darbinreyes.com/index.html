@@ -9,106 +9,80 @@
     <meta name="keywords" content="Darbin, Reyes, Dijkstra">
     <meta name="description" content="Darbin Reyes's personal website.">
     <meta name="author" content="Darbin Reyes">
-    <!--  Bootstrap Latest compiled and minified CSS -->
+    <!-- Bootstrap Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <!-- Add font from google -->
-    <link href="https://fonts.googleapis.com/css?family=Courier+Prime&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" type="text/css" href="./index.css">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Courier+Prime&display=swap" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="udemy/bs_startup_landing.css">
     <link rel="icon" href="./gascatv1.png" type="image/x-icon">
   </head>
 
   <body>
-    <div class="container">
+    <!-- NAV START -->
+    <nav class="navbar navbar-default">
+      <div class="container">
+      <!-- NAV HEADER -->
+      <div class="navbar-header">
+        <!-- This button represents the hamburger that appears when the screen is small. -->
+        <!-- Notice the data-target attribute referencing the tabs that are hidden and now only become visible by toggling the hamburger button. -->
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <!-- These spans represent the beef patty inside the hamburger button. -->
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand"><i class="fas fa-cat"></i> Subpar Programmer</a>
+      </div>
 
-      <h2>Subpar Programmer</h2>
 
-      <ul class="nav nav-tabs" role="tablist">
-        <li class="active"><a href=".">Home</a></li>
-        <li><a href="./about.html">About</a></li>
-      </ul>
+      <!-- This div class causes the contained tabs to be hidden when the screen size is small enough -->
+      <!-- This div id connects the hamburger button to these tabs upon small screen size. -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home<span class="sr-only">(current)</span></a></li>
+          <li><a href="./about.html"><i class="fas fa-paw"></i> About</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <!-- <li><a href="#"><i class="fas fa-cat"></i> Sign Up</a></li> -->
+          <!-- <li><a href="#"><i class="fas fa-paw"></i> Login</a></li> -->
+        </ul>
+      </div>
+      </div>
+    </nav>
+    <!-- NAV END -->
+
+
+
+    <div id="mycontent" class="container">
 
       <div class="row">
-        <div class="col-xs-12">
-          <p>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xm-12">
+          <h1>Subpar Programmer</h1>
+          <h2>
             "... the
             purpose of abstracting is not to
             be vague, but to create a new
             semantic level in which one can
-            be absolutely precise."
-            -Dijkstra
-          </p>
-          <p>Me
-            <a href="https://www.linkedin.com/pub/darbin-reyes/34/32b/305" target="_blank">@LinkedIn</a>
-            <a href="https://github.com/darbinreyes/subparprogrammer" target="_blank">@github</a>
-            <a href="https://www.youtube.com/user/dreyes288/" target="_blank">@youtube</a>.
-          </p>
-          <!-- https://www.w3schools.com/graphics/canvas_intro.asp -->
-          <!-- <canvas id="myCanvas" width="400" height="400" style="border:1px solid #000000;"></canvas> -->
+            be absolutely precise." -Dijkstra </h2>
+          <h2>
+            Me
+            <a class="btn btn-md btn-success" href="https://www.linkedin.com/pub/darbin-reyes/34/32b/305" target="_blank">@LinkedIn</a>
+            <a class="btn btn-md btn-success" href="https://github.com/darbinreyes/subparprogrammer" target="_blank">@github</a>
+            <a class="btn btn-md btn-success" href="https://www.youtube.com/user/dreyes288/" target="_blank">@youtube</a>
+          </h2>
+          <hr>
         </div>
       </div>
     </div>
-    <!-- Optional: Include the jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Optional: Incorporate the Bootstrap JavaScript plugins -->
-    <!-- <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
-<!--     <script>
-      var canvas = document.getElementById("myCanvas");
-      var ctx = canvas.getContext("2d");
-      // Draw a rectangle with red color filling.
-      //ctx.fillStyle = "#FF0000";
-      //ctx.fillRect(0, 0, 150, 75);
-      // Draw a black line.
-      ctx.fillStyle = "#000000";
-      ctx.moveTo(150, 200);
-      ctx.lineTo(250, 200);
-      ctx.stroke();
-      // Draw a circle.
-      ctx.beginPath();
-      x = 150;
-      y = 200;
-      r = 100;
-      startangle = 0;
-      endangle = 2 * Math.PI;
-      ctx.arc(x, y, r, startangle, endangle);
-      ctx.stroke();
-      // Draw another circle.
-      ctx.beginPath();
-      x = 250;
-      y = 200;
-      r = 100;
-      startangle = 0;
-      endangle = 2 * Math.PI;
-      ctx.arc(x, y, r, startangle, endangle);
-      ctx.stroke();
-      // TODO: I'm pretty sure the canvas must be cleared upon reload to prevent
-      // drawing on top on what is already drawn.
-      // Compute the height of the equilateral triangle.
-      // 100px*cos(30deg)= 100*cos(Pi/6)
-      etheight = 100 * Math.cos(Math.PI/6);
-      console.log(etheight);
-      // Draw the lines that form the equilateral triangle from VII.1!
-      // Draw a line.
-      ctx.moveTo(200, 200 - etheight);
-      ctx.lineTo(200 - 50, 200);
-      ctx.stroke();
-      // Draw a line.
-      ctx.moveTo(200, 200 - etheight);
-      ctx.lineTo(200 + 50, 200);
-      ctx.stroke();
-      // For shits and giggles. Draw the bottom equilateral triangle too.
-      // Draw a line.
-      ctx.moveTo(200, 200 + etheight);
-      ctx.lineTo(200 - 50, 200);
-      ctx.stroke();
-      // Draw a line.
-      ctx.moveTo(200, 200 + etheight);
-      ctx.lineTo(200 + 50, 200);
-      ctx.stroke();
-    </script> -->
+  <!-- JQUERY include -->
+  <script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
   <!-- Bootstrap Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+   <script src="https://kit.fontawesome.com/88a3eda803.js" crossorigin="anonymous"></script>
   </body>
-
-
 </html>
