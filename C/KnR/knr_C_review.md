@@ -680,6 +680,8 @@ Fields may be declared only as ints;
 
 # Chapter 7 - Input and Output 
 
+## 7.1 Standard Input and Output 
+
 Programs that confine their system interactions to facilities provided by the standard library can be moved from one system to another without change. 
 
 prog \<infile // simulates standard input via a file. "\<infile is hidden from argc, argv
@@ -690,8 +692,27 @@ prog >outfile // simulates standard output via a file
 
 prog | otherprog // simulates standard output via a pipe to the standard input of otherprog.
 
-#next: pg. 125 Each source file that refers 
+## 7.2 Formatted Output - printf 
 
+This that can go between % and the conversion character.
+
+## 7.3 Variable-length Argument Lists 
+
+void minprintf(char *fmt, ...);
+va_list ap;
+va_start(ap, fmt);
+
+ival = va_arg(ap, int);
+dval = va_arg(ap, double);
+sval = va_arg(ap, char *);
+
+va_end(ap);
+
+## 7.4 Formatted Input - Scanf 
+
+#next: pg. 128 scanf stops when it 
+
+ 
 
 
 
