@@ -1386,8 +1386,61 @@ return namestr.replace(/-/g, "_");
 ```
 ## 149. Functions Problem Set: SOLUTION
 ## 150. Scope Code Along
+
+JS allows nesting of functions.
+
+function scope vs. global scope.
+
+within a function, we may access variables in the global scope.
+
+Using the "var" keyword inside a function scope, and with a variable name which already exists in the global scope, causes new storage to be allocated for a variable of the same name in the function scope. The two variables now have the same name but in different scopes.
+
+(Lecture is WRONG!) CORRECT: using an undeclared variable name inside a function that also does not exist in the global scope causes a reference error. The error occur wether you just pass the undeclared variable to a function or you use the variable in an expression.
+
+
+
+```javascript
+function doSomething() {
+    console.log(pipi); // pipi does not exist in any scope. 
+}
+
+doSomething() // Causes reference error.
+
+pipi // Causes reference error.
+```
 ## 151. Scope Quiz
+
+ex.1. returns true.
+
 ## 152. Higher Order Functions Code Along 
+ Higher Order Functions = a function that accepts an argument of type function or that returns a function.
+ 
+ ```javascript
+ // e.g.
+ setInterval(yourfunc, 1000); // 1000msecs
+ 2 // return value. Use this number as argument to clearInterval(funcNumber);
+ // JS allows unnamed functions aka anonymous functions. e.g.
+ 
+ setInterval(function(){console.log("christmas poo")}, 1000); // first arg. is an anonymous function
+ 
+ ```
+ 
+# Section 13: Javascript Basics: Arrays
+ 
+## 153. Unit Objectives
+## 154. Introduction to Arrays
+## 155. Arrays Methods
+## 156. Array Quiz
+## 157. Note about Todo List Code Along
+## 158. Todo List Code Along Part 1
+## 159. Array Iteration
+## 160. Quick Array Iteration Challenge
+## 161. Note about Todo List Code Along Part 2
+## 162. Todo List Code Along Part 2
+## 163. Array Problem Set
+## 164. Array Problem Set: SOLUTION
+## 165. OPTIONAL: Building Our Own ForEach 
+
 # TODO - my web site.
 * [x] FIX SIGNUP AND LOGIN POSITION @ BREAKPOINT AROUND SMALL. http://devtest.localhost/bs_startup_landing.html
 
