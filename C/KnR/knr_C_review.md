@@ -709,12 +709,8 @@ sval = va_arg(ap, char *);
 va_end(ap);
 
 ## 7.4 Formatted Input - Scanf 
+## 7.5 File Access 
+## 7.6 Error Handling - Stderr and Exit 
 
-#next: pg. 128 scanf stops when it 
-
- 
-
-
-
-
+#next
 
