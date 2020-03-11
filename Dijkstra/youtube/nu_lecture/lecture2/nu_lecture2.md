@@ -135,6 +135,18 @@ There is a point not on q, yes. So my proposal is to take that into account by i
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=16m10s)
 
+I'm going to. The fact that this possibility, to assign to variable E a point that lies not on q, and to maintain that invariance, that is the way in which I exploit the non-linearity of the given points. Notice that the possibility to assign to E such a value is the only possible conclusion that we can directly draw from the non-linearity. That is, the maintenance of this invariant extracts out of the fact that the points are not collinear everything that can be extracted from it. Now, not surprisingly in the change of q, we will have to change E as well, now let us inspect a little bit what kind of freedom we have. Well, what do we know? Well, more than two points lie on q, so we can point to at least 3 points that lie on q. Let us name them A, B, and C, lie on q, and E lies not on q. And I will make a picture, I promise to you that, that will be the only picture I make. But I wait a little bit. We have to change q. Now what possibilities do we have? As it is, well I will make to pictures. q, here are A, B, and C, and here is E.
+
+// a.3
+
+Yah. [The] claim is that we have only three possibilities for the new value of q, and that's from E through this one [A], from E through that one [B], and from E through that one [C]. Because these four points are the only points the existence of which we can guarantee. Through two of those [A, B, C] is excluded because then we don't change q. So the new q has to go through the old E, and through one of those three. Now, the one it goes through I will call A, I am free in naming here. So the new value of q becomes the line E, A. And now I must, yah so eh, now I rub this out again, I'm going to make a new picture, this is q, and this is E, and I put an A here, and this will be my new q, yah.
+
+// a.4
+
+Now, the existence of E has been used to show the possibility of introducing E and keeping this second term of the invariant, invariant. Now we have to think about a termination argument. Now listen, in the original statement of the theorem we have a finite number of points, this means that our state space that consists of a q and an E, has a finite number of possible values. There is a finite number of values, possible values for q, and for each value of q there is a finite possible number of values for E. And it is in this finite space that have to find a termination argument.
+
+[Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=21m40s)
+
 ---
 
 //
@@ -161,4 +173,24 @@ q : line; E : point
 od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
 ```
 
+
+```
+// v2
+{points are not collinear}
+q : line; E : point
+; initializes q, E {P
+; do nopo.q > 2 → {A, B, C lie on q, and E lies not on q}
+  q, E  := ... {P}
+od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
+```
+
+```
+// v3
+{points are not collinear}
+q : line; E : point
+; initializes q, E {P
+; do nopo.q > 2 → {A, B, C lie on q, and E lies not on q}
+  q, E  := "line E A" {P}
+od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
+```
 
