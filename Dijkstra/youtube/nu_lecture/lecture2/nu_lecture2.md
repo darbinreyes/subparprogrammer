@@ -94,9 +94,13 @@ That is, in the complete, in the population of 7 persons, you can isolate 21 pai
 
 So we know from this counter example that somewhere along the proof we have to use more of euclidian geometry, more properties of the euclidian plane, than just that any two points uniquely determine the line straight line through them. Now what I propose to do is to approach this problem as a programming exercise and what I shall do is show that if the given points are not collinear that then there exists a line through exactly two of those points. And I will show the existence of such a line by designing an algorithm that compute that line. 
 
-Well, I need one function, "nopo" that is short for the "number of point on". We will have one variable, q, of type line. I may need a little bit more space, I will develop the program here. We have one variable q of type line. And what can we do with. We have to initialize that variable, now since lines are determined by two points, my proposal is that the program initializes q such that upon initialization P holds. And what will be P be, well, there is no point in considering lines that go through no points and go through one point, so we shall initialize q in such a way, that the number on q, well ideally of course its exactly two, but I cannot guarantee that, it may larger. But in any case, we can confine our attention to q's that go through at least two points. So that's being done. Next is the test, we are now going to create a repetition, wether this q is acceptable, well, it is acceptable if the number of points on q equals 2, however if that number is larger than two, then something has to be done. Well upon completion of this loop, we know P, and the falsity of the guard, that is that nopo of q is at most 2, well, P says that nopo of q is at least 2, so hence the number of points on q equals 2 and we are done. Well the only thing of course is that here, as the repeatable statement, we have to **change q**, under invariable of P.
+Well, I need one function, "nopo" that is short for the "number of point on". We will have one variable, q, of type line. I may need a little bit more space, I will develop the program here. We have one variable q of type line. And what can we do with. We have to initialize that variable, now since lines are determined by two points, my proposal is that the program initializes q such that upon initialization P holds. And what will be P be, well, there is no point in considering lines that go through no points and go through one point, so we shall initialize q in such a way, that the number on q, well ideally of course its exactly two, but I cannot guarantee that, it may larger. But in any case, we can confine our attention to q's that go through at least two points. So that's being done. Next is the test, we are now going to create a repetition, wether this q is acceptable, well, it is acceptable if the number of points on q equals 2, however if that number is larger than two, then something has to be done. Well upon completion of this loop, we know P, and the falsity of the guard, that is that nopo of q is at most 2, well, P says that nopo of q is at least 2, so hence the number of points on q equals 2 and we are done. Well the only thing of course is that here, as the repeatable statement, we have to **change q**, under invariance of P.
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=12m15s)
+
+---
+
+//
 
 // My comment: notice here again, like in "Reasoning About Programs Problem 2", Dijkstra uses the phrase "change [variable in the repeatable statement]", it is a sort of abstraction for the as yet undetermined program statements, we know that the variable's value must be change and that therefore our attention is focus next on how that variable will be changed.
 
@@ -104,11 +108,16 @@ Well, I need one function, "nopo" that is short for the "number of point on". We
 
 // P = nopo.q ≥ 2 = nopo of q is at least 2.
 
+//
+
+---
+
 * // BB
 * nopo = # of points on. 
 * P : nopo.q ≥ 2
 
 ```
+//v0
 q : line
 ; initializes q {P
 ; do nopo.q > 2 →
@@ -116,5 +125,40 @@ q : line
 od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
 ```
 
+So this is the program and its OK and does the job, provided that we can demonstrate that this program terminates. Now, in order to prove termination of this program we might have to do two things. First of all, we might have to take into things that we didn't know, secondly, that are given but we haven't used yet, secondly, we may have to resolve some of the non-determinism,
+
+? alia sort of vagueness
+
+in the statement that changes q. One thing that I have ommitted to point out, and that is that here, we are confining our situation to the case that the points are not collinear. Because that was the circumstance under which we were going to show the presence of a line q so that nopo of q equals two. The fact that the points are not collinear implies that there are at least **three** points, and therefore it's possible to initialize q such that P holds. You see because to see to it that the initial value of q is such that at least two points lie at q you need at least two points. So here we are, now we have here made a very **meager**  use of the fact that it is given that the points are not collinear, we have only used the consequence that there are at least two points. Now, question, what general conclusion can we draw with respect to q and the points from the fact that the points are not collinear. 
+
+There is a point not on q, yes. So my proposal is to take that into account by introducing a variable of type point. Variable E will be of type point, E will also be initialized, and the fact that the points are not collinear, I can celebrate that by seeing to it that when q goes through two points, E lies not on q.
+
+[Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=16m10s)
+
+---
+
+//
+
+My comment: 
+"The fact that the points are not collinear implies that there are at least **three** points"
+
+For, if we had only two points, they are necessarily collinear.
+
+//
+
+---
+
+* // BB
+* * P : nopo.q ≥ 2 ∧ E lies not on q.
+
+```
+// v1
+{points are not collinear}
+q : line; E : point
+; initializes q, E {P
+; do nopo.q > 2 →
+  q := ... {P}
+od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
+```
 
 
