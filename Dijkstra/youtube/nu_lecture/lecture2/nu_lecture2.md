@@ -147,6 +147,49 @@ Now, the existence of E has been used to show the possibility of introducing E a
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=21m40s)
 
+How do we find the termination argument? Well, the standard way is that you define a natural function on the state space which in each step of the repetition is decreased by at least 1, however since our space consists of a finite number of states we can drop the constraint of the variant function being integer, it suffices to define an **integer function of the state** of which subsequently we can prove that it's bounded from below and decreases in each step. Now our current state always exists of a line q and a point E not on that line. Can anybody thing of a real function of a point and a line that is bounded from below. The euclidian distance, yes, thank you very much. But if we do take the Euclidian distance, then I know which of the other two B and C, will be take as our new E, the choice which minimizes the distance to the new q as much as possible. So here, we put of B and C, the nearest to our new q. And now, of the six possibilities that we had here, there are still three left and that is in the choice of capital A. Because the choice which new point has been settled by this. So now our only obligation is, to see to it, to prove, possibly by resolving the remaining non-determinacy, that our algorithm terminates. That is, that the distance from E to Q, actually decreases. So here we are, this was our old E and this was our old q.
+
+//a.6
+
+And we call this distance h
+
+//a.7
+//a.8
+
+And well, B is somewhere, the new distance
+
+//a.9
+
+The distance from B to the new q is that
+
+//a.10
+
+And I call that little b
+
+//a.11
+//a.12
+
+And I will do the same for capital C, which has a distance little c to the new q, only I don't make that drawing because that **invokes a case analysis** because there are all sorts of places where C might lie and I'm **not** going to do that. My proof obligation is for the termination is that I can demonstrate that the minimum of little b and little c is actually less than h.
+
+//BB
+// b min c < h
+
+And if I can show that, I have satisfied my proof obligation, [it] means that the distance from E to q will actually decrease in each step.
+
+[Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=26m18s)
+
+---
+
+//
+
+My comment. Reminder: Given a point and a line you can always draw a perpendicular connecting them. This is defined to be distance between a point and a line.
+
+// a.5
+
+//
+
+---
+
 ---
 
 //
@@ -190,7 +233,17 @@ od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
 q : line; E : point
 ; initializes q, E {P
 ; do nopo.q > 2 → {A, B, C lie on q, and E lies not on q}
-  q, E  := "line E A" {P}
+  q, E  := "line E A", "of B and C, the nearest to our new q" {P}
+od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
+```
+
+```
+// v4
+{points are not collinear}
+q : line; E : point
+; initializes q, E {P
+; do nopo.q > 2 → {A, B, C lie on q, and E lies not on q}
+  q, E  := "line E A",  {P}
 od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
 ```
 
