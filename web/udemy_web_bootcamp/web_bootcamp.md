@@ -1687,11 +1687,108 @@ person["caca"] // undefined.
 
 
 ## 167. Comparing Objects and Arrays 
+array - item access via integer index
+
+vs.
+
+object - item access via member name - members can be added on the fly.
+
 ## 168. Nested Objects and Arrays 
+we can nest one in the other. 
+
+e.g.
+
+an array whose items are objects.
+
+an object with a member that is an array.
+
+syntax is similar to python. 
+
 ## 169. Objects Quiz 
+ex.1. "someobject.123 = true" // syntax error - member name starts with a number.
+
+ex.2. someObject.friends[0].name
+
 ## 170. Movie Database Exercise 
+```javascript
+var movieObject = {
+hasWatched: false,
+title: "None",
+rating: 0.0
+}
+
+// when you assign objects, does JS create a copy or a reference? i.e.
+
+var m0 = movieObject;
+var m1 = movieObject;
+
+// Then setting
+movieObject.rating = 5.0; 
+
+// what are the values of m0, m1, movieObject? // all three reference the same object so each has value =
+
+{hasWatched: false, title: "None", rating: 5}
+
+// my guess is a reference. ANS: its a reference, not a copy.
+
+// if a reference, how do you create a new object? My guess is
+
+var m2 = new Object(movieObject) // returns a reference TOO! 
+m2.rating = 3.0; // changes all, movieObject, m0, m1.
+
+// ANS: Here's one way to do it
+
+m2 = Object.assign({}, movieObject) // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+
+// Here's something equivalent to the above. This creates a new copy of MovieObject.
+m3 = Object.create(Object.prototype, Object.getOwnPropertyDescriptors(movieObject));
+
+```
+
+The guy uses arr.forEach() here.
+
 ## 171. Adding Methods to Objects 
+Since in JS functions are treated like values, we can set a object member name to a function definition , this is called a method in JS.
+
+// syntax
+
+var myObj = {
+myMethod: function(a,b) {return a + b}
+}
+
+myObj.myMethod(7,1) // calling the method.
+
 ## 172. The Keyword This
+
+namespaces// The undescore.js library. It exists, and all methods are under an object named "_". e.g. _.find();
+
+this // a contextual reference to an object from within that object, a shorthand notation.
+
+// e.g.
+comments = {}
+comments.data = ["poo", "caca","pipi"]
+comments.print = function() {this.data.forEach(function(item){console.log(item)})}
+
+# Section 15: DOM Manipulation
+
+HTML and CSS + JS
+## 173. IMPORTANT NOTE, PLEASE READ!!!
+
+Put your JS \<script> right before the closing </body>  tag.
+This prevents errors caused by references to HTML / CSS that have not yet been loaded by the browser.
+
+## 174. Introduction to the DOM
+## 175. Defining the DOM
+## 176. Select and Manipulate
+## 177. Note about UI changes in new versions of Chrome
+## 178. Important Selector Methods
+## 179. Selector Exercise
+## 180. Note about next lecture (Manipulating Style):
+## 181. Manipulating Style
+## 182. Manipulating Text and Content
+## 183. Manipulating Attributes
+## 184. Note about changing the Google logo in next lecture
+## 185. Playing With Google Code Along
 
 # TODO - my web site.
 * [x] FIX SIGNUP AND LOGIN POSITION @ BREAKPOINT AROUND SMALL. http://devtest.localhost/bs_startup_landing.html
@@ -1701,5 +1798,6 @@ Test above with default nav. If same problem occurs it might  be my custom CSS. 
 ANS: Fixed by removing the CONTACT tab. Navbar content was too wide so the elements on the right were pushed to a new row.
 
 
-* [ ] use bs_startup_landing.html style as index.html.
+* [x] use bs_startup_landing.html style as index.html.
+* [ ] fix buttons on iphone screen size.
 
