@@ -13,31 +13,17 @@ I will add configuration files to this repo in the same order as the [guide I us
 
 # TODO
 * [x] Read [getting started.](http://httpd.apache.org/docs/2.4/getting-started.html)
-* [ ] Read. http://httpd.apache.org/docs/2.4/
- * [x] Binding to Addresses and Ports http://httpd.apache.org/docs/2.4/bind.html
- * [x] Configuration Files http://httpd.apache.org/docs/2.4/configuring.html
- * [ ] Configuration Sections
-
- * [ ] Mapping URLs to the Filesystem
-
- * [ ] Security Tips
-
- * [ ] SSL/TLS Encryption
-
- * [ ] URL Rewriting with mod_rewrite
-
- * [ ] Virtual Hosts
-
-* [ ] URL [mapping.](http://httpd.apache.org/docs/2.4/urlmapping.html)
-* [ ] Virtual [hosts.](http://httpd.apache.org/docs/2.4/vhosts/)
-* [ ] Configure https. Read http://httpd.apache.org/docs/2.4/ssl/
-  * [x] Open https port 443 in Airport util. Also ssh port 22.
+* [Read Apache Docs.](http://httpd.apache.org/docs/2.4/)
+ * [x] [Binding to Addresses and Ports](http://httpd.apache.org/docs/2.4/bind.html)
+ * [x] [Configuration Files](http://httpd.apache.org/docs/2.4/configuring.html)
+ * [ ] [Apache Tutorial: Dynamic Content with CGI](http://httpd.apache.org/docs/2.4/howto/cgi.html)
+ * [ ] [Configure https](http://httpd.apache.org/docs/2.4/ssl/)
+* [x] Open https port 443 in Airport util. Also ssh port 22.
 * [x] Add a custom 403 error response.
 * [x] Point darbinreyes.com to index.html.
 * [x] Since /etc/apache2/users/darbinreyes.conf contains "FollowSymLinks", it seems I should be able to make my current site directory /Users/darbinreyes/Sites/darbinreyes.com into a symbolic link which points to index.html in my git repo. This way I can change index.html in one place (the git repo on my MBP) instead of two. Can I do this for the conf files by telling apache to use the conf files in my git repo?
     * I just discovered that when apache is restarted it copies /etc/apache2/users/darbinreyes.conf to /private/etc/apache2/users/darbinreyes.conf
 * [x] Add a vitualhost under devtest.localhost. This will point to the copy of my website that I will make changes to and test. When I complete a change I can copy the completed and stable change to the main website directory. Remove symbolic link from Sites/darbinreyes.com.
-* [ ] Add a vitualhost under devtest.darbinreyes.com. 
 
 # Steps to configure:
 
@@ -461,8 +447,19 @@ not all directives can go in these special files. See context.
 
 The server admin can control which directives are permitted in .htaccess files via the AllowOverride directive in the main config files.
 
-#DONE
-# next ?
+# [Apache Tutorial: Dynamic Content with CGI](http://httpd.apache.org/docs/2.4/howto/cgi.html)
+
+## Introduction
+## Configuring Apache to permit CGI
+## Writing a CGI program
+## But it's still not working!
+## CGI modules/libraries
+## For more information
+
+
+
+
+
 
 
 
