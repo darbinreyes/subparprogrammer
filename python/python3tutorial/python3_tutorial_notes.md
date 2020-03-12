@@ -912,16 +912,21 @@ sitecustomize works in the same way, but is imported before usercustomize. 
 
 # This is the end of the Python 3 tutorial!
 
-# Decide on Next. https://docs.python.org/3/contents.html
+# Decide on next. https://docs.python.org/3/contents.html
 
 Nothing in particular stands out. The library reference is way too long for a read through. How about we implement something in python...
 
-# Implementing the algorithm in EWD's Reasoning about programs problem 2.
+# Python Programming Exercises
+
+## Ex.0. Implementing the algorithm in EWD's Reasoning about programs problem 2.
 
 [Problem Two](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=27m06s)
 
-TODO
-
 Plan:
+* [ ] Update main subparprogrammer .md.
+* [ ] Read python style guide. - create .md for this.
+* [ ] Review python classes - look for appropriate way to model my ColorPoint class.
+* [ ] Review doc string format.
+* [ ] Review inline comment auto test generation.
 
 
