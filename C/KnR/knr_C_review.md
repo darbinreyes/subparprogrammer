@@ -694,7 +694,7 @@ prog | otherprog // simulates standard output via a pipe to the standard input o
 
 ## 7.2 Formatted Output - printf 
 
-This that can go between % and the conversion character.
+Things that can go between % and the conversion character.
 
 ## 7.3 Variable-length Argument Lists 
 
@@ -709,8 +709,61 @@ sval = va_arg(ap, char *);
 va_end(ap);
 
 ## 7.4 Formatted Input - Scanf 
+
+`int scanf(char *format, ...)` input analogue of printf. Takes input from stdin. You give it a string format for input, and pointers to some variables in which to store parsed input.
+
+`int sscanf(char *string, char *format, arg1, arg2, ...)` same as above but parses string instead of stdin.
+
 ## 7.5 File Access 
+
+```
+// for opening files
+FILE *fp FILE *fopen(char *name, char *mode)
+fp = fopen(name, mode)
+
+// single char i/o to specified file.
+int getc(FILE *fp)
+int putc(int c, FILE *fp)
+
+// same as above but file set to stdin/out.
+#define getchar() getc(stdin) 
+#define putchar(c) putc((c), stdout) 
+
+// formatted input/output with specified file.
+int fscanf(FILE *fp, char *format, ...) 
+int fprintf(FILE *fp, char *format, ...) 
+
+// closing a file
+int fclose(FILE *fp)
+
+// You can close stdin and stdout if they are not needed. They can also be reassigned by the library function freopen 
+
+```
 ## 7.6 Error Handling - Stderr and Exit 
 
-#next
+`stderr` - for when you don't want your error messages to appear in the output, e.g. your output is piped to another program as input. Your error message will still appear on the screen even if its output is piped/redirected.
+
+KnR tend to exclude curly braces - they assume the indentation is sufficient for the reader.
+
+Note the use of `fprintf` over `printf`, so you can pass in the file arg.
+
+`exit(n)` - terminates the program and returns n to the parent process. Also automatically closes any open files. Same of a `return n` from main() except that you can call `exit(n)` outside of main().
+
+`int ferror(FILE *fp)` returns non-zero to tell you if something went wrong with a file including stdout, e.g. stdout hit an error if the main mass storage device is full.
+
+`int feof(FILE *fp)` returns non-zero if fp is at EOF.
+
+## 7.7 Line Input and Output 
+
+`char *fgets(char *line, int maxline, FILE *fp)` reads lines, including the new line char.
+
+`int fputs(char *line, FILE *fp)` writes strings, not necessarily ending in a new line.
+
+`gets()` same as fgets() but with stdin
+`puts()` same as fputs() but with stdout
+
+## 7.8 Miscellaneous Functions 
+
+brief synopsis of the most useful functions in the standard library.
+
 
