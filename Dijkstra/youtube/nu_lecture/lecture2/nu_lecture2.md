@@ -178,6 +178,61 @@ And if I can show that, I have satisfied my proof obligation, [it] means that th
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=26m18s)
 
+Now, I have to show this, I'm going to simplify that, the very first thing is that I wish to eliminate, the operator that takes the minimum, so without changing the value of this boolean expression, I wish to eliminate the minimum function, 
+
+//BB
+// b min c < h
+// = {elimination of min}
+
+//a.13
+
+and the minimum of b and b, less than h, is according to the rules of my game, is b is less than h or c is less h.
+
+//a.14
+
+---
+
+// 
+
+
+[Pause and think](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=27m37s)
+
+My comment. Note the long pause. Taking the time to think. Remember to really pause and think when solving a problem. No rush.
+
+Don't forget little b and c are lines, while capital B and C are points.
+
+//
+
+---
+
+Everrrybody agrees? 
+
+//BB
+// b min c < h
+// = {elimination of min}
+// b < h ∨ c < h
+
+Huh? No sir, because for the termination argument I need actual decrease, so the minimum of these, of this, if this value has to be less h then b is less than h or c is less than h. And this is an equivalence because, ehh, these two boolean expressions have the same value
+
+// My comment. TODO. Convince myself of that min equivalence.
+
+Now, ehh, the next thing I wish to do, is to eliminate the lower case letters, obviously, obviously, because little b and h and little c, they only occur in that picture, and the sooner I liberate myself from that **picture**, the better. Now, ehh, my claim is that there is a simple expression, that has the same value as b less than h. Is anybody willing to make a suggestion? The length of BA or AB, yes, is less than EA, yah, and that follows from similar **triangles**.
+
+// My comment. EUCLID FTW!
+
+// a.15
+
+//BB
+// b min c < h
+// = {elimination of min}
+// b < h ∨ c < h
+// = {}
+// BA < EA
+
+These two triangles are similar, because they both have that right angle there and they share that one, so these two sides, the ratio of them is the same as the ratio of the hypotenuses.
+
+[Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=30m15s)
+
 ---
 
 //
