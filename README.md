@@ -24,36 +24,38 @@
 
 > ... my request, my prayer so to speak is, that you stop using the term bugs for program errors, but call them what they are: errors. Unless we change our language, and call an error an error, **programming and computing science have not yet matured**. -Edsger W. Dijkstra
 
-* I am not the only Dijkstra fan out there. See 
-  * https://www.dijkstrascry.com/about.
+* Dijkstra is my demigod, for more on him see:
   * http://www.cs.utexas.edu/users/EWD/.
+  * https://www.dijkstrascry.com/about.
+
 
 ## Project 0: Create single page website. Render a triangle in canvas.
 
 * Current project status: COMPLETED.
 
 * See [./servers/http](https://github.com/darbinreyes/subparprogrammer/tree/master/servers/http) and [./web/darbinreyes.com](https://github.com/darbinreyes/subparprogrammer/tree/master/web/darbinreyes.com).
-* Next ideas:
-  * Nice GUI front end to EWD UT site.
-  * Predicate Calculus and Program Semantics Errata page.
-  * Draw other Euclid propositions.
-  * Something involving motion.
-  * Blah.
+  
 ## Project 1: Implement propositions from Euclid's Elements in C.
 
-* Current project status: See [./C/euclid](https://github.com/darbinreyes/subparprogrammer/tree/master/C/euclid).
+* Current project status: in progress.
+* See [./C/euclid](https://github.com/darbinreyes/subparprogrammer/tree/master/C/euclid).
 
 ## Project 2: Transcribe and take notes on "Reasoning About Programs"
 
-* Current project status: See [./Dijkstra/youtube/reasoning](https://github.com/darbinreyes/subparprogrammer/tree/master/Dijkstra/youtube/reasoning)
+* Current project status: COMPLETED.
+* See [./Dijkstra/youtube/reasoning](https://github.com/darbinreyes/subparprogrammer/tree/master/Dijkstra/youtube/reasoning).
 
-## .md syntax. 
+## Project 3: Transcribe and take notes on Dijkstra's University of Newcastle Upon Tyne Lecture 2
 
-* https://guides.github.com/features/mastering-markdown/
-* https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf
-* https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+* Current project status: in progress.
+* See [./Dijkstra/youtube/nu_lecture/lecture2](https://github.com/darbinreyes/subparprogrammer/blob/master/Dijkstra/youtube/nu_lecture/lecture2/nu_lecture2.md).
 
-# EWD special chars. 
+## Project 4: Complete the Udemy Web Bootcamp Course.
 
-http://www.cs.utexas.edu/users/EWD/transcriptions/specialCharacters.html
+* Current project status: in progress.
+* See [./web/udemy_web_bootcamp](https://github.com/darbinreyes/subparprogrammer/tree/master/web/udemy_web_bootcamp).
+  
+## Project 5: Implement in python Dijkstra's Problem 2 algorithm from Reasoning About Programs 
+* Current project status: in progress.
+* See [./python/python3tutorial/reasoning_problem2.py](https://github.com/darbinreyes/subparprogrammer/blob/master/python/python3tutorial/reasoning_problem2.py).
 
