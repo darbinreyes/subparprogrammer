@@ -923,10 +923,64 @@ Nothing in particular stands out. The library reference is way too long for a re
 [Problem Two](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=27m06s)
 
 Plan:
+
 * [ ] Update main subparprogrammer .md.
-* [ ] Read python style guide. - create .md for this.
+* [ ] Read/review python style guide. - create .md for this.
 * [ ] Review python classes - look for appropriate way to model my ColorPoint class.
 * [ ] Review doc string format.
 * [ ] Review inline comment auto test generation.
+* [ ] Learn to use matplotlib to draw points and lines.
+
+# [matplotlib tutorial](https://matplotlib.org/tutorials/introductory/usage.html#sphx-glr-tutorials-introductory-usage-py)
+
+Concepts:
+
+figures - where things are plotted.
+
+axes - a part of a figure.
+
+```python
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots()  # Create a figure containing a single axes.
+
+ax.plot([1, 2, 3, 4], [1, 4, 2, 3])  # Plot some data on the axes.
+plt.show(block=False) 
+
+######## Same thing, less code.
+
+import matplotlib.pyplot as plt
+plt.plot([1, 2, 3, 4], [1, 4, 2, 3])
+plt.show(block=False)
+
+# line drawing style
+
+# https://matplotlib.org/gallery/lines_bars_and_markers/linestyles.html#sphx-glr-gallery-lines-bars-and-markers-linestyles-py
+
+# Point drawing style
+
+plt.plot([1, 2, 3, 4], [1, 4, 2, 3], marker='.') // sets point drawing style to '.'
+
+# https://matplotlib.org/gallery/lines_bars_and_markers/marker_reference.html#sphx-glr-gallery-lines-bars-and-markers-marker-reference-py
+
+>>> plot(x, y, 'go--', linewidth=2, markersize=12)
+
+>>> plot(x, y, color='green', marker='o', linestyle='dashed', linewidth=2, markersize=12)
+
+# I tested these:
+plt.plot([1, 2, 3, 4], [1, 4, 2, 3], marker='.', color='red', markersize=12) # color applies to both the points and lines
+    
+    
+# plot blue and red lines
+
+fig, ax = plt.subplots()
+
+ax.plot([1, 2, 3, 4], [1, 4, 2, 3], marker='.', color='red', markersize=12)
+
+ax.plot([1, 2, 3, 4], [0, 3, 1, 2], marker='.', color='blue', markersize=12)
+
+plt.show(block=False)
+
+```
 
 
