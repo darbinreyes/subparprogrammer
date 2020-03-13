@@ -963,9 +963,11 @@ plt.plot([1, 2, 3, 4], [1, 4, 2, 3], marker='.') // sets point drawing style to 
 
 # https://matplotlib.org/gallery/lines_bars_and_markers/marker_reference.html#sphx-glr-gallery-lines-bars-and-markers-marker-reference-py
 
->>> plot(x, y, 'go--', linewidth=2, markersize=12)
+# see help(plt.plot)
 
->>> plot(x, y, color='green', marker='o', linestyle='dashed', linewidth=2, markersize=12)
+plt.plot(x, y, 'go--', linewidth=2, markersize=12)
+
+plt.plot(x, y, color='green', marker='o', linestyle='dashed', linewidth=2, markersize=12)
 
 # I tested these:
 plt.plot([1, 2, 3, 4], [1, 4, 2, 3], marker='.', color='red', markersize=12) # color applies to both the points and lines
