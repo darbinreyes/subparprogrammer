@@ -766,4 +766,9 @@ Note the use of `fprintf` over `printf`, so you can pass in the file arg.
 
 brief synopsis of the most useful functions in the standard library.
 
+\<stdlib.h>->system("shellcommandstr") // provides access to the OS shell.
+
+# Chapter 8 - The UNIX System Interface 
+
+
 
