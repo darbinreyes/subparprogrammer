@@ -1424,9 +1424,13 @@ ex.1. returns true.
  setInterval(function(){console.log("christmas poo")}, 1000); // first arg. is an anonymous function
  
  ```
+
+---
  
 # Section 13: Javascript Basics: Arrays
- 
+
+---
+
 ## 153. Unit Objectives
 
 our first datastruture
@@ -1630,7 +1634,11 @@ Array.prototype.myForEach = function (somefunc) {
 // compare to 
 arr.forEach(function (item, i, thearr){console.log("poo")})
 
+---
+
 # Section 14: Javascript Basics: Objects 
+---
+
 ## 166. Introduction to Objects 
 // object syntax example
 ```javascript
@@ -1765,30 +1773,333 @@ namespaces// The undescore.js library. It exists, and all methods are under an o
 this // a contextual reference to an object from within that object, a shorthand notation.
 
 // e.g.
+
 comments = {}
+
 comments.data = ["poo", "caca","pipi"]
-comments.print = function() {this.data.forEach(function(item){console.log(item)})}
+
+comments.print = function() 
+{this.data.forEach(function(item){console.log(item)})}
+
+---
 
 # Section 15: DOM Manipulation
+
+---
 
 HTML and CSS + JS
 ## 173. IMPORTANT NOTE, PLEASE READ!!!
 
-Put your JS \<script> right before the closing </body>  tag.
+Put your JS \<script> right before the closing \</body>  tag.
 This prevents errors caused by references to HTML / CSS that have not yet been loaded by the browser.
 
 ## 174. Introduction to the DOM
 ## 175. Defining the DOM
+
+Its a JS API for manipulating HTML+CSS.
+
+Elements vs. Attributes.
+
+DOM modeled as a tree of nodes
+
+doc->root=html
+
+doc->html
+
+->head
+
+->body
+
+element.text
+
+element.attribute.href
+
+```javascript
+document
+console.dir(document) // gimme the document as an object.
+```
+
 ## 176. Select and Manipulate
+
+```javascript
+
+var h1 = document.querySelector("h1");
+
+h1.style.color = "blue";
+// element_obj = document.querySelector("element_name/other_selection_syntax");
+// element_obj.style.attribute_name = attribute_value.
+```
 ## 177. Note about UI changes in new versions of Chrome
+
+Colt mistakenly refers to the array-like object that comes back from document.getElementsByClassName() as a "NodeList", when in fact it is an `HTMLCollection`. 
+
 ## 178. Important Selector Methods
+
+```javascript
+
+document.URL
+document.links
+document.body
+document.head
+
+// selector methods
+
+document.getElementById()
+document.getElementsByClassName() // returns an array like object but it is not an array, therefore e.g. there is no forEach() method attached, however the console does print things at in a way that is similar to arrays (using square brackets). JS allows you to create array like object such that you can index into them, in this case the array like object is an instance of an html collection. Also note that "typeof [7,5]" returns "object".
+document.getElementsByTagName()
+document.querySelector() // similar to methods above but using a CSS-like syntax. e.g. "#myidname" , ".myclassname", "h1" . Instead of returning a collection in the case of multiple matches this method only returns the first matching item. To get all use method below. You can use this method and the one below to simulate the 3 methods above. Another example argument: "li a.special" means gimme the first "a" inside of an "li" that also has class ".special". When there is no match, this method returns null.
+document.querySelectorAll()
+```
+
+TOOL NOTE: In chrome JS console there is a button on the upper left that lets you see what a page looks like on a mobile device and you can shrink the page in arbitrary ways.
+
 ## 179. Selector Exercise
+
+ex.1. 
+document.getElementById("first")
+document.getElementsByClassName("special")[0]
+document.getElementsByTagName("p")[0]
+document.querySelector("p")
+
+// again, querySelector() accepts CSS-like selector syntax so "h1 + p" will select h1 adjacent to p.
+
 ## 180. Note about next lecture (Manipulating Style):
+
+The heading "An Alterative" should say "An Alternative"
+
 ## 181. Manipulating Style
+
+* changing style
+
+`obj.style.CSS_property_name = new_CSS_value;` // all values are strings.
+
+* classes
+
+two ways of setting CSS style. The second is recommended.
+```javascript
+tag = document.getElementById("mycontent");
+tag.style.color = "blue";
+tag.style.fontSize = "100px";
+
+//vs
+
+// in CSS .mycontentclass {color: "blue"; font-size: "100px"}
+
+tag.classList.add("mycontentclass");
+.remove();
+.toggle();
+// classList is not an array.
+```
+
+
 ## 182. Manipulating Text and Content
+
+* content
+
+`tag.textContent` // all text inside the tag, excluding nested tags.
+
+`tag.textContent` = "Some new content"; // This will remove any nested tags.
+
+// to keep the nested tags
+
+`tag.innerHTML` // returns the text and keeps nested tags.
+
+// setting `textContent` ignores tags in the new value.
+
+// `innerHTML` takes tags in the new value into account.
+
 ## 183. Manipulating Attributes
+
+* attributes
+
+`tag.getAttribute("href")`
+
+`tag.setAttribute("href", "www.google.com")` // by default this value is interpreted as a relative path, i.e. it assumes "www.google.com" is a file named "www.google.com"  in the current directory. To get the intended behaviour you must include the protocol prefix "http://" i.e. "http://www.google.com"
+
+
 ## 184. Note about changing the Google logo in next lecture
+
+using the `src attribute` **no longer works**.
+
+use `srcset attribute`
+
+// my comment.
+
+The guy uses myimg.setAttribute() to change the img source. The above refers to using "src" as the attribute name, which indeed doesn't work. You must use "srcset" as the attribute name. But there are two other ways to do the same thing.
+
+myimg.setAttribute("src", "im0.png"); // doesn't work
+myimg.setAttribute("srcset", "im0.png"); // works
+
+// both these work too
+
+myimg.src = "im0.png"
+myimg.srcset = "im0.png"
+
 ## 185. Playing With Google Code Along
+
+END.
+
+---
+
+# Section 16: Advanced DOM Manipulation
+
+---
+
+## 186. Introduction to Events
+event = something happened , e.g. user scrolled, user pressed the enter key, etc.
+
+We can attach an "event listener" to things
+
+```javascript
+//element.addEventListener("event_name/type", callbackfunction);
+var butt = document.querySelector("button");
+element.addEventListener("click", function(){});
+
+// element.addEventListener() is additive, meaning that it will retain all event listeners added, so adding two "click" listeners will run two events upon click.
+
+// adding an event listener to an element with nested elements can affect all nested elements.
+```
+## 187. Note about Introduction to Events
+
+why you get an error when trying to use lis[i] instead of this 
+
+## 188. Color Toggle Exercise
+
+Note that any CSS associated with your html file, including inline CSS in the head because part of the CSS available to you via JS, in particular, the CSS for a class that you might use with `tag.classList.toggle("myclassname")`
+
+## 189. Score Keeper Project Part 1
+
+\<input type="number">
+
+Note that a JS file associated with your HTML only gets processed and executed once as part of the loading of the page.
+
+## 190. Note about Score Keeper Project Part 2
+
+He should have said "..and turn it into a Number". 
+
+difference between the input and change event listeners,
+
+## 191. Score Keeper Project Part 2
+
+```javascript
+numinput = document.getElementById("winningscore")
+
+// or
+
+numinput = document.querySelector("input")
+
+// or
+
+numinput = document.querySelector("input[type='number']")
+
+numinput.addEventListener("change", function(){
+  // accessing the number value
+  this.value // even if this is a number input the value is a string, so you must explicitly convert the number using Number(n) if you really want a number
+  // or
+  inputelement.value 
+});
+```
+
+## 192. Other Types of Events: Todo List
+
+MDN event reference
+
+"mouseover" // = hover
+"mouseout" 
+
+## 193. Note regarding counting events exercise
+## 194. Counting Events Exercise 
+END.
+
+---
+
+# Section 17: Color Game Project
+
+---
+
+## 195. Notes regarding color game
+
+make sure that the colors have spaces after the commas in the RGB expression
+ 
+ e.g., 
+Correct: "rgb(255, 0, 0)"
+
+Incorrect: "rgb(255,0,0)"
+
+height or width as a percentage, that's a percentage with respect to the element's parent."
+
+## 196. Creating the Color Game Pt. 1
+
+// color phade away.
+
+// random color values.
+
+
+## 197. Creating the Color Game Pt. 2
+## 198. Creating the Color Game Pt. 3
+## 199. Creating the Color Game Pt. 4
+## 200. Creating the Color Game Pt. 5
+## 201. Creating the Color Game Pt. 6
+## 202. Creating the Color Game Pt. 7
+## 203. Color Game Project Part 8
+## 204. Creating the Color Game Pt. 9 
+END.
+
+---
+
+# Section 18: Intro to jQuery
+
+---
+
+## 205. What is jQuery?
+
+another API, like Bootstrap. It lets you do thing more easily than without. Abbreviated syntax. aka a library like stdlib in C.
+
+single file. link it.
+
+select elements
+manipulate "
+create "
+add events listeners
+animate shit
+add "effects"
+make HTTP requests (aka AJAX = asynchronous javascript and XML).
+
+## 206. Why Use jQuery?
+
+why not always use Jquery?
+
+* the good
+  * better DOM API
+  * shorter code
+  * easy syntax
+  * cross browser support
+  * AJAX
+  * commonly used
+  
+* the bad
+  * youmightnotneedjquery.com
+  * DOM API has been improved
+  * everything jquery does can be done without it.
+  * if you use a very small subset of jquery, it may not be worth including an entire library. e.g. all you want is animations.
+  * performance can be a problem if you are not familiar with using jquery
+  * it is becoming less popular
+  
+* The guy's opine on jquery
+  * the guy use to skip into jquery without covering basic JS methods
+  * students have reported companies departing from jquery use.
+
+## 207. Including jQuery	
+
+
+## 208. Note about jQuery
+## 209. Selecting with jQuery
+## 210. Selector Exercise
+## 211. Text and HTML
+## 212. Attr and Val
+## 213. Manipulating Classes
+
+END.
 
 # TODO - my web site.
 * [x] FIX SIGNUP AND LOGIN POSITION @ BREAKPOINT AROUND SMALL. http://devtest.localhost/bs_startup_landing.html
