@@ -37,4 +37,27 @@ VII_4_part_or_parts_v1 (
   int         *n
   );
 
+typedef struct _PAIR {
+  unsigned int a;
+  unsigned int b;
+} PAIR;
+
+/**
+
+  Given two pairs, returns wether or not the sum of the pairs is the same part
+  as each given pair.
+
+  @param p0 The first pair.
+  @param p1 The second pair.
+
+  @retval < 0 Error.
+  @retval 1 The sum of the pairs is the same part as the given pairs.
+  @retval 0 The given pairs were not the same part, or the sum of the pairs was
+            not the same part as the given pairs (which should be impossible).
+**/
+int
+VII_5_sum_same_part (
+  PAIR p0,
+  PAIR p1
+  );
 #endif

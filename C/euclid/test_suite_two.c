@@ -354,6 +354,24 @@ ret, m, n =  (1, 2, 3)
   assert_int_equal(expected_n, n);
 }
 
+void test_VII_5 (void)
+{
+  PAIR p0, p1; // Input values.
+  int ret; // Computed return value.
+  int expected_ret; // Expected return value.
+
+  p0.a = 3;
+  p0.b = 9;
+
+  p1.a = 4;
+  p1.b = 12;
+  // sum = 7, 21
+  expected_ret = 1;
+  printf("(%d, %d) , (%d, %d), expected_ret = %d.\n", p0.a, p0.b, p1.a, p1.b, expected_ret);
+  ret = VII_5_sum_same_part (p0, p1);
+  assert_int_equal(expected_ret, ret);
+}
+
 /**
 void test_asserting()
 {
@@ -378,6 +396,7 @@ void test_fixture_two( void )
   run_test(test_VII_3);
   run_test(test_VII_4);
   run_test(test_VII_4_v1);
+  run_test(test_VII_5);
   // run_test(test_asserting);
   // run_test(test_assert_fails);
   test_fixture_end();

@@ -615,6 +615,51 @@ VII_4_part_or_parts_v1 (
 
 /**
 
+  Given two pairs, returns wether or not the sum of the pairs is the same part
+  as each given pair.
+
+  @param p0 The first pair.
+  @param p1 The second pair.
+
+  @retval < 0 Error.
+  @retval 1 The sum of the pairs is the same part as the given pairs.
+  @retval 0 The given pairs were not the same part, or the sum of the pairs was
+            not the same part as the given pairs (which should be impossible).
+**/
+int
+VII_5_sum_same_part (
+  PAIR p0,
+  PAIR p1
+  )
+{
+  if (!(p0.a > 1 && p0.b > 1 && p1.a > 1 && p1.b > 1)) { // should I allow p0.a = 1?
+    return -1;
+  }
+  // excluding the INT_MAX check.
+
+  int n0, n1, n2;
+  PAIR sum;
+
+  n0 = measures_v1(p0.a, p0.b);
+  n1 = measures_v1(p1.a, p1.b);
+
+  if (n0 > 0 && n1 > 0 && n0 == n1) {
+    sum.a = p0.a + p1.a;
+    sum.b = p0.b + p1.b;
+    n2 = measures_v1(sum.a, sum.b);
+
+    if(n0 == n2) {
+      return 1;
+    } else {
+      assert(0); // impossible
+    }
+  }
+
+  return 0;
+}
+
+/**
+
   The main function.
 
 **/
