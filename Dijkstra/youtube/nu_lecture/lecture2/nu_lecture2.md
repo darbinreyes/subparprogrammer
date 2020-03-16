@@ -233,6 +233,41 @@ These two triangles are similar, because they both have that right angle there a
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=30m15s)
 
+So BA less than EA is the one. Is that OK? Yes, apparently. Am I a little bit amazed. Well according to the rules of the game, the other condition yields me that CA less than EA
+
+//BB
+// b min c < h
+// = {elimination of min}
+// b < h ∨ c < h
+// = {}
+// BA < EA ∨ CA < EA
+
+//a.16
+
+Let me check. Will you check wether I have made an error. Yes. A, AB. Ehh, this does not hold because the space is finite. But I did make an error. I did make an error. I did make an error. Yes, yes, yes. There is a one bit rabbit in this proof. And I made the wrong choice, I chose the line, but I shouldn't do that. This by the way was very instructive and I leave it that way. The remark is that I have to choose a new E and let that be A, that is my new E, and now the question is will the new q go through B or will it go through C, so my new E becomes A and my new q becomes, of the lines sorry BC and, sorry, of the lines BE and CE the nearest to A, so and now I will have P again.
+
+//a.17
+//a.18
+
+Yes. No, no, no. One of the three, one of the three, now here is our drawing. Here was q, here was the old E, here is, my A, here is for instance my B, now this, now I'm interested in this distance, the distance from A to the new q. Because this will be my new E.
+
+//a.19
+
+Now we have the same picture, we call this b and we call this h
+
+//a.20
+
+Only now it becomes a little bit different here
+
+//a.21
+//a.22
+
+because b less h is now, AB less than BE, similarly, c less than h will be that AC less than CE.
+
+// a.23
+
+[Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=35m20s)
+
 ---
 
 //
