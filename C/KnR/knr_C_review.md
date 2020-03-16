@@ -770,5 +770,23 @@ brief synopsis of the most useful functions in the standard library.
 
 # Chapter 8 - The UNIX System Interface 
 
+## 8.1 File Descriptors 
+
+Files are represented as **small non-negative integers**, called the file descriptor in place of its name.
+
+By default on Unix the file descriptor numbers are as follows:
+
+0 = standard input
+
+1 = " output
+
+2 = " error
+
+`prog <infile >outfile` 
+In this case, the shell changes the default assignments for the file descriptors 0 and 1 to the named files. 
+
+## 8.2 Low Level I/O - Read and Write 
+
+`int n_read = read(int fd, char *buf, int n);` `int n_written = write(int fd, char *buf, int n);`
 
 
