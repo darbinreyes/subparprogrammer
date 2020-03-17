@@ -450,7 +450,18 @@ The server admin can control which directives are permitted in .htaccess files v
 # [Apache Tutorial: Dynamic Content with CGI](http://httpd.apache.org/docs/2.4/howto/cgi.html)
 
 ## Introduction
+
+a web server to interact with external content-generating programs, which are often referred to as CGI programs or CGI scripts. 
+
+using **whatever** programming language you're most familiar with.
+
 ## Configuring Apache to permit CGI
+
+`LoadModule cgid_module modules/mod_cgid.so`
+
+`ScriptAlias "/cgi-bin/" "/usr/local/apache2/cgi-bin/"`
+# next CGI outside of ScriptAlias directories
+
 ## Writing a CGI program
 ## But it's still not working!
 ## CGI modules/libraries
