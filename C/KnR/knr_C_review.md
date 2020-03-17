@@ -789,4 +789,9 @@ In this case, the shell changes the default assignments for the file descriptors
 
 `int n_read = read(int fd, char *buf, int n);` `int n_written = write(int fd, char *buf, int n);`
 
+## 8.3 Open, Creat, Close, Unlink 
+
+## 8.4 Random Access - Lseek 
+
+
 
