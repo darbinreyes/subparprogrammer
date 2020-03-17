@@ -2089,11 +2089,42 @@ why not always use Jquery?
   * the guy use to skip into jquery without covering basic JS methods
   * students have reported companies departing from jquery use.
 
-## 207. Including jQuery	
-
-
+## 207. Including jQuery
 ## 208. Note about jQuery
 ## 209. Selecting with jQuery
+$ = a jquery function
+
+to select
+
+$("selector_string")
+
+works like document.querySelectorAll("str");
+
+$("h1") // select all h1's.
+
+$("li a")
+
+changing style with jQuery
+
+$("h1").css(property_name, property_value)
+
+// two ways
+
+$("h1").css("border", "2px solid red");
+
+var mystyle = {
+ backgroundColor: "pink",
+ fontWeight: "bold"
+};
+
+$("h1").css(mystyle)
+
+// .css method can act on multiply selected elements e.g. to change color of all li's
+
+$("li").css("color", "red")
+
+// note use of camel case when passing in CSS objects to .css().
+
 ## 210. Selector Exercise
 ## 211. Text and HTML
 ## 212. Attr and Val
