@@ -262,11 +262,39 @@ Only now it becomes a little bit different here
 //a.21
 //a.22
 
-because b less h is now, AB less than BE, similarly, c less than h will be that AC less than CE.
+because b less than h is now, AB less than BE, similarly, c less than h, will be that AC less than CE.
 
 // a.23
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=35m20s)
+
+So, oops, OK. Ehh, next step, what does this follow from? Do we have a way to derive this? What does this follow from? Now have a look, if, ohh this is very funny, if x is larger than y and x prime is larger than y prime. What you are you willing to conclude? In general. x is larger than y and x prime is larger than y prime. Can you draw an obvious conclusion from that?
+
+// a.24
+
+Yes, for instance, x plus x prime, is at least, I can even put at least here, yes. x plus x prime is at least y plus y prime. 
+
+// a.25 
+// a.26
+
+Monotonicity of the addition. Write now down the contrapositive of this relation. x less than y or x prime less than y prime follows from x plus x prime less than y plus y prime. 
+
+//a.27
+
+And therefore, here you see the form of exactly this relation, and on account of monotonicity 
+
+//a.28
+
+this follows from AB + AC is less than BE + CE. OK.
+
+//a.29
+
+So far so good. Now listen, we will, b and c are distances, so the minimum of them is at least 0, we have to demonstrate that that minimum is less than h, we can never prove that for h is 0, so we have to take into account something, some statement of the fact that h differs from 0. Now h differs from 0, tells us because the points A, B, and C are all different, h differs from 0 tells us that A does not lie on q, but since E only occurs in connection with B and C, we now characterize the line q as the line through B and C, and h differs from 0 we now formulate as triangle E, B, C is not degenerate. But if triangle EBC is not degenerate, hence, BC is actually less BE plus EC. 
+
+//a.30
+//a.31
+
+[Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=39m40s)
 
 ---
 
