@@ -181,18 +181,19 @@ void test_VII_4 ()
   Here are the correct values for the test cases computed separately in python.
 
   >>> int(7 % 3 > 0)
-  1
+  1 // parts
   >>> int(7 % 6 > 0)
   1
   >>> int(6 % 2 > 0)
-  0
+  0 // part
   >>> int(12 % 3 > 0)
   0
   >>> int(6 % 4 > 0)
   1
   >>> int(12 % 8 > 0)
   1
-
+  >>> int(3 % 1 > 0)
+  0
   TODO: Other test cases.
 
   **/
@@ -244,6 +245,12 @@ void test_VII_4 ()
   printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, ret, expected_ret);
   assert_int_equal(expected_ret, ret);
 
+  b = 1;
+  a = 3;
+  expected_ret = 0; // part.
+  ret = VII_4_part_or_parts (b, a);
+  printf ("b = %u, a = %u. part_or_parts = %d. expect part_or_parts = %d.\n", b, a, ret, expected_ret);
+  assert_int_equal(expected_ret, ret);
 }
 
 void test_VII_4_v1 (void)
@@ -255,10 +262,12 @@ void test_VII_4_v1 (void)
 $ python3.8 VII_4_part_or_parts_v1.py
 ret, m, n =  (1, 3, 7)
 ret, m, n =  (1, 6, 7)
+ret, m, n =  (0, 2, 6)
+ret, m, n =  (0, 3, 12)
+ret, m, n =  (1, 2, 3)
+ret, m, n =  (1, 2, 3)
 ret, m, n =  (0, 1, 3)
 ret, m, n =  (0, 1, 4)
-ret, m, n =  (1, 2, 3)
-ret, m, n =  (1, 2, 3)
 
 **/
   unsigned int a, b; // Input values.
@@ -352,6 +361,20 @@ ret, m, n =  (1, 2, 3)
   assert_int_equal(expected_ret, ret);
   assert_int_equal(expected_m, m);
   assert_int_equal(expected_n, n);
+
+  b = 1;
+  a = 3;
+  m = -1;
+  n = -1;
+  ret = -1;
+  expected_ret = 0; // parts.
+  expected_m = 1;
+  expected_n = 3;
+  printf ("b = %u, a = %u. expect ret = %d. m = %d. n = %d.\n", b, a, expected_ret, expected_m, expected_n);
+  ret = VII_4_part_or_parts_v1 (b, a, &m, &n);
+  assert_int_equal(expected_ret, ret);
+  assert_int_equal(expected_m, m);
+  assert_int_equal(expected_n, n);
 }
 
 void test_VII_5 (void)
@@ -366,6 +389,39 @@ void test_VII_5 (void)
   p1.a = 4;
   p1.b = 12;
   // sum = 7, 21
+  expected_ret = 1;
+  printf("(%d, %d) , (%d, %d), expected_ret = %d.\n", p0.a, p0.b, p1.a, p1.b, expected_ret);
+  ret = VII_5_sum_same_part (p0, p1);
+  assert_int_equal(expected_ret, ret);
+
+  p0.a = 3;
+  p0.b = 9;
+
+  p1.a = 1;
+  p1.b = 3;
+  // sum = 4, 12
+  expected_ret = 1;
+  printf("(%d, %d) , (%d, %d), expected_ret = %d.\n", p0.a, p0.b, p1.a, p1.b, expected_ret);
+  ret = VII_5_sum_same_part (p0, p1);
+  assert_int_equal(expected_ret, ret);
+
+  p0.a = 3;
+  p0.b = 9;
+
+  p1.a = 1;
+  p1.b = 4;
+  // sum = 4, 13
+  expected_ret = 0;
+  printf("(%d, %d) , (%d, %d), expected_ret = %d.\n", p0.a, p0.b, p1.a, p1.b, expected_ret);
+  ret = VII_5_sum_same_part (p0, p1);
+  assert_int_equal(expected_ret, ret);
+
+  p0.a = 4;
+  p0.b = 16;
+
+  p1.a = 1;
+  p1.b = 4;
+  // sum = 5, 20
   expected_ret = 1;
   printf("(%d, %d) , (%d, %d), expected_ret = %d.\n", p0.a, p0.b, p1.a, p1.b, expected_ret);
   ret = VII_5_sum_same_part (p0, p1);

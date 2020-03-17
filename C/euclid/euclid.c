@@ -408,7 +408,7 @@ VII_3_gcm (
   @param  b The lesser number.
   @param  a The greater number.
 
-  @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
+  @retval -1 if !(a > 1 && b >= 1). This is considered invalid input.
   @retval -2  If !(b < a). This is considered invalid input.
   @retval -3  Unexpected error.
   @retval 0  If b is part of a.
@@ -422,7 +422,7 @@ VII_4_part_or_parts (
   )
 {
 
-  if (!(a > 1 && b > 1)) {
+  if (!(a > 1 && b >= 1)) {
     assert(0);
     return -1;
   }
@@ -430,6 +430,10 @@ VII_4_part_or_parts (
   if(!(b < a)) {
     assert(0);
     return -2;
+  }
+
+  if(b == 1) { // an unit measures any number, therefore an unit is a part of any number
+    return 0;
   }
 
   int rp;
@@ -480,7 +484,7 @@ VII_4_part_or_parts (
   @param  b The lesser number.
   @param  a The greater number.
 
-  @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
+  @retval -1 if !(a > 1 && b >= 1). This is considered invalid input.
   @retval -2  If !(b <= a). This is considered invalid input.
   @retval 0    If !(b|a).
   @retval > 0  If b|a. The return value = the number of times that b measures a, i.e. a/b.
@@ -492,7 +496,7 @@ measures_v1 (
   unsigned int a
   )
 {
-  if (!(a > 1 && b > 1)) {
+  if (!(a > 1 && b >= 1)) {
     assert(0);
     return -1;
   }
@@ -530,7 +534,7 @@ measures_v1 (
   @param  b The lesser number.
   @param  a The greater number.
 
-  @retval -1 if !(a > 1 && b > 1). This is considered invalid input.
+  @retval -1 if !(a > 1 && b >= 1). This is considered invalid input.
   @retval -2  If !(b < a). This is considered invalid input.
   @retval -3 (m == NULL || n == NULL).
   @retval -4  Unexpected error.
@@ -547,7 +551,7 @@ VII_4_part_or_parts_v1 (
   )
 {
 
-  if (!(a > 1 && b > 1)) {
+  if (!(a > 1 && b >= 1)) {
     assert(0);
     return -1;
   }
@@ -560,6 +564,12 @@ VII_4_part_or_parts_v1 (
   if (m == NULL || n == NULL) {
     assert(0);
     return -3;
+  }
+
+  if(b == 1) { // an unit measures any number, therefore an unit is a part of any number
+    *m = 1;
+    *n = a;
+    return 0;
   }
 
   int rp;
@@ -632,7 +642,7 @@ VII_5_sum_same_part (
   PAIR p1
   )
 {
-  if (!(p0.a > 1 && p0.b > 1 && p1.a > 1 && p1.b > 1)) { // should I allow p0.a = 1?
+  if (!(p0.a >= 1 && p0.b > 1 && p1.a >= 1 && p1.b > 1)) {
     return -1;
   }
   // excluding the INT_MAX check.
