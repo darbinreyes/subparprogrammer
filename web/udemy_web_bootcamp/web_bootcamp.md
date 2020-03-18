@@ -2126,12 +2126,97 @@ $("li").css("color", "red")
 // note use of camel case when passing in CSS objects to .css().
 
 ## 210. Selector Exercise
+
+```javascript
+$("div").css("background", "purple")
+
+$(".highlight").css("width", "200px")
+
+$("#third")[0].css("border", "1px solid orange") // WRONG! .css() is not a method of each list element, only of the whole list.
+
+$("#third").css("border", "1px solid orange") // RIGHT!
+
+$("div")[0].css("color", "pink") // WRONG! see above.
+
+// RIGHT 
+$("div")[0].style.color = "pink"
+// or
+$($("div")[0]).css("color", "pink")
+// or - CSS pseudo selector
+$("div:first-of-type").css("color", "pink")
+// or same as above but jQuery accepts a shorter argument
+$("div:first").css("color", "pink")
+
+// checking if jQuery is available/loaded
+
+if(jQuery) {
+
+} else {
+// no jQuery
+}
+```
 ## 211. Text and HTML
+
+```javascript
+// 7 methods - https://api.jquery.com/
+
+// Get the current value of the first element in the set of matched elements or set the value of every matched element.
+// for getting input-element values
+// gets+sets
+val()
+val("The new value")
+// Get the combined text contents of each element in the set of matched elements, including their descendants, or set the text contents of the matched elements.
+// gets+sets
+text()
+text("new text")
+// Get the value of an attribute for the first element in the set of matched elements or set one or more attributes for every matched element.
+// gets+sets
+attr("src")
+attr("src", "gascat.png")
+// Get the HTML contents of the first element in the set of matched elements or set the HTML contents of every matched element.
+// gets+sets
+html()
+html("<li>Suck my balls</li>")
+// Adds the specified class(es) to each element in the set of matched elements.
+addClass()
+addClass("thisclass thatclass") // adds two classes
+// Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
+removeClass("theclasss")
+// Add or remove one or more classes from each element in the set of matched elements, depending on either the class’s presence or the value of the state argument.
+toggleClass("TheClass")
+
+// Misc. method
+$("img").last().attr("src")
+$("img").first().attr("src")
+```
 ## 212. Attr and Val
+
+See above. 
+
 ## 213. Manipulating Classes
+
+See above.
 
 END.
 
+---
+
+# Section 19: Advanced jQuery
+
+---
+
+## 214. jQuery Events: Click 
+```javascript
+// events - https://api.jquery.com/category/events/
+click()
+keypress()
+on()
+```
+
+## 215. Note about typo in the next lecture
+## 216. jQuery Events: Keypress
+## 217. jQuery Events: On
+## 218. jQuery Effects 
 # TODO - my web site.
 * [x] FIX SIGNUP AND LOGIN POSITION @ BREAKPOINT AROUND SMALL. http://devtest.localhost/bs_startup_landing.html
 
