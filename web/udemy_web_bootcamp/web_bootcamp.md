@@ -2277,6 +2277,10 @@ END.
 
 ### 231. IMPORTANT NOTE, PLEASE READ!!!
 ### 232. Project Intro
+JS libs
+paperjs.org // animation
+howler.js // audio
+
 ### 233. Note about Paper.js Exercise
 ### 234. Paper.js Intro
 ### 235. Paper.js Exercise
@@ -2286,6 +2290,95 @@ END.
 ### 239. Adding Howler.js
 ### 240. Patatap Clone Refactor 
 END.
+
+---
+
+# Section 22: Backend Basics
+
+---
+ 
+### 241. Introduction to Backend
+HTTP requests and responses.
+
+Static vs. dynamic pages.
+
+backend language. server. database.->HTML+CSS+JS.
+
+stackshare.io // per site backend info.
+
+Our stack. JS Express MongoDB.
+
+* Example backend operations. 
+  * is logged in check
+  * conditional front end code generation.
+  * add / remove things from a DB.
+  * sort/rank things.
+  * return search results
+
+### 242. Note about Postman (HTTP in Depth)
+### 243. HTTP in Depth
+HTTP requests and responses.
+
+GET requests with URL query args.
+
+POST requests usually have a body.
+
+### 244. Backend Workflow Pt. 1
+Don't take notes on this.
+### 245. Backend Workflow Pt. 2
+You do not need to understand 99% of this code.
+// res=response.
+POST request with form-URLencoded body.
+
+```html
+<form action="/createDog" method="POST">
+<input type="text" name="name" placeholder="">
+<input type="text" name="breed" placeholder="">
+<input type="submit">
+</form>
+```
+### 246. IMPORTANT!!! Please Read! Note about Cloud9 signup
+
+The original c9.io has been closed down, but we have an awesome alternative cloud based IDE
+
+//GoormIDE Sign Up Instructions
+
+https://gist.github.com/nax3t/d6a9006b338355eba42c4e00144c7417
+
+// My goorm dashboard
+
+https://ide.goorm.io/my
+
+// mac local setup instructions
+
+https://zarkom.net/blogs/mac-local-coding-environment-6283
+
+### 247. Introduction to Cloud 9
+### 248. Setting Up Cloud9 
+END.
+
+---
+
+# Section 23: The Command Line
+
+---
+# TODO
+READ intro's to
+
+https://www.mongodb.com/
+
+https://nodejs.org/en/
+
+### 249. A NOTE ON SOLUTIONS!
+
+Every single bit of code I type from now until the end of the course is available  on this course's publicly visible github repo: https://github.com/nax3t/webdevbootcamp 
+
+### 250. Introduction to the Command Line
+### 251. CD and LS
+### 252. Touch and Mkdir
+### 253. Removing Files and Folders
+### 254. Command Line Exercise
+
 
 # TODO - my web site.
 * [x] FIX SIGNUP AND LOGIN POSITION @ BREAKPOINT AROUND SMALL. http://devtest.localhost/bs_startup_landing.html
