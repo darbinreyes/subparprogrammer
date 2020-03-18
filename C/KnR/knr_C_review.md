@@ -790,8 +790,19 @@ In this case, the shell changes the default assignments for the file descriptors
 `int n_read = read(int fd, char *buf, int n);` `int n_written = write(int fd, char *buf, int n);`
 
 ## 8.3 Open, Creat, Close, Unlink 
-
 ## 8.4 Random Access - Lseek 
+`prog >> myfile` // in Unix appends to myfile
+
+## 8.5 Example - An implementation of Fopen and Getc 
+## 8.6 Example - Listing Directories 
+## 8.7 Example - A Storage Allocator 
+
+# Appendix B - Standard Library 
+
+## B.1 Input and Output: <stdio.h> 
+
+
+
 
 
 
