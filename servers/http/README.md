@@ -460,9 +460,21 @@ using **whatever** programming language you're most familiar with.
 `LoadModule cgid_module modules/mod_cgid.so`
 
 `ScriptAlias "/cgi-bin/" "/usr/local/apache2/cgi-bin/"`
-# next CGI outside of ScriptAlias directories
+
+CGI outside of ScriptAlias directories
+
+Explicitly using Options to permit CGI execution
+
+.htaccess files - how to activate CGI programs if you do not have access to httpd.conf.
+
+User Directories
 
 ## Writing a CGI program
+
+two main differences between ``regular'' programming, and CGI programming.
+
+all output from your CGI program must be preceded by a MIME-type header. e.g Content-type: text/html // Note that this is an HTTP header name/value format string.
+
 ## But it's still not working!
 ## CGI modules/libraries
 ## For more information
