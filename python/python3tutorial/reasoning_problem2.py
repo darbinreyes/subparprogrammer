@@ -42,7 +42,7 @@ def plot_points(n, redpts, bluepts):
 
 def main():
     """ main function """
-    n = 10
+    n = 3
     xmin = 0
     xmax = 100
     ymin = 0
