@@ -2209,14 +2209,84 @@ END.
 ```javascript
 // events - https://api.jquery.com/category/events/
 click()
-keypress()
-on()
-```
 
+$("#theid").click(function(){console.log("The monkey claw is smelly")}) // works on collections of elements.
+// this keyword requires extra syntax 
+$(this) // instead of just "this"
+
+keypress()
+
+$("#theid").keypress(function(){console.log("The monkey claw is smelly")})
+// getting the key that was pressed- add arg.
+$("#theid").keypress(function(event){console.log("The monkey claw is smelly key = " + event.which)})
+
+on()
+// type of event is specified in an arg.
+
+$("#theid").on("click", function(){console.log("The monkey claw is smelly")})
+
+// 1 important difference between on("click") and click(). With on("click") all future nested elements inherit the event listener.
+```
 ## 215. Note about typo in the next lecture
 ## 216. jQuery Events: Keypress
+See above.
 ## 217. jQuery Events: On
+See above.
 ## 218. jQuery Effects 
+fading effects
+slide effects.
+
+```javascript
+//https://api.jquery.com/category/effects/fading/
+.fadeOut(dur, completefunc)
+.fadeIn()
+.fadeToggle()
+
+.slideDown(dur, completefunc)
+.slideUp()
+.slideToggle()
+// Misc.
+$("theelement").remove() // deletes elements from the DOM.
+```
+
+---
+
+# Section 20: Todo List Projects
+
+---
+
+### 219. Note About Todo List App Fade and Slide Animations
+
+making use of jQuery's fadeOut and fadeToggle methods, but the slide animation (for the trashcan icon) will be done with **CSS**, not jQuery. 
+### 220. Intro to the Todo List App
+### 221. Todo List: Folder Structure
+### 222. Todo List: Basic HTML
+### 223. Todo List: Marking Completion
+### 224. Todo List: Deleting Todos
+### 225. Note about next lecture (Creating Todos):
+### 226. Todo List: Creating Todos
+### 227. Todo List: Styling Pt. 1
+### 228. Todo List: Styling Pt. 2
+### 229. Note about Font Awesome 5 and Toggling the Form
+### 230. Todo List: Toggling the Form 
+END.
+
+---
+
+# Section 21: OPTIONAL Project: Patatap Clone	 ---
+
+### 231. IMPORTANT NOTE, PLEASE READ!!!
+### 232. Project Intro
+### 233. Note about Paper.js Exercise
+### 234. Paper.js Intro
+### 235. Paper.js Exercise
+### 236. Adding Keypress Events
+### 237. Paper.js Animations
+### 238. Note about next lecture (Howler.js)
+### 239. Adding Howler.js
+### 240. Patatap Clone Refactor 
+END.
+
 # TODO - my web site.
 * [x] FIX SIGNUP AND LOGIN POSITION @ BREAKPOINT AROUND SMALL. http://devtest.localhost/bs_startup_landing.html
 
