@@ -379,6 +379,22 @@ ret, m, n =  (0, 1, 4)
 
 void test_VII_5 (void)
 {
+  /**
+
+  Test cases computed separately in python.
+
+  >>> 9/3 == 12/4 == (9 + 12)/(3 + 4)
+  True
+  >>> 9/3 == 3/1 == (9 + 3)/(3 + 1)
+  True
+  >>> 9/3 == 4/1 == (9 + 4)/(3 + 1)
+  False
+  >>> 16/4 == 4/1 == (16 + 4)/(4 + 1)
+  True
+  >>> 7/1 == 21/3 == (7 + 21)/(1 + 3)
+  True
+
+  **/
   PAIR p0, p1; // Input values.
   int ret; // Computed return value.
   int expected_ret; // Expected return value.
@@ -422,6 +438,17 @@ void test_VII_5 (void)
   p1.a = 1;
   p1.b = 4;
   // sum = 5, 20
+  expected_ret = 1;
+  printf("(%d, %d) , (%d, %d), expected_ret = %d.\n", p0.a, p0.b, p1.a, p1.b, expected_ret);
+  ret = VII_5_sum_same_part (p0, p1);
+  assert_int_equal(expected_ret, ret);
+
+  p0.a = 1;
+  p0.b = 7;
+
+  p1.a = 3;
+  p1.b = 21;
+  // sum = 4, 28
   expected_ret = 1;
   printf("(%d, %d) , (%d, %d), expected_ret = %d.\n", p0.a, p0.b, p1.a, p1.b, expected_ret);
   ret = VII_5_sum_same_part (p0, p1);

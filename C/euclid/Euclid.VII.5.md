@@ -6,19 +6,19 @@ If a number is part of a number, and another is the same part of another, then t
 
 ## TODO
 
-* [ ] Be neat. On paper. In text.
+* [x] Be neat. On paper. In text.
 * [x] Read the guide. Note Joyce’s notational conventions e.g. formal vs informal numbers. Divides. Measures.
 * [x] Read the proposition proof. Note comments for clarification.
 * [x] Write max 3 sentence proof summary. Use EWD notation for brevity and notation practice.
-* [ ] Specify. What the program does. Design. Very high level pseudo code.
-* [ ] Implement in EWD notation, on paper.
-* [ ] Write down 3 test cases.
-* [ ] Test on paper. Use table method.
-* [ ] Implement on paper, in C. 
-* [ ] Implement in C on computer. Fully commented. Handle all function call errors and asserts gracefully.
-* [ ] Add and run test cases on computer. Use gdb debugging if needed.
-* [ ] Verify test case answers in python. Add results as comment in test.
-* [ ] Check .md for typos.
+* [x] Specify. What the program does. Design. Very high level pseudo code.
+* [x] Implement in EWD notation, on paper.
+* [x] Write down 3 test cases.
+* [x] Test on paper. Use table method.
+* [x] Implement on paper, in C. 
+* [x] Implement in C on computer. Fully commented. Handle all function call errors and asserts gracefully.
+* [x] Add and run test cases on computer. Use gdb debugging if needed.
+* [x] Verify test case answers in python. Add results as comment in test.
+* [x] Check .md for typos.
 
 ## Guide 
 * "deal with **distributivity** of division and multiplication over addition and subtraction."
@@ -200,8 +200,10 @@ int VII_5_sum_same_part(PAIR p1, PAIR p2) {
 
 ## Implementation in EWD notation.
 
+On paper.
+
 ## Misc.
 
-It is less clear how to implement this proposition in C compared to previous propositions. When you are computing something like "to find" the greatest common measure (VII.2) of two given numbers, it is easy to turn that into a program. But this proposition states that under a certain condition, something else can must be true. All I can think to do is to write a program which verifies the claim of the proposition in a given instance. In this case, the program verifies that if two given pairs of numbers are the same part, then the sum of the pairs is the same part as the given pairs.
+It is less clear how to implement this proposition in C compared to previous propositions. When you are computing something like "to find" the greatest common measure (VII.2) of two given numbers, it is easy to turn that into a program. But this proposition states that under a certain condition, something else must be true. All I can think to do is to write a program which verifies the claim of the proposition in a given instance. In this case, the program verifies that if two given pairs of numbers are the same part, then the sum of the pairs is the same part as the given pairs.
 
 
