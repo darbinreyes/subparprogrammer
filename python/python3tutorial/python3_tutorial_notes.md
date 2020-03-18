@@ -985,4 +985,9 @@ plt.show(block=False)
 
 ```
 
+# representing red-blue connections as a boolean matrix.
+
+use numpy?
+
+https://numpy.org/devdocs/user/quickstart.html
 
