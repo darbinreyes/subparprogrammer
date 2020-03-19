@@ -799,8 +799,20 @@ In this case, the shell changes the default assignments for the file descriptors
 
 # Appendix B - Standard Library 
 
+identifiers that begin with an underscore are reserved for use by the library, 
+
 ## B.1 Input and Output: <stdio.h> 
 
+A stream is a source or destination of data 
+
+### B.1.1 File Operations 
+remove()
+rename()
+tmpfile()
+tmpnam()
+setvbuf() setbuf()
+
+### B.1.2 Formatted Output 
 
 
 
