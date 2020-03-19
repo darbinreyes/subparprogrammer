@@ -20,11 +20,31 @@ If a number is parts of a number, and another is the same parts of another, then
 * [ ] Verify test case answers in python. Add results as comment in test.
 * [ ] Check .md for typos.
 
-## Guide 
+## Guide
+
+* multiplication by [non-unit] fractions distributes over addition.
+
+* if a = (m/n)b and d = (m/n)e then a + d = (m/n)(b + e)
 
 ## Proof 
 
 ## Proof Summary
+
+Let parts.(AB, C) = parts.(DE, F).
+
+I say that parts.(AB + DE, C + F) = parts.(AB, C).
+
+[Assuming AB is m, 1-n-th parts of C. We can represent this as AB = (m/n) × C. Then by hypothesis also DE = (m/n) × F.]
+
+[Joyce's proof seems off/may have a typo, using my book's proof below]
+
+"For since" parts.(AB, C) = parts.(DE, F)
+
+"therefore, as many parts of C as there are in AB, so many parts of F are there also in DE."
+// m × (C/n) = AB viz. m parts.
+// m × (F/n) = DE
+
+"Let AB be divided into the parts of C, namely AG, GB,"
 
 ## Specification and Design
 
