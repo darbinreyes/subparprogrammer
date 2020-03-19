@@ -17,8 +17,12 @@ def create_coordinates(n, coordsmin, coordsmax):
 
 def create_points(n, xmin, xmax, ymin, ymax):
     """ returns a list of n distinct point. color = 0 means red, 1 means blue """
-    xcoords = create_coordinates(n, xmin, xmax)
-    ycoords = create_coordinates(n, ymin, ymax)
+    #xcoords = create_coordinates(n, xmin, xmax)
+    #ycoords = create_coordinates(n, ymin, ymax)
+    #print(xcoords)
+    #print(ycoords)
+    xcoords = [93, 4, 76, 47, 94, 11]
+    ycoords = [31, 89, 59, 12, 27, 8]
     points = []
     for i in range(n):
         points.append(coloredPoint(0, xcoords[i], ycoords[i]))
