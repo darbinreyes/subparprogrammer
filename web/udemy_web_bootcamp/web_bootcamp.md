@@ -2373,6 +2373,10 @@ https://nodejs.org/en/
 
 Every single bit of code I type from now until the end of the course is available  on this course's publicly visible github repo: https://github.com/nax3t/webdevbootcamp 
 
+// goorm
+// help info hard to find - language issues - how to open file for edit from terminal? no man pages. delay a bit annoying.
+
+
 ### 250. Introduction to the Command Line
 ### 251. CD and LS
 ### 252. Touch and Mkdir
