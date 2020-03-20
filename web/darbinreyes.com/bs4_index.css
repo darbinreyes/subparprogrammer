@@ -12,10 +12,32 @@ body {
   font-family: inherit;
 }
 
-/*#mycontent {
-  text-align: center;
-  padding-top: 10%;
-}*/
+nav {
+  margin-bottom: 15%;
+  border-bottom: 1px solid black;
+  border-radius: 1rem;
+}
+
+.navbar-brand {
+  font-size: 1.44rem;
+}
+
+.nav-link {
+  font-size: 1.1rem;
+  padding: 10px;
+}
+
+.navbar-light .navbar-toggler {
+  /* Give the hamburger a border. */
+  border-color: black; 
+  border-radius: 1rem;
+}
+
+.navbar-light .navbar-nav .active>.nav-link {
+  /* active nav tab style */
+  color: white; 
+  background-color: #343A40;
+}
 
 h1 {
   font-size: 300%;
@@ -29,16 +51,5 @@ h2 {
 hr {
   border-top: 1px solid black;
   width: 50%;
-  box-shadow: 2px 3px 1px black;
+  /* box-shadow: 2px 3px 1px black; */
 }
-
-/*.navbar-default .navbar-nav>li>a {
-  color: black;
-}*/
-
-
-
-/*.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
-  color: #fff;
-  background-color: #000000;
-}*/
