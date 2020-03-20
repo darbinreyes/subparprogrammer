@@ -1,0 +1,44 @@
+html {
+  height: 100%;
+  font-size: .8rem;
+  font-family: 'Major Mono Display', monospace;
+}
+
+body {
+  background: url("./gascatv2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: top;
+  font-family: inherit;
+}
+
+/*#mycontent {
+  text-align: center;
+  padding-top: 10%;
+}*/
+
+h1 {
+  font-size: 300%;
+  text-shadow: 4px 4px 4px black;
+}
+
+h2 {
+  font-size: 110%;
+}
+
+hr {
+  border-top: 1px solid black;
+  width: 50%;
+  box-shadow: 2px 3px 1px black;
+}
+
+/*.navbar-default .navbar-nav>li>a {
+  color: black;
+}*/
+
+
+
+/*.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+  color: #fff;
+  background-color: #000000;
+}*/
