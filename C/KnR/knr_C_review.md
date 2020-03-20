@@ -814,7 +814,15 @@ setvbuf() setbuf()
 
 ### B.1.2 Formatted Output 
 
+format = ordinary chars + conversion specifications(->each successive arg to _printf. 
 
+conversion specifications = "%" + flags + field width + "." + precision + length modifier + conversion char
 
+### B.1.3 Formatted Input 
+
+scanf will read across line boundaries to find its input 
+
+### B.1.4 Character Input and Output Functions 
+ 
 
 
