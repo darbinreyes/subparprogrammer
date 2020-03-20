@@ -2353,6 +2353,14 @@ https://ide.goorm.io/my
 
 https://zarkom.net/blogs/mac-local-coding-environment-6283
 
+// Amazon's cloud 9 user guide
+
+https://docs.aws.amazon.com/cloud9/latest/user-guide/ide.html
+
+// to install mongodb in cloud 9 - this didn't work >> https://docs.mongodb.com/manual/tutorial/install-mongodb-on-amazon/
+
+sudo yum install mongodb // this worked
+
 ### 247. Introduction to Cloud 9
 ### 248. Setting Up Cloud9 
 END.
@@ -2377,11 +2385,17 @@ Every single bit of code I type from now until the end of the course is availabl
 // help info hard to find - language issues - how to open file for edit from terminal? no man pages. delay a bit annoying.
 
 
+// cloud 9 dash board on amazon.
+ 
+https://us-east-2.console.aws.amazon.com/cloud9/home?region=us-east-2
+
 ### 250. Introduction to the Command Line
 ### 251. CD and LS
 ### 252. Touch and Mkdir
 ### 253. Removing Files and Folders
 ### 254. Command Line Exercise
+END.
+
 
 
 # TODO - my web site.
