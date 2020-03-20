@@ -41,10 +41,30 @@ I say that parts.(AB + DE, C + F) = parts.(AB, C).
 "For since" parts.(AB, C) = parts.(DE, F)
 
 "therefore, as many parts of C as there are in AB, so many parts of F are there also in DE."
+
 // m × (C/n) = AB viz. m parts.
+
 // m × (F/n) = DE
 
 "Let AB be divided into the parts of C, namely AG, GB,"
+
+//  m × (C/n) = AB = AG + GB
+
+"and DE into the parts of Fm namely DH, HE;"
+
+// m × (F/n) = DE = DH + HE
+
+"thus the multitude of AG, GB will be equal to the multitude of DH, HE."
+
+// multitude.(AG, GB) = 2 = multitude.(DH, HE)
+
+"And whatever part AG is of C, the same part is DH of F also,"
+
+// part.(AG, C) = part.(DH, F)
+
+"therefore, whatever part AG is of C, the same part also is the sum of AG, DH of the sum of C, F. [VII.5]"
+
+// ⇒ part.(AG, C) = part.(AG + DH, C + F)
 
 ## Specification and Design
 
