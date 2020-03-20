@@ -38,10 +38,16 @@ def plot_points(n, redpts, bluepts):
     for p in bluepts:
         ax.plot(p.x, p.y, marker='.', color='blue', markersize=12)
 
-    # This connects the points in the same order each time, I need to represent
-    # the connections with a boolean matrix.
-    for i in range(n):
-        ax.plot([redpts[i].x, bluepts[i].x], [redpts[i].y, bluepts[i].y], color='black')
+    # This connects the points according to the given boolean matrix.
+    # Let the row index correspond to blue points and the column index
+    # correspond to red points.
+    conn_matrix = [[False, True, False],
+                   [True, False, False],
+                   [False, False, True]]
+    for i in range(len(conn_matrix)):
+        for j in range(len(conn_matrix[i])):
+            if conn_matrix[i][j]:
+                ax.plot([bluepts[i].x, redpts[j].x], [bluepts[i].y, redpts[j].y], color='black')
     plt.show(block=True)
 
 def main():
