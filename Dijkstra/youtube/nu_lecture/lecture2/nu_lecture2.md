@@ -68,8 +68,7 @@ The key is to focus on the existence of a line that goes through exactly two poi
 
 In terms of members and clubs the theorem is not true. It is not too difficult to construct a counter example. Place a population of seven, yes, yea, place a population of seven persons in a regular fashion around a ring, 
 
-//a.0
-
+![a.0](a.0.png)
 
 * // BB
 * 7 clubs of 3 members
@@ -354,9 +353,11 @@ X ∨ Y. // "this is or"
 
 And the other one it gives is "except when". And if you start analyzing what "except when" means then you will come to not equivalent [≢]. So even the statement of, the theorem, is already ambiguous. Coxeter makes it worse in the sense that, he does not give, to begin with, the formulation of Sylvester, he gives his own definition, or statement of the theorem, but thereby he drops the requirement that the points are distinct, and then the theorem is false, you see, you can easily construct a counter example. OK that is what I wanted to say about how a once deep theorem, these days, is a trivial programming exercise. Any questions? "...." Yes, yes, and that is, that depends on how you, generalize distinct points.One way of defining distinctness in the plane, is that any two points uniquely determine, the line through them. The generalization for three dimensions is that any three points, uniquely determine the plane through them. And then, what you then can do is take one point, project the other points in the plane, prove the theorem in the plane, and then restore the lines in the planes again. My guess is that Coxeter has missed that generalization, because he never took the trouble of stating explicitly that the points should be distinct, or he didn't care. I mean that's the other possibility. Yes, sir. "...". Untrained mathematicians find it very difficult, no not necessarily, the program is short, I think the correctness proof simple, but what is certainly true is that in general, a program is a very compact deposit of our intellectual labors, sure. Yes, sir. "...". Yes. Yes. Real euclidian plane. Yah. Finite number of points, each point is red or blue, there exists a line that contains more than one point of homogenous color. Ahh hah, ahh hah, yeah, OK. Its not an open it is a closed problem. OK well, I might try it, tonight in bed. 
 
-Well, thinking horizontally is a nice place. "...". No same argument. Yea, yea, well, you use this step. You may use the implication in the other sense, in which it's very common. I find, there is another comment, the way in which we have an influence by our education. Everybody knows the monotonicity of the addition in this form.
+Well, thinking horizontally is a nice place. "...". No same argument. Yea, yea, well, you use this step. You may use the implication in the other sense, in which it's very common. I find, there is another comment, the way in which we have an influence by our **education**. Everybody knows the monotonicity of the addition in this form.
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=54m20s)
+
+And immediately if you suggest this, you say well what can you conclude, people come up with the sum. To do it the other way around, it's just a form that we don't know, it's logically equivalent. I find that a little bit frightening. OK. Thank you.
 
 ---
 
