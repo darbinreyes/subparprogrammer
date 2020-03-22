@@ -16,6 +16,7 @@ nav {
   margin-bottom: 15%;
   border-bottom: 1px solid black;
   border-radius: 1rem;
+  box-shadow: 5px 5px 5px #343A40;
 }
 
 .navbar-brand {
@@ -31,6 +32,7 @@ nav {
   /* Give the hamburger a border. */
   border-color: black; 
   border-radius: 1rem;
+  box-shadow: 1px 1px 5px #343A40;
 }
 
 .navbar-light .navbar-nav .active>.nav-link {
