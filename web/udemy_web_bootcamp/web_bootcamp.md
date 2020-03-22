@@ -2396,6 +2396,184 @@ https://us-east-2.console.aws.amazon.com/cloud9/home?region=us-east-2
 ### 254. Command Line Exercise
 END.
 
+---
+
+# Section 24: Node JS
+
+---
+
+### 255. Introduction to Node
+What: a runtime enviromment. Like plain Java. Allows server side JS execution. 
+Why use it: popular. Many Libs. Same lang. on front and backend. "Fast".
+
+// Why not use any other backend language
+### 256. Using Node
+
+node - starts node interactive mode. - no browser related variables and functions.
+
+irb - starts ruby interactive mode.
+
+REPL = read evaluate print loop.
+
+### 257. Node Echo Exercise
+### 258. Node Average Exercise
+### 259. Introduction to NPM
+
+NodeJS program for installing libs/apps. Like Python pip, mac ports. Linux Yum.
+
+Express is a npm package.
+
+Analogous to client side JS script includes like jQuery.
+ 
+### 260. Note about Installing NPM Packages
+ignore npm WARN.
+
+Now, when you open up the cat-me folder from within the node_modules directory you will find all of the cats inside of cats.JSON (instead of cats.js).
+
+### 261. Installing NPM Packages
+
+npm install cat-me
+
+node_modules dir created locally.
+
+//nodejs include.
+
+var thepkg = require("cat-me") // cat-me/index.js
+
+thepkg();
+
+npm docs // npmjs.com
+
+### 262. Note about NPM Faker Exercise
+### 263. NPM Faker Exercise
+
+npm install faker
+```javascript
+// FYI on Amazon cloud 9 when you run "npm install faker" the install directory != your CD, instead it installs in /home/ec2-user//node_modules // This dir is already in your path.
+
+// FYI asking npm for help - npm help install.
+
+//
+var fkr = require("faker");
+
+for(var i = 0; i < 10; i++) {
+  console.log("Get me a Ferrari cake!");
+  console.log(fkr.commerce.productName() + " " + fkr.commerce.price());
+}
+```
+
+END.
+
+---
+
+# Section 25: Server Side Frameworks
+
+---
+ ### 264. Introduction to Express
+
+lib vs. framework. Both external code. Lib you decide which methods to use. Framework - give up some control - you fill in the gaps - templates - setup work already done.
+
+What is: Express - Web Dev Framework within NodeJS.
+
+Why: Popular, good docs. heavy wight vs light weight - how much work you need to do. Heavy weight means less work for you. Light weight, more work but you have more control. Ruby/Rails is heavy weight - get things done without understanding.
+
+expressjs.com // API ref. 
+### 265. Note about Our First Express App
+
+shut the server down by pressing ctrl + c
+
+### 266. Our First Express App
+
+```javascript
+// require statements// includes
+
+var express = require("express");
+
+var app = express();
+
+// routes // app.http_method.(URL_REL_PATH, function callbackfunc(request, response) {
+//  response.send("The HTML");
+//});
+
+// Handling a get request.
+app.get("/", function(request, response){
+   response.send("home"); 
+});
+
+// starting the node server in cloud 9
+
+app.listen(process.env.PORT, process.env.IP, function(){
+    console.log("So this is NodeJS?! " + process.env.IP + " " + process.env.PORT);
+});
+```
+
+TOOL NOTE: in cloud 9 press ctrl+ESC to hide/show console.
+TOOL NOTE: To find out your node server URL click Preview->Previous Running APP. Then click on the internal browser url line.
+
+POSTman req doesn't work. - FIX = install this chrome extension. https://chrome.google.com/webstore/detail/postman-interceptor/aicmkgpgakddgnaphhhpliifpcfhicfo/related
+
+
+ Stuff below wasn't the fix for broken POSTman but it may come in handy later.
+ 
+ --  see here for solution - https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-use-postman-to-call-api.html -- see here for your AWS auth settings - https://console.aws.amazon.com/iam/home?region=us-east-2#/security_credentials
+
+for AccessKey and SecretKey see my local dic xxx/dev/keyfile.csv
+
+AWS region = us-east-2
+Service Name = execute-api
+
+### 267. The Package.JSON
+
+package.JSON files - come with all npm packages - info about a given npm package. - package dependencies. Why git repo doesn't contain a node_modules directory.
+
+// "npm --save" option - saves the package name into our package.JSON file. - to create a package.JSON file use "npm init" - wizard creation too. To add a dependency npm install cat-me --save.
+
+### 268. How to automate server restart
+
+npm i -g nodemon
+
+nodemon myapp.js
+
+// create a package.JSON to avoid having to pass nodemon a file name
+
+### 269. Route Params
+
+* "*" 
+  * // catch for 404 NOT found.
+
+
+
+* route order 
+  * the catch all "*" should be the last one, if its first then it will essentially override all other app.get() callbacks. This implies that the first matching route "wins", once a callback runs execution stops after that request is handled.
+
+* route params aka path variables - special chars in the route.
+  * ":" e.g. "/r/:subName" , "/r/:subName1/comments/:subName2" - ":" means accept any path node name here. e.g. the first route would match "/r/caca" "/r/poopoo".
+  * To determine the value of :subName, use request.params["subName"]/request.params.subName.
+      * "i now have a dynamic web page".
+
+### 270. Express Basics Exercise
+### 271. Express Basics Exercise: SOLUTION 
+EJS = Embedded Javascript.
+ 
+END.
+
+---
+
+# Section 26: Intermediate Express
+
+--- 
+### 272. Note about Templates and EJS 
+with npm init, be sure not to **name** the project (or the **folder** that the project lives inside of) the same as any of the node **packages** being used in the project itself. e.g. don't use "ejs" or "express". To fix rename the project on the first line: "name": "project-name-here".
+
+Project names need to be all lowercase and contain url friendly characters, e.g., no spaces, instead use a hyphen.
+
+### 273. Templates and EJS 
+### 274. EJS: Conditionals and Loops 
+### 275. Note about Serving Custom Assets 
+### 276. Serving Custom Assets 
+### 277. Post Requests Part 1 
+### 278. Post Requests Pt. 2 
+END.
 
 
 # TODO - my web site.
