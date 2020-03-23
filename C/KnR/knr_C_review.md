@@ -823,6 +823,11 @@ conversion specifications = "%" + flags + field width + "." + precision + length
 scanf will read across line boundaries to find its input 
 
 ### B.1.4 Character Input and Output Functions 
- 
+### B.1.5 Direct Input and Output Functions 
+### B.1.6 File Positioning Functions 
+### B.1.7 Error Functions 
+
+## B.2 Character Class Tests: <ctype.h> 
+
 
 
