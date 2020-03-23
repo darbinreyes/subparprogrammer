@@ -75,8 +75,9 @@ In terms of members and clubs the theorem is not true. It is not too difficult t
 
 and now I'm going to create seven clubs, of three members.
 
-//a.1
-//a.2
+![a.1](a.1.png)
+
+![a.2](a.2.png)
 
 And I do that by putting these three members in one club. The remaining six clubs, you get by rotation of that **triangle**.
 
@@ -136,11 +137,11 @@ There is a point not on q, yes. So my proposal is to take that into account by i
 
 I'm going to. The fact that this possibility, to assign to variable E a point that lies not on q, and to maintain that invariance, that is the way in which I exploit the non-linearity of the given points. Notice that the possibility to assign to E such a value is the only possible conclusion that we can directly draw from the non-linearity. That is, the maintenance of this invariant extracts out of the fact that the points are not collinear everything that can be extracted from it. Now, not surprisingly in the change of q, we will have to change E as well, now let us inspect a little bit what kind of freedom we have. Well, what do we know? Well, more than two points lie on q, so we can point to at least 3 points that lie on q. Let us name them A, B, and C, lie on q, and E lies not on q. And I will make a picture, I promise to you that, that will be the only picture I make. But I wait a little bit. We have to change q. Now what possibilities do we have? As it is, well I will make to pictures. q, here are A, B, and C, and here is E.
 
-// a.3
+![a.3](a.3.png)
 
 Yah. [The] claim is that we have only three possibilities for the new value of q, and that's from E through this one [A], from E through that one [B], and from E through that one [C]. Because these four points are the only points the existence of which we can guarantee. Through two of those [A, B, C] is excluded because then we don't change q. So the new q has to go through the old E, and through one of those three. Now, the one it goes through I will call A, I am free in naming here. So the new value of q becomes the line E, A. And now I must, yah so eh, now I rub this out again, I'm going to make a new picture, this is q, and this is E, and I put an A here, and this will be my new q, yah.
 
-// a.4
+![a.4](a.4.png)
 
 Now, the existence of E has been used to show the possibility of introducing E and keeping this second term of the invariant, invariant. Now we have to think about a termination argument. Now listen, in the original statement of the theorem we have a finite number of points, this means that our state space that consists of a q and an E, has a finite number of possible values. There is a finite number of values, possible values for q, and for each value of q there is a finite possible number of values for E. And it is in this finite space that have to find a termination argument.
 
@@ -148,25 +149,27 @@ Now, the existence of E has been used to show the possibility of introducing E a
 
 How do we find the termination argument? Well, the standard way is that you define a natural function on the state space which in each step of the repetition is decreased by at least 1, however since our space consists of a finite number of states we can drop the constraint of the variant function being integer, it suffices to define an **integer function of the state** of which subsequently we can prove that it's bounded from below and decreases in each step. Now our current state always exists of a line q and a point E not on that line. Can anybody thing of a real function of a point and a line that is bounded from below. The euclidian distance, yes, thank you very much. But if we do take the Euclidian distance, then I know which of the other two B and C, will be take as our new E, the choice which minimizes the distance to the new q as much as possible. So here, we put of B and C, the nearest to our new q. And now, of the six possibilities that we had here, there are still three left and that is in the choice of capital A. Because the choice which new point has been settled by this. So now our only obligation is, to see to it, to prove, possibly by resolving the remaining non-determinacy, that our algorithm terminates. That is, that the distance from E to Q, actually decreases. So here we are, this was our old E and this was our old q.
 
-//a.6
+![a.6](a.6.png)
 
 And we call this distance h
 
-//a.7
-//a.8
+![a.7](a.7.png)
+
+![a.8](a.8.png)
 
 And well, B is somewhere, the new distance
 
-//a.9
+![a.9](a.9.png)
 
 The distance from B to the new q is that
 
-//a.10
+![a.10](a.10.png)
 
 And I call that little b
 
-//a.11
-//a.12
+![a.11](a.11.png)
+
+![a.12](a.12.png)
 
 And I will do the same for capital C, which has a distance little c to the new q, only I don't make that drawing because that **invokes a case analysis** because there are all sorts of places where C might lie and I'm **not** going to do that. My proof obligation is for the termination is that I can demonstrate that the minimum of little b and little c is actually less than h.
 
@@ -183,11 +186,11 @@ Now, I have to show this, I'm going to simplify that, the very first thing is th
 // b min c < h
 // = {elimination of min}
 
-//a.13
+![a.13](a.13.png)
 
 and the minimum of b and b, less than h, is according to the rules of my game, is b is less than h or c is less h.
 
-//a.14
+![a.14](a.14.png)
 
 ---
 
@@ -219,7 +222,7 @@ Now, ehh, the next thing I wish to do, is to eliminate the lower case letters, o
 
 // My comment. EUCLID FTW!
 
-// a.15
+![a.15](a.15.png)
 
 //BB
 // b min c < h
@@ -241,76 +244,81 @@ So BA less than EA is the one. Is that OK? Yes, apparently. Am I a little bit am
 // = {}
 // BA < EA ∨ CA < EA
 
-//a.16
+![a.16](a.16.png)
 
 Let me check. Will you check wether I have made an error. Yes. A, AB. Ehh, this does not hold because the space is finite. But I did make an error. I did make an error. I did make an error. Yes, yes, yes. There is a one bit rabbit in this proof. And I made the wrong choice, I chose the line, but I shouldn't do that. This by the way was very instructive and I leave it that way. The remark is that I have to choose a new E and let that be A, that is my new E, and now the question is will the new q go through B or will it go through C, so my new E becomes A and my new q becomes, of the lines sorry BC and, sorry, of the lines BE and CE the nearest to A, so and now I will have P again.
 
-//a.17
-//a.18
+![a.17](a.17.png)
+
+![a.18](a.18.png)
 
 Yes. No, no, no. One of the three, one of the three, now here is our drawing. Here was q, here was the old E, here is, my A, here is for instance my B, now this, now I'm interested in this distance, the distance from A to the new q. Because this will be my new E.
 
-//a.19
+![a.19](a.19.png)
 
 Now we have the same picture, we call this b and we call this h
 
-//a.20
+![a.20](a.20.png)
 
 Only now it becomes a little bit different here
 
-//a.21
-//a.22
+![a.21](a.21.png)
+
+![a.22](a.22.png)
 
 because b less than h is now, AB less than BE, similarly, c less than h, will be that AC less than CE.
 
-// a.23
+![a.23](a.23.png)
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=35m20s)
 
 So, oops, OK. Ehh, next step, what does this follow from? Do we have a way to derive this? What does this follow from? Now have a look, if, ohh this is very funny, if x is larger than y and x prime is larger than y prime. What you are you willing to conclude? In general. x is larger than y and x prime is larger than y prime. Can you draw an obvious conclusion from that?
 
-// a.24
+![a.24](a.24.png)
 
 Yes, for instance, x plus x prime, is at least, I can even put at least here, yes. x plus x prime is at least y plus y prime. 
 
-// a.25 
-// a.26
+![a.25](a.25.png)
+
+![a.26](a.26.png)
 
 Monotonicity of the addition. Write now down the contrapositive of this relation. x less than y or x prime less than y prime follows from x plus x prime less than y plus y prime. 
 
-//a.27
+![a.27](a.27.png)
 
 And therefore, here you see the form of exactly this relation, and on account of monotonicity 
 
-//a.28
+![a.28](a.28.png)
 
 this follows from AB + AC is less than BE + CE. OK.
 
-//a.29
+![a.29](a.29.png)
 
 So far so good. Now listen, we will, b and c are distances, so the minimum of them is at least 0, we have to demonstrate that that minimum is less than h, we can never prove that for h is 0, so we have to take into account something, some statement of the fact that h differs from 0. Now h differs from 0, tells us because the points A, B, and C are all different, h differs from 0 tells us that A does not lie on q, but since E only occurs in connection with B and C, we now characterize the line q as the line through B and C, and h differs from 0 we now formulate as triangle E, B, C is not degenerate. But if triangle EBC is not degenerate, hence, BC is **actually** less BE plus EC. 
 
-//a.30
-//a.31
-//a.32
+![a.30](a.30.png)
+
+![a.31](a.31.png)
+
+![a.32](a.32.png)
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=39m40s)
 
 The **triangular inequality** that the sum of two sides is larger than the third side. I don't know. I'm looking at this. And on account of monotonicity I conclude that this follows from AB plus AC is at most BC. 
 
-//a.33
+![a.33](a.33.png)
 
 Yah, from monotonicity, from this. Huh? But for this transformation replacing this by the smaller BC, I don't need to take A into account, you are rushing ahead, your conclusion is correct. Again, on account of the triangular inequality, AB plus AC is at least BC. 
 
-//a.34
+![a.34](a.34.png)
 
 Hence this is equivalent to AB plus AC equals BC.
 
-//a.35
+![a.35](a.35.png)
 
 And these are all positive distances and the only way in which this can be is if A lies between B and C. So we have concluded that it is OK with A between B and C.
 
-//a.36
+![a.36](a.36.png)
 
 Of course this is the only symmetric choice so it's not surprising. But what is charming is that, that fact, is forced upon us by the calculation that shows that the minimum of little b and c is less than h. End of proof. Why is this very nice? If you compare it with Kelly's proof that contains the same element, Kelly says, well, consider all, lines, all possible combinations for q and E. All possible pairs of a line and a point not on that line. Finite collection, at least one such pair contains the minimum distance. And then he says well OK suppose that that, of course Kelly in 1948 proved it by a contradiction, so immediately he says suppose that there are three points on the line q and then he derives a contradiction, we don't need to do that. Now, at the time, Kelly's introduction of the euclidian distance was greeted as a great invention, original idea that only a genius can have, because of course it is a foreign element because the problem statement itself has nothing to do with euclidian metric, its the, the theorem is a affine invariant. So it is a foreign element, but we know that given a program with a repetition we know that whereas the invariant of the repetition is uniquely determined by the program itself, the variant function, the decreasing thing that one invents to prove the termination argument, that's not determined at all, if you have some function t that decreases, any monotonic function of it will do it as well, of t, will do it as well. So we know, that if in arguments like that any inventiveness is required, it is at the choice of the variant function. Now I have taken extensive experiments with this problem at oral examinations and I have also shown this a number of times lecturing to an audience. At the critical moment, that the euclidian distance between q and E has to be invented. It has always been the audience that supplied this foreign body to the argument. In short, as soon as you regard this as a programming exercise, Kelly's invention becomes the most natural thing to do. So there has been progress. As final mark of progress, I would like to read to you, because it's a little bit long to write down.
 
