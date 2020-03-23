@@ -16,9 +16,19 @@ on the Teaching of Computing Science
 
 ---
 
-The problem I would like to deal with in this hour is interesting as an example of a possible interplay between mathematics and computing science, programming as a matter of fact. The history of this problem is interesting in the sense that Sylvester conjectured it in 1893, he and his contemporaries could do nothing with it. It remained dormant until 1933 when Erdüs revived interest in the problem. And some time later a proof was given by T. Gallai. I have not seen that proof but it is a proof that even Coxeter describes rather complicated. And we had to wait until 1948, until L.M. or L.N. I'm not quite sure so I omit it. Until Kelly, came, it is L.M., OK. Until L.M. Kelly came with a palatable proof. 
+The problem I would like to deal with in this hour is interesting as an example of a possible interplay between mathematics and computing science, programming as a matter of fact. The history of this problem is interesting in the sense that Sylvester conjectured it in 1893, he and his contemporaries could do nothing with it. It remained dormant until 1933 when Erdüs revived interest in the problem. 
 
-Now let me first state the theorem, and that is for any finite number of distinct points, in the real euclidian plane, and with real we mean that the coordinates are not complex, we can assert the following, all the points are co-linear, or their exists a straight, through exactly two of them, with exactly two I mean not three.
+//b.0
+
+And some time later a proof was given by T. Gallai. 
+
+//b.1
+
+I have not seen that proof but it is a proof that even Coxeter describes rather complicated. And we had to wait until 1948, until L.M. or L.N. I'm not quite sure so I omit it. Until Kelly, came, it is L.M., OK. Until L.M. Kelly came with a palatable proof. 
+
+//b.2
+
+Now let me first state the theorem, and that is for any finite number of distinct points, in the real euclidian plane, and with real we mean that the coordinates are not complex, we can assert the following, all the points are co-linear, or their exists a straight line, through exactly two of them, with exactly two I mean not three.
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=02m55s)
 
@@ -29,7 +39,11 @@ Now let me first state the theorem, and that is for any finite number of distinc
 * finite number of distinct points in the real Euclidian plane.
 * all the points are **collinear** or their exists a straight line through exactly 2 of them
 
-Now one of the things that may indicate that the theorem is possible and not completely trivial is that this is not a combinatorial theorem. You see because, oh yea sorry, for the sake of brevity, in the remaining of this hour, I will say points, I mean **distinct points**, and when I say line, I mean **straight line**.
+Now one of the things that may indicate that the theorem is possible and not completely trivial is that this is not a combinatorial theorem. 
+
+#next
+
+You see because, oh yea sorry, for the sake of brevity, in the remaining of this hour, I will say points, I mean **distinct points**, and when I say line, I mean **straight line**.
 
 Well the Euclidian **axiom** that connects points and lines is that any two points uniquely determine a line through them
 
