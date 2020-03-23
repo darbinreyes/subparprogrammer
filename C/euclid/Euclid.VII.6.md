@@ -66,6 +66,16 @@ I say that parts.(AB + DE, C + F) = parts.(AB, C).
 
 // ⇒ part.(AG, C) = part.(AG + DH, C + F)
 
+"For the same reason, whatever part GB is of C, the same part also is the sum of GB, HE of the sum of C, F."
+
+// ⇒ part.(GB, C) = part.(GB + HE, C + F)
+
+"Therefore, whatever part**s** AB is of C, the same parts also is the sum of AB, DE of the sum of C, F."
+
+// parts.(AB, C) = parts.(AB + DE, C + F)
+
+Q.E.D.
+
 ## Specification and Design
 
 ## Implementation in EWD notation.
