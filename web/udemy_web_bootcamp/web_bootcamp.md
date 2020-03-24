@@ -2568,6 +2568,17 @@ with npm init, be sure not to **name** the project (or the **folder** that the 
 Project names need to be all lowercase and contain url friendly characters, e.g., no spaces, instead use a hyphen.
 
 ### 273. Templates and EJS 
+EJS = Embedded Javascript.
+
+* using response.render() vs send()
+  * `response.render("filename.ejs")`
+  * returns filename.ejs under the `./views` directory.
+* using EJSaws
+  * default dir for EJS is ./views.
+* variables in EJS
+  * response.render("filename.ejs", {varname1: varname1value})
+ 
+
 ### 274. EJS: Conditionals and Loops 
 ### 275. Note about Serving Custom Assets 
 ### 276. Serving Custom Assets 
