@@ -37,18 +37,14 @@ Now let me first state the theorem, and that is for any finite number of distinc
 * 1933 Erdüs
 * 1948 L. M. Kelly
 * finite number of distinct points in the real Euclidian plane.
-* all the points are **collinear** or their exists a straight line through exactly 2 of them
+* all the points are **collinear** or their exists a straight line through exactly 2 points
 
-Now one of the things that may indicate that the theorem is possible and not completely trivial is that this is not a combinatorial theorem. 
-
-#next
-
-You see because, oh yea sorry, for the sake of brevity, in the remaining of this hour, I will say points, I mean **distinct points**, and when I say line, I mean **straight line**.
+Now one of the things that may indicate that the theorem is possible and not completely trivial is that this is not a combinatorial theorem. You see because, oh yea sorry, for the sake of brevity, in the remaining of this hour, I will say points, I mean **distinct points**, and when I say line, I mean **straight line**.
 
 Well the Euclidian **axiom** that connects points and lines is that any two points uniquely determine a line through them
 
 * // BB
-* any 2 points determines uniquely a line through them
+* any 2 points determine uniquely a line through them
 
 Now let us translate the formulation of all these properties and theorems a little bit. Let us call, let us translate, points into persons, lines into clubs, a point lies on a line is that person is a member of the club.
 
@@ -108,7 +104,47 @@ That is, in the complete, in the population of 7 persons, you can isolate 21 pai
 
 So we know from this counter example that somewhere along the proof we have to use more of euclidian geometry, more properties of the euclidian plane, than just that any two points uniquely determine the line straight line through them. Now what I propose to do is to approach this problem as a programming exercise and what I shall do is show that if the given points are not collinear that then there exists a line through exactly two of those points. And I will show the existence of such a line by designing an algorithm that compute that line. 
 
-Well, I need one function, "nopo" that is short for the "number of point on". We will have one variable, q, of type line. I may need a little bit more space, I will develop the program here. We have one variable q of type line. And what can we do with. We have to initialize that variable, now since lines are determined by two points, my proposal is that the program initializes q such that upon initialization P holds. And what will be P be, well, there is no point in considering lines that go through no points and go through one point, so we shall initialize q in such a way, that the number on q, well ideally of course its exactly two, but I cannot guarantee that, it may larger. But in any case, we can confine our attention to q's that go through at least two points. So that's being done. Next is the test, we are now going to create a repetition, wether this q is acceptable, well, it is acceptable if the number of points on q equals 2, however if that number is larger than two, then something has to be done. Well upon completion of this loop, we know P, and the falsity of the guard, that is that nopo of q is at most 2, well, P says that nopo of q is at least 2, so hence the number of points on q equals 2 and we are done. Well the only thing of course is that here, as the repeatable statement, we have to **change q**, under invariance of P.
+Well, I need one function, "nopo" that is short for the "number of point on". 
+
+//b.10
+
+We will have one variable, q, of type line. I may need a little bit more space, I will develop the program here. We have one variable q of type line. 
+
+//b.11
+
+And what can we do with. We have to initialize that variable, now since lines are determined by two points, my proposal is that the program initializes q such that upon initialization P holds. 
+
+//b.12
+
+And what will be P be, 
+
+//b.13
+
+well, there is no point in considering lines that go through no points and go through one point, so we shall initialize q in such a way, that the number of points on q, well ideally of course its exactly two, but I cannot guarantee that, it may larger. 
+
+//b.14
+
+But in any case, we can confine our attention to q's that go through at least two points. So that's being done. Next is the test, 
+
+//b.15
+
+we are now going to create a repetition, wether this q is acceptable, well, it is acceptable if the number of points on q equals 2, however if that number is larger than two, then something has to be done. 
+
+//b.16
+//b.17
+
+Well upon completion of this loop, we know P, and the falsity of the guard, that is that nopo of q is at most 2, 
+
+//b.18
+
+well, P says that nopo of q is at least 2, so hence the number of points on q equals 2 and we are done. 
+
+//b.19
+
+Well the only thing of course is that here, as the repeatable statement, we have to **change q**, under invariance of P.
+
+//b.9
+//b.20
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=12m15s)
 
@@ -130,26 +166,46 @@ Well, I need one function, "nopo" that is short for the "number of point on". We
 * nopo = # of points on. 
 * P : nopo.q ≥ 2
 
-```
-//v0
-q : line
-; initializes q {P
-; do nopo.q > 2 →
-  q := ... {P}
-od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
-```
-
 So this is the program and its OK and does the job, provided that we can demonstrate that this program terminates. Now, in order to prove termination of this program we might have to do two things. First of all, we might have to take into things that we didn't know, secondly, that are given but we haven't used yet, secondly, we may have to resolve some of the non-determinism,
 
 ? alia sort of vagueness
 
-in the statement that changes q. One thing that I have ommitted to point out, and that is that here, we are confining our situation to the case that the points are not collinear. Because that was the circumstance under which we were going to show the presence of a line q so that nopo of q equals two. The fact that the points are not collinear implies that there are at least **three** points, and therefore it's possible to initialize q such that P holds. You see because to see to it that the initial value of q is such that at least two points lie at q you need at least two points. So here we are, now we have here made a very **meager**  use of the fact that it is given that the points are not collinear, we have only used the consequence that there are at least two points. Now, question, what general conclusion can we draw with respect to q and the points from the fact that the points are not collinear. 
+in the statement that changes q. One thing that I have ommitted to point out, and that is that here, we are confining our situation to the case that the points are not collinear. 
 
-There is a point not on q, yes. So my proposal is to take that into account by introducing a variable of type point. Variable E will be of type point, E will also be initialized, and the fact that the points are not collinear, I can celebrate that by seeing to it that when q goes through two points, E lies not on q.
+//b.5
+
+Because that was the circumstance under which we were going to show the presence of a line q so that nopo of q equals two. The fact that the points are not collinear implies that there are at least **three** points, and therefore it's possible to initialize q such that P holds. You see because to see to it that the initial value of q is such that at least two points lie at q you need at least two points. So here we are, now we have here made a very **meager**  use of the fact that it is given that the points are not collinear, we have only used the consequence that there are at least two points. Now, question, what general conclusion can we draw with respect to q and the points from the fact that the points are not collinear?
+
+//b.3
+
+There is a point not on q, yes. So my proposal is to take that into account by introducing a variable of type point. Variable E will be of type point, E will also be initialized, 
+
+//b.6
+//b.7
+
+and the fact that the points are not collinear, I can celebrate that by seeing to it that when q goes through two points, E lies not on q.
+
+//b.4
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=16m10s)
 
-I'm going to. The fact that this possibility, to assign to variable E a point that lies not on q, and to maintain that invariance, that is the way in which I exploit the non-linearity of the given points. Notice that the possibility to assign to E such a value is the only possible conclusion that we can directly draw from the non-linearity. That is, the maintenance of this invariant extracts out of the fact that the points are not collinear everything that can be extracted from it. Now, not surprisingly in the change of q, we will have to change E as well, now let us inspect a little bit what kind of freedom we have. Well, what do we know? Well, more than two points lie on q, so we can point to at least 3 points that lie on q. Let us name them A, B, and C, lie on q, and E lies not on q. And I will make a picture, I promise to you that, that will be the only picture I make. But I wait a little bit. We have to change q. Now what possibilities do we have? As it is, well I will make to pictures. q, here are A, B, and C, and here is E.
+I'm going to. The fact that this possibility, to assign to variable E a point that lies not on q, and to maintain that invariance, that is the way in which I exploit the non-linearity of the given points. Notice that the possibility to assign to E such a value is the only possible conclusion that we can directly draw from the non-linearity. That is, the maintenance of this invariant extracts out of the fact that the points are not collinear everything that can be extracted from it. Now, not surprisingly in the change of q, we will have to change E as well, 
+
+//b.8
+
+now let us inspect a little bit what kind of freedom we have. Well, what do we know? 
+
+//b.21
+
+Well, more than two points lie on q, so we can point to at least 3 points that lie on q. Let us name them A, B, and C, lie on q, and E lies not on q. 
+
+//b.22
+//b.23
+//b.24
+
+And I will make a picture, I promise to you that, that will be the only picture I make. But I wait a little bit. We have to change q. Now what possibilities do we have? As it is, well I will make to pictures. q, here are A, B, and C, and here is E.
+
+# next
 
 ![a.3](a.3.png)
 
@@ -408,6 +464,16 @@ For, if we had only two points, they are necessarily collinear.
 
 * // BB
 * * P : nopo.q ≥ 2 ∧ E lies not on q.
+
+
+```text
+//v0
+q : line
+; initializes q {P
+; do nopo.q > 2 →
+  q := ... {P}
+  od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
+```
 
 ```
 // v1
