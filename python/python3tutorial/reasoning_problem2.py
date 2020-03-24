@@ -4,6 +4,8 @@
 import random
 import matplotlib.pyplot as plt
 
+print_count = 0
+
 class coloredPoint:
     """ represents a colored point."""
     def __init__(self, color, x, y):
@@ -50,6 +52,35 @@ def plot_points(n, redpts, bluepts):
                 ax.plot([bluepts[i].x, redpts[j].x], [bluepts[i].y, redpts[j].y], color='black')
     plt.show(block=True)
 
+def print_conn(conn):
+    """Prints the given connection matrix."""
+    for i in range(len(conn)):
+        print(conn[i])
+
+    print("\n")
+
+def conn_swap_rows(conn, i, j):
+    tmp = conn[i]
+    conn[i] = conn[j]
+    conn[j] = tmp
+
+def enum_conns(mainrow, n, conn):
+    """Enumerates all possible red-blue point connections given a left to right
+    diagonally initialized matrix."""
+    if mainrow >= n:
+        return
+
+    if mainrow == 0:
+        print_conn(conn)
+
+    enum_conns(mainrow + 1, n, conn)
+
+    for r in range(mainrow + 1, n):
+        tmpconn = conn.copy()
+        conn_swap_rows(tmpconn, mainrow, r)
+        print_conn(tmpconn)
+        enum_conns(mainrow + 1, n, tmpconn)
+
 def main():
     """ main function """
     n = 3
@@ -63,7 +94,11 @@ def main():
     for p in bluepts:
         p.color = 1
 
-    plot_points(n, redpts, bluepts)
+    conn_matrix = [[True, False, False],
+                   [False, True, False],
+                   [False, False, True]]
+    enum_conns(0, 3, conn_matrix)
+    ##plot_points(n, redpts, bluepts)
 
 if __name__ == '__main__':
   main()
