@@ -828,6 +828,9 @@ scanf will read across line boundaries to find its input
 ### B.1.7 Error Functions 
 
 ## B.2 Character Class Tests: <ctype.h> 
+## B.3 String Functions: <string.h> 
+## B.4 Mathematical Functions: <math.h> 
+
 
 
 
