@@ -1,0 +1,20 @@
+{
+  "name": "sec25",
+  "version": "1.0.0",
+  "description": "sec25bro",
+  "main": "myapp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "suck",
+    "my",
+    "balls"
+  ],
+  "author": "Darbin Reyes",
+  "license": "MIT",
+  "dependencies": {
+    "cat-me": "^1.0.3",
+    "express": "^4.17.1"
+  }
+}
