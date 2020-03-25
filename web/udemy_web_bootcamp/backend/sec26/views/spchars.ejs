@@ -1,0 +1,23 @@
+<h1>These are my fav. South Park Characters.</h1>
+<ul>
+    <% for(var i = 0; i < spChars.length; i++) { %>
+        <li><%= i + " " + spChars[i] %> </li>
+    <% } %>
+</ul>
+
+<ul>
+    <% spChars.forEach(function(currentValue, index, array){ %>
+        <li><%= index + "-" + currentValue %> </li>
+    <% }); %>
+</ul>
+<h2>The loop below escapse all the HTML chars.</h2>
+<ul>
+    <% spChars.forEach(function(currentValue, index, array){ %>
+        <%= "<li>" +  index + "-" + currentValue + "</li>" %> 
+    <% }); %>
+</ul>
+
+<form action="/addspchars" method="POST">
+    <input type="text" name="charname">
+    <input type="submit">
+</form>

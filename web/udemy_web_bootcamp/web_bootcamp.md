@@ -2650,18 +2650,107 @@ project_dir
 ```
 
 ### 277. Post Requests Part 1 
-### 278. Post Requests Pt. 2 
+TOOL NOTE REMINDER: When you call console.log("caca") within a node app the prints go to your local terminal not the browser JS console.
+
+Adding a "post route" in the JS.
+
+```javascript
+app.post("/addspchars", function(request, response){
+  console.log(request.body);
+  response.send("This is the post route.")
+});
+
+```
+
+Adding a HTML form to an .ejs, just plain HTML.
+
+```HTML
+<form action="/addspchars" method="POST"> <!-- NOTE these form tag attributes -->
+    <input type="text" name="charname"> <!-- You must provide a name attribute for any input you want to access via the request body. -->
+    <input type="submit"> <!-- when you submit the text input above gets placed in the post request body. -->
+</form>
+```
+
+### 278. Post Requests Pt. 2
+
+```javascript
+app.post("/addspchars", function(request, response){
+  console.log(request.body); // doesn't work until you install a special package. "sudo npm install -g --save body-parser"
+  response.send("This is the post route.")
+});
+```
+
+```javascript
+// after installing body-parser, you must "include" it.
+var express = require("express");
+var app = express();
+
+var bodyParser = require("body-parser"); // "include" body-parser node package.
+app.use(bodyParser.urlencoded({extended: true})); // Tell express to use body-parser
+```
+
+```javascript
+app.post("/addspchars", function(request, response){
+  console.log(request.body); // after the above - request.body is defined. prints "{ charname: 'Jimmy' }" to the console upon hitting the submit button. See HTML below.
+  response.send("This is the post route.")
+});
+```
+
+```HTML
+<form action="/addspchars" method="POST"> 
+    <input type="text" name="charname">
+    <input type="submit">
+</form>
+```
+
+```javascript
+response.send("This is the post route."); // instead of this on the .post() route we can redirect to another page, e.g. to the page where new data has been added by the previous POST request.
+
+// To redirect use:
+response.redirect("/spchars");
+```
+
+Notice that our array of names in JS is reset each time the app restarts, we will have a persistent array by using a database.
+
 END.
 
+---
 
-# TODO - my web site.
-* [x] FIX SIGNUP AND LOGIN POSITION @ BREAKPOINT AROUND SMALL. http://devtest.localhost/bs_startup_landing.html
+# Section 27: Working With API's
 
-Test above with default nav. If same problem occurs it might  be my custom CSS. Maybe font size.
+--- 
+### 279. Intro to API's
+API = A set of functions.
 
-ANS: Fixed by removing the CONTACT tab. Navbar content was too wide so the elements on the right were pushed to a new row.
+API compilations:
+
+https://ifttt.com
+
+https://www.programmableweb.com/
+
+### 280. JSON and XML
+
+https://www.reddit.com/r/Awww/
+
+https://www.reddit.com/r/Awww.json
+
+### 281. Making API Requests with Node
+
+We need a new node package to request data 
+
+e.g. from terminal
+
+curl https://google.com
 
 
-* [x] use bs_startup_landing.html style as index.html.
-* [ ] fix buttons on iphone screen size.
+### 282. Note about Sunset Time API Example
+### 283. Sunset Time API Example
+### 284. Note about JSON Placeholder API Example
+### 285. JSON Placeholder API Example
+### 286. Note about Movie API lectures
+### 287. Movie API App: Introduction
+### 288. Movie API App: Results Route
+### 289. Movie API App: Displaying Data
+### 290. Movie API App: Adding Search 
+
 

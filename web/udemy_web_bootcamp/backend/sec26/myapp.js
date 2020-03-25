@@ -22,8 +22,10 @@ npm6 has the following notes:
 console.log("This is indeed a panflute epidemic.");
 
 var express = require("express");
-
 var app = express();
+var bodyParser = require("body-parser"); // "include" body-parser node package.
+app.use(bodyParser.urlencoded({extended: true})); // Tell express to use body-parser
+
 app.use(express.static("public"));
 //app.set("view engine", "ejs");
 console.log("A pandemic!");
@@ -35,6 +37,20 @@ app.get("/", function(request, response){
 app.get("/c3po/:robotName", function(request, response){
   var robotName = request.params.robotName;
   response.render("other.ejs", {"robotName": robotName});
+});
+
+var spChars = ["Cartman", "Kyle", "Stan", "Kenny"];
+
+app.get("/spchars", function (request, response){
+  response.render("spchars.ejs", {spChars: spChars});
+});
+
+app.post("/addspchars", function(request, response){
+  console.log(request.body);
+  console.log(request.body.charname);
+  spChars.push(request.body.charname);
+  // response.send("This is the post route.");
+  response.redirect("/spchars");
 });
 
 
