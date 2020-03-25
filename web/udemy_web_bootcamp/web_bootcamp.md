@@ -2572,16 +2572,83 @@ EJS = Embedded Javascript.
 
 * using response.render() vs send()
   * `response.render("filename.ejs")`
-  * returns filename.ejs under the `./views` directory.
-* using EJSaws
+  * returns filename.ejs under the `./views` directory after processing any EJS.
+  * EJS format is `<%= 5+7%>` will embed "12" in the EJS output.
+* using EJS
   * default dir for EJS is ./views.
 * variables in EJS
+  * Pass data to the EJS file using second argument of .render().
   * response.render("filename.ejs", {varname1: varname1value})
+  * We can reference the data specified in the second argument using `<%= varname1 %>`.
+  
+  TOOL NOTE: instead of "c9 app.js" use cmd+P to open files in the editor.
  
 
 ### 274. EJS: Conditionals and Loops 
+```ejs
+<%= %> // tells JS to evaluate the contents as an expression
+// v.s.
+<% %> // conditional expressions, e.g. if's
+//e.g.
+<% if(robotName === "walle") { %>
+<h1> this is not a star wars robot. </h1>
+<% } %>
+
+////////////////////////////
+var posts = [/*blah blah*/] //array data
+response.render("posts.ejs", {posts: posts})// property name same as variable name is allowed , resolved by JS using context.
+
+// similarly for loops. and [].forEach()
+```
 ### 275. Note about Serving Custom Assets 
+including partials in your EJS view:
+
+<% include partials/header %>
+
+vs.
+
+<%- include("partials/header") %>
+
+to update JS in your terminal: `npm i -S ejs`
+
 ### 276. Serving Custom Assets 
+including CSS and JS with EJS
+
+```ejs
+<style>
+color: red;
+</style>
+<link rel="stylesheet" href="app.css"> // app.css should be under ./public/app.css + after - 
+var app = express();
+app.use(express.static("public")); //  telling express where to look stuff like CSS files.
+
+app.set("view engine", "ejs"); // to avoid writing .ejs file extension on each call to response.render("home") = response.render("home.ejs")
+
+// creating templates aka partials
+mkdir views/partials
+touch views/partials/header.ejs
+touch views/partials/footer.ejs
+
+// include syntax
+
+<%- include("partials/header") %> // includes file at views/partials/header.ejs
+// <link rel="stylesheet" type="text/css" "/app.css"> // where the css file is @  project/public/app.css
+
+project_dir
+  app.js
+  package.JSON
+  node_modules
+  public
+    app.css
+  views
+    home.ejs
+    love.ejs
+    posts.ejs
+    partials
+      footer.ejs
+      header.ejs
+```
+
 ### 277. Post Requests Part 1 
 ### 278. Post Requests Pt. 2 
 END.
