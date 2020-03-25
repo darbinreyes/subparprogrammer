@@ -60,6 +60,9 @@ def print_conn(conn):
     print("\n")
 
 def conn_swap_rows(conn, i, j):
+    """Swap the specified rows"""
+    if i == j:
+        return
     tmp = conn[i]
     conn[i] = conn[j]
     conn[j] = tmp
@@ -81,6 +84,27 @@ def enum_conns(mainrow, n, conn):
         print_conn(tmpconn)
         enum_conns(mainrow + 1, n, tmpconn)
 
+def enum_conns2(mainrow, n, conn):
+    """Enumerates ... ."""
+    #if mainrow >= n - 1: # No subsequent rows to swap with
+    #    return
+
+    for r in range(mainrow + 1, n): # for every row subsequent to mainrow.
+        tmpconn = conn.copy() # Take the original matrix
+        print(mainrow, r)
+        conn_swap_rows(tmpconn, mainrow, r) # Swap mainrow and current row.
+        print_conn(tmpconn)
+        enum_conns2(mainrow + 1, n, tmpconn)
+
+def enum_conns1(mainrow, n, conn):
+    """Enumerates ... ."""
+    for r in range(n):
+        tmpconn = conn.copy()
+        print(mainrow, r)
+        conn_swap_rows(tmpconn, mainrow, r)
+        print_conn(tmpconn)
+        enum_conns2(1, n, tmpconn)
+
 def main():
     """ main function """
     n = 3
@@ -94,10 +118,17 @@ def main():
     for p in bluepts:
         p.color = 1
 
-    conn_matrix = [[True, False, False],
-                   [False, True, False],
-                   [False, False, True]]
-    enum_conns(0, 3, conn_matrix)
+    #conn_matrix = [[True, False, False],
+    #               [False, True, False],
+    #               [False, False, True]]
+    #enum_conns(0, 3, conn_matrix)
+    #enum_conns1(0, 3, conn_matrix)
+    conn_matrix = [[True, False, False, False],
+                   [False, True, False, False],
+                   [False, False, True, False],
+                   [False, False, False, True]]
+
+    enum_conns1(0, 4, conn_matrix)
     ##plot_points(n, redpts, bluepts)
 
 if __name__ == '__main__':
