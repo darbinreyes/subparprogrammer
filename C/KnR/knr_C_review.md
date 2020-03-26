@@ -832,8 +832,24 @@ scanf will read across line boundaries to find its input
 ## B.4 Mathematical Functions: <math.h> 
 `fmod()` modulus for floats.
 
-# B.5 Utility Functions: <stdlib.h>
+## B.5 Utility Functions: <stdlib.h>
 
-# next abort()
+abort() vs. exit() = ungraceful vs. graceful termination.
+
+atexit(funcptr) 
+
+system(str) // access to system shell.
+
+getenv() // access to env. variables.
+
+bsearch() // guessing this is a binary search but KnR doesn't say that explicitly.
+
+qsort() // general sorting.
+
+div_t div(int num, int denom) // integer division with a remainder
+
+## B.6 Diagnostics: <assert.h> 
+ # next
+
 
 
