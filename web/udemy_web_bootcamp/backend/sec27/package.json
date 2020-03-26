@@ -10,5 +10,9 @@
     "doodoo"
   ],
   "author": "Darbin Reyes",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "locus": "^2.0.4"
+  },
+  "dependencies": {}
 }

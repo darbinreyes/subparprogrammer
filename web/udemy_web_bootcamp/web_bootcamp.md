@@ -2757,11 +2757,95 @@ This API was retired as of January 3rd, 2019.
 
 another free API that you can use in place of the Yahoo API, and it doesn't require any signup. You can find it [here](https://openweathermap.org/current).
 
-
 ### 283. Sunset Time API Example
+
+Do a get request to a URL that returns JSON in the body.
+
+e.g.
+
+https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=b6907d289e10d714a6e88b30761fae22
+
+With the "request" node package, the JSON body is passed in as a string, to turn parse that string into a JS object we use the built in JS function JSON.parse(bodystr)
+
 ### 284. Note about JSON Placeholder API Example
+
+New node package - for debugging - to install use `npm i -D locus`
+
+WTF is `-D`? From `npm help install`
+
+"`-D, --save-dev`: Package will appear in your `devDependencies`."
+
+Using locus for debugging (https://asciinema.org/a/102735?autoplay=1&speed=1.5)(https://www.npmjs.com/package/locus):
+
+In your .js code, whereever you want to stop execution and inspect variables insert `eval(locus);`
+
+This begins a REPL session, 
+
+type the name of a var to view it, 
+
+you can also modify variables using standard JS syntax.
+
+type `exit` to exit the REPL session, a new REPL session will be started at the next occurrence of `eval(locus);` if another one exists and is encountered during subsequent execution.
+
+tab completion for variable names is supported.
+
+pressing TAB+TAB at an empty REPL line shows a list of all names in the REPL's scope.
+
+require("locus"); // just add this line before any `eval(locus);`
+
+TOOL NOTE: I was unable to install locus in my global node_packages DIR. Doing that caused a segfault when running my .js file that called `eval(locus);`. Installing it in my sec27 project directory works fine.
+
 ### 285. JSON Placeholder API Example
+
+Fake Online REST API for Testing and Prototyping
+
+http://jsonplaceholder.typicode.com
+
+**New JS syntax:**
+
+```javascript
+// C like "const" var qualifier.
+const parsedData = JSON.parse(body)
+// "template literal" - similar to Python
+console.log(`${parsedData.name} sucks lots of balls`)
+
+//
+function(request, response, body) {
+// do stuff
+}
+
+// "arrow function" equivalent to above
+(request, response, body) => {
+// do stuff
+}
+
+// "promises" instead of callbacks - npm i request-promise
+requestpromise = require("request-promise");
+requestpromise('URL')
+.then( (body) => {/*do something*/}) // in place of callback
+.catch( (err) => => {/*do something*/}) // if an error occurs.
+
+```
 ### 286. Note about Movie API lectures
+
+Movie API has recently gone **private**.
+
+Colt has acquired an API key for **everyone** to use.
+
+making requests with the key:
+
+General search: 
+
+http://www.omdbapi.com/?s=guardians+of+the+galaxy&apikey=thewdb
+
+Search with Movie ID: 
+
+http://www.omdbapi.com/?i=tt3896198&apikey=thewdb
+
+See usage:
+
+http://www.omdbapi.com/
+
 ### 287. Movie API App: Introduction
 ### 288. Movie API App: Results Route
 ### 289. Movie API App: Displaying Data
