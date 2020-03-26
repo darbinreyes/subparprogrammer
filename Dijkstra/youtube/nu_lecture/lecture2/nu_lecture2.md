@@ -120,7 +120,7 @@ And what will be P be,
 
 //b.13
 
-well, there is no point in considering lines that go through no points and go through one point, so we shall initialize q in such a way, that the number of points on q, well ideally of course its exactly two, but I cannot guarantee that, it may larger. 
+well, there is no point in considering lines that go through no points and go through one point, so we shall **initialize** q in such a way, that the number of points on q, well ideally of course its exactly two, but I cannot guarantee that, it may larger. 
 
 //b.14
 
@@ -166,11 +166,11 @@ Well the only thing of course is that here, as the repeatable statement, we have
 * nopo = # of points on. 
 * P : nopo.q ≥ 2
 
-So this is the program and its OK and does the job, provided that we can demonstrate that this program terminates. Now, in order to prove termination of this program we might have to do two things. First of all, we might have to take into things that we didn't know, secondly, that are given but we haven't used yet, secondly, we may have to resolve some of the non-determinism,
+So this is the program and it's OK and does the job, provided that we can demonstrate that this program terminates. Now, in order to prove termination of this program we might have to do two things. First of all, we might have to take into things that we didn't know, secondly, that are given but we haven't used yet, secondly, we may have to resolve some of the non-determinism,
 
 ? alia sort of vagueness
 
-in the statement that changes q. One thing that I have ommitted to point out, and that is that here, we are confining our situation to the case that the points are not collinear. 
+in the statement that changes q. One thing that I have omitted to point out, and that is that here, we are confining our situation to the case that the points are not collinear. 
 
 //b.5
 
@@ -185,6 +185,9 @@ There is a point not on q, yes. So my proposal is to take that into account by i
 
 and the fact that the points are not collinear, I can celebrate that by seeing to it that when q goes through two points, E lies not on q.
 
+//b.30
+//b.31
+//b.32
 //b.4
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=16m10s)
@@ -221,7 +224,19 @@ Now we have to think about a termination argument. Now listen, in the original s
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=21m40s)
 
-How do we find the termination argument? Well, the standard way is that you define a natural function on the state space which in each step of the repetition is decreased by at least 1, however, since our space consists of a finite number of states we can drop the constraint of the variant function being integer, it suffices to define an **integer function of the state** of which subsequently we can prove that it's bounded from below and decreases in each step. Now our current state always exists of a line q, and a point E, not on that line. Can anybody thing of a real function of a point and a line that is bounded from below. The euclidian distance, yes, thank you very much. But if we do take the Euclidian distance, then I know which of the other two B and C, will be take as our new E, the choice which minimizes the distance to the new q as much as possible. So here, we put of B and C, 
+How do we find the termination argument? Well, the standard way is that you define a natural function on the state space which in each step of the repetition is decreased by at least 1, however, since our **space consists of a finite number of states** we can **drop** the constraint of the **variant** function being **integer**, it suffices to define an **integer [did he mean real?] function of the state** of which subsequently we can prove that it's **bounded from below** and **decreases** in each step. Now our current state **always exists** of a line q, and a point E, not on that line. Can anybody think of a **real function** of a point and a line that is bounded from below. The euclidian distance, yes, thank you very much. But if we do take the Euclidian distance, then I know which of the other two B and C, will be taken as our new E, the choice which **minimizes** the distance to the new q as much as possible. So here, we put of B and C, 
+
+---
+
+//
+
+"then I know which of the other two B and C, will be taken as our new E, the choice which **minimizes** the distance to the new q"
+
+For termination, minimizing is one way to achieve decreasing steps in the repetition.
+
+//
+
+---
 
 //b.26
 
@@ -229,7 +244,7 @@ the nearest to our new q. And now,
 
 //b.27
 
-of the six possibilities that we had here, there are still three left and that is in the choice of capital A. Because the choice which new point has been settled by this. So now our only obligation is, to see to it, to prove, possibly by resolving the remaining non-determinacy, that our algorithm terminates. That is, that, the distance from E to Q, actually decreases. So here we are, this was our old E and this was our old q.
+of the six[why 6?] possibilities that we had here, there are still three left and that is in the choice of capital A. Because the choice which new point has been settled by this. So now our only obligation is, to see to it, to prove, possibly by resolving the remaining non-determinacy, that our algorithm terminates. That is, that, the distance from E to q, actually decreases. So here we are, this was our old E and this was our old q.
 
 ![a.6](a.6.png)
 
@@ -253,7 +268,27 @@ And I call that little b
 
 ![a.12](a.12.png)
 
-And I will do the same for capital C, which has a distance little c to the new q, only I don't make that drawing because that **invokes a case analysis** because there are all sorts of places where C might lie and I'm not going to do that. My proof obligation is for the termination is, that I can demonstrate, that the minimum of little b and little c is actually less than h.
+---
+
+//
+My comment. Understanding the picture.
+
+The precondition of the whole program is that "the points are not collinear. Therefore we draw a line, call it q, and we draw a point not on the like, call it E.
+
+The guard of the repetition is "nopo.q > 2", therefore at least three points lie on q, call them A, B, C.
+
+In changing q we have three possibilities, from E to A or B or C. Any other line like A-B would not change q.
+
+Let the line E-A be chosen as the new q. Now we must chose which of the other points, B, C we will take as our new E. We make that choice by taking the one the minimizes the distance to the new q, i.e. we consider the distance between the new q and points B and C and the lesser becomes our new E.
+
+In looking for a termination argument we make use of the definition of euclidian distance between a point and a line, i.e. the length of a perpendicular from a point to a line. We now consider the distance between q and E, call it h.
+
+
+//
+
+---
+
+And I will do the same for capital C, which has a distance little c to the new q, only I don't make that drawing because that **invokes a case analysis** because there are all sorts of places where C might lie and I'm not going to do that. My **proof** obligation for the **termination** is, that I can demonstrate, that the **minimum** of little b and little c is **actually** less than h.
 
 //b.28
 
@@ -264,11 +299,9 @@ And if I can show that, I have satisfied my proof obligation, [it] means that **
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=26m18s)
 
-Now, I have to show this, I'm going to simplify that, the very first thing is that I wish to eliminate, that operator that takes the minimum, so without changing the value of this boolean expression, I wish to eliminate the minimum function, 
+Now, I have to show this, I'm going to simplify that, the very first thing is that I wish to eliminate, that operator that takes the minimum, so without changing the value of this boolean expression, I wish to **eliminate the minimum function**, 
 
 //b.29
-
-# next 27m30s
 
 //BB
 // b min c < h
@@ -276,7 +309,7 @@ Now, I have to show this, I'm going to simplify that, the very first thing is th
 
 ![a.13](a.13.png)
 
-and the minimum of b and b, less than h, is according to the rules of my game, is b is less than h or c is less h.
+and the minimum of b and c, less than h, is according to the rules of my game, is b is less than h or c is less h.
 
 ![a.14](a.14.png)
 
@@ -302,11 +335,11 @@ Everrrybody agrees?
 // = {elimination of min}
 // b < h ∨ c < h
 
-Huh? No sir, because for the termination argument I need actual decrease, so the minimum of these, of this, if this value has to be less h then b is less than h or c is less than h. And this is an equivalence because, ehh, these two boolean expressions have the same value
+Huh? No sir, because for the termination argument I need actual decrease, so the minimum of these, of this, if this value has to be less h, then b, then b is less than h or c is less than h. And this is an equivalence because, these two boolean expressions have the same value.
 
-// My comment. TODO. Convince myself of that min equivalence.
+// My comment. [x] TODO. Convince myself of that min equivalence.
 
-Now, ehh, the next thing I wish to do, is to eliminate the lower case letters, obviously, obviously, because little b and h and little c, they only occur in that picture, and the sooner I liberate myself from that **picture**, the better. Now, ehh, my claim is that there is a simple expression, that has the same value as b less than h. Is anybody willing to make a suggestion? The length of BA or AB, yes, is less than EA, yah, and that follows from similar **triangles**.
+Now, the next thing I wish to do, is to eliminate the lower case letters, obviously, obviously, because little b and h and little c, they only occur in that picture, and the sooner I liberate myself from that **picture**, the better. Now, ehh, my claim is that there is a simple expression, that has the same value as b less than h. Is anybody willing to make a suggestion? The length of BA or AB, yes, is less than EA, yah, and that follows from similar **triangles**.
 
 // My comment. EUCLID FTW!
 
@@ -334,13 +367,40 @@ So BA less than EA is the one. Is that OK? Yes, apparently. Am I a little bit am
 
 ![a.16](a.16.png)
 
-Let me check. Will you check wether I have made an error. Yes. A, AB. Ehh, this does not hold because the space is finite. But I did make an error. I did make an error. I did make an error. Yes, yes, yes. There is a one bit rabbit in this proof. And I made the wrong choice, I chose the line, but I shouldn't do that. This by the way was very instructive and I leave it that way. The remark is that I have to choose a new E and let that be A, that is my new E, and now the question is will the new q go through B or will it go through C, so my new E becomes A and my new q becomes, of the lines sorry BC and, sorry, of the lines BE and CE the nearest to A, so and now I will have P again.
+Let me check. Will you check wether I have made an error. Yes. A, AB. Ehh, this does not hold because the space is finite. But I did make an error. I did make an error. I did make an **error**. Yes, yes, yes. There is a one bit rabbit in this proof. And I made the wrong choice, I chose, the line, but I shouldn't do that. [*Erases picture a.16*]. Here we go. This by the way was very instructive and I leave it that way. But, [*Erases the repeatable statement in the program, "q, E := ..." *]
+
+//b.33
+//b.34
+//b.35
+
+the remark is, that I have to choose a new E, and let that be A, 
+
+//b.36
+//b.37
+
+that is my new E, and now the question is will the new q go through B or will it go through C, 
+
+//b.38
+
+so my new E becomes A and my new q becomes, of the lines sorry BC and, sorry, of the lines BE and CE the nearest to A, 
+
+//b.39 [notice point E is assigned point A]
+
+so and now I will have P again.
+
+//b.40 [P being the invariant of the repetition.]
 
 ![a.17](a.17.png)
 
 ![a.18](a.18.png)
 
-Yes. No, no, no. One of the three, one of the three, now here is our drawing. Here was q, here was the old E, here is, my A, here is for instance my B, now this, now I'm interested in this distance, the distance from A to the new q. Because this will be my new E.
+Yes. No, no, no. One of the three, one of the three, now here is our drawing. Here was q, here was the old E, 
+
+//b.41
+
+# next 34m37s
+
+here is, my A, here is for instance my B, now this, now I'm interested in this distance, the distance from A to the new q. Because this will be my new E.
 
 ![a.19](a.19.png)
 
