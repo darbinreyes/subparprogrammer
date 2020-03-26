@@ -4,8 +4,6 @@
 import random
 import matplotlib.pyplot as plt
 
-print_count = 0
-
 class coloredPoint:
     """ represents a colored point."""
     def __init__(self, color, x, y):
@@ -52,8 +50,13 @@ def plot_points(n, redpts, bluepts):
                 ax.plot([bluepts[i].x, redpts[j].x], [bluepts[i].y, redpts[j].y], color='black')
     plt.show(block=True)
 
+print_count = 0
+
 def print_conn(conn):
     """Prints the given connection matrix."""
+    global print_count
+    print_count += 1
+    print(print_count)
     for i in range(len(conn)):
         print(conn[i])
 
@@ -125,17 +128,27 @@ def main():
     #               [False, True, False],
     #               [False, False, True]]
     #enum_conns(0, 3, conn_matrix)
-    #enum_conns1(0, 3, conn_matrix)
-    conn_matrix = [[True, False, False, False],
-                   [False, True, False, False],
-                   [False, False, True, False],
-                   [False, False, False, True]]
 
-    enum_conns1(0, 4, conn_matrix)
+    #enum_conns1(0, 3, conn_matrix)
+    # conn_matrix = [[True, False, False, False],
+    #                [False, True, False, False],
+    #                [False, False, True, False],
+    #                [False, False, False, True]]
+
+    # enum_conns1(0, 4, conn_matrix)
     # conn_matrix = [[True, False],
     #                [False, True]]
 
     #enum_conns1(0, 2, conn_matrix)
+
+    conn_matrix = [[True, False, False, False, False],
+                   [False, True, False, False, False],
+                   [False, False, True, False, False],
+                   [False, False, False, True, False],
+                   [False, False, False, False, True]]
+
+    enum_conns1(0, 5, conn_matrix)
+
     ##plot_points(n, redpts, bluepts)
 
 if __name__ == '__main__':

@@ -991,3 +991,59 @@ use numpy?
 
 https://numpy.org/devdocs/user/quickstart.html
 
+# printing the count of the red-blue connections in Python 
+
+What is the python equivalent of a static variable in C? 
+
+See
+
+https://docs.python.org/3/tutorial/controlflow.html#defining-functions 
+
+The execution of a **function** introduces a **new symbol table** used for the **local variables** of the function. More precisely, all variable **assignments** in a function store the value in the **local symbol table**; 
+
+whereas variable **references** first look in the **local** symbol table, then in the **local** symbol tables of **enclosing functions**, then in the **global** symbol table, and finally in the table of **built-in** names. 
+
+Thus, **global** variables and variables of **enclosing functions** **cannot** be directly **assigned** a value within a function // This implies that we can use such a value just not assign to it. I confirmed this.
+
+(unless, for **global** variables, named in a **global statement**, or, for variables of **enclosing functions**, named in a **nonlocal statement**), although they may be **referenced**.
+
+Functions vs. routines = return a val vs. don't return a val. Since in Python functions without a return statement return None by definition, there are only functions in Python.
+
+In Python Method= function the "belongs" to an object.
+
+Using Python's global statement, see
+
+https://docs.python.org/3/reference/simple_stmts.html#the-global-statement // This link is part of the Language Reference - https://docs.python.org/3/reference/index.html
+
+The global statement is a declaration which holds for the entire current **code block**. // What is the definition of a code block? - I assume it refers to the current file.
+
+Names listed in a global statement must **not** be used in the same code block **textually** preceding that global statement. // I assume this means the global statement only applies to code that textually appears after the global statement.
+
+Names listed in a global statement must **not** be defined 
+* as formal parameters
+* in a for loop control target
+* class definition
+* function definition // This doesn't mean that you can't use the global statement within a function, I think this refers specifically to a line of text beginning with "def".
+* import statement 
+* or variable annotation.
+
+Note on global statements + exec() eval() compile() // This is not my use case so I ignore it.
+
+I answered my question by analysis of the example here
+
+https://docs.python.org/3/tutorial/classes.html#scopes-and-namespaces-example
+
+E.g.
+
+```
+my_counter = 0
+
+def do_something():
+    print(my_counter) // I can use my_counter's value here, but I cannot assign to it.
+    global my_counter // now I can assign to my_counter
+    
+    my_counter++
+    
+
+```
+
