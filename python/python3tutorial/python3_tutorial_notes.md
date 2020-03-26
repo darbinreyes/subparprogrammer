@@ -1042,7 +1042,8 @@ def do_something():
     print(my_counter) // I can use my_counter's value here, but I cannot assign to it.
     global my_counter // now I can assign to my_counter
     
-    my_counter++
+    my_counter++ // WRONG! - no ++ in Python
+    my_counter += 1 // WORKS.
     
 
 ```
