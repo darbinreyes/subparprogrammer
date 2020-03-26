@@ -2742,8 +2742,22 @@ e.g. from terminal
 
 curl https://google.com
 
+https://github.com/request/request
+
+// this node package is now deprecated.
+
+// npm WARN deprecated request@2.88.2: request has been deprecated, see https://github.com/request/request/issues/3142
+
 
 ### 282. Note about Sunset Time API Example
+
+Yahoo Weather API.
+
+This API was retired as of January 3rd, 2019.
+
+another free API that you can use in place of the Yahoo API, and it doesn't require any signup. You can find it [here](https://openweathermap.org/current).
+
+
 ### 283. Sunset Time API Example
 ### 284. Note about JSON Placeholder API Example
 ### 285. JSON Placeholder API Example
