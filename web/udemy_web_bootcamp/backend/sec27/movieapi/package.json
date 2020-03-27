@@ -1,0 +1,14 @@
+{
+  "name": "movieapi",
+  "version": "1.0.0",
+  "description": "Caca",
+  "main": "myapp.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "poo"
+  ],
+  "author": "DER",
+  "license": "MIT"
+}

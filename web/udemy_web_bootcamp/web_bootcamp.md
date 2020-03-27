@@ -2850,5 +2850,50 @@ http://www.omdbapi.com/
 ### 288. Movie API App: Results Route
 ### 289. Movie API App: Displaying Data
 ### 290. Movie API App: Adding Search 
+How to access URL query params from an express route
+
+```javascript
+app.get("/", function(request, response){
+    console.log("GET @ / bro. " + request.query.str) // <<< HERE IT IS. Prints "cartman" if URL = http://localhost:3000/?str=cartman
+    
+    response.render("index.ejs");
+});
+```
+
+FYI a form with method="GET" will automatically add form values to the URL in Query Param format upon submit.
+
+```HTML
+<form action="/" method="GET">
+    <input type="text" name="str" placeholder="str here"></input>
+    <input type="submit"></input>
+</form>
+```
+
+END.
+
+---
+
+# Section 28: YelpCamp: Basics
+
+---
+
+### 291. YelpCamp: Initial Routes
+
+This project will go on through the remainder of the course. Will have several versions of the site.
+
+To Start:
+
+Landing page.
+
+List camps page.
+
+Camp = Name + Image.
+
+### 292. Note about YelpCamp: Layout
+### 293. YelpCamp: Layout
+### 294. YelpCamp: Creating Campgrounds
+### 295. Note about YelpCamp: Styling Campgrounds Lecture
+### 296. YelpCamp: Styling Campgrounds
+### 297. YelpCamp: Styling Nav and Forms 
 
 

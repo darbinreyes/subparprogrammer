@@ -1,0 +1,26 @@
+<h1>Hooowdy Hooo!</h1>
+<h3>Enter text and press submit to search for movies.</h3>
+<form action="/dosearch" method="POST">
+    <input type="text" name="thesearchterm" placeholder="Search here"></input>
+    <input type="submit"></input>
+</form>
+
+<form action="/" method="GET">
+    <input type="text" name="str" placeholder="str here"></input>
+    <input type="submit"></input>
+</form>
+
+<% if (searchResults.length > 0) { %>
+  <h3>Here are your <%= searchResults.length %> results for "<%= searchText %>": </h3>
+  <ul>
+  <% for (var i = 0; i < searchResults.length; i++) { %>
+       <li> <%= searchResults[i].Title %> </li>
+  <% } %>
+  </ul>
+<% } else { %>
+  <% if(searchText === "") { %>
+    <h3>You haven't searched for anything yet, or your searched for an empty string "".</h3>
+  <% } else { %>
+    <h3>0 results to display for "<%= searchText %>".</h3>
+    <% } %>
+<% } %>
