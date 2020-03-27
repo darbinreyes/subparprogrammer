@@ -84,8 +84,6 @@ def print_conn(conn):
     for i in range(len(conn)):
         print(conn[i])
 
-    print("\n")
-
 def conn_swap_rows(conn, i, j):
     """ Swap rows i and j of matrix conn."""
 
@@ -107,7 +105,7 @@ def enum_conns_helper(mainrow, n, conn):
             # No swap occurred, avoid printing a duplicate matrix. The
             # recursive call below will print any other permutations if any
             # exist.
-            print("")
+            pass
         else:
             print_conn(tmpconn) # Print this connection matrix.
 
@@ -124,21 +122,44 @@ def enum_conns(conn):
     # subsequent row, including swapping the 0th row with the 0th row [sic].
     # I call these the "primary" connection matrices. For each primary
     # connection matrix, we recursively enumerate its permutations.
-    for r in range(n): # For each row in the matrix.
-        tmpconn = conn.copy() # Take a copy of the given matrix.
-        conn_swap_rows(tmpconn, 0, r)
+    # for r in range(n): # For each row in the matrix.
+    #     tmpconn = conn.copy() # Take a copy of the given matrix.
+    #     conn_swap_rows(tmpconn, 0, r)
 
-        # TODO: Instead of printing the matrix add a argument to this function
-        # that is a function itself, and that function is called with the
-        # connection matrix as its argument.
-        print_conn(tmpconn) # Print
+    #     # TODO: Instead of printing the matrix add a argument to this function
+    #     # that is a function itself, and that function is called with the
+    #     # connection matrix as its argument.
+    #     print_conn(tmpconn) # Print
 
-        # Recursively enumerate permutations of the primary matrix tmpconn.
-        enum_conns_helper(1, n, tmpconn)
+    #     # Recursively enumerate permutations of the primary matrix tmpconn.
+    #     enum_conns_helper(1, n, tmpconn)
+
+    #####
+    #####
+    #####
+
+    # Just a thought on simplification.
+    tmpconn = conn.copy() # Take a copy of the given matrix.
+    print_conn(tmpconn)
+    enum_conns_helper(0, n, tmpconn)
+
 
 def init_conn_matrix(n):
     """ Returns a top-left to bottom-right diagonally initialized matrix."""
-    pass # TODO Implement me.
+    #pass # TODO Implement me.
+
+    result = []
+    for i in range(n):
+        row = []
+        for j in range(n):
+            if i == j:
+                row.append(True)
+            else:
+                row.append(False)
+        result.append(row)
+
+    return result
+
 
 def has_intersection():
     """ Determines if the given set of red-blue connections has an intersection
@@ -167,7 +188,7 @@ def main():
     #               [False, True, False],
     #               [False, False, True]]
 
-    #enum_conns(conn_matrix)
+    # enum_conns(conn_matrix)
 
     # conn_matrix = [[True, False, False, False],
     #                [False, True, False, False],
@@ -179,17 +200,19 @@ def main():
     # conn_matrix = [[True, False],
     #                [False, True]]
 
+    # enum_conns(conn_matrix)
+
+    # conn_matrix = [[True, False, False, False, False],
+    #                [False, True, False, False, False],
+    #                [False, False, True, False, False],
+    #                [False, False, False, True, False],
+    #                [False, False, False, False, True]]
+
+    conn_matrix = init_conn_matrix(5)
+    print_conn(conn_matrix)
     #enum_conns(conn_matrix)
 
-    conn_matrix = [[True, False, False, False, False],
-                   [False, True, False, False, False],
-                   [False, False, True, False, False],
-                   [False, False, False, True, False],
-                   [False, False, False, False, True]]
-
-    enum_conns(conn_matrix)
-
-    ##plot_points(n, redpts, bluepts)
+    #plot_points(n, redpts, bluepts)
 
 if __name__ == '__main__':
   main()
