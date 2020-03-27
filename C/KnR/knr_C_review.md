@@ -849,7 +849,15 @@ qsort() // general sorting.
 div_t div(int num, int denom) // integer division with a remainder
 
 ## B.6 Diagnostics: <assert.h> 
- # next
+## B.7 Variable Argument Lists: <stdarg.h> 
+## B.8 Non-local Jumps: <setjmp.h> 
+
+to avoid the normal function call and return sequence, typically to permit an immediate return from a deeply nested function call.
+
+## B.9 Signals: <signal.h> 
+
+facilities for handling exceptional conditions that arise during execution, such as an interrupt signal
+
 
 
 
