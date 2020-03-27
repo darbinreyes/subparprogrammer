@@ -1,26 +1,36 @@
+# Implementation of the algorithm described in Dijkstra's Reasoning About
+# Programs problem 2.
+
 # coding style : https://www.python.org/dev/peps/pep-0008/
-# recommended way implementing a C like struct.: https://docs.python.org/3/tutorial/classes.html#odds-and-ends
-# I will use matplotlib to draw points and lines. https://matplotlib.org/tutorials/introductory/usage.html#sphx-glr-tutorials-introductory-usage-py
 import random
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # I will use matplotlib to draw points and lines. https://matplotlib.org/tutorials/introductory/usage.html#sphx-glr-tutorials-introductory-usage-py
 
 class coloredPoint:
-    """ represents a colored point."""
+    """ Represents a colored point."""
     def __init__(self, color, x, y):
+        """ Constructor."""
         self.color = color # 0 = red, 1 = blue.
         self.x = x
         self.y = y
 
 def create_coordinates(n, coordsmin, coordsmax):
-    """ returns a list of n distinct coordinates in the range  coordsmin <= c <= coordsmax. min/max should be integers."""
+    """ Returns a list of n distinct numbers in the range coordsmin <= c <= coordsmax. min/max should be integers."""
     return random.sample(range(coordsmin, coordsmax + 1), n) # sample() takes random samples without replacement. This ensures distinct coordinates.
 
 def create_points(n, xmin, xmax, ymin, ymax):
-    """ returns a list of n distinct point. color = 0 means red, 1 means blue """
+    """ Returns a list of n distinct point. color = 0 means red, 1 means blue """
+
+    ####
+
+    # Comment out these lines so I can do testing and development with the same
+    # set of points.
     #xcoords = create_coordinates(n, xmin, xmax)
     #ycoords = create_coordinates(n, ymin, ymax)
     #print(xcoords)
     #print(ycoords)
+
+    ###
+
     xcoords = [93, 4, 76, 47, 94, 11]
     ycoords = [31, 89, 59, 12, 27, 8]
     points = []
@@ -30,96 +40,125 @@ def create_points(n, xmin, xmax, ymin, ymax):
     return points
 
 def plot_points(n, redpts, bluepts):
-    """ plots the given points. """
-    fig, ax = plt.subplots()
-    # plot red then blue points.
+    """ Plots the given points."""
+
+    fig, ax = plt.subplots() # Matplotlib recipe for basic plotting.
+
+    # Plot red points.
     for p in redpts:
         ax.plot(p.x, p.y, marker='.', color='red', markersize=12)
+
+    # Plot blue points.
     for p in bluepts:
         ax.plot(p.x, p.y, marker='.', color='blue', markersize=12)
 
     # This connects the points according to the given boolean matrix.
     # Let the row index correspond to blue points and the column index
     # correspond to red points.
-    conn_matrix = [[False, True, False],
+    conn_matrix = [[False, True, False], # Hard-coded connection matrix.
                    [True, False, False],
                    [False, False, True]]
+
+    # Connect the points with lines according to the above matrix.
     for i in range(len(conn_matrix)):
         for j in range(len(conn_matrix[i])):
             if conn_matrix[i][j]:
+                # Plot a line.
                 ax.plot([bluepts[i].x, redpts[j].x], [bluepts[i].y, redpts[j].y], color='black')
+
+    # Show the figure and block execution, if block=False you never see the
+    # figure because it disappears once execution continues.
     plt.show(block=True)
 
+# For testing purposes, count the number of possible red-blue point connection
+# matrices.
 print_count = 0
 
 def print_conn(conn):
-    """Prints the given connection matrix."""
-    global print_count
+    """ Prints the given connection matrix."""
+    global print_count # See above.
     print_count += 1
     print(print_count)
+
+    # Print the connection matrix 1 row at a time.
     for i in range(len(conn)):
         print(conn[i])
 
     print("\n")
 
 def conn_swap_rows(conn, i, j):
-    """Swap the specified rows"""
-    if i == j:
+    """ Swap rows i and j of matrix conn."""
+
+    if i == j: # Nothing to do.
         return
+
     tmp = conn[i]
     conn[i] = conn[j]
     conn[j] = tmp
 
-def enum_conns(mainrow, n, conn):
-    """Enumerates all possible red-blue point connections given a left to right
-    diagonally initialized matrix."""
-    if mainrow >= n:
-        return
+def enum_conns_helper(mainrow, n, conn):
+    """ Recursive helper function for enumerating all possible connection matrices."""
 
-    if mainrow == 0:
-        print_conn(conn)
-
-    enum_conns(mainrow + 1, n, conn)
-
-    for r in range(mainrow + 1, n):
-        tmpconn = conn.copy()
-        conn_swap_rows(tmpconn, mainrow, r)
-        print_conn(tmpconn)
-        enum_conns(mainrow + 1, n, tmpconn)
-
-def enum_conns2(mainrow, n, conn):
-    """Enumerates ... ."""
-    #if mainrow >= n - 1: # No subsequent rows to swap with
-    #    return
-
-    for r in range(mainrow, n): # for every row subsequent to mainrow.
-        tmpconn = conn.copy() # Take the original matrix
-        #print(mainrow, r)
+    for r in range(mainrow, n): # For every row at and subsequent to mainrow.
+        tmpconn = conn.copy() # Take a copy of the original matrix.
         conn_swap_rows(tmpconn, mainrow, r) # Swap mainrow and current row.
-        if mainrow == r: # avoid printing a duplicate in this case
-            print("") #print("No swap was done")
-        else:
-            print_conn(tmpconn)
-        enum_conns2(mainrow + 1, n, tmpconn)
 
-def enum_conns1(mainrow, n, conn):
-    """Enumerates ... ."""
-    for r in range(n):
-        tmpconn = conn.copy()
-        #print(mainrow, r)
-        conn_swap_rows(tmpconn, mainrow, r)
-        print_conn(tmpconn)
-        enum_conns2(1, n, tmpconn)
+        if mainrow == r:
+            # No swap occurred, avoid printing a duplicate matrix. The
+            # recursive call below will print any other permutations if any
+            # exist.
+            print("")
+        else:
+            print_conn(tmpconn) # Print this connection matrix.
+
+        # Recursively print the next possible connection matrix.
+        enum_conns_helper(mainrow + 1, n, tmpconn)
+
+def enum_conns(conn):
+    """ Enumerates all possible red-blue point connections given a top-left to
+    bottom-right diagonally initialized matrix."""
+
+    n = len(conn)
+
+    # Enumerate the n matrices obtained by swapping the 0th row with each
+    # subsequent row, including swapping the 0th row with the 0th row [sic].
+    # I call these the "primary" connection matrices. For each primary
+    # connection matrix, we recursively enumerate its permutations.
+    for r in range(n): # For each row in the matrix.
+        tmpconn = conn.copy() # Take a copy of the given matrix.
+        conn_swap_rows(tmpconn, 0, r)
+
+        # TODO: Instead of printing the matrix add a argument to this function
+        # that is a function itself, and that function is called with the
+        # connection matrix as its argument.
+        print_conn(tmpconn) # Print
+
+        # Recursively enumerate permutations of the primary matrix tmpconn.
+        enum_conns_helper(1, n, tmpconn)
+
+def init_conn_matrix(n):
+    """ Returns a top-left to bottom-right diagonally initialized matrix."""
+    pass # TODO Implement me.
+
+def has_intersection():
+    """ Determines if the given set of red-blue connections has an intersection
+    and if so returns the first intersection that is encountered, i.e. returns
+    the 4 points participating in the intersection."""
+    pass # TODO Implement me.
+
+def do_flip_operation():
+    """ Performs the flip operation that removes the given intersection."""
+    pass # TODO Implement me.
 
 def main():
-    """ main function """
+    """ Main function."""
     n = 3
     xmin = 0
     xmax = 100
     ymin = 0
     ymax = 100
     pts = create_points(2 * n, xmin, xmax, ymin, ymax)
-    redpts = pts[0:n]
+    redpts = pts[0:n] # Make half of the points red, half blue.
     bluepts = pts[n:]
     for p in bluepts:
         p.color = 1
@@ -127,19 +166,20 @@ def main():
     # conn_matrix = [[True, False, False],
     #               [False, True, False],
     #               [False, False, True]]
-    #enum_conns(0, 3, conn_matrix)
 
-    #enum_conns1(0, 3, conn_matrix)
+    #enum_conns(conn_matrix)
+
     # conn_matrix = [[True, False, False, False],
     #                [False, True, False, False],
     #                [False, False, True, False],
     #                [False, False, False, True]]
 
-    # enum_conns1(0, 4, conn_matrix)
+    # enum_conns(conn_matrix)
+
     # conn_matrix = [[True, False],
     #                [False, True]]
 
-    #enum_conns1(0, 2, conn_matrix)
+    #enum_conns(conn_matrix)
 
     conn_matrix = [[True, False, False, False, False],
                    [False, True, False, False, False],
@@ -147,7 +187,7 @@ def main():
                    [False, False, False, True, False],
                    [False, False, False, False, True]]
 
-    enum_conns1(0, 5, conn_matrix)
+    enum_conns(conn_matrix)
 
     ##plot_points(n, redpts, bluepts)
 

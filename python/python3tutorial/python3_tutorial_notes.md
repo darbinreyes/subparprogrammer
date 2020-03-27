@@ -1035,15 +1035,15 @@ https://docs.python.org/3/tutorial/classes.html#scopes-and-namespaces-example
 
 E.g.
 
-```
+```python
 my_counter = 0
 
 def do_something():
-    print(my_counter) // I can use my_counter's value here, but I cannot assign to it.
-    global my_counter // now I can assign to my_counter
+    print(my_counter) # I can use my_counter's value here, but I cannot assign to it.
+    global my_counter # now I can assign to my_counter
     
-    my_counter++ // WRONG! - no ++ in Python
-    my_counter += 1 // WORKS.
+    my_counter++ # WRONG! - no ++ in Python
+    my_counter += 1 # WORKS.
     
 
 ```
