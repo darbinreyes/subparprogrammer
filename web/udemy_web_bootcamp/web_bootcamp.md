@@ -2869,6 +2869,8 @@ FYI a form with method="GET" will automatically add form values to the URL in Qu
 </form>
 ```
 
+NOTE: I used a form with method="POST" in my independent implementation of the movie API exercise. I did this because I assumed I should use POST whenever you're submitting a form to a website. This assumption is false. The whole point of the form method attribute is that you can choose the appropriate method type. The general rule about when to use a POST request, in forms or elsewhere, is that when the user makes a POST request, then the resulting action on the server side is an action that changes data stored by the server, such as adding a comment to a database of comments. In the movie exercise, form method="GET" is more appropriate because the result of the form submission is simply to fetch some data from a third party and then display it, there is no change to the persistent state of the server. As shown above, when you use form method="GET", the browser automatically adds named form fields to the request URL as query params. In contrast, when form method="POST", named form fields are added to the body of the POST request in x-www-form-urlencoded format.
+
 END.
 
 ---
@@ -2890,10 +2892,106 @@ List camps page.
 Camp = Name + Image.
 
 ### 292. Note about YelpCamp: Layout
+
+Same note as "275. Note about Serving Custom Assets" above.
+
 ### 293. YelpCamp: Layout
+
+Added partials and bootstrap.
+
 ### 294. YelpCamp: Creating Campgrounds
+
+POST route to add a campground.
+
+Include body-parser.
+
+Route to show add campground form.
+
+Add unstyled form.
+
+RESTful rule of thumb: A page that shows a list of data upon a GET request, if a user can add to the list, use a POST request to that same URL for doing the add to list operation.
+
+RESTful rule of thumb: 
+GET @ /listofdata // displays data on the server
+POST @ /listofdata // performs an add operation to data on server, redirects to the same /listofdata
+GET @ /listofdata/new // displays the form whose action is POST @ /listofdata.
+
 ### 295. Note about YelpCamp: Styling Campgrounds Lecture
+
+* row div with an h3 that says: "Our Most Popular Campgrounds", but when he "heads back over" at 5:19 it's gone.
+ 
+* class name btn-large to style the bootstrap button. The class name should actually be: btn-lg
+
 ### 296. YelpCamp: Styling Campgrounds
+
+* jumbotron for main title - then make list entries a grid 
+
+* \<header> .jumbotron // jumbotron is on the /campgrounds URL not home.
+  * h1
+  * p
+  * p
+  * btn for add
+    
+* div . container
+* div .row
+  * div .col-md-3 .col-sm-6
+  * div .thumbnail + img
+  * div .caption
+
+* // test responsiveness + many images case + handling of different height images. 
+* CSS 
+div .row { 
+  display: flex; 
+  flex-wrap: wrap;
+}
+* .text-center
+
 ### 297. YelpCamp: Styling Nav and Forms 
+* Adding Navbar then style the add new entry form.
+* make form text vertically stacked.
+* // NAVBAR
+* nav
+  * nav brand
+  * login // on right side
+  * sign up
+  * logout
+  * // test hamburger
+
+* // FORM 
+
+* center + vertically stack
+
+* div .container 
+* div .row
+  * div style=width: 30%; margin: 0 auto;
+  * div .form-group per input
+  * text input + .form-control
+  * button .btn-block
+
+END.
+
+---
+
+# Section 29: Databases
+
+---
+ 
+### 298. What is a Database? 
+
+* DB categories: SQL vs NoSQL
+* Keeping your data list around in between server on/off.
+* A simple text file can serve the function of a database.
+* SQL: SELECT ALL FROM TABLE / DROP TABLE.
+* db.dogs.find() db.dogs.delete(). API to db.
+* NoSQL = non-relational DB. SQL = relational.
+  * SQL = table-like
+  *
+### 299. Note about installing MongoDB
+### 300. Installing MongoDB
+### 301. Mongo Shell Basics
+### 302. Notes about Mongoose
+### 303. Introduction to Mongoose Pt. 1
+### 304. Introduction to Mongoose Pt. 2   
+
 
 

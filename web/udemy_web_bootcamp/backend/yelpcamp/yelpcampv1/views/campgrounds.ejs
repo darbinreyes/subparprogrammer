@@ -1,0 +1,16 @@
+<!-- campground = nutrition-->
+
+<%- include("partials/header.ejs") %>
+
+<h1>This is the nutrition page.</h1>
+
+<a href="/campgrounds/new">Add new nutrition entry.</a>
+
+<% nutritions.forEach(function (currentValue, index, array) { %>
+    <div >
+        <h4><%= currentValue.name %></h4>
+        <img style="width: 10%" src="<%= currentValue.image %>" alt="<%= currentValue.name %>">
+    </div>
+<% }); %>
+
+<%- include("partials/footer.ejs") %>
