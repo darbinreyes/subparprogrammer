@@ -19,14 +19,17 @@ on the Teaching of Computing Science
 The problem I would like to deal with in this hour is interesting as an example of a possible interplay between mathematics and computing science, programming as a matter of fact. The history of this problem is interesting in the sense that Sylvester conjectured it in 1893, he and his contemporaries could do nothing with it. It remained dormant until 1933 when Erdüs revived interest in the problem. 
 
 //b.0
+![b.0](b.0.png)
 
 And some time later a proof was given by T. Gallai. 
 
 //b.1
+![b.1](b.1.png)
 
 I have not seen that proof but it is a proof that even Coxeter describes rather complicated. And we had to wait until 1948, until L.M. or L.N. I'm not quite sure so I omit it. Until Kelly, came, it is L.M., OK. Until L.M. Kelly came with a palatable proof. 
 
 //b.2
+![b.2](b.2.png)
 
 Now let me first state the theorem, and that is for any finite number of distinct points, in the real euclidian plane, and with real we mean that the coordinates are not complex, we can assert the following, all the points are co-linear, or their exists a straight line, through exactly two of them, with exactly two I mean not three.
 
@@ -122,7 +125,7 @@ And what will be P be,
 
 well, there is no point in considering lines that go through no points and go through one point, so we shall **initialize** q in such a way, that the number of points on q, well ideally of course its exactly two, but I cannot guarantee that, it may larger. 
 
-//b.14
+//b.14 // missing second conjunct
 
 But in any case, we can confine our attention to q's that go through at least two points. So that's being done. Next is the test, 
 
@@ -482,23 +485,21 @@ Hence this is equivalent to AB plus AC equals BC.
 
 ![a.35](a.35.png)
 
-And these are all positive distances and the only way in which this can be is if A lies between B and C. So we have concluded that it is OK with A between B and C.
+And these are all non-negative, all positive, distances and the only way in which this can be is if A lies between B and C. So we have concluded that it is OK with A between B and C.
 
 ![a.36](a.36.png)
 
 Of course this is the only symmetric choice so it's not surprising. But what is charming is that, that fact, is forced upon us by the calculation that shows that the minimum of little b and c is less than h. **End of proof**. 
 
-# next 42m21s
-
-Why is this very nice? If you compare it with Kelly's proof that contains the same element, Kelly says, well, consider all, lines, all possible combinations for q and E. All possible pairs of a line and a point not on that line. Finite collection, at least one such pair contains the minimum distance. And then he says well OK suppose that that, of course Kelly in 1948 proved it by a contradiction, so immediately he says suppose that there are three points on the line q and then he derives a contradiction, we don't need to do that. Now, at the time, Kelly's introduction of the euclidian distance was greeted as a great invention, original idea that only a genius can have, because of course it is a foreign element because the problem statement itself has nothing to do with euclidian metric, its the, the theorem is a affine invariant. So it is a foreign element, but we know that given a program with a repetition we know that whereas the invariant of the repetition is uniquely determined by the program itself, the variant function, the decreasing thing that one invents to prove the termination argument, that's not determined at all, if you have some function t that decreases, any monotonic function of it will do it as well, of t, will do it as well. So we know, that if in arguments like that any inventiveness is required, it is at the choice of the variant function. Now I have taken extensive experiments with this problem at oral examinations and I have also shown this a number of times lecturing to an audience. At the critical moment, that the euclidian distance between q and E has to be invented. It has always been the audience that supplied this foreign body to the argument. In short, as soon as you regard this as a programming exercise, Kelly's invention becomes the most natural thing to do. So there has been progress. As final mark of progress, I would like to read to you, because it's a little bit long to write down.
+Why is this very nice? If you compare it with Kelly's proof that contains the same element, Kelly says, well, consider all, lines, and all possible combinations for q and E. All possible pairs of a line and a point not on that line. Finite collection, at least one such pair contains the **minimum** distance. And then he says well OK suppose that that, of course Kelly in 1948 proved it by a contradiction, so immediately he says that, suppose that there are three points on the line q and then he derives a contradiction, we don't need to do that. Now, at the time, Kelly's introduction of the euclidian distance was greeted as a great invention, original idea that only a genius can have, because of course it is a foreign element because the problem statement itself has nothing to do with euclidian metric, its the, the theorem is a affine invariant. So it is a foreign element, but we know that given a program with a repetition we know that whereas the invariant of the repetition is uniquely determined by the program itself, the variant function, the decreasing thing that one invents to prove the termination argument, that's not determined at all, if you have some function "t" that decreases, any monotonic function of it will do it as well, of t, will do it as well. So we know, that if in arguments like that any inventiveness is required, it is at the choice of the variant function. Now I have taken extensive experiments with this problem at oral examinations and I have also shown this a number of times lecturing to an audience. At the critical moment, that the euclidian distance between q and E has to be invented. It has always been the audience that supplied this foreign body to the argument. In short, as soon as you regard this as a programming exercise, Kelly's invention becomes the most natural thing to do. So there has been progress. As final mark of progress, I would like to read to you, because it's a little bit long to write down.
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=46m14s)
 
-Sylvester's original statement of the problem. And that will give you another aspect of progress in century of mathematic.
+Sylvester's original statement of the problem. And that will give you another aspect of progress in century of mathematics.
 
 "Prove that it is not possible to arrange any finite number of real points, so that a right line through every two of them shall pass through a third unless they all lie on the same right line."
 
-When I tried to read that I discovered that I couldn't, there were too many negations and unless's etc. And in utter despair finally I took the concise oxford dictionary, because I now wanted to know very precisely what unless means. Yah, I am a modest man and I am not afraid of going to the authorities. It was very illuminating because, the COD gives two meanings for unless, one is "if-not", now "if" is a follows from, and "not" is negation, this is or.
+When I tried to read that I discovered that I couldn't, there were too many negations and unless's etc. And in utter despair finally I took the concise oxford dictionary, because I now wanted to know very precisely what "unless" means. Yah, I am a modest man and I am not afraid of going to the authorities. It was very illuminating because, the COD gives two meanings for unless, one is "if-not", now "if" is a follows from, and "not" is negation, this is or.
 
 ---
 
@@ -529,7 +530,7 @@ X ∨ Y. // "this is or"
 
 ---
 
-And the other one it gives is "except when". And if you start analyzing what "except when" means then you will come to not equivalent [≢]. So even the statement of, the theorem, is already ambiguous. Coxeter makes it worse in the sense that, he does not give, to begin with, the formulation of Sylvester, he gives his own definition, or statement of the theorem, but thereby he drops the requirement that the points are distinct, and then the theorem is false, you see, you can easily construct a counter example. OK that is what I wanted to say about how a once deep theorem, these days, is a trivial programming exercise. Any questions? "...." Yes, yes, and that is, that depends on how you, generalize distinct points.One way of defining distinctness in the plane, is that any two points uniquely determine, the line through them. The generalization for three dimensions is that any three points, uniquely determine the plane through them. And then, what you then can do is take one point, project the other points in the plane, prove the theorem in the plane, and then restore the lines in the planes again. My guess is that Coxeter has missed that generalization, because he never took the trouble of stating explicitly that the points should be distinct, or he didn't care. I mean that's the other possibility. Yes, sir. "...". Untrained mathematicians find it very difficult, no not necessarily, the program is short, I think the correctness proof simple, but what is certainly true is that in general, a program is a very compact deposit of our intellectual labors, sure. Yes, sir. "...". Yes. Yes. Real euclidian plane. Yah. Finite number of points, each point is red or blue, there exists a line that contains more than one point of homogenous color. Ahh hah, ahh hah, yeah, OK. Its not an open it is a closed problem. OK well, I might try it, tonight in bed. 
+And the other one it gives is "except when". And if you start analyzing what "except when" means then you will come to not equivalent [≢]. So even the statement of, the theorem, is already ambiguous. Coxeter makes it worse in the sense that, he does not give, to begin with, the formulation of Sylvester, he gives his own definition, or statement of the theorem, but thereby he drops the requirement that the points are distinct, and then the theorem is false, you see, you can easily construct a counter example. OK that is what I wanted to say about how a once deep theorem, these days, is a trivial programming exercise. Any questions? "...." Yes, yes, and that is, that depends on how you, generalize distinct points. One way of defining distinctness in the plane, is that any two points uniquely determine, the line through them. The generalization for three dimensions is that any three points, uniquely determine the plane through them. And then, what you then can do is take one point, project the other points in the plane, prove the theorem in the plane, and then restore the lines in the planes again. My guess is that Coxeter has missed that generalization, because he never took the trouble of stating explicitly that the points should be distinct, or he didn't care. I mean that's the other possibility. Yes, sir. "...". Untrained mathematicians find it very difficult, no not necessarily, the program is short, I think the correctness proof simple, but what is certainly true is that in general, a program is a very compact deposit of our intellectual labors, sure. Yes, sir. "...". Yes. Yes. Real euclidian plane. Yah. Finite number of points, each point is red or blue, there exists a line that contains more than one point of homogenous color. Ahh hah, ahh hah, yeah, OK. Its not an open it is a closed problem. OK well, I might try it, tonight in bed. 
 
 Well, thinking horizontally is a nice place. "...". No same argument. Yea, yea, well, you use this step. You may use the implication in the other sense, in which it's very common. I find, there is another comment, the way in which we have an influence by our **education**. Everybody knows the monotonicity of the addition in this form.
 
