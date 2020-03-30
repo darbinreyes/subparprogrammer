@@ -18,9 +18,19 @@ app.get("/", function (exp_request, exp_response) {
 });
 
 // This is our fake database.
-nutritions = [{name: "Mango", image: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Carabao_mangoes_%28Philippines%29.jpg"},
+nutritions = [
+{name: "Mango", image: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Carabao_mangoes_%28Philippines%29.jpg"},
 {name: "Lime", image: "https://upload.wikimedia.org/wikipedia/commons/6/68/Lime-Whole-Split.jpg"},
-{name: "Strawberry", image: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Strawberries.jpg"}
+{name: "Strawberry", image: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Strawberries.jpg"},
+{name: "Avocado", image: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Avocado-board.jpg"},
+{name: "Green Leaf Lettuce", image: "https://upload.wikimedia.org/wikipedia/commons/8/85/HK_food_%E8%94%AC%E8%8F%9C_vegetable_Lettuce_%E7%94%9F%E8%8F%9C_Lactuca_Sativa_green_leaves_with_fresh_clear_water_January_2019_SSG_02.jpg"},
+{name: "Tomato", image: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Tomato-top.png"},
+{name: "Mango", image: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Carabao_mangoes_%28Philippines%29.jpg"},
+{name: "Lime", image: "https://upload.wikimedia.org/wikipedia/commons/6/68/Lime-Whole-Split.jpg"},
+{name: "Strawberry", image: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Strawberries.jpg"},
+{name: "Avocado", image: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Avocado-board.jpg"},
+{name: "Green Leaf Lettuce", image: "https://upload.wikimedia.org/wikipedia/commons/8/85/HK_food_%E8%94%AC%E8%8F%9C_vegetable_Lettuce_%E7%94%9F%E8%8F%9C_Lactuca_Sativa_green_leaves_with_fresh_clear_water_January_2019_SSG_02.jpg"},
+{name: "Tomato", image: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Tomato-top.png"}
 ];
 
 // Add a GET request handler for /.
