@@ -110,44 +110,58 @@ So we know from this counter example that somewhere along the proof we have to u
 Well, I need one function, "nopo" that is short for the "number of point on". 
 
 //b.10
+![b.10](b.10.png)
 
 We will have one variable, q, of type line. I may need a little bit more space, I will develop the program here. We have one variable q of type line. 
 
 //b.11
+![b.11](b.11.png)
 
 And what can we do with. We have to initialize that variable, now since lines are determined by two points, my proposal is that the program initializes q such that upon initialization P holds. 
 
 //b.12
+![b.12](b.12.png)
 
 And what will be P be, 
 
 //b.13
+![b.13](b.13.png)
 
 well, there is no point in considering lines that go through no points and go through one point, so we shall **initialize** q in such a way, that the number of points on q, well ideally of course its exactly two, but I cannot guarantee that, it may larger. 
 
 //b.14 // missing second conjunct
+![b.14](b.14.png)
 
 But in any case, we can confine our attention to q's that go through at least two points. So that's being done. Next is the test, 
 
 //b.15
+![b.15](b.15.png)
 
 we are now going to create a repetition, wether this q is acceptable, well, it is acceptable if the number of points on q equals 2, however if that number is larger than two, then something has to be done. 
 
 //b.16
+![b.16](b.16.png)
+
 //b.17
+![b.18](b.17.png)
 
 Well upon completion of this loop, we know P, and the falsity of the guard, that is that nopo of q is at most 2, 
 
 //b.18
+![b.18](b.18.png)
 
 well, P says that nopo of q is at least 2, so hence the number of points on q equals 2 and we are done. 
 
 //b.19
+![b.19](b.19.png)
 
 Well the only thing of course is that here, as the repeatable statement, we have to **change q**, under invariance of P.
 
 //b.9
+![b.9](b.9.png)
+
 //b.20
+![b.20](b.20.png)
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=12m15s)
 
@@ -176,38 +190,51 @@ So this is the program and it's OK and does the job, provided that we can demons
 in the statement that changes q. One thing that I have omitted to point out, and that is that here, we are confining our situation to the case that the points are not collinear. 
 
 //b.5
+![b.5](b.5.png)
 
 Because that was the circumstance under which we were going to show the presence of a line q so that nopo of q equals two. The fact that the points are not collinear implies that there are at least **three** points, and therefore it's possible to initialize q such that P holds. You see because to see to it that the initial value of q is such that at least two points lie at q you need at least two points. So here we are, now we have here made a very **meager**  use of the fact that it is given that the points are not collinear, we have only used the consequence that there are at least two points. Now, question, what general conclusion can we draw with respect to q and the points from the fact that the points are not collinear?
 
 //b.3
+![b.3](b.3.png)
 
 There is a point not on q, yes. So my proposal is to take that into account by introducing a variable of type point. Variable E will be of type point, E will also be initialized, 
 
 //b.6
+![b.6](b.6.png)
 //b.7
+![b.7](b.7.png)
 
 and the fact that the points are not collinear, I can celebrate that by seeing to it that when q goes through two points, E lies not on q.
 
 //b.30
+![b.30](b.30.png)
 //b.31
+![b.31](b.31.png)
 //b.32
+![b.32](b.32.png)
 //b.4
+![b.4](b.4.png)
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=16m10s)
 
 I'm going to. The fact that this possibility, to assign to variable E a point that lies not on q, and to maintain that invariance, that is the way in which I exploit the non-linearity of the given points. Notice that the possibility to assign to E such a value is the only possible conclusion that we can directly draw from the non-linearity. That is, the maintenance of this invariant extracts out of the fact that the points are not collinear everything that can be extracted from it. Now, not surprisingly in the change of q, we will have to change E as well, 
 
 //b.8
+![b.8](b.8.png)
 
 now let us inspect a little bit what kind of freedom we have. Well, what do we know? 
 
 //b.21
+![b.21](b.21.png)
 
 Well, more than two points lie on q, so we can point to at least 3 points that lie on q. Let us name them A, B, and C, lie on q, and E lies not on q. 
 
 //b.22
+![b.22](b.22.png)
 //b.23
+![b.23](b.23.png)
 //b.24
+![b.24](b.24.png)
 
 And I will make a picture, I promise to you that, that will be the only picture I make. But I wait a little bit. We have to change q. Now what possibilities do we have? As it is, well I will make two pictures. q, here are A, B, and C, and here is E.
 
@@ -216,6 +243,7 @@ And I will make a picture, I promise to you that, that will be the only picture 
 The claim is that we have only three possibilities for the new value of q, and that's from E through this one [A], from E through that one [B], and from E through that one [C]. Because these four points are the only points the existence of which we can guarantee. Through two of those [A, B, C] is excluded because then we don't change q. So the new q has to go through the old E, and through one of those three. Now, the one it goes through, is, I will call, now I will rub it out, I will call A, I am free in naming here. So the new value of q, becomes the line E, A. And now I must, yah so eh, now I rub this out again, I'm going to make a new picture, this is q, and this is E, 
 
 //b.25
+![b.25](b.25.png)
 
 and I put an A here, and this will be my new q, yah.
 
@@ -242,10 +270,12 @@ For termination, minimizing is one way to achieve decreasing steps in the repeti
 ---
 
 //b.26
+![b.26](b.26.png)
 
 the nearest to our new q. And now, 
 
 //b.27
+![b.27](b.27.png)
 
 of the six[why 6?] possibilities that we had here, there are still three left and that is in the choice of capital A. Because the choice which new point has been settled by this. So now our only obligation is, to see to it, to prove, possibly by resolving the remaining non-determinacy, that our algorithm terminates. That is, that, the distance from E to q, actually decreases. So here we are, this was our old E and this was our old q.
 
@@ -294,6 +324,7 @@ In looking for a termination argument we make use of the definition of euclidian
 And I will do the same for capital C, which has a distance little c to the new q, only I don't make that drawing because that **invokes a case analysis** because there are all sorts of places where C might lie and I'm not going to do that. My **proof** obligation for the **termination** is, that I can demonstrate, that the **minimum** of little b and little c is **actually** less than h.
 
 //b.28
+![b.28](b.28.png)
 
 //BB
 // b min c < h
@@ -305,6 +336,7 @@ And if I can show that, I have satisfied my proof obligation, [it] means that **
 Now, I have to show this, I'm going to simplify that, the very first thing is that I wish to eliminate, that operator that takes the minimum, so without changing the value of this boolean expression, I wish to **eliminate the minimum function**, 
 
 //b.29
+![b.29](b.29.png)
 
 //BB
 // b min c < h
@@ -373,25 +405,33 @@ So BA less than EA is the one. Is that OK? Yes, apparently. Am I a little bit am
 Let me check. Will you check wether I have made an error. Yes. A, AB. Ehh, this does not hold because the space is finite. But I did make an error. I did make an error. I did make an **error**. Yes, yes, yes. There is a one bit rabbit in this proof. And I made the wrong choice, I chose, the line, but I shouldn't do that. [*Erases picture a.16*]. Here we go. This by the way was very instructive and I leave it that way. But, [*Erases the repeatable statement in the program, "q, E := ..." *]
 
 //b.33
+![b.33](b.33.png)
 //b.34
+![b.34](b.34.png)
 //b.35
+![b.35](b.35.png)
 
 the remark is, that I have to choose a new E, and let that be A, 
 
 //b.36
+![b.36](b.36.png)
 //b.37
+![b.37](b.37.png)
 
 that is my new E, and now the question is will the new q go through B or will it go through C, 
 
 //b.38
+![b.38](b.38.png)
 
 so my new E becomes A and my new q becomes, of the lines sorry BC and, sorry, of the lines BE and CE the nearest to A, 
 
 //b.39 [notice point E is assigned point A]
+![b.39](b.39.png)
 
 so and now I will have P again.
 
 //b.40 [P being the invariant of the repetition.]
+![b.40](b.40.png)
 
 ![a.17](a.17.png)
 
@@ -400,26 +440,32 @@ so and now I will have P again.
 Yes. No, no, no. One of the three, one of the three, now here is our drawing. Here was q, here was the old E, 
 
 //b.41
+![b.41](b.41.png)
 
 here is, my A,
 
 // b.42
+![b.42](b.42.png)
 
 here is for instance my B, 
 
 //b.43
+![b.43](b.43.png)
 
 now this, 
 
 //b.44
+![b.44](b.44.png)
 
 now I'm interested in this distance, 
 
 //b.45
+![b.45](b.45.png)
 
 the distance from A to the new q. 
 
 //b.46
+![b.46](b.46.png)
 
 Because this will be my new E.
 
