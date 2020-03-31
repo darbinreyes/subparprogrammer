@@ -31,7 +31,7 @@ I have not seen that proof but it is a proof that even Coxeter describes rather 
 //b.2
 ![b.2](b.2.png)
 
-Now let me first state the theorem, and that is for any finite number of distinct points, in the real euclidian plane, and with real we mean that the coordinates are not complex, we can assert the following, all the points are co-linear, or their exists a straight line, through exactly two of them, with exactly two I mean not three.
+Now let me first state the theorem, and that is for any finite number of distinct points, in the real euclidian plane, and with real we mean that the coordinates are not complex, we can assert the following, all the points are collinear, or their exists a straight line, through exactly two of them, with exactly two I mean not three.
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=02m55s)
 
@@ -44,14 +44,14 @@ Now let me first state the theorem, and that is for any finite number of distinc
 
 Now one of the things that may indicate that the theorem is possible and not completely trivial is that this is not a combinatorial theorem. You see because, oh yea sorry, for the sake of brevity, in the remaining of this hour, I will say points, I mean **distinct points**, and when I say line, I mean **straight line**.
 
-Well the Euclidian **axiom** that connects points and lines is that any two points uniquely determine a line through them
+Well the Euclidian **axiom** that connects points and lines is that any two points uniquely determine a line through them.
 
 * // BB
 * any 2 points determine uniquely a line through them
 
 Now let us translate the formulation of all these properties and theorems a little bit. Let us call, let us translate, points into persons, lines into clubs, a point lies on a line is that person is a member of the club.
 
-In that case, the axiom about club membership is that any two persons uniquely determine the club of which they are a member. That is the translation of this one.
+In that case, the axiom about club membership is that any two persons uniquely determine the club of which they are a member. That's the translation of this one.
 
 
 * // BB
@@ -100,6 +100,8 @@ Any **pair** of the complete 7 graph. The complete 7 graph has 7 times 6 over 2 
 
 * // BB
 * 7×6/2
+
+# next 7m30s
 
 That is, in the complete, in the population of 7 persons, you can isolate 21 pairs, each pair uniquely determines the triangle to, each edge uniquely determines the triangle to which it belongs, however you see that with these 7 clubs of 3 members it is not true that all persons belong to the same club, because each club has at most 3 members, and it is not true that there exists a club with exactly two members.
 
