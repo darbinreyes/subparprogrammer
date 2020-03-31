@@ -858,6 +858,10 @@ to avoid the normal function call and return sequence, typically to permit an im
 
 facilities for handling exceptional conditions that arise during execution, such as an interrupt signal
 
+signal()
+raise()
 
+## B.10 Date and Time Functions: <time.h> 
+## B.11 Implementation-defined Limits: <limits.h> and <float.h> 
 
 
