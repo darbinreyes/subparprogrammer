@@ -633,7 +633,7 @@ VII_4_part_or_parts_v1 (
 
   @retval < 0 Error.
   @retval 1 The sum of the pairs is the same part as the given pairs.
-  @retval 0 The given pairs were not the same part, or the sum of the pairs was
+  @retval 0 The given pairs were not the same part. Or the sum of the pairs was
             not the same part as the given pairs (which should be impossible).
 **/
 int

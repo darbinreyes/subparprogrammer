@@ -28,6 +28,8 @@ If a number is parts of a number, and another is the same parts of another, then
 
 ## Proof 
 
+See below.
+
 ## Proof Summary
 
 Let parts.(AB, C) = parts.(DE, F).
@@ -78,7 +80,29 @@ Q.E.D.
 
 ## Specification and Design
 
+```C
+/**
+
+  Given two pairs, returns wether or not the sum of the pairs is the same parts as each given pair.
+
+  @param p0 The first pair.
+  @param p1 The second pair.
+
+  @retval < 0 Error.
+  @retval 1 The sum of the pairs is the same parts as the given pairs.
+  @retval 0 The given pairs were not the same part. Or the sum of the pairs was not the same part as the given pairs (which should be impossible).
+  
+**/
+int
+VII_6_sum_same_parts (
+  PAIR p0,
+  PAIR p1
+  );
+```
+
 ## Implementation in EWD notation.
+
+On paper.
 
 ## Misc.
 
