@@ -39,7 +39,7 @@ def create_points(n, xmin, xmax, ymin, ymax):
 
     return points
 
-def plot_points(n, redpts, bluepts):
+def plot_points(conn_matrix, redpts, bluepts):
     """ Plots the given points."""
 
     fig, ax = plt.subplots() # Matplotlib recipe for basic plotting.
@@ -55,9 +55,9 @@ def plot_points(n, redpts, bluepts):
     # This connects the points according to the given boolean matrix.
     # Let the row index correspond to blue points and the column index
     # correspond to red points.
-    conn_matrix = [[False, True, False], # Hard-coded connection matrix.
-                   [True, False, False],
-                   [False, False, True]]
+    # conn_matrix = [[False, True, False], # Hard-coded connection matrix.
+    #                [True, False, False],
+    #                [False, False, True]]
 
     # Connect the points with lines according to the above matrix.
     for i in range(len(conn_matrix)):
@@ -74,7 +74,7 @@ def plot_points(n, redpts, bluepts):
 # matrices.
 print_count = 0
 
-def print_conn(conn):
+def print_conn(conn, *args):
     """ Prints the given connection matrix."""
     global print_count # See above.
     print_count += 1
@@ -94,8 +94,10 @@ def conn_swap_rows(conn, i, j):
     conn[i] = conn[j]
     conn[j] = tmp
 
-def enum_conns_helper(mainrow, n, conn):
+def enum_conns_helper(mainrow, conn, conn_matrix_func, redpts=[], bluepts=[]):
     """ Recursive helper function for enumerating all possible connection matrices."""
+
+    n = len(conn)
 
     for r in range(mainrow, n): # For every row at and subsequent to mainrow.
         tmpconn = conn.copy() # Take a copy of the original matrix.
@@ -107,16 +109,15 @@ def enum_conns_helper(mainrow, n, conn):
             # exist.
             pass
         else:
-            print_conn(tmpconn) # Print this connection matrix.
+            # print_conn(tmpconn) # Print this connection matrix.
+            conn_matrix_func(tmpconn, redpts, bluepts)
 
         # Recursively print the next possible connection matrix.
-        enum_conns_helper(mainrow + 1, n, tmpconn)
+        enum_conns_helper(mainrow + 1, tmpconn, conn_matrix_func, redpts, bluepts)
 
-def enum_conns(conn):
+def enum_conns(conn, conn_matrix_func, redpts=[], bluepts=[]):
     """ Enumerates all possible red-blue point connections given a top-left to
     bottom-right diagonally initialized matrix."""
-
-    n = len(conn)
 
     # Enumerate the n matrices obtained by swapping the 0th row with each
     # subsequent row, including swapping the 0th row with the 0th row [sic].
@@ -140,8 +141,9 @@ def enum_conns(conn):
 
     # Just a thought on simplification.
     tmpconn = conn.copy() # Take a copy of the given matrix.
-    print_conn(tmpconn)
-    enum_conns_helper(0, n, tmpconn)
+    #print_conn(tmpconn)
+    conn_matrix_func(tmpconn, redpts, bluepts)
+    enum_conns_helper(0, tmpconn, conn_matrix_func, redpts, bluepts)
 
 
 def init_conn_matrix(n):
@@ -184,35 +186,11 @@ def main():
     for p in bluepts:
         p.color = 1
 
-    # conn_matrix = [[True, False, False],
-    #               [False, True, False],
-    #               [False, False, True]]
+    conn_matrix = init_conn_matrix(n)
+    #enum_conns(conn_matrix, print_conn)
+    #plot_points(conn_matrix, redpts, bluepts)
+    enum_conns(conn_matrix, plot_points, redpts, bluepts)
 
-    # enum_conns(conn_matrix)
-
-    # conn_matrix = [[True, False, False, False],
-    #                [False, True, False, False],
-    #                [False, False, True, False],
-    #                [False, False, False, True]]
-
-    # enum_conns(conn_matrix)
-
-    # conn_matrix = [[True, False],
-    #                [False, True]]
-
-    # enum_conns(conn_matrix)
-
-    # conn_matrix = [[True, False, False, False, False],
-    #                [False, True, False, False, False],
-    #                [False, False, True, False, False],
-    #                [False, False, False, True, False],
-    #                [False, False, False, False, True]]
-
-    conn_matrix = init_conn_matrix(5)
-    print_conn(conn_matrix)
-    #enum_conns(conn_matrix)
-
-    #plot_points(n, redpts, bluepts)
 
 if __name__ == '__main__':
   main()
