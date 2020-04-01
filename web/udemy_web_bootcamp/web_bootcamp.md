@@ -2981,16 +2981,129 @@ END.
 * DB categories: SQL vs NoSQL
 * Keeping your data list around in between server on/off.
 * A simple text file can serve the function of a database.
-* SQL: SELECT ALL FROM TABLE / DROP TABLE.
-* db.dogs.find() db.dogs.delete(). API to db.
+* SQL interface: SELECT ALL FROM TABLE / DROP TABLE.
+* NoSQL interface: db.dogs.find() db.dogs.delete(). API to db.
 * NoSQL = non-relational DB. SQL = relational.
-  * SQL = table-like
-  *
+
+* SQL DB = relational + table-like + "flat"
+  * user table. define what a user looks like. 
+  * comments table.  
+  * relationships between user + comments = JOIN table. = a third table which describes which user made which comment. 
+  * Note user 2 made 2 comments. 
+
+* consider a scenario in which we want to add a favColor column to the user table. Say just for user = Ira. Then we we have to assign some default favColor for all other users like “no fav color set yet”.  
+* The guy calls this “not flexible”. 
+* With NoSQL we are not required to stick to predefined tables. E.g JSON description of a DB.  
+* Note he is calling this JSON object a NoSQL DB. This allows nesting, hence it is not flat. Note the comments is a nested array. BinaryJSON not JSON.  
+
+  
 ### 299. Note about installing MongoDB
+
+after you're up and running with mongo, be sure to **shut down your mongod server each time** you're done working. You can do this with ctrl + c.
+
+In the Mongo Shell Basics video you'll see Colt use the show collections command which will show something called system.indexes . This will **no longer show up in the latest versions of MongoDB**. 
+
 ### 300. Installing MongoDB
+
+MongoDB is a NoSQL DB.
+
+MEAN Stack=Mongo Express Angular Node.
+MEN=Mongo Express Node. // No angular.
+
+https://www.mongodb.com/ = .org
+
+`mkdir data`
+
+`echo 'mongod --bind_ip=$IP --dbpath=data --nojournal --rest "$@" > mongod` // echos a command into a script file called "mongod"
+
+`chmod a+x mongod` // make the script file executable.
+
+`./mongod` // starts mongod via the script file.
+
+`mongo` // starts mongo shell.
+
+// my script file. --rest appears to no longer be an option.
+
+MacBook-Air:yelpcamp darbinreyes$ cat mongod 
+mongod --bind_ip=127.0.0.1 --dbpath=data --nojournal
+
 ### 301. Mongo Shell Basics
+
+* Mongo commands.
+
+* mongod // mongo daemon 
+
+* mongo // shell
+
+* help // haha
+
+* show dbs // show database names
+
+* use \<db_name>// set current database
+
+* insert
+
+* find
+	* `db.foo.find()`                list objects in collection foo
+	* `db.foo.find( { a : 1 } )`     list objects in foo where `a == 1`
+* update
+
+* remove
+
+---
+
+use demo
+
+show dbs
+
+db.dogs.insert({name: "Cartman", says: "I'm going home."})
+
+show collections // see note
+
+db.dogs.find()
+
+// note ids
+
+db.dogs.insert(... another thing...)
+
+db.dogs.find({name: "Cartman"})
+
+db.dog.insert(...another...)
+
+db.dogs.find()
+
+db.dogs.find({name:"Stan"})
+
+* CRUD=create read(=find()) update destroy
+
+// updating
+
+db.dog.update(selector_obj, update_info_obj) // fully overwrites obj
+
+db.dog.update(selector_obj, update_info_obj)
+update_info_obj = {$set: {name: "Kenny"}} // update only what is specified, keep the rest.
+
+// destroy
+
+db.dogs.remove({name: "Cartman"}) // return num removed
+
+db.dogs.remove({name: "Cartman"}).limit(1) // only remove the first match.
+
+
 ### 302. Notes about Mongoose
+
+See here for the official documentation with instructions on how to solve all **deprecation** warnings with mongoose
+
+deprecated mongo interface functions.
+
+.limit() syntax from previous video not correct.
+
+you will learn about an Object Document Modeling (ODM) package for Express called **Mongoose**. More deprecated functions.
+
 ### 303. Introduction to Mongoose Pt. 1
+
+* Interacting with mongodb within JS.
+
 ### 304. Introduction to Mongoose Pt. 2   
 
 
