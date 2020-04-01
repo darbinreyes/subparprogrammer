@@ -18,17 +18,14 @@ on the Teaching of Computing Science
 
 The problem I would like to deal with in this hour is interesting as an example of a possible interplay between mathematics and computing science, programming as a matter of fact. The history of this problem is interesting in the sense that Sylvester conjectured it in 1893, he and his contemporaries could do nothing with it. It remained dormant until 1933 when Erdüs revived interest in the problem. 
 
-//b.0
 ![b.0](b.0.png)
 
 And some time later a proof was given by T. Gallai. 
 
-//b.1
 ![b.1](b.1.png)
 
 I have not seen that proof but it is a proof that even Coxeter describes rather complicated. And we had to wait until 1948, until L.M. or L.N. I'm not quite sure so I omit it. Until Kelly, came, it is L.M., OK. Until L.M. Kelly came with a palatable proof. 
 
-//b.2
 ![b.2](b.2.png)
 
 Now let me first state the theorem, and that is for any finite number of distinct points, in the real euclidian plane, and with real we mean that the coordinates are not complex, we can assert the following, all the points are collinear, or their exists a straight line, through exactly two of them, with exactly two I mean not three.
@@ -101,7 +98,7 @@ Any **pair** of the complete 7 graph. The complete 7 graph has 7 times 6 over 2 
 * // BB
 * 7×6/2
 
-# next 7m30s
+// My comment: I don't understand this translation of the problem.
 
 That is, in the complete, in the population of 7 persons, you can isolate 21 pairs, each pair uniquely determines the triangle to, each edge uniquely determines the triangle to which it belongs, however you see that with these 7 clubs of 3 members it is not true that all persons belong to the same club, because each club has at most 3 members, and it is not true that there exists a club with exactly two members.
 
@@ -111,58 +108,49 @@ So we know from this counter example that somewhere along the proof we have to u
 
 Well, I need one function, "nopo" that is short for the "number of point on". 
 
-//b.10
 ![b.10](b.10.png)
 
 We will have one variable, q, of type line. I may need a little bit more space, I will develop the program here. We have one variable q of type line. 
 
-//b.11
 ![b.11](b.11.png)
+
+// My comment: Note the syntax for a variable and its type.
 
 And what can we do with. We have to initialize that variable, now since lines are determined by two points, my proposal is that the program initializes q such that upon initialization P holds. 
 
-//b.12
 ![b.12](b.12.png)
 
 And what will be P be, 
 
-//b.13
 ![b.13](b.13.png)
 
-well, there is no point in considering lines that go through no points and go through one point, so we shall **initialize** q in such a way, that the number of points on q, well ideally of course its exactly two, but I cannot guarantee that, it may larger. 
+well, there is no point in considering lines that go through no points or go through one point, so we shall **initialize** q in such a way, that the number of points on q, well ideally of course its exactly two, but I cannot guarantee that, it may larger. 
 
-//b.14 // missing second conjunct
+// missing second conjunct
 ![b.14](b.14.png)
 
 But in any case, we can confine our attention to q's that go through at least two points. So that's being done. Next is the test, 
 
-//b.15
 ![b.15](b.15.png)
 
 we are now going to create a repetition, wether this q is acceptable, well, it is acceptable if the number of points on q equals 2, however if that number is larger than two, then something has to be done. 
 
-//b.16
 ![b.16](b.16.png)
 
-//b.17
 ![b.18](b.17.png)
 
 Well upon completion of this loop, we know P, and the falsity of the guard, that is that nopo of q is at most 2, 
 
-//b.18
 ![b.18](b.18.png)
 
 well, P says that nopo of q is at least 2, so hence the number of points on q equals 2 and we are done. 
 
-//b.19
 ![b.19](b.19.png)
 
 Well the only thing of course is that here, as the repeatable statement, we have to **change q**, under invariance of P.
 
-//b.9
 ![b.9](b.9.png)
 
-//b.20
 ![b.20](b.20.png)
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=12m15s)
@@ -191,60 +179,54 @@ So this is the program and it's OK and does the job, provided that we can demons
 
 in the statement that changes q. One thing that I have omitted to point out, and that is that here, we are confining our situation to the case that the points are not collinear. 
 
-//b.5
 ![b.5](b.5.png)
 
 Because that was the circumstance under which we were going to show the presence of a line q so that nopo of q equals two. The fact that the points are not collinear implies that there are at least **three** points, and therefore it's possible to initialize q such that P holds. You see because to see to it that the initial value of q is such that at least two points lie at q you need at least two points. So here we are, now we have here made a very **meager**  use of the fact that it is given that the points are not collinear, we have only used the consequence that there are at least two points. Now, question, what general conclusion can we draw with respect to q and the points from the fact that the points are not collinear?
 
-//b.3
 ![b.3](b.3.png)
 
 There is a point not on q, yes. So my proposal is to take that into account by introducing a variable of type point. Variable E will be of type point, E will also be initialized, 
 
-//b.6
 ![b.6](b.6.png)
-//b.7
+
 ![b.7](b.7.png)
 
 and the fact that the points are not collinear, I can celebrate that by seeing to it that when q goes through two points, E lies not on q.
 
-//b.30
+
 ![b.30](b.30.png)
-//b.31
+
 ![b.31](b.31.png)
-//b.32
+
 ![b.32](b.32.png)
-//b.4
+
 ![b.4](b.4.png)
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=16m10s)
 
 I'm going to. The fact that this possibility, to assign to variable E a point that lies not on q, and to maintain that invariance, that is the way in which I exploit the non-linearity of the given points. Notice that the possibility to assign to E such a value is the only possible conclusion that we can directly draw from the non-linearity. That is, the maintenance of this invariant extracts out of the fact that the points are not collinear everything that can be extracted from it. Now, not surprisingly in the change of q, we will have to change E as well, 
 
-//b.8
 ![b.8](b.8.png)
 
 now let us inspect a little bit what kind of freedom we have. Well, what do we know? 
 
-//b.21
 ![b.21](b.21.png)
 
 Well, more than two points lie on q, so we can point to at least 3 points that lie on q. Let us name them A, B, and C, lie on q, and E lies not on q. 
 
-//b.22
+
 ![b.22](b.22.png)
-//b.23
+
 ![b.23](b.23.png)
-//b.24
+
 ![b.24](b.24.png)
 
-And I will make a picture, I promise to you that, that will be the only picture I make. But I wait a little bit. We have to change q. Now what possibilities do we have? As it is, well I will make two pictures. q, here are A, B, and C, and here is E.
+And I will make a picture, I promise to you that, that will be the only picture I make. But I wait a little bit. We have to change q. Now what possibilities do we have? As it is, well I will make two pictures. q, OK, here are A, B, and C, and here is E.
 
 ![a.3](a.3.png)
 
 The claim is that we have only three possibilities for the new value of q, and that's from E through this one [A], from E through that one [B], and from E through that one [C]. Because these four points are the only points the existence of which we can guarantee. Through two of those [A, B, C] is excluded because then we don't change q. So the new q has to go through the old E, and through one of those three. Now, the one it goes through, is, I will call, now I will rub it out, I will call A, I am free in naming here. So the new value of q, becomes the line E, A. And now I must, yah so eh, now I rub this out again, I'm going to make a new picture, this is q, and this is E, 
 
-//b.25
 ![b.25](b.25.png)
 
 and I put an A here, and this will be my new q, yah.
@@ -257,11 +239,13 @@ Now we have to think about a termination argument. Now listen, in the original s
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=21m40s)
 
-How do we find the termination argument? Well, the standard way is that you define a natural function on the state space which in each step of the repetition is decreased by at least 1, however, since our **space consists of a finite number of states** we can **drop** the constraint of the **variant** function being **integer**, it suffices to define an **integer [did he mean real?] function of the state** of which subsequently we can prove that it's **bounded from below** and **decreases** in each step. Now our current state **always exists** of a line q, and a point E, not on that line. Can anybody think of a **real function** of a point and a line that is bounded from below. The euclidian distance, yes, thank you very much. But if we do take the Euclidian distance, then I know which of the other two B and C, will be taken as our new E, the choice which **minimizes** the distance to the new q as much as possible. So here, we put of B and C, 
+How do we find the termination argument? Well, the standard way is that you define a natural function on the state space which in each step of the repetition is decreased by at least 1, however, since our **space consists of a finite number of states** we can **drop** the constraint of the **variant** function being **integer**, it suffices to define an **integer [did he mean real?] function of the state** of which subsequently we can prove that it's **bounded from below** and **decreases** in each step. Now our current state **always exists** of a line q, and a point E, not on that line. Can anybody think of a **real function** of a point and a line that is bounded from below. The euclidian distance, yes, thank you very much. But if we do take the Euclidian distance, then I know which of the other two B and C, will be taken as our new E, the choice which **minimizes** the distance to the new q as much as possible. 
 
 ---
 
 //
+
+My comment:
 
 "then I know which of the other two B and C, will be taken as our new E, the choice which **minimizes** the distance to the new q"
 
@@ -271,15 +255,17 @@ For termination, minimizing is one way to achieve decreasing steps in the repeti
 
 ---
 
-//b.26
+So here, we put of B and C, 
+
 ![b.26](b.26.png)
 
 the nearest to our new q. And now, 
 
-//b.27
 ![b.27](b.27.png)
 
 of the six[why 6?] possibilities that we had here, there are still three left and that is in the choice of capital A. Because the choice which new point has been settled by this. So now our only obligation is, to see to it, to prove, possibly by resolving the remaining non-determinacy, that our algorithm terminates. That is, that, the distance from E to q, actually decreases. So here we are, this was our old E and this was our old q.
+
+# next 24m10s
 
 ![a.6](a.6.png)
 
