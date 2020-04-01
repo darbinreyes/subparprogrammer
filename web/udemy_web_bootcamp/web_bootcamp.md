@@ -3052,29 +3052,34 @@ mongod --bind_ip=127.0.0.1 --dbpath=data --nojournal
 
 ---
 
-use demo
+* Examples of using the mongo "shell".
+  * use demo // <db_name>=demo set current database, if not exist, then created.
 
-show dbs
+  * show dbs // show database names
 
-db.dogs.insert({name: "Cartman", says: "I'm going home."})
+  * db.dogs.insert({name: "Cartman", says: "I'm going home."})
 
-show collections // see note
+  * show collections // see note // show collections in current database
 
-db.dogs.find()
+  * db.dogs.find() // list objects in collection foo/dogs
 
-// note ids
+  * // note "_id" // { "_id" : ObjectId("5e84c52d286d3bc2d4545300"), "name" : "Cartman", "says" : "I'm goin home" }
 
-db.dogs.insert(... another thing...)
+  * db.dogs.insert(... another thing...)
 
-db.dogs.find({name: "Cartman"})
+  * db.dogs.find({name: "Cartman"})
 
-db.dog.insert(...another...)
+  * db.dog.insert(...another...)
 
-db.dogs.find()
+  * db.dogs.find()
 
-db.dogs.find({name:"Stan"})
+  * db.dogs.find({name:"Stan"})
 
-* CRUD=create read(=find()) update destroy
+* CRUD=Create Read Update Destroy
+  * Create. `use demo` `db.southpark.insert({...})`
+  * Read. `show collections` `db.southpark.find()` `db.southpark.find({name: ...})`
+  * Update. See below.
+  * Destroy. See below.
 
 // updating
 
@@ -3104,7 +3109,108 @@ you will learn about an Object Document Modeling (ODM) package for Express calle
 
 * Interacting with mongodb within JS.
 
-### 304. Introduction to Mongoose Pt. 2   
+http://mongoosejs.com
+
+* Interface from nodeJS to mongoDB. 
+  * You can get by without it, like you can get by without JQuery.
+  
+  
+* npm install mongoose
+
+```javascript
+require()
+
+mongoose.connect("mongodb://localhost/sp");
+
+var catSchema = new mongoose.Schema({
+    name: String,
+    age: Number
+}); // define a schema for data
 
 
+var Cat = mongoose.model("Cat", catSchema); // create a cat OBJECT + DB interface for it
+```
+
+### 304. Introduction to Mongoose Pt. 2
+
+```javascript
+
+// adding a new cat
+    
+// instantiate an instance of a cat object.
+var sniffles = new Cat({ 
+    name: "caca",
+    age: 7
+});
+    
+
+sniffles.save(function(err, cat){    
+// on save done callback, err if any, + value saved and returned from the DB, this is distinct from the sniffles object. 
+   if(err){
+       console.log...
+       console.log(err)
+   } else {
+       console.log...
+       console.log(cat)
+   }
+});
+    
+// .find(func)
+// .remove(func)
+// .create(func)
+
+```
+
+```
+// in mongo shell
+show dbs
+use cat_app
+show collections
+db.cats.find()
+```
+
+
+```javascript
+//repeat with different values for sniffles to add more.
+```
+
+```javascript
+
+Cat.find({}, function(err, cats) {
+// on find done callback
+    if(err){
+       console.log...
+       console.log(err)
+   } else {
+       console.log...
+       console.log(cats)
+   }
+});
+
+// create and save in one function call.
+
+Cat.create({name: "Poo", age: 8}, function(err, cat) {
+// on create done callback.
+   if(err){
+       console.log...
+       console.log(err)
+   } else {
+       console.log...
+       console.log(cat)
+   }
+});
+```
+
+END.
+
+---
+
+# Section 30: YelpCamp: Data Persistence
+
+---
+
+### 305. YelpCamp: Adding Mongoose
+### 306. How to Avoid Potential Issues with Mongoose
+### 307. YelpCamp: Campground Show Page Part 1
+### 308. Yelp Camp: Campground Show Page Part 2 
 
