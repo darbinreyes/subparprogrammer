@@ -863,5 +863,12 @@ raise()
 
 ## B.10 Date and Time Functions: <time.h> 
 ## B.11 Implementation-defined Limits: <limits.h> and <float.h> 
+END of appendix B.
+
+# Appendix C - Summary of Changes 
+
+Delta of First edition of this book to the current ANSI standard edition of the book.
+
+# next 	"The Standard places explicit minima" 
 
 
