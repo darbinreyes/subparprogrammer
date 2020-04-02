@@ -265,8 +265,6 @@ the nearest to our new q. And now,
 
 of the six[why 6?] possibilities that we had here, there are still three left and that is in the choice of capital A. Because the choice which new point has been settled by this. So now our only obligation is, to see to it, to prove, possibly by resolving the remaining non-determinacy, that our algorithm terminates. That is, that, the distance from E to q, actually decreases. So here we are, this was our old E and this was our old q.
 
-# next 24m10s
-
 ![a.6](a.6.png)
 
 And we call this distance h
@@ -314,8 +312,8 @@ And I will do the same for capital C, which has a distance little c to the new q
 //b.28
 ![b.28](b.28.png)
 
-//BB
-// b min c < h
+* //BB
+  * b min c < h
 
 And if I can show that, I have satisfied my proof obligation, [it] means that **the distance from E to q will actually decrease in each step**.
 
@@ -323,12 +321,14 @@ And if I can show that, I have satisfied my proof obligation, [it] means that **
 
 Now, I have to show this, I'm going to simplify that, the very first thing is that I wish to eliminate, that operator that takes the minimum, so without changing the value of this boolean expression, I wish to **eliminate the minimum function**, 
 
+// My comment. He calls this a function but he does not use the dot notation f.x. Instead min appears as a infix operator like x + y.
+
 //b.29
 ![b.29](b.29.png)
 
-//BB
-// b min c < h
-// = {elimination of min}
+* //BB
+  * b min c < h
+  * = {elimination of min}
 
 ![a.13](a.13.png)
 
@@ -353,27 +353,31 @@ Don't forget little b and c are lines, while capital B and C are points.
 
 Everrrybody agrees? 
 
-//BB
-// b min c < h
-// = {elimination of min}
-// b < h ∨ c < h
+* //BB
+  * b min c < h
+  * = {elimination of min}
+  * b < h ∨ c < h
 
 Huh? No sir, because for the termination argument I need actual decrease, so the minimum of these, of this, if this value has to be less h, then b, then b is less than h or c is less than h. And this is an equivalence because, these two boolean expressions have the same value.
 
 // My comment. [x] TODO. Convince myself of that min equivalence.
 
-Now, the next thing I wish to do, is to eliminate the lower case letters, obviously, obviously, because little b and h and little c, they only occur in that picture, and the sooner I liberate myself from that **picture**, the better. Now, ehh, my claim is that there is a simple expression, that has the same value as b less than h. Is anybody willing to make a suggestion? The length of BA or AB, yes, is less than EA, yah, and that follows from similar **triangles**.
+Now, the next thing I wish to do, is to eliminate the lower case letters, obviously, obviously, because little b and h and little c, they only occur in that picture, 
+
+// My comment: "they only occur in that picture" and do not occur in the program we are developing.
+
+and the sooner I liberate myself from that **picture**, the better. Now, ehh, my claim is that there is a simple expression, that has the same value as b less than h. Is anybody willing to make a suggestion? The length of BA or AB, yes, is less than EA, yah, and that follows from similar **triangles**.
 
 // My comment. EUCLID FTW!
 
 ![a.15](a.15.png)
 
-//BB
-// b min c < h
-// = {elimination of min}
-// b < h ∨ c < h
-// = {}
-// BA < EA
+* //BB
+ * b min c < h
+ * = {elimination of min}
+ * b < h ∨ c < h
+ * = {similar triangles}
+ * BA < EA
 
 These two triangles are similar, because they both have that right angle there and they share that one, so these two sides, the ratio of them is the same as the ratio of the hypotenuses.
 
@@ -385,7 +389,7 @@ So BA less than EA is the one. Is that OK? Yes, apparently. Am I a little bit am
 // b min c < h
 // = {elimination of min}
 // b < h ∨ c < h
-// = {}
+// = {similar triangles}
 // BA < EA ∨ CA < EA
 
 ![a.16](a.16.png)
@@ -413,7 +417,7 @@ that is my new E, and now the question is will the new q go through B or will it
 
 so my new E becomes A and my new q becomes, of the lines sorry BC and, sorry, of the lines BE and CE the nearest to A, 
 
-//b.39 [notice point E is assigned point A]
+//b.39 [notice in the image below that point E is assigned point A]
 ![b.39](b.39.png)
 
 so and now I will have P again.
@@ -469,7 +473,7 @@ Only now it becomes a little bit different here
 
 ![a.22](a.22.png)
 
-because b less than h is now, AB less than BE, similarly, c less than h, will be that AC less than CE.
+because b less than h is now, AB less than BE, **similarly** [Substitute C in place of B], c less than h, will be that AC less than CE.
 
 ![a.23](a.23.png)
 
@@ -480,6 +484,10 @@ So, oops, OK. Ehh, next step, what does this follow from? Do we have a way to de
 ![a.24](a.24.png)
 
 Yes, for instance, x plus x prime, is at least, I can even put at least here, yes. x plus x prime is at least y plus y prime. 
+
+// My comment. Notice the slanted way he write the >= symbol.
+
+# next 36m01s
 
 ![a.25](a.25.png)
 
