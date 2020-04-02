@@ -867,8 +867,10 @@ END of appendix B.
 
 # Appendix C - Summary of Changes 
 
-Delta of First edition of this book to the current ANSI standard edition of the book.
+Delta of First edition of this book to the current ANSI standard edition of the book. 
+# Appendix A - Reference Manual 
 
-# next 	"The Standard places explicit minima" 
+## A.1 Introduction 
 
+An "interpretation" of the official ANSI C standard.
 
