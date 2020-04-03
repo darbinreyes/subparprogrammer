@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+
+// "nutrition" will appear in "show dbs" list.
 mongoose.connect("mongodb://localhost/nutrition", {useNewUrlParser: true, useUnifiedTopology: true});
 // Add to DB
 
@@ -9,6 +11,8 @@ const nutritionSchema = mongoose.Schema({
     energy: Number
 });
 
+// "nutritions" will show up in "use nutrition; show collections"
+// "db.nutritions.find()" will display DB entries.
 // Get an instance of the DB for the given schema.
 const Nutrition = mongoose.model("Nutrition", nutritionSchema);
 

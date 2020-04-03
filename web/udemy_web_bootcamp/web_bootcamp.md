@@ -3210,7 +3210,59 @@ END.
 ---
 
 ### 305. YelpCamp: Adding Mongoose
+
+* style of requires.
+* adding mongoose calls.
+  * require
+  * connect
+  * Schema
+  * model
+  * create 
+  * view in mongo shell
+  * create again
+  * replace uses of array with DB.
+  * GET URI= /campgrounds
+    * DB find // get all entries 
+  * POST URI= /campgrounds
+    * DB create
+    
 ### 306. How to Avoid Potential Issues with Mongoose
+
+* resolving e.g. deprecation warnings.
+* remove({}).limit(1) doesn't work
+  * ANS: db.collection.remove({}, {justOne: true})
+  
 ### 307. YelpCamp: Campground Show Page Part 1
-### 308. Yelp Camp: Campground Show Page Part 2 
+* RESTful routes conventions
+  * index GET /dogs  // list n entries
+  * new  GET /dogs/new // add form
+  * create POST /dogs // add action
+  * show-individual GET /dogs/:id // single entry + details
+    * e.g. .get("/camgrounds/:id", ...)
+      * beware of collision with /campgrounds/new, should go first.
+      * Adding description to camp schema.
+      * Add new camp with description. Very in mongo shell.
+
+* Add description field
+
+* DB drop()
+  * use yelp_camp
+  * db.campgrounds.find()
+  * db.campgrounds.drop()
+  * db.campgrounds.find()
+
+* add show route
+  * e.g. .get("/camgrounds/:id", ...)
+    * create show.ejs.
+    * rename campgrounds.ejs to index.ejs.
+    * in index.ejs add button "more info" as \<a>, use campground._id for :id
+      * :id = req.params.id
+      * DB Campground.findById(params.id, function...)
+      * render("show.ejs", {camp: foundCamp})
+    * update /campgrounds/new form 
+      * Add description text input.
+
+### 308. Yelp Camp: Campground Show Page Part 2
+
+* See above. 
 
