@@ -3234,14 +3234,14 @@ END.
   
 ### 307. YelpCamp: Campground Show Page Part 1
 * RESTful routes conventions
-  * index GET /dogs  // list n entries
-  * new  GET /dogs/new // add form
-  * create POST /dogs // add action
-  * show-individual GET /dogs/:id // single entry + details
-    * e.g. .get("/camgrounds/:id", ...)
+  * index. GET /dogs  // list n entries
+  * new.  GET /dogs/new // add form
+  * create. POST /dogs // add action
+  * show-individual. GET /dogs/:id // single entry + details
+    * e.g. .get("/campgrounds/:id", ...)
       * beware of collision with /campgrounds/new, should go first.
       * Adding description to camp schema.
-      * Add new camp with description. Very in mongo shell.
+      * Add new camp with description. Verify in mongo shell.
 
 * Add description field
 

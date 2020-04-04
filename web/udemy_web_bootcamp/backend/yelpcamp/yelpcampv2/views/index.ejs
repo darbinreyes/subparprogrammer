@@ -11,7 +11,14 @@
   <a class="btn btn-success btn-lg" href="/campgrounds/new" role="button">Add new nutrition entry</a>
 </div>
 <!-- jumbotron END -->
-<div class="container-fluid">
+<div class="container-fluid"> <!-- container-fluid START -->
+<% if(nutritions.length === 0) { %>
+<div class="row">
+    <div class="col-12">
+        <p>Sorry, the database is empty.</p>
+    </div>
+</div>
+<% } else { // else START %>
 <div class="row">
 <% nutritions.forEach(function (currentValue, index, array) { %>
     <div class="col-12 col-sm-6 col-md-4 col-lg-3 my-2 align-self-center">
@@ -21,15 +28,14 @@
         <div class="card-body">
             <h5 class="card-title"><%= currentValue.name %></h5>
             <!-- <p class="card-text">Eat me.</p> -->
-            <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+            <a href="/campgrounds/<%= currentValue._id %>" class="btn btn-primary">Nutrition Info.</a>
         </div>
         </div>
         <!-- card END -->
     </div>
 <% }); %>
 </div>
-</div>
-<!-- <h4><%= //currentValue.name %></h4> style="width: 18rem;" -->
-<!-- <img style="width: 10%" src="<%= //currentValue.image %>" alt="<%= //currentValue.name %>"> -->
+<% } // else END %>
+</div> <!-- container-fluid END -->
 
 <%- include("partials/footer.ejs") %>

@@ -1,15 +1,37 @@
 // Express is our HTTP server.
 const express = require("express");
+// We need body-parser for easy access to form data provided in the body of an POST 
+// request that is formatted in x-www-form-urlencoded
+const bodyParser = require("body-parser"); 
+// Mongoose is our DB API.
+const mongoose = require("mongoose");
+
+/** Mongoose setup START **/
+// "yelpnutrition" will appear in "mongoose shell>>> show dbs" list.
+mongoose.connect("mongodb://localhost/yelpnutrition", {useNewUrlParser: true, useUnifiedTopology: true});
+
+// Define schema for the data to be added to the DB.
+const nutritionSchema = mongoose.Schema({
+    name: String,
+    image: String,
+    energy: Number,
+    description: String
+});
+
+// "nutritions" will show up in "mongoose shell>>> use yelpnutrition; show collections"
+// "mongoose shell>>> db.nutritions.find()" will display DB entries.
+// Get an instance of the DB for the given schema.
+const Nutrition = mongoose.model("Nutrition", nutritionSchema);
+/** Mongoose setup END **/
+
+/** Express setup START **/
 const app = express();
 
 app.use(express.static("public")); // Tell express where to look for CSS files.
 
-// We need body-parser for easy access to form data provided in the body of an POST 
-// request that is formatted in x-www-form-urlencoded
-const bodyParser = require("body-parser"); 
-
 // Enable x-www-form-urlencoded in body-parser. Tell express to use body-parser.
 app.use(bodyParser.urlencoded({extended: true})); 
+/** Express setup END **/
 
 // Add a GET request handler for /.
 app.get("/", function (exp_request, exp_response) {
@@ -18,40 +40,90 @@ app.get("/", function (exp_request, exp_response) {
 });
 
 // This is our fake database.
-nutritions = [
-{name: "Mango", image: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Carabao_mangoes_%28Philippines%29.jpg"},
-{name: "Lime", image: "https://upload.wikimedia.org/wikipedia/commons/6/68/Lime-Whole-Split.jpg"},
-{name: "Strawberry", image: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Strawberries.jpg"},
-{name: "Avocado", image: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Avocado-board.jpg"},
-{name: "Green Leaf Lettuce", image: "https://upload.wikimedia.org/wikipedia/commons/8/85/HK_food_%E8%94%AC%E8%8F%9C_vegetable_Lettuce_%E7%94%9F%E8%8F%9C_Lactuca_Sativa_green_leaves_with_fresh_clear_water_January_2019_SSG_02.jpg"},
-{name: "Tomato", image: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Tomato-top.png"},
-{name: "Mango", image: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Carabao_mangoes_%28Philippines%29.jpg"},
-{name: "Lime", image: "https://upload.wikimedia.org/wikipedia/commons/6/68/Lime-Whole-Split.jpg"},
-{name: "Strawberry", image: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Strawberries.jpg"},
-{name: "Avocado", image: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Avocado-board.jpg"},
-{name: "Green Leaf Lettuce", image: "https://upload.wikimedia.org/wikipedia/commons/8/85/HK_food_%E8%94%AC%E8%8F%9C_vegetable_Lettuce_%E7%94%9F%E8%8F%9C_Lactuca_Sativa_green_leaves_with_fresh_clear_water_January_2019_SSG_02.jpg"},
-{name: "Tomato", image: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Tomato-top.png"}
-];
+// nutritions = [
+// {name: "Mango", image: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Carabao_mangoes_%28Philippines%29.jpg"},
+// {name: "Lime", image: "https://upload.wikimedia.org/wikipedia/commons/6/68/Lime-Whole-Split.jpg"},
+// {name: "Strawberry", image: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Strawberries.jpg"},
+// {name: "Avocado", image: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Avocado-board.jpg"},
+// {name: "Green Leaf Lettuce", image: "https://upload.wikimedia.org/wikipedia/commons/8/85/HK_food_%E8%94%AC%E8%8F%9C_vegetable_Lettuce_%E7%94%9F%E8%8F%9C_Lactuca_Sativa_green_leaves_with_fresh_clear_water_January_2019_SSG_02.jpg"},
+// {name: "Tomato", image: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Tomato-top.png"},
+// {name: "Mango", image: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Carabao_mangoes_%28Philippines%29.jpg"},
+// {name: "Lime", image: "https://upload.wikimedia.org/wikipedia/commons/6/68/Lime-Whole-Split.jpg"},
+// {name: "Strawberry", image: "https://upload.wikimedia.org/wikipedia/commons/e/e1/Strawberries.jpg"},
+// {name: "Avocado", image: "https://upload.wikimedia.org/wikipedia/commons/c/c0/Avocado-board.jpg"},
+// {name: "Green Leaf Lettuce", image: "https://upload.wikimedia.org/wikipedia/commons/8/85/HK_food_%E8%94%AC%E8%8F%9C_vegetable_Lettuce_%E7%94%9F%E8%8F%9C_Lactuca_Sativa_green_leaves_with_fresh_clear_water_January_2019_SSG_02.jpg"},
+// {name: "Tomato", image: "https://upload.wikimedia.org/wikipedia/commons/b/b7/Tomato-top.png"}
+// ];
 
 // Add a GET request handler for /.
 app.get("/campgrounds", function (exp_request, exp_response) {
     console.log("GET @ /campgrounds.");
-    exp_response.render("campgrounds.ejs", {nutritions: nutritions});
+    // Display the nutritions array obtained from the DB.
+    Nutrition.find({}, function(err, nutritions){
+        if(err) {
+            console.log("DB.find() failed: ");
+            console.log(err);
+        } else {
+            console.log("DB.find() successful. Found " + nutritions.length + " entries.");
+            console.log(nutritions);
+            exp_response.render("index.ejs", {nutritions: nutritions});
+        }
+    });
 });
 
 app.post("/campgrounds", function (exp_request, exp_response){
     console.log("POST @ /campgrounds.");
-    // get form data
+    // Get form data specifying what will be added.
+    // Add new entry to DB.
     // redirect to /campgrounds.
-    var newName = exp_request.body.name;
-    var newImage = exp_request.body.image;
-    nutritions.push({name: newName, image: newImage});
-    exp_response.redirect("/campgrounds");
+    var entryName = exp_request.body.name;
+    var entryImage = exp_request.body.image;
+    var entryEnergy = exp_request.body.energy;
+    var entryDescription = exp_request.body.description;
+
+    newEntry = new Nutrition({
+        name: entryName,
+        image: entryImage,
+        energy: entryEnergy,
+        description: entryDescription
+    });
+
+    newEntry.save(function(err, entry){
+        if(err) {
+            console.log("Failed to add new entry: ");
+            console.log(err);
+        } else {
+            console.log("New entry added successfully: ");
+            console.log(entry);
+        }
+        exp_response.redirect("/campgrounds"); // Redirect upon completion of DB.save() otherwise the new entry may not be visible if we redirect before the save completes.
+    });
+
 });
 
 app.get("/campgrounds/new", function (exp_request, exp_response) {
     console.log("GET @ /campgrounds/new.");
+    // Show the form for adding a new entry to the DB.
     exp_response.render("new.ejs");
+});
+
+app.get("/campgrounds/:id", function(exp_request, exp_response){
+    // Example valid ID: 5e878925d90bb0b95ec6bf14, string, 24 chars.
+    console.log("GET @ /camgrounds/:id. id = " + exp_request.params.id);
+    
+    // TODO/FYI: App errors our when ID argument below is invalid.
+
+    // Show the details of the DB entry with given ID.
+    Nutrition.findById(exp_request.params.id, function(err, entry){
+        if(err) {
+            console.log("findById() failed: ");
+            console.log(err);
+        } else {
+            console.log("findById() successful. Entry: ");
+            console.log(entry);
+            exp_response.render("show.ejs", {entry: entry});
+        }
+    });
 });
 
 const PORT = 3000;

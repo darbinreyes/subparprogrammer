@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 
 // "nutrition" will appear in "show dbs" list.
 mongoose.connect("mongodb://localhost/nutrition", {useNewUrlParser: true, useUnifiedTopology: true});
+
 // Add to DB
 
 // Define schema for the data to be added to the DB.
