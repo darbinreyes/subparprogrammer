@@ -13,6 +13,38 @@ class coloredPoint:
         self.x = x
         self.y = y
 
+class Line:
+    """ Represents a line connecting two colored points."""
+    def setline(self, slp, yintercept):
+        """ Construct a line by slope and y intercept.
+        Standard equation for representing a line y = m * x + b =
+        slp * x + yintercept. """
+        self.slp = slp
+        self.yintercept = yintercept
+
+    def __init__(self, point0, point1):
+        # TODO: How to address possible errors due to floating point precision
+        """ Construct a line from two points."""
+
+        # Calculate the slope = delta_y/delta_x.
+        if point0.x > point1.x:
+            dx = point0.x - point1.x
+            dy = point0.y - point1.y
+        else:
+            dx = point1.x - point0.x
+            dy = point1.y - point0.y
+
+        slp = dy/dx
+
+        # Calculate the y-intercept. y - m * x = b
+        yintercept = point0.y - slp * point0.x
+
+        yintercept2 = point1.y - slp * point1.x # TODO: Check yintercept2 == yintercept
+
+        self.setline(slp, yintercept)
+        print("Line: y = " + str(self.slp) + " * x + " + str(self.yintercept) + " || " + str(yintercept2))
+
+
 def create_coordinates(n, coordsmin, coordsmax):
     """ Returns a list of n distinct numbers in the range coordsmin <= c <= coordsmax. min/max should be integers."""
     return random.sample(range(coordsmin, coordsmax + 1), n) # sample() takes random samples without replacement. This ensures distinct coordinates.
@@ -64,6 +96,7 @@ def plot_points(conn_matrix, redpts, bluepts):
         for j in range(len(conn_matrix[i])):
             if conn_matrix[i][j]:
                 # Plot a line.
+                line0 = Line(bluepts[i], redpts[j])
                 ax.plot([bluepts[i].x, redpts[j].x], [bluepts[i].y, redpts[j].y], color='black')
 
     # Show the figure and block execution, if block=False you never see the
