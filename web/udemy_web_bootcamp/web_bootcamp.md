@@ -3264,5 +3264,56 @@ END.
 
 ### 308. Yelp Camp: Campground Show Page Part 2
 
-* See above. 
+* See above.
+
+END.
+
+---
+
+# Section 31: RESTful Routing
+
+---
+
+### 309. Intro to REST 
+* 7 RESTful routes/conventions for CRUD-like implementations.
+
+1. index   GET    /dogs          // list all entries
+2. new     GET    /dogs/new      // show new entry form
+3. create  POST   /dogs          // add new entry to DB. Redirect.
+4. show    GET    /dogs/:id      // Show individual DB entry.
+5. edit    GET    /dogs/:id/edit // Show edit form
+6. update  PUT    /dogs/:id      // revise existing DB entry. Redirect.
+7. destroy DELETE /dogs/:id      // remove entry from DB. Redirect.
+
+* Blog site project.
+ * "Semantic UI" instead of bootstrap. https://semantic-ui.com/
+ 
+### 310. RESTful Blog App: INDEX 
+* 1 video per restful route.
+* DON'T forget "ejs" is its own npm package.
+* Using 1 file for teaching but other source file organizations may be better.
+* create init app.js
+  * blog = title, image, body, date=now.
+  * default schema values
+    * .Schema( created: {type: Data, default: Date.now} )
+  * GET / // redirects to /blogs
+  * GET /blogs // index.ejs
+  * in app.get("/blogs", ...) DB.find().
+  * blogs.forEach()
+
+### 311. Note about Blog App: Layout 
+* ejs include synta changed
+* navbar spacing issue resolved later. NEW and CREATE video.
+
+### 312. Blog App: Layout 
+### 313. Note about RESTful Blog App: New and Create 
+### 314. RESTful Blog App: NEW and CREATE 
+### 315. Note about RESTful Blog App: SHOW 
+### 316. RESTful Blog App: SHOW 
+### 317. RESTful Blog App: EDIT AND UPDATE 
+### 318. RESTful Blog App: DESTROY 
+### 319. Note about RESTful Blog App: Final Touches 
+### 320. RESTful Blog App: Final Touches 
+
+
 

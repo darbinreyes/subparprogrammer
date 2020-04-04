@@ -1,0 +1,8 @@
+<h1>These are all the blogs.</h1>
+
+<% entries.forEach(function (currentValue, index, array) { %>
+    <h5><%= currentValue.title %></h5>
+    <p><%= currentValue.date %></p>
+    <img src="<%= currentValue.image %>" alt="currentValue.title">
+    <p><%= currentValue.thetext %></p>
+<% }); %>
