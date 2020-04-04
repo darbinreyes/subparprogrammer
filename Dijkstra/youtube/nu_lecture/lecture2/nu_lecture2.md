@@ -479,21 +479,21 @@ because b less than h is now, AB less than BE, **similarly** [Substitute C in pl
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=35m20s)
 
-So, oops, OK. Ehh, next step, what does this follow from? Do we have a way to derive this? What does this follow from? Now have a look, if, ohh this is very funny, if x is larger than y and x prime is larger than y prime. What you are you willing to conclude? In general. x is larger than y and x prime is larger than y prime. Can you draw an obvious conclusion from that?
+So, oops, OK. Ehh, next step, what does this follow from? Do we have a way to derive this? What does this follow from? Now have a look, if, ohh this is very funny, if x is larger than y and x prime is larger than y prime. What you are you willing to conclude? In general, x is larger than y and x prime is larger than y prime. Can you draw an obvious conclusion from that?
 
 ![a.24](a.24.png)
 
 Yes, for instance, x plus x prime, is at least, I can even put at least here, yes. x plus x prime is at least y plus y prime. 
 
-// My comment. Notice the slanted way he write the >= symbol.
-
-# next 36m01s
+// My comment. Notice the slanted way he writes the \>= symbol.
 
 ![a.25](a.25.png)
 
 ![a.26](a.26.png)
 
-Monotonicity of the addition. Write now down the contrapositive of this relation. x less than y or x prime less than y prime follows from x plus x prime less than y plus y prime. 
+Monotonicity of the addition. Write now down the **contrapositive** of this relation. x less than y or x prime less than y prime follows from x plus x prime less than y plus y prime. 
+
+// My comment. My study of Dijkstra's Predicate Calculus and Program Semantics has paid off here. Notice how effortlessly we were able to turn the expression with a conjunction into one with a disjunction by writing down the equivalent contrapositive. 
 
 ![a.27](a.27.png)
 
@@ -507,11 +507,15 @@ this follows from AB + AC is less than BE + CE. OK.
 
 So far so good. Now listen, we will, b and c are distances, so the minimum of them is at least 0, we have to demonstrate that that minimum is less than h, we can never prove that for h is 0, so we have to take into account something, some statement of the fact that h differs from 0. Now h differs from 0, tells us because the points A, B, and C are all different, h differs from 0 tells us that A does not lie on q, but since E only occurs in connection with B and C, we now characterize the line q as the line through B and C, and h differs from 0 we now formulate as triangle E, B, C is not degenerate. But if triangle EBC is not degenerate, hence, BC is **actually** less BE plus EC. 
 
+// My comment. Here I am lost. I don't understand what he says about h differing from 0 and triangle EBC not being degenerate.
+
 ![a.31](a.31.png)
 
 ![a.30](a.30.png)
 
 ![a.32](a.32.png)
+
+# next 40m01s
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=39m40s)
 
