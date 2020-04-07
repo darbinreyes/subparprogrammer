@@ -874,3 +874,32 @@ Delta of First edition of this book to the current ANSI standard edition of the 
 
 An "interpretation" of the official ANSI C standard.
 
+## A.2 Lexical Conventions 
+
+translation units.
+
+translation in phases.
+
+first phase = # preprocessing.
+
+after first phase complete, everything is tokenized.
+
+### A.2.1 Tokens 
+
+6 token classes.
+
+1. identifiers "avarname"
+2. keywords "int"
+3. constants "3.14f"
+4. string literals "hello Dijkstra"
+5. operators "+"
+6. other separators "[" 
+
+all whitespace ignored, except for token separation.
+
+next token = longest string of chars that make up a valid token.
+
+### A.2.2 Comments 
+
+
+
