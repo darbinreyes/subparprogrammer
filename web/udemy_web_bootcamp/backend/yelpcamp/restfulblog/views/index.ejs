@@ -1,3 +1,5 @@
+<%- include("partials/header.ejs") %>
+
 <h1>These are all the blogs.</h1>
 
 <% entries.forEach(function (currentValue, index, array) { %>
@@ -6,3 +8,5 @@
     <img src="<%= currentValue.image %>" alt="currentValue.title">
     <p><%= currentValue.thetext %></p>
 <% }); %>
+
+<%- include("partials/footer.ejs") %>

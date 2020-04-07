@@ -3302,11 +3302,22 @@ END.
   * blogs.forEach()
 
 ### 311. Note about Blog App: Layout 
-* ejs include synta changed
+* ejs include syntax changed
 * navbar spacing issue resolved later. NEW and CREATE video.
 
 ### 312. Blog App: Layout 
+* add header and footer partials
+* add semantic UI CDN.
+  * navbar = menu
+  * icon for navbar brand.
+  * mkdir public/stylesheets/app.css - i.icon font-size: 2em
 ### 313. Note about RESTful Blog App: New and Create 
+* New syntax for form name attribute.
+* Now Colt will write it like this:
+\<input type="text" name="blog[title]">  
+What this will do is, instead of making the value for title available directly from req.body.title it will put it inside of an object, like so: req.body.blog.title 
+* TL;DR: this syntax is specific to body-parser.
+
 ### 314. RESTful Blog App: NEW and CREATE 
 ### 315. Note about RESTful Blog App: SHOW 
 ### 316. RESTful Blog App: SHOW 
