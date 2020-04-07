@@ -13,7 +13,7 @@ class coloredPoint:
         self.x = x
         self.y = y
 
-class Line:
+class FiniteLine:
     """ Represents a line connecting two colored points."""
     def setline(self, slp, yintercept):
         """ Construct a line by slope and y intercept.
@@ -23,26 +23,46 @@ class Line:
         self.yintercept = yintercept
 
     def __init__(self, point0, point1):
-        # TODO: How to address possible errors due to floating point precision
         """ Construct a line from two points."""
+        # TODO: How to address possible errors due to floating point precision?
 
         # Calculate the slope = delta_y/delta_x.
         if point0.x > point1.x:
-            dx = point0.x - point1.x
-            dy = point0.y - point1.y
+            # Save the point with the greater x-coordinate in self.point1 and
+            # save the point with the lesser x-coordinate in self.point0. This
+            # will be used in the self.intersection() test.
+            self.point1 = point0
+            self.point0 = point1
         else:
-            dx = point1.x - point0.x
-            dy = point1.y - point0.y
+            self.point1 = point1
+            self.point0 = point0
 
+        dx = self.point1.x - self.point0.x
+        dy = self.point1.y - self.point0.y
         slp = dy/dx
 
         # Calculate the y-intercept. y - m * x = b
         yintercept = point0.y - slp * point0.x
 
-        yintercept2 = point1.y - slp * point1.x # TODO: Check yintercept2 == yintercept
+        yintercept2 = point1.y - slp * point1.x # TODO: Fix yintercept2 != yintercept
 
         self.setline(slp, yintercept)
         print("Line: y = " + str(self.slp) + " * x + " + str(self.yintercept) + " || " + str(yintercept2))
+
+    def intersects(self, other_finite_line):
+        """ Determines if this line intersects with other_finite_line. The lines
+        intersect if the x-coordinate of the computed intersection lies between
+        the x-range of this line and the x-range of other_finite_line."""
+
+        # Calculate the x-coordinate of the intersection between this line and
+        # other_finite_line
+        dslp = self.slp - other_finite_line.slp
+        dyintercept = self.yintercept - other_finite_line.yintercept
+        x_intersection = -dyintercept/dslp
+
+        return x_intersection >= self.point0.x and x_intersection <= self.point1.x \
+        and x_intersection >= other_finite_line.point0.x and \
+        x_intersection <= other_finite_line.point1.x
 
 
 def create_coordinates(n, coordsmin, coordsmax):
@@ -92,13 +112,17 @@ def plot_points(conn_matrix, redpts, bluepts):
     #                [False, False, True]]
 
     # Connect the points with lines according to the above matrix.
+    lines = []
     for i in range(len(conn_matrix)):
         for j in range(len(conn_matrix[i])):
             if conn_matrix[i][j]:
+                # Create a FiniteLine object for each line
+                tmp_line = FiniteLine(bluepts[i], redpts[j])
+                lines.append(tmp_line)
                 # Plot a line.
-                line0 = Line(bluepts[i], redpts[j])
                 ax.plot([bluepts[i].x, redpts[j].x], [bluepts[i].y, redpts[j].y], color='black')
 
+    print("lines = ", lines)
     # Show the figure and block execution, if block=False you never see the
     # figure because it disappears once execution continues.
     plt.show(block=True)
