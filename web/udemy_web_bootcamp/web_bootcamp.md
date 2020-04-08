@@ -3319,7 +3319,28 @@ What this will do is, instead of making the value for title available directly 
 * TL;DR: this syntax is specific to body-parser.
 
 ### 314. RESTful Blog App: NEW and CREATE 
+* add app.get("/blogs/new", ...)
+* new.ejs
+* just a form.
+* icon becomes small again issue. - path "/" - check JS console.
+* fix navbar overlap issue. .container.main
+* add \<form> action=/blogs, method=POST.
+  * inputs name=blog[title]
+* add app.post("/blogs",...)
+  * create new blog entry
+    * Blog.create(...)
+  * redirect to /blogs
+  * request.body.blog
+* style form using semantic-ui.
+  * for blog text use
+    * \<textarea name="blog[body]">\</textarea>
+
 ### 315. Note about RESTful Blog App: SHOW 
+* a way to shorten text with the .substring() method.
+  * Blog post(s) in the database that don't have a body property. 
+  * This can be fixed by removing the existing blogs
+  * You can also add client side validation to the form to ensure that the body property
+  
 ### 316. RESTful Blog App: SHOW 
 ### 317. RESTful Blog App: EDIT AND UPDATE 
 ### 318. RESTful Blog App: DESTROY 
