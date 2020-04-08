@@ -242,7 +242,7 @@ Now we have to think about a termination argument. Now listen, in the original s
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=21m40s)
 
-How do we find the termination argument? Well, the standard way is that you define a natural function on the state space which in each step of the repetition is decreased by at least 1, however, since our **space consists of a finite number of states** we can **drop** the constraint of the **variant** function being **integer**, it suffices to define an **integer [did he mean real?] function of the state** of which subsequently we can prove that it's **bounded from below** and **decreases** in each step. Now our current state **always exists** of a line q, and a point E, not on that line. Can anybody think of a **real function** of a point and a line that is bounded from below. The euclidian distance, yes, thank you very much. But if we do take the Euclidian distance, then I know which of the other two B and C, will be taken as our new E, the choice which **minimizes** the distance to the new q as much as possible. 
+How do we find the termination argument? Well, the standard way is that you define a natural function on the state space which in each step of the repetition is decreased by at least 1, however, since our **space consists of a finite number of states** we can **drop** the constraint of the **variant** function being **integer**, it suffices to define an **integer [did he mean real?] function of the state** of which subsequently we can prove that it's **bounded from below** and **decreases** in each step. Now our current state **always exists** of a line q, and a point E, not on that line. Can anybody think of a **real function** of a point and a line that is bounded from below? The euclidian distance, yes, thank you very much. But if we do take the Euclidian distance, then I know which of the other two B and C, will be taken as our new E, the choice which **minimizes** the distance to the new q as much as possible. 
 
 ---
 
@@ -268,8 +268,6 @@ the nearest to our new q. And now,
 
 of the six[why 6?] possibilities that we had here, there are still three left and that is in the choice of capital A. Because the choice which new point has been settled by this. So now our only obligation is, to see to it, to prove, possibly by resolving the remaining non-determinacy, that our algorithm terminates. That is, that, the distance from E to q, actually decreases. So here we are, this was our old E and this was our old q.
 
-# next 24m30s
-
 ![a.6](a.6.png)
 
 And we call this distance h
@@ -278,15 +276,15 @@ And we call this distance h
 
 ![a.8](a.8.png)
 
-And well, B is somewhere, the new distance
+And well, B is somewhere, the new distance,
 
 ![a.9](a.9.png)
 
-The distance from B to the new q is that
+the distance from B to the new q is that
 
 ![a.10](a.10.png)
 
-And I call that little b
+And I call that little b.
 
 ![a.11](a.11.png)
 
@@ -314,7 +312,6 @@ In looking for a termination argument we make use of the definition of euclidian
 
 And I will do the same for capital C, which has a distance little c to the new q, only I don't make that drawing because that **invokes a case analysis** because there are all sorts of places where C might lie and I'm not going to do that. My **proof** obligation for the **termination** is, that I can demonstrate, that the **minimum** of little b and little c is **actually** less than h.
 
-//b.28
 ![b.28](b.28.png)
 
 * //BB
@@ -328,7 +325,6 @@ Now, I have to show this, I'm going to simplify that, the very first thing is th
 
 // My comment. He calls this a function but he does not use the dot notation f.x. Instead min appears as a infix operator like x + y.
 
-//b.29
 ![b.29](b.29.png)
 
 * //BB
@@ -390,44 +386,42 @@ These two triangles are similar, because they both have that right angle there a
 
 So BA less than EA is the one. Is that OK? Yes, apparently. Am I a little bit amazed. Well according to the rules of the game, the other condition yields me that CA less than EA
 
-//BB
-// b min c < h
-// = {elimination of min}
-// b < h ∨ c < h
-// = {similar triangles}
-// BA < EA ∨ CA < EA
+* //BB
+  * b min c < h
+  * = {elimination of min}
+  * b < h ∨ c < h
+  * = {similar triangles}
+  * BA < EA ∨ CA < EA
 
 ![a.16](a.16.png)
 
 Let me check. Will you check wether I have made an error. Yes. A, AB. Ehh, this does not hold because the space is finite. But I did make an error. I did make an error. I did make an **error**. Yes, yes, yes. There is a one bit rabbit in this proof. And I made the wrong choice, I chose, the line, but I shouldn't do that. [*Erases picture a.16*]. Here we go. This by the way was very instructive and I leave it that way. But, [*Erases the repeatable statement in the program, "q, E := ..." *]
 
-//b.33
 ![b.33](b.33.png)
-//b.34
+
 ![b.34](b.34.png)
-//b.35
+
 ![b.35](b.35.png)
 
 the remark is, that I have to choose a new E, and let that be A, 
 
-//b.36
+
 ![b.36](b.36.png)
-//b.37
+
 ![b.37](b.37.png)
 
 that is my new E, and now the question is will the new q go through B or will it go through C, 
 
-//b.38
 ![b.38](b.38.png)
 
 so my new E becomes A and my new q becomes, of the lines sorry BC and, sorry, of the lines BE and CE the nearest to A, 
 
-//b.39 [notice in the image below that point E is assigned point A]
+[notice in the image below that point E is assigned point A]
 ![b.39](b.39.png)
 
 so and now I will have P again.
 
-//b.40 [P being the invariant of the repetition.]
+[P being the invariant of the repetition.]
 ![b.40](b.40.png)
 
 ![a.17](a.17.png)
@@ -436,32 +430,26 @@ so and now I will have P again.
 
 Yes. No, no, no. One of the three, one of the three, now here is our drawing. Here was q, here was the old E, 
 
-//b.41
 ![b.41](b.41.png)
 
 here is, my A,
 
-// b.42
 ![b.42](b.42.png)
 
 here is for instance my B, 
 
-//b.43
 ![b.43](b.43.png)
 
 now this, 
 
-//b.44
 ![b.44](b.44.png)
 
 now I'm interested in this distance, 
 
-//b.45
 ![b.45](b.45.png)
 
 the distance from A to the new q. 
 
-//b.46
 ![b.46](b.46.png)
 
 Because this will be my new E.
@@ -539,6 +527,8 @@ And these are all non-negative, all positive, distances and the only way in whic
 ![a.36](a.36.png)
 
 Of course this is the only symmetric choice so it's not surprising. But what is charming is that, that fact, is forced upon us by the calculation that shows that the minimum of little b and c is less than h. **End of proof**. 
+
+# next 42m00s
 
 Why is this very nice? You see, if you compare it with Kelly's proof that contains the same element, Kelly says, well, consider all, lines, and all possible combinations for q and E. All possible pairs of a line and a point not on that line. Finite collection, at least one such pair contains the **minimum** distance. And then he says well OK suppose that that, of course Kelly in 1948 proved it by a contradiction, so immediately he says, suppose that there are three points on the line q and then he derives a contradiction, we don't need to do that. Now, at the time, Kelly's introduction of the euclidian distance was greeted as a great invention, original idea that only a genius can have, because of course it is a foreign element because the problem statement itself has nothing to do with euclidian metric, its the, the theorem is a affine invariant. So it is a foreign element, but we know that given a program with a repetition we know that whereas the invariant of the repetition is uniquely determined by the program itself, the variant function, the decreasing thing that one invents to prove the termination argument, that's not determined at all, if you have some function "t" that decreases, any monotonic function of it will do it as well, of t, will do it as well. So we know, that if in arguments like that any inventiveness is required, it is at the choice of the variant function. Now I have taken extensive experiments with this problem at oral examinations and I have also shown this a number of times lecturing to an audience. At the critical moment, that the euclidian distance between q and E has to be invented. It has always been the audience that supplied this foreign body to the argument. In short, as soon as you regard this as a programming exercise, Kelly's invention becomes the most natural thing to do. So there has been progress. As final mark of progress, I would like to read to you, because it's a little bit long to write down.
 
