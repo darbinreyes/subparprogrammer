@@ -3320,10 +3320,31 @@ What this will do is, instead of making the value for title available directly 
 
 ### 314. RESTful Blog App: NEW and CREATE 
 * add app.get("/blogs/new", ...)
-* new.ejs
+
+* new.ejs.
 * just a form.
+
+
 * icon becomes small again issue. - path "/" - check JS console.
-* fix navbar overlap issue. .container.main
+  * My notes on this issue.
+  * The error on the console is is not that the .css file isn't found but 
+  * "Refused to apply style from 'http://localhost:3000/blogs/stylesheets/index.css' because its MIME type ('text/html') is not a supported stylesheet MIME type, and strict MIME checking is enabled."
+  * I only know the fix is a change in the path because the guy said so. I also tested that placing the .css file under /public/blogs/stylesheets/index.css fixes the error.
+  * The error doesn't occur on http://localhost:3000/blogs .
+  * It only occurs on http://localhost:3000/blogs/new .
+  * Even though both URLs render index.ejs/new.ejs which exist in the same directory. 
+  * This implies that relative href paths are affected by the URL.
+  * URL=localhost/blogs maps "stylesheets/index.css" to project/public/stylesheets
+  * URL=localhost/blogs/new maps "stylesheets/index.css" to project/public/blogs/stylesheets
+  * **Is it simply backing up by one URL node** and taking the remaining URL paths as a path into /public?
+    * If yes, then URL=localhost/blogs/new/other should map to project/public/blogs/new/stylesheets/
+    * ANS: Yes, that's exactly what's happening.
+  * **LESSON**: 
+    * "Refused to apply .css" could actually be a incorrect .css file href path in \<link>.
+    * relative paths for href attributes are affected by the URL and not the path to the .ejs file.
+    * With Express as your HTTP server, use absolute paths if possible, especially for .css files.
+
+* fix navbar overlap issue. .container.main. margin.
 * add \<form> action=/blogs, method=POST.
   * inputs name=blog[title]
 * add app.post("/blogs",...)
@@ -3342,6 +3363,21 @@ What this will do is, instead of making the value for title available directly 
   * You can also add client side validation to the form to ensure that the body property
   
 ### 316. RESTful Blog App: SHOW 
+* add app.get("/blogs/:id", ...);
+* under blogs add links to show page.
+  * after body \<a href=blogs/id>
+  * Blog.findById(req.params.id, ...)
+  * if err, redirect to /blogs.
+  * else response.render("show.ejs")
+    * header blog.title. ui hige header // see semantic-ui/item
+    * image // ui centered rounded image.
+    * body
+    * .segment // adds border.
+   * Date formating. blog.created.toDateString()
+ *  allow HTML input for body.
+   * Use .ejs syntax <%- blog.body %> 
+     * FYI this also evaluates \<script>. Later we will use a package for "sanitizing".
+     *  on /blogs page, limit body with .substring(0, 100) + "...";
 ### 317. RESTful Blog App: EDIT AND UPDATE 
 ### 318. RESTful Blog App: DESTROY 
 ### 319. Note about RESTful Blog App: Final Touches 

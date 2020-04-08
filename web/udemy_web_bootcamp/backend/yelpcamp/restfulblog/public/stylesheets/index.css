@@ -5,3 +5,13 @@ h1 {
 i.icon {
     font-size: 2em;
 }
+
+#thenewform {
+    border: .1em solid #00000038;
+    padding: 1em;
+    border-radius: 1em;
+}
+
+#menuspacer {
+    margin-top: 5em;
+}

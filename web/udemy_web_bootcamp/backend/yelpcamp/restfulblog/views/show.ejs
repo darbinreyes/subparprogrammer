@@ -1,0 +1,17 @@
+<%- include("partials/header.ejs") %>
+<div class="ui container">
+
+<div class="ui raised segment">
+    <h2 class="header"><%= blog.title %></h2>
+    <p><%= blog.date.toDateString() %></p>
+    <div class="ui segment">
+    <div class="ui large image">
+        <img src="<%= blog.image %>">
+    </div>
+    </div>
+    <div class="description"><p><%- blog.thetext %></p></div>
+    
+</div>
+
+</div>
+<%- include("partials/footer.ejs") %>

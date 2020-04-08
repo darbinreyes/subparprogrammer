@@ -69,6 +69,44 @@ app.get("/blogs", function (exp_request, exp_response) {
     });
 });
 
+app.post("/blogs", function(exp_request, exp_response) {
+    console.log("POST @ /blogs.");
+    console.log("exp_request.body.blog: ");
+    console.log(exp_request.body.blog);
+    Blog.create(exp_request.body.blog, function(err, new_entry){
+        if(err) {
+            console.log(".create() error: ");
+            console.log(err);
+            exp_response.send(".create() error. Sorry.");
+        } else {
+            console.log("New entry created: ");
+            console.log(new_entry);
+            exp_response.redirect("/blogs");
+        }
+    });
+});
+
+app.get("/blogs/new", function(exp_request, exp_response){
+    console.log("GET @ /blogs/new.");
+    exp_response.render("new.ejs");
+});
+
+app.get("/blogs/:id", function(exp_request, exp_response){
+    console.log("GET @ /blogs/" + exp_request.params.id + ".");
+    Blog.findById(exp_request.params.id, function(err, found_entry){
+        if(err) {
+            console.log(".findById() error: ");
+            console.log(err);
+            exp_response.send(".findById() error. Sorry.");
+        } else {
+            console.log("Entry found: ");
+            console.log(found_entry);
+            exp_response.render("show.ejs", {blog: found_entry});
+        }
+    });
+    
+});
+
 // Tell express to start listening for HTTP requests.
 const PORT = 3000;
 const IP = "127.0.0.1";

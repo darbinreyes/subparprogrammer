@@ -1,12 +1,29 @@
 <%- include("partials/header.ejs") %>
-
-<h1>These are all the blogs.</h1>
+<div class="ui container">
+<div class="ui items">
 
 <% entries.forEach(function (currentValue, index, array) { %>
-    <h5><%= currentValue.title %></h5>
-    <p><%= currentValue.date %></p>
-    <img src="<%= currentValue.image %>" alt="currentValue.title">
-    <p><%= currentValue.thetext %></p>
+
+  <div class="item">
+    <div class="ui medium image">
+      <img src="<%= currentValue.image %>">
+    </div>
+    <div class="content">
+      <a class="header" href="/blogs/<%= currentValue._id %>"><%= currentValue.title %></a>
+      <div class="meta">
+        <span><%= currentValue.date.toDateString() %></span>
+      </div>
+      <div class="description">
+        <p><%= currentValue.thetext.substring(0,25) + "......" %></p>
+      </div>
+      <div class="extra">
+      <a href="/blogs/<%= currentValue._id %>">Read More</a>
+      </div>
+    </div>
+  </div>
 <% }); %>
+
+</div>
+</div>
 
 <%- include("partials/footer.ejs") %>
