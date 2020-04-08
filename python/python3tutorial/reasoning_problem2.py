@@ -60,10 +60,19 @@ class FiniteLine:
         dyintercept = self.yintercept - other_finite_line.yintercept
         x_intersection = -dyintercept/dslp
 
-        return x_intersection >= self.point0.x and x_intersection <= self.point1.x \
+        # Lines finite lines intersect if the calculated x-intersection lies
+        # between the x-range of both lines.
+        if x_intersection >= self.point0.x and x_intersection <= self.point1.x \
         and x_intersection >= other_finite_line.point0.x and \
-        x_intersection <= other_finite_line.point1.x
+        x_intersection <= other_finite_line.point1.x:
+            return x_intersection
 
+        # The lines do not intersect.
+        return None
+
+    def gety(self, xval):
+        """ Returns the y value at xval according to y = slp * x + yintercept."""
+        return self.slp * xval + self.yintercept
 
 def create_coordinates(n, coordsmin, coordsmax):
     """ Returns a list of n distinct numbers in the range coordsmin <= c <= coordsmax. min/max should be integers."""
@@ -118,6 +127,11 @@ def plot_points(conn_matrix, redpts, bluepts):
             if conn_matrix[i][j]:
                 # Create a FiniteLine object for each line
                 tmp_line = FiniteLine(bluepts[i], redpts[j])
+                x_intersection = lines_intersect(lines, tmp_line)
+                if x_intersection != None:
+                    # print("Intersection found. ", x_intersection, tmp_line.gety(x_intersection))
+                    ax.plot(x_intersection, tmp_line.gety(x_intersection), marker='.', color='green', markersize=12)
+
                 lines.append(tmp_line)
                 # Plot a line.
                 ax.plot([bluepts[i].x, redpts[j].x], [bluepts[i].y, redpts[j].y], color='black')
@@ -219,6 +233,14 @@ def init_conn_matrix(n):
 
     return result
 
+def lines_intersect(lines, newline):
+    """ Determines if newline intersects with any line in the list lines."""
+    for line in lines:
+        x_intersection = line.intersects(newline)
+        if x_intersection != None:
+            return x_intersection # TODO: This should return an array of intersections.
+
+    return None
 
 def has_intersection():
     """ Determines if the given set of red-blue connections has an intersection
