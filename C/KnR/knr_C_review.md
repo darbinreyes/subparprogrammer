@@ -901,5 +901,59 @@ next token = longest string of chars that make up a valid token.
 
 ### A.2.2 Comments 
 
+START "/*"
+ 
+END  "*/"
+
+### A.2.3 Identifiers 
+
+identifiers 
+
+vs 
+
+internal identifiers e.g. preproc macro names + all names that do NOT have external linkage.
+
+### A.2.4 Keywords
+
+e.g. 
+"int" 
+"struct" 
+"for" 
+"while"
+
+### A.2.5 Constants 
+
+int
+char
+float
+enum
+
+### A.2.5.1 Integer Constants 
+
+int-const= sequence of digits.
+
+START 0 = octal
+START 0x, 0X = hex (a,A-f,F)
+
+typeof int-const = f.(form, value, suffix)
+
+if no-suffix and decimal-form
+type = first possible of int, long int, unsigned long int.
+
+if no-suffix and octal-hex-form 
+type = first possible of int, unsigned int, long int, unsigned long int.
+
+if u-U-suffix
+type = first possible of unsigned int, unsigned long int.
+
+if l-L-suffix
+type = first possible of long int, unsigned long int.
+
+if UL-suffix
+type = unsigned long.
+
+### A.2.5.2 Character Constants 
+
+
 
 
