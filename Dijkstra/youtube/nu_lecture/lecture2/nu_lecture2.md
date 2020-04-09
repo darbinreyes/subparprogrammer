@@ -24,11 +24,11 @@ And some time later a proof was given by T. Gallai.
 
 ![b.1](b.1.png)
 
-I have not seen that proof but it is a proof that even Coxeter describes rather complicated. And we had to wait until 1948, until L.M. or L.N. I'm not quite sure so I omit it. Until Kelly, came, it is L.M., OK. Until L.M. Kelly came with a palatable proof. 
+I have not seen that proof, but it is a proof that even Coxeter describes rather complicated. And we had to wait until 1948, until L.M. or L.N. I'm not quite sure so I omit it. Until Kelly, came, it is L.M., OK. Until L.M. Kelly came with a palatable proof. 
 
 ![b.2](b.2.png)
 
-Now let me first state the theorem, and that is for any finite number of distinct points, in the real euclidian plane, and with real we mean that the coordinates are not complex, we can assert the following, all the points are collinear, or their exists a straight line, through exactly two of them, with exactly two I mean not three.
+Now let me first state the theorem, and that is, for any finite number of distinct points, in the real euclidian plane, and with real we mean that the coordinates are not complex, we can assert the following: all the points are collinear, or their exists a straight line, through exactly two of them, with exactly two I mean not three.
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=02m55s)
 
@@ -54,7 +54,7 @@ In that case, the axiom about club membership is that any two persons uniquely d
 * // BB
   * any 2 persons uniquely determine the club of which they are a member
 
-However, the conjecture of Sylvester would be that in a finite population, where this club membership rule holds, either all persons are members of the same club, or there exists a club with exactly two members.
+However, the conjecture of Sylvester would be that, in a finite population, where this club membership rule holds, either all persons are members of the same club, or there exists a club with exactly two members.
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=05m40s)
 
@@ -62,19 +62,21 @@ However, the conjecture of Sylvester would be that in a finite population, where
 
 // 
 
-My comment. I'm a bit confused about the statement of the theorem. As soon as you have more than one point there exists a line through exactly two of them, right? If you have 3 points on the same line and one point off that line the points are not collinear (all lie on the same line) and there exists a line through exactly two points. Can you draw a picture in which the points are not collinear and there is no line through exactly two points? 
+My comment. I'm a bit confused about the statement of the theorem. As soon as you have more than one point, there exists a line through exactly two of them, right? If you have 3 points on the same line and one point off that line the points are not collinear (not all lie on the same line) and there exists a line through exactly two points. Can you draw a picture in which the points are not collinear and there is no line through exactly two points? 
 
-I think I get it, as soon as we have a point that is not collinear with all the others you necessarily create a line that passes through exactly two of them. Using the translation, all persons are members of the same club or there exists a club with only two persons. Note that there may be more than a single club containing only two members.
+I think I get it, as soon as we have a point that is not collinear with all the others you necessarily create a line that passes through exactly two of them. In the case of 3 points on a line and one point off that line we can take the line through any one of the 3 collinear points and the single point off that line.
 
-I assume we ignore the case of a single point since no lines can be drawn. 
+We ignore the case of a single point since no lines can be drawn. 
 
-In the case of only two points, they are both collinear and there exists a line through exactly two of them.
+In the case of only two points, they are both collinear and there exists a line through exactly two of them. This is why Dijkstra specifies that the whole program has "the points are not collinear" as a precondition.
 
 The key is to focus on the existence of a line that goes through exactly two points. The theorem states that as soon as the points are not collinear we can be sure that a line through exactly two points exists.
 
 //
 
 ---
+
+# next read through
 
 In terms of members and clubs the theorem is not true. It is not too difficult to construct a counter example. Place a population of seven, yes, yea, place a population of seven persons in a regular fashion around a ring, 
 
@@ -527,8 +529,6 @@ And these are all non-negative, all positive, distances and the only way in whic
 ![a.36](a.36.png)
 
 Of course this is the only symmetric choice so it's not surprising. But what is charming is that, that fact, is forced upon us by the calculation that shows that the minimum of little b and c is less than h. **End of proof**. 
-
-# next 42m00s
 
 Why is this very nice? You see, if you compare it with Kelly's proof that contains the same element, Kelly says, well, consider all, lines, and all possible combinations for q and E. All possible pairs of a line and a point not on that line. Finite collection, at least one such pair contains the **minimum** distance. And then he says well OK suppose that that, of course Kelly in 1948 proved it by a contradiction, so immediately he says, suppose that there are three points on the line q and then he derives a contradiction, we don't need to do that. Now, at the time, Kelly's introduction of the euclidian distance was greeted as a great invention, original idea that only a genius can have, because of course it is a foreign element because the problem statement itself has nothing to do with euclidian metric, its the, the theorem is a affine invariant. So it is a foreign element, but we know that given a program with a repetition we know that whereas the invariant of the repetition is uniquely determined by the program itself, the variant function, the decreasing thing that one invents to prove the termination argument, that's not determined at all, if you have some function "t" that decreases, any monotonic function of it will do it as well, of t, will do it as well. So we know, that if in arguments like that any inventiveness is required, it is at the choice of the variant function. Now I have taken extensive experiments with this problem at oral examinations and I have also shown this a number of times lecturing to an audience. At the critical moment, that the euclidian distance between q and E has to be invented. It has always been the audience that supplied this foreign body to the argument. In short, as soon as you regard this as a programming exercise, Kelly's invention becomes the most natural thing to do. So there has been progress. As final mark of progress, I would like to read to you, because it's a little bit long to write down.
 
