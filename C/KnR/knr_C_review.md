@@ -954,6 +954,44 @@ type = unsigned long.
 
 ### A.2.5.2 Character Constants 
 
+Single quote.
+
+Def. of its value.
+
+Escape sequences.
+
+Common example. \0 = character NUL = octal notation escape with value 0 = \000. 
+
+behavior is undefined if the resulting character value exceeds that of the largest character. 
+
+
+if the **implementation** treats the char type as signed, the value is sign-extended as if cast to char type. 
+
+A constant in this extended set is written with a preceding L, for example L'x', and is called a **wide** character constant. 
+
+### A.2.5.3 Floating Constants 
+float constant =
+
+integer part "3" // [0-9]*
+decimal part "."
+fraction part "14" // [0-9]*
+exponent delimiter [e|E]
+[signed integer exponent] "-18"
+type suffix [f|F|l|L]
+
+int part or frac part may be missing but not both
+
+decimal point or e+exponent may be missing but not both
+
+type determined by suffix
+
+if f|F then float
+if l|L then long double
+else double.
+
+### A2.5.4 Enumeration Constants 
+
+### A.2.6 String Literals 
 
 
 
