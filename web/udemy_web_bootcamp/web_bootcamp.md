@@ -3441,18 +3441,68 @@ What this will do is, instead of making the value for title available directly 
 ---
  
 ### 321. Introduction to Associations 
-* e.g. a user is associated with a post.
+* e.g. a user is associated with a post. collections that are related to one another.
 * a picture associated with an album.
   * 1-1 relationships
   * 1-many "
   * many-many "
 * in mongoose
-  * embedding data to associate it.
-  * referencing data " " ". 
+  * 1. embedding data to associate it.
+  * 2. referencing data " " ". 
+  
 ### 322. Embedded Data 
+* create /associations/embed.js
+* require(mongoose)
+* connect mongoose. localhost/blog_demo
+* create var userSchema { email, name }
+* create var postSchema {title, content}
+* Add a user to DB.
+* Add a post to DB.
+  * TODO: find out where in the mongoose or other docs the callback arguments are listed. Google it.
+  * add "posts: [postSchema]" to userSchema.
+  * move postSchema up.
+  * create new user.
+  * newUser.posts.push(newpost)
+    * model.save it.
+    * observe new entry in DB as a post object inside a nested array.
+    * same as above but using model.findOne({name..}, function(err, user)...)
+    * in callback on success user.post.push(another post). Save after that. Doubly nested callback.
+    * observe user has 2 posts.
 ### 323. Note About Object References 
-### 324. Object References 
-### 325. Module.exports 
+* if you get this error: TypeError: Cannot read property 'posts' of null 
+* he output for referenced objects has changed in the latest versions of mongoose. 
 
+### 324. Object References 
+* association by object reference
+* copy embed.js to references.js
+* change mongo.connect to blog_demo2.
+* posts array contains object ids instead of post objects.
+* in useSchema. posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post"}].
+* create a user in DB.
+* user.create() without a callback silently add user. 
+* Verify new user from mongo shell. 
+  * Note posts = empty array [].
+* create new post in DB. postSchema  and .model from previous video is still declared above userSchema + model.
+* Next: connecting posts with id's.
+  * create new post object again, doubly nested callback, findOne(someuser, callback on success, foundUser.posts.push(postjustcreated);
+  * tripple nested callback, save user with newly added post.
+  * note the user object now has an id inside the posts array, even though we pushed a full post object.
+* Next: retrieving full post object from posts id array.
+  * user.findOne({userfilter}).populate("posts").exec(function(err user){//print user on success.});
+  * observe printed user now has full posts objects.
+* When to use which type of associations. ANS: It depends on the application. Will see examples in YelpCamp.
+
+### 325. Module.exports 
+* cleaning up previous files using module.exports.
+  * e.g. multiple files using 1 user model.
+* references.js
+* move post model to mkdir models. touch models/post.js, models/user.js
+  * require mongoos again.
+* syntax: module.exports = mongoose.model(Post, postSchema);
+* references.js
+  * var Post = require("./models/post"); // note "./" in path.
+* repeat above for user.js.
+* Test by creating another post.
+* // analogous to C includes.
 
 
