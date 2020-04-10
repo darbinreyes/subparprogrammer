@@ -127,9 +127,9 @@ def plot_points(conn_matrix, redpts, bluepts):
             if conn_matrix[i][j]:
                 # Create a FiniteLine object for each line
                 tmp_line = FiniteLine(bluepts[i], redpts[j])
-                x_intersection = lines_intersect(lines, tmp_line)
-                if x_intersection != None:
-                    # print("Intersection found. ", x_intersection, tmp_line.gety(x_intersection))
+                xis = lines_intersect(lines, tmp_line)
+                for x_intersection in xis:
+                    # Plot a point at the occurrence of each intersection
                     ax.plot(x_intersection, tmp_line.gety(x_intersection), marker='.', color='green', markersize=12)
 
                 lines.append(tmp_line)
@@ -235,12 +235,16 @@ def init_conn_matrix(n):
 
 def lines_intersect(lines, newline):
     """ Determines if newline intersects with any line in the list lines."""
+    # TODO: It may be more efficient to test for overlapping x-ranges before
+    # calculating x-intercept. This could be implemented in FiniteLine.intersects().
+    xis = [] # Array of x coordinates of each intersection, if any.
     for line in lines:
         x_intersection = line.intersects(newline)
         if x_intersection != None:
-            return x_intersection # TODO: This should return an array of intersections.
+            xis.append(x_intersection)
 
-    return None
+
+    return xis
 
 def has_intersection():
     """ Determines if the given set of red-blue connections has an intersection
