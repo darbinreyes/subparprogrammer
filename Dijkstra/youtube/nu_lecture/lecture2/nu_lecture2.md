@@ -76,14 +76,12 @@ The key is to focus on the existence of a line that goes through exactly two poi
 
 ---
 
-# next read through
-
 In terms of members and clubs the theorem is not true. It is not too difficult to construct a counter example. Place a population of seven, yes, yea, place a population of seven persons in a regular fashion around a ring, 
 
 ![a.0](a.0.png)
 
 * // BB
-* 7 clubs of 3 members
+  * 7 clubs of 3 members
 
 and now I'm going to create seven clubs, of three members.
 
@@ -106,9 +104,9 @@ That is, in the complete, in the population of 7 persons, you can isolate 21 pai
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=07m41s)
 
-So we know from this counter example that somewhere along the proof we have to use more of euclidian geometry, more properties of the euclidian plane, than just that any two points uniquely determine the line straight line through them. Now what I propose to do is to approach this problem as a programming exercise and what I shall do is show that if the given points are not collinear that then there exists a line through exactly two of those points. And I will show the existence of such a line by designing an algorithm that compute that line. 
+So we know from this counter example that somewhere along the proof we have to use more of euclidian geometry, more properties of the euclidian plane, than just that any two points uniquely determine the line straight line through them. Now what I propose to do is to approach this problem as a programming exercise, and what I shall do is show that if the given points are not collinear, that then there exists a line through exactly two of those points. And I will show the existence of such a line by **designing** an algorithm that computes that line. 
 
-Well, I need one function, "nopo" that is short for the "number of point on". 
+Well, I need one function, "nopo" that is short for the "number of points on". 
 
 ![b.10](b.10.png)
 
@@ -128,7 +126,7 @@ And what will be P be,
 
 well, there is no point in considering lines that go through no points or go through one point, so we shall **initialize** q in such a way, that the number of points on q, well ideally of course its exactly two, but I cannot guarantee that, it may larger. 
 
-// missing second conjunct, see b.4.
+[Missing second conjunct, since variable E of type point has not been introduced yet, see image b.4.]
 ![b.14](b.14.png)
 
 * // BB
@@ -139,21 +137,21 @@ But in any case, we can confine our attention to q's that go through at least tw
 
 ![b.15](b.15.png)
 
-we are now going to create a repetition, wether this q is acceptable, well, it is acceptable if the number of points on q equals 2, however if that number is larger than two, then something has to be done. 
+we are now going to create a repetition, wether this q is acceptable, well, it is acceptable if the number of points on q equals 2, however if that number is larger than two, then **something** has to be done. 
 
 ![b.16](b.16.png)
 
 ![b.18](b.17.png)
 
-Well upon completion of this loop, we know P, and the falsity of the guard, that is that nopo of q is at most 2, 
+Well, upon completion of this loop, we know P, and the falsity of the guard, that is that nopo of q is at most 2, 
 
 ![b.18](b.18.png)
 
-well, P says that nopo of q is at least 2, so hence the number of points on q equals 2 and we are done. 
+well, P says that nopo of q is at least 2, so hence the number of points on q equals 2 and we are **done**. 
 
 ![b.19](b.19.png)
 
-Well the only thing of course is that here, as the repeatable statement, we have to **change q**, under invariance of P.
+Well the only thing of course is that here, as the repeatable statement, we have to **change q**, under **invariance** of P.
 
 ![b.9](b.9.png)
 
@@ -165,9 +163,9 @@ Well the only thing of course is that here, as the repeatable statement, we have
 
 //
 
-// My comment: notice here again, like in "Reasoning About Programs Problem 2", Dijkstra uses the phrase "change [variable in the repeatable statement]", it is a sort of abstraction for the as yet undetermined program statements, we know that the variable's value must be change and that therefore our attention is focus next on how that variable will be changed.
+// My comment: notice here again, like in "Reasoning About Programs Problem 2", Dijkstra uses the phrase "change [variable in the repeatable statement]", it is a sort of abstraction for the as yet undetermined program statements, we know that the variable's value must be changed and that therefore our attention is to focus next on how that variable will be changed.
 
-// falsity of the guard = ¬(nopo.q > 2) = (nopo.q ≤ 2) = nopo.q is at most 2 = nopo of q is at most
+// falsity of the guard = ¬(nopo.q > 2) = (nopo.q ≤ 2) = nopo.q is at most 2 = nopo of q is at most 2.
 
 // P = nopo.q ≥ 2 = nopo of q is at least 2.
 
@@ -175,26 +173,25 @@ Well the only thing of course is that here, as the repeatable statement, we have
 
 ---
 
-So this is the program and it's OK and does the job, provided that we can demonstrate that this program terminates. Now, in order to prove termination of this program we might have to do two things. First of all, we might have to take into things that we didn't know, secondly, that are given but we haven't used yet, secondly, we may have to resolve some of the non-determinism,
+So this is the program and it's OK and does the job, provided that we can demonstrate that this program **terminates**. 
 
-? alia sort of vagueness
+// My comment: Recall our separation of concerns from "Reasoning About Programs": 1. Partial correctness. 2. Termination.
 
-in the statement that changes q. One thing that I have omitted to point out, and that is that here, we are confining our situation to the case that the points are not collinear. 
+Now, in order to prove termination of this program we might have to do two things. First of all, we might have to take into account things that we didn't know, secondly, that are given but we haven't used yet, secondly [sic], we may have to resolve some of the non-determinism. Alia [sic, audio not clear] sort of vagueness in the statement that changes q. One thing that I have omitted to point out, and that is that here, we are confining our situation to the case that the points are **not collinear**. 
 
 ![b.5](b.5.png)
 
-Because that was the circumstance under which we were going to show the presence of a line q so that nopo of q equals two. The fact that the points are not collinear implies that there are at least **three** points, and therefore it's possible to initialize q such that P holds. You see because to see to it that the initial value of q is such that at least two points lie at q you need at least two points. So here we are, now we have here made a very **meager**  use of the fact that it is given that the points are not collinear, we have only used the consequence that there are at least two points. Now, question, what general conclusion can we draw with respect to q and the points from the fact that the points are not collinear?
+Because that was the circumstance under which we were going to show the presence of a line q so that nopo of q equals two. The fact that the points are not collinear implies that there are at least **three** points, and therefore it's possible to initialize q such that P holds. You see because, to see to it that the initial value of q is such that at least two points lie at q you need at least two points. So here we are, now we have here made a very **meager**  use of the fact that it is given that the points are not collinear, we have only used the consequence that there are at least two [did he mean 3?] points. Now, question, what general conclusion can we draw with respect to q and the points from the fact that the points are not collinear?
 
 ![b.3](b.3.png)
 
-There is a point not on q, yes. So my proposal is to take that into account by introducing a variable of type point. Variable E will be of type point, E will also be initialized, 
+There is a point not on q, yes. So my proposal is, to take that into **account** by introducing a variable of type point. Variable E will be of type point, E will also be initialized, 
 
 ![b.6](b.6.png)
 
 ![b.7](b.7.png)
 
 and the fact that the points are not collinear, I can celebrate that by seeing to it that when q goes through two points, E lies not on q.
-
 
 ![b.30](b.30.png)
 
@@ -206,6 +203,8 @@ and the fact that the points are not collinear, I can celebrate that by seeing t
 
 * // BB
   * P : nopo.q ≥ 2 ∧ E lies not on q.
+
+# next read through
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=16m10s)
 
