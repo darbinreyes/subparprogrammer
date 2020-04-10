@@ -3432,7 +3432,7 @@ What this will do is, instead of making the value for title available directly 
 * repeat for update route.
 * Later: "middleware" = repeated code for given routes.
 * unimportant semantic-ui styling.
-* Add mongoose method to the guy's shit table.
+* Add mongoose methods like blog.findByIdAndRemove() to the guy's shit table.
 
 ---
 

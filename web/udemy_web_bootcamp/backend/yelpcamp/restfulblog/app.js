@@ -7,7 +7,9 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 // method-override allows us to work-around the fact that HTML forms only support
 // method=POST or GET.
-var methodOverride = require('method-override');
+const methodOverride = require('method-override');
+// We use express-sanitizer to remove e.g. script tags from user text inputs.
+const expressSanitizer = require("express-sanitizer");
 
 /** Mongoose setup START **/
 // "restfulblog" will appear in "mongoose shell>>> show dbs" list.
@@ -31,6 +33,8 @@ const app = express();
 app.use(express.static("public")); // Tell express where to look for e.g. CSS files.
 // Enable x-www-form-urlencoded in body-parser. Tell express to use body-parser.
 app.use(bodyParser.urlencoded({extended: true}));
+// IMPORTANT: express-sanitizer app.use() should go AFTER body-parser above.
+app.use(expressSanitizer());
 // Tell Express to use the method-override package. This configuration of
 // method-override looks for a POST request with a URL query parameter
 // _method=PUT and turns that POST into a PUT request within Express.
@@ -61,6 +65,9 @@ app.post("/blogs", function(exp_request, exp_response) {
     console.log("POST @ /blogs.");
     console.log("exp_request.body.blog: ");
     console.log(exp_request.body.blog);
+    // Sanitize the blog.thetext field.
+    exp_request.body.blog.thetext = exp_request.sanitize(exp_request.body.blog.thetext);
+    // Add a new DB entry.
     Blog.create(exp_request.body.blog, function(err, new_entry){
         if(err) {
             console.log(".create() error: ");
@@ -99,6 +106,8 @@ app.put("/blogs/:id", function(exp_request, exp_response){
     console.log("PUT @ /blogs/" + exp_request.params.id + ".");
     console.log("request.body.blog: ");
     console.log(exp_request.body.blog);
+    // Sanitize the blog.thetext field.
+    exp_request.body.blog.thetext = exp_request.sanitize(exp_request.body.blog.thetext);
     // Update the DB entry and redirect to its show page.
     Blog.findByIdAndUpdate(exp_request.params.id, exp_request.body.blog, function(err, updated_entry){
         if(err) {
@@ -109,6 +118,22 @@ app.put("/blogs/:id", function(exp_request, exp_response){
             console.log("Updated entry: ");
             console.log(updated_entry);
             exp_response.redirect("/blogs/" + exp_request.params.id);
+        }
+    });
+});
+
+app.delete("/blogs/:id", function(exp_request, exp_response){
+    console.log("DELETE @ /blogs/" + exp_request.params.id + ".");
+    // Remove the specified DB entry.
+    Blog.findByIdAndRemove(exp_request.params.id, function(err, removed_entry){
+        if(err) {
+            console.log(".findByIdAndRemove() error: ");
+            console.log(err);
+            exp_response.send(".findByIdAndRemove() error. Sorry.");
+        } else {
+            console.log("Removed entry: ");
+            console.log(removed_entry);
+            exp_response.redirect("/blogs");
         }
     });
 });
