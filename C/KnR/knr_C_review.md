@@ -991,7 +991,35 @@ else double.
 
 ### A2.5.4 Enumeration Constants 
 
+enum = constants of type int.
+
 ### A.2.6 String Literals 
+
+string literal =a.k.a. string constant = sequence of chars inside "".
+
+type = "array of chars".
+
+storage class = "static" (Defined @ A.3).
+
+identical string literals being distinct is implementation defined. (I think this means that if your program uses the str =1 "hello" in one line, and str2 = "hello" in another line the compiler may choose to point both str1 and str2 to the same region of storage.)
+
+Result of attempts to alter string literals is undefined. (For instance, on Unix string literals are stored in the data section of the executable binary, attempting to change a string literal results in an error like "segfault".)
+
+Adjacent string literals are concat'ed. e.g. "Edsgar" "Dijkstra" becomes "EdsgarDijkstra".
+
+After concat NUL terminated is appended to the string. 
+
+String literals can't contain raw new lines or double quotes, use escape sequences for that.
+
+Extended char set. Use "L" prefix, e.g. L"hello". Their type = "array of wchar_t". Concat of non-wide and wide string literals is undefined.
+
+## A.3 Syntax Notation 
+
+## A.4 Meaning of Identifiers 
+
+### A.4.1 Storage Class 
+
+### A.4.2 Basic Types 
 
 
 
