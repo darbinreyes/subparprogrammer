@@ -1,0 +1,30 @@
+<%- include("partials/header.ejs") %>
+
+<div class="ui container" id="thenewform">
+
+    <form action="/blogs/<%= blog._id %>?_method=PUT" method="POST" class="ui form">
+
+        <h2 class="ui dividing header">Edit Blog: <%= blog.title %></h2>
+
+        <div class="field">
+          <label>Title</label>
+          <input type="text" name="blog[title]" placeholder="title" value="<%= blog.title %>">
+        </div>
+
+        <div class="field">
+          <label>Image</label>
+          <input type="text" name="blog[image]" placeholder="image URL" value="<%= blog.image %>">
+        </div>
+
+        <div class="field">
+            <label>Blog Content</label>
+            <textarea name="blog[thetext]" placeholder="Write something"><%= blog.thetext %></textarea>
+        </div>
+
+        <button class="ui secondary button" type="submit">Submit</button>
+
+    </form>
+
+</div>
+
+<%- include("partials/footer.ejs") %>

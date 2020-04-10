@@ -5,6 +5,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 // Mongoose is our DB API.
 const mongoose = require("mongoose");
+// method-override allows us to work-around the fact that HTML forms only support
+// method=POST or GET.
+var methodOverride = require('method-override');
 
 /** Mongoose setup START **/
 // "restfulblog" will appear in "mongoose shell>>> show dbs" list.
@@ -21,32 +24,17 @@ const blogSchema = mongoose.Schema({
 // "mongoose shell>>> db.blogs.find()" will display all DB entries.
 // Get an instance of the DB for the given schema.
 const Blog = mongoose.model("Blog", blogSchema);
-
 /** Mongoose setup END **/
-
-/* Test adding an entry */
-// blog0 = new Blog({
-//     title: "Science: Mangos reverse aging.",
-//     image: "https://upload.wikimedia.org/wikipedia/commons/f/fb/Carabao_mangoes_%28Philippines%29.jpg",
-//     thetext: "A new study shows that mangos can reverse aging. The price of mango has since sky rocketed. ..."
-// });
-
-// blog0.save(function(err, entry){
-//     if(err) {
-//         console.log("Error adding new entry: ");
-//         console.log(err);
-//     } else {
-//         console.log("New entry added: ");
-//         console.log(food);
-//     }
-// })
-
 
 /** Express setup START **/
 const app = express();
 app.use(express.static("public")); // Tell express where to look for e.g. CSS files.
 // Enable x-www-form-urlencoded in body-parser. Tell express to use body-parser.
-app.use(bodyParser.urlencoded({extended: true})); 
+app.use(bodyParser.urlencoded({extended: true}));
+// Tell Express to use the method-override package. This configuration of
+// method-override looks for a POST request with a URL query parameter
+// _method=PUT and turns that POST into a PUT request within Express.
+app.use(methodOverride('_method'));
 /** Express setup END **/
 
 app.get("/", function (exp_request, exp_response) {
@@ -105,6 +93,40 @@ app.get("/blogs/:id", function(exp_request, exp_response){
         }
     });
     
+});
+
+app.put("/blogs/:id", function(exp_request, exp_response){
+    console.log("PUT @ /blogs/" + exp_request.params.id + ".");
+    console.log("request.body.blog: ");
+    console.log(exp_request.body.blog);
+    // Update the DB entry and redirect to its show page.
+    Blog.findByIdAndUpdate(exp_request.params.id, exp_request.body.blog, function(err, updated_entry){
+        if(err) {
+            console.log(".findByIdAndUpdate() error: ");
+            console.log(err);
+            exp_response.send(".findByIdAndUpdate() error. Sorry.");
+        } else {
+            console.log("Updated entry: ");
+            console.log(updated_entry);
+            exp_response.redirect("/blogs/" + exp_request.params.id);
+        }
+    });
+});
+
+app.get("/blogs/:id/edit", function(exp_request, exp_response){
+    console.log("GET @ /blogs/" + exp_request.params.id + "/edit"+ ".");
+    // Get the existing blog data so we can pre-fill the edit form with it.
+    Blog.findById(exp_request.params.id, function(err, found_entry){
+        if(err) {
+            console.log(".findById() error: ");
+            console.log(err);
+            exp_response.send(".findById() error. Sorry.");
+        } else {
+            console.log("Entry found: ");
+            console.log(found_entry);
+            exp_response.render("edit.ejs", {blog: found_entry});
+        }
+    });
 });
 
 // Tell express to start listening for HTTP requests.

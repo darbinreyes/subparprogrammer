@@ -3379,9 +3379,80 @@ What this will do is, instead of making the value for title available directly 
      * FYI this also evaluates \<script>. Later we will use a package for "sanitizing".
      *  on /blogs page, limit body with .substring(0, 100) + "...";
 ### 317. RESTful Blog App: EDIT AND UPDATE 
+* Edit route = add app.get("/blogs/:id/edit", ...)
+  * edit.ejs
+  * copy form from new.ejs.
+  * h1 Edit blog.
+  * form action eventually = "blog/id", method=POST for now.
+  * need id
+  * need pre-filled form
+  * blog.findById().
+  * h1 Edit blog.title
+  * to prefill input value="blog.val"
+    * textarea has no value attribute, insert blog.val between tags.
+* Update route PUT not POST = app.PUT("/blogs/:id", ...)
+  * change edit form method to PUT.
+    * BUT, submitting will not work as-is, you are taken to the show page /blogs/id and the form data is plugged into the URL as query parameters. Even though we have a handler for app.put("/blogs/:id", ...). The method=PUT gets turned into method=GET+URL-form-data-in-query-params.
+    * "HTML forms only support GET/POST", "no conclusive answer"
+    * solution: method-override npm package. https://www.npmjs.com/package/method-override
+      * method=POST, action="/blogs/id?_method=PUT",
+      * npm install -g method-override
+      * mo = require("method-override")
+      * app.use(mo("_method"));
+      * note submit now takes you to a URL with "?_method=PUT"
+    * blog.findByIdAndUpdate(id, new_val_obj=req.body.blog, function(err, update_entry) ... ;
+        * **Where the fuck** are the docs for mongodb methods like .findById() and the method above?
+          * I didn't find it where I expected: http://mongodb.github.io/node-mongodb-native/3.4/api/index.html.
+          * Googling, I found the docs are here: https://mongoosejs.com/docs/api.html#model_Model.findById
+          * Why this other website for the mongodb method docs? 
+          * ANS: mongodb != mongoose. oops. mongoose is an npm package that implements an interface to mongodb. They are distinct pieces of software.
+      * on error, redirect to /blogs
+      * on success, redirect to /blogs/id.
+  
 ### 318. RESTful Blog App: DESTROY 
+* app.delete("/blogs/:id" ...)
+* form button, action=/blogs/id?_method=DELETE., 
+* blog.findByIdAndRemove(req.params.id, function(err)...)
+* redirect to /blogs.
+* add button for edit.ejs.
+* to override form default of block, use CSS "display: inline;" on form tag.
+
 ### 319. Note about RESTful Blog App: Final Touches 
+* keep, don't cut, the sanitizer code from the create route.
+* [Repeated note] if you get a error about the substring() method.
+  * add required attribute to the textarea tag.
+  
 ### 320. RESTful Blog App: Final Touches 
+* npm install express-sanitizer.
+* expreessSan = require("express...
+* IMPORTANT
+  * app.use(expressSanitizer()); must go AFTER app.use(bodyParser...)
+* in create route, sanitize request.body.blog.thetext = request.sanitize(request.body.blog.thetext)
+  * test that \<script> tags are removed.
+* repeat for update route.
+* Later: "middleware" = repeated code for given routes.
+* unimportant semantic-ui styling.
+* Add mongoose method to the guy's shit table.
+
+---
+
+# Section 32: Data Associations
+
+---
+ 
+### 321. Introduction to Associations 
+* e.g. a user is associated with a post.
+* a picture associated with an album.
+  * 1-1 relationships
+  * 1-many "
+  * many-many "
+* in mongoose
+  * embedding data to associate it.
+  * referencing data " " ". 
+### 322. Embedded Data 
+### 323. Note About Object References 
+### 324. Object References 
+### 325. Module.exports 
 
 
 
