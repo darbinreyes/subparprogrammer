@@ -3458,7 +3458,7 @@ What this will do is, instead of making the value for title available directly 
 * create var postSchema {title, content}
 * Add a user to DB.
 * Add a post to DB.
-  * TODO: find out where in the mongoose or other docs the callback arguments are listed. Google it.
+  * [ ] TODO: find out where in the mongoose or other docs the callback arguments are listed. Google it.
   * add "posts: [postSchema]" to userSchema.
   * move postSchema up.
   * create new user.
@@ -3468,9 +3468,22 @@ What this will do is, instead of making the value for title available directly 
     * same as above but using model.findOne({name..}, function(err, user)...)
     * in callback on success user.post.push(another post). Save after that. Doubly nested callback.
     * observe user has 2 posts.
+    
+x create a user DB entry
+
+x create a blog DB entry
+
+x add "posts: [postSchema]" to user schema
+
+x add a user to DB with a blog entry.
+
+x add user to DB, upon successful create .push a post to posts array. user.save() after push.
+
+x find a user and on successful find .push a post to posts array.  user.save() after push.
+
 ### 323. Note About Object References 
 * if you get this error: TypeError: Cannot read property 'posts' of null 
-* he output for referenced objects has changed in the latest versions of mongoose. 
+* the output for referenced objects has changed in the latest versions of mongoose. 
 
 ### 324. Object References 
 * association by object reference
@@ -3488,9 +3501,13 @@ What this will do is, instead of making the value for title available directly 
   * tripple nested callback, save user with newly added post.
   * note the user object now has an id inside the posts array, even though we pushed a full post object.
 * Next: retrieving full post object from posts id array.
-  * user.findOne({userfilter}).populate("posts").exec(function(err user){//print user on success.});
+* user.findOne({userfilter}).populate("posts").exec(function(err user){//print user on success.});
   * observe printed user now has full posts objects.
 * When to use which type of associations. ANS: It depends on the application. Will see examples in YelpCamp.
+
+* IMPORTANT - See subparprogrammer/web/udemy_web_bootcamp/backend/yelpcamp/Associations/referenced/references.js.
+  * `const Blog = mongoose.model("Blog", blogSchema);`
+  * `posts: [{type: mongoose.Schema.Types.ObjectId, ref: "Blog"}]` // IMPORTANT! The value of key=ref here should === value of first argument to `.model("Blog", blogSchema)` above, otherwise, see below, `.populate("posts").exec()` will error out.
 
 ### 325. Module.exports 
 * cleaning up previous files using module.exports.
