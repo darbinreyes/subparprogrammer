@@ -204,8 +204,6 @@ and the fact that the points are not collinear, I can celebrate that by seeing t
 * // BB
   * P : nopo.q ≥ 2 ∧ E lies not on q.
 
-# next read through
-
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=16m10s)
 
 I'm going to. The fact that this possibility, to assign to variable E a point that lies not on q, and to maintain that invariance, that is the way in which I exploit the non-linearity of the given points. Notice that the possibility to assign to E such a value is the only possible conclusion that we can directly draw from the non-linearity. That is, the maintenance of this invariant extracts out of the fact that the points are not collinear everything that can be extracted from it. Now, not surprisingly in the change of q, we will have to change E as well, 
@@ -229,7 +227,7 @@ And I will make a picture, I promise to you that, that will be the only picture 
 
 ![a.3](a.3.png)
 
-The claim is that we have only three possibilities for the new value of q, and that's from E through this one [A], from E through that one [B], and from E through that one [C]. Because these four points are the only points the existence of which we can guarantee. Through two of those [A, B, C] is excluded because then we don't change q. So the new q has to go through the old E, and through one of those three. Now, the one it goes through, is, I will call, now I will rub it out, I will call A, I am free in naming here. So the new value of q, becomes the line E, A. And now I must, yah so eh, now I rub this out again, I'm going to make a new picture, this is q, and this is E, 
+The claim is that we have only three possibilities for the new value of q, and that's from E through this one [A], from E through that one [B], and from E through that one [C]. Because these four points are the only points the **existence** of which we can guarantee. Through two of those [A, B, C] is excluded because then we don't change q. So the new q has to go through the old E, and through one of those three. Now, the one it goes through, is, I will call, now I will rub it out, I will call A, I am free in naming here. So the new value of q, becomes the line E, A. And now I must, yah so eh, now I rub this out again, I'm going to make a new picture, this is q, and this is E, 
 
 ![b.25](b.25.png)
 
@@ -296,7 +294,7 @@ And I call that little b.
 //
 My comment. Understanding the picture.
 
-The precondition of the whole program is that "the points are not collinear. Therefore we draw a line, call it q, and we draw a point not on the like, call it E.
+The precondition of the whole program is that "the points are not collinear. Therefore we draw a line, call it q, and we draw a point not on the line, call it E.
 
 The guard of the repetition is "nopo.q > 2", therefore at least three points lie on q, call them A, B, C.
 
@@ -374,12 +372,14 @@ and the sooner I liberate myself from that **picture**, the better. Now, ehh, my
 
 ![a.15](a.15.png)
 
+# next read through
+
 * //BB
- * b min c < h
- * = {elimination of min}
- * b < h ∨ c < h
- * = {similar triangles}
- * BA < EA
+  * b min c < h
+  * = {elimination of min}
+  * b < h ∨ c < h
+  * = {similar triangles}
+  * BA < EA
 
 These two triangles are similar, because they both have that right angle there and they share that one, so these two sides, the ratio of them is the same as the ratio of the hypotenuses.
 
