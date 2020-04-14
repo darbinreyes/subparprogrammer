@@ -7,6 +7,10 @@
             <img src="<%= entry.image %>" class="card-img-top rounded-lg" alt="<%= entry.name %>">
             <p>Energy: <%= entry.energy %></p>
             <p>Description: <%= entry.description %></p>
+            <h6>Comments</h6>
+            <% entry.comments.forEach(function(currentValue, index, array) { %>
+              <p><strong><%= currentValue.author %>:</strong> <%= currentValue.text %></p>
+            <% }); %>
         </div>
     </div>
 </div> <!-- container-fluid END-->

@@ -3529,11 +3529,59 @@ x find a user and on successful find .push a post to posts array.  user.save() a
 ---
 
 ### 326. YelpCamp: Refactoring App.js 
+* move campgroundSchema to models/camground.js
+* modules.exports above.
+* require("./models/campground")
+
 ### 327. Note about Seeding the Database 
+* MongoDB and Mongoose have both been updated with breaking changes recently.
+
+* seed.js . remove all campgrounds and comments. Add 3 campgrounds each with 1 identical comment.
+
+* If you run into the Cannot read property 'name' of null  error
+
 ### 328. YelpCamp: Seeding the Database 
+* create seed.js
+* require campground.js
+* delete all, Campground.remove({}, function(err))
+* in app.js, seedDB = require("./seeds");
+  * export seedDB function.
+* Add a few campgrounds.
+  * create an array to add. 3 campgrounds.
+  * add using data.forEach()
+  * nest forEach in callback.
+  * nest add same comment to each campground
+    * Comment model doesn't exist yet.
+      * text,
+      * author
+      * upon successful create comment, push() associated comment.
+      * save with comment.
+  * add Comment = require("./models/comment")
+  
 ### 329. Note about comment model lecture 
+* error: TypeError: Cannot read property 'push' of undefined
+* will use reference to the comment model within campground model. 
+
 ### 330. YelpCamp: Comment Model 
+* finish seeds.js
+* display comments on show page.
+* touch models/comments.js
+  * create and export comments model.
+* inspect in mongo shell
+  * db.campgrounds
+  * db.comments 
+* add object id reference to comments.
+  * commens: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}]
+* rename mongoose connect to "_v3"
+  * confirm comments id refs added.
+* SHOW page- in app.get("/campgrounds/:id", ...)
+  * populate("comments").exec(functions(err, foundCampground) comments on campground being shown. 
+  * show.ejs
+    * loop through comments.
+    
 ### 331. Note about Comments Lecture 
+* New MongoDB version. May need to update.
+
 ### 332. YelpCamp: Creating Comments Pt. 1 
 ### 333. YelpCamp: Creating Comments Pt. 2 
 ### 334. YelpCamp: Styling Comments Pt 1 

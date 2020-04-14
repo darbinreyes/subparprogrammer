@@ -8,20 +8,11 @@ const mongoose = require("mongoose");
 
 /** Mongoose setup START **/
 // "yelpnutrition" will appear in "mongoose shell>>> show dbs" list.
-mongoose.connect("mongodb://localhost/yelpnutrition", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb://localhost/yelpnutritionv3", {useNewUrlParser: true, useUnifiedTopology: true});
 
-// Define schema for the data to be added to the DB.
-const nutritionSchema = mongoose.Schema({
-    name: String,
-    image: String,
-    energy: Number,
-    description: String
-});
-
-// "nutritions" will show up in "mongoose shell>>> use yelpnutrition; show collections"
-// "mongoose shell>>> db.nutritions.find()" will display DB entries.
-// Get an instance of the DB for the given schema.
-const Nutrition = mongoose.model("Nutrition", nutritionSchema);
+const Nutrition = require("./models/nutrition");
+const seedDB = require("./seedDB");
+seedDB();
 /** Mongoose setup END **/
 
 /** Express setup START **/
@@ -114,7 +105,8 @@ app.get("/campgrounds/:id", function(exp_request, exp_response){
     // TODO/FYI: App errors our when ID argument below is invalid.
 
     // Show the details of the DB entry with given ID.
-    Nutrition.findById(exp_request.params.id, function(err, entry){
+    //Nutrition.findById(exp_request.params.id, function(err, entry){
+    Nutrition.findById(exp_request.params.id).populate("comments").exec(function(err, entry){
         if(err) {
             console.log("findById() failed: ");
             console.log(err);
