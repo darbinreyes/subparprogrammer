@@ -1,0 +1,28 @@
+<!-- YelpCamp = YelpNutrition-->
+
+<%- include("partials/header.ejs") %>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-1 col-sm-2 col-md-3 col-lg-4"></div>
+        <div class="col-10 col-sm-8 col-md-6 col-lg-4">
+                <div class="text-center">
+                <h1>Add a new nutrition entry</h1>
+                <p>Suck my balls, I like Oreos.</p>
+                <p>That's why you're a fat fuck.</p>
+                <form action="/campgrounds" method="POST">
+                    <div class="form-group">
+                        <div class="form-group row mx-auto"><div class="col-12"><input type="text" class="form-control form-control-lg" placeholder="Name" name="name"></div></div>
+                        <div class="form-group row mx-auto"><div class="col-12"><input type="text" class="form-control form-control-lg" placeholder="Image URL" name="image"></div></div>
+                        <div class="form-group row mx-auto"><div class="col-12"><input type="text" class="form-control form-control-lg" placeholder="Energy" name="energy"></div></div>
+                        <div class="form-group row mx-auto"><div class="col-12"><input type="text" class="form-control form-control-lg" placeholder="Description" name="description"></div></div>
+                        <div class="form-group row mx-auto"><div class="col-12"><button type="submit" class="btn btn-success btn-lg w-100">Add</button></div></div>
+                        <div class="row text-left mx-auto"><div class="col-12"><a class="" href="/campgrounds">Go back</a></div></div>
+                    </div>
+                </form>
+                </div>
+        </div>
+        <div class="col-1 col-sm-2 col-md-3 col-lg-4"></div>
+    </div>
+</div>
+<%- include("partials/footer.ejs") %>

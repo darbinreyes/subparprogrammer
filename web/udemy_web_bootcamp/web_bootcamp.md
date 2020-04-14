@@ -3522,4 +3522,22 @@ x find a user and on successful find .push a post to posts array.  user.save() a
 * Test by creating another post.
 * // analogous to C includes.
 
+---
+
+# Section 33: YelpCamp: Comments
+
+---
+
+### 326. YelpCamp: Refactoring App.js 
+### 327. Note about Seeding the Database 
+### 328. YelpCamp: Seeding the Database 
+### 329. Note about comment model lecture 
+### 330. YelpCamp: Comment Model 
+### 331. Note about Comments Lecture 
+### 332. YelpCamp: Creating Comments Pt. 1 
+### 333. YelpCamp: Creating Comments Pt. 2 
+### 334. YelpCamp: Styling Comments Pt 1 
+### 335. Note about YelpCamp: Styling Comments Pt 2 
+### 336. YelpCamp: Styling Comments Pt 2 
+
 
