@@ -89,16 +89,14 @@ and now I'm going to create seven clubs, of three members.
 
 ![a.2](a.2.png)
 
-And I do that by putting these three members in one club. The remaining six clubs, you get by rotation of that **triangle**.
-
-// TODO: draw the remaining six by rotation of the triangle.
-
-Any **pair** of the complete 7 graph. The complete 7 graph has 7 times 6 over 2 is 21 edges. 
+And I do that by putting these three members in one club. The remaining six clubs, you get by rotation of that **triangle**. Any **pair** of the complete 7 graph. The complete 7 graph has 7 times 6 over 2 is 21 edges. 
 
 * // BB
   * 7×6/2
 
 // My comment: I don't understand this translation of the problem.
+
+# next read through
 
 That is, in the complete, in the population of 7 persons, you can isolate 21 pairs, each pair uniquely determines the triangle to, each edge uniquely determines the triangle to which it belongs, however you see that with these 7 clubs of 3 members it is not true that all persons belong to the same club, because each club has at most 3 members, and it is not true that there exists a club with exactly two members.
 
@@ -529,15 +527,13 @@ Of course this is the only symmetric choice so it's not surprising. But what is 
 
 Why is this very nice? You see, if you compare it with Kelly's proof that contains the same element, Kelly says, well, consider all, lines, and all possible combinations for q and E. All possible pairs of a line and a point not on that line. Finite collection, at least one such pair contains the **minimum** distance. And then he says well OK suppose that that, of course Kelly in 1948 proved it by a contradiction, so immediately he says, suppose that there are three points on the line q and then he derives a contradiction, we don't need to do that. Now, at the time, Kelly's introduction of the euclidian distance was greeted as a great invention, original idea that only a genius can have, because of course it is a foreign element because the problem statement itself has nothing to do with euclidian metric, its the, the theorem is a affine invariant. So it is a foreign element, but we know that given a program with a repetition we know that whereas the invariant of the repetition is uniquely determined by the program itself, the variant function, the decreasing thing that one invents to prove the termination argument, that's not determined at all, if you have some function "t" that decreases, any monotonic function of it will do it as well, of t, will do it as well. So we know, that if in arguments like that any inventiveness is required, it is at the choice of the variant function. Now I have taken extensive experiments with this problem at oral examinations and I have also shown this a number of times lecturing to an audience. At the critical moment, that the euclidian distance between q and E has to be invented. It has always been the audience that supplied this foreign body to the argument. In short, as soon as you regard this as a programming exercise, Kelly's invention becomes the most natural thing to do. So there has been progress. As a final mark of progress, I would like to read to you, because it's a little bit long to write down.
 
-# next read through
-
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=46m14s)
 
 Sylvester's original statement of the problem. And that will give you another aspect of progress in century of mathematics.
 
 "Prove that it is not possible to arrange any finite number of real points, so that a right line through every two of them shall pass through a third unless they all lie on the same right line."
 
-When I tried to read that I discovered that I couldn't, there were too many negations and unless's etc. And in utter despair finally I took the concise oxford dictionary, because I now wanted to know very precisely what "unless" means. Yah, I am a modest man and I am not afraid of going to the authorities. It was very illuminating because, the COD gives two meanings for unless, one is "if-not", now "if" is a follows from, and "not" is negation, this is or.
+When I tried to read that I discovered that I couldn't, there were too many negations and unless's etc. And in utter despair finally I took the concise oxford dictionary, because I now wanted to know very precisely what "unless" means. Yah, I am a modest man and I am not afraid of going to the authorities. It was very illuminating because, the C.O.D. gives two meanings for unless, one is "if-not", now "if" is a follows from, and "not" is negation, this is or.
 
 ---
 
@@ -545,17 +541,17 @@ When I tried to read that I discovered that I couldn't, there were too many nega
 
 // My comment. 
 ```text
+// C.O.D. Definition of "unless"
+// "if is a follows from"
 "X if Y" 
 = 
-X ⇐ Y. // "if is a follows from"
-
 X ⇐ Y 
 = 
 X ∨ ¬Y.
-
+// "not is negation"
 "X if-not Y"
 =
-"X if ¬Y" // "not is negation"
+"X if ¬Y" 
 =
 X ⇐ ¬Y
 =
@@ -568,9 +564,9 @@ X ∨ Y. // "this is or"
 
 ---
 
-And the other one it gives is "except when". And if you start analyzing what "except when" means then you will come to not equivalent [≢]. So even the statement of, the theorem, is already ambiguous. Coxeter makes it worse in the sense that, he does not give, to begin with, the formulation of Sylvester, he gives his own definition, or statement of the theorem, but thereby he drops the requirement that the points are distinct, and then the theorem is false, you see, you can easily construct a counter example. OK that is what I wanted to say about how a once deep theorem, these days, is a trivial programming exercise. Any questions? "[D. Knuth?] Do you know of a corresponding three  dimensional theorem?" Yes, yes, and that is, that depends on how you, generalize distinct points. One way of defining distinctness in the plane, is that any two points uniquely determine, the line through them. The generalization for three dimensions is that any three points, uniquely determine the plane through them. And then, what you then can do is take one point, project the other points in the plane, prove the theorem in the plane, and then restore the lines in the planes again. My guess is that Coxeter has missed that generalization, because he never took the trouble of stating explicitly that the points should be distinct, or he didn't care. I mean that's the other possibility. Yes, sir. "...". Untrained mathematicians find it very difficult, no not necessarily, the program is short, I think the correctness proof simple, but what is certainly true is that in general, a program is a very compact deposit of our intellectual labors, sure. Yes, sir. "...". Yes. Yes. Real euclidian plane. Yah. Finite number of points, each point is red or blue, there exists a line that contains more than one point of homogenous color. Ahh hah, ahh hah, yeah, OK. Its not an open it is a closed problem. OK well, I might try it, tonight in bed. 
+And the other one it gives is "except when". And if you start analyzing what "except when" means then you will come to not equivalent [≢]. So even the statement of, the theorem, is already ambiguous. Coxeter makes it worse in the sense that, he does not give, to begin with, the formulation of Sylvester, he gives his own definition, or statement of the theorem, but thereby he drops the requirement that the points are distinct, and then the theorem is false, you see, you can easily construct a counter example. OK that is what I wanted to say about how a once deep theorem, these days, is a trivial programming exercise. Any questions? "[D. Knuth?] Do you know of a corresponding three dimensional theorem?" Yes, yes, and that is, that depends on how you, generalize distinct points. One way of defining distinctness in the plane, is that any two points uniquely determine, the line through them. The generalization for three dimensions is that any three points, uniquely determine the plane through them. And then, what you then can do is take one point, project the other points in the plane, prove the theorem in the plane, and then restore the lines in the planes again. My guess is that Coxeter has missed that generalization, because he never took the trouble of stating explicitly that the points should be distinct, or he didn't care. I mean that's the other possibility. Yes, sir. "...". Untrained mathematicians find it very difficult, no not necessarily, the program is short, I think the correctness proof simple, but what is certainly true is that in general, a program is a very compact deposit of our intellectual labors, sure. Yes, sir. "...". Yes. Yes. Real euclidian plane. Yah. Finite number of points, each point is red or blue, there exists a line that contains more than one point of homogenous color. Ahh hah, ahh hah, yeah, OK. Its not an open it is a closed problem. OK well, I might try it, tonight in bed. 
 
-Well, thinking horizontally is a nice place. "...". No same argument. Yea, yea, well, you use this step. You may use the implication in the other sense, in which it's very common. I find, there is another comment, the way in which we have an influence by our **education**. Everybody knows the monotonicity of the addition in this form.
+Well, thinking horizontally is a nice place. "...". No, same argument. Yea, yea, well, you use this step. You may use the implication in the other sense, in which it's very common. I find, there is another comment, the way in which we have an influence by our **education**. Everybody knows the monotonicity of the addition in this form.
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=54m20s)
 
@@ -602,7 +598,7 @@ For, if we had only two points, they are necessarily collinear.
 ---
 
 * // BB
-* * P : nopo.q ≥ 2 ∧ E lies not on q.
+ * P : nopo.q ≥ 2 ∧ E lies not on q.
 
 
 ```text
