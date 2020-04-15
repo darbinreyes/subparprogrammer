@@ -139,6 +139,7 @@ def plot_points(conn_matrix, redpts, bluepts):
     # Show the figure and block execution, if block=False you never see the
     # figure because it disappears once execution continues.
     plt.show(block=True)
+    return lines
 
 # For testing purposes, count the number of possible red-blue point connection
 # matrices.
@@ -245,6 +246,15 @@ def lines_intersect(lines, newline):
 
     return xis
 
+def lines_intersect_index(lines):
+    """ Returns the index of the first pair of lines that intersect."""
+    for i in range(len(lines)):
+        for j in range(len(lines)):
+            if i != j:
+                if lines[i].intersects(lines[j]) != None:
+                    return i, j
+    return None, None
+
 def has_intersection():
     """ Determines if the given set of red-blue connections has an intersection
     and if so returns the first intersection that is encountered, i.e. returns
@@ -270,42 +280,19 @@ def main():
 
     conn_matrix = init_conn_matrix(n)
     #enum_conns(conn_matrix, print_conn)
-    plot_points(conn_matrix, redpts, bluepts)
+    lines = plot_points(conn_matrix, redpts, bluepts)
+    i, j = lines_intersect_index(lines)
+    print(i, j)
+    conn_swap_rows(conn_matrix, i, j)
+    lines = plot_points(conn_matrix, redpts, bluepts)
+    i, j = lines_intersect_index(lines)
+    print(i, j)
+    conn_swap_rows(conn_matrix, i, j)
+    lines = plot_points(conn_matrix, redpts, bluepts)
+    i, j = lines_intersect_index(lines)
+    print(i, j)
     #enum_conns(conn_matrix, plot_points, redpts, bluepts)
 
 
 if __name__ == '__main__':
   main()
-
-""" Calculation of intersection, n = 3, plot 1.
-MacBook-Air:python3tutorial darbinreyes$ python3.8
-Python 3.8.1 (default, Jan  7 2020, 01:35:47)
-[Clang 11.0.0 (clang-1100.0.33.12)] on darwin
-Type "help", "copyright", "credits" or "license" for more information.
->>> 93-47
-46
->>> 31-12
-19
->>> 27-89
--62
->>> 19/46
-0.41304347826086957
->>> 12 - (19/46)*47
--7.413043478260871
->>> 27 - (-62/90)*94
-91.75555555555556
->>> -62/90
--0.6888888888888889
->>> ((19/46) - (-62/90))
-1.1019323671497585
->>> (12 - (19/46)*47) - (27 - (-62/90)*94)
--99.16859903381643
->>> (-((12 - (19/46)*47) - (27 - (-62/90)*94)))/((19/46) - (-62/90))
-89.99517755370452
->>> (19/46) * (-((12 - (19/46)*47) - (27 - (-62/90)*94)))/((19/46) - (-62/90)) +(12 - (19/46)*47)
-29.75887768522578
->>> (-62/90) * ((-((12 - (19/46)*47) - (27 - (-62/90)*94)))/((19/46) - (-62/90))) + (27 - (-62/90)*94)
-29.758877685225777
->>>
-
-"""
