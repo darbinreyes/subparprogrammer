@@ -3583,7 +3583,37 @@ x find a user and on successful find .push a post to posts array.  user.save() a
 * New MongoDB version. May need to update.
 
 ### 332. YelpCamp: Creating Comments Pt. 1 
+* comment - nested route.
+  * NEW - /camgrounds/:id/comments/new GET
+  * CREATE - /campgrounds/:id/comments POST
+* app.get("/campgrounds/:id/comments/new", ...)
+  * mkdir views/comments
+  * mkdir views/campgrounds
+  * move files.
+  * touch views/comments/new.ejs
+  * update paths to response.render("comments/new.ejs").
+  * landing.ejs unmoved.
+  * update partials paths. "../partials/header.ejs"
+  * copy existing new.ejs code to comments/new.ejs.
+    * h1 - Add new comment to campground.name
+    * form action=/campgrounds/:id/comments method=POST
+    * Campground.findById(req.params.id,
+    * can't just refresh, seed generates new Id's.
+    * update form inputs. name=comment[text], comment[author]
+* app.post("/campgrounds/:id/comments", ...)
+  * lookup campground, create new comment, connect comment, redirect to campground show page.
+  * request.body.comment 
+  * Comment.create(..., function...)
+  * campgrounds.comment.push(new_comment);
+  * campgrounds.save(); // no call back.
+  * response.redirect(/campgrounds/id)
+  * require comment.js
+  * test new comment
+  * add comment button - a inside of a p. - /campgrounds/id/comments/new.
+    
 ### 333. YelpCamp: Creating Comments Pt. 2 
+See above.
+
 ### 334. YelpCamp: Styling Comments Pt 1 
 ### 335. Note about YelpCamp: Styling Comments Pt 2 
 ### 336. YelpCamp: Styling Comments Pt 2 
