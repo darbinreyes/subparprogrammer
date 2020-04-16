@@ -85,15 +85,17 @@ def create_points(n, xmin, xmax, ymin, ymax):
 
     # Comment out these lines so I can do testing and development with the same
     # set of points.
-    #xcoords = create_coordinates(n, xmin, xmax)
-    #ycoords = create_coordinates(n, ymin, ymax)
-    #print(xcoords)
-    #print(ycoords)
+    xcoords = create_coordinates(n, xmin, xmax)
+    ycoords = create_coordinates(n, ymin, ymax)
+    print(xcoords)
+    print(ycoords)
 
     ###
 
-    xcoords = [93, 4, 76, 47, 94, 11]
-    ycoords = [31, 89, 59, 12, 27, 8]
+    #xcoords = [93, 4, 76, 47, 94, 11]
+    #ycoords = [31, 89, 59, 12, 27, 8]
+    #xcoords = [98, 16, 89, 18, 37, 14]
+    #ycoords = [5, 73, 67, 6, 27, 17]
     points = []
     for i in range(n):
         points.append(coloredPoint(0, xcoords[i], ycoords[i]))
@@ -267,7 +269,7 @@ def do_flip_operation():
 
 def main():
     """ Main function."""
-    n = 3
+    n = 5
     xmin = 0
     xmax = 100
     ymin = 0
@@ -279,18 +281,13 @@ def main():
         p.color = 1
 
     conn_matrix = init_conn_matrix(n)
-    #enum_conns(conn_matrix, print_conn)
-    lines = plot_points(conn_matrix, redpts, bluepts)
-    i, j = lines_intersect_index(lines)
-    print(i, j)
-    conn_swap_rows(conn_matrix, i, j)
-    lines = plot_points(conn_matrix, redpts, bluepts)
-    i, j = lines_intersect_index(lines)
-    print(i, j)
-    conn_swap_rows(conn_matrix, i, j)
-    lines = plot_points(conn_matrix, redpts, bluepts)
-    i, j = lines_intersect_index(lines)
-    print(i, j)
+    i = 0
+    j = 0
+    while i != None and j != None:
+        conn_swap_rows(conn_matrix, i, j)
+        lines = plot_points(conn_matrix, redpts, bluepts)
+        i, j = lines_intersect_index(lines)
+        print(i, j)
     #enum_conns(conn_matrix, plot_points, redpts, bluepts)
 
 
