@@ -96,8 +96,6 @@ And I do that by putting these three members in one club. The remaining six club
 
 // My comment: I don't understand this translation of the problem.
 
-# next read through
-
 That is, in the complete, in the population of 7 persons, you can isolate 21 pairs, each pair uniquely determines the triangle to, each edge uniquely determines the triangle to which it belongs, however you see that with these 7 clubs of 3 members it is not true that all persons belong to the same club, because each club has at most 3 members, and it is not true that there exists a club with exactly two members.
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=07m41s)
@@ -112,7 +110,7 @@ We will have one variable, q, of type line. I may need a little bit more space, 
 
 ![b.11](b.11.png)
 
-// My comment: Note the syntax for a variable and its type.
+// My comment: Note the syntax for a variable and its type. Variable name, colon, variable type.
 
 And what can we do with. We have to initialize that variable, now since lines are determined by two points, my proposal is that the program initializes q such that upon initialization P holds. 
 
@@ -183,7 +181,9 @@ Because that was the circumstance under which we were going to show the presence
 
 ![b.3](b.3.png)
 
-There is a point not on q, yes. So my proposal is, to take that into **account** by introducing a variable of type point. Variable E will be of type point, E will also be initialized, 
+There is a point not on q, yes. So my proposal is, to take that into **account** by introducing a variable of type point. Variable E will be of type point, E will also be initialized,
+
+# next read through, draw some examples.
 
 ![b.6](b.6.png)
 
