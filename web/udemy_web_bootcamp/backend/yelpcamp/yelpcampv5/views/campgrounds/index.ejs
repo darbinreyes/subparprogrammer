@@ -1,0 +1,41 @@
+<!-- campground = nutrition-->
+
+<%- include("../partials/header.ejs") %>
+
+<!-- jumbotron START -->
+<div class="jumbotron">
+  <h1 class="display-4">You're not welcome at YelpNutrition</h1>
+  <p class="lead">View the nutrition information for our hand-picked foods. We know, the name makes no sense.</p>
+  <hr class="my-4">
+  <p>If you don't like these foods please suck my balls, or add your own. Thanks!</p>
+  <a class="btn btn-success btn-lg" href="/campgrounds/new" role="button">Add new nutrition entry</a>
+</div>
+<!-- jumbotron END -->
+<div class="container-fluid"> <!-- container-fluid START -->
+<% if(nutritions.length === 0) { %>
+<div class="row">
+    <div class="col-12">
+        <p>Sorry, the database is empty.</p>
+    </div>
+</div>
+<% } else { // else START %>
+<div class="row">
+<% nutritions.forEach(function (currentValue, index, array) { %>
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 my-2 align-self-center">
+        <!-- card START -->
+        <div class="card text-center border-top-0 border-left-0 border-right-0 rounded-0" >
+        <img src="<%= currentValue.image %>" class="card-img-top rounded-lg" alt="<%= currentValue.name %>">
+        <div class="card-body">
+            <h5 class="card-title"><%= currentValue.name %></h5>
+            <!-- <p class="card-text">Eat me.</p> -->
+            <a href="/campgrounds/<%= currentValue._id %>" class="btn btn-primary">Nutrition Info.</a>
+        </div>
+        </div>
+        <!-- card END -->
+    </div>
+<% }); %>
+</div>
+<% } // else END %>
+</div> <!-- container-fluid END -->
+
+<%- include("../partials/footer.ejs") %>

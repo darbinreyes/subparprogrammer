@@ -3615,7 +3615,74 @@ x find a user and on successful find .push a post to posts array.  user.save() a
 See above.
 
 ### 334. YelpCamp: Styling Comments Pt 1 
+* Styling show page.
+* 3 col, 9 col
+* mkdir v5.
+* div container
+* sidebar
+  * row 
+  * col-md-3
+  * list items -  list-group - info 1-active 2 3. 
+  * col-md-9
+  * price = 9$ / night - hard code.
+  * campground.name link to nowhere
+  * long description.
+  * same column as thumnail - comments. class=well. gray background.
+  * leave review button.
+  * loop through comments 1 per div.row.
+  * comment author -  "10 days ago" span pull-right
+  * comment text in \<p>
+  * hr under button.
+  * bold author
+  * make image take up wdith=100% - use chrome inspector
+  * padding 0
+  * padding around content under image.
+  
 ### 335. Note about YelpCamp: Styling Comments Pt 2 
+* guy uses custom CSS for something bootstrap has a class for. .caption-full vs .caption.
+
 ### 336. YelpCamp: Styling Comments Pt 2 
+* mkdir public
+* mkdir public/stylesheets/
+  * touch main.css
+  * app.use(express.static("public")); // Tell express where to look for CSS files.
+  * vs
+  * app.use(express.static(__dirname +"/public")); // __dirname = directory that this script was run in.
+      * href="/stylesheets/main.css"
+  * absolute path is "safer"
+  * link stylesheet main.css in partial/header.
+  * .thumbnail img w=100%
+  * .thumbnail padding 0.
+  * .thumbnail .caption-full padding 9px
+  
+---
+
+# Section 34: Authentication
+
+---
+ 
+### 337. Note about authentication section 
+*  pay special attention to the order in which Colt includes various lines of code 
+*  if you're wondering what happened to the "Auth From Scratch" lectures, Colt opted not to make them because of potential security risks.
+*  However, this video dives pretty deep into the inner workings of authentication.
+
+### 338. Introduction to Authentication 
+* passportjs.org
+* strategies.
+* passport-local
+* passport-local-mongoose.
+* secret page
+* login
+* staying logged in
+* sessions
+* allow us to add state
+* package express-session 
+
+### 339. Secret Page Code Along Pt. 1 
+### 340. Secret Page Code Along Pt. 2 
+### 341. Secret Page Code Along Pt. 3 
+### 342. Secret Page Code Along Pt. 4 
+### 343. Secret Page Code Along Pt. 5 
+
 
 

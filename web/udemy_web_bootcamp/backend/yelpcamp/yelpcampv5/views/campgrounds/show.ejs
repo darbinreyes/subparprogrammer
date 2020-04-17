@@ -1,0 +1,17 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container-fluid"> <!-- container-fluid START-->
+    <div class="row">
+        <div class="col-4">
+            <h1><%= entry.name %></h1>
+            <img src="<%= entry.image %>" class="card-img-top rounded-lg" alt="<%= entry.name %>">
+            <p>Energy: <%= entry.energy %></p>
+            <p>Description: <%= entry.description %></p>
+            <h3>Comments <a class="btn btn-success" href="/campgrounds/<%= entry._id %>/comments/new">Add Comment</a></h3>
+            <% entry.comments.forEach(function(currentValue, index, array) { %>
+              <p><strong><%= currentValue.author %>:</strong> <%= currentValue.text %></p>
+            <% }); %>
+        </div>
+    </div>
+</div> <!-- container-fluid END-->
+<%- include("../partials/footer.ejs") %>
