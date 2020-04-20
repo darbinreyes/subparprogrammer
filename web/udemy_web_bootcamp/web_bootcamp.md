@@ -3664,7 +3664,7 @@ See above.
 ### 337. Note about authentication section 
 *  pay special attention to the order in which Colt includes various lines of code 
 *  if you're wondering what happened to the "Auth From Scratch" lectures, Colt opted not to make them because of potential security risks.
-*  However, this video dives pretty deep into the inner workings of authentication.
+*  However, [this video] dives pretty deep into the inner workings of authentication.
 
 ### 338. Introduction to Authentication 
 * passportjs.org
