@@ -1,6 +1,8 @@
 # Implementation of the algorithm described in Dijkstra's Reasoning About
 # Programs problem 2.
 
+""" Performs a flip operation on a random set of points until there are no intersections."""
+
 # coding style : https://www.python.org/dev/peps/pep-0008/
 import random
 import matplotlib.pyplot as plt # I will use matplotlib to draw points and lines. https://matplotlib.org/tutorials/introductory/usage.html#sphx-glr-tutorials-introductory-usage-py
@@ -52,11 +54,23 @@ class FiniteLine:
     def intersects(self, other_finite_line):
         """ Determines if this line intersects with other_finite_line. The lines
         intersect if the x-coordinate of the computed intersection lies between
-        the x-range of this line and the x-range of other_finite_line."""
+        the x-range of this line and the x-range of other_finite_line. If the lines
+        intersect, the x-coordinate of the intersection is returned, if they do
+        not intersect, None is returned. ERROR NOTE: This implementation does not
+        take into account the floating point errors, see
+        https://docs.python.org/3/tutorial/floatingpoint.html
+        https://docs.python.org/3/tutorial/stdlib2.html#decimal-floating-point-arithmetic"""
 
         # Calculate the x-coordinate of the intersection between this line and
-        # other_finite_line
+        # other_finite_line. The calculation is done by solving for x in the
+        # equation obtained from setting both line's equations equal to each other.
         dslp = self.slp - other_finite_line.slp
+        if dslp == 0:
+            # The lines do not intersect because they have the same slope.
+            # Catch this here to prevent an exception:
+            # ZeroDivisionError: float division by zero
+            print("dslp == 0")
+            return None
         dyintercept = self.yintercept - other_finite_line.yintercept
         x_intersection = -dyintercept/dslp
 
@@ -92,10 +106,12 @@ def create_points(n, xmin, xmax, ymin, ymax):
 
     ###
 
-    #xcoords = [93, 4, 76, 47, 94, 11]
+    #xcoords = [93, 4, 76, 47, 94, 11] # n = 3
     #ycoords = [31, 89, 59, 12, 27, 8]
     #xcoords = [98, 16, 89, 18, 37, 14]
     #ycoords = [5, 73, 67, 6, 27, 17]
+    #xcoords = [68, 8, 64, 46, 50, 90, 9, 85, 82, 91, 66, 23, 84, 26, 65, 28, 0, 97, 100, 88] # n = 10, This revealed the divide zero error in FiniteLine.intersect().
+    #ycoords = [72, 88, 85, 80, 11, 22, 21, 47, 61, 38, 92, 93, 91, 36, 83, 51, 19, 33, 67, 90]
     points = []
     for i in range(n):
         points.append(coloredPoint(0, xcoords[i], ycoords[i]))
@@ -269,7 +285,7 @@ def do_flip_operation():
 
 def main():
     """ Main function."""
-    n = 5
+    n = 10
     xmin = 0
     xmax = 100
     ymin = 0

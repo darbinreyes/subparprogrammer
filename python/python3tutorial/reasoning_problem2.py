@@ -1,6 +1,8 @@
 # Implementation of the algorithm described in Dijkstra's Reasoning About
 # Programs problem 2.
 
+""" Plots every possible pairing of red and blue points. Marks all intersections."""
+
 # coding style : https://www.python.org/dev/peps/pep-0008/
 import random
 import matplotlib.pyplot as plt # I will use matplotlib to draw points and lines. https://matplotlib.org/tutorials/introductory/usage.html#sphx-glr-tutorials-introductory-usage-py
