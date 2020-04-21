@@ -3668,21 +3668,140 @@ See above.
 
 ### 338. Introduction to Authentication 
 * passportjs.org
-* strategies.
-* passport-local
-* passport-local-mongoose.
-* secret page
-* login
-* staying logged in
-* sessions
-* allow us to add state
-* package express-session 
+  * search for strategies.
+  * passport-local, another package/strategy.
+* passport-local-mongoose, another package.
+* project
+    * secret page
+    * login
+    * staying logged in
+        * sessions
+        * allow us to add state
+        * package express-session 
 
 ### 339. Secret Page Code Along Pt. 1 
-### 340. Secret Page Code Along Pt. 2 
-### 341. Secret Page Code Along Pt. 3 
-### 342. Secret Page Code Along Pt. 4 
-### 343. Secret Page Code Along Pt. 5 
+* mkdir Authentication/AuthDemo,
+* npm init.
+* install
+  * express, mongoose
+  * passport, passport-local, passport-local-mongoose
+  * body-parser, express-session
+* mkdir views, models (will be user only)
+* require(express)
+* npm install ejs
+* app.get("/") render(home.ejs)
+* touch views/home.ejs
+* app.listen(...).
+* test home page.
+* app.get(/secret, ... ) , render(secret.ejs)
+* touch view/secret.ejs , add img, etc, for secret page.
+* test secret page.
+* require(mongoose), connect(localhost/auth_demo_app)
 
+### 340. Secret Page Code Along Pt. 2
+
+* require(passport, body-parser,
+* LocalStrategy = require(passport-local)
+* passportLocalMongoose = require(passport-local-mongoose)
+* test requires()
+* touch models/user.js
+  * require(mongoose)
+  * UserSchema = new mongoose.Schema({username, password})
+  * exports = mongoose.model("User", UserSchema)
+  * test require in app.js
+    * User = require(./models/user)
+  * passportLocalMongoose = require(passport-local-mongoose)
+  * UserSchema.plugin(passportLocalMongoose) // just before exports.
+* app.js
+  * app.use(passport.initialize()) // tell express to use passport.
+  * app.use(passport.session())
+  * app.use(require("express-session")( // tell express to use express-session // note inline require()
+    * {secret: "Rusty is a cunt", // can be "anything", used to encode and decode sessions.
+       resave: false, 
+       saveUninitialized: false}
+    * )); // call above initialize()
+  * // after use.(session() // tell user what methods to use for encoding and decoding sessions.
+  * passport.serializeUser(User.serialzeUser()); // "plugin" adds this method to User. 
+  * passport.deserializeUser(User.deserializeUser());
+  * // after this, come the app.get(/,...)
+
+### 341. Secret Page Code Along Pt. 3 
+* GET @ /register
+  * shows sign up form.
+  * form POSTs @ /register
+  * response.render(register.ejs)
+  * touch register.ejs.
+    * form
+    * input type = text, name = username
+    * input type = password, name = password
+    * submit button
+    * action=/register method=POST
+ * app.post(/register, ...)
+   * app.use(bodyParser.urlencoded({extended: true})
+   * req.body.username
+   * .password
+   * User.register(
+     * new User({username: req.body.username}), // note password not included here but below
+     * req.body.password, // will be hashed behind the scenes, not stored in plain text.
+     * function(err, user){ // new user with all data
+     * if err, render(register.ejs)
+     * else passport.authenticate("local", req, res, function({
+     * redirect("/secret")} // log user in. local|twitter strategy.
+     * });
+     * test login takes you to /secret
+     * mongo shell,
+     * db.users.find() // note object has hash and salt
+     * add link to signed up page in home page. li+a tag, href=/register
+   
+### 342. Secret Page Code Along Pt. 4 
+* touch views/login.ejs
+  * form
+  * input type=text, name=username
+  * type=password, name=password
+  * submit button.
+  * action=/login, method=POST
+* app.js
+
+```javascript
+// middleware = code that runs  before our final route callback. Can be "stacked up".
+app.post("/login", 
+passport.authenticate("local", // does the login operation
+{successRedirect: "/secret", 
+failureRedirect: "/login"}), function(req, res){
+
+});
+
+passport.use(new LocalStrategy(User.authenticate())); // before passport.serializeUser(..)
+``` 
+  
+ * Test login redirects .
+ 
+### 343. Secret Page Code Along Pt. 5 
+* in home.ejs add link to href=/logout
+* add 3 links to all pages. sign-up, login, logout
+* app.get(/logout, ...)
+  * req.logout();
+  * redirect(/)
+  * // that's it.
+  * test redirect to home.
+* // actually hiding the /secret page = middleware.
+
+```javascript
+
+function isLoggedIn(req, res, next) { // next = next thing that needs to be called
+    if(req.isAuthenticated() { // if logged in successfully
+        return next(); // "move on to the next middleware"
+    }
+    // else, login failed.
+    res.redirect("/login");
+}
+// update app.get("/secret",..)
+app.get("/secret", isLoggedIn, function(req, res){
+    render("/secret"); // only executes if user logged in successfully.
+});
+```
+
+* test login with new user.
+* test access to secret after logout.
 
 
