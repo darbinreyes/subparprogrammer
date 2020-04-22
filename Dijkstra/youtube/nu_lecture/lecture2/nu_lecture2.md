@@ -183,8 +183,6 @@ Because that was the circumstance under which we were going to show the presence
 
 There is a point not on q, yes. So my proposal is, to take that into **account** by introducing a variable of type point. Variable E will be of type point, E will also be initialized,
 
-# next read through, draw some examples.
-
 ![b.6](b.6.png)
 
 ![b.7](b.7.png)
@@ -236,6 +234,8 @@ and I put an A here, and this will be my new q, yah.
 Now, the existence of E has been used to show the, possibility of introducing E and keeping this second term of the invariant, invariant. [The invariant being "P : nopo.q ≥ 2 ∧ E lies not on q", the second term being "E lies not on q"].
 
 Now we have to think about a termination argument. Now listen, in the original statement of the theorem we have a finite number of points, this means that our state space that consists of a q and an E, has a finite number of possible values. There is a finite number of values, possible values for q, and for each value of q there is a finite possible number of values for E. And it is in this finite space that have to find a termination argument.
+
+# next read through, draw some examples.
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=21m40s)
 
