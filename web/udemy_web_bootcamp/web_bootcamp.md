@@ -3804,4 +3804,6 @@ app.get("/secret", isLoggedIn, function(req, res){
 * test login with new user.
 * test access to secret after logout.
 
+END.
+
 
