@@ -1015,6 +1015,16 @@ Extended char set. Use "L" prefix, e.g. L"hello". Their type = "array of wchar_t
 
 ## A.3 Syntax Notation 
 
+* syntactic categories = ___italic type font___
+
+* literal words and chars = type writer style font
+
+* alternative categories = 
+  * list on separate lines
+  * OR "one of" list of narrow alternatives on one line.
+* optional terminal or non-terminal = subscripted "opt"
+  * e.g. { expression_opt } 
+
 ## A.4 Meaning of Identifiers 
 
 ### A.4.1 Storage Class 
