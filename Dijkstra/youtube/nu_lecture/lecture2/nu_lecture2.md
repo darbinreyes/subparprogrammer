@@ -235,8 +235,6 @@ Now, the existence of E has been used to show the, possibility of introducing E 
 
 Now we have to think about a termination argument. Now listen, in the original statement of the theorem we have a finite number of points, this means that our state space that consists of a q and an E, has a finite number of possible values. There is a finite number of values, possible values for q, and for each value of q there is a finite possible number of values for E. And it is in this finite space that have to find a termination argument.
 
-# next read through, draw some examples.
-
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=21m40s)
 
 How do we find the termination argument? Well, the standard way is that you define a natural function on the state space which in each step of the repetition is decreased by at least 1, however, since our **space consists of a finite number of states** we can **drop** the constraint of the **variant** function being **integer**, it suffices to define an **integer [did he mean real?] function of the state** of which subsequently we can prove that it's **bounded from below** and **decreases** in each step. Now our current state **always exists** of a line q, and a point E, not on that line. Can anybody think of a **real function** of a point and a line that is bounded from below? The euclidian distance, yes, thank you very much. But if we do take the Euclidian distance, then I know which of the other two B and C, will be taken as our new E, the choice which **minimizes** the distance to the new q as much as possible. 
@@ -298,7 +296,7 @@ The guard of the repetition is "nopo.q > 2", therefore at least three points lie
 
 In changing q we have three possibilities, from E to A or B or C. Any other line like A-B would not change q.
 
-Let the line E-A be chosen as the new q. Now we must chose which of the other points, B, C we will take as our new E. We make that choice by taking the one the minimizes the distance to the new q, i.e. we consider the distance between the new q and points B and C and the lesser becomes our new E.
+Let the line E-A be chosen as the new q. Now we must chose which of the other points, B, C we will take as our new E. We make that choice by taking the one that minimizes the distance to the new q, i.e. we consider the distance between the new q and points B and C and the lesser becomes our new E.
 
 In looking for a termination argument we make use of the definition of euclidian distance between a point and a line, i.e. the length of a perpendicular from a point to a line. We now consider the distance between q and E, call it h.
 
@@ -306,6 +304,8 @@ In looking for a termination argument we make use of the definition of euclidian
 //
 
 ---
+
+# next read through, draw some examples.
 
 And I will do the same for capital C, which has a distance little c to the new q, only I don't make that drawing because that **invokes a case analysis** because there are all sorts of places where C might lie and I'm not going to do that. My **proof** obligation for the **termination** is, that I can demonstrate, that the **minimum** of little b and little c is **actually** less than h.
 
