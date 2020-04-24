@@ -305,8 +305,6 @@ In looking for a termination argument we make use of the definition of euclidian
 
 ---
 
-# next read through, draw some examples.
-
 And I will do the same for capital C, which has a distance little c to the new q, only I don't make that drawing because that **invokes a case analysis** because there are all sorts of places where C might lie and I'm not going to do that. My **proof** obligation for the **termination** is, that I can demonstrate, that the **minimum** of little b and little c is **actually** less than h.
 
 ![b.28](b.28.png)
@@ -356,7 +354,7 @@ Everrrybody agrees?
   * = {elimination of min}
   * b < h ∨ c < h
 
-Huh? No sir, because for the termination argument I need actual decrease, so the minimum of these, of this, if this value has to be less h, then b, then b is less than h or c is less than h. And this is an equivalence because, these two boolean expressions have the same value.
+Huh? No sir, because for the termination argument I need actual decrease, so the minimum of these, of this, if this value has to be less h, then b, then b is less than h or c is less than h. And this is an equivalence because, these two boolean expressions have the **same value**.
 
 // My comment. [x] TODO. Convince myself of that min equivalence.
 
@@ -364,7 +362,7 @@ Now, the next thing I wish to do, is to eliminate the lower case letters, obviou
 
 // My comment: "they only occur in that picture" and do not occur in the program we are developing.
 
-and the sooner I liberate myself from that **picture**, the better. Now, ehh, my claim is that there is a simple expression, that has the same value as b less than h. Is anybody willing to make a suggestion? The length of BA or AB, yes, is less than EA, yah, and that follows from similar **triangles**.
+and the sooner I liberate myself from that **picture**, the better. Now, ehh, my claim is that there is a simple expression, that has the **same value** as b less than h. Is anybody willing to make a suggestion? The length of BA or AB, yes, is less than EA, yah, and that follows from similar **triangles**.
 
 // My comment. EUCLID FTW!
 
@@ -377,7 +375,7 @@ and the sooner I liberate myself from that **picture**, the better. Now, ehh, my
   * = {similar triangles}
   * BA < EA
 
-These two triangles are similar, because they both have that right angle there and they share that one, so these two sides, the ratio of them is the same as the ratio of the hypotenuses.
+These two triangles are similar, because they both have that right angle there and they share that one, so these two sides, the **ratio** of them is the same as the ratio of the hypotenuses.
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=30m15s)
 
@@ -389,6 +387,8 @@ So BA less than EA is the one. Is that OK? Yes, apparently. Am I a little bit am
   * b < h ∨ c < h
   * = {similar triangles}
   * BA < EA ∨ CA < EA
+
+# next read through, draw some examples.
 
 ![a.16](a.16.png)
 
