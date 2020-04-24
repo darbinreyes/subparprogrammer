@@ -3804,6 +3804,13 @@ app.get("/secret", isLoggedIn, function(req, res){
 * test login with new user.
 * test access to secret after logout.
 
+* In the next section we will use the user login/out for more than just placing pages behind a "wall", we will associate data with users. E.g. User comments.
 END.
 
+---
+
+# Section 35: YelpCamp: Adding Authentication
+
+---
+ ### 345. YelpCamp: Adding Auth Pt. 1 ### 346. YelpCamp: Adding Auth Pt. 2 ### 347. YelpCamp: Adding Auth Pt. 3 ### 348. YelpCamp: Adding Auth Pt. 4 ### 349. YelpCamp: Adding Auth Pt. 5 
 

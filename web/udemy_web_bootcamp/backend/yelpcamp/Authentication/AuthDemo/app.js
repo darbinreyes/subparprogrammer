@@ -42,6 +42,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 
 /** passport setup START **/
+passport.use(
+new LocalStrategy(User.authenticate())
+);// This is a line added in as part of the POST @ /login to implement the user login function. See code along pt. 4. Tell passport to "for the local strategy use that method for the User.authenticate()"
 // "Two more lines we need to get setup and then we can start working on the routes" // Code along pt.2.
 passport.serializeUser(User.serializeUser()); // User.serializeUser() comes from ./models/user.js->UserSchema.plugin(passportLocalMongoose);
 passport.deserializeUser(User.deserializeUser());
@@ -54,7 +57,20 @@ app.get("/", function (exp_request, exp_response) {
   exp_response.render("home.ejs");
 });
 
-app.get("/secret", function (exp_request, exp_response) {
+// Middleware (see below post@/login) for the preventing access to /secret unless the user is logged in.
+
+function isLoggedIn(req, resp, next){  // next = next thing that needs to be called
+  console.log("isLoggedIn() middleware.");
+  if(req.isAuthenticated()) { // if logged in successfully // This is a passport method.
+    console.log(".isAuthenticated().");
+    return next(); // "move on to the next middleware"
+  }
+  // else, login failed.
+  console.log("NOT .isAuthenticated().");
+  resp.redirect("/login");
+}
+
+app.get("/secret", isLoggedIn, function (exp_request, exp_response) { // The function isLoggedIn is called "middleware".
   console.log("GET @ /secret.");
   exp_response.render("secret.ejs");
 });
@@ -86,25 +102,50 @@ app.post("/register", function(exp_request, exp_response){
         //exp_response.send(".register() failed, sorry.");
         // NOTE the use of "return" here, this is new and is probably important.
         // TODO: Does it work without a return here?
-        return exp_response.render("/register");
-      } else {
-        console.log("User.register() successful: ");
-        console.log(registeredUser);
-        // "At some point passport.authenticate() calls User.serializeUser()."
-        // FYI: "local" strategy can be swapped with "twitter". - Code ALong pt.3.
-        // "This actually logs in the user"
-        /*
-          req and resp are nested exp_request and exp_response ???
-          ANS: no, exp_request and exp_response are the same as above, we are
-          passing them as arguments to passport.authenticate("local")();
-        */
-        passport.authenticate("local")(exp_request, exp_response, function(){
-           exp_response.redirect("/secret");
-        });
-
+        // This should be a redirect? or render("register.ejs");
+        //return exp_response.render("/register"); // FYI this hangs upon error, e.g. if a you try registering the same username 2x: "UserExistsError".
+        return exp_response.redirect("/register"); // FYI this fixes the hang, I think that was my typo. Oops.
+        //return exp_response.render("register.ejs"); // FYI this works too, the guy uses this but I prefer redirect because you see a page-reload+console.log(GET @ /register).
       }
+      //else { // Not needed due to return statement above. This is the "middleware" pattern ostensibly.
+      console.log("User.register() successful: ");
+      console.log(registeredUser);
+      // "At some point passport.authenticate() calls User.serializeUser()."
+      // FYI: "local" strategy can be swapped with e.g. "twitter". - Code ALong pt.3.
+      // "This actually logs in the user"
+      /*
+        req and resp are nested exp_request and exp_response ???
+        ANS: no, exp_request and exp_response are the same as above, we are
+        passing them as arguments to passport.authenticate("local")();
+      */
+      passport.authenticate("local")(exp_request, exp_response, function(){
+         // Login the user and take user to /secret page upon successful registration
+         exp_response.redirect("/secret");
+      });
+      //} // else
     });
 
+});
+
+app.get("/login", function(exp_request, exp_response){
+  console.log("GET @ /login.");
+  exp_response.render("login.ejs");
+});
+
+// The call to passport.authenticate() here is called "middleware".
+// Middleware = code that runs  before our final route callback. Can be "stacked up".
+app.post("/login",
+  passport.authenticate("local", {successRedirect: "/secret", failureRedirect: "/login"}),
+  function(exp_request, exp_response){
+
+  console.log("POST @ /login.");
+  exp_response.send("Nothing like a nice Kraft Dinner.");
+});
+
+app.get("/logout", function(exp_request, exp_response){
+  console.log("GET @ /logout.");
+  exp_request.logout(); // This method is from passport, it destroys the user's session. // Logs out the user. // How does this function know which user to log out? ANS: The user info is inside exp_request.
+  exp_response.send("I logged you out guy.");
 });
 
 const PORT = 3000;
