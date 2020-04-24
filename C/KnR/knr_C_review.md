@@ -1024,10 +1024,30 @@ Extended char set. Use "L" prefix, e.g. L"hello". Their type = "array of wchar_t
   * OR "one of" list of narrow alternatives on one line.
 * optional terminal or non-terminal = subscripted "opt"
   * e.g. { expression_opt } 
+  
+* // The use of "terminal" + "non-terminal" means the syntax will be described in terms of a BNF grammar.
 
 ## A.4 Meaning of Identifiers 
 
+* // meaning a.k.a. semantics.
+
+* identifiers a.k.a. names refer to
+  * **functions**|structure-union-enum-tags|enum-constants|typedef-names|**objects**
+  * object a.k.a. variable = location in storage. 
+    * two attributes. 1. storage class. 2. type.
+    * **storage class** = lifetime of the storage.
+    * type = meaning of values in object.
+    * names referring to an object also have **scope**.
+      * scope = region of program it is known in
+    *  names referring to an object also have **linkage**.
+      * linkage = determines if the same name in another **scope** refer to the same **object** or **function**.
+
 ### A.4.1 Storage Class 
+
+* only two storage classes.
+  * automatic
+  * static
+* keywords (e.g. "static") +
 
 ### A.4.2 Basic Types 
 
