@@ -20,9 +20,35 @@ UEFI_Spec_2_8_A_Feb14.pdf.
 * UEFI driver model replaces "PC-AT style option ROMs".
 * UEFI drivers DON'T replace OS-specific drivers. They are intended to provides basic access to boot devices in the **pre-boot** environment.
 * driver = modular piece of code. UEFI driver model supports the execution of this code. Specifically execution in pre-boot environment.
+  * drivers
+    * manage HW busses
+    * control HW busses
+    * provide platform specific services. 
+* UEFI Driver Model
+  * info. required by implementors of bus drivers + device drivers.
+  * booting a UEFI-compliant OS.
+* generic interface, can apply to buses + devices.
+* UEFI Spec. decribes how to implement
+  * PCI bus drivers
+  * PCI device driver
+  * USB bus drivers
+  * USB device drivers
+  * SCSI drivers.
+  * UEFI drivers can be stored in PCI option ROMs + retains support for legacy option ROMs.
+* UEFI spec. 
+  * 1 goal = small driver executable images. 
+  * To support > 1 proc. arch.'s, driver must contain 1 "driver object file" per proc. arch.
+    * This space issue is address by EFI Byte Code VM.
+      *  Driver can be compile into 1 EFI Byte Code executable.
+      * UEFI spec. compliant FW requires EFI Byte Code interpretor.
+      * EFI Byte Code executables also reduce space by compression support. Spec. defines algorithms for comp./decomp. .
+      * Reduces storage used by UEFI drivers on ROMs.
+    * Spec. use cases include implementing
+    * UEFI-compliant platform FW
+    * drivers producing standard protocol interfaces
+    * OS loaders for UEFI compliant OS's.
 
+## 1.2 Organization 
 
-
-
-# next pg. 1 "The UEFI Driver Model is designed to ... ."
+# next pg. 2 1.2 Organization 
 
