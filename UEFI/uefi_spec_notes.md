@@ -49,6 +49,37 @@ UEFI_Spec_2_8_A_Feb14.pdf.
     * OS loaders for UEFI compliant OS's.
 
 ## 1.2 Organization 
+* Org. of the spec.
+* Intro.
+* Boot manager - loads drivers and apps.
+* System Table - pass to every driver and app. - def. GUID-based partition format
+* Block transition table - rules for block i/o with power fail safety
+* Boot services - def. of services available in pre-OS env.
+* Runtime services - def. of services available in both pre-OS and post-OS boot.
+* Protocols - 
+  * description of UEFI image already loaded into memory
+  * construction and management of device paths
+  * services that apply to bus and device 
+  * i/o of text information.
+  * services for loading files, def. of file system formats, removable media.
+  * def. of PCI bus drivers, PCI option ROMs, PCI root bridge i/o, PCI i/o protocol.
+  * SCSI, ext-SCSI-pass-thru, abstracted access to SCSI host controller.
+  * iSCSI = SCSI over TCP/IP
+  * USB bus and USB device driver.
+  * services to support source level debugger in UEFI env.
+  * services for compression/decompression, standard EFI decompression used at boot time.
+  * services for adding/removing ACPI table info.
+  * string services = multi-lang. string comparisons, regex protocol.
+* EFI BC VM - def. of EFI BC V-CPU, EBC object file mem. layout, how to transition from native code to EBC and back.
+* FW flashing services.
+* Network Protocols -
+  * SNP, PXE, BIS, HTTP protocols - access to network devices.
+  * unformatted + async network i/o services, comm. with devices supported by MNP driver.
+  * VLAN, EAP, Wi-Fi. Interfaces for VLAN configs.
+  * Bluetooth services.
+  * TCP, IP, PIPsec, FTP, GTLS, and config.
+  * ARP, DHCP, DNS, HTTP, REST services.
+  * UDP, MFTP services.
 
-# next pg. 2 1.2 Organization 
+# next pg. 3 - table row = Secure Boot.
 
