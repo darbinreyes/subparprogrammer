@@ -3812,5 +3812,97 @@ END.
 # Section 35: YelpCamp: Adding Authentication
 
 ---
- ### 345. YelpCamp: Adding Auth Pt. 1 ### 346. YelpCamp: Adding Auth Pt. 2 ### 347. YelpCamp: Adding Auth Pt. 3 ### 348. YelpCamp: Adding Auth Pt. 4 ### 349. YelpCamp: Adding Auth Pt. 5 
+
+### 345. YelpCamp: Adding Auth Pt. 1
+
+* install
+  * passport
+  * passport-local
+  * passport-local-mongoose
+  * express-session
+* app.js
+* require(passport, passport-local
+* User = require(./models/user
+* touch models/user.js
+  * require(mongoose
+  * UserSchema = new mongoose.Schema(... // same as AuthDemo
+  * test user require.
+  * require(passport-local-mongoose
+  * plugin(passportLocalMongoose
+  * test 
+ 
+### 346. YelpCamp: Adding Auth Pt. 2
+
+* // passport config
+  * app.use(require(express-session)({secret: "ccaca", // Same as AuthDemo
+  * app.user(pass.init()
+  * app.use(pass.session()
+  * passport.use(new LocalStra(User.auth()
+  * passport.serial(User.serial()
+  * passport.deserial(User.deserial()
+* // auth routes
+  * app.get("/register" ... ) res.render(register.ejs)// show reg. form
+  * form action=/register method=POST
+    * inputs - same as AuthDemo.
+  * app.post("/register", ...)  // sign up logic
+    * User.register() 
+      * if err, return res.render(register.ejs)
+      * inside passport.auth() redirect to /campgrounds.
+      * check user in mongo shell.
+       
+### 347. YelpCamp: Adding Auth Pt. 3
+
+* app.get("/login", ...) // show login form
+* touch views/login.ejs
+  * submit value=Login!
+* same as /register but with action=/login method=POST 
+* app.post("/login", ...) // try to login the user
+  * add in middleware
+    * passport.authenticate
+    * successRedirect: /campgrounds
+    * failure: /login, 
+    * express callback does nothing.
+    * test login redirect.
+ 
+### 348. YelpCamp: Adding Auth Pt. 4
+
+* app.get(/logout, ...) // logout a user
+  * req.logout()
+  * redirect(/campgrounds)
+* header.ejs
+  * Update navbar links
+* add header.ejs+footer.ejs to new routes. - adjust include paths relative to login.ejs+register.ejs..
+
+* // logic to prevent user from adding comment if not logged in.
+  * if loggedin - show comment form else show login form
+  * add isLoggedIn() middleware
+  * if(req.isAuth()) return next() // shows comment form
+  * ellse redirect(/login
+  * add middddleware to app.get(..comment)
+  * test comment addition redirect.
+  * also want to protect app.post(/camp/comments // add isLoggedIn() arg. // protects POSTman style "attack", all we did was hide the form.
+  * test add comment again
+
+### 349. YelpCamp: Adding Auth Pt. 5
+
+* navbar show/hide logic
+* if not signed in - login/signup
+* if yes, logout - also show username "signed in as Joe"
+* header.ejs.
+* pass user variable to header.ejs.
+* app.get(/campgrounds
+  * req.user // has the user info // undef. if not logged
+  * pass it to render()
+  * index.ejs -  test h4 with current user.
+* header.ejs - add if statement - if !currentUser only see login and signup.
+* quick way of paasing the user var to all routes.
+  * under passport.deserial().
+  * app.use(function(req, res, next) // "our own little middleware" // { res.locals.**currentUser** = req.user; next();}); // res.locals makes things available to .ejs
+  * test nav links ok on other routes besides /campgrounds.
+* // add currently signed in as.
+  * header.ejs
+  * li - a href=# - Signed In As <%= currentUser.username
+  * test comment
+  
+END.
 
