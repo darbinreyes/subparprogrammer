@@ -4,8 +4,8 @@ UEFI_Spec_2_8_A_Feb14.pdf.
 
 * UEFI = interface between OS and Platform FIRMWARE.
 * interface = tables + boot-time runtime service calls for OS loader + OS.
-* standard enviromen for booting OS
-* definition of set of interface and structure implemented by the platform firmware. + set of interface and structures avialable to the OS for booting.
+* standard environment for booting OS
+* definition of set of interface and structure implemented by the platform firmware. + set of interface and structures available to the OS for booting.
 * Spec. defines a way for OS and platform firmware to communicate for OS boot.
   * Spec. defines the interface, firmware devs fill in the details under the hood.
 * OS's written to specific processor + chipsets are enabled to run on different system designs. New platform features may be implemented without need to change OS boot code.
@@ -28,7 +28,7 @@ UEFI_Spec_2_8_A_Feb14.pdf.
   * info. required by implementors of bus drivers + device drivers.
   * booting a UEFI-compliant OS.
 * generic interface, can apply to buses + devices.
-* UEFI Spec. decribes how to implement
+* UEFI Spec. describes how to implement
   * PCI bus drivers
   * PCI device driver
   * USB bus drivers
@@ -40,7 +40,7 @@ UEFI_Spec_2_8_A_Feb14.pdf.
   * To support > 1 proc. arch.'s, driver must contain 1 "driver object file" per proc. arch.
     * This space issue is address by EFI Byte Code VM.
       *  Driver can be compile into 1 EFI Byte Code executable.
-      * UEFI spec. compliant FW requires EFI Byte Code interpretor.
+      * UEFI spec. compliant FW requires EFI Byte Code interpreter.
       * EFI Byte Code executables also reduce space by compression support. Spec. defines algorithms for comp./decomp. .
       * Reduces storage used by UEFI drivers on ROMs.
     * Spec. use cases include implementing
@@ -80,6 +80,75 @@ UEFI_Spec_2_8_A_Feb14.pdf.
   * TCP, IP, PIPsec, FTP, GTLS, and config.
   * ARP, DHCP, DNS, HTTP, REST services.
   * UDP, MFTP services.
+* Secure boot + driver signing - describes secure boot + fw signatures for authenticated fw execution.
+* HII - mechanism for user input. data + system config. API
+* User ID - services to describe current platform user.
+* Security Tech. - services for crypto. hashing and key management.
+* Misc. Protocols - timestamps. Reset notification protocol.
+* Appendices -
+* Index -
 
-# next pg. 3 - table row = Secure Boot.
+## 1.3 Goals 
+
+* Make new features easier to support. Reduce need to for OS code changes.
+* UEFI = alt. boot environment to support above.
+* Main properties of spec.
+  * Coherent, scalable platform environment - FW describes platform features, new features easier to add.
+  * Abstraction for the OS - interface to platform capabilities. OS code involves less platform specific code.
+  * legacy free, device abstraction - OS loader abstraction from device specific code. 
+  * option ROM abstraction - UEFI driver model.
+  * sharable sys. partition - mass storage devices, between  FW devs, OEM, OS vendors, third parties.
+* Support for legacy compatibility.
+* Additional properties 
+  * path to transition from legacy devices.
+  * support for both legacy OS and EFI-compat. OS on same platform.
+  * OS neutral value add easier to implement - modular feature addition.
+  * Builds on existing adequate standards - e.g. ACPI.
+  
+## 1.4 Target Audience 
+
+...
+
+## 1.5 UEFI Design Overview 
+
+* Reuse of existing interface e.g. ACPI
+* System partition - sharable between vendors. - FW devices file format.
+* Boot services - interface to system+devices. handles + protocol.
+* Runtime services - interface to resources needed by the OS.
+
+* Fig. 1. 
+  * Note OS loader lives on the EFI sys. partition.
+  * reuse of SMBIOS, like ACPI
+
+* Many ways to boot, e.g. remote boot via network.
+  
+## 1.6 UEFI Driver Model 
+
+* Goals of the model.
+* Implementation of bus and device drivers. - protocol services  and boot services.
+* Faster boot through selective device enumeration.
+
+* // remark - Clearly the first work to be done by platform FW for the purpose of booting must be initialization of the CPU and main memory, for, these the minimum resources resources required by general program execution - CPU time and main memory. Hence in very early init. the use of "cache as RAM".
+
+### 1.6.2 Legacy Option ROM Issues 
+
+...
+
+## 1.7 Migration Requirements 
+
+...
+
+### 1.7.1 Legacy Operating System Support 
+* // remark - One of the most important tests of system FW is that it boots a particular OS, e.g. windows server.
+*// remark - Wasn't MS one of the main contributors to the redfish spec.?
+
+### 1.7.2 Supporting the UEFI Specification on a Legacy Platform 
+
+* This spec. can be implemented on legacy platforms.
+
+## 1.8 Conventions Used in this Document
+
+## 2 - Overview 
+
+# next pg. 14 
 
