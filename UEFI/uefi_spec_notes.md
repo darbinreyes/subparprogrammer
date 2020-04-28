@@ -148,7 +148,63 @@ UEFI_Spec_2_8_A_Feb14.pdf.
 
 ## 1.8 Conventions Used in this Document
 
+...
+
 ## 2 - Overview 
+
+* Extension mechanism - UEFI drivers+applications
+* Fig. 2 Booting sequence
+  * Platform init. -> Driver and App. loading -> Boot from list of OS loaders -> Handoff to OS loader.
+* UEFI combines all FW menus into one.
+
+
+## 2.1 Boot Manager
+
+* UEFI defined NVRAM variables point to files to be loaded. // Boot order variables.
+
+### 2.1.1 UEFI Images 
+
+* UEFI images = executable files.
+* UEFI apps are unloaded from memory upon return from entry point. UEFI drivers are unloaded if an error occurs.
+* UEFI_BOOT_SERVICES.LoadImage()
+
+### 2.1.2 UEFI Applications 
+
+* return from entry point equivalent to UEFI_BOOT_SERVICES.Exit()
+* Image handles.
+* Load Options.
+
+### 2.1.3 UEFI OS Loaders
+
+* EFI_BOOT_SERVICES.ExitBootServices() // gBS, gST
+
+### 2.1.4 UEFI Drivers 
+
+## 2.2 Firmware Core 
+
+### 2.2.1 UEFI Services 
+
+### 2.2.2 Runtime Services  
+* Get/SetVariable()
+* ResetSystem()
+
+## 2.3 Calling Conventions 
+
+* EFIAPI
+* Datatypes - BOOLEAN, UINTN(N=native width).
+
+## 2.4 Protocols 
+
+* Devices handles support protocols.
+* EFI_BOOT_SERVICE.HandleProtocol()/OpenProtocol()
+* Protocol GUID
+* Protocol Interface Structure.
+* EFI_BOOT_SERVICES.InstallProtocolInterface() - protocol registration.
+
+## 2.5 UEFI Driver Model 
+
+
+
 
 # next pg. 14 
 
