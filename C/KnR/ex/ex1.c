@@ -41,6 +41,60 @@ struct _LIST_NODE {
 };
 
 /**
+  Remove the node at the specified index.
+
+  Pre-condition: Head and RemovedNode are not NULL.
+
+  @param[in]  Head         The head of the list from which to remove a node.
+  @param[out] RemovedNode  Upon return, the node that was removed.
+  @param[in]  Position     The position of the node to remove. 0 removes the head.
+                           Position = i removes the ith node. For a list of
+                           length n, Position >= n - 1 removes the tail of the list.
+
+  @return The head of the list or NULL if the list is empty after removal of a node.
+**/
+LIST_NODE *
+ListRemoveAt (
+  LIST_NODE *Head,
+  LIST_NODE **RemovedNode,
+  size_t    Position
+  ) {
+  LIST_NODE *PrevNode, *CurrentNode;
+  size_t i;
+
+  if(Head == NULL || RemovedNode == NULL) {
+    return NULL;
+  }
+
+  if(Head->Next == NULL) {
+    // Only one node in the list.
+    *RemovedNode = Head;
+    return NULL;
+  }
+
+  for(PrevNode = NULL, CurrentNode = Head, i = 0; CurrentNode != NULL && CurrentNode->Next != NULL && i < Position; PrevNode = CurrentNode, CurrentNode = CurrentNode->Next, i++)
+    ;
+
+  if(PrevNode == NULL && CurrentNode == Head) {
+    // Head Removal
+    CurrentNode = CurrentNode->Next; // Keep the remainder of the list after the current head.
+    Head->Next = NULL;
+    *RemovedNode = Head;
+    return CurrentNode;
+  }
+
+  if(PrevNode != NULL && CurrentNode != NULL && CurrentNode->Next == NULL) {
+    // Tail Removal
+    *RemovedNode = CurrentNode;
+    PrevNode->Next = NULL;
+    return Head;
+  }
+
+  *RemovedNode = CurrentNode;
+  PrevNode->Next = CurrentNode->Next;
+  return Head;
+}
+/**
 
   Inserts NewNode at the specified Position in the list Head.
 
@@ -192,7 +246,11 @@ ListRemoveHead(
   @return  The head of the list. NULL on error.
 
 **/
-LIST_NODE *ListAddTail(LIST_NODE *Head, int Data) {
+LIST_NODE *
+ListAddTail(
+  LIST_NODE *Head,
+  int Data
+  ) {
   LIST_NODE *NewNode, *CurrentNode;
   // Handle case of NULL head. Return new node to serve as head.
   if(Head == NULL) {
@@ -225,13 +283,20 @@ LIST_NODE *ListAddTail(LIST_NODE *Head, int Data) {
 /*
   Print node data assuming its type is int.
 */
-void PrintNodeDataInt(LIST_NODE *Node) {
+void
+PrintNodeDataInt(
+  LIST_NODE *Node
+  ) {
   printf("%d\n", Node->Data);
 }
 
 typedef void (*LIST_NODE_PRINT_CALLBACK)(LIST_NODE *Node);
 
-void ListPrintNodes(LIST_NODE *Head, LIST_NODE_PRINT_CALLBACK PrintCallback) {
+void
+ListPrintNodes(
+  LIST_NODE *Head,
+  LIST_NODE_PRINT_CALLBACK PrintCallback
+  ) {
   LIST_NODE *CurrentNode;
 
   if(Head == NULL) {
@@ -244,7 +309,10 @@ void ListPrintNodes(LIST_NODE *Head, LIST_NODE_PRINT_CALLBACK PrintCallback) {
   }
 }
 
-int main(void) {
+int
+main(
+  void
+   ) {
   int a[] = {2, 3, 5, 7, 11, 13};
   size_t c = sizeof(a)/sizeof(int);
   int i;
@@ -259,7 +327,7 @@ int main(void) {
 
   printf("List Created. Printing it.\n");
   ListPrintNodes(Head, PrintNodeDataInt);
-
+/*
   printf("Inserting a node.\n");
 
   NewNode = malloc(sizeof(*NewNode));
@@ -276,8 +344,9 @@ int main(void) {
 
   printf("Inserted in list. Printing it.\n");
   ListPrintNodes(Head, PrintNodeDataInt);
-
+*/
   printf("Removing nodes.\n");
+
   /*
   while((Head = ListRemoveHead(Head, &TmpNode)) != NULL || TmpNode != NULL) {
     if(TmpNode != NULL) {
@@ -288,6 +357,7 @@ int main(void) {
   }
   */
 
+/**
   while((Head = ListRemoveTail(Head, &TmpNode)) != NULL || TmpNode != NULL) {
     if(TmpNode != NULL) {
       PrintNodeDataInt(TmpNode);
@@ -295,5 +365,17 @@ int main(void) {
       TmpNode = NULL;
     }
   }
+**/
+  Head = ListRemoveAt (Head, &TmpNode, 6);
+
+  if(TmpNode != NULL) {
+      PrintNodeDataInt(TmpNode);
+      free(TmpNode);
+      TmpNode = NULL;
+  }
+
+  printf("Printing list after remove at.\n");
+  ListPrintNodes(Head, PrintNodeDataInt);
+
   return 0;
 }
