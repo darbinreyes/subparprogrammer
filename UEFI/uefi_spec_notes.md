@@ -203,8 +203,39 @@ UEFI_Spec_2_8_A_Feb14.pdf.
 
 ## 2.5 UEFI Driver Model 
 
+* Device drivers
+* Driver Binding Protocol.
+* sys. FW connects driver to a controller.
+* abstraction of i/o operations supported by the controller.
+* same for bus driver, + child controller discovery.
+* one or more CPUs connected to one or more core chipsets.
+* tree of busses and devices.
+* Fig. 6. Desktop system.
 
+### 2.5.1 Legacy Option ROM Issues - 2.5.1.5 
 
+...
 
+### 2.5.2 Driver Initialization 
+* driver image must be stored somewhere.
+* EFI_BOOT_SERVICES.LoadImage().
+* image handle = handle with loaded image protocol installed.
+* EFI_LOADED_IMAGE_DEVICE_PATH_PROTOCOL
+* EFI_BOOT_SERVICES.StartImage().
+* Entry point - rules. - don't touch any HW. Install protocols on self.
+* ExitBootServices event registration.
+* Driver Image Handle = handle with loaded image protocol installed + driver binding protocol
+* Fig. 8. After StartImage().
+* drivers wait - Boot Manager connects drivers to controllers.
+
+### 2.5.3 Host Bus Controllers 
+
+...
+
+### 2.5.4 Device Drivers 
+
+* Bus drivers create device handles.
+
+ 
 # next pg. 14 
 
