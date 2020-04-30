@@ -3830,12 +3830,12 @@ END.
   * require(passport-local-mongoose
   * plugin(passportLocalMongoose
   * test 
- 
+
 ### 346. YelpCamp: Adding Auth Pt. 2
 
 * // passport config
   * app.use(require(express-session)({secret: "ccaca", // Same as AuthDemo
-  * app.user(pass.init()
+  * app.use(pass.init()
   * app.use(pass.session()
   * passport.use(new LocalStra(User.auth()
   * passport.serial(User.serial()
@@ -3849,7 +3849,7 @@ END.
       * if err, return res.render(register.ejs)
       * inside passport.auth() redirect to /campgrounds.
       * check user in mongo shell.
-       
+      
 ### 347. YelpCamp: Adding Auth Pt. 3
 
 * app.get("/login", ...) // show login form
@@ -3863,7 +3863,7 @@ END.
     * failure: /login, 
     * express callback does nothing.
     * test login redirect.
- 
+
 ### 348. YelpCamp: Adding Auth Pt. 4
 
 * app.get(/logout, ...) // logout a user
@@ -3905,4 +3905,15 @@ END.
   * test comment
   
 END.
+
+---
+
+# Section 36: YelpCamp: Cleaning Up
+
+---
+
+### 350. YelpCamp: Refactoring Routes
+### 351. YelpCamp: User Associations: Comment
+### 352. YelpCamp: User Associations: Campground 
+
 

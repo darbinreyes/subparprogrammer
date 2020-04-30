@@ -50,7 +50,6 @@ passport.serializeUser(User.serializeUser()); // User.serializeUser() comes from
 passport.deserializeUser(User.deserializeUser());
 /** passport setup END **/
 
-
 // Route handlers
 app.get("/", function (exp_request, exp_response) {
   console.log("GET @ /.");
