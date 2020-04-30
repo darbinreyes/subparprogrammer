@@ -7,10 +7,10 @@
   3. [x] Implement Print.
   4. [x] Implement remove.
   5. xxx[ ] Generalize Data to store Point Structure.
-  6. x[ ] Implement Insert.
-  7. [ ] Implement Remove At.
-  8. x[ ] Implement Enqueue.
-  9. x[ ] Implement Dequeue.
+  6. [x] Implement Insert.
+  7. [x] Implement Remove At.
+  8. [x] Implement Enqueue.
+  9. [x] Implement Dequeue.
 
 */
 
