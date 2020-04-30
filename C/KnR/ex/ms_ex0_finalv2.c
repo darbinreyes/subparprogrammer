@@ -121,5 +121,8 @@ int main(void) {
   lower = 254;
   upper = 256;
   printf("v2. input %d, %d - output %d.\n", lower, upper, ex0_solv2(lower, upper));
+  lower = 253;
+  upper = 256;
+  printf("v2. input %d, %d - output %d.\n", lower, upper, ex0_solv2(lower, upper));
   return 0;
 }
