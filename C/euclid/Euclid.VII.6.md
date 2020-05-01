@@ -83,7 +83,7 @@ Q.E.D.
 ```C
 /**
 
-  Given two pairs, returns wether or not the sum of the pairs is the same parts as each given pair.
+  Given two pairs, returns whether or not the sum of the pairs is the same parts as each given pair.
 
   @param p0 The first pair.
   @param p1 The second pair.

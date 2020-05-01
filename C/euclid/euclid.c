@@ -670,6 +670,29 @@ VII_5_sum_same_part (
 
 /**
 
+  Given two pairs, each representing parts (a.k.a. non-unit fractions), returns
+  whether or not the sum of the pairs is the same parts as each given pair.
+
+  @param[in]  p0   The first pair.
+  @param[in]  p1   The second pair.
+  @param[out] pout If 1 is returned, the sum of the given pairs upon return.
+
+  @retval < 0 Error.
+  @retval 1   The sum of the pairs is the same parts as the given pairs.
+  @retval 0   The given pairs were not the same part. Or the sum of the pairs was not the same part as the given pairs (which should be impossible).
+
+**/
+int
+VII_6_sum_same_parts (
+  PAIR p0,
+  PAIR p1,
+  PAIR *pout
+  )
+{
+  return -1;
+}
+/**
+
   The main function.
 
 **/
