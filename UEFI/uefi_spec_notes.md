@@ -230,7 +230,21 @@ UEFI_Spec_2_8_A_Feb14.pdf.
 
 ### 2.5.3 Host Bus Controllers 
 
-...
+* // Controller Handles vs Driver Handles - We say "drivers are connected to controllers". Controllers are a lower level interface to a device below the driver, e.g a driver that produces a block i/o protocol will be connected to a USB bus controller if a mass storage device (say a USB stick) is connected to the USB bus. // This is where the OvmfPkg+ qemu emulator would be useful.
+* drivers - don't touch HW in their entry point
+* only loaded and started. - told by the platform(boot manager) to 
+  * manage one or more controllers in the system.
+  * initial set of controllers must be present
+    * this set is called the "host bus controllers".
+    * The i/o abstractions/interfaces provided by host bus controllers is outside the scope of the **UEFI driver model**(but not necessarily outside the scope of this UEFI spec.?)
+    * Host Bus Controllers still have device handles associated with them. Handles are created by the "core FW". Ref. to PCO Root Bridge I/O protocol spec. for example.
+    * Platform = set of n CPUs + set of m core chipset(producing host buses). 
+    * Fig. 10.
+    * 1 host bridge = 1 device handle. device path protocol. i/o abstraction protocol.
+    * Fig. 11.
+    * e.g. 1 PCI host bus controller, PCI root bridges, PCI Root Bridge i/o protocol.
+    * PCI Bus Driver - PCI root bridge - creates child handles for each PCI device .
+    * PCI device drivers - connected to above child handles - produce i/o protocol used to boot OS.
 
 ### 2.5.4 Device Drivers 
 
