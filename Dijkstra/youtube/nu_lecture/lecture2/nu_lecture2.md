@@ -388,11 +388,9 @@ So BA less than EA is the one. Is that OK? Yes, apparently. Am I a little bit am
   * = {similar triangles}
   * BA < EA ∨ CA < EA
 
-# next read through, draw some examples.
-
 ![a.16](a.16.png)
 
-Let me check. Will you check wether I have made an error. Yes. A, AB. Ehh, this does not hold because the space is finite. But I did make an error. I did make an error. I did make an **error**. Yes, yes, yes. There is a one bit rabbit in this proof. And I made the wrong choice, I chose, the line, but I shouldn't do that. [*Erases picture a.16*]. Here we go. This by the way was very instructive and I leave it that way. But, [*Erases the repeatable statement in the program, "q, E := ..." *]
+Let me check. Will you check wether I have made an error? Yes. A, AB. [Audience member says something] ... Ehh, this does not hold because the space is finite. But I did make an error. I did make an error. I did make an **error**. Yes, yes, yes. There is a one bit rabbit in this proof. And I made the wrong choice, I chose, the line, but I shouldn't do that. [*Erases picture a.16*]. Here we go. This by the way was very instructive and I leave it that way. But, [*Erases the repeatable statement in the program, "q, E := ..." *]
 
 ![b.33](b.33.png)
 
@@ -402,6 +400,7 @@ Let me check. Will you check wether I have made an error. Yes. A, AB. Ehh, this 
 
 the remark is, that I have to choose a new E, and let that be A, 
 
+# next read through, draw some examples.
 
 ![b.36](b.36.png)
 
