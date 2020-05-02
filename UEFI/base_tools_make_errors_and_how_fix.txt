@@ -1,0 +1,83 @@
+/////// Paige's link.
+https://www.mail-archive.com/devel@edk2.groups.io/msg18948.html
+Try the same command with --recursive flag "git submodule update --init --recursive"
+/////
+https://www.howtogeek.com/124622/how-to-enlarge-a-virtual-machines-disk-in-virtualbox-or-vmware/
+
+///////////!!!!! call paige about 1. what he search for me to find the same result. 2. how he thought of using --recursive.
+
+g brotli/c/enc/static_dict.o brotli/c/enc/utf8_util.o -L../libs -lm gcc: error: brotli/c/tools/brotli.o: No such file or directory gcc: error: brotli/c/common/dictionary.o: No such file or directory
+
+// qemu running instructs
+
+https://github.com/tianocore/tianocore.github.io/wiki/How-to-run-OVMF
+
+///////
+qemu-system-ppc           qemu-system-xtensaeb
+qemu-system-i386          qemu-system-ppc64
+qemu-system-lm32          qemu-system-ppc64le
+
+
+osc@ubuntu:~/edk2/Build/OvmfX64/DEBUG_GCC5/FV/run-ovmf$ qemu-system-x86_64 -pflash bios.bin -hda fat:rw:hda-contents
+
+
+WARNING: Image format was not specified for 'bios.bin' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+vvfat hda-contents chs 1024,16,63
+WARNING: Image format was not specified for 'json:{"fat-type": 0, "dir": "hda-contents", "driver": "vvfat", "floppy": false, "rw": true}' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+warning: TCG doesn't support requested feature: CPUID.01H:ECX.vmx [bit 5]
+osc@ubuntu:~/edk2/Build/OvmfX64/DEBUG_GCC5/FV/run-ovmf$
+osc@ubuntu:~/edk2/Build/OvmfX64/DEBUG_GCC5/FV/run-ovmf$
+osc@ubuntu:~/edk2/Build/OvmfX64/DEBUG_GCC5/FV/run-ovmf$
+
+//////
+make: Entering directory '/home/osc/edk2/BaseTools'
+make -C Source/C
+make[1]: Entering directory '/home/osc/edk2/BaseTools/Source/C'
+Attempting to detect HOST_ARCH from 'uname -m': x86_64
+Detected HOST_ARCH of X64 using uname.
+mkdir -p .
+make -C Common
+make[2]: Entering directory '/home/osc/edk2/BaseTools/Source/C/Common'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/home/osc/edk2/BaseTools/Source/C/Common'
+make -C BrotliCompress
+make[2]: Entering directory '/home/osc/edk2/BaseTools/Source/C/BrotliCompress'
+gcc -o ../bin/Brotli   brotli/c/tools/brotli.o brotli/c/common/dictionary.o brotli/c/common/transform.o brotli/c/dec/bit_reader.o brotli/c/dec/decode.o brotli/c/dec/huffman.o brotli/c/dec/state.o brotli/c/enc/backward_references.o brotli/c/enc/backward_references_hq.o brotli/c/enc/bit_cost.o brotli/c/enc/block_splitter.o brotli/c/enc/brotli_bit_stream.o brotli/c/enc/cluster.o brotli/c/enc/compress_fragment.o brotli/c/enc/compress_fragment_two_pass.o brotli/c/enc/dictionary_hash.o brotli/c/enc/encode.o brotli/c/enc/encoder_dict.o brotli/c/enc/entropy_encode.o brotli/c/enc/histogram.o brotli/c/enc/literal_cost.o brotli/c/enc/memory.o brotli/c/enc/metablock.o brotli/c/enc/static_dict.o brotli/c/enc/utf8_util.o -L../libs -lm
+gcc: error: brotli/c/tools/brotli.o: No such file or directory
+gcc: error: brotli/c/common/dictionary.o: No such file or directory
+gcc: error: brotli/c/common/transform.o: No such file or directory
+gcc: error: brotli/c/dec/bit_reader.o: No such file or directory
+gcc: error: brotli/c/dec/decode.o: No such file or directory
+gcc: error: brotli/c/dec/huffman.o: No such file or directory
+gcc: error: brotli/c/dec/state.o: No such file or directory
+gcc: error: brotli/c/enc/backward_references.o: No such file or directory
+gcc: error: brotli/c/enc/backward_references_hq.o: No such file or directory
+gcc: error: brotli/c/enc/bit_cost.o: No such file or directory
+gcc: error: brotli/c/enc/block_splitter.o: No such file or directory
+gcc: error: brotli/c/enc/brotli_bit_stream.o: No such file or directory
+gcc: error: brotli/c/enc/cluster.o: No such file or directory
+gcc: error: brotli/c/enc/compress_fragment.o: No such file or directory
+gcc: error: brotli/c/enc/compress_fragment_two_pass.o: No such file or directory
+gcc: error: brotli/c/enc/dictionary_hash.o: No such file or directory
+gcc: error: brotli/c/enc/encode.o: No such file or directory
+gcc: error: brotli/c/enc/encoder_dict.o: No such file or directory
+gcc: error: brotli/c/enc/entropy_encode.o: No such file or directory
+gcc: error: brotli/c/enc/histogram.o: No such file or directory
+gcc: error: brotli/c/enc/literal_cost.o: No such file or directory
+gcc: error: brotli/c/enc/memory.o: No such file or directory
+gcc: error: brotli/c/enc/metablock.o: No such file or directory
+gcc: error: brotli/c/enc/static_dict.o: No such file or directory
+gcc: error: brotli/c/enc/utf8_util.o: No such file or directory
+../Makefiles/app.makefile:18: recipe for target '../bin/Brotli' failed
+make[2]: *** [../bin/Brotli] Error 1
+make[2]: Leaving directory '/home/osc/edk2/BaseTools/Source/C/BrotliCompress'
+GNUmakefile:74: recipe for target 'BrotliCompress' failed
+make[1]: *** [BrotliCompress] Error 2
+make[1]: Leaving directory '/home/osc/edk2/BaseTools/Source/C'
+GNUmakefile:19: recipe for target 'Source/C' failed
+make: *** [Source/C] Error 2
+make: Leaving directory '/home/osc/edk2/BaseTools'
