@@ -1,0 +1,62 @@
+//////////////////////////// Paige's link.
+
+https://www.mail-archive.com/devel@edk2.groups.io/msg18948.html
+
+Try the same command with --recursive flag "git submodule update --init --recursive"
+
+//////////////////////////// How to increase vbox virtual disk size.
+
+https://www.howtogeek.com/124622/how-to-enlarge-a-virtual-machines-disk-in-virtualbox-or-vmware/
+
+////////////////////////////  qemu running instructs
+
+https://github.com/tianocore/tianocore.github.io/wiki/How-to-run-OVMF
+
+//////////////////////////// Running OVMF+qemu on Ubuntu.
+
+osc@ubuntu:~/edk2/Build/OvmfX64/DEBUG_GCC5/FV/run-ovmf$
+
+qemu-system-x86_64 -pflash bios.bin -hda fat:rw:hda-contents
+
+
+WARNING: Image format was not specified for 'bios.bin' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+vvfat hda-contents chs 1024,16,63
+
+WARNING: Image format was not specified for 'json:{"fat-type": 0, "dir": "hda-contents", "driver": "vvfat", "floppy": false, "rw": true}' and probing guessed raw.
+         Automatically detecting the format is dangerous for raw images, write operations on block 0 will be restricted.
+         Specify the 'raw' format explicitly to remove the restrictions.
+warning: TCG doesn't support requested feature: CPUID.01H:ECX.vmx [bit 5]
+
+
+//////////////////////////// info on useful qemu cmdline args.
+
+https://wiki.ubuntu.com/UEFI/OVMF
+
+////////////////////////////
+
+
+//////////////////////////// How to install multiple xcode versions. - FYI: XCODE5 was not needed to build EmulatorPkg.
+
+https://medium.com/@hacknicity/working-with-multiple-versions-of-xcode-e331c01aa6bc
+
+
+//////////////////////////// fixing emulatorpkg build on mac - hit x11 ld error
+
+// reason - because mac os x no longer ships with x11 // https://support.apple.com/en-jo/HT201341
+
+// fix install x11 separately // https://www.xquartz.org/
+
+FYI: I was able to build and run EmulatorPkg successfully with the latest xcode
+version.
+
+////////////////////////////
+
+TODO:
+* Create repo. for playing with EmulatorPkg.
+* Test making UEFI changes take effect. e.g. add prints, shell changes.
+* REALLY nice to have - get lldb working. Currently an error occurs upon
+"EmulatorPkg\build.sh run" to run "./Host" type "run" in lldb prompt.
+
+////////////////////////////
