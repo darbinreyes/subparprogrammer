@@ -57,17 +57,19 @@ alias myrmdir='rm -drf'
 alias speedtest='curl -o /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
 ## Recursively searches current directory for file names that match *.txt.
 ## and prints any lines in those txt files which match the word "RIS"
-#find . -name "*.txt" -print | xargs grep "RIS" 
+#find . -name "*.txt" -print | xargs grep "RIS"
 
 # Find a specific process by name
 alias grep-proc='ps -ax | grep '
-# make sublimetext the default system text editor
+alias restart-mac-audio='sudo killall coreaudiod'
+
 #######################
 # END Misc. OS related
 #######################
 #######################
 # SublimeText related
 #######################
+# make sublimetext the default system text editor
 alias sublgui='sudo open /Applications/Sublime\ Text.app/'
 export EDITOR='subl -w'
 #######################
@@ -115,7 +117,7 @@ alias slog='svn log -l 3 '
 alias supd='svn update '
 alias svchout='svn checkout '
 
-# Svn copy <trunk-branch-url> ^relative-url-new-feature-branch 
+# Svn copy <trunk-branch-url> ^relative-url-new-feature-branch
 # http://svnbook.red-bean.com/en/1.7/svn.branchmerge.using.html
 
 alias sbr='svn copy '
