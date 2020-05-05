@@ -413,11 +413,13 @@ that is my new E, and now the question is will the new q go through B or will it
 so my new E becomes A and my new q becomes, of the lines sorry BC and, sorry, of the lines BE and CE the nearest to A, 
 
 [notice in the image below that point E is assigned point A]
+
 ![b.39](b.39.png)
 
 so and now I will have P again.
 
 [P being the invariant of the repetition.]
+
 ![b.40](b.40.png)
 
 ![a.17](a.17.png)
