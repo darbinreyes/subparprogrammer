@@ -40,6 +40,114 @@ struct _LIST_NODE {
   LIST_NODE *Next;
 };
 
+// Helper function - return the length of the list.
+size_t
+ListLen (
+  LIST_NODE *Head
+  )
+{
+  size_t len;
+
+  len = 0;
+
+  if(Head == NULL) {
+    return 0;
+  }
+
+  for(; Head != NULL; Head = Head->Next, len++)
+    ;
+/**
+
+**/
+  return len;
+}
+
+// Helper function - return the node at the specified index. 0 means return the head.
+LIST_NODE *
+ListNodeAt(
+  LIST_NODE *Head,
+  size_t    Position
+  ) {
+
+  size_t i;
+
+  if(Head == NULL) {
+    return NULL;
+  }
+
+  // assuming Position < ListLen.
+
+  for(i = 0; Head != NULL && i < Position; Head = Head->Next, i++)
+    ;
+/**
+Position = 0, return Head.
+Position = 1, return node immediately after Head. 0 < 1, i = 1, 1 < 1
+**/
+  return Head;
+}
+
+/**
+  Reverse the given singly linked list.
+
+  Example:
+  input:  ->2->3->5->NULL
+  output: ->5->3->2->NULL
+
+  Plan:
+  Get a pointer to the last node, this is the new head.
+  Get a pointer to the 2nd to last node, append it to the node above.
+  Get a point to the 3rd to last node, append it to the node above.
+
+  @param[in] Head  The head of the list to be reversed.
+
+  @return The head of the reversed list.
+
+**/
+LIST_NODE *
+ListReverse (
+  LIST_NODE *Head
+  )
+{
+  LIST_NODE *NewHead;
+  LIST_NODE *CurrentNode;
+  size_t    Len, i;
+
+  if(Head == NULL) {
+    return NULL;
+  }
+
+  if(Head->Next == NULL) { // Handle case of a single node in the list.
+    return Head;
+  }
+
+  // The length of the list is at least 2 since we handled the case of 1 node above.
+  Len = ListLen (Head);
+  i = Len - 1;
+  NewHead = ListNodeAt(Head, i);
+  //i--;
+  //CurrentNode = NewHead;
+  // Get each node in reverse order and link them appropriately. // CurrentNode->Next = ...
+  for(CurrentNode = NewHead; i > 0; CurrentNode = CurrentNode->Next, i--) {
+    CurrentNode->Next = ListNodeAt(Head, i - 1);
+  }
+
+  Head->Next = NULL; // The old head is now the new tail, so set next node to NULL.
+/**
+i = 3 - 1 = 2
+NewHead = 5->NULL
+
+for CurrentNode = 5->NULL; 2 > 0; x
+ CurrentNode->Next = ListNodeAt(Head, 1), ret. 3->5->NULL
+ CurrentNode = 5->3->5->NULL
+ // loop increment step, CurrentNode = 3->5->NULL, i = 1
+for x; 1 > 0; x
+  CurrentNode->Next = ListNodeAt(Head, 0) = ->2->3->5->NULL
+  // loop increment step, CurrentNode = 3->2->..., i = 0
+
+
+**/
+  return NewHead;
+}
 /**
   Remove the node at the specified index.
 
@@ -327,6 +435,10 @@ main(
 
   printf("List Created. Printing it.\n");
   ListPrintNodes(Head, PrintNodeDataInt);
+
+  Head = ListReverse (Head);
+  printf("List reversed. Printing it.\n");
+  ListPrintNodes(Head, PrintNodeDataInt);
 /*
   printf("Inserting a node.\n");
 
@@ -345,7 +457,7 @@ main(
   printf("Inserted in list. Printing it.\n");
   ListPrintNodes(Head, PrintNodeDataInt);
 */
-  printf("Removing nodes.\n");
+  //printf("Removing nodes.\n");
 
   /*
   while((Head = ListRemoveHead(Head, &TmpNode)) != NULL || TmpNode != NULL) {
@@ -366,16 +478,16 @@ main(
     }
   }
 **/
-  Head = ListRemoveAt (Head, &TmpNode, 6);
+  // Head = ListRemoveAt (Head, &TmpNode, 6);
 
-  if(TmpNode != NULL) {
-      PrintNodeDataInt(TmpNode);
-      free(TmpNode);
-      TmpNode = NULL;
-  }
+  // if(TmpNode != NULL) {
+  //     PrintNodeDataInt(TmpNode);
+  //     free(TmpNode);
+  //     TmpNode = NULL;
+  // }
 
-  printf("Printing list after remove at.\n");
-  ListPrintNodes(Head, PrintNodeDataInt);
+  //printf("Printing list after remove at.\n");
+  //ListPrintNodes(Head, PrintNodeDataInt);
 
   return 0;
 }

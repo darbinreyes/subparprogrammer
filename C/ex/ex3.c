@@ -3,8 +3,8 @@
 
 Exercise ideas:
 x Bit set
-bit clear
-bit toggle
+x bit clear
+x bit toggle
 x using #define
 x using bit packed structure
 hex to decimal
@@ -269,7 +269,7 @@ Test_ClearBit_V2(
   ) {
   unsigned int InVal, Ret;
   size_t       BitIndex;
-/*
+/* Scratch work
 8 =  0x8 = 0b 1000
 9 =  0x9 = 0b 1001
 10 = 0xA = 0b 1010
@@ -317,6 +317,163 @@ Test_ClearBit_V2(
   printf("%s Done\n\n", __FUNCTION__);
 }
 
+
+/**
+  Toggle the specified bit in the given integer.
+  (If bit is 0, change to 1, if bit is 1, change to 0).
+
+  @param[in] InVal     The given integer.
+  @param[in] BitIndex  The index of the bit to toggle.
+
+  @return  InVal after toggling the specified bit.
+
+**/
+unsigned int
+ToggleBit(
+  unsigned int InVal,
+  size_t       BitIndex
+  ) {
+/*
+First approach,
+extract the specified bit,
+test the value,
+if value = 1, ClearBit(InVal, BitIndex)
+if value = 0, SetBit(InVal, BitIndex)
+
+ =V&M
+0=0&0
+0=0&1
+0=1&0
+1=1&1
+
+therefore to extract the specified bit we can use & with a 1 at BitIndex and 0's elsewhere.
+
+Second approach, can we avoid calling another function but using, say, ^ (bitwise XOR)?
+
+ =V^M
+0=0^0
+1=0^1
+1=1^0
+0=1^1
+
+therefore, XOR with a 1 at BitIndex and 0 elsewhere toggles the desired bit.
+*/
+  if(BitIndex > MAX_BIT_INDEX_UINT(InVal)){
+    return InVal;
+  }
+
+  return ( InVal ^ (0x01U << BitIndex) );
+}
+
+void
+Test_ToggleBit(
+  void
+  ) {
+  unsigned int InVal, Ret;
+  size_t       BitIndex;
+/* Scratch work
+8 =  0x8 = 0b 1000
+9 =  0x9 = 0b 1001
+10 = 0xA = 0b 1010
+11 = 0xB = 0b 1011
+12 = 0xC = 0b 1100
+13 = 0xD = 0b 1101
+14 = 0xE = 0b 1110
+15 = 0xF = 0b 1111
+*/
+  printf("%s\n", __FUNCTION__);
+  InVal = 0;
+  BitIndex = 0;
+  Ret = ToggleBit(InVal, BitIndex);
+  assert(Ret == 0x1U);
+
+  InVal = 0;
+  BitIndex = 1;
+  Ret = ToggleBit(InVal, BitIndex);
+  assert(Ret == 0x2U);
+
+  InVal = 0;
+  BitIndex = 8;
+  Ret = ToggleBit(InVal, BitIndex);
+  assert(Ret == 256U);
+
+  InVal = 0x80000000U;
+  BitIndex = MAX_BIT_INDEX_UINT(InVal); // left-most bit
+  Ret = ToggleBit(InVal, BitIndex);
+  assert(Ret == 0U);
+
+  InVal = 1;
+  BitIndex = MAX_BIT_INDEX_UINT(InVal) + 1; // Bit index out of range. No-op.
+  Ret = ToggleBit(InVal, BitIndex);
+  assert(Ret == 1U);
+
+  InVal = 0xDEADBEEF; // 0xDEADBEEF = 0b1101 1110 1010 1101 1011 1110 1110 1111
+  BitIndex = 7;
+  Ret = ToggleBit(InVal, BitIndex); // 0b1101 1110 1010 1101 1011 1110 0110 1111 = 0xDEADBE6F
+  assert(Ret == 0xDEADBE6FU);
+
+  InVal = 0xDEADBEEF; // 0xDEADBEEF = 0b1101 1110 1010 1101 1011 1110 1110 1111
+  BitIndex = 8;
+  Ret = ToggleBit(InVal, BitIndex); // 0b1101 1110 1010 1101 1011 1111 1110 1111 = 0x DEADBFEF
+  assert(Ret == 0xDEADBFEFU);
+  printf("%s Done\n\n", __FUNCTION__);
+}
+
+#define TOGGLE_BIT_V2(_InVal, _BitIndex)  (_BitIndex >= (NUM_BITS_UINT(_InVal))? (_InVal) : ((_InVal) ^ (1U << (_BitIndex) )))
+
+void
+Test_ToggleBit_V2(
+  void
+  ) {
+  unsigned int InVal, Ret;
+  size_t       BitIndex;
+/* Scratch work
+8 =  0x8 = 0b 1000
+9 =  0x9 = 0b 1001
+10 = 0xA = 0b 1010
+11 = 0xB = 0b 1011
+12 = 0xC = 0b 1100
+13 = 0xD = 0b 1101
+14 = 0xE = 0b 1110
+15 = 0xF = 0b 1111
+*/
+  printf("%s\n", __FUNCTION__);
+  InVal = 0;
+  BitIndex = 0;
+  Ret = TOGGLE_BIT_V2(InVal, BitIndex);
+  assert(Ret == 0x1U);
+
+  InVal = 0;
+  BitIndex = 1;
+  Ret = TOGGLE_BIT_V2(InVal, BitIndex);
+  assert(Ret == 0x2U);
+
+  InVal = 0;
+  BitIndex = 8;
+  Ret = TOGGLE_BIT_V2(InVal, BitIndex);
+  assert(Ret == 256U);
+
+  InVal = 0x80000000U;
+  BitIndex = MAX_BIT_INDEX_UINT(InVal); // left-most bit
+  Ret = TOGGLE_BIT_V2(InVal, BitIndex);
+  assert(Ret == 0U);
+
+  InVal = 1;
+  BitIndex = MAX_BIT_INDEX_UINT(InVal) + 1; // Bit index out of range. No-op.
+  Ret = TOGGLE_BIT_V2(InVal, BitIndex);
+  assert(Ret == 1U);
+
+  InVal = 0xDEADBEEF; // 0xDEADBEEF = 0b1101 1110 1010 1101 1011 1110 1110 1111
+  BitIndex = 7;
+  Ret = TOGGLE_BIT_V2(InVal, BitIndex); // 0b1101 1110 1010 1101 1011 1110 0110 1111 = 0xDEADBE6F
+  assert(Ret == 0xDEADBE6FU);
+
+  InVal = 0xDEADBEEF; // 0xDEADBEEF = 0b1101 1110 1010 1101 1011 1110 1110 1111
+  BitIndex = 8;
+  Ret = TOGGLE_BIT_V2(InVal, BitIndex); // 0b1101 1110 1010 1101 1011 1111 1110 1111 = 0x DEADBFEF
+  assert(Ret == 0xDEADBFEFU);
+  printf("%s Done\n\n", __FUNCTION__);
+}
 
 /** Scratch work.
 
@@ -378,5 +535,7 @@ main(
   Test_SetBit_V2();
   Test_ClearBit();
   Test_ClearBit_V2();
+  Test_ToggleBit();
+  Test_ToggleBit_V2();
   return 0;
 }
