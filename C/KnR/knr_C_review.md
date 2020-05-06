@@ -1047,9 +1047,24 @@ Extended char set. Use "L" prefix, e.g. L"hello". Their type = "array of wchar_t
 * only two storage classes.
   * automatic
   * static
-* keywords (e.g. "static") +
+* locality to a block
+* keywords auto, register, static, extern.
 
 ### A.4.2 Basic Types 
 
+* limits.h - defines min/max values for each basic type.
+* chars set values are always positive.
+* whether a char is signed or unsigned is implementation dependent.
+* unsigned chars
+* ints
+* unsigned ints
+* floating point
+* enums
+* all the above - called the "arithmetic types"
+* chars, ints, enums - called "integral types"
+* floats, doubles - called "floating types".
+* void - empty set of values - type returned by functions that generate no value.
+
+### A.4.3 Derived types 
 
 
