@@ -248,8 +248,15 @@ UEFI_Spec_2_8_A_Feb14.pdf.
 
 ### 2.5.4 Device Drivers 
 
-* Bus drivers create device handles.
+* Device drivers don't create new device handles. They install i/o abstractions on existing device handles.
+* Bus drivers create device handles. Note distinction between bus vs. device driver.
+* Example i/o abstraction: Block i/o.
+* Fig. 12. Device handle before/after device driver is CONNECTED to it.
+* Device path protocol is only required for device handles that represent physical devices.
+* Driver binding protocol. Supported, Start, Stop()
+* EFI_BOOT_SERVICES-> OpenProtocol, CloseProtocol, OpenProtocolInformation().
 
- 
-# next pg. 14 
+### 2.5.5 Bus Drivers 
+
+# next ^^^
 

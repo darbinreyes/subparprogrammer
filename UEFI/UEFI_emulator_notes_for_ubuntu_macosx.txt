@@ -60,3 +60,84 @@ TODO:
 "EmulatorPkg\build.sh run" to run "./Host" type "run" in lldb prompt.
 
 ////////////////////////////
+
+//////////////////////////// UEFI Shell App. Hello World.
+
+* Found existing HelloWorld.efi under: fs0:\MdeModulePkg\Application\........
+
+
+//////////////////////////// Fixing the lldbefi.py import error.
+
+MacBook-Air:edk2 darbinreyes$ EmulatorPkg/build.sh run
+Initializing workspace
+/Users/darbinreyes/dev/private_dev/edk2/BaseTools
+Loading previous configuration from /Users/darbinreyes/dev/private_dev/edk2/Conf/BuildEnv.sh
+WORKSPACE: /Users/darbinreyes/dev/private_dev/edk2
+EDK_TOOLS_PATH: /Users/darbinreyes/dev/private_dev/edk2/BaseTools
+CONF_PATH: /Users/darbinreyes/dev/private_dev/edk2/Conf
+using prebuilt tools
+(lldb) target create "./Host"
+Current executable set to '/Users/darbinreyes/dev/private_dev/edk2/Build/EmulatorX64/DEBUG_XCODE5/X64/Host' (x86_64).
+(lldb) command script import /Users/darbinreyes/dev/private_dev/edk2/EmulatorPkg/Unix/lldbefi.py
+error: module importing failed: invalid syntax (lldbefi.py, line 392)
+  File "temp.py", line 1, in <module>
+
+//////////////////////////// I didn't fix the lldbefi.py error above, but I was able to print locals inside Host.c. Here's the lldb session snippet:
+//////////////////////////// FYI: run the process, interrupt it with control+C, set a breakpoint (e.g. --file Host.c --line 124), "run" to restart the process.
+(lldb) breakpoint set --file Host.c --line 124
+Breakpoint 1: where = Host`main + 34 at Host.c:124:20, address = 0x0000000100000ad2
+(lldb) r
+There is a running process, kill it and restart?: [Y/n] Y
+Process 5136 exited with status = 9 (0x00000009)
+Process 5198 launched: '/Users/darbinreyes/dev/private_dev/edk2/Build/EmulatorX64/DEBUG_XCODE5/X64/Host' (x86_64)
+Process 5198 stopped
+* thread #1, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
+    frame #0: 0x0000000100000ad2 Host`main(Argc=1, Argv=0x00007ffeefbff638, Envp=0x00007ffeefbff648) at Host.c:124:20
+   121    // If dlopen doesn't work, then we build a gdb script to allow the
+   122    // symbols to be loaded.
+   123    //
+-> 124    Index = strlen (*Argv);
+   125    gGdbWorkingFileName = AllocatePool (Index + strlen(".gdb") + 1);
+   126    strcpy (gGdbWorkingFileName, *Argv);
+   127    strcat (gGdbWorkingFileName, ".gdb");
+Target 0: (Host) stopped.
+(lldb) frame variable
+(int) Argc = 1
+(unsigned char **) Argv = 0x00007ffeefbff638
+(unsigned char **) Envp = 0x00007ffeefbff648
+(EFI_STATUS) Status = 0
+(EFI_PHYSICAL_ADDRESS) InitialStackMemory = 0
+(UINT64) InitialStackMemorySize = 0
+(UINTN) Index = 0
+(UINTN) Index1 = 4294967296
+(UINTN) Index2 = 140732920755744
+(UINTN) PeiIndex = 140732920755768
+(CHAR8 *) FileName = 0x0000000000000000
+(BOOLEAN) Done = '\0'
+(EFI_PEI_FILE_HANDLE) FileHandle = 0x0000000000000000
+(void *) SecFile = 0x0000000000000000
+(CHAR16 *) MemorySizeStr = 0x0000000000000000
+(CHAR16 *) FirmwareVolumesStr = 0x000000010002f272
+(UINTN *) StackPointer = 0x000000010002f264
+(FILE *) GdbTempFile = 0x0000003002000000
+(lldb)
+
+//////////////////////////// UEFI modules review. Inspection of HelloWorld.inf
+
+// The module file.
+MdeModulePkg/Application/HelloWorld/HelloWorld.inf
+
+// Notable sections in the .inf file.
+[Defines]
+  BASE_NAME                      = HelloWorld
+  FILE_GUID                      = 6987936E-ED34-44db-AE97-1FA5E4ED2116
+  MODULE_TYPE                    = UEFI_APPLICATION
+  ENTRY_POINT                    = UefiMain
+[Sources], [Packages], [LibraryClasses], [FeaturePcd], [Pcd]
+
+// The platform description file, .dsc.
+EmulatorPkg/EmulatorPkg.dsc
+
+// Notable sections in .dsc file.
+[Components]
+  MdeModulePkg/Application/HelloWorld/HelloWorld.inf
