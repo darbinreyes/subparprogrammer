@@ -258,5 +258,14 @@ UEFI_Spec_2_8_A_Feb14.pdf.
 
 ### 2.5.5 Bus Drivers 
 
+* Bus driver , device driver very similar, bus controller creates new device handles.
+* Bus driver Start() function - 2 kinds - 1. Creates all child handles at once, 2. Create a subset of child handles over multiple calls to Start()- for rapid boot support.
+* Fig. 13. Bus controller before and after Start().
+* EFI_BOOT_SERVICES.ConnectController() implements rules for connecting drivers to controllers.
+* Driver override protocol -  overrides default connect behaviour - e.g. default preference for PCI option ROM driver over others.
+  
+### 2.5.6 Platform Components 
+
+
 # next ^^^
 
