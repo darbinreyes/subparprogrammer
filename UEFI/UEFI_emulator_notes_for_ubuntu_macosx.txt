@@ -141,3 +141,5 @@ EmulatorPkg/EmulatorPkg.dsc
 // Notable sections in .dsc file.
 [Components]
   MdeModulePkg/Application/HelloWorld/HelloWorld.inf
+
+//////////////////////////// FYI: Host.c main() serves as the root entry point.
