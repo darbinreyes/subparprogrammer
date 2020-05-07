@@ -1067,4 +1067,22 @@ Extended char set. Use "L" prefix, e.g. L"hello". Their type = "array of wchar_t
 
 ### A.4.3 Derived types 
 
+* arrays
+* functions
+* pointers
+* structures
+* unions
+
+### A.4.4 Type Qualifiers 
+
+* const
+* volatile - do not optimize me away because I am modified by an interrupt routine.
+
+### A.5 Objects and Lvalues 
+
+* Object = named region of storage.
+* lvalue = EXPRESSION referring to an object. e.g. a variable name is an lvalue
+* We say, operators can yield lvalues, e.g. if E = pointer, then *E is an lvalue expression. That expression refers to the object E points to.
+* In E1 = E2, an assignment expression, E1 MUST be an lvalue expression. This is the origin of the term lvalue, E1 is the left operand of =.
+* The specification for how operators work usually mentions wether or not operands should be lvalues.
 
