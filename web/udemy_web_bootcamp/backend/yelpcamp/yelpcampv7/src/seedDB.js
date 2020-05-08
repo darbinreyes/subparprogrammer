@@ -27,7 +27,7 @@ function seedDB() {
         console.log(err);
     } else {
         console.log(".remove() successful: ");
-        console.log(removed_entries);
+        //console.log(removed_entries);
     }
   });
   // Remove all DB comment entries.
@@ -38,7 +38,7 @@ function seedDB() {
         console.log(err);
     } else {
         console.log(".remove() successful: ");
-        console.log(removed_entries);
+        //console.log(removed_entries);
     }
   });
 
@@ -51,7 +51,7 @@ function seedDB() {
           console.log(err);
       } else {
           console.log(".create() successful: ");
-          console.log(new_nutrition);
+          //console.log(new_nutrition);
           var test_comment = {text: "Screw you guys, I'm goin' home.", author: "Eric Cartman"};
           console.log("Creating Comment Entry.");
           Comment.create(test_comment, function(err, new_comment){
@@ -60,7 +60,7 @@ function seedDB() {
                 console.log(err);
             } else {
                 console.log(".create() successful: ");
-                console.log(new_comment);
+                //console.log(new_comment);
                 console.log(".pushing() comment and saving().");
                 new_nutrition.comments.push(new_comment);
                 new_nutrition.save(function(err, saved_nutrition){
@@ -69,7 +69,7 @@ function seedDB() {
                       console.log(err);
                   } else {
                       console.log(".save() successful: ");
-                      console.log(saved_nutrition);
+                      //console.log(saved_nutrition);
                   }
                 })
             }

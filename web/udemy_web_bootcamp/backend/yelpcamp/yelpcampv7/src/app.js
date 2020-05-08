@@ -28,10 +28,6 @@ const passport = require("passport");
 // Passport's "local" authentication "strategy".
 const LocalStrategy = require("passport-local");
 
-/* Package for implementing authentication involving mongoDB/mongoose e.g.
-storing users+passwords in the DB.*/
-//const passportLocalMongoose = require("passport-local-mongoose");
-
 /* Used by express for client session API (client state). Keeps track of when a
 user is currently logged in. */
 const expressSession = require("express-session");
