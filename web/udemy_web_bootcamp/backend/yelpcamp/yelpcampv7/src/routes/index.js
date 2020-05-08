@@ -1,7 +1,8 @@
 // @flow
 // Express is our HTTP server.
 const express = require("express");
-const router = express.Router(); // This is how we can export our routes into app.js
+// This is how we can export our routes into app.js
+const router = express.Router();
 
 const User = require("../models/user");
 
@@ -14,7 +15,6 @@ router.get("/", function (exp_request, exp_response) {
 });
 
 // Auth. Routes.
-
 router.get("/register", function(exp_request, exp_response) {
   console.log("GET @ /register.");
   exp_response.render("register.ejs");
@@ -44,16 +44,18 @@ router.post("/register", function(exp_request, exp_response){
       }
       // This is the "middleware" pattern ostensibly.
       console.log("User.register() successful: ");
-      //console.log(registeredUser);
-      // "At some point passport.authenticate() calls User.serializeUser()."
-      // FYI: "local" strategy can be swapped with e.g. "twitter". - Code ALong pt.3.
-      // "This actually logs in the user"
+
+      /* "At some point passport.authenticate() calls User.serializeUser()."
+        FYI: "local" strategy can be swapped with e.g. "twitter". Secret page
+        code along pt.3. "This actually logs in the user" */
+
       /*
         FYI: exp_request and exp_response are the same as above, we are
         passing them as arguments to passport.authenticate("local")();
       */
       passport.authenticate("local")(exp_request, exp_response, function(){
-         // Login the user and take user to /secret page upon successful registration
+         /* Successfully registered. Login the user and redirect
+         them to a page that is appropriate after registration. */
          exp_response.redirect("/campgrounds");
       });
     });
@@ -62,23 +64,26 @@ router.post("/register", function(exp_request, exp_response){
 
 router.get("/login", function(exp_request, exp_response){
   console.log("GET @ /login.");
-  exp_response.render("login.ejs");
+  exp_response.render("login.ejs"); // Show login form.
 });
 
-// The call to passport.authenticate() here is called "middleware".
-// Middleware = code that runs  before our final route callback. Can be "stacked up".
-router.post("/login",
+/* The call to passport.authenticate() here is called "middleware".
+Middleware = "code that runs  before our final route callback". Middleware can be
+"stacked up". */
+router.post("/login", // This route logs in a user and establishes a session.
   passport.authenticate("local", {successRedirect: "/campgrounds", failureRedirect: "/login"}),
   function(exp_request, exp_response){
 
   console.log("POST @ /login.");
-  exp_response.send("Nothing like a nice Kraft Dinner.");
+  exp_response.send("Theres nothing like a nice Kraft Dinner after a hard day's work.");
 });
 
 router.get("/logout", function(exp_request, exp_response){
   console.log("GET @ /logout.");
-  exp_request.logout(); // This method is from passport, it destroys the user's session. // Logs out the user. // How does this function know which user to log out? ANS: The user info is inside exp_request.
-  //exp_response.send("I logged you out guy.");
+  /* This method is from passport, it destroys the user's session. // Logs out
+  the user. // How does this function know which user to log out? ANS: The user
+  info is inside exp_request. */
+  exp_request.logout();
   exp_response.redirect("/campgrounds");
 });
 
