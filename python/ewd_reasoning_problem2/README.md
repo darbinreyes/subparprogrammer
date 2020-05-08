@@ -7,7 +7,7 @@ Here is a [link to the lecture](https://www.youtube.com/watch?v=OeiSWZs3GfI&t=27
 See also my transcription and comments on the lecture [here.](https://github.com/darbinreyes/subparprogrammer/blob/master/Dijkstra/youtube/reasoning/problem2/Reasoning_About_Programs_Problem_2.md)
 
 There are only two python files, reasoning_problem2_v2.py and reasoning_problem2.py. The final implementation is contained in the file reasoning_problem2_v2.py. A partial implementation is contained in reasoning_problem2.py. Understanding the partial implementation helps you understand the final implementation.
-You must have the [matplotlib](https://matplotlib.org/tutorials/introductory/usage.html) python package installed to run them successfully. 
+You must have the [matplotlib](https://matplotlib.org/tutorials/introductory/usage.html) python package installed to run them successfully. All development and testing was done using python version "Python 3.8.1".
 
 # reasoning_problem2.py
 
