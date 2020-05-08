@@ -4086,6 +4086,8 @@ Error: Failed to lookup view "landing.ejs" in views directory "/Users/darbinreye
 
 ---
 
+* My FYI: the new comment form error fixed by "express.Router({mergeParams: true});" has to do with the fact that without this special argument the ":id" route parameter is not passed to `comments.js->router.get("/new"...`, hence `exp_request.params.id` remains undefined, causing findbyId() to fail, and ultimately new.ejs to fail when we run `<h1>Add a new comment to: <%= entry.name %></h1>`. `entry` is undefined so we hit `Cannot read property 'name' of null`.
+
 ### 351. YelpCamp: User Associations: Comment
 * when new comment form is displayed, automatically use username instead of having author filled in.
 ### 352. YelpCamp: User Associations: Campground 
