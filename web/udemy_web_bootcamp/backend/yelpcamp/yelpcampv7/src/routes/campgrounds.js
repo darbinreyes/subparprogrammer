@@ -1,7 +1,8 @@
 // @flow
 // Express is our HTTP server.
 const express = require("express");
-const router = express.Router(); // This is how we can export our routes into app.js
+// This is how we can export our routes into app.js
+const router = express.Router();
 
 const Nutrition = require("../models/nutrition");
 
@@ -15,7 +16,7 @@ router.get("/", function (exp_request, exp_response) {
             console.log(err);
         } else {
             console.log("DB.find() successful. Found " + nutritions.length + " entries.");
-            //console.log(nutritions);
+
             exp_response.render("campgrounds/index.ejs", {nutritions: nutritions});
         }
     });
@@ -44,9 +45,10 @@ router.post("/", function (exp_request, exp_response){
             console.log(err);
         } else {
             console.log("New entry added successfully: ");
-            //console.log(entry);
         }
-        exp_response.redirect("/campgrounds"); // Redirect upon completion of DB.save() otherwise the new entry may not be visible if we redirect before the save completes.
+        // Redirect upon completion of DB.save() otherwise the new entry may not
+        // be visible if we redirect before the save completes.
+        exp_response.redirect("/campgrounds");
     });
 
 });
@@ -61,17 +63,18 @@ router.get("/:id", function(exp_request, exp_response){
     // Example valid ID: 5e878925d90bb0b95ec6bf14, string, 24 chars.
     console.log("GET @ /camgrounds/" + exp_request.params.id);
 
-    // TODO/FYI: App errors our when ID argument below is invalid.
+    // TODO/FYI: App crashes/hits and error when ID argument below is invalid
+    // per above.
 
-    // Show the details of the DB entry with given ID.
-    //Nutrition.findById(exp_request.params.id, function(err, entry){
+    // Show the details of the DB entry with given ID. Recall the populate()
+    // fetches data for a DB association that is referenced instead of
+    // embedded.
     Nutrition.findById(exp_request.params.id).populate("comments").exec(function(err, entry){
         if(err) {
             console.log("findById() failed: ");
             console.log(err);
         } else {
             console.log("findById() successful. Entry: ");
-            //console.log(entry);
             exp_response.render("campgrounds/show.ejs", {entry: entry});
         }
     });
