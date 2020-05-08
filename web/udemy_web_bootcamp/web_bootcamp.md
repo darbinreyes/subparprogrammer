@@ -4051,6 +4051,20 @@ test.js:5
 * https://flow.org/en/docs/types/
 * flow can be useful without type annotations since it can infer types from your code. But sometimes type annotations are necessary. e.g. "But suppose you only want to allow strings in your function."
 * https://flow.org/en/docs/lang/
+* When you run `npm run flow` flow appears to be searching in all subdirs.
+* In "setup compiler" babel is a compiler with support for stripping out flow type annotations. The initial contents of the .babelrc file seem to be just for telling babel to do expect flow type annotations. After running `npm run build` I now see all the sub-dirs under src/ also occurring in lib/. Maybe now flow will resolve commentRoutes? ANS: No. Apparently flow is indeed checking that the file require("./routes/comments"); exists, because when I remove the "./" it generates an additional error "Cannot resolve **module** routes/comments." after "Cannot resolve **name** commentRoutes." 
+* OK, I understand now, the "resolve **name**" error means flow wants me to prefix "var" to the variable name "commentRoutes", this is reasonable, it's like an undeclared identifier compiler error in C.
+
+```text
+MacBook-Air:yelpcampv7 darbinreyes$ npm run flow
+
+> yelpcampv1@1.0.0 flow /Users/darbinreyes/dev/private_dev/subparprogrammer/web/udemy_web_bootcamp/backend/yelpcamp/yelpcampv7
+> flow
+
+No errors!
+```
+
+* I added @flow to routes/comments.js, is flow really checking it? If yes, adding an error in that file will cause flow to report it. ANS: Yes. Also, if I add an error routes/campgrounds.js, which does not have @flow, then I should not get a flow error reported since flow shouldn't be checking that file. ANS: this if is True.
 
 ---
 
@@ -4065,6 +4079,11 @@ Error: Failed to lookup view "landing.ejs" in views directory "/Users/darbinreye
 * Notice the expected path = yelpcampv7/views
 * So it seems the path is relative to where the app was started from.
 * Fix: `cd src/` `nodemon app.js`
+
+---
+
+* getting rid of global installations of npm packages since per project node_module directories seems to be the standard practice with nodeJS development, I can simply use a .gitignore to avoid clutter and space usage in my git repo.
+
 ---
 
 ### 351. YelpCamp: User Associations: Comment

@@ -1,3 +1,5 @@
+// @flow
+
 // Mongoose is our DB API.
 const mongoose = require("mongoose");
 
@@ -50,7 +52,7 @@ function seedDB() {
       } else {
           console.log(".create() successful: ");
           console.log(new_nutrition);
-          test_comment = {text: "Screw you guys, I'm goin' home.", author: "Eric Cartman"};
+          var test_comment = {text: "Screw you guys, I'm goin' home.", author: "Eric Cartman"};
           console.log("Creating Comment Entry.");
           Comment.create(test_comment, function(err, new_comment){
             if(err) {

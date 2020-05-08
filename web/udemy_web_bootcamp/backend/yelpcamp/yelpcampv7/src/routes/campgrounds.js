@@ -1,3 +1,4 @@
+// @flow
 // Express is our HTTP server.
 const express = require("express");
 const router = express.Router(); // This is how we can export our routes into app.js
@@ -30,7 +31,7 @@ router.post("/", function (exp_request, exp_response){
     var entryEnergy = exp_request.body.energy;
     var entryDescription = exp_request.body.description;
 
-    newEntry = new Nutrition({
+    var newEntry = new Nutrition({
         name: entryName,
         image: entryImage,
         energy: entryEnergy,

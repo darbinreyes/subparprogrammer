@@ -1,3 +1,4 @@
+// @flow
 // Express is our HTTP server.
 const express = require("express");
 const router = express.Router(); // This is how we can export our routes into app.js

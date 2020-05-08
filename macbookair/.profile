@@ -173,4 +173,4 @@ git config --global alias.st status
 # Finished adapting your PATH environment variable for use with MacPorts.
 
 # Tell node where to look for global modules.
-export NODE_PATH=/opt/local/lib/node_modules
+# export NODE_PATH=/opt/local/lib/node_modules

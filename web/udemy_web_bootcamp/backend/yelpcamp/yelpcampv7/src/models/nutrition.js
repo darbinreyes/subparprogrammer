@@ -1,3 +1,4 @@
+// @flow
 // Mongoose is our DB API.
 const mongoose = require("mongoose");
 
