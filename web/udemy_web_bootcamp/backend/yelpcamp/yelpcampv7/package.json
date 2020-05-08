@@ -2,13 +2,27 @@
   "name": "yelpcampv1",
   "version": "1.0.0",
   "description": "nah",
-  "main": "app.js",
+  "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test2": "echo \"caca\"",
+    "build": "babel src/ -d lib/",
+    "prepublish": "npm run build",
+    "flow": "flow"
   },
   "keywords": [
     "nope"
   ],
   "author": "y",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-flow": "^7.9.0",
+    "flow-bin": "^0.124.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.12"
+  }
 }

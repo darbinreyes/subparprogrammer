@@ -1,3 +1,13 @@
+// @flow
+/**
+function foo(x: ?number): string {
+  if (x) {
+    return x;
+  }
+  return "default string";
+}
+**/
+
 // Express is our HTTP server.
 const express = require("express");
 // We need body-parser for easy access to form data provided in the body of an POST
@@ -13,6 +23,7 @@ const LocalStrategy = require("passport-local"); // "local" authentication strat
 const expressSession = require("express-session"); // Used by express for client session API (client state).
 /** Authentication related require() END **/
 
+conslo.log("hello");
 
 /** Mongoose setup START **/
 // "yelpnutritionv7" will appear in "mongoose shell>>> show dbs" list.

@@ -3959,7 +3959,114 @@ END.
   * app.use("/campgrounds/:id/comments", commentRoutes)
   * x test add comment - fix error - error related to id route param - fix = var router = express.Router({mergeParams: true});
   * add comments to code in broken out routes.
+
+---
   
+* MY FYI: How to run scripts defined in your package.json file. 
+  * `npm run test2` where "test2" is defined by:
+
+```JSON
+"scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test2": "echo \"caca\""
+  },
+```
+  
+* My FYI: How to set up Javascript error checking like Cloud9 IDE, in which lines containing e.g. an unused var or non-existing var. are marked, hence saving debugging time, fix errors before you run you code.
+* https://packagecontrol.io/packages/JavaScript%20Enhancements
+* I tried this subl package but hit errors upon creating a "JS project". Also there this a dependency on a "dead" package, TerminalView. The is a dependency on "flow". Seems to provide the features I want but not integrated into subl.
+  * Flow: https://flow.org/    
+
+#### Flow initial setup notes. Do this on a per project basis.
+* https://flow.org/en/docs/install/
+* `npm install --save-dev @babel/core @babel/cli @babel/preset-flow`
+* `touch .babelrc`
+*  add to .babelrc, the following
+
+```JSON
+{
+  "presets": ["@babel/preset-flow"]
+}
+```
+
+* With source files in /src dir. run `./node_modules/.bin/babel src/ -d lib/`
+* Add to your package.json:
+
+```json
+"scripts": {
+    "build": "babel src/ -d lib/",
+    "prepublish": "npm run build"
+  }
+```
+* `npm run build` is now equivalent to `./node_modules/.bin/babel src/ -d lib/`
+* run `npm install --save-dev flow-bin`
+* Add to your package.JSON:
+
+```json
+  "scripts": {
+    "flow": "flow"
+  }
+```
+* If this is the first use of flow run `npm run flow init`, this creates a .flowconfig file.
+* Finally run, `npm run flow`.
+* Now you are ready to use flow.
+
+---
+ 
+#### Using flow to check your JS for errors. 
+
+* https://flow.org/en/docs/usage/
+* With the above completed, and assuming your code is in /src.
+* run `npm run flow status`, this start a background process that does the JS error checking. If already running, this will check your JS code.
+* `npm run flow stop` to terminate the process.
+* You must mark any JS code you want flow to check with `// @flow` as the first comment.
+* "Write flow code". // See below on for what is flow code
+
+```javascript
+// @flow
+// This is "Flow code". It seems to be JS with type annotations. Here the error is supposed to be that the return type is specified as string but the function sometimes returns a int/number.
+function foo(x: ?number): string {
+  if (x) {
+    return x;
+  }
+  return "default string";
+}
+
+```
+* Check your code with `npm run flow`. For the above example the output would be:
+
+```
+test.js:5
+  5:     return x;
+                ^ number. This type is incompatible with the expected return type of
+  3: function foo(x: ?number): string {
+                               ^^^^^^ string
+```
+
+* If you run `npm run build` then the JS files in src/ will be output but without the flow type annotations.
+* Remark: JS was designed to be very loose with types but evidently, if you want error free code you end up using a tool like flow for enforcing strict typing. Why not just start with a strictly typed language to begin with.
+
+#### More on using flow
+
+* https://flow.org/en/docs/types/
+* flow can be useful without type annotations since it can infer types from your code. But sometimes type annotations are necessary. e.g. "But suppose you only want to allow strings in your function."
+* https://flow.org/en/docs/lang/
+
+---
+
+* My FYI: Here's the docs for what goes in your package.JSON file. https://docs.npmjs.com/configuring-npm/package-json
+
+---
+* Moving yelpcampv7 files under src/
+* nodemon works with main=src/app.js but hit error:
+```
+Error: Failed to lookup view "landing.ejs" in views directory "/Users/darbinreyes/dev/private_dev/subparprogrammer/web/udemy_web_bootcamp/backend/yelpcamp/yelpcampv7/views" 
+```
+* Notice the expected path = yelpcampv7/views
+* So it seems the path is relative to where the app was started from.
+* Fix: `cd src/` `nodemon app.js`
+---
+
 ### 351. YelpCamp: User Associations: Comment
 * when new comment form is displayed, automatically use username instead of having author filled in.
 ### 352. YelpCamp: User Associations: Campground 
