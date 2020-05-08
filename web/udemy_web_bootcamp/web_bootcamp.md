@@ -3961,7 +3961,7 @@ END.
   * add comments to code in broken out routes.
   
 ### 351. YelpCamp: User Associations: Comment
-
+* when new comment form is displayed, automatically use username instead of having author filled in.
 ### 352. YelpCamp: User Associations: Campground 
 
 
