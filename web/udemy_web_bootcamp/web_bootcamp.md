@@ -3924,20 +3924,20 @@ END.
 * touch routes/campgrounds.js // comments.js // index.js
 
 * campground routes
-* get /campgrounds, post /campgrounds, get campgrounds/new, get /campgrounds/:id,  
+* x get /campgrounds, post /campgrounds, get campgrounds/new, get /campgrounds/:id,  
 
 * comment routes
-* get /campgrounds/:id/new , post /campgrounds/:id/comments
+* x get /campgrounds/:id/comments/new , post /campgrounds/:id/comments
 
-* get /, + auth routes, get /register, post /register,  get /login, post /login, get /logout, function isLoggedIn() // note isLoggedIn() is also referenced in the comments route.
+* x get /, + auth routes, get /register, post /register,  get /login, post /login, get /logout, function isLoggedIn() // note isLoggedIn() is also referenced in the comments route.
 
-* instead of using `var app = express()` we use the "express router"
+* x instead of using `var app = express()` we use the "express router"
   * var express = require(expresss
   * var router = express.Router();
   * app.get replaced by router.get
   * module.exports = router.
   
-* in app.js
+* x in app.js
   * commentRoutes = require("./routes/comments");
   * campgroundRoutes = require("./routes/campgrounds");
   * indexRoutes = require("./routes/index");
@@ -3945,24 +3945,23 @@ END.
     * app.use(commentRoutes);
     * ... others
     
-* adding in the models to comments.js
+* x adding in the models to comments.js
   *  Comment = require("../models/comment");
   * isLoggedIn(), cp to from index.js into commments.js
   * in index.js, require(passport). require User model.
   
-* test that routes still work.
+* x test that routes still work.
 
 * in app.js, 
   * app.use(indexRoutes) etc.
   * app.use(campgroundRoutes) replaced by app.use("/campgrounds",campgroundRoutes) then in campgrounds.js remove string /campgrounds 
   * app.use("/", indexRoutes)
   * app.use("/campgrounds/:id/comments", commentRoutes)
-  * test add comment - fix error - error related to id route param - fix = var router = express.Router({mergeParams: true});
-  * add comments to broken out routes.
+  * x test add comment - fix error - error related to id route param - fix = var router = express.Router({mergeParams: true});
+  * add comments to code in broken out routes.
   
-
-
 ### 351. YelpCamp: User Associations: Comment
+
 ### 352. YelpCamp: User Associations: Campground 
 
 
