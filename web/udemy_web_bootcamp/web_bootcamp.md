@@ -4089,7 +4089,31 @@ Error: Failed to lookup view "landing.ejs" in views directory "/Users/darbinreye
 * My FYI: the new comment form error fixed by "express.Router({mergeParams: true});" has to do with the fact that without this special argument the ":id" route parameter is not passed to `comments.js->router.get("/new"...`, hence `exp_request.params.id` remains undefined, causing findbyId() to fail, and ultimately new.ejs to fail when we run `<h1>Add a new comment to: <%= entry.name %></h1>`. `entry` is undefined so we hit `Cannot read property 'name' of null`.
 
 ### 351. YelpCamp: User Associations: Comment
-* when new comment form is displayed, automatically use username instead of having author filled in.
+
+* Change to be done in this section = When a new comment is created, we automatically set the author form input instead of the user typing in an arbitrary name.
+* Plan: On the comment model, add some fields // my first thought was, setting the form input within the new comment .ejs, looks like we are doing something different.
+* x in models/comment.js replace `author: String` with `: {id:, username:}` where id = the "_id" member of the associated user in db.users.find(), similarly for "username". The guy makes a remark about how the fact that we are using a non-relational database makes it much easier to edit models in this way. I think this is called an association - YES, correct assoc. by reference.
+
+```javascript
+// in models/comment.js
+text: String,
+author: {
+  id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+  username: String
+}
+```
+
+* x in seedDB.js comment out everything being done except the remove() all DB entries since that code does not take into account our modified comment model.
+* x uncomment out the above, then comment out call to seedDB() in app.js so that the DB remains empty.
+* x in `routes/comments.js`, modify `router.post("/", isLoggedIn, ...` . Recall that this is the route that creates a new comment. First it finds the DB entry to which the comment is being added, then appends (push()) the comment to the DB entry.
+  * x Before push, add username + id to comment. // id= id of User DB entry. 
+  * x // I expect id in exp_request.user._id, and username in exp_request.user.username // created_comment.author.id = exp_request.user._id, created_comment.author.username = exp_request.user.username. // expectation CORRECT.
+  * x Remove author field from new comment .ejs.
+  * x Test adding a new comment. Observe that the user name for the comment is a big object - instead of a string type for the author, we made author an object - we need to modify the .ejs to account for our changes above // expect author.username. - show.ejs for a campground
+
 ### 352. YelpCamp: User Associations: Campground 
 
 
