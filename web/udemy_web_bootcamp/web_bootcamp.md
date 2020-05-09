@@ -4130,3 +4130,23 @@ newcampground.author = author;
 * x test new campground - created -
 * x display author in campground show .ejs page. - under description element. - "submitted by ..."
 
+END.
+
+---
+
+# Section 37: YelpCamp: Update and Destroy
+
+---
+
+### 353. Intro to New YelpCamp Features
+### 354. Campground Edit and Update
+### 355. Campground Destroy
+### 356. Notes about Campground Destroy & Campground Authorization
+### 357. Campground Authorization Part 1
+### 358. Campground Authorization Part 2
+### 359. Comment Edit and Update
+### 360. Note about Comment Destroy lecture
+### 361. Comment Destroy
+### 362. Comment Authorization 
+
+
