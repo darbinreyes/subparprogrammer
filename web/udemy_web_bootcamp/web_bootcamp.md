@@ -4139,6 +4139,29 @@ END.
 ---
 
 ### 353. Intro to New YelpCamp Features
+
+* delete and update campgrounds and comments
+* User authori
+* message successfully signed in. - flash message - goes away on refresh
+* adding update delete buttons - only if user is aowns the post..
+
+
+// green flash message 
+
+
+// don’t show delete/update buttons unless user=owner / creator of camp ground. 
+
+
+// note orange edit campground button - because user = campground creator. 
+
+
+// Edit a campground form - note form header + update button. 
+
+
+// landing page - add change bg image every 5 seconds.+ fade effect. 
+
+// v10 - contains 4 campgrounds to begin with.
+
 ### 354. Campground Edit and Update
 ### 355. Campground Destroy
 ### 356. Notes about Campground Destroy & Campground Authorization

@@ -1,0 +1,39 @@
+<%- include("../partials/header.ejs") %>
+
+<div class="container"> <!-- container-fluid START-->
+    <div class="row">
+        <div class="col-3">
+            <h3>YelpNutrition</h3>
+            <ul class="list-group">
+              <a href="#" class="list-group-item list-group-item-action active">Info. 1</a>
+              <a href="#" class="list-group-item list-group-item-action">Info. 2</a>
+              <a href="#" class="list-group-item list-group-item-action">Info. 3</a>
+            </ul>
+        </div>
+        <div class="col-9">
+            <div class="card">
+              <img src="<%= entry.image %>" class="card-img-top rounded-lg" alt="<%= entry.name %>">
+              <div class="card-body">
+                <h5 class="card-title"><a href="#"><%= entry.name %></a> <span class="float-right"><%= entry.energy %> kcal/100g</span></h5>
+                <p class="card-text"><%= entry.description %></p>
+                <p class="card-text"> <em> Submitted by <%= entry.author.username %></em> </p>
+              </div>
+            </div>
+            <div class="container border bg-light mt-3">
+                <div class="container mt-2">
+                    <p class="text-right"><a class="btn btn-success" href="/campgrounds/<%= entry._id %>/comments/new">Add Comment</a></p>
+                    <hr>
+                    <% entry.comments.forEach(function(currentValue, index, array) { %>
+                        <div class="row">
+                            <div class="col-12">
+                                <p class="mb-0"><strong><%= currentValue.author.username %></strong><span class="float-right">7 days ago</span></p>
+                                <p><%= currentValue.text %></p>
+                            </div>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- container-fluid END-->
+<%- include("../partials/footer.ejs") %>
