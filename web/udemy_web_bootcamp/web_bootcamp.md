@@ -4162,6 +4162,8 @@ END.
 
 // v10 - contains 4 campgrounds to begin with.
 
+// Plan - implement update/delete without regard to current logged in user , 2nd add user auth for those features.
+
 ### 354. Campground Edit and Update
 ### 355. Campground Destroy
 ### 356. Notes about Campground Destroy & Campground Authorization

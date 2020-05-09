@@ -14,7 +14,7 @@ const UserSchema = mongoose.Schema({
 // Add passport-local-mongoose methods to UserSchema.
 UserSchema.plugin(passportLocalMongoose);
 
-// "users" will show up in "mongo shell>>> use yelpnutritionv9; show collections"
+// "users" will show up in "mongo shell>>> use yelpnutritionv10; show collections"
 // "mongo shell>>> db.users.find()" will display all DB entries.
 // export the DB model.
 module.exports = mongoose.model("User", UserSchema);
