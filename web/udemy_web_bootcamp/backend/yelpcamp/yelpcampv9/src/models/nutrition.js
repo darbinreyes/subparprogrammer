@@ -8,6 +8,14 @@ const nutritionSchema = mongoose.Schema({
     image: String,
     energy: Number,
     description: String,
+    // User association by reference.
+    author: {
+      id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+      username: String
+    },
     // Comment association by reference
     comments: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}]
 });

@@ -4116,5 +4116,17 @@ author: {
 
 ### 352. YelpCamp: User Associations: Campground 
 * Analogous changes to previous section but for campgrounds. i.e. associating users with campgrounds that are created via the campground form. You can't submit a new campground unless you are signed in. // expect adding isLoggedIn() to campground routes. // Also want to save username+id with a campground DB entry - again, analogous to the comments related changes in previous section. Later these changes will be used in controlling who can delete and update campgrounds. Similarly, later, for delete and update of comments.
-* Prevent not logged in user from creating a campground // expect isLoggedIn() middleware added to create campground form and post campground route.
+* x Prevent not logged in user from creating a campground // expect isLoggedIn() middleware added to create campground form and post campground route.
+* x test add new campground is protected. 
+* x associating logged in user with campground.
+* x campground model - add author like in previous section.
+* x again - update save() code for campground analogously to previous section. - don't forget to resave() to DB afterwards, if necessary.
+```
+// "cleaner" way of setting author in new campground.
+var author = {id:, username:}
+newcampground.author = author;
+// don't forget to save. if necessary.
+```
+* x test new campground - created -
+* x display author in campground show .ejs page. - under description element. - "submitted by ..."
 

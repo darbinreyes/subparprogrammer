@@ -14,7 +14,7 @@ const Comment = require("../models/comment");
 // unless a user is logged in. Also, see below post @ /login.
 function isLoggedIn(req, resp, next){ // next = next thing that needs to be called
   console.log("isLoggedIn() middleware.");
-  if(req.isAuthenticated()) { // Ff logged in successfully. This is a passport method.
+  if(req.isAuthenticated()) { // If logged in successfully. This is a passport method.
     console.log(".isAuthenticated().");
     return next(); // "move on to the next middleware"
   }

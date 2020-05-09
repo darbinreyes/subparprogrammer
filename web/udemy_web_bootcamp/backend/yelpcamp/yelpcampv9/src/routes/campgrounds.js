@@ -6,6 +6,18 @@ const router = express.Router();
 
 const Nutrition = require("../models/nutrition");
 
+// Middleware for the preventing access to a page unless a user is logged in.
+function isLoggedIn(req, resp, next){ // next = next thing that needs to be called
+  console.log("isLoggedIn() middleware.");
+  if(req.isAuthenticated()) { // If logged in successfully. This is a passport method.
+    console.log(".isAuthenticated().");
+    return next(); // "move on to the next middleware"
+  }
+  // else, login failed.
+  console.log("NOT .isAuthenticated().");
+  resp.redirect("/login");
+}
+
 // Add a GET request handler for /campgrounds.
 router.get("/", function (exp_request, exp_response) {
     console.log("GET @ /campgrounds.");
@@ -22,7 +34,7 @@ router.get("/", function (exp_request, exp_response) {
     });
 });
 
-router.post("/", function (exp_request, exp_response){
+router.post("/", isLoggedIn, function (exp_request, exp_response){
     console.log("POST @ /campgrounds.");
     // Get form data specifying what will be added.
     // Add new entry to DB.
@@ -31,12 +43,14 @@ router.post("/", function (exp_request, exp_response){
     var entryImage = exp_request.body.image;
     var entryEnergy = exp_request.body.energy;
     var entryDescription = exp_request.body.description;
+    var author = {id: exp_request.user._id, username: exp_request.user.username}
 
     var newEntry = new Nutrition({
         name: entryName,
         image: entryImage,
         energy: entryEnergy,
-        description: entryDescription
+        description: entryDescription,
+        author: author
     });
 
     newEntry.save(function(err, entry){
@@ -53,7 +67,7 @@ router.post("/", function (exp_request, exp_response){
 
 });
 
-router.get("/new", function (exp_request, exp_response) {
+router.get("/new", isLoggedIn, function (exp_request, exp_response) {
     console.log("GET @ /campgrounds/new.");
     // Show the form for adding a new entry to the DB.
     exp_response.render("campgrounds/new.ejs");
