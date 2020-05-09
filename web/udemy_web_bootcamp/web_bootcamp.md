@@ -4115,5 +4115,6 @@ author: {
   * x Test adding a new comment. Observe that the user name for the comment is a big object - instead of a string type for the author, we made author an object - we need to modify the .ejs to account for our changes above // expect author.username. - show.ejs for a campground
 
 ### 352. YelpCamp: User Associations: Campground 
-
+* Analogous changes to previous section but for campgrounds. i.e. associating users with campgrounds that are created via the campground form. You can't submit a new campground unless you are signed in. // expect adding isLoggedIn() to campground routes. // Also want to save username+id with a campground DB entry - again, analogous to the comments related changes in previous section. Later these changes will be used in controlling who can delete and update campgrounds. Similarly, later, for delete and update of comments.
+* Prevent not logged in user from creating a campground // expect isLoggedIn() middleware added to create campground form and post campground route.
 
