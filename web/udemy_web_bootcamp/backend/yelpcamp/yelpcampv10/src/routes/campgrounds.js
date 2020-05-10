@@ -5,6 +5,7 @@ const express = require("express");
 const router = express.Router();
 
 const Nutrition = require("../models/nutrition");
+const Comment = require("../models/comment");
 
 // Middleware for the preventing access to a page unless a user is logged in.
 function isLoggedIn(req, resp, next){ // next = next thing that needs to be called
@@ -147,6 +148,22 @@ router.delete("/:id", function(exp_request, exp_response) {
             exp_response.send(".findByIdAndRemove() error. Sorry.");
         } else {
             console.log("Removed entry: ");
+            // Delete every comment associated with this DB entry. // The guy
+            // didn't implement this. I did.
+            removed_entry.comments.forEach(function(currentValue, index, array) {
+                console.log(currentValue);
+                console.log(exp_request.params.id);
+
+                Comment.findByIdAndRemove(currentValue, function(err, removed_comment){
+                    if(err) {
+                        console.log("comment .findByIdAndRemove() error: ");
+                        console.log(err);
+                    } else {
+                        console.log("Associated comment deleted.");
+                    }
+                });
+
+            });
             exp_response.redirect("/campgrounds");
         }
     });

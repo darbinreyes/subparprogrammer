@@ -4185,6 +4185,10 @@ END.
 * // figured this out on my own.
 
 ### 356. Notes about Campground Destroy & Campground Authorization
+
+* note on the fact that we didn't delete associated comments along with the campground entry.
+* author comparison with logged in user involves .equals() method.
+
 ### 357. Campground Authorization Part 1
 ### 358. Campground Authorization Part 2
 ### 359. Comment Edit and Update
