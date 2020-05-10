@@ -4190,6 +4190,11 @@ END.
 * author comparison with logged in user involves .equals() method.
 
 ### 357. Campground Authorization Part 1
+
+* authentication (previously covered) = verify someone is who they say they are.
+* vs. authorization = permissions.
+* - you can't view the edit form unless you own the campground.
+* // my attempt - implementing behaviour such that only the owner can edit a DB entry, - if currently logged in user == DB entry owner - display update form else - send("You don't own this post, sorry.") - else proceed to show edit form - do the same to protect a direct PUT at the campground. - expect to use some middleware.
 ### 358. Campground Authorization Part 2
 ### 359. Comment Edit and Update
 ### 360. Note about Comment Destroy lecture
