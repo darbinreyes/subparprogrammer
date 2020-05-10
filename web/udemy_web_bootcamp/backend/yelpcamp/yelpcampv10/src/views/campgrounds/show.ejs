@@ -16,7 +16,8 @@
               <div class="card-body">
                 <h5 class="card-title"><a href="#"><%= entry.name %></a> <span class="float-right"><%= entry.energy %> kcal/100g</span></h5>
                 <p class="card-text"><%= entry.description %></p>
-                <p class="card-text"> <em> Submitted by <%= entry.author.username %></em> </p>
+                <p class="card-text"> <em> Submitted by <%= entry.author.username %></em></p>
+                <p class="card-text"> <a class="btn btn-primary" href="/campgrounds/<%= entry._id %>/edit">Edit Entry</a></p>
               </div>
             </div>
             <div class="container border bg-light mt-3">

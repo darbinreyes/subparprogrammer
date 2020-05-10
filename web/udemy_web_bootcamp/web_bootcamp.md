@@ -4165,6 +4165,18 @@ END.
 // Plan - implement update/delete without regard to current logged in user , 2nd add user auth for those features.
 
 ### 354. Campground Edit and Update
+
+* Add the edit button to the campground show page. // expect we will create views/campgrounds/edit.ejs file, with route = GET @ /campgrounnds/:id/edit, use form nearly identical to the new , form will probably do a PUT request @ /campgrounds/:id. Similarly we will use a DELETE @ campgrounds/:id to delete a campground. Expect to use require('method-override'); and possibly require("express-sanitizer");.
+
+* REST table review
+* edit /dogs/:id/edit - GET
+* update /dogs/:id - PUT
+* remove /dogs/:id - DELETE
+
+* require(method override)
+* app.use(methover(_method
+* add app.get(:id/edit, function
+
 ### 355. Campground Destroy
 ### 356. Notes about Campground Destroy & Campground Authorization
 ### 357. Campground Authorization Part 1

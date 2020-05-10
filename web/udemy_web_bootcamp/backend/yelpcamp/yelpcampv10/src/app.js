@@ -20,7 +20,11 @@ const bodyParser = require("body-parser");
 // Mongoose is our DB API based on the mongo DB.
 const mongoose = require("mongoose");
 
-
+// method-override allows us to work-around the fact that HTML forms only
+// support method=POST or GET.
+const methodOverride = require('method-override');
+// We use express-sanitizer to remove e.g. script tags from user text inputs.
+const expressSanitizer = require("express-sanitizer");
 
 /************* Authentication related requires() START **/
 // Our main authentication package.
@@ -42,7 +46,7 @@ mongoose.connect("mongodb://localhost/yelpnutritionv10", {useNewUrlParser: true,
 /* Deletes everything in the DB, except for users, then adds some initial DB
 entries. */
 const seedDB = require("./seedDB");
-//seedDB();
+seedDB();
 
 const User = require("./models/user"); // mongoose model for Users.
 /************* Mongoose setup END **/
@@ -67,6 +71,13 @@ app.use(passport.session()); // Tell express to use passport step 2
 /* Enable x-www-form-urlencoded in body-parser. Tell express to use
 body-parser. */
 app.use(bodyParser.urlencoded({extended: true}));
+
+// Tell Express to use the method-override package. This configuration of
+// method-override looks for a POST request with a URL query parameter
+// _method=PUT and turns that POST into a PUT request within Express.
+app.use(methodOverride('_method'));
+// IMPORTANT: express-sanitizer app.use() should go AFTER body-parser above.
+app.use(expressSanitizer());
 /************* Express setup END **/
 
 /************* passport setup START **/

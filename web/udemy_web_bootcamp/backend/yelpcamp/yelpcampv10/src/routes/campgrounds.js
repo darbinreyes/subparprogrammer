@@ -94,4 +94,45 @@ router.get("/:id", function(exp_request, exp_response){
     });
 });
 
+// Edit route - GET the edit form
+router.get("/:id/edit", function(exp_request, exp_response) {
+    console.log(exp_request.method + " @ " + exp_request.originalUrl)
+
+    // Get the details of the DB entry with given ID. So we can prefill the edit
+    // form.
+    Nutrition.findById(exp_request.params.id, function(err, entry) {
+        if(err) {
+            console.log("findById() failed: ");
+            console.log(err);
+        } else {
+            console.log("findById() successful. Entry: ");
+            exp_response.render("campgrounds/edit.ejs", {entry: entry});
+        }
+    });
+
+});
+
+// Update route - PUT to execute and save an edit
+router.put("/:id", function(exp_request, exp_response) {
+    console.log(exp_request.method + " @ " + exp_request.originalUrl)
+    // Save the edited/updated/modified DB entry.
+
+    exp_request.body.entry.name = exp_request.sanitize(exp_request.body.entry.name);
+    exp_request.body.entry.image = exp_request.sanitize(exp_request.body.entry.image);
+    exp_request.body.entry.description = exp_request.sanitize(exp_request.body.entry.description);
+    exp_request.body.entry.energy = exp_request.sanitize(exp_request.body.entry.energy);
+    // Update the DB entry and redirect to its show page.
+    Nutrition.findByIdAndUpdate(exp_request.params.id, exp_request.body.entry, function(err, updated_entry){
+        if(err) {
+            console.log(".findByIdAndUpdate() error: ");
+            console.log(err);
+            exp_response.send(".findByIdAndUpdate() error. Sorry.");
+        } else {
+            console.log("Updated entry: ");
+            //console.log(updated_entry);
+            exp_response.redirect("/campgrounds/" + exp_request.params.id);
+        }
+    });
+});
+
 module.exports = router;
