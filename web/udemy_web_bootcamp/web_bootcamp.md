@@ -4177,7 +4177,13 @@ END.
 * app.use(methover(_method
 * add app.get(:id/edit, function
 
+* use CSS id selector to make delete button display: inline.
+* next we will prevent users from deleting or editing posts unless they created that post. // expect only display buttons if user is logged-in AND currently logged in user is the same as the owner/author. // changes to campgrounds show.ejs.
+
 ### 355. Campground Destroy
+
+* // figured this out on my own.
+
 ### 356. Notes about Campground Destroy & Campground Authorization
 ### 357. Campground Authorization Part 1
 ### 358. Campground Authorization Part 2

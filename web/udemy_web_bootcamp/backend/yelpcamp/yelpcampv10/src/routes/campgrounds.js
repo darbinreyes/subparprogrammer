@@ -104,6 +104,7 @@ router.get("/:id/edit", function(exp_request, exp_response) {
         if(err) {
             console.log("findById() failed: ");
             console.log(err);
+            exp_response.send(".findById() error. Sorry.");
         } else {
             console.log("findById() successful. Entry: ");
             exp_response.render("campgrounds/edit.ejs", {entry: entry});
@@ -129,8 +130,24 @@ router.put("/:id", function(exp_request, exp_response) {
             exp_response.send(".findByIdAndUpdate() error. Sorry.");
         } else {
             console.log("Updated entry: ");
-            //console.log(updated_entry);
             exp_response.redirect("/campgrounds/" + exp_request.params.id);
+        }
+    });
+});
+
+// Delete the DB entry specified by id.
+router.delete("/:id", function(exp_request, exp_response) {
+    console.log(exp_request.method + " @ " + exp_request.originalUrl)
+    // Save the edited/updated/modified DB entry.
+
+    Nutrition.findByIdAndRemove(exp_request.params.id, function(err, removed_entry){
+        if(err) {
+            console.log(".findByIdAndRemove() error: ");
+            console.log(err);
+            exp_response.send(".findByIdAndRemove() error. Sorry.");
+        } else {
+            console.log("Removed entry: ");
+            exp_response.redirect("/campgrounds");
         }
     });
 });

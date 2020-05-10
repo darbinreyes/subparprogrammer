@@ -2,6 +2,17 @@
 
 <%- include("../partials/header.ejs") %>
 
+<div class="container-fluid"> <!-- container-fluid START -->
+<!-- alert START -->
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  Successfully Signed In.
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<!-- alert END -->
+</div> <!-- container-fluid END -->
+
 <!-- jumbotron START -->
 <div class="jumbotron">
   <h1 class="display-4">You're not welcome at YelpNutrition</h1>
@@ -11,6 +22,7 @@
   <a class="btn btn-success btn-lg" href="/campgrounds/new" role="button">Add new nutrition entry</a>
 </div>
 <!-- jumbotron END -->
+
 <div class="container-fluid"> <!-- container-fluid START -->
 <% if(nutritions.length === 0) { %>
 <div class="row">
