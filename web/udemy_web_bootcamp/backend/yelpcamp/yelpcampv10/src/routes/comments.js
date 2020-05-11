@@ -181,7 +181,7 @@ router.delete("/:cid", checkCommentOwnership, function(exp_request, exp_response
             entry.comments.forEach(function(currentValue, index, array) {
                 if(currentValue.equals(exp_request.params.cid)) {
                     console.log("Comment id match");
-                    array.splice(index, 1); // Remove from comments array.
+                    array.splice(index, 1); // Remove from comments array. FYI: It works without this but I'm not sure why. The guy doesn't do this.
                     entry.save(); // Save updated DB entry.
                     // Delete the comment itself from the DB.
                     Comment.findByIdAndRemove(currentValue, function(err, removed_comment){

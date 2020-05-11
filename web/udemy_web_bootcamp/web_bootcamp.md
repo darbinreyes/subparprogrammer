@@ -4211,7 +4211,29 @@ END.
 * // only show comment edit and delete buttons for comments owned by currently logged in user.
 
 ### 360. Note about Comment Destroy lecture
+
+* "He actually uses this id twice, once on line 24 and again on line 46, which breaks the rule where you're only supposed to use id's once per HTML document."
+
 ### 361. Comment Destroy
-### 362. Comment Authorization 
+### 362. Comment Authorization
+
+* Refactor middleware to its own file. 
+END.
+
+Section 38: YelpCamp: UI Improvements
+
+
+0 / 10|1hr 19min
+		  363. Refactoring Middleware   11min 
+		  364. Flash Messages: Installation   14min 
+		  365. Note about Flash Messages   1min 
+		  366. Flash Messages: Adding Bootstrap   12min 
+		  367. Flash Messages: Helpful Errors   13min 
+		  368. Note about error handling   1min 
+		  369. Landing Page Refactor - Part One   5min Resources    
+		  370. Landing Page Refactor - Part Two   13min 
+		  371. Dynamic Price Feature   10min Resources    
+		  372. Note about further YelpCamp
+		improvements 
 
 
