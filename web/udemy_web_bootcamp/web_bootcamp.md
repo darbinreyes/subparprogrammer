@@ -4208,6 +4208,8 @@ END.
 * // add middleware to protect update and delete unless logged in as owner.
 
 * // next: only allow comment edit ad delete if logged in as author of the comment.
+* // only show comment edit and delete buttons for comments owned by currently logged in user.
+
 ### 360. Note about Comment Destroy lecture
 ### 361. Comment Destroy
 ### 362. Comment Authorization 
