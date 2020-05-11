@@ -164,8 +164,8 @@ router.put("/:id", checkCampgroundOwnership, function(exp_request, exp_response)
 // Delete the DB entry specified by id.
 router.delete("/:id", checkCampgroundOwnership, function(exp_request, exp_response) {
     console.log(exp_request.method + " @ " + exp_request.originalUrl);
-    // Save the edited/updated/modified DB entry.
 
+    // Delete the DB entry.
     Nutrition.findByIdAndRemove(exp_request.params.id, function(err, removed_entry){
         if(err) {
             console.log(".findByIdAndRemove() error: ");
@@ -176,9 +176,6 @@ router.delete("/:id", checkCampgroundOwnership, function(exp_request, exp_respon
             // Delete every comment associated with this DB entry. // The guy
             // didn't implement this. I did.
             removed_entry.comments.forEach(function(currentValue, index, array) {
-                console.log(currentValue);
-                console.log(exp_request.params.id);
-
                 Comment.findByIdAndRemove(currentValue, function(err, removed_comment){
                     if(err) {
                         console.log("comment .findByIdAndRemove() error: ");

@@ -1,0 +1,23 @@
+<!-- YelpCamp = YelpNutrition-->
+
+<%- include("../partials/header.ejs") %>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-1 col-sm-2 col-md-3 col-lg-4"></div>
+        <div class="col-10 col-sm-8 col-md-6 col-lg-4">
+                <div class="text-center">
+                <h1>Edit <em><%= comment_entry.author.username %>'s</em> comment on: <em><%= entry.name %></em></h1>
+                <form action="/campgrounds/<%= entry._id%>/comments/<%= comment_entry._id %>?_method=PUT" method="POST">
+                    <div class="form-group">
+                        <div class="form-group row mx-auto"><div class="col-12"><input type="text" class="form-control form-control-lg" placeholder="text" name="comment[text]" value="<%= comment_entry.text %>"></div></div>
+                        <div class="form-group row mx-auto"><div class="col-12"><button type="submit" class="btn btn-success btn-lg w-100">Submit Edit</button></div></div>
+                        <div class="row text-left mx-auto"><div class="col-12"><a class="" href="/campgrounds/<%= entry._id%>">Go back</a></div></div>
+                    </div>
+                </form>
+                </div>
+        </div>
+        <div class="col-1 col-sm-2 col-md-3 col-lg-4"></div>
+    </div>
+</div>
+<%- include("../partials/footer.ejs") %>

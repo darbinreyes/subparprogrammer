@@ -28,7 +28,7 @@ function isLoggedIn(req, resp, next){ // next = next thing that needs to be call
 // the user is not logged in.
 router.get("/new", isLoggedIn, function(exp_request, exp_response){
     // Form for adding a comment.
-    console.log("GET @ /camgrounds/" + exp_request.params.id + "/comments/new");
+    console.log(exp_request.method + " @ " + exp_request.originalUrl);
     Nutrition.findById(exp_request.params.id, function(err, entry) {
         if(err) {
             console.log("findById() failed: ");
@@ -59,11 +59,11 @@ router.post("/", isLoggedIn, function(exp_request, exp_response){
                     console.log(err);
                 } else {
                     console.log("create() successful: ");
-                    console.log(exp_request.user);
-                    console.log(created_comment);
+                    //console.log(exp_request.user);
+                    //console.log(created_comment);
                     created_comment.author.id = exp_request.user._id;
                     created_comment.author.username = exp_request.user.username;
-                    console.log(created_comment);
+                    //console.log(created_comment);
                     // YOU CREATED A NEW COMMENT BUT SINCE YOU MODIFIED IT BY
                     // ADDING id and username you must save it! DONT FORGET TO
                     // SAVE THE COMMENT AFTER
@@ -87,22 +87,91 @@ router.post("/", isLoggedIn, function(exp_request, exp_response){
 });
 
 // Edit comment route - GET the edit form
-// router.get("/:cid/edit", function(exp_request, exp_response) {
-//     console.log(exp_request.method + " @ " + exp_request.originalUrl);
+router.get("/:cid/edit", function(exp_request, exp_response) {
+    console.log(exp_request.method + " @ " + exp_request.originalUrl);
 
-//     // Get the details of the DB entry with given ID. So we can prefill the edit
-//     // form.
-//     Nutrition.findById(exp_request.params.id, function(err, entry) {
-//         if(err) {
-//             console.log("findById() failed: ");
-//             console.log(err);
-//             exp_response.send(".findById() error. Sorry.");
-//         } else {
-//             console.log("findById() successful. Entry: ");
-//             exp_response.render("campgrounds/edit.ejs", {entry: entry});
-//         }
-//     });
 
-// });
+    Nutrition.findById(exp_request.params.id, function(err, entry) {
+        if(err) {
+            console.log("findById() failed: ");
+            console.log(err);
+        } else {
+            console.log("findById() successful. Entry: ");
+            //exp_response.render("comments/edit.ejs", {entry: entry});
+            // Get the details of the DB entry with given ID. So we can prefill the edit
+            // form.
+            Comment.findById(exp_request.params.cid, function(err, comment_entry) {
+                if(err) {
+                    console.log("findById() failed: ");
+                    console.log(err);
+                    exp_response.send(".findById() error. Sorry.");
+                } else {
+                    console.log("findById() successful. Entry: ");
+                    exp_response.render("comments/edit.ejs", {entry: entry, comment_entry: comment_entry});
+                }
+            });
+        }
+    });
+
+
+});
+
+// Update comment route - PUT to execute and save an edit
+router.put("/:cid", function(exp_request, exp_response) {
+    console.log(exp_request.method + " @ " + exp_request.originalUrl);
+
+    // Save the edited/updated/modified DB comment entry.
+    exp_request.body.comment.text = exp_request.sanitize(exp_request.body.comment.text);
+
+    // Update the comment DB entry and redirect to its show page.
+    Comment.findByIdAndUpdate(exp_request.params.cid, exp_request.body.comment, function(err, updated_comment_entry){
+        if(err) {
+            console.log(".findByIdAndUpdate() error: ");
+            console.log(err);
+            exp_response.send(".findByIdAndUpdate() error. Sorry.");
+        } else {
+            console.log("Updated entry: ");
+            exp_response.redirect("/campgrounds/" + exp_request.params.id);
+        }
+    });
+});
+
+router.delete("/:cid", function(exp_request, exp_response) {
+    console.log(exp_request.method + " @ " + exp_request.originalUrl);
+
+    // Delete the specified comment. In addition to deleting the DB entry
+    // corresponding to a comment we probably need to remove the association in
+    // the DB.comments array.
+    Nutrition.findById(exp_request.params.id, function(err, entry){
+        if(err) {
+            console.log(".findById() error: ");
+            console.log(err);
+            exp_response.send(".findById() error. Sorry.");
+        } else {
+            console.log("found entry: ");
+            // Delete from entry.comments the comment association for the
+            // comment being deleted.
+            entry.comments.forEach(function(currentValue, index, array) {
+                if(currentValue.equals(exp_request.params.cid)) {
+                    console.log("Comment id match");
+                    array.splice(index, 1); // Remove from comments array.
+                    entry.save(); // Save updated DB entry.
+                    // Delete the comment itself from the DB.
+                    Comment.findByIdAndRemove(currentValue, function(err, removed_comment){
+                        if(err) {
+                            console.log("comment .findByIdAndRemove() error: ");
+                            console.log(err);
+                            exp_response.send("comment .findByIdAndRemove() error.");
+                        } else {
+                            console.log("Associated comment deleted.");
+                            exp_response.redirect("/campgrounds/" + exp_request.params.id);
+                        }
+                    });
+                    return;
+                }
+            }); // forEach
+        }
+    });
+});
 
 module.exports = router;
