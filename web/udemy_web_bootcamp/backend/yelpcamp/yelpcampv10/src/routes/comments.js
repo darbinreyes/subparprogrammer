@@ -23,6 +23,33 @@ function isLoggedIn(req, resp, next){ // next = next thing that needs to be call
   resp.redirect("/login");
 }
 
+function checkCommentOwnership(req, resp, next) {
+  console.log("checkCommentOwnership() middleware.");
+  // if user is logged in and user is the owner of the comment then move on
+  // to the next middleware. Otherwise redirect them to where they came from.
+  if(req.isAuthenticated()) {
+    // Fetch the DB entry, the author is contained in it.
+    Comment.findById(req.params.cid, function(err, entry) {
+        if(err) {
+            console.log("findById() failed: ");
+            console.log(err);
+            resp.send(".findById() error. Sorry.");
+        } else {
+            console.log("findById() successful. Entry: ");
+            // Test ownership.
+            if(req.user._id.equals(entry.author.id)) {
+              next(); // Move on to next middleware
+            } else {
+              resp.send("You are not the owner. The owner is " + entry.author.username + " you are " + req.user.username + ".");
+            }
+        }
+    });
+  } else {
+    resp.send("You must be logged in, sorry."); // alternative: resp.redirect("back")
+  }
+}
+
+
 // The use of isLoggedIn() here is "middleware" that prevents access to the new
 // comment form unless a user is logged in. It redirects to the /login page if
 // the user is not logged in.
@@ -87,7 +114,7 @@ router.post("/", isLoggedIn, function(exp_request, exp_response){
 });
 
 // Edit comment route - GET the edit form
-router.get("/:cid/edit", function(exp_request, exp_response) {
+router.get("/:cid/edit", checkCommentOwnership, function(exp_request, exp_response) {
     console.log(exp_request.method + " @ " + exp_request.originalUrl);
 
 
@@ -117,7 +144,7 @@ router.get("/:cid/edit", function(exp_request, exp_response) {
 });
 
 // Update comment route - PUT to execute and save an edit
-router.put("/:cid", function(exp_request, exp_response) {
+router.put("/:cid", checkCommentOwnership, function(exp_request, exp_response) {
     console.log(exp_request.method + " @ " + exp_request.originalUrl);
 
     // Save the edited/updated/modified DB comment entry.
@@ -136,7 +163,7 @@ router.put("/:cid", function(exp_request, exp_response) {
     });
 });
 
-router.delete("/:cid", function(exp_request, exp_response) {
+router.delete("/:cid", checkCommentOwnership, function(exp_request, exp_response) {
     console.log(exp_request.method + " @ " + exp_request.originalUrl);
 
     // Delete the specified comment. In addition to deleting the DB entry

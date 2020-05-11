@@ -4206,6 +4206,8 @@ END.
 * // expect add routes to update and delete comments.
 * // add buttons to do update and delete comment.
 * // add middleware to protect update and delete unless logged in as owner.
+
+* // next: only allow comment edit ad delete if logged in as author of the comment.
 ### 360. Note about Comment Destroy lecture
 ### 361. Comment Destroy
 ### 362. Comment Authorization 

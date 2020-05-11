@@ -22,7 +22,7 @@ function isLoggedIn(req, resp, next){ // next = next thing that needs to be call
 function checkCampgroundOwnership(req, resp, next) {
   console.log("checkCampgroundOwnership() middleware.");
   // if user is logged in and user is the owner of the campground then move on
-  // to the next middleware. Otherwise redirect then to where they came from.
+  // to the next middleware. Otherwise redirect them to where they came from.
   if(req.isAuthenticated()) {
     // Fetch the DB entry, the author is contained in it.
     Nutrition.findById(req.params.id, function(err, entry) {
@@ -44,6 +44,7 @@ function checkCampgroundOwnership(req, resp, next) {
     resp.send("You must be logged in, sorry."); // alternative: resp.redirect("back")
   }
 }
+
 // Add a GET request handler for /campgrounds.
 router.get("/", function (exp_request, exp_response) {
     console.log(exp_request.method + " @ " + exp_request.originalUrl);
