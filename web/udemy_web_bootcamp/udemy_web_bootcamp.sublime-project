@@ -14,5 +14,8 @@
             //"follow_symlinks": true,
             "path": "/Users/darbinreyes/dev/private_dev/subparprogrammer/web/udemy_web_bootcamp/"
         }
-    ]
+    ],
+    "settings": {
+        "tab_size": 2
+    }
 }

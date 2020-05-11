@@ -19,9 +19,34 @@ function isLoggedIn(req, resp, next){ // next = next thing that needs to be call
   resp.redirect("/login");
 }
 
+function checkCampgroundOwnership(req, resp, next) {
+  console.log("checkCampgroundOwnership() middleware.");
+  // if user is logged in and user is the owner of the campground then move on
+  // to the next middleware. Otherwise redirect then to where they came from.
+  if(req.isAuthenticated()) {
+    // Fetch the DB entry, the author is contained in it.
+    Nutrition.findById(req.params.id, function(err, entry) {
+        if(err) {
+            console.log("findById() failed: ");
+            console.log(err);
+            resp.send(".findById() error. Sorry.");
+        } else {
+            console.log("findById() successful. Entry: ");
+            // Test ownership.
+            if(req.user._id.equals(entry.author.id)) {
+              next(); // Move on to next middleware
+            } else {
+              resp.send("You are not the owner. The owner is " + entry.author.username + " you are " + req.user.username + ".");
+            }
+        }
+    });
+  } else {
+    resp.send("You must be logged in, sorry."); // alternative: resp.redirect("back")
+  }
+}
 // Add a GET request handler for /campgrounds.
 router.get("/", function (exp_request, exp_response) {
-    console.log("GET @ /campgrounds.");
+    console.log(exp_request.method + " @ " + exp_request.originalUrl);
     // Display the nutritions array obtained from the DB.
     Nutrition.find({}, function(err, nutritions){
         if(err) {
@@ -36,7 +61,7 @@ router.get("/", function (exp_request, exp_response) {
 });
 
 router.post("/", isLoggedIn, function (exp_request, exp_response){
-    console.log("POST @ /campgrounds.");
+    console.log(exp_request.method + " @ " + exp_request.originalUrl);
     // Get form data specifying what will be added.
     // Add new entry to DB.
     // redirect to /campgrounds.
@@ -69,14 +94,14 @@ router.post("/", isLoggedIn, function (exp_request, exp_response){
 });
 
 router.get("/new", isLoggedIn, function (exp_request, exp_response) {
-    console.log("GET @ /campgrounds/new.");
+    console.log(exp_request.method + " @ " + exp_request.originalUrl);
     // Show the form for adding a new entry to the DB.
     exp_response.render("campgrounds/new.ejs");
 });
 
 router.get("/:id", function(exp_request, exp_response){
     // Example valid ID: 5e878925d90bb0b95ec6bf14, string, 24 chars.
-    console.log("GET @ /camgrounds/" + exp_request.params.id);
+    console.log(exp_request.method + " @ " + exp_request.originalUrl);
 
     // TODO/FYI: App crashes/hits and error when ID argument below is invalid
     // per above.
@@ -96,8 +121,8 @@ router.get("/:id", function(exp_request, exp_response){
 });
 
 // Edit route - GET the edit form
-router.get("/:id/edit", function(exp_request, exp_response) {
-    console.log(exp_request.method + " @ " + exp_request.originalUrl)
+router.get("/:id/edit", checkCampgroundOwnership, function(exp_request, exp_response) {
+    console.log(exp_request.method + " @ " + exp_request.originalUrl);
 
     // Get the details of the DB entry with given ID. So we can prefill the edit
     // form.
@@ -115,8 +140,8 @@ router.get("/:id/edit", function(exp_request, exp_response) {
 });
 
 // Update route - PUT to execute and save an edit
-router.put("/:id", function(exp_request, exp_response) {
-    console.log(exp_request.method + " @ " + exp_request.originalUrl)
+router.put("/:id", checkCampgroundOwnership, function(exp_request, exp_response) {
+    console.log(exp_request.method + " @ " + exp_request.originalUrl);
     // Save the edited/updated/modified DB entry.
 
     exp_request.body.entry.name = exp_request.sanitize(exp_request.body.entry.name);
@@ -137,8 +162,8 @@ router.put("/:id", function(exp_request, exp_response) {
 });
 
 // Delete the DB entry specified by id.
-router.delete("/:id", function(exp_request, exp_response) {
-    console.log(exp_request.method + " @ " + exp_request.originalUrl)
+router.delete("/:id", checkCampgroundOwnership, function(exp_request, exp_response) {
+    console.log(exp_request.method + " @ " + exp_request.originalUrl);
     // Save the edited/updated/modified DB entry.
 
     Nutrition.findByIdAndRemove(exp_request.params.id, function(err, removed_entry){
@@ -163,7 +188,7 @@ router.delete("/:id", function(exp_request, exp_response) {
                     }
                 });
 
-            });
+            }); // forEach
             exp_response.redirect("/campgrounds");
         }
     });

@@ -86,4 +86,23 @@ router.post("/", isLoggedIn, function(exp_request, exp_response){
     });
 });
 
+// Edit comment route - GET the edit form
+// router.get("/:cid/edit", function(exp_request, exp_response) {
+//     console.log(exp_request.method + " @ " + exp_request.originalUrl);
+
+//     // Get the details of the DB entry with given ID. So we can prefill the edit
+//     // form.
+//     Nutrition.findById(exp_request.params.id, function(err, entry) {
+//         if(err) {
+//             console.log("findById() failed: ");
+//             console.log(err);
+//             exp_response.send(".findById() error. Sorry.");
+//         } else {
+//             console.log("findById() successful. Entry: ");
+//             exp_response.render("campgrounds/edit.ejs", {entry: entry});
+//         }
+//     });
+
+// });
+
 module.exports = router;

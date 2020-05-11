@@ -17,21 +17,20 @@
                 <h5 class="card-title"><a href="#"><%= entry.name %></a> <span class="float-right"><%= entry.energy %> kcal/100g</span></h5>
                 <p class="card-text"><%= entry.description %></p>
                 <p class="card-text"> <em> Submitted by <%= entry.author.username %></em></p>
-
-                <!-- Only show edit and delete buttons if logged in-->
+                <!-- Only show edit and delete buttons if logged in as the owner -->
                 <% if(currentUser === undefined) { %>
                     <!-- Not logged in -->
                 <% } else { %>
-                    <p class="card-text"> <a class="btn btn-primary" href="/campgrounds/<%= entry._id %>/edit">Edit Entry</a></p>
-
-                    <form action="/campgrounds/<%= entry._id %>?_method=DELETE" method="POST">
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-danger">Delete Entry</button>
-                        </div>
-                    </form>
+                     <% if(currentUser._id.equals(entry.author.id)) { %>
+                        <p class="card-text"> <a class="btn btn-primary" href="/campgrounds/<%= entry._id %>/edit">Edit Entry</a></p>
+                        <form action="/campgrounds/<%= entry._id %>?_method=DELETE" method="POST">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-danger">Delete Entry</button>
+                            </div>
+                        </form>
+                     <% } %>
                 <% } %>
                 <!-- ------------------------------------------------ -->
-
               </div>
             </div>
             <div class="container border bg-light mt-3">
@@ -43,6 +42,7 @@
                             <div class="col-12">
                                 <p class="mb-0"><strong><%= currentValue.author.username %></strong><span class="float-right">7 days ago</span></p>
                                 <p><%= currentValue.text %></p>
+                                <p><a class="btn btn-primary" href="/campgrounds/<%= entry._id %>/comments/<%= currentValue._id %>/edit">Edit Comment</a></p>
                             </div>
                         </div>
                     <% }); %>

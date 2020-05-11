@@ -4194,9 +4194,18 @@ END.
 * authentication (previously covered) = verify someone is who they say they are.
 * vs. authorization = permissions.
 * - you can't view the edit form unless you own the campground.
-* // my attempt - implementing behaviour such that only the owner can edit a DB entry, - if currently logged in user == DB entry owner - display update form else - send("You don't own this post, sorry.") - else proceed to show edit form - do the same to protect a direct PUT at the campground. - expect to use some middleware.
+* in edit campground route, if user logged in, is the current user == author, if not redirect, if not logged in redirect.
+* if(req.isAuthenticated()) - findbyid callback, on success, foundcamp.author.id.equals(req.user._id) // because author.id is actually an object. if permission, render.edit.ejs. else send(not author) // will he pass args to middleware? or return from middle ware inside campground. checkCampgroundOwnership(). - if not logged in redirect(back) - if author check passes - instead of render edit.ejs, call next() - not return next(); - else redirect(back) -- add new middleware // clearly the call to next() will not return control to the caller. 
+* test new campground edit functionality.
+
 ### 358. Campground Authorization Part 2
+
+* protect remaining route handlers with middleware - hide buttons if not logged in as owner.
+
 ### 359. Comment Edit and Update
+* // expect add routes to update and delete comments.
+* // add buttons to do update and delete comment.
+* // add middleware to protect update and delete unless logged in as owner.
 ### 360. Note about Comment Destroy lecture
 ### 361. Comment Destroy
 ### 362. Comment Authorization 
