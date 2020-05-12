@@ -29,7 +29,7 @@ const mongoose = require("mongoose");
 const methodOverride = require('method-override');
 // We use express-sanitizer to remove e.g. script tags from user text inputs.
 const expressSanitizer = require("express-sanitizer");
-
+const flash = require("connect-flash"); // For user messages.
 
 
 /************* Authentication related requires() START **/
@@ -62,6 +62,9 @@ const User = require("./models/user"); // mongoose model for Users.
 
 /************* Express setup START **/
 const app = express();
+
+app.use(flash()); // Tell express to use connect-flash - for user messages.
+
 // Tell express where to look for e.g. CSS files and images.
 app.use(express.static("public"));
 
