@@ -11,57 +11,14 @@ const router = express.Router({mergeParams: true});
 
 const Nutrition = require("../models/nutrition");
 const Comment = require("../models/comment");
-
-/*
-  Middleware for the preventing access to "/campgrounds/:id/comments/new"
-  unless a user is logged in. Also, see below post @ /login.
-*/
-function isLoggedIn(req, resp, next){ // next = next thing that needs to be called.
-  console.log("isLoggedIn() middleware.");
-
-  if(req.isAuthenticated()) { // If logged in successfully. This is a passport method.
-    console.log(".isAuthenticated().");
-    return next(); // "move on to the next middleware"
-  }
-  // else, login failed.
-  console.log("NOT .isAuthenticated().");
-  resp.redirect("/login");
-}
-
-function checkCommentOwnership(req, resp, next) {
-  console.log("checkCommentOwnership() middleware.");
-  /*
-    If user is logged in and user is the owner of the comment then move on
-    to the next middleware. Otherwise redirect them to where they came from.
-  */
-  if(req.isAuthenticated()) {
-    // Fetch the DB entry, the author is contained in it.
-    Comment.findById(req.params.cid, function(err, entry) {
-      if(err) {
-        console.log("findById() failed: ");
-        console.log(err);
-        resp.send(".findById() error. Sorry.");
-      } else {
-        console.log("findById() successful. Entry: ");
-        // Test ownership.
-        if(req.user._id.equals(entry.author.id)) {
-          next(); // Move on to next middleware
-        } else {
-          resp.send("You are not the owner. The owner is " + entry.author.username + " you are " + req.user.username + ".");
-        }
-      }
-    });
-  } else {
-    resp.send("You must be logged in, sorry."); // alternative: resp.redirect("back")
-  }
-}
+const middleware = require("../middleware");
 
 /*
   The use of isLoggedIn() here is "middleware" that prevents access to the new
   comment form unless a user is logged in. It redirects to the /login page if
   the user is not logged in.
 */
-router.get("/new", isLoggedIn, function(exp_request, exp_response) {
+router.get("/new", middleware.isLoggedIn, function(exp_request, exp_response) {
   // Form for adding a comment.
   console.log(exp_request.method + " @ " + exp_request.originalUrl);
   Nutrition.findById(exp_request.params.id, function(err, entry) {
@@ -80,7 +37,7 @@ router.get("/new", isLoggedIn, function(exp_request, exp_response) {
   (e.g. using POSTman or curl) to /campgrounds/:id/comments unless the user is
   logged in. It redirects to the /login page if the user is not logged in.
 */
-router.post("/", isLoggedIn, function(exp_request, exp_response) {
+router.post("/", middleware.isLoggedIn, function(exp_request, exp_response) {
     console.log(exp_request.method + " @ " + exp_request.originalUrl);
     // Add a new comment to the DB entry with the specified ID.
     Nutrition.findById(exp_request.params.id, function(err, entry) {
@@ -122,7 +79,7 @@ router.post("/", isLoggedIn, function(exp_request, exp_response) {
 });
 
 // Edit comment route - GET the edit form
-router.get("/:cid/edit", checkCommentOwnership, function(exp_request, exp_response) {
+router.get("/:cid/edit", middleware.checkCommentOwnership, function(exp_request, exp_response) {
   console.log(exp_request.method + " @ " + exp_request.originalUrl);
 
   Nutrition.findById(exp_request.params.id, function(err, entry) {
@@ -150,7 +107,7 @@ router.get("/:cid/edit", checkCommentOwnership, function(exp_request, exp_respon
 });
 
 // Update comment route - PUT to execute and save an edit
-router.put("/:cid", checkCommentOwnership, function(exp_request, exp_response) {
+router.put("/:cid", middleware.checkCommentOwnership, function(exp_request, exp_response) {
   console.log(exp_request.method + " @ " + exp_request.originalUrl);
 
   // Save the edited/updated/modified DB comment entry.
@@ -220,7 +177,7 @@ router.put("/:cid", checkCommentOwnership, function(exp_request, exp_response) {
   mongoose is smart enough to delete associations by reference upon deleting the
   comment from the DB.
 */
-router.delete("/:cid", checkCommentOwnership, function(exp_request, exp_response) {
+router.delete("/:cid", middleware.checkCommentOwnership, function(exp_request, exp_response) {
   console.log(exp_request.method + " @ " + exp_request.originalUrl);
 
   /*

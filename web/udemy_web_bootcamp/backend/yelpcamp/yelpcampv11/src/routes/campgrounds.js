@@ -1,4 +1,5 @@
 // @flow
+
 // Express is our HTTP server.
 const express = require("express");
 // This is how we can export our routes into app.js.
@@ -6,46 +7,7 @@ const router = express.Router();
 
 const Nutrition = require("../models/nutrition");
 const Comment = require("../models/comment");
-
-// Middleware for the preventing access to a page unless a user is logged in.
-function isLoggedIn(req, resp, next){ // next = next thing that needs to be called
-  console.log("isLoggedIn() middleware.");
-  if(req.isAuthenticated()) { // If logged in successfully. This is a passport method.
-    console.log(".isAuthenticated().");
-    return next(); // "move on to the next middleware"
-  }
-  // else, login failed.
-  console.log("NOT .isAuthenticated().");
-  resp.redirect("/login");
-}
-
-function checkCampgroundOwnership(req, resp, next) {
-  console.log("checkCampgroundOwnership() middleware.");
-  /*
-    If user is logged in and user is the owner of the campground then move on
-    to the next middleware. Otherwise redirect them to where they came from.
-  */
-  if(req.isAuthenticated()) {
-    // Fetch the DB entry, the author is contained in it.
-    Nutrition.findById(req.params.id, function(err, entry) {
-      if(err) {
-        console.log("findById() failed: ");
-        console.log(err);
-        resp.send(".findById() error. Sorry.");
-      } else {
-        console.log("findById() successful. Entry: ");
-        // Test ownership.
-        if(req.user._id.equals(entry.author.id)) {
-          next(); // Move on to next middleware
-        } else {
-          resp.send("You are not the owner. The owner is " + entry.author.username + " you are " + req.user.username + ".");
-        }
-      }
-    });
-  } else {
-    resp.send("You must be logged in, sorry."); // alternative: resp.redirect("back")
-  }
-}
+const middleware = require("../middleware");
 
 // Add a GET request handler for /campgrounds.
 router.get("/", function (exp_request, exp_response) {
@@ -62,7 +24,7 @@ router.get("/", function (exp_request, exp_response) {
   });
 });
 
-router.post("/", isLoggedIn, function (exp_request, exp_response) {
+router.post("/", middleware.isLoggedIn, function (exp_request, exp_response) {
   console.log(exp_request.method + " @ " + exp_request.originalUrl);
   // Get form data specifying what will be added.
   // Add new entry to DB.
@@ -95,7 +57,7 @@ router.post("/", isLoggedIn, function (exp_request, exp_response) {
 
 });
 
-router.get("/new", isLoggedIn, function (exp_request, exp_response) {
+router.get("/new", middleware.isLoggedIn, function (exp_request, exp_response) {
   console.log(exp_request.method + " @ " + exp_request.originalUrl);
   // Show the form for adding a new entry to the DB.
   exp_response.render("campgrounds/new.ejs");
@@ -127,7 +89,7 @@ router.get("/:id", function(exp_request, exp_response) {
 });
 
 // Edit route - GET the edit form
-router.get("/:id/edit", checkCampgroundOwnership, function(exp_request, exp_response) {
+router.get("/:id/edit", middleware.checkCampgroundOwnership, function(exp_request, exp_response) {
   console.log(exp_request.method + " @ " + exp_request.originalUrl);
   /*
     Get the details of the DB entry with given ID. So we can prefill the edit
@@ -147,7 +109,7 @@ router.get("/:id/edit", checkCampgroundOwnership, function(exp_request, exp_resp
 });
 
 // Update route - PUT to execute and save an edit
-router.put("/:id", checkCampgroundOwnership, function(exp_request, exp_response) {
+router.put("/:id", middleware.checkCampgroundOwnership, function(exp_request, exp_response) {
   console.log(exp_request.method + " @ " + exp_request.originalUrl);
 
   // Save the edited/updated/modified DB entry.
@@ -169,7 +131,7 @@ router.put("/:id", checkCampgroundOwnership, function(exp_request, exp_response)
 });
 
 // Delete the DB entry specified by id.
-router.delete("/:id", checkCampgroundOwnership, function(exp_request, exp_response) {
+router.delete("/:id", middleware.checkCampgroundOwnership, function(exp_request, exp_response) {
   console.log(exp_request.method + " @ " + exp_request.originalUrl);
 
   // Delete the DB entry.
