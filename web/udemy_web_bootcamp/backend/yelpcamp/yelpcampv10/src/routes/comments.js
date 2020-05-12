@@ -169,48 +169,71 @@ router.put("/:cid", checkCommentOwnership, function(exp_request, exp_response) {
   });
 });
 
+// router.delete("/:cid", checkCommentOwnership, function(exp_request, exp_response) {
+//   console.log(exp_request.method + " @ " + exp_request.originalUrl);
+
+//   /*
+//     Delete the specified comment. In addition to deleting the DB entry
+//     corresponding to a comment we probably need to remove the association in
+//     the DB comments array.
+//   */
+//   Nutrition.findById(exp_request.params.id, function(err, entry) {
+//     if(err) {
+//       console.log(".findById() error: ");
+//       console.log(err);
+//       exp_response.send(".findById() error. Sorry.");
+//     } else {
+//       console.log("found entry: ");
+//       /*
+//         Delete from entry.comments the comment association for the
+//         comment being deleted.
+//       */
+//       entry.comments.forEach(function(currentValue, index, array) {
+//         if(currentValue.equals(exp_request.params.cid)) {
+//           console.log("Comment id match");
+//           /*
+//             Remove from comments array. FYI: It works without this but
+//             I'm not sure why. The guy doesn't do this.
+//           */
+//           array.splice(index, 1);
+//           entry.save(); // Save updated DB entry.
+//           // Delete the comment itself from the DB.
+//           Comment.findByIdAndRemove(currentValue, function(err, removed_comment) {
+//             if(err) {
+//               console.log("comment .findByIdAndRemove() error: ");
+//               console.log(err);
+//               exp_response.send("comment .findByIdAndRemove() error.");
+//             } else {
+//               console.log("Associated comment deleted.");
+//               exp_response.redirect("/campgrounds/" + exp_request.params.id);
+//             }
+//           });
+//           return;
+//         }
+//       }); // forEach
+//     }
+//   });
+// });
+
+/*
+  This is a simplified implementation of delete comment above. Apparently
+  mongoose is smart enough to delete associations by reference upon deleting the
+  comment from the DB.
+*/
 router.delete("/:cid", checkCommentOwnership, function(exp_request, exp_response) {
   console.log(exp_request.method + " @ " + exp_request.originalUrl);
 
   /*
-    Delete the specified comment. In addition to deleting the DB entry
-    corresponding to a comment we probably need to remove the association in
-    the DB comments array.
+    Delete the comment with DB id = cid.
   */
-  Nutrition.findById(exp_request.params.id, function(err, entry) {
+  Comment.findByIdAndRemove(exp_request.params.cid, function(err, removed_comment) {
     if(err) {
-      console.log(".findById() error: ");
+      console.log("comment .findByIdAndRemove() error: ");
       console.log(err);
-      exp_response.send(".findById() error. Sorry.");
+      exp_response.send("comment .findByIdAndRemove() error.");
     } else {
-      console.log("found entry: ");
-      /*
-        Delete from entry.comments the comment association for the
-        comment being deleted.
-      */
-      entry.comments.forEach(function(currentValue, index, array) {
-        if(currentValue.equals(exp_request.params.cid)) {
-          console.log("Comment id match");
-          /*
-            Remove from comments array. FYI: It works without this but
-            I'm not sure why. The guy doesn't do this.
-          */
-          array.splice(index, 1);
-          entry.save(); // Save updated DB entry.
-          // Delete the comment itself from the DB.
-          Comment.findByIdAndRemove(currentValue, function(err, removed_comment) {
-            if(err) {
-              console.log("comment .findByIdAndRemove() error: ");
-              console.log(err);
-              exp_response.send("comment .findByIdAndRemove() error.");
-            } else {
-              console.log("Associated comment deleted.");
-              exp_response.redirect("/campgrounds/" + exp_request.params.id);
-            }
-          });
-          return;
-        }
-      }); // forEach
+      console.log("Associated comment deleted.");
+      exp_response.redirect("/campgrounds/" + exp_request.params.id);
     }
   });
 });
