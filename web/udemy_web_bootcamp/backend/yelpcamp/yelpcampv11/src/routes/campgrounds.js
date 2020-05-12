@@ -156,6 +156,7 @@ router.delete("/:id", middleware.checkCampgroundOwnership, function(exp_request,
             }
         });
       }); // forEach
+      exp_request.flash("success", "Entry deleted.");
       exp_response.redirect("/campgrounds");
     }
   });

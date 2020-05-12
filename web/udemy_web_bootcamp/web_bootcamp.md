@@ -4226,8 +4226,30 @@ END.
 
 --- 
 ### 363. Refactoring Middleware 
+* mkdir v10/middleware, touch index.js - name explained later.
+* module.exports = middlewareObj
+* Obj.checkCampgroundOwnership = function ....
+* cp isLoggedIn() etc. into this file.
+* add requires to files that use these function
+* if you require a dir, index.js is the default name , index.js is special name.
+* update routes/ campground.js, comments.js
+* check need requires in middleware/index.js
+
 ### 364. Flash Messages: Installation 
+* user messages using connect-flash package.
+* you logged in, you logged out, user already exists, your don't have permission to do that, you must be signed in.
+* mkdir v11.
+* Beware of outdated docs on connect-flash.
+* npm install connect-flash.
+* flash = require
+* tell express to use it, app.use(flash())
+* usage, e.g. in isLoggedIn(), req.flash("success", "Login first sir"); before redir(/login)
+* in get(/login ... pass to render {message: req.flash("error")}
+
 ### 365. Note about Flash Messages 
+* small bug where you have to click the register button twice to see the flash message.
+* be sure that the following line: app.use(flash());  comes before your passport configuration in app.js
+
 ### 366. Flash Messages: Adding Bootstrap 
 ### 367. Flash Messages: Helpful Errors 
 ### 368. Note about error handling 

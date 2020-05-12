@@ -18,6 +18,7 @@ function isLoggedIn(req, resp, next) { // next = next thing that needs to be cal
   }
   // else, login failed.
   console.log("NOT .isAuthenticated().");
+  req.flash("error", "You must be logged in to do that brah.");
   resp.redirect("/login");
 }
 
@@ -33,19 +34,25 @@ function checkCampgroundOwnership(req, resp, next) {
       if(err) {
         console.log("findById() failed: ");
         console.log(err);
-        resp.send(".findById() error. Sorry.");
+        // resp.send(".findById() error. Sorry.");
+        req.flash("error", "findById() error. Sorry.");
+        req.redirect("back");
       } else {
         console.log("findById() successful. Entry: ");
         // Test ownership.
         if(req.user._id.equals(entry.author.id)) {
           next(); // Move on to next middleware
         } else {
-          resp.send("You are not the owner. The owner is " + entry.author.username + " you are " + req.user.username + ".");
+          //resp.send("You are not the owner. The owner is " + entry.author.username + " you are " + req.user.username + ".");
+          req.flash("error", "You are not the owner. The owner is " + entry.author.username + " you are " + req.user.username + ".");
+          resp.redirect("/campgrounds/" + req.params.id);
         }
       }
     });
   } else {
-    resp.send("You must be logged in, sorry."); // alternative: resp.redirect("back")
+    //resp.send("You must be logged in, sorry."); // alternative: resp.redirect("back")
+    req.flash("error", "You must be logged in to do that brah.");
+    resp.redirect("/login");
   }
 }
 
@@ -78,19 +85,25 @@ function checkCommentOwnership(req, resp, next) {
       if(err) {
         console.log("findById() failed: ");
         console.log(err);
-        resp.send(".findById() error. Sorry.");
+        //resp.send(".findById() error. Sorry.");
+        req.flash("error", "findById() error. Sorry.");
+        req.redirect("back");
       } else {
         console.log("findById() successful. Entry: ");
         // Test ownership.
         if(req.user._id.equals(entry.author.id)) {
           next(); // Move on to next middleware
         } else {
-          resp.send("You are not the owner. The owner is " + entry.author.username + " you are " + req.user.username + ".");
+          //resp.send("You are not the owner. The owner is " + entry.author.username + " you are " + req.user.username + ".");
+          req.flash("error", "You are not the owner. The owner is " + entry.author.username + " you are " + req.user.username + ".");
+          resp.redirect("/campgrounds/" + req.params.id);
         }
       }
     });
   } else {
-    resp.send("You must be logged in, sorry."); // alternative: resp.redirect("back")
+    //resp.send("You must be logged in, sorry."); // alternative: resp.redirect("back")
+    req.flash("error", "You must be logged in to do that brah.");
+    resp.redirect("/login");
   }
 }
 

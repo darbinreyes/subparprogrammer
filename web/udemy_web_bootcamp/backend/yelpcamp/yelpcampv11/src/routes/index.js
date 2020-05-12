@@ -40,6 +40,7 @@ router.post("/register", function(exp_request, exp_response) {
         console.log("User.register() error: ");
         console.log(err);
         // NOTE the use of "return" here, this is new and is important.
+        exp_request.flash("error", "User.register() error. Sorry. " + err);
         return exp_response.redirect("/register");
       }
       // This is the "middleware" pattern ostensibly.
@@ -60,6 +61,7 @@ router.post("/register", function(exp_request, exp_response) {
           Successfully registered. Login the user and redirect them to a page
           that is appropriate after registration.
         */
+        exp_request.flash("success", "Registered successfully.");
         exp_response.redirect("/campgrounds");
       });
     });
@@ -93,6 +95,7 @@ router.get("/logout", function(exp_request, exp_response){
     inside exp_request.
   */
   exp_request.logout();
+  exp_request.flash("success", "You have been logged out.")
   exp_response.redirect("/campgrounds");
 });
 

@@ -69,6 +69,7 @@ router.post("/", middleware.isLoggedIn, function(exp_request, exp_response) {
                   console.log(err);
                 } else {
                   console.log("save() successful: ");
+                  exp_request.flash("success", "Successfully posted comment.");
                   exp_response.redirect("/campgrounds/" + exp_request.params.id);
                 }
               });
@@ -190,6 +191,7 @@ router.delete("/:cid", middleware.checkCommentOwnership, function(exp_request, e
       exp_response.send("comment .findByIdAndRemove() error.");
     } else {
       console.log("Associated comment deleted.");
+      exp_request.flash("success", "Comment deleted.");
       exp_response.redirect("/campgrounds/" + exp_request.params.id);
     }
   });
