@@ -16,6 +16,7 @@
         }
     ],
     "settings": {
+        // does not seem to take effect
         "tab_size": 2
     }
 }
