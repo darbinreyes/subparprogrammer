@@ -4220,20 +4220,20 @@ END.
 * Refactor middleware to its own file. 
 END.
 
-Section 38: YelpCamp: UI Improvements
+---
 
+# Section 38: YelpCamp: UI Improvements
 
-0 / 10|1hr 19min
-		  363. Refactoring Middleware   11min 
-		  364. Flash Messages: Installation   14min 
-		  365. Note about Flash Messages   1min 
-		  366. Flash Messages: Adding Bootstrap   12min 
-		  367. Flash Messages: Helpful Errors   13min 
-		  368. Note about error handling   1min 
-		  369. Landing Page Refactor - Part One   5min Resources    
-		  370. Landing Page Refactor - Part Two   13min 
-		  371. Dynamic Price Feature   10min Resources    
-		  372. Note about further YelpCamp
-		improvements 
+--- 
+### 363. Refactoring Middleware 
+### 364. Flash Messages: Installation 
+### 365. Note about Flash Messages 
+### 366. Flash Messages: Adding Bootstrap 
+### 367. Flash Messages: Helpful Errors 
+### 368. Note about error handling 
+### 369. Landing Page Refactor - Part One 
+### 370. Landing Page Refactor - Part Two 
+### 371. Dynamic Price Feature 
+### 372. Note about further YelpCamp improvements 
 
 
