@@ -20,7 +20,10 @@ const nutritionSchema = mongoose.Schema({
     comments: [{type: mongoose.Schema.Types.ObjectId, ref: "Comment"}]
 });
 
-// "nutritions" will show up in "mongo shell>>> use yelpnutritionv10; show collections"
-// "mongo shell>>> db.nutritions.find()" will display DB entries.
-// export the DB model
+/*
+  "nutritions" will show up in
+  "mongo shell>>> use yelpnutritionv10; show collections"
+  "mongo shell>>> db.nutritions.find()" will display DB entries.
+  export the DB model
+*/
 module.exports = mongoose.model("Nutrition", nutritionSchema);
