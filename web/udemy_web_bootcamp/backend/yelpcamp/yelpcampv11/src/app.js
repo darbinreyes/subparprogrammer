@@ -48,8 +48,8 @@ const expressSession = require("express-session");
 
 
 /************* Mongoose setup START **/
-// "yelpnutritionv10" will appear in "mongo shell>>> show dbs" list.
-mongoose.connect("mongodb://localhost/yelpnutritionv10", {useNewUrlParser: true, useUnifiedTopology: true});
+// "yelpnutritionv11" will appear in "mongo shell>>> show dbs" list.
+mongoose.connect("mongodb://localhost/yelpnutritionv11", {useNewUrlParser: true, useUnifiedTopology: true});
 
 // Deletes everything in the DB, then adds some initial DB entries.
 const seedDB = require("./seedDB");

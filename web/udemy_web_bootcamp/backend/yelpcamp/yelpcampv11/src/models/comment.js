@@ -16,7 +16,7 @@ const commentSchema = mongoose.Schema({
 
 /*
   "comments" will show up in
-  "mongo shell>>> use yelpnutritionv10; show collections"
+  "mongo shell>>> use yelpnutritionv11; show collections"
   "mongo shell>>> db.comments.find()" will display DB entries.
   export the DB model
 */
