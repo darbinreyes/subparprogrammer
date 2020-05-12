@@ -4252,7 +4252,9 @@ END.
 
 ### 366. Flash Messages: Adding Bootstrap 
 ### 367. Flash Messages: Helpful Errors 
-### 368. Note about error handling 
+### 368. Note about error handling
+
+*  issue with our app in production. The show and edit routes aren't handling errors properly so the application can crash under certain circumstances. 
 ### 369. Landing Page Refactor - Part One 
 ### 370. Landing Page Refactor - Part Two 
 ### 371. Dynamic Price Feature 
