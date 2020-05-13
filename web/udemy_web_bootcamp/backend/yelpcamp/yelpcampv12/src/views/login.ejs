@@ -1,0 +1,12 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container-fluid"> <!-- container-fluid START -->
+<h1>Login buddy.</h1>
+<form action="/login" method="POST">
+  <input type="text" name="username" placeholder="user brah">
+  <input type="password" name="password" placeholder="password brah">
+  <input type="submit" value="Login!">
+</form>
+</div> <!-- container-fluid END -->
+
+<%- include("partials/footer.ejs") %>
