@@ -19,7 +19,7 @@ UserSchema.plugin(passportLocalMongoose);
 
 /*
   "users" will show up in
-  "mongo shell>>> use yelpnutritionv11; show collections"
+  "mongo shell>>> use yelpnutritionv12; show collections"
   "mongo shell>>> db.users.find()" will display all DB entries.
   export the DB model.
 */
