@@ -4254,10 +4254,35 @@ END.
 ### 367. Flash Messages: Helpful Errors 
 ### 368. Note about error handling
 
-*  issue with our app in production. The show and edit routes aren't handling errors properly so the application can crash under certain circumstances. 
+*  issue with our app in production. The show and edit routes aren't handling errors properly so the application can crash under certain circumstances. //  probably the case of invalid ids in the URL params. 
 ### 369. Landing Page Refactor - Part One 
+* copy given html on github - https://github.com/nax3t/background-slider
+* using bootstrap 3.3.5
+* create landing.css
+* CDN modernizer. - checks browser name+ version - add classes to keep things looking good on old browsers. - cross browser compat.
+ 
 ### 370. Landing Page Refactor - Part Two 
+
+* z-index = 1 - position must be = relative for z-index to take effect. static= default position. text-align=center for horiz. align. vertical align - padding top 40vh, vh = view height. I assume 40 must be a percentage . z-index = 1 here since we want the landing text to be on top of the bg images.
+* list-style = none - hides the list bullet points.
+* no-cssanim CSS class - if old browser - don't animate , just show a single bg image.
+* Note use of async for modernizer CDN. script load simultaneously with other assets on the page. Probably a fix for something in case of load on old browser.
+
 ### 371. Dynamic Price Feature 
+* I already did this.
+
 ### 372. Note about further YelpCamp improvements 
+* A dozen new features in the form of separate tutorials.
+
+* x center the landing page header. -
+* FYI. 1vh = 1% of viewport height. in JS console window.innerHeight prints the viewport height.
+* Try using bootstrap 4 carousel component.
+  * https://getbootstrap.com/docs/4.5/components/carousel/
+  * from the start it tells you images are not automatically sized, you need to use utils or custom css for that.
+  
+END.
+
+
+
 
 
