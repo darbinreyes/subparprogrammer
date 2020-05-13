@@ -1,3 +1,7 @@
 h1 {
     color: #181819;
 }
+
+.form-delete-btn-inline {
+  display: inline;
+}

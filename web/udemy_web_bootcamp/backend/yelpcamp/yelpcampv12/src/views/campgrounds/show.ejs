@@ -22,11 +22,9 @@
                     <!-- Not logged in -->
                 <% } else { %>
                      <% if(currentUser._id.equals(entry.author.id)) { %>
-                        <p class="card-text"> <a class="btn btn-primary" href="/campgrounds/<%= entry._id %>/edit">Edit Entry</a></p>
-                        <form action="/campgrounds/<%= entry._id %>?_method=DELETE" method="POST">
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-danger">Delete Entry</button>
-                            </div>
+                        <p class="card-text form-delete-btn-inline"> <a class="btn btn-primary" href="/campgrounds/<%= entry._id %>/edit">Edit Entry</a></p>
+                        <form action="/campgrounds/<%= entry._id %>?_method=DELETE" method="POST" class="form-delete-btn-inline">
+                            <button type="submit" class="btn btn-danger">Delete Entry</button>
                         </form>
                      <% } %>
                 <% } %>
@@ -47,12 +45,10 @@
                                     <!-- Not logged in -->
                                 <% } else { %>
                                     <% if(currentUser._id.equals(currentValue.author.id)) { %>
-                                        <p><a class="btn btn-primary" href="/campgrounds/<%= entry._id %>/comments/<%= currentValue._id %>/edit">Edit Comment</a></p>
+                                        <p class="form-delete-btn-inline"><a class="btn btn-primary" href="/campgrounds/<%= entry._id %>/comments/<%= currentValue._id %>/edit">Edit Comment</a></p>
                                         <!--------- Form button to delete a comment. -->
-                                        <form action="/campgrounds/<%= entry._id %>/comments/<%= currentValue._id %>?_method=DELETE" method="POST">
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-danger">Delete Comment</button>
-                                            </div>
+                                        <form action="/campgrounds/<%= entry._id %>/comments/<%= currentValue._id %>?_method=DELETE" method="POST" class="form-delete-btn-inline">
+                                            <button type="submit" class="btn btn-danger">Delete Comment</button>
                                         </form>
                                         <!--------------------------------------------->
                                     <% } %>
