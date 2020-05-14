@@ -4224,7 +4224,8 @@ END.
 
 # Section 38: YelpCamp: UI Improvements
 
---- 
+---
+ 
 ### 363. Refactoring Middleware 
 * mkdir v10/middleware, touch index.js - name explained later.
 * module.exports = middlewareObj
@@ -4255,6 +4256,7 @@ END.
 ### 368. Note about error handling
 
 *  issue with our app in production. The show and edit routes aren't handling errors properly so the application can crash under certain circumstances. //  probably the case of invalid ids in the URL params. 
+
 ### 369. Landing Page Refactor - Part One 
 * copy given html on github - https://github.com/nax3t/background-slider
 * using bootstrap 3.3.5
@@ -4279,8 +4281,59 @@ END.
 * Try using bootstrap 4 carousel component.
   * https://getbootstrap.com/docs/4.5/components/carousel/
   * from the start it tells you images are not automatically sized, you need to use utils or custom css for that.
+
+#### Figuring out how to use bootstrap 4 carousel to reproduce web course version.
+
+* start with course version - esp use their images, note image sizes, are they equal size?.is it responsive? how does it look on iphone ? The images should be such that they look good when they cover the entire page and centered. so you need to create images to have this visual property. Perhaps need to use photoshop .
+
+* // do below after course deploy section
+
+* Test course version, how it looks with my images.
+
+* lookup how to measure pixel distances in chrome. also how to set crop size in preview.
+
+* do not waste time on trial an error, determine how image will look on different size view ports and then after that figure out the CSS/bootstrap4. start with iPhone viewport. how can it look good on iphone and large external screen?
+
+* download given images. use for testing.
+
+* lookup img element height width attributes. test effect.
+
+* using css background image , set desired  position and perhaps scaling.
+  
+* its hard to imagine a bg image that would look good on both iphone and a big screen. Maybe an image with central region looks good and just center it on all view ports assuming it is large enough. Note the course's version uses black bg and black border images. You can use preview or gimp to add text and a button shape to see how things look without any CSS trial and error. 
+  * The course images are all of different sizes, so identical image sizes is not the cause of my failed recreation. I plugged in my images and they look fine on mobile view ports but not good on external monitor full screen, therefore you do have to be careful about images you use. At least now I have a reference for how the bg image should look.
+  * The course slideshow also is very responsive. Again, the images you choose for the slideshow need to be tested on the different screen sizes.
   
 END.
+
+---
+
+# Section 39: Git and Github
+
+---
+ 373. Intro To Git
+374. Git Init, Add, and Commit
+375. Git Log and Checkout	 376. Note about Git lectures 
+
+* Skipped. I already know how to use git. 
+
+END.
+
+---
+
+# Section 40: Deploying
+
+---
+ 
+### 377. Intro to Deploying and Heroku  
+### 378. Deploying a Simple App Part 1  
+### 379. Note about Heroku CLI	 
+### 380. Deploying a Simple App Part 2  
+### 381. Deploying YelpCamp: Basics  
+### 382. Note about MongoLab  
+### 383. Deploying YelpCamp: MongoLab  
+### 384. Environment Variables 
+
 
 
 
