@@ -4325,15 +4325,58 @@ END.
 
 ---
  
-### 377. Intro to Deploying and Heroku  
-### 378. Deploying a Simple App Part 1  
-### 379. Note about Heroku CLI	 
-### 380. Deploying a Simple App Part 2  
-### 381. Deploying YelpCamp: Basics  
-### 382. Note about MongoLab  
-### 383. Deploying YelpCamp: MongoLab  
-### 384. Environment Variables 
+### 377. Intro to Deploying and Heroku 
+* deploying express app.
+* moving app to own server.
+* adding new features - separation of current version and dev version.
+* heroku - hosting company - free plan.
+* 
+### 378. Deploying a Simple App Part 1 
+* Should I deploy my version of yelpcamp? - conflict with apache? 
+### 379. Note about Heroku CLI	
 
+* `heroku login -i`
+* i = interactive. 
+### 380. Deploying a Simple App Part 2 
+* heroku.com - sign up for free.
+* heroku "toolbelt" is pre-installed on cloud9.
+* in cloud9 - `heroku login`
+* create a local git repo. in project dir. `git init` `git add ...`
+* click - I cloned the app.
+* in cloud9 `heroku create`. this generates a random name and prints URLs ......com + .....git // deploy URL + deploy git.  - also adds remote to local git repo. for fetch+push. See `git remote  -v`. name of remote = heroku. (where usually we see origin).
+* `git push heroku master` - lots of prints related to heroku - remember you are pushing to heroku, not github.com.
+* "debugging heroku" - .com - application error. - check your logs - `heroku logs` - "missing command script "start""
+* every time you push to heroku it initializes your app environ. add start script , git commit, git push heroku master.
+* View app on heroku dashboard.
+* deploying app with mongo DB - little harder. 
+### 381. Deploying YelpCamp: Basics 
+* initial steps to deploy yelpcamp are same as for simple app above.
+* `heroku run ls` - runs ls on current heroku "container".
+* `heroku run npm install ...` also works. 
+### 382. Note about MongoLab 
+* mLab (mongolab) is now MongoDB Atlas, please see ...
+* see how Colt adds the mongolab url to the app
+* you can ignore the other steps regarding mongolab and supplement them with the instructions linked above. 
+### 383. Deploying YelpCamp: MongoLab 
+* 1 solution - host mongo somewhere outside of cloud9. 
+  * http://mongolab.com // dead
+  * https://www.mongodb.com/cloud/atlas/lp/try2?utm_source=bing&utm_campaign=bs_americas_united%20states_search_brand_atlas_desktop&utm_term=mongo&utm_medium=cpc_paid_search&utm_ad=e&msclkid=4b6da8995776119af0e7f624d1d261f1
+* harder but possible - run mongodb on heroku.
+* create free mongolab account - copy `mongodb://...` URL
+* insert in mongoose.connect(".....",)// dbuser, dbpassword) // colt:rusty@xxxx.mongolab.com:3333/yelpcamp
+* create mongolab db user.
+* he tests this in cloud9 first. - note db initially empty.
+* in mongolab - see collections and data.
+* note - dont use same DB for deploy and dev.
+* confirm deployed app can connect to mongolab DB on heroku. 
+### 384. Environment Variables 
+* problem - dev code and deployed code are using the same DB. e.g. what if you want to test deleting a DB entry.
+* 1 solution - comment out deploy db, use local mongo db. - problem - requires you re-comment before `git push heroku -- `
+* solution - use env var to control which DB is used. - e.g. process.env.PORT. 
+* in node process.env is the standard place for env variables.
+* create e.g. process.env.DATABASEURL - export DATABASEURL="......"
+* in heroku GUI - add env. VAR. - also possible with heroku toolbelt
+* nice to have - default mongo db URL.
 
 
 
