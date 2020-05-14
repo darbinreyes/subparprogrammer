@@ -9,6 +9,12 @@ const User = require("../models/user");
 const passport = require("passport"); // Authentication API.
 
 // Add a GET request handler for /.
+router.get("/2", function (exp_request, exp_response) {
+  console.log(exp_request.method + " @ " + exp_request.originalUrl);
+  exp_response.render("landing2.ejs");
+});
+
+// Add a GET request handler for /.
 router.get("/", function (exp_request, exp_response) {
   console.log(exp_request.method + " @ " + exp_request.originalUrl);
   exp_response.render("landing.ejs");
