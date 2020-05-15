@@ -59,5 +59,5 @@
 * Current project status: COMPLETED.
 * See [./python/python3tutorial/reasoning_problem2.py](https://github.com/darbinreyes/subparprogrammer/blob/master/python/python3tutorial/reasoning_problem2.py).
 
-## Project 5: TBD. Something that also serves as interview prep.
+## Project 6: TBD. Transcribe NU lecture 1, remark on silly semaphore question at the end. + Something that also serves as interview prep.
 
