@@ -1,3 +1,4 @@
+# Project status: PAUSED TBD.
 # Implementations of propositions from Euclid's Elements.
 ![Reasoning](ytho.jpg)
 ## Motivation
