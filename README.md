@@ -37,7 +37,7 @@
   
 ## Project 1: Implement propositions from Euclid's Elements in C.
 
-* Current project status: in progress.
+* Current project status: Paused. Reconsidering the utility of this.
 * See [./C/euclid](https://github.com/darbinreyes/subparprogrammer/tree/master/C/euclid).
 
 ## Project 2: Transcribe and take notes on "Reasoning About Programs"
@@ -47,15 +47,17 @@
 
 ## Project 3: Transcribe and take notes on Dijkstra's University of Newcastle Upon Tyne Lecture 2
 
-* Current project status: in progress.
+* Current project status: COMPLETED. Still trying to understand the proof though.
 * See [./Dijkstra/youtube/nu_lecture/lecture2](https://github.com/darbinreyes/subparprogrammer/blob/master/Dijkstra/youtube/nu_lecture/lecture2/nu_lecture2.md).
 
 ## Project 4: Complete the Udemy Web Bootcamp Course.
 
-* Current project status: in progress.
+* Current project status: COMPLETED.
 * See [./web/udemy_web_bootcamp](https://github.com/darbinreyes/subparprogrammer/tree/master/web/udemy_web_bootcamp).
   
 ## Project 5: Implement in python Dijkstra's Problem 2 algorithm from Reasoning About Programs 
-* Current project status: in progress.
+* Current project status: COMPLETED.
 * See [./python/python3tutorial/reasoning_problem2.py](https://github.com/darbinreyes/subparprogrammer/blob/master/python/python3tutorial/reasoning_problem2.py).
+
+## Project 5: TBD. Something that also serves as interview prep.
 
