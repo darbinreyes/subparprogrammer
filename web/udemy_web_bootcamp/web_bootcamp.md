@@ -4378,6 +4378,543 @@ END.
 * in heroku GUI - add env. VAR. - also possible with heroku toolbelt
 * nice to have - default mongo db URL.
 
+---
+
+# Section 41: JavaScript: The Tricky Stuff
+
+---
+ 
+### 385. Keyword This 1 - Introduction and Global
+
+* this
+* determined by exec. context - 4 rules
+ * global
+ * object/implicit
+ * explicit
+ * new
+ 
+* global context
+ * in browser - global context, this is a reference to a window object
+ * by default every var declared is attached to the global object.
+ 
+ ```
+ //#0
+ // in browser window exists as a global var.
+ var person = "caca" // == window.person
+ 
+ ```
+
+* outside of an object this references some default global var.
+
+### 386. Keyword This 2 - Global With Strict 
+* this, inside of a function.
+
+```
+var data = {}; // declares an object
+data.poo = "caca" // adds key=poo, value="caca" to empty object.
+
+///
+
+this.cartman
+undefined
+
+var cartman = "eric"
+undefined
+
+this.cartman
+"eric"
+
+```
+
+* inside of a function, this refers to the global this.
+* adding members to the global object makes them accessible as local variables in the global scope, i.e. the inverse of  //#0 above holds.
+
+```
+this.poo
+undefined
+
+function donothing() { this.poo = "ca";}
+undefined
+
+this.poo
+undefined
+
+donothing()
+undefined
+
+this.poo
+"ca"
+
+```
+* PITFALL: variables declared inside of a function are only local to the function if the keyword var is used, otherwise that variable is placed in the global scope.
+
+```
+// other
+undefined
+
+this.kyle
+undefined
+
+function donothing() { var mrhankey = "caca"; kyle = "b";}
+undefined
+mrhankey // local to function
+VM3573:1 Uncaught ReferenceError: mrhankey is not defined
+    at <anonymous>:1:1
+(anonymous) @ VM3573:1
+
+kyle
+VM3628:1 Uncaught ReferenceError: kyle is not defined
+    at <anonymous>:1:1
+(anonymous) @ VM3628:1
+
+donothing()
+undefined
+
+mrhankey
+VM3683:1 Uncaught ReferenceError: mrhankey is not defined
+    at <anonymous>:1:1
+(anonymous) @ VM3683:1
+
+kyle
+"b"
+
+this.kyle
+"b"
+
+window.kyle
+"b"
+```
+
+* Since this is clearly a PITFALL - Javascript has a feature call "strict mode". To enable add "use strict" at top of source file. The result is that inside of a function this no longer refers to the global object, it remains undefined.
+
+* The behaviour in nodeJS is a bit different.
+
+```
+// IN NODEJS
+
+// strict off
+function donothing() {
+  console.log("this = " + this);
+  mrhankey = "poo";
+}
+
+// "this = [object global]" != window like in browser
+// calling donothing(), does NOT place mrhankey in this.mrhankey, but mrhankey now exists in the global scope.
+
+// strict on
+// "this = undefined"
+// calling donothing(), and will cause app to crash with error "ReferenceError: mrhankey is not defined"
+
+
+```
+
+### 387. Keyword This 3 - Implicit	 
+* 2nd rule
+* this, inside of a declared object.
+* refers to the "closest parent object" context.
+
+* nested objects.
+* ex. "Hi Colt", true, "Hello undefined", false.
+
+### 388. Keyword This 4 - Call Apply Bind 
+* Nested object continued.
+* ? UNEXPECTED - these rules are not part of the JS spec. // I think he is referring to his 4 rules.
+* explicit setting of this.
+* 3rd rule - explicit - call, apply, bind. "can only be used by functions.
+* method - `call`(thisArg, a, b, c ...) - imm. invoke. - thisArg = what we want `this` to be.
+* method - `apply`(thisArg, [a, b, c ...]) - imm. invoke. - only 2 args. - thisArg = what we want `this` to be.
+* method - `bind`(thisArg, a, b, c ...) - NOT imm. invoke. - thisArg = what we want `this` to be. - Returns "a function definition".
+
+### 389. Keyword This 5 - Fixing Our Issue With Call 
+* ex. `person.dog.sayHello()` vs. `person.dog.sayHello.call(person)`, `person.dog.determineContext.call(person)`. Notice that call is a method of the method we defined in our object.
+* Use case - avoid code duplication.
+* ex. `colt.sayHi()` vs. `colt.sayHi.call({firstName: "Ellie"})` 
+
+### 390. Keyword This 6 - Apply 
+ * call and apply work the same if the only arg is the thisArg.
+* ex. `colt.addNumbers.call({firstName: "Ellie"}, 1,2,3,4)` vs. `colt.addNumbers.apply({firstName: "Ellie"}, [1,2,3,4])`
+* later, `bind` - helpful with "asynchronous code".
+
+### 391. Note about Keyword This 7 - Bind 
+ * @40secs it says elieCalc(3,4) when it should be elieCalc2(3,4)
+
+### 392. Keyword This 7 - Bind  
+* bind works like call in terms of arguments but returns a function definition. - the re-binding for this persists.
+* use case, when call args may vary. - "with the context of this bound already".
+* e.g.  `var ellieCalc = colt.addNumbers.bind(ellie, 1, 2, 3, 4); ellieCalc();` , e.g. "partial application" `var ellieCalc2 = colt.addNumbers.bind(ellie, 1, 2); ellieCalc2(3, 4);` e.g. `var ellieCalc3 = colt.addNumbers.bind(ellie); ellieCalc3(1, 2, 3, 4);`
+* e.g. asynchronous code - in browser - `window.setTimeout(function(){console.log...}, 1000);`
+
+### 393. Keyword This 8 - Bind Pt. 2 
+* ex. this === colt since that is the closest parent object. - WRONG - because "since the setTimeout() is called at a later point in time it actually refers to the global object." - it should print "Hi undefined". - also IMPORTANT - setTimeout() is a method on the window object, so it is equivalent to calling setTimeout() outside of the declared parent object. - So - beware of `this` when an asynchronous function is involved and of methods bound to other object, esp. bound to the global object, prefix such function calls e.g. window.setTimeout(). - "the context in which the function is **executed** is actually the global context."
+* ex. 
+
+```
+var colt = {
+    firstName: "Colt",
+    sayHi: function() {
+        timeoutfunc = function(){console.log("Hi " + this.firstName)};
+    setTimeout(timeoutfunc.bind(this), 1000);
+    }
+}
+```
+ 
+### 394. Keyword This 9 - New Keyword & Recap 
+* 4th rule
+* `new` keyword. used with a function - inside that function `this` refers to the newly created object. Also implicitly adds `return this;` to the function being defined.
+* e.g.
+
+```javascript
+function Person(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+}
+// EXPECTATION: With strict off, this adds members firstName, lastName to the default global object that this refers to. With strict on, an error occurs, this is undefined. If we add the keyword, "new" this refers to an empty object, firstName, lastName are added as members to this object.
+// The usage of the keyword new is a bit unexpected though. Here it is:
+var der = new Person("D", "R");
+// So using the new keyword in front of a previously defined function treats the function as a object constructor in which this refers to an empty object and the function implicitly returns this.
+```
+ 
+* Recap.
+* this refers to a value that is determined by its **declaration+execution** context.
+* 4 rules for determining what this refers to. 
+
+### 395. OOP 1 - Introduction	 
+* My def. OOP refers to programming using a programming language which has a builtin features for supporting the creation of modular code. Modular code means that related data and functions are grouped together into a single entity called an object. Object are defined by class definitions, they usually extend the builtin types of the language. The language usually provides features around objects that help organize code and reduce the chance of errors. 
+
+* JS is NOT an OOP but we can approximate an OOP using basic JS, i.e. there are no built in class definition features. In JS we use functions and objects.
+
+* JS "constructor functions". Caps Naming conventions.
+
+```
+function Person(firstName, lastName) {
+  this.firstName = firstName;
+  this.lastName = lastName;
+}
+Person("D","R") // returns undefined.
+new Person("D", "R"); // returns object.
+```
+
+### 396. OOP 2 - New Keyword	  
+* new
+ * creates empty object
+ * sets this to that object
+ * adds return this to end of function.
+ * new operates on functions.
+ * inserts key="__proto__" with value=discussed later. we say "dunder proto" = "double underscore proto". 
+ *  "links the object that was **just** **created** to the prototype property - on the **constructor** function."
+
+```
+function Person(fn, ln) {this.fn = fn; this.ln = ln;}
+undefined
+Person("D","R")
+undefined
+var p = new Person("D","R")
+undefined
+p
+Person {fn: "D", ln: "R"}
+  fn: "D"   ln: "R"   __proto__:
+    constructor: ƒ Person(fn, ln)     __proto__: Object 
+new p.__proto__.constructor("L","L") // refers to the original contructor, note you still need the new keyword.
+
+```
+
+* ex. 
+
+
+```javascript
+function Dog(name, age) {
+    this.name = name;
+    this.age = age;
+    this.bark = function() { 
+        console.log(this.name + " just barked!");
+        };
+}
+```
+
+
+### 397. OOP 3 - Multiple Constructors
+
+* use case - two constructors with overlapping code. - solution - use .call method inside one of the constructors to do the overlapping work.
+
+
+```javascript
+function Car(make, model, year) {
+    ...
+    this.numWheels = 4;
+}
+
+function Motorcycle(make, model, year) {
+    ... // = 
+    Car.call(this, make, model, year); // notice we didn't make use of the new keyword here.
+
+    // OR equivalently 
+    Car.apply(this, [make, model, year]);    
+    // OR equivalently 
+    Car.apply(this, arguments); // "arguments" is a JS keyword. "not tecnically an array".
+    this.numWheels = 2;
+}
+
+// arguments works even if the function is defined without any explicit arguments e.g.
+function foo() {
+    return arguments;
+}
+
+foo(1,2,3); // prints [1,2,3]
+```
+ 
+### 398. OOP 4 - Recap 
+ ...
+
+
+### 399. OOP 5 - Prototypes
+
+
+* Diagram - Circle = constructor function, box = object.
+ * Green Circle = Person constructor function.
+   * Every constructor function has a .prototype ->, which is an object = Blue Box. 
+   * Person.prototype.constructor ->, which is a function, points back to the constructor function = Green Circle.
+   * Purple Box = an object created using the `new` keyword. typeof ellie === "object", e.g. `ellie = new Person("Ellie", "Sux");` ->, points to the Blue Box, via .\__proto\__, which is added to ellie by "new". i.e. ellie.\__proto\__ === Person.prototype prints true.
+   * Note how the Blue Box = Person.prototype is shared by all instances of new Person as well as the constructor function = Green circle.
+   * **Most important observation for me is that in JS, functions are also similar to objects in that they can have members just like objects. As soon as you define a constructor function, it immediately has a member called .prototype, of type object. This object is shared by all instances objects that are created using the new keyword applied to the constructor function. **
+
+```javascript
+
+function Person(fn, ln) {this.fn = fn; this.ln = ln;}
+
+typeof Person // prints "function"
+typeof Person.prototype // prints "object"
+
+// Every constructor function has a property with key=prototype, value=object. e.g.
+
+p = new Person("D", "R");
+
+typeof p // prints object
+
+typeof p.__proto__.constructor // prints "function" this is the constructor function
+
+typeof p.__proto__.constructor.prototype // prints "object"
+
+// That prototype object has key=constructor, value= the constructor function (same constructor function as above).
+
+typeof p.__proto__.constructor.prototype.constructor // prints "function" - "points back to the constructor function"
+
+p.__proto__.constructor === p.__proto__.constructor.prototype.constructor // prints true 
+
+// Every time an object is created with "new", the new object gets key="__proto__" added to it. It links the object "p" to the:
+
+p.__proto__.constructor.prototype // prototype property of the constructor function
+
+///////////////////////////////////////////////
+
+// UNEXPECTED - JS allows function types to have members attached to it just like an object can. So typeof p.__proto__.constructor == "function" while p.__proto__.constructor.prototype == "object". Therefore, in JS functions are objects too.
+
+```
+
+* FYI: discussed elsewhere- the .prototype property of constructor functions is involved in inheritance.
+* Person.prototype.constructor === Person // prints true , this clearly illustrates a circular reference to the constructor function.
+
+### 400. OOP 6 - Prototype Chain 
+* examining .prototype.
+* shared by objects created with new.
+
+```javascript
+function Person(fn, ln) {this.fn = fn; this.ln = ln;}
+var d = Person("D", "R");
+var l = Person("L", "L");
+// What happens when you add a member under .prototype? e.g.
+Person.prototype.isInstructor = true;
+// EXPECTATION: All instances should have shared access to .isInstructor .
+
+d.isInstructor // prints true
+l.isInstructor // prints true
+
+// I expect d.__proto__.isInstructor prints true, so JS is doing more under the hood to make the above work. //  d.__proto__.isInstructor works too, just like d.isInstructor. // It also works the other way around, from instance object to prototype object.
+d.__proto__.notCool = false;
+Person.prototype.notCool // prints false.
+
+// This shared access to members inside .prototype is a result of the "way that JS looks for methods and properties". It is called the prototype chain.
+
+// Example
+
+var arr = []; // = empty array.
+var arr = new Array(); // Equivalent
+var arr = new Array; // Equivalent - parens optional - even though typeof Array "function" // Array is called "a built in constructor"
+arr.push(10); // How does JS know where to find the method .push() ? ANS: it looks in .__proto__, if you inspect the contents of arr you will find the push method under, arr.__proto__.push().
+
+// As expected
+arr.__proto__ === Array.prototype // true
+
+// JS first looks for a member at the top level of an object and then checks .__proto__
+
+// Q: Can you add a member at the top level as part of the constructor function like arr.length? Clearly yes, since the built in construct Array does it. This is probably the mechanism for per instance private data members. ANS: Any members added outside of .prototype and .__proto__ are private/not-shared.
+
+// When JS doesn't find a member at the top level .__proto__ is searched recursively, hence "prototype chain"
+
+// every object has method .hasOwnProperty(str) , returns true if str is a member of the object.
+
+d.hasOwnProperty("fn"); // true
+d.hasOwnProperty("caca"); // true
+
+// NOTE: use dir(Person) to see all properties in chrome console. "Person" hides most properties.
+
+// Example - meaning of prototype chain.
+
+arr.hasOwnProperty("length"); // prints true, but arr does not have a member called hasOwnProperty under arr.__proto__, JS keeps looking for nested .__proto__, in this case it is two levels nested under arr.__proto__.__proto__.hasOwnProperty. 
+
+// NOTE: In chrome JS console, dir(arr) , each __proto__ has a name adjacent to it like Array(0) or Object() - this is clearly the name of the prototype constructor function.
+
+// The recursive search of .__proto__ upon an attempt to access a member continues until the first matching member name, if there is no matching member name the search will ALWAYS terminate at the built in Object.prototype which is the only object in JS that has .__proto__ === null. This is where the "chain" ends.
+
+arr.__proto__.__proto__.__proto__ === null // true.
+
+arr.__proto__.__proto__ // UNEXPECTED: does not show a member name "__proto__" === null in JS console. it does show "get __proto__: ƒ __proto__()"
+
+```
+ 
+### 401. OOP 7 - Exercise 
+ * Why "placing methods and properties on the prototype is very efficient."
+
+
+```javascript
+// EXPECT:
+
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype.sayHi = function() {
+    return "Hi " + this.name;
+}
+
+// FYI: Don't forget the "new" keyword before the constructor function call, e.g.
+var d = new Person("Darbin");
+// Expectation correct.
+
+// The above is more efficient than that below because each time we create an object using the new keyword we create a copy of the sayHi() function, whereas the above makes sayHi() a share function.
+
+function Person(name) {
+    this.name = name;
+    this.sayHi = function() {
+        return "Hi " + this.name;
+    };
+}
+
+// Exercise
+
+function Vehicle(make, model, year) {
+    this.make = make;
+    this.model = model;
+    this.year = year;
+    this.isRunning = false;
+}
+
+Vehicle.prototype.turnOn = function() {
+    this.isRunning = true;
+}
+
+Vehicle.prototype.turnOff = function() {
+    this.isRunning = false;
+}
+
+Vehicle.prototype.honk = function() {
+    if(this.isRunning === true) {
+        return "beep";
+    }
+}
+
+// Main point: put shared methods under Person.prototype. non-share in constructor function this.x = x;
+```
+
+
+### 402. OOP 8 - Solution and Recap 
+... 
+### 403. Closures 
+* used to "emulate private variables"
+* definition
+  * a function nested inside a function that has access to the local variables of the outer function "after the outer function has returned".
+  
+```javascript
+function outer() {
+    var data = "mr hankey";
+    return function inner() {
+        var innerData = " the christmas poo.";
+        return data + innerData;
+    }
+}
+
+outer(); // returns the function inner()
+outer()(); // "mr hankey the christmas poo."
+
+// Another example. This one illustrates the meaning of "after the outer function has returned" as used above. Notice  the only local variables here are the function arguments.
+
+function outer(a) {
+    return function inner(b) {
+        return a + b;
+    }
+}
+
+outer(5)(5) // 10
+
+var tmp = outer(5); // returns function inner, with a set to 5
+
+tmp(10) // 15. call above function with b set to 10, 5 + 10 = 15.
+
+// in the above, we say "the function inner is a closure"
+
+// Exercise - do either of the given functions "contain a closure"?. My ANS: There is a closure of there is an inner function that makes use of the variables which are part of the outer function, otherwise its just returning a plain function.
+
+// ANS: no closure in the first function. second function, innerFn is a closure.
+
+// use case - used to "emulate private variables"
+// FYI: inner functions need not have a name.
+// FYI: JS has supports pre/post-increment support, "++" works just like in C, i.e. increment before/after the value is used in an expression.
+
+function outer() {
+    var count = 0;
+    return function() { // function name not required.
+        return ++count;
+    }
+}
+
+// EXPECT:
+outer()() // 1
+outer()() // 2
+outer()() // 3
+// WRONG
+outer()() // 1
+outer()() // 1
+outer()() // 1 // if you want the local variable count to persist you must save a reference to the inner function e.g.
+
+var tmp = outer(); // returns the inner function.
+tmp() // 1
+tmp() // 2
+tmp() // 3 // the local variable count now has a persistent value, and it cannot be accessed (say incremented or decremented) except for via the inner function, the "closure". Hence, this "emulates private variables".
+
+// Another Example - in this case no function is being returned, no use of the new keyword either. "instructors" emulates a private variable. This illustrates that a closure need not involve an inner function being returned, the defining characteristic is a an inner function making use of variables in the outer function. This example also shows that a function can be a closure even if it does not modify the outer local variables, simply returning a variable from the outer function''s scope is sufficient to call it a closure.
+
+function classRoom() {
+    var instructors = ["Bruce", "Kan"]; // emulates a private var.
+    return {
+        getInstructors: function() {
+            return instructors; // outer function local variable. // just returning , not modifying, the instructors array. Still considered a closure.
+        },
+        addInstructor: function(str) {
+            instructors.push(str);
+            return instructors;
+        }
+    }
+}
+
+var c1 = classRoom(); // returns a class room object per above.
+
+c1.getInstructors(); // ["Bruce", "Kan"]
+c1.addInstructor("Fine"); // ["Bruce", "Kan", "Fine"]
+
+var c2 = classRoom();
+c2.getInstructors(); // ["Bruce", "Kan"] , thus c2  gets a fresh private variable for "var instructors".
+
+
+```
 
 
 
