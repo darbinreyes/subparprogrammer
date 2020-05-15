@@ -2,3 +2,7 @@ This directory contains things that, subject wise, don't clearly fit into one of
 
 To begin with, I will record my coding style conventions for C, python, and JavaScript here. ... Because I always forget them.
 
+Also include directory naming conventions.
+
+Common directory organization conventions.
+
