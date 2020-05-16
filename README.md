@@ -24,6 +24,8 @@
 
 > ... my request, my prayer so to speak is, that you stop using the term bugs for program errors, but call them what they are: errors. Unless we change our language, and call an error an error, **programming and computing science have not yet matured**. -Edsger W. Dijkstra
 
+> ... but this can have only strengthened my conviction that I had to rely on arguments, [rather than experiments](https://youtu.be/VCtxk_k8KEU?t=593). [//mathematical proofs rather than test cases]
+
 * Dijkstra is my demigod, for more on him see:
   * http://www.cs.utexas.edu/users/EWD/.
   * https://www.dijkstrascry.com/about.
