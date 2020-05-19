@@ -400,8 +400,6 @@ Let me check. Will you check wether I have made an error? Yes. A, AB. [Audience 
 
 the remark is, that I have to choose a new E, and let that be A, 
 
-# next read through, draw some examples.
-
 ![b.36](b.36.png)
 
 ![b.37](b.37.png)
@@ -493,6 +491,8 @@ And therefore, here you see the form of exactly this relation, and on account of
 ![a.28](a.28.png)
 
 this follows from AB + AC is less than BE + CE. OK.
+
+# next read through, draw some examples.
 
 ![a.29](a.29.png)
 
