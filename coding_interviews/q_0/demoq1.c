@@ -1,12 +1,4 @@
-// MY ADDITIONAL INFO. BEGINS
-
-typedef struct BoundedArray {
-    int size;
-    int *arr;
-} boundedarray;
-
-// MY ADDITIONAL INFO. ENDS
-
+#include "demoq1.h"
 
 // INCLUDE HEADER FILES NEEDED BY YOUR PROGRAM
 // SOME LIBRARY FUNCTIONALITY MAY BE RESTRICTED
@@ -30,11 +22,11 @@ void UpdateToNextDay(int *CurrentDayBuffer, int *NextDayBuffer) {
 
     for(Index = 0; Index < NUM_CELLS; Index++) {
         if(Index != LEFT_MOST_CELL && Index != RIGHT_MOST_CELL) {
-            NextDayBuffer[Index] = (CurrentDayBuffer[LEFT_NEIGHBOR(Index)] == CurrentDayBuffer[RIGHT_NEIGHBOR(Index)]);
+            NextDayBuffer[Index] = !(CurrentDayBuffer[LEFT_NEIGHBOR(Index)] == CurrentDayBuffer[RIGHT_NEIGHBOR(Index)]);
         } else if(Index == LEFT_MOST_CELL) {
-            NextDayBuffer[Index] = (CELL_INACTIVE == CurrentDayBuffer[RIGHT_NEIGHBOR(Index)]);
+            NextDayBuffer[Index] = !(CELL_INACTIVE == CurrentDayBuffer[RIGHT_NEIGHBOR(Index)]);
         } else if(Index == RIGHT_MOST_CELL) {
-            NextDayBuffer[Index] = (CurrentDayBuffer[LEFT_NEIGHBOR(Index)] == CELL_INACTIVE);
+            NextDayBuffer[Index] = !(CurrentDayBuffer[LEFT_NEIGHBOR(Index)] == CELL_INACTIVE);
         } else {
             assert(0); // Should never occur!
         }

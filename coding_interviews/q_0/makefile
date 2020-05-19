@@ -1,7 +1,7 @@
 CC = gcc
 MY_C_FILE = demoq1.c
 SEATEST_SRC_PATH = ../seatest/src
-FILES = example_project.c test_suite_one.c test_suite_two.c $(MY_C_FILE) $(SEATEST_SRC_PATH)/seatest.c
+FILES = example_project.c test_suite_one.c $(MY_C_FILE) $(SEATEST_SRC_PATH)/seatest.c
 OUT_EXE = example
 
 build: $(FILES)

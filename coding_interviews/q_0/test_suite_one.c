@@ -1,63 +1,47 @@
 #include "seatest.h"
 
-//#include "demoq1.h" // boundedarray* cellCompete(int* states, int days)
+#include "demoq1.h"
 
-void test_arrays_equal()
+
+/*
+
+Test case 1.
+Input: [1, 0, 0, 0, 0, 1, 0, 0], 1.
+Expected Return Value: 0 1 0 0 1 0 1 0.
+
+Test case 2.
+Input: [1, 1, 1, 0, 1, 1, 1, 1], 2.
+Expected Return Value: 0 0 0 0 0 1 1 0.
+
+*/
+
+
+void test_cellCompete_0()
 {
-	unsigned char expected_bytes[] = { 1, 2, 3};
-	unsigned char buffer[5];
-	int i;
+  int input_arr[] = {1, 0, 0, 0, 0, 1, 0, 0};
+  int input_days = 1;
+  int expected_arr[] = {0, 1, 0, 0, 1, 0, 1, 0};
+  boundedarray *computed_result = NULL;
 
-	// put 5 bytes in
-	for(i=0; i<5; i++) buffer[i]=i+1;
-
-	// only check the first 3
-	assert_n_array_equal(expected_bytes, buffer, 3);
+  computed_result = cellCompete(input_arr, input_days);
+  assert_n_array_equal(expected_arr, computed_result->arr, computed_result->size);
 }
 
-
-void test_strings_equal()
+void test_cellCompete_1()
 {
-	char *s = "hello";
-	assert_string_equal("hello", s);
+  int input_arr[] = {1, 1, 1, 0, 1, 1, 1, 1};
+  int input_days = 2;
+  int expected_arr[] = {0, 0, 0, 0, 0, 1, 1, 0};
+  boundedarray *computed_result = NULL;
+
+  computed_result = cellCompete(input_arr, input_days);
+  assert_n_array_equal(expected_arr, computed_result->arr, computed_result->size);
 }
-
-void test_arrays_equal()
-{
-	unsigned char expected_bytes[] = { 1, 2, 3};
-	unsigned char buffer[5];
-	int i;
-
-	// put 5 bytes in
-	for(i=0; i<5; i++) buffer[i]=i+1;
-
-	// only check the first 3
-	assert_n_array_equal(expected_bytes, buffer, 3);
-}
-
-void test_bits()
-{
-	assert_bit_set(0, 0x01);
-	assert_bit_set(2, 0x04);
-	assert_bit_not_set(3, 0x02);
-}
-
-void test_strings()
-{
-	char *s = "hello";
-	assert_string_equal("hello", s);
-	assert_string_contains("blah", "why say blah?");
-	assert_string_doesnt_contain("blah", "why say hello?");
-	assert_string_ends_with("h?", "why say blah?");
-	assert_string_starts_with("why", "why say blah?");
-}
-
 
 void test_fixture_one( void )
 {
-	test_fixture_start();               // starts a fixture
-	run_test(test_strings);   // run tests
-	run_test(test_arrays_equal);
-	run_test(test_bits);
-	test_fixture_end();                 // ends a fixture
+  test_fixture_start();               // starts a fixture
+  run_test(test_cellCompete_0);
+  run_test(test_cellCompete_1);
+  test_fixture_end();                 // ends a fixture
 }
