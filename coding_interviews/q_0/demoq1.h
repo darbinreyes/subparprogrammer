@@ -1,0 +1,1 @@
+boundedarray* cellCompete(int* states, int days);

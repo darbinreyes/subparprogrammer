@@ -1,9 +1,20 @@
+// MY ADDITIONAL INFO. BEGINS
+
+typedef struct BoundedArray {
+    int size;
+    int *arr;
+} boundedarray;
+
+// MY ADDITIONAL INFO. ENDS
+
+
 // INCLUDE HEADER FILES NEEDED BY YOUR PROGRAM
 // SOME LIBRARY FUNCTIONALITY MAY BE RESTRICTED
 // DEFINE ANY FUNCTION NEEDED
 
 #include <assert.h>
 #include <stdlib.h> // for malloc
+#include <string.h> // for memcpy // Q: Why isn't memcpy in stdlib.h?
 
 #define NUM_CELLS 8
 #define LEFT_MOST_CELL 0
@@ -83,3 +94,19 @@ boundedarray* cellCompete(int* states, int days)
     return result;
 }
 // FUNCTION SIGNATURE ENDS
+
+// MY ADDITIONAL INFO. BEGINS
+
+/*
+
+Test case 1.
+Input: [1, 0, 0, 0, 0, 1, 0, 0], 1.
+Expected Return Value: 0 1 0 0 1 0 1 0.
+
+Test case 2.
+Input: [1, 1, 1, 0, 1, 1, 1, 1], 2.
+Expected Return Value: 0 0 0 0 0 1 1 0.
+
+*/
+
+// MY ADDITIONAL INFO. ENDS
