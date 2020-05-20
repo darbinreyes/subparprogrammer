@@ -1,5 +1,5 @@
 CC = gcc
-MY_C_FILE = demoq1.c
+MY_C_FILE = demoq2.c
 SEATEST_SRC_PATH = ../seatest/src
 FILES = seatest_project.c test_suite_one.c $(MY_C_FILE) $(SEATEST_SRC_PATH)/seatest.c
 OUT_EXE = seatest_project
@@ -14,3 +14,6 @@ clean:
 	rm -f *.o core
 
 rebuild: clean build
+
+run:
+	./$(OUT_EXE)
