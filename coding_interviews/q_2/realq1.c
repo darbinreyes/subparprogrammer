@@ -284,6 +284,8 @@ boundedStringArray* popularNToys(int numToys, int topToys,
 
     qsort((void *)FreqTableSorted, (size_t)numToys, sizeof(*FreqTableSorted), FreqTableEntryCmp);
 
+    // De-erroring progress. Discovered the FreqTableSorted is not correct after above call. Why?
+
     // call qsort again, handle ties.
 
     /*
