@@ -132,11 +132,11 @@ int FreqTableEntryCmp(const void *ta, const void *tb) {
 
 int FreqTableEntryCmpAlpha(const void *ta, const void *tb) {
     int result;
-    const FreqTableEntry *a, *b;
-    a = (const FreqTableEntry *) ta;
-    b = (const FreqTableEntry *) tb;
+    const FreqTableEntry **a, **b;
+    a = (const FreqTableEntry **) ta;
+    b = (const FreqTableEntry **) tb;
     // TODO: Handle invalid args.
-    result = strcmp(a->ToyName, b->ToyName); // Positive if a > b, 0 if a == b, negative if a < b.
+    result = strcmp((*a)->ToyName, (*b)->ToyName); // Positive if a > b, 0 if a == b, negative if a < b.
 
     return result;
 }
@@ -284,7 +284,7 @@ boundedStringArray* popularNToys(int numToys, int topToys,
 
     qsort((void *)FreqTableSorted, (size_t)numToys, sizeof(*FreqTableSorted), FreqTableEntryCmp);
 
-    // De-erroring progress. Discovered the FreqTableSorted is not correct after above call. Why?
+    // De-erroring progress. Discovered the FreqTableSorted is not correct after above call. Why? ANS: My FreqTableEntryCmp() was incorrect, qsort() passes a double pointer, I assumed single pointer.
 
     // call qsort again, handle ties.
 
@@ -322,6 +322,7 @@ boundedStringArray* popularNToys(int numToys, int topToys,
 
     */
 
+    // De-erroring progress. seg fault occurs. Where?
     AlphabeticallySortEqualFreq(numToys, FreqTableSorted);
 
     // return result.
