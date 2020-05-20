@@ -14,3 +14,6 @@ clean:
 	rm -f *.o core
 
 rebuild: clean build
+
+run:
+	./$(OUT_EXE)
