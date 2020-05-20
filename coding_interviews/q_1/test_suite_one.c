@@ -54,9 +54,41 @@ void test_0()
   assert_int_equal(expected_result, computed_result);
 }
 
+void test_1()
+{
+  int input_num = 5;
+  int input_arr[] = {2, 4, 6, 8, 10};
+  int expected_result = 2;
+  int computed_result;
+  computed_result = generalizedGCD(input_num, input_arr);
+  assert_int_equal(expected_result, computed_result);
+}
+
+void test_2()
+{
+  int input_num = 4;
+  int input_arr[] = {20, 30, 100, 200};
+  int expected_result = 10;
+  int computed_result;
+  computed_result = generalizedGCD(input_num, input_arr);
+  assert_int_equal(expected_result, computed_result);
+}
+
+void test_3()
+{
+  int input_num = 3;
+  int input_arr[] = {51, 884, 3009};
+  int expected_result = 17;
+  int computed_result;
+  computed_result = generalizedGCD(input_num, input_arr);
+  assert_int_equal(expected_result, computed_result);
+}
 void test_fixture_one( void )
 {
   test_fixture_start();               // starts a fixture
   run_test(test_0);
+  run_test(test_1);
+  run_test(test_2);
+  run_test(test_3);
   test_fixture_end();                 // ends a fixture
 }
