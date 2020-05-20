@@ -270,6 +270,8 @@ boundedStringArray* popularNToys(int numToys, int topToys,
         FreqTableSorted[ToysIndex] = &FreqTable[ToysIndex];
     }
 
+    // De-erroring progress. At this point, the contents of FreqTable[0-5] are correct.
+    // De-erroring progress. What about FreqTableSorted[0-5]? ANS: Yes.
     /*
       At this point FreqTable[ should store the freq count of each toy name
       Now we need to sort it by freq, then resolve ties by alphabetic order.
