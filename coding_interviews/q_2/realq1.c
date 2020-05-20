@@ -119,11 +119,11 @@ The algorithms implemented by qsort(), qsort_r(), and heapsort() are not
 
 int FreqTableEntryCmp(const void *ta, const void *tb) {
     int result;
-    const FreqTableEntry *a, *b;
-    a = (const FreqTableEntry *) ta;
-    b = (const FreqTableEntry *) tb;
+    const FreqTableEntry **a, **b;
+    a = (const FreqTableEntry **) ta;
+    b = (const FreqTableEntry **) tb;
     // TODO: Handle invalid args.
-    result = a->Freq - b->Freq; // Positive if a > b, 0 if a == b, negative if a < b.
+    result = (*a)->Freq - (*b)->Freq; // Positive if a > b, 0 if a == b, negative if a < b.
 
     result = result * -1; // The default behavior of qsort produces an ascending order, this will reverse that.
 
