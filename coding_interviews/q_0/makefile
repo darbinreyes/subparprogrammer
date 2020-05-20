@@ -1,8 +1,8 @@
 CC = gcc
 MY_C_FILE = demoq1.c
 SEATEST_SRC_PATH = ../seatest/src
-FILES = example_project.c test_suite_one.c $(MY_C_FILE) $(SEATEST_SRC_PATH)/seatest.c
-OUT_EXE = example
+FILES = seatest_project.c test_suite_one.c $(MY_C_FILE) $(SEATEST_SRC_PATH)/seatest.c
+OUT_EXE = seatest_project
 
 build: $(FILES)
 	$(CC) -O0 -g -o $(OUT_EXE) $(FILES) -I $(SEATEST_SRC_PATH)
