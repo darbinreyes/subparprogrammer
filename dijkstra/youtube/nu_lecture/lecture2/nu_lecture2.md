@@ -492,11 +492,15 @@ And therefore, here you see the form of exactly this relation, and on account of
 
 this follows from AB + AC is less than BE + CE. OK.
 
-# next read through, draw some examples.
-
 ![a.29](a.29.png)
 
-So far so good. Now listen, we will, b and c are distances, so the minimum of them is at least 0, we have to demonstrate that that minimum is less than h, we can never prove that for h is 0, so we have to take into account something, some statement of the fact that h differs from 0. Now h differs from 0, tells us because the points A, B, and C are all different, h differs from 0 tells us that A does not lie on q, but since E only occurs in connection with B and C, we now characterize the line q as the line through B and C, and h differs from 0 we now formulate as triangle E, B, C is not degenerate. But if triangle EBC is not degenerate, hence, BC is **actually** less BE plus EC. 
+So far so good. Now listen, we will, b and c are distances, so the minimum of them is at least 0, we have to demonstrate that that minimum is less than h, we can never prove that for h is 0, so we have to take into account something, some statement of the fact that h differs from 0. 
+
+[Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=35m20s)
+
+Now h differs from 0, tells us because the points A, B, and C are all different, h differs from 0 tells us that A [I think he meant "E" not "A" but I'm not sure] does not lie on q, but since E only occurs in connection with B and C, we now characterize the line q as the line through B and C, and h differs from 0 we now formulate as triangle E, B, C is not degenerate. But if triangle EBC is not degenerate, hence, BC is **actually** less BE plus EC. 
+
+# next read through, draw some examples.
 
 // My comment. Here I am lost. I don't understand what he says about h differing from 0 and triangle EBC not being degenerate.
 
