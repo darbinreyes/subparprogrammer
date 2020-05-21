@@ -6,7 +6,7 @@
 #include "realq2.h"
 
 /*
- *** Scratch work.
+******* Original Scratch work.
 
  cut films into scenes = take a video file, and break it up in smaller video files, break up at points in the video called scenes.
 automate - breaking up - individual shots
@@ -21,11 +21,19 @@ in a scene, no shot labels appear in more than 1 scene. ??? // I don't understan
 
 Output scene.length for each scene.
 
-*** Output
+******* Output
 
 WTF is up with that struct def. its formated all wonKy!
 
 Most of the work here is figuring out what the problem statement means.
+
+*/
+
+/*
+
+******* Scratch Work
+
+
 
 */
 
