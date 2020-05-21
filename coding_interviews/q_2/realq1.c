@@ -212,6 +212,37 @@ boundedStringArray *dup_boundedStringArray(boundedStringArray *s) {
     return t;
 }
 
+// Returns the number of frequency table entries with a non-zero frequency value.
+int NumNonZeroFreq(int numToys, FreqTableEntry **FreqTableSorted) {
+    int Index;
+
+    assert(numToys > 0 && FreqTableSorted != NULL);
+
+    if(!(numToys > 0 && FreqTableSorted != NULL)) {
+        return 0;
+    }
+
+    for(Index = 0; Index < numToys && FreqTableSorted[Index]->Freq > 0; Index++)
+        ;
+
+    /*
+    ************** Scratch work.
+    numToys = 4
+    0 1 2 3
+    3 2 0 0
+    // Expect return 2.
+    for(Index = 0; 0 < 4 && 3 > 0; Index++)
+    for(Index = 1; 1 < 4 && 2 > 0; Index++)
+    for(Index = 2; 2 < 4 && 0 > 0; Index++)
+    numToys | FreqTableSorted | Index
+    4 | {3 2 0 0} | 0
+    4 | {3 2 0 0} | 1
+
+    */
+
+    return Index; // Note it is possible to return 0 here.
+}
+
 boundedStringArray* popularNToys(int numToys, int topToys,
                                     boundedStringArray* toys,
                                     int numQuotes,
@@ -326,19 +357,27 @@ boundedStringArray* popularNToys(int numToys, int topToys,
 
     Result = calloc((size_t)1, sizeof(*Result));
 
+    assert(Result != NULL);
+
     if(Result == NULL) {
         return NULL;
     }
 
-    if(topToys > numToys) { // The problem description on this case is unclear to me.
-        topToys = numToys; // It may mean, at most numToys, but possibly less if some toys have a freq count of 0.
+    if(topToys <= numToys) {
+        Result->size = topToys;// Returning a subset or entirety of the frequency table
+    } else { // case topToys > numToys. "return the names of only the toys mentioned in the quotes."
+        // Let us interpret the above requirement as "do not return toy names with frequency == 0"
+        // What does calloc return of count = 0? ANS: man page does'nt say. Probably returns NULL.
+        Result->size = NumNonZeroFreq(numToys, FreqTableSorted);
     }
 
-    Result->size = topToys;
-    Result->arr = calloc((size_t)topToys, sizeof(*(Result->arr)));
-
-    for(Index = 0; Index < topToys; Index++) {
-        Result->arr[Index] = FreqTableSorted[Index]->ToyName;
+    if(Result->size == 0) {
+        Result->arr = NULL;
+    } else {
+        Result->arr = calloc((size_t)Result->size, sizeof(*(Result->arr)));
+        for(Index = 0; Index < Result->size; Index++) {
+            Result->arr[Index] = strdup(FreqTableSorted[Index]->ToyName);
+        }
     }
 
     return Result;
