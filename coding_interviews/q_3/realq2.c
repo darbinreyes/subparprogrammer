@@ -2,6 +2,9 @@
 // SOME LIBRARY FUNCTIONALITY MAY BE RESTRICTED
 // DEFINE ANY FUNCTION NEEDED
 
+#include <stdio.h> // NULL
+#include "realq2.h"
+
 /*
  *** Scratch work.
 
@@ -30,5 +33,6 @@ Most of the work here is figuring out what the problem statement means.
 boundedarray* lengthEachScene(charboundedarray* inputList)
 {
     // WRITE YOUR CODE HERE
+    return NULL;
 }
 // FUNCTION SIGNATURE ENDS
