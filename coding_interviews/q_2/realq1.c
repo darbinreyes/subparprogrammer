@@ -7,9 +7,10 @@
 #include <string.h> // strstr
 #include <ctype.h> // tolower etc.
 #include "realq1.h"
+#include <assert.h>
 
 /*
-***** Scratch work
+******* Scratch work
 
 List of quotes, about toys, from online articles. From Web crawler.
 
@@ -20,18 +21,18 @@ Identify top N toys.Given list of quotes and list of toys.
 Output - top N toys.
 
 // Should be similar to a word count program.
-*** Input
+************** Input
 numToys = length of list of toys to count the freq of.
 topToys = length of the top list e.g. top 100 songs on Itunes.
 toys = list of strings = name of the toys whose freq we are computing.
 numQuotes = length of the list of quotes to inspect for toy names.
 quotes = list of strings = quotes.
 
-*** Output
+************** Output
 
 list of strings, length topToys, ordered 0-most to N-1-least freq.
 
-*** other info.
+************** other info.
 
 str cmp should be case insensitive. // use strcmp() + tolower()
 in a single quote - if "train" occurs 10 times - it only increases the count of "train" by 1.
@@ -40,14 +41,14 @@ if(topToys > numToys) return ? - exclude from returned list any toy names with f
 
 if 2 toys have an equal freq. count their order in the returned list should be determined alphabetically. // hopefully I can include qsort.
 
-*** Example
+************** Example
 
 length of returned list == _topToys_
 _toys_ is a list of strings of length == _numToys_
 _quotes_ is a list of strings of length == _numQuotes_.
 
 
-*** Helper Description
+************** Helper Description
 
 // The given return struct
 
@@ -57,10 +58,23 @@ result->arr = computed_array_of_strings_in_freq_alpha_order;
 
 */
 
+// Lower case the given string array.
 void LowerCaseStrArray(char **StrArray, int Length) {
     int Index, StrCharIndex, StrLen;
-    // TODO Handle invalid args like StrArray == NULL
+
+    assert(StrArray != NULL && Length > 0);
+
+    if(StrArray == NULL || Length <= 0) {
+        return;
+    }
+
     for(Index = 0; Index < Length; Index++) {
+        assert(StrArray[Index] != NULL);
+
+        if(StrArray[Index] == NULL) {
+            continue;
+        }
+
         StrLen = strlen(StrArray[Index]);
         for(StrCharIndex = 0; StrCharIndex < StrLen; StrCharIndex++) {
             if(isupper(StrArray[Index][StrCharIndex])) {
@@ -73,7 +87,12 @@ void LowerCaseStrArray(char **StrArray, int Length) {
 
 // Returns 1 if string _toy_ occurs in string _quote_. 0 otherwise.
 int QuoteContainsToy (char *Quote, char *Toy) {
-    // TODO: Handle invalid args.
+    assert(Quote != NULL && Toy != NULL);
+
+    if(Quote == NULL || Toy == NULL) {
+        return -1;
+    }
+
     if(strstr(Quote, Toy) != NULL) {
         return 1;
     } else {
@@ -81,48 +100,26 @@ int QuoteContainsToy (char *Quote, char *Toy) {
     }
 }
 
+// Struct to hold the name and frequency of toy names.
 typedef struct _FreqTableEntry {
-    int Freq;
-    char *ToyName;
+    int Freq; // Frequency of ToyName.
+    char *ToyName; // The name of the toy.
 } FreqTableEntry;
 
-/* Snippets from the man page for qsort.
-The qsort() and heapsort() functions sort an array of __nel objects__, the
-     __initial member__ of which is pointed to by base.  The __size of each object__
-     is specified by width.
-
-The contents of the array base are sorted in __ascending order__ according to
-     a comparison function pointed to by compar, which requires two arguments
-     pointing to the objects being compared.
-
-The comparison function must return an integer less than, equal to, or
-     greater than zero if the __first argument__ is considered to be respectively
-     less than, equal to, or greater than the second.
-
-
- The qsort_r() function behaves identically to qsort(), except that it
-     takes an ___additional argument, thunk,___ which is passed unchanged as the
-     first argument to function pointed to compar.  This allows the comparison
-     function to access additional data without using global variables, and
-     thus qsort_r() is suitable for use in functions which must be reentrant.
-
-The algorithms implemented by qsort(), qsort_r(), and heapsort() are not
-     stable; that is, if two members __compare as equal__, their order in the
-     sorted array is __undefined__.
-
-//void     qsort(void *base, size_t nel, size_t width,
-//         int (*compar)(const void *, const void *));
-
-*/
-
-
-
+// Comparison function for qsort(). Compares frequency. Descending order.
 int FreqTableEntryCmp(const void *ta, const void *tb) {
     int result;
     const FreqTableEntry **a, **b;
+
+    assert(ta != NULL && tb != NULL);
+
+    if(ta == NULL || tb == NULL) {
+        return 0;
+    }
+
     a = (const FreqTableEntry **) ta;
     b = (const FreqTableEntry **) tb;
-    // TODO: Handle invalid args.
+
     result = (*a)->Freq - (*b)->Freq; // Positive if a > b, 0 if a == b, negative if a < b.
 
     result = result * -1; // The default behavior of qsort produces an ascending order, this will reverse that.
@@ -130,37 +127,35 @@ int FreqTableEntryCmp(const void *ta, const void *tb) {
     return result;
 }
 
+// Comparison function for qsort(). Compares alphabetically. Ascending order.
 int FreqTableEntryCmpAlpha(const void *ta, const void *tb) {
     int result;
     const FreqTableEntry **a, **b;
+
+    assert(ta != NULL && tb != NULL);
+
+    if(ta == NULL || tb == NULL) {
+        return 0;
+    }
+
     a = (const FreqTableEntry **) ta;
     b = (const FreqTableEntry **) tb;
-    // TODO: Handle invalid args.
+
     result = strcmp((*a)->ToyName, (*b)->ToyName); // Positive if a > b, 0 if a == b, negative if a < b.
 
     return result;
 }
 
-/* Snippets from the man page for strcmp
-
-The strcmp() and strncmp() functions return an integer greater than,
-     equal to, or less than 0, according as the string s1 is greater than,
-     equal to, or less than the string s2.  The comparison is done using
-     unsigned characters, so that `\200' is greater than `\0'.
-
-// int strcmp(const char *s1, const char *s2);
-
-s1="a"
-s2="z"
-
-should return less than 0.
-
-*/
-
 // Alphabetically sort the elements of FreqTableSorted in the range StartIndex to EndIndex, inclusive.
 void AlphabeticallySortSubset(int StartIndex, int EndIndex, FreqTableEntry **FreqTableSorted) {
     int NumEqual;
-    // TODO: Handle invalid args.
+
+    assert(StartIndex >= 0 && EndIndex >= 0 && FreqTableSorted != NULL);
+
+    if(!(StartIndex >= 0 && EndIndex >= 0 && FreqTableSorted != NULL)) {
+        return;
+    }
+
     NumEqual = EndIndex - StartIndex;
 
     if(NumEqual <= 1) { // Nothing to sort.
@@ -175,6 +170,11 @@ void AlphabeticallySortEqualFreq(int numToys, FreqTableEntry **FreqTableSorted) 
     int StartIndex, EndIndex;
 
     // TODO: Handle invalid args.
+    assert(numToys >= 0 && FreqTableSorted != NULL);
+
+    if(!(numToys >= 0 && FreqTableSorted != NULL)) {
+        return;
+    }
 
     StartIndex = 0;
     EndIndex = 0;
@@ -187,17 +187,20 @@ void AlphabeticallySortEqualFreq(int numToys, FreqTableEntry **FreqTableSorted) 
         // EndIndex should point to the first element whose frequency differs from the previous element
         AlphabeticallySortSubset(StartIndex, EndIndex, FreqTableSorted);
         StartIndex = EndIndex;
-        //EndIndex = StartIndex;
     }
 
 }
 
 boundedStringArray *dup_boundedStringArray(boundedStringArray *s) {
     boundedStringArray *t;
-    // TODO: Handle invalid args.
+
+    assert(s != NULL);
+    if(!(s != NULL)) {
+        return NULL;
+    }
+
     t = calloc((size_t)1, sizeof(*s));
     if(t == NULL) {
-        // calloc error.
         return NULL;
     }
 
@@ -208,6 +211,7 @@ boundedStringArray *dup_boundedStringArray(boundedStringArray *s) {
     }
     return t;
 }
+
 boundedStringArray* popularNToys(int numToys, int topToys,
                                     boundedStringArray* toys,
                                     int numQuotes,
@@ -219,13 +223,16 @@ boundedStringArray* popularNToys(int numToys, int topToys,
     FreqTableEntry **FreqTableSorted;
     int QuotesIndex, ToysIndex, Index;
 
+    assert(numToys > 0 && topToys > 0 && toys != NULL && numQuotes > 0 && quotes != NULL);
+    if(!(numToys > 0 && topToys > 0 && toys != NULL && numQuotes > 0 && quotes != NULL)) {
+        return NULL;
+    }
+
     toysdup = dup_boundedStringArray(toys); // Duplicate the arrays because we will need to lower case them.
     quotesdup = dup_boundedStringArray(quotes);
 
-    // TODO: Handle invalid args like toys == NULL
-
     /*
-    *** Scratch work.
+    ************** Scratch work.
 
     Consider the case of a single toy "train". Let us determine
     the freq count of "train" in quotes.
@@ -241,55 +248,45 @@ boundedStringArray* popularNToys(int numToys, int topToys,
     Well, we need a place to store our freq counts as we go along.
     */
 
+    // Allocate an array of frequency table entries. Each entry stores the toy name and its frequency.
     FreqTable = calloc((size_t)numToys, sizeof(*FreqTable)); // calloc 0's the mem.
     if(FreqTable == NULL) {
-        // calloc error.
         return NULL;
     }
 
+    // Allocate an array of pointers to frequency table entries. This will be used to do the actual sorting.
     FreqTableSorted = calloc((size_t)numToys, sizeof(*FreqTableSorted));
     if(FreqTableSorted == NULL) {
-        // calloc error.
         return NULL;
     }
 
     // Lower the _toys_ array of strings.
-
     LowerCaseStrArray(toysdup->arr, toysdup->size);
 
     // Lower the _quotes_ array of strings
     LowerCaseStrArray(quotesdup->arr, quotesdup->size);
 
-    // for every toy name
+    // For every toy name
     for (ToysIndex = 0; ToysIndex < numToys; ToysIndex++){
         FreqTable[ToysIndex].ToyName = toysdup->arr[ToysIndex]; // Current toy whose freq is being computed.
-        // for every quote
+        // For every quote
         for(QuotesIndex = 0; QuotesIndex < numQuotes; QuotesIndex++) {
             FreqTable[ToysIndex].Freq += QuoteContainsToy (quotesdup->arr[QuotesIndex], FreqTable[ToysIndex].ToyName);
         }
         FreqTableSorted[ToysIndex] = &FreqTable[ToysIndex];
     }
 
-    // De-erroring progress. At this point, the contents of FreqTable[0-5] are correct.
-    // De-erroring progress. What about FreqTableSorted[0-5]? ANS: Yes.
     /*
-      At this point FreqTable[ should store the freq count of each toy name
-      Now we need to sort it by freq, then resolve ties by alphabetic order.
+    ************** Scratch work
+    At this point FreqTable should store the freq count of each toy name
+    Now we need to sort it by freq, then resolve ties by alphabetic order.
     */
 
-    // call qsort,
-
-//void     qsort(void *base, size_t nel, size_t width,
-//         int (*compar)(const void *, const void *));
-
+    // Sort by frequency.
     qsort((void *)FreqTableSorted, (size_t)numToys, sizeof(*FreqTableSorted), FreqTableEntryCmp);
 
-    // De-erroring progress. Discovered the FreqTableSorted is not correct after above call. Why? ANS: My FreqTableEntryCmp() was incorrect, qsort() passes a double pointer, I assumed single pointer.
-
-    // call qsort again, handle ties.
-
     /*
-
+    ************** Scratch Work
     Given the starting index and the ending index of toys having equal frequency
     call qsort on that subset of the frequency table.
     Does the problem specify if alphabetic order means a-z or z-a? ANS: No.
@@ -322,15 +319,14 @@ boundedStringArray* popularNToys(int numToys, int topToys,
 
     */
 
-    // De-erroring progress. seg fault occurs. Where?
+    // Sort any ties in frequency alphabetically.
     AlphabeticallySortEqualFreq(numToys, FreqTableSorted);
 
-    // return result.
+    // Return result.
 
     Result = calloc((size_t)1, sizeof(*Result));
 
     if(Result == NULL) {
-        // calloc error.
         return NULL;
     }
 
