@@ -103,10 +103,43 @@ void test_1()
   }
 }
 
+// Test case topToys > numToys
+void test_2()
+{
+  char *input_toys_arr[] = {"elmo", "elsa", "legos", "drone", "tablet", "warcraft"};
+  char *input_quotes_arr[] = {
+  "Elmo is the hottest toy of the season! Elmo will be on every kid's wishlist!",
+  "The new Elmo dolls are super high quality.",
+  "Expect the Elsa dolls to be very popular this year",
+  "Elsa and Elmo are the toys I'll be buying for my kids",
+  "For parents of older kids, look into buying them a drone.",
+  "Warcraft is slowly rising in popularity ahead of the holiday season"
+  };
+  char *output_expected_arr[] = {"elmo", "elsa", "drone", "warcraft"};
+  int input_numToys = 6, input_topToys = 7, input_numQuotes = 6, output_expected_size = 4;
+  boundedStringArray input_toys = {SIZE_OF_ARRAY(input_toys_arr), input_toys_arr};
+  boundedStringArray input_quotes = {SIZE_OF_ARRAY(input_quotes_arr), input_quotes_arr};
+  boundedStringArray output_expected_b_str_arr = {SIZE_OF_ARRAY(output_expected_arr), output_expected_arr};
+  boundedStringArray *output_b_str_arr = NULL;
+
+  assert_int_equal(input_numToys, input_toys.size);
+  assert_int_equal(input_numQuotes, input_quotes.size);
+  assert_int_equal(output_expected_size, output_expected_b_str_arr.size);
+
+  output_b_str_arr = popularNToys(input_numToys, input_topToys, &input_toys, input_numQuotes, &input_quotes);
+
+  assert_int_equal(output_expected_b_str_arr.size, output_b_str_arr->size);
+
+  for(int i = 0; i < output_expected_b_str_arr.size; i++) {
+    assert_string_equal(output_expected_b_str_arr.arr[i], output_b_str_arr->arr[i]);
+  }
+}
+
 void test_fixture_one( void )
 {
   test_fixture_start();               // starts a fixture
   run_test(test_0);
   run_test(test_1);
+  run_test(test_2);
   test_fixture_end();                 // ends a fixture
 }
