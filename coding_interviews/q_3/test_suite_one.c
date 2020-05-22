@@ -72,7 +72,7 @@ void test_0()
   assert_true(actual_outputList != NULL);
 
   assert_int_equal(expected_outputList.size, actual_outputList->size);
-  //assert_n_array_equal(expected_outputList.arr, actual_outputList->arr, actual_outputList->size);
+  //assert_n_array_equal(expected_outputList.arr, actual_outputList->arr, actual_outputList->size); // FYI: This should work. I understand the seatest code now.
   for(int i = 0; i < actual_outputList->size; i++) {
     assert_int_equal(expected_outputList.arr[i], actual_outputList->arr[i]);
   }
