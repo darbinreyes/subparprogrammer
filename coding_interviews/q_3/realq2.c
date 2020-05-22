@@ -615,6 +615,9 @@ boundedarray* lengthEachScene(charboundedarray* inputList)
       max(). Don't forget you may need to handle subsequence lengths = 1 such
       that they are merged into left adjacent subsequences.
 
+      IMPORTANT REMARK: #5 above can generate the subsequences out of order so as a
+      final step you may need to sort the subsequences.
+
     */
 
       UniqueLabels = AllocUniqueLabelsArray(inputList);
