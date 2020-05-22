@@ -16,8 +16,10 @@
 // SOME LIBRARY FUNCTIONALITY MAY BE RESTRICTED
 // DEFINE ANY FUNCTION NEEDED
 
+#include <stdlib.h> // calloc
 #include <stdio.h> // NULL
 #include "realq2.h"
+#include <assert.h>
 
 /*
 ******* Original Scratch work.
@@ -408,10 +410,219 @@ chars, and the last 8 chars consists entirely of h i j k"
 
 */
 
+// Duplicate the given boundedarray
+boundedarray *AllocDupBoundedArray(boundedarray *Input) {
+  boundedarray *Dup = NULL;
+
+  assert(Input != NULL);
+
+  if(!(Input != NULL)) {
+    return NULL;
+  }
+
+  Dup = calloc((size_t) 1, sizeof(boundedarray));
+
+  if(Dup == NULL) {
+    return NULL;
+  }
+
+  Dup->size = Input->size;
+  Dup->arr = calloc((size_t) Dup->size, sizeof(*(Dup->arr)));
+
+  for(int Index = 0; Index < Dup->size; Index++) {
+    Dup->arr[Index] = Input->arr[Index];
+  }
+
+  return Dup;
+}
+
+// Duplicate the given charboundedarray
+charboundedarray *AllocDupCharBoundedArray(charboundedarray *Input) {
+  charboundedarray *Dup = NULL;
+
+  assert(Input != NULL);
+
+  if(!(Input != NULL)) {
+    return NULL;
+  }
+
+  Dup = calloc((size_t) 1, sizeof(charboundedarray));
+
+  if(Dup == NULL) {
+    return NULL;
+  }
+
+  Dup->size = Input->size;
+  Dup->arr = calloc((size_t) Dup->size, sizeof(*(Dup->arr)));
+
+  for(int Index = 0; Index < Dup->size; Index++) {
+    Dup->arr[Index] = Input->arr[Index];
+  }
+
+  return Dup;
+}
+
+
+
+// Returns inputList after removing all duplicate labels.
+charboundedarray *AllocUniqueLabelsArray(charboundedarray *inputList) {
+
+#define LABEL_IS_DUPLICATE 0
+
+  charboundedarray *inputListDup = NULL;
+  char CurrentLabel  = LABEL_IS_DUPLICATE;
+  int NumUniqueLabels = 0;
+  charboundedarray *Result = NULL;
+
+  assert(inputList != NULL);
+
+  if(!(inputList != NULL)) {
+    return NULL;
+  }
+
+  inputListDup = AllocDupCharBoundedArray(inputList);
+
+  assert(inputListDup != NULL);
+
+  if(!(inputListDup != NULL)) {
+    return NULL;
+  }
+
+  // Mark all duplicate labels with LABEL_IS_DUPLICATE so that the resulting array contains only a single occurrence of each label.
+  for(int Index = 0; Index < inputListDup->size; Index++) {
+    CurrentLabel = inputListDup->arr[Index];
+    for(int Index2 = Index; Index2 < inputListDup->size; Index2++) {
+      if(Index2 > Index && inputListDup->arr[Index2] == CurrentLabel) {
+        inputListDup->arr[Index2] = LABEL_IS_DUPLICATE;
+      }
+    }
+  }
+
+  // Determine the number of unique labels.
+  for(int Index = 0; Index < inputListDup->size; Index++) {
+    if(inputListDup->arr[Index] != LABEL_IS_DUPLICATE) {
+      NumUniqueLabels++;
+    }
+  }
+
+  Result = calloc((size_t) 1, sizeof(*Result));
+
+  Result->size = NumUniqueLabels;
+  Result->arr = calloc((size_t) Result->size, sizeof(*(Result->arr)));
+
+  // Copy the unique labels to the result array.
+  int Index2 = 0;
+  for(int Index = 0; Index < inputListDup->size; Index++) {
+    if(inputListDup->arr[Index] != LABEL_IS_DUPLICATE) {
+      Result->arr[Index2] = inputListDup->arr[Index];
+      Index2++;
+    }
+  }
+
+  return Result;
+}
+
+boundedarray *AllocLabelStartIndex(charboundedarray *UniqueLabels, charboundedarray *inputList) {
+  boundedarray *Result = NULL;
+  // TODO: Validate args.
+
+  Result = calloc((size_t) 1, sizeof(boundedarray));
+
+  if(Result == NULL) {
+    return NULL;
+  }
+
+  Result->size = UniqueLabels->size;
+  Result->arr = calloc((size_t) Result->size, sizeof(*(Result->arr)));
+
+  for(int Index = 0; Index < UniqueLabels->size; Index++){
+    for(int Index2 = 0; Index2 < inputList->size; Index2++) {
+      if(UniqueLabels->arr[Index] == inputList->arr[Index2]) {
+        Result->arr[Index] = Index2;
+        break;
+      }
+    }
+  }
+
+  return Result;
+}
+
+boundedarray *AllocLabelEndIndex(charboundedarray *UniqueLabels, charboundedarray *inputList) {
+  boundedarray *Result = NULL;
+  // TODO: Validate args.
+
+  Result = calloc((size_t) 1, sizeof(boundedarray));
+
+  if(Result == NULL) {
+    return NULL;
+  }
+
+  Result->size = UniqueLabels->size;
+  Result->arr = calloc((size_t) Result->size, sizeof(*(Result->arr)));
+
+  for(int Index = 0; Index < UniqueLabels->size; Index++){
+    for(int Index2 = 0; Index2 < inputList->size; Index2++) {
+      if(UniqueLabels->arr[Index] == inputList->arr[Index2]) {
+        Result->arr[Index] = Index2;
+      }
+    }
+  }
+
+  return Result;
+}
+
+boundedarray *AllocSubsequenceLength(boundedarray *UniqueLabelsStart, boundedarray *UniqueLabelsEnd) {
+  boundedarray *Result = NULL;
+  // TODO: Validate args.
+  Result = calloc((size_t) 1, sizeof(boundedarray));
+
+  if(Result == NULL) {
+    return NULL;
+  }
+
+  Result->size = UniqueLabelsStart->size;
+  Result->arr = calloc((size_t) Result->size, sizeof(*(Result->arr)));
+
+  for(int Index = 0; Index < UniqueLabelsStart->size; Index++){
+    Result->arr[Index] = UniqueLabelsEnd->arr[Index] - UniqueLabelsStart->arr[Index] + 1;
+  }
+
+  return Result;
+
+}
 // FUNCTION SIGNATURE BEGINS, THIS FUNCTION IS REQUIRED
 boundedarray* lengthEachScene(charboundedarray* inputList)
 {
+    charboundedarray *UniqueLabels = NULL;
+    boundedarray *UniqueLabelsStart = NULL;
+    boundedarray *UniqueLabelsEnd = NULL;
+    boundedarray *SubsequenceLength = NULL;
     // WRITE YOUR CODE HERE
+    assert(inputList != NULL);
+
+    if(!(inputList != NULL)) {
+      return NULL;
+    }
+
+    /*
+      1. Compute an array containing each unique letter that occurs in inputList.
+      2. Compute an array containing the start index of each letter corresponding to array #1.
+      3. Same as #2 but for the end index.
+      4. Same as #2 but for the subsequence length.
+      5. Implement "Pseudo code for overlap test."
+
+      Remark: Don't forget to use qsort(), if necessary. Don't forget to use
+      max(). Don't forget you may need to handle subsequence lengths = 1 such
+      that they are merged into left adjacent subsequences.
+
+    */
+
+      UniqueLabels = AllocUniqueLabelsArray(inputList);
+      UniqueLabelsStart = AllocLabelStartIndex(UniqueLabels, inputList);
+      UniqueLabelsEnd = AllocLabelEndIndex(UniqueLabels, inputList);
+      SubsequenceLength = AllocSubsequenceLength(UniqueLabelsStart, UniqueLabelsEnd);
+    // Finally, allocate and return the result.
+
     return NULL;
 }
 // FUNCTION SIGNATURE ENDS
