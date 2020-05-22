@@ -61,116 +61,103 @@ Expected Return Value:
 
 void test_0()
 {
-  char inputList_arr[] = {'a','b','a','b','c','b','a','c','a','d','e','f','e','g','d','e','h','i','j','h','k','l','i','j'};
-  charboundedarray inputList = {ARRAY_LEN(inputList_arr), inputList_arr};
+  char input_list_arr[] = {'a','b','a','b','c','b','a','c','a','d','e','f','e','g','d','e','h','i','j','h','k','l','i','j'};
+  charboundedarray input_list = {ARRAY_LEN(input_list_arr), input_list_arr};
   int expected_output_arr[] = {9,7,8};
-  boundedarray expected_outputList = {ARRAY_LEN(expected_output_arr), expected_output_arr};
-  boundedarray *actual_outputList = NULL;
+  boundedarray expected_output_list = {ARRAY_LEN(expected_output_arr), expected_output_arr};
+  boundedarray *actual_output_list = NULL;
 
-  actual_outputList = lengthEachScene(&inputList);
+  actual_output_list = lengthEachScene(&input_list);
 
-  assert_true(actual_outputList != NULL);
+  assert_true(actual_output_list != NULL);
 
-  assert_int_equal(expected_outputList.size, actual_outputList->size);
-  //assert_n_array_equal(expected_outputList.arr, actual_outputList->arr, actual_outputList->size); // FYI: This should work. I understand the seatest code now.
-  for(int i = 0; i < actual_outputList->size; i++) {
-    assert_int_equal(expected_outputList.arr[i], actual_outputList->arr[i]);
-  }
+  assert_int_equal(expected_output_list.size, actual_output_list->size);
+  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, actual_output_list->size); // FYI: This should work. I understand the seatest code now.
+
 }
 
 void test_1()
 {
-  char inputList_arr[] = {'a','b','c'};
-  charboundedarray inputList = {ARRAY_LEN(inputList_arr), inputList_arr};
+  char input_list_arr[] = {'a','b','c'};
+  charboundedarray input_list = {ARRAY_LEN(input_list_arr), input_list_arr};
   int expected_output_arr[] = {1,1,1};
-  boundedarray expected_outputList = {ARRAY_LEN(expected_output_arr), expected_output_arr};
-  boundedarray *actual_outputList = NULL;
+  boundedarray expected_output_list = {ARRAY_LEN(expected_output_arr), expected_output_arr};
+  boundedarray *actual_output_list = NULL;
 
-  actual_outputList = lengthEachScene(&inputList);
+  actual_output_list = lengthEachScene(&input_list);
 
-  assert_true(actual_outputList != NULL);
+  assert_true(actual_output_list != NULL);
 
-  assert_int_equal(expected_outputList.size, actual_outputList->size);
-  //assert_n_array_equal(expected_outputList.arr, actual_outputList->arr, actual_outputList->size);
-  for(int i = 0; i < actual_outputList->size; i++) {
-    assert_int_equal(expected_outputList.arr[i], actual_outputList->arr[i]);
-  }
+  assert_int_equal(expected_output_list.size, actual_output_list->size);
+  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, actual_output_list->size);
+
 }
 
 void test_2()
 {
-  char inputList_arr[] = {'a','b','c','a'};
-  charboundedarray inputList = {ARRAY_LEN(inputList_arr), inputList_arr};
+  char input_list_arr[] = {'a','b','c','a'};
+  charboundedarray input_list = {ARRAY_LEN(input_list_arr), input_list_arr};
   int expected_output_arr[] = {4};
-  boundedarray expected_outputList = {ARRAY_LEN(expected_output_arr), expected_output_arr};
-  boundedarray *actual_outputList = NULL;
+  boundedarray expected_output_list = {ARRAY_LEN(expected_output_arr), expected_output_arr};
+  boundedarray *actual_output_list = NULL;
 
-  actual_outputList = lengthEachScene(&inputList);
+  actual_output_list = lengthEachScene(&input_list);
 
-  assert_true(actual_outputList != NULL);
+  assert_true(actual_output_list != NULL);
 
-  assert_int_equal(expected_outputList.size, actual_outputList->size);
-  //assert_n_array_equal(expected_outputList.arr, actual_outputList->arr, actual_outputList->size);
-  for(int i = 0; i < actual_outputList->size; i++) {
-    assert_int_equal(expected_outputList.arr[i], actual_outputList->arr[i]);
-  }
+  assert_int_equal(expected_output_list.size, actual_output_list->size);
+  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, actual_output_list->size);
+
 }
 
 void test_3()
 {
-  char inputList_arr[] = {'a','b','c','a'};
-  charboundedarray inputList = {ARRAY_LEN(inputList_arr), inputList_arr};
+  char input_list_arr[] = {'a','b','c','a'};
+  charboundedarray input_list = {ARRAY_LEN(input_list_arr), input_list_arr};
   int expected_output_arr[] = {4};
-  boundedarray expected_outputList = {ARRAY_LEN(expected_output_arr), expected_output_arr};
-  boundedarray *actual_outputList = NULL;
+  boundedarray expected_output_list = {ARRAY_LEN(expected_output_arr), expected_output_arr};
+  boundedarray *actual_output_list = NULL;
 
-  actual_outputList = lengthEachScene(&inputList);
+  actual_output_list = lengthEachScene(&input_list);
 
-  assert_true(actual_outputList != NULL);
+  assert_true(actual_output_list != NULL);
 
-  assert_int_equal(expected_outputList.size, actual_outputList->size);
-  //assert_n_array_equal(expected_outputList.arr, actual_outputList->arr, actual_outputList->size);
-  for(int i = 0; i < actual_outputList->size; i++) {
-    assert_int_equal(expected_outputList.arr[i], actual_outputList->arr[i]);
-  }
+  assert_int_equal(expected_output_list.size, actual_output_list->size);
+  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, actual_output_list->size);
+
 }
 
 void test_4()
 {
-  char inputList_arr[] = {'a','b','c','d','a','e','f','g','h','i','j','e'};
-  charboundedarray inputList = {ARRAY_LEN(inputList_arr), inputList_arr};
+  char input_list_arr[] = {'a','b','c','d','a','e','f','g','h','i','j','e'};
+  charboundedarray input_list = {ARRAY_LEN(input_list_arr), input_list_arr};
   int expected_output_arr[] = {5, 7};
-  boundedarray expected_outputList = {ARRAY_LEN(expected_output_arr), expected_output_arr};
-  boundedarray *actual_outputList = NULL;
+  boundedarray expected_output_list = {ARRAY_LEN(expected_output_arr), expected_output_arr};
+  boundedarray *actual_output_list = NULL;
 
-  actual_outputList = lengthEachScene(&inputList);
+  actual_output_list = lengthEachScene(&input_list);
 
-  assert_true(actual_outputList != NULL);
+  assert_true(actual_output_list != NULL);
 
-  assert_int_equal(expected_outputList.size, actual_outputList->size);
-  //assert_n_array_equal(expected_outputList.arr, actual_outputList->arr, actual_outputList->size);
-  for(int i = 0; i < actual_outputList->size; i++) {
-    assert_int_equal(expected_outputList.arr[i], actual_outputList->arr[i]);
-  }
+  assert_int_equal(expected_output_list.size, actual_output_list->size);
+  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, actual_output_list->size);
+
 }
 
 void test_5()
 {
-  char inputList_arr[] = {'z','z','c','b','z','c','h','f','i','h','i'};
-  charboundedarray inputList = {ARRAY_LEN(inputList_arr), inputList_arr};
+  char input_list_arr[] = {'z','z','c','b','z','c','h','f','i','h','i'};
+  charboundedarray input_list = {ARRAY_LEN(input_list_arr), input_list_arr};
   int expected_output_arr[] = {6, 5};
-  boundedarray expected_outputList = {ARRAY_LEN(expected_output_arr), expected_output_arr};
-  boundedarray *actual_outputList = NULL;
+  boundedarray expected_output_list = {ARRAY_LEN(expected_output_arr), expected_output_arr};
+  boundedarray *actual_output_list = NULL;
 
-  actual_outputList = lengthEachScene(&inputList);
+  actual_output_list = lengthEachScene(&input_list);
 
-  assert_true(actual_outputList != NULL);
+  assert_true(actual_output_list != NULL);
 
-  assert_int_equal(expected_outputList.size, actual_outputList->size);
-  //assert_n_array_equal(expected_outputList.arr, actual_outputList->arr, actual_outputList->size);
-  for(int i = 0; i < actual_outputList->size; i++) {
-    assert_int_equal(expected_outputList.arr[i], actual_outputList->arr[i]);
-  }
+  assert_int_equal(expected_output_list.size, actual_output_list->size);
+  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, actual_output_list->size);
 }
 
 void test_fixture_one( void )
