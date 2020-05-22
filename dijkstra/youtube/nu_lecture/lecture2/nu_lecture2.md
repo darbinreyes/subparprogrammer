@@ -512,7 +512,11 @@ Now h differs from 0, tells us because the points A, B, and C are all different,
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=39m40s)
 
-The **triangular inequality** that the sum of two sides is larger than the third side. [... audience member says something]. I don't know. I'm looking at this. And on account of monotonicity I conclude that this follows from AB plus AC is at most BC. 
+The **triangular inequality** that the sum of two sides is larger than the third side. [... audience member says something]. I don't know. I'm looking at this. And on account of **monotonicity** I conclude that this follows from AB plus AC is at most BC. 
+
+[COD Definition of monotonicity: "Of a function or quantity, varying in such a way that it either never decreases or never increases." So the plot goes up up up up .... forever, or down down down down, forever.]
+
+[Wiki Definition of monotonicity: "In mathematics, a monotonic function is a function between ordered sets that **preserves** or reverses the given order. The concept first arose in calculus and was later generalized to the more abstract setting of order theory."]
 
 ![a.33](a.33.png)
 
