@@ -143,10 +143,10 @@ void test_4()
 void test_fixture_one( void )
 {
   test_fixture_start();               // starts a fixture
-  //run_test(test_0);
+  run_test(test_0);
   run_test(test_1);
   run_test(test_2);
-  //run_test(test_3);
-  //run_test(test_4);
+  run_test(test_3);
+  run_test(test_4);
   test_fixture_end();                 // ends a fixture
 }

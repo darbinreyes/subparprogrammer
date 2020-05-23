@@ -666,8 +666,9 @@ subsequence_table_entry *alloc_get_subsequences(charboundedarray *labels, charbo
 subsequence_table_entry *alloc_merge_adjacent_overlapping_subsequences(subsequence_table_entry *subsequence_table, int table_length, int *merged_length) {
   // TODO: Args check.
   subsequence_table_entry *merged_table = NULL;
+  subsequence_table_entry *prev_subsequence = NULL;
   int merged_table_length = 0;
-  int i;
+
   /* DE-ERRORING NOTES
 
     subsequence_table - value is as expected - something must have
@@ -677,49 +678,36 @@ subsequence_table_entry *alloc_merge_adjacent_overlapping_subsequences(subsequen
 
   /*
 
-    Since merging subsequences can only reduce the number of total subsequences
+    Since merging subsequences can only reduce the number of total subsequences,
     at most we need mem for table_length merged subsequences.
 
   */
   merged_table = calloc(table_length, sizeof(*(merged_table)));
+  // Take the first subsequence as is.
+  merged_table[merged_table_length].labels = NULL; // TODO
+  merged_table[merged_table_length].start = subsequence_table[0].start;
+  merged_table[merged_table_length].end = subsequence_table[0].end;
+  merged_table[merged_table_length].len = subsequence_table[0].len;
+  merged_table_length++;
+  prev_subsequence = &(merged_table[0]);
 
-  for (i = 0; i < table_length - 1; i++) { // DE-ERRORING - the guard is problematic, we won't increment merged. But if I change it then I'm not sure that the last subsequence will be handled correctly. How do we merge the last subsequence? Something is definitely wrong with this merging, beyond an incorrect guard in the loop.
-    // If the current table entry overlaps with the next table entry, merge them.
-    if (subsequence_table[i + 1].start > subsequence_table[i].end) { // next_subsequence.start > current_subsequence.end
+  for (int i = 1; i < table_length; i++) {
+    // If the current table entry overlaps with the previous table entry, merge them.
+    if (subsequence_table[i].start > prev_subsequence->end) { // current_subsequence.start > prev_subsequence.end
       // Don't overlap. Keep the current subsequence as is.
       merged_table[merged_table_length].labels = NULL; // TODO
       merged_table[merged_table_length].start = subsequence_table[i].start;
       merged_table[merged_table_length].end = subsequence_table[i].end;
       merged_table[merged_table_length].len = subsequence_table[i].len;
       merged_table_length++;
+      prev_subsequence++;
     } else {
-      // Do overlap. Merge.
-
-      merged_table[merged_table_length].labels = NULL; // TODO
-      merged_table[merged_table_length].start = MIN(subsequence_table[i].start, subsequence_table[i + 1].start); // REMARK: is used here i+1, be careful with loop guard.
-      merged_table[merged_table_length].end = MAX(subsequence_table[i].end, subsequence_table[i + 1].end); // TODO: I'm unsure now if max is necessary in the case that we can solve the problem by merging adjacent overlapping subsequences vs. merging overlapping sequences in order from largest subsequence length to smallest.
-      merged_table[merged_table_length].len = merged_table[merged_table_length].end - merged_table[merged_table_length].start + 1;
-      merged_table_length++;
+      // Do overlap. Merge. merged_table_length does NOT need to be incremented.
+      prev_subsequence->labels = NULL; // TODO. Append label.
+      prev_subsequence->start = MIN(prev_subsequence->start, subsequence_table[i].start); // TODO. Are MIN/MAX really needed? Seems like no.
+      prev_subsequence->end = MAX(prev_subsequence->end, subsequence_table[i].end);
+      prev_subsequence->len = prev_subsequence->end - prev_subsequence->start + 1;
     }
-  }
-
-  /*
-
-    If the last subsequence was not merged with the one before it add it to the
-    merged_table as is.
-
-    At this point, the falsity of the guard holds, hence i >= table_length - 1, actually, i = table_length - 1 = index of the last subsequence in subsequence_table.
-    Since after the completion of a single iteration, merged_table_length = the length of merged_table, therefore the last subsequence in it is at index = merged_table_length - 1
-    For the same reason, if we add an additional entry to merged_table below, it should be added at index = merged_table_length.
-
-  */
-  if (merged_table[merged_table_length - 1].end != subsequence_table[i].end) { // if the last subsequence was not merged with the one before it
-    merged_table[merged_table_length].labels = NULL; // TODO
-    merged_table[merged_table_length].start = subsequence_table[i].start;
-    merged_table[merged_table_length].end = subsequence_table[i].end;
-    merged_table[merged_table_length].len = subsequence_table[i].len;
-    merged_table_length++;
-    // TODO: More work is necessary to turn merged table into the right output - consider test_2
   }
 
   *merged_length = merged_table_length;
@@ -799,10 +787,8 @@ boundedarray* lengthEachScene(charboundedarray* input_list)
   }
 
   for (int i = 0; i < merged_length; i++) {
-    if (merged_table[i].end <= input_list->size - 1) { // Stop appending when we encounter a subsequence that has ending index = index of last element of input_list.
-      result->arr[result->size] = merged_table[i].len;
-      result->size++;
-    }
+    result->arr[result->size] = merged_table[i].len;
+    result->size++;
   }
 
   return result;
@@ -811,21 +797,5 @@ boundedarray* lengthEachScene(charboundedarray* input_list)
 
 
 /*
-
--------------------------- test_suite_one.c --------------------------
-test_1                         Line 91    Expected 3 but was 2
-test_2                         Line 108   Expected 1 but was 2
-test_2                         Line 109   Expected 1 to be 4 at position 1
-                           2 run  3 failed
-
-
-
-============================ SEATEST v1.0 ============================
-
-                                Failed
-                             2 tests run
-                               in 0 ms
-
-======================================================================
 
 */
