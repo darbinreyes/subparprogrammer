@@ -73,8 +73,7 @@ void test_0()
   assert_true(actual_output_list != NULL);
 
   assert_int_equal(expected_output_list.size, actual_output_list->size);
-  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, actual_output_list->size); // FYI: This should work. I understand the seatest code now.
-
+  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, MIN(actual_output_list->size, expected_output_list.size));
 }
 
 void test_1()
@@ -90,8 +89,7 @@ void test_1()
   assert_true(actual_output_list != NULL);
 
   assert_int_equal(expected_output_list.size, actual_output_list->size);
-  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, actual_output_list->size);
-
+  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, MIN(actual_output_list->size, expected_output_list.size));
 }
 
 void test_2()
@@ -108,7 +106,6 @@ void test_2()
 
   assert_int_equal(expected_output_list.size, actual_output_list->size);
   assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, MIN(actual_output_list->size, expected_output_list.size)); // TODO: Add MIN to other test cases.
-  printf("yoyo = %d, %d, %d.\n", actual_output_list->arr[0], actual_output_list->arr[1], actual_output_list->arr[2]);
 }
 
 void test_3()
@@ -124,8 +121,7 @@ void test_3()
   assert_true(actual_output_list != NULL);
 
   assert_int_equal(expected_output_list.size, actual_output_list->size);
-  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, actual_output_list->size);
-
+  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, MIN(actual_output_list->size, expected_output_list.size));
 }
 
 void test_4()
@@ -141,7 +137,7 @@ void test_4()
   assert_true(actual_output_list != NULL);
 
   assert_int_equal(expected_output_list.size, actual_output_list->size);
-  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, actual_output_list->size);
+  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, MIN(actual_output_list->size, expected_output_list.size));
 }
 
 void test_fixture_one( void )
