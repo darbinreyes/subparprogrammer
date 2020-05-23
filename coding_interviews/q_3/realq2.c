@@ -417,58 +417,6 @@ The caller is responsible for calling free().
 
 */
 
-// Duplicate the given boundedarray
-boundedarray *alloc_dup_bounded_array(boundedarray *input) { // DELETE IF NOTE USED
-  boundedarray *dup = NULL;
-
-  assert(input != NULL);
-
-  if (!(input != NULL)) {
-    return NULL;
-  }
-
-  dup = calloc((size_t) 1, sizeof(boundedarray));
-
-  if (dup == NULL) {
-    return NULL;
-  }
-
-  dup->size = input->size;
-  dup->arr = calloc((size_t) dup->size, sizeof(*(dup->arr)));
-
-  for (int i = 0; i < dup->size; i++) {
-    dup->arr[i] = input->arr[i];
-  }
-
-  return dup;
-}
-
-// Duplicate the given charboundedarray
-charboundedarray *alloc_dup_char_bounded_array(charboundedarray *input) { // DELETE IF NOTE USED
-  charboundedarray *dup = NULL;
-
-  assert(input != NULL);
-
-  if (!(input != NULL)) {
-    return NULL;
-  }
-
-  dup = calloc((size_t) 1, sizeof(charboundedarray));
-
-  if (dup == NULL) {
-    return NULL;
-  }
-
-  dup->size = input->size;
-  dup->arr = calloc((size_t) dup->size, sizeof(*(dup->arr)));
-
-  for (int i = 0; i < dup->size; i++) {
-    dup->arr[i] = input->arr[i];
-  }
-
-  return dup;
-}
-
 // Appends l to labels
 void append_label(charboundedarray *labels, char l) {
   // TODO: Args check.
@@ -530,7 +478,7 @@ charboundedarray *alloc_get_unique_labels(charboundedarray *input_list) {
 }
 
 // Returns the index of the first occurrence of l in input_list.
-int get_start_index(char l, charboundedarray *input_list) {
+int get_start_index(char l, charboundedarray *input_list) { // Using memchr() might be more efficient.
   // TODO: Args check.
   int i;
 
@@ -579,7 +527,7 @@ typedef struct _subsequence_table_entry {
   charboundedarray *labels; // Labels in this subsequence.
   int start; // Starting index of this subsequence.
   int end;   // Ending index of this subsequence.
-  int len;   // end - start + 1
+  int len;   // End - start + 1.
 } subsequence_table_entry;
 
 /*
@@ -608,9 +556,7 @@ subsequence_table_entry *alloc_get_subsequences(charboundedarray *labels, charbo
     return NULL;
   }
 
-  // For each label
-
-
+  // For each label.
   for (int i = 0; i < labels->size; i++) {
     /*
 
@@ -619,6 +565,8 @@ subsequence_table_entry *alloc_get_subsequences(charboundedarray *labels, charbo
       begin with, every subsequence contains a single label. Later, when we
       merge two subsequences, the resulting subsequence will contain more than
       one label.
+
+      FYI: Storing the labels is necessary, but it is nice to have for debugging.
 
     */
     subsequence_table[i].labels = calloc(1, sizeof(charboundedarray));
@@ -658,8 +606,8 @@ subsequence_table_entry *alloc_get_subsequences(charboundedarray *labels, charbo
 
 /*
 
-  Returns a array of subsequence_table_entry's that result from merging the
-  adjacent and overlapping subsequences occurring in subsequence table. Upon
+  Returns an array of subsequence_table_entry's that result from merging the
+  adjacent and overlapping subsequences occurring in subsequence_table. Upon
   return merged_length will be set to the length of the merged table.
 
 */
@@ -740,12 +688,6 @@ boundedarray* lengthEachScene(charboundedarray* input_list)
     4. Same as #2 but for the subsequence length.
     5. Implement "Pseudo code for overlap test."
 
-    Remark: Don't forget to use qsort(), if necessary. Don't forget to use
-    max(). Don't forget you may need to handle subsequence lengths = 1 such
-    that they are merged into left adjacent subsequences.
-
-    IMPORTANT REMARK: #5 above can generate the subsequences out of order so as a
-    final step you may need to sort the subsequences.
 
     Remark: The mem functions in string.h look like they might be very helpful.
     Remark: Once we compute the starting and ending indexes for each label we
@@ -759,13 +701,6 @@ boundedarray* lengthEachScene(charboundedarray* input_list)
   subsequence_table = alloc_get_subsequences(unique_labels, input_list, &table_length);
   merged_table = alloc_merge_adjacent_overlapping_subsequences(subsequence_table, table_length, &merged_length);
 
-  /*
-
-    NEXT: Implement step #5 above. Can I get away with simply merging all
-    overlapping and adjacent subsequences in the order in which they occur in
-    the input? It is manifest that it would work for test_1 and test_2 and test_4.
-
-  */
 
   // Finally, allocate and return the result.
   result = calloc(1, sizeof(*(result)));
@@ -792,10 +727,6 @@ boundedarray* lengthEachScene(charboundedarray* input_list)
   }
 
   return result;
+  // TODO: Add calls to free().
 }
 // FUNCTION SIGNATURE ENDS
-
-
-/*
-
-*/
