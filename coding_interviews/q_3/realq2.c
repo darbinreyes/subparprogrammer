@@ -418,7 +418,7 @@ The caller is responsible for calling free().
 */
 
 // Duplicate the given boundedarray
-boundedarray *alloc_dup_bounded_array(boundedarray *input) {
+boundedarray *alloc_dup_bounded_array(boundedarray *input) { // DELETE IF NOTE USED
   boundedarray *dup = NULL;
 
   assert(input != NULL);
@@ -444,7 +444,7 @@ boundedarray *alloc_dup_bounded_array(boundedarray *input) {
 }
 
 // Duplicate the given charboundedarray
-charboundedarray *alloc_dup_char_bounded_array(charboundedarray *input) {
+charboundedarray *alloc_dup_char_bounded_array(charboundedarray *input) { // DELETE IF NOTE USED
   charboundedarray *dup = NULL;
 
   assert(input != NULL);
@@ -529,82 +529,6 @@ charboundedarray *alloc_get_unique_labels(charboundedarray *input_list) {
   return unique_labels;
 }
 
-boundedarray *alloc_labels_start_index(charboundedarray *unique_labels, charboundedarray *input_list) {
-  boundedarray *result = NULL;
-  // TODO: Validate args.
-
-  result = calloc((size_t) 1, sizeof(boundedarray));
-
-  if(result == NULL) {
-    return NULL;
-  }
-
-  result->size = unique_labels->size;
-  result->arr = calloc((size_t) result->size, sizeof(*(result->arr)));
-
-  for(int i = 0; i < unique_labels->size; i++){
-    for(int i2 = 0; i2 < input_list->size; i2++) {
-      if(unique_labels->arr[i] == input_list->arr[i2]) {
-        result->arr[i] = i2;
-        break;
-      }
-    }
-  }
-
-  return result;
-}
-
-boundedarray *alloc_label_end_index(charboundedarray *unique_labels, charboundedarray *input_list) {
-  boundedarray *result = NULL;
-  // TODO: Validate args.
-
-  result = calloc((size_t) 1, sizeof(boundedarray));
-
-  if (result == NULL) {
-    return NULL;
-  }
-
-  result->size = unique_labels->size;
-  result->arr = calloc((size_t) result->size, sizeof(*(result->arr)));
-
-  for (int i = 0; i < unique_labels->size; i++){
-    for (int i2 = 0; i2 < input_list->size; i2++) {
-      if (unique_labels->arr[i] == input_list->arr[i2]) {
-        result->arr[i] = i2;
-      }
-    }
-  }
-
-  return result;
-}
-
-boundedarray *alloc_subsequence_length(boundedarray *unique_labels_start, boundedarray *unique_labels_end) {
-  boundedarray *result = NULL;
-  // TODO: Validate args.
-  result = calloc((size_t) 1, sizeof(boundedarray));
-
-  if (result == NULL) {
-    return NULL;
-  }
-
-  result->size = unique_labels_start->size;
-  result->arr = calloc((size_t) result->size, sizeof(*(result->arr)));
-
-  for (int i = 0; i < unique_labels_start->size; i++){
-    result->arr[i] = unique_labels_end->arr[i] - unique_labels_start->arr[i] + 1;
-  }
-
-  return result;
-
-}
-
-// Stores information about a subsequence.
-typedef struct _subsequence_table_entry {
-  charboundedarray *labels; // Labels in this subsequence.
-  int start; // Starting index of this subsequence.
-  int end;   // Ending index of this subsequence.
-} subsequence_table_entry;
-
 // Returns the index of the first occurrence of l in input_list.
 int get_start_index(char l, charboundedarray *input_list) {
   // TODO: Args check.
@@ -650,20 +574,94 @@ int get_end_index(char l, charboundedarray *input_list) {
   return end;
 }
 
+// Stores information about a subsequence.
+typedef struct _subsequence_table_entry {
+  charboundedarray *labels; // Labels in this subsequence.
+  int start; // Starting index of this subsequence.
+  int end;   // Ending index of this subsequence.
+} subsequence_table_entry;
+
+/*
+
+  Returns an array of subsequence_table_entry's for each label in labels
+  corresponding to input_list. The length of the returned array is equal to
+  labels->size.
+
+*/
+subsequence_table_entry *alloc_get_subsequences(charboundedarray *labels, charboundedarray *input_list) {
+  // TODO: Args check.
+  subsequence_table_entry *subsequence_table = NULL;
+
+  /*
+
+  At most, every element of labels will correspond to a subsequence, so
+  allocate labels->size subsequence_table_entry's.
+
+  */
+
+  subsequence_table = calloc(labels->size, sizeof(subsequence_table_entry));
+
+  assert(subsequence_table != NULL);
+
+  if (!(subsequence_table != NULL)) {
+    return NULL;
+  }
+
+  // For each label
+
+
+  for (int i = 0; i < labels->size; i++) {
+    /*
+
+      At most, a subsequence will contain label->size labels, so allocate that
+      much mem for storing the labels that are part of the same sequence. To
+      begin with, every subsequence contains a single label. Later, when we
+      merge two subsequences, the resulting subsequence will contain more than
+      one label.
+
+    */
+    subsequence_table[i].labels = calloc(1, sizeof(charboundedarray));
+
+    assert(subsequence_table[i].labels != NULL);
+
+    if (!(subsequence_table[i].labels != NULL)) {
+      return NULL;
+    }
+
+    subsequence_table[i].labels->arr = calloc(labels->size, sizeof(*(labels->arr)));
+
+    assert(subsequence_table[i].labels->arr != NULL);
+
+    if (!(subsequence_table[i].labels->arr != NULL)) {
+      return NULL;
+    }
+
+    subsequence_table[i].labels->arr[0] = labels->arr[i];
+
+    /*
+
+      Get the starting index and ending index, save that info. in a
+      subsequence_table_entry.
+
+    */
+    subsequence_table[i].start = get_start_index(labels->arr[i], input_list);
+    subsequence_table[i].end = get_end_index(labels->arr[i], input_list);
+  }
+
+  return subsequence_table;
+}
 
 // FUNCTION SIGNATURE BEGINS, THIS FUNCTION IS REQUIRED
 boundedarray* lengthEachScene(charboundedarray* input_list)
 {
-    charboundedarray *unique_labels = NULL;
-    boundedarray *unique_labels_start = NULL;
-    boundedarray *unique_labels_end = NULL;
-    boundedarray *subsequence_length = NULL;
-    // WRITE YOUR CODE HERE
-    assert(input_list != NULL);
+  charboundedarray *unique_labels = NULL;
+  subsequence_table_entry *subsequence_table;
+  // WRITE YOUR CODE HERE
+  assert(input_list != NULL);
 
-    if(!(input_list != NULL)) {
-      return NULL;
-    }
+  if(!(input_list != NULL)) {
+    return NULL;
+  }
 
     /*
       1. Compute an array containing each unique letter that occurs in input_list.
@@ -688,9 +686,7 @@ boundedarray* lengthEachScene(charboundedarray* input_list)
     */
 
       unique_labels = alloc_get_unique_labels(input_list);
-      unique_labels_start = alloc_labels_start_index(unique_labels, input_list);
-      unique_labels_end = alloc_label_end_index(unique_labels, input_list);
-      subsequence_length = alloc_subsequence_length(unique_labels_start, unique_labels_end);
+      subsequence_table = alloc_get_subsequences(unique_labels, input_list);
     // Finally, allocate and return the result.
 
     return NULL;
