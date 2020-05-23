@@ -560,16 +560,16 @@ boundedarray *alloc_label_end_index(charboundedarray *unique_labels, charbounded
 
   result = calloc((size_t) 1, sizeof(boundedarray));
 
-  if(result == NULL) {
+  if (result == NULL) {
     return NULL;
   }
 
   result->size = unique_labels->size;
   result->arr = calloc((size_t) result->size, sizeof(*(result->arr)));
 
-  for(int i = 0; i < unique_labels->size; i++){
-    for(int i2 = 0; i2 < input_list->size; i2++) {
-      if(unique_labels->arr[i] == input_list->arr[i2]) {
+  for (int i = 0; i < unique_labels->size; i++){
+    for (int i2 = 0; i2 < input_list->size; i2++) {
+      if (unique_labels->arr[i] == input_list->arr[i2]) {
         result->arr[i] = i2;
       }
     }
@@ -583,20 +583,74 @@ boundedarray *alloc_subsequence_length(boundedarray *unique_labels_start, bounde
   // TODO: Validate args.
   result = calloc((size_t) 1, sizeof(boundedarray));
 
-  if(result == NULL) {
+  if (result == NULL) {
     return NULL;
   }
 
   result->size = unique_labels_start->size;
   result->arr = calloc((size_t) result->size, sizeof(*(result->arr)));
 
-  for(int i = 0; i < unique_labels_start->size; i++){
+  for (int i = 0; i < unique_labels_start->size; i++){
     result->arr[i] = unique_labels_end->arr[i] - unique_labels_start->arr[i] + 1;
   }
 
   return result;
 
 }
+
+// Stores information about a subsequence.
+typedef struct _subsequence_table_entry {
+  charboundedarray *labels; // Labels in this subsequence.
+  int start; // Starting index of this subsequence.
+  int end;   // Ending index of this subsequence.
+} subsequence_table_entry;
+
+// Returns the index of the first occurrence of l in input_list.
+int get_start_index(char l, charboundedarray *input_list) {
+  // TODO: Args check.
+  int i;
+
+  for (i = 0; i < input_list->size; i++) {
+    if (input_list->arr[i] == l) {
+      return i;
+    }
+  }
+
+  assert(0); // This function expects l to be in input_list
+
+  return -1;
+  // FYI: we could use memchr(cs,c,n) here.
+}
+
+// Returns the index of the last occurrence of l in input_list.
+int get_end_index(char l, charboundedarray *input_list) {
+  // TODO: Args check.
+  int i, end, found;
+
+  /*
+
+    found is used to verify that at least 1 occurrence of l was found in input_list.
+
+  */
+
+  found = 0;
+  end = 0;
+
+  for (i = 0; i < input_list->size; i++) {
+    if (input_list->arr[i] == l) {
+      end = i;
+
+      if (!found)
+        found = 1;
+    }
+  }
+
+  assert(found);
+
+  return end;
+}
+
+
 // FUNCTION SIGNATURE BEGINS, THIS FUNCTION IS REQUIRED
 boundedarray* lengthEachScene(charboundedarray* input_list)
 {
