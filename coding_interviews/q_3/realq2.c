@@ -410,6 +410,13 @@ chars, and the last 8 chars consists entirely of h i j k"
 
 */
 
+/*
+
+All functions with "alloc" in their name return dynamically allocated objects.
+The caller is responsible for calling free().
+
+*/
+
 // Duplicate the given boundedarray
 boundedarray *alloc_dup_bounded_array(boundedarray *input) {
   boundedarray *dup = NULL;
@@ -462,62 +469,64 @@ charboundedarray *alloc_dup_char_bounded_array(charboundedarray *input) {
   return dup;
 }
 
-// Returns input_list after removing all duplicate labels.
-charboundedarray *alloc_unique_labels_array(charboundedarray *input_list) {
+// Appends l to labels
+void append_label(charboundedarray *labels, char l) {
+  // TODO: Args check.
+  labels->arr[labels->size] = l;
+  labels->size++;
+}
 
-#define LABEL_IS_DUPLICATE 0
 
-  charboundedarray *input_list_dup = NULL;
-  char current_label  = LABEL_IS_DUPLICATE;
-  int num_unique_labels = 0;
-  charboundedarray *result = NULL;
+// Returns 1 if l does not occur in labels, 0 otherwise.
+int is_unique_label(charboundedarray *labels, char l) {
+  // TODO: Args check.
 
-  assert(input_list != NULL);
+  for (int i = 0; i < labels->size; i++) {
+    if(labels->arr[i] == l) {
+      // l is not unique in labels
+      return 0;
+    }
+  }
 
-  if(!(input_list != NULL)) {
+  return 1;
+}
+
+// Identifies all unique labels in input_list, returns them in an array.
+charboundedarray *alloc_get_unique_labels(charboundedarray *input_list) {
+  charboundedarray *unique_labels = NULL;
+
+  assert(input_list != NULL && input_list > 0);
+
+  if (!(input_list != NULL && input_list > 0)) {
     return NULL;
   }
 
-  input_list_dup = alloc_dup_char_bounded_array(input_list);
+  unique_labels = calloc(1, sizeof(*unique_labels));
 
-  assert(input_list_dup != NULL);
+  assert(unique_labels != NULL);
 
-  if(!(input_list_dup != NULL)) {
+  if (!(unique_labels != NULL)) {
     return NULL;
   }
 
-  // Mark all duplicate labels with LABEL_IS_DUPLICATE so that the resulting array contains only a single occurrence of each label.
-  for(int i = 0; i < input_list_dup->size; i++) {
-    current_label = input_list_dup->arr[i];
-    for(int i2 = i; i2 < input_list_dup->size; i2++) {
-      if(i2 > i && input_list_dup->arr[i2] == current_label) {
-        input_list_dup->arr[i2] = LABEL_IS_DUPLICATE;
-      }
+  /*
+
+    At most, every element of input_list is a unique label, so allocate
+    enough mem for input_list->size labels.
+
+  */
+
+  unique_labels->size = 0;
+  unique_labels->arr = calloc(input_list->size, sizeof(*(unique_labels->arr)));
+
+  /* Identify all unique labels in input_list, save them in unique_labels. */
+  for (int i = 0; i < input_list->size; i++) {
+    if(is_unique_label(unique_labels, input_list->arr[i])) {
+      append_label(unique_labels, input_list->arr[i]);
     }
   }
 
-  // Determine the number of unique labels.
-  for(int i = 0; i < input_list_dup->size; i++) {
-    if(input_list_dup->arr[i] != LABEL_IS_DUPLICATE) {
-      num_unique_labels++;
-    }
-  }
-
-  result = calloc((size_t) 1, sizeof(*result));
-
-  result->size = num_unique_labels;
-  result->arr = calloc((size_t) result->size, sizeof(*(result->arr)));
-
-  // Copy the unique labels to the result array.
-  int i2 = 0;
-  for(int i = 0; i < input_list_dup->size; i++) {
-    if(input_list_dup->arr[i] != LABEL_IS_DUPLICATE) {
-      result->arr[i2] = input_list_dup->arr[i];
-      i2++;
-    }
-  }
-
-  return result;
+  return unique_labels;
 }
 
 boundedarray *alloc_labels_start_index(charboundedarray *unique_labels, charboundedarray *input_list) {
@@ -624,7 +633,7 @@ boundedarray* lengthEachScene(charboundedarray* input_list)
 
     */
 
-      unique_labels = alloc_unique_labels_array(input_list);
+      unique_labels = alloc_get_unique_labels(input_list);
       unique_labels_start = alloc_labels_start_index(unique_labels, input_list);
       unique_labels_end = alloc_label_end_index(unique_labels, input_list);
       subsequence_length = alloc_subsequence_length(unique_labels_start, unique_labels_end);
