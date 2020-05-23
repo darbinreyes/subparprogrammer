@@ -112,23 +112,6 @@ void test_2()
 
 void test_3()
 {
-  char input_list_arr[] = {'a','b','c','a'};
-  charboundedarray input_list = {ARRAY_LEN(input_list_arr), input_list_arr};
-  int expected_output_arr[] = {4};
-  boundedarray expected_output_list = {ARRAY_LEN(expected_output_arr), expected_output_arr};
-  boundedarray *actual_output_list = NULL;
-
-  actual_output_list = lengthEachScene(&input_list);
-
-  assert_true(actual_output_list != NULL);
-
-  assert_int_equal(expected_output_list.size, actual_output_list->size);
-  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, actual_output_list->size);
-
-}
-
-void test_4()
-{
   char input_list_arr[] = {'a','b','c','d','a','e','f','g','h','i','j','e'};
   charboundedarray input_list = {ARRAY_LEN(input_list_arr), input_list_arr};
   int expected_output_arr[] = {5, 7};
@@ -144,7 +127,7 @@ void test_4()
 
 }
 
-void test_5()
+void test_4()
 {
   char input_list_arr[] = {'z','z','c','b','z','c','h','f','i','h','i'};
   charboundedarray input_list = {ARRAY_LEN(input_list_arr), input_list_arr};
@@ -163,11 +146,10 @@ void test_5()
 void test_fixture_one( void )
 {
   test_fixture_start();               // starts a fixture
-  run_test(test_0);
+  //run_test(test_0);
   run_test(test_1);
   run_test(test_2);
-  run_test(test_3);
-  run_test(test_4);
-  run_test(test_5);
+  //run_test(test_3);
+  //run_test(test_4);
   test_fixture_end();                 // ends a fixture
 }

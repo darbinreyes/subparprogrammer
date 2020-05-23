@@ -306,7 +306,7 @@ chars, and the last 8 chars consists entirely of h i j k"
   It is manifest that they certainly don't overlap if
   (i.e. the above 4 cases can be reduced to the if statement below.)
 
-  if(upper.start > lower.end) {
+  if (upper.start > lower.end) {
     // No overlap.
     // Let this be a new subsequence.
     new_subsequence.start = current_subsequence.start
@@ -368,7 +368,7 @@ chars, and the last 8 chars consists entirely of h i j k"
     lower = prev_subsequence , 0, 3
     upper = current_subsequence , 1, 1
 
-  if(upper.start > lower.end) { // 1 > 3 // false
+  if (upper.start > lower.end) { // 1 > 3 // false
     // No overlap
   else
     // Yes overlap.
@@ -423,20 +423,20 @@ boundedarray *alloc_dup_bounded_array(boundedarray *input) { // DELETE IF NOTE U
 
   assert(input != NULL);
 
-  if(!(input != NULL)) {
+  if (!(input != NULL)) {
     return NULL;
   }
 
   dup = calloc((size_t) 1, sizeof(boundedarray));
 
-  if(dup == NULL) {
+  if (dup == NULL) {
     return NULL;
   }
 
   dup->size = input->size;
   dup->arr = calloc((size_t) dup->size, sizeof(*(dup->arr)));
 
-  for(int i = 0; i < dup->size; i++) {
+  for (int i = 0; i < dup->size; i++) {
     dup->arr[i] = input->arr[i];
   }
 
@@ -449,20 +449,20 @@ charboundedarray *alloc_dup_char_bounded_array(charboundedarray *input) { // DEL
 
   assert(input != NULL);
 
-  if(!(input != NULL)) {
+  if (!(input != NULL)) {
     return NULL;
   }
 
   dup = calloc((size_t) 1, sizeof(charboundedarray));
 
-  if(dup == NULL) {
+  if (dup == NULL) {
     return NULL;
   }
 
   dup->size = input->size;
   dup->arr = calloc((size_t) dup->size, sizeof(*(dup->arr)));
 
-  for(int i = 0; i < dup->size; i++) {
+  for (int i = 0; i < dup->size; i++) {
     dup->arr[i] = input->arr[i];
   }
 
@@ -482,7 +482,7 @@ int is_unique_label(charboundedarray *labels, char l) {
   // TODO: Args check.
 
   for (int i = 0; i < labels->size; i++) {
-    if(labels->arr[i] == l) {
+    if (labels->arr[i] == l) {
       // l is not unique in labels
       return 0;
     }
@@ -521,7 +521,7 @@ charboundedarray *alloc_get_unique_labels(charboundedarray *input_list) {
 
   /* Identify all unique labels in input_list, save them in unique_labels. */
   for (int i = 0; i < input_list->size; i++) {
-    if(is_unique_label(unique_labels, input_list->arr[i])) {
+    if (is_unique_label(unique_labels, input_list->arr[i])) {
       append_label(unique_labels, input_list->arr[i]);
     }
   }
@@ -586,10 +586,10 @@ typedef struct _subsequence_table_entry {
 
   Returns an array of subsequence_table_entry's for each label in labels
   corresponding to input_list. The length of the returned array is equal to
-  labels->size.
+  labels->size, upon return table_length is set to this value.
 
 */
-subsequence_table_entry *alloc_get_subsequences(charboundedarray *labels, charboundedarray *input_list) {
+subsequence_table_entry *alloc_get_subsequences(charboundedarray *labels, charboundedarray *input_list, int *table_length) {
   // TODO: Args check.
   subsequence_table_entry *subsequence_table = NULL;
 
@@ -638,6 +638,7 @@ subsequence_table_entry *alloc_get_subsequences(charboundedarray *labels, charbo
     }
 
     subsequence_table[i].labels->arr[0] = labels->arr[i];
+    subsequence_table[i].labels->size = 1;
 
     /*
 
@@ -651,18 +652,72 @@ subsequence_table_entry *alloc_get_subsequences(charboundedarray *labels, charbo
     subsequence_table[i].len = subsequence_table[i].end - subsequence_table[i].start + 1;
   }
 
+  *table_length = labels->size;
   return subsequence_table;
+}
+
+#define MAX(a, b) ( ( (a > b)? (a) : (b) ) )
+#define MIN(a, b) ( ( (a < b)? (a) : (b) ) )
+
+/*
+
+  Returns a array of subsequence_table_entry's that result from merging the
+  adjacent and overlapping subsequences occurring in subsequence table. Upon
+  return merged_length will be set to the length of the merged table.
+
+*/
+subsequence_table_entry *alloc_merge_adjacent_overlapping_subsequences(subsequence_table_entry *subsequence_table, int table_length, int *merged_length) {
+  // TODO: Args check.
+  subsequence_table_entry *merged_table = NULL;
+  int merged_table_length = 0;
+
+  /*
+
+    Since merging subsequences can only reduce the number of total subsequences
+    at most we need mem for table_length merged subsequences.
+
+  */
+  merged_table = calloc(table_length, sizeof(*(merged_table)));
+
+  for (int i = 0; i < table_length - 1; i++) {
+    // If the current table entry overlaps with the next table entry, merge them.
+    if (subsequence_table[i+1].start > subsequence_table[i].end) { // next_subsequence.start > current_subsequence.end
+      // Don't overlap. Keep the current subsequence as is.
+      merged_table[merged_table_length].labels = NULL; // TODO
+      merged_table[merged_table_length].start = subsequence_table[i].start;
+      merged_table[merged_table_length].end = subsequence_table[i].end;
+      merged_table[merged_table_length].len = subsequence_table[i].len;
+      merged_table_length++;
+    } else {
+      // Do overlap. Merge.
+
+      merged_table[merged_table_length].labels = NULL; // TODO
+      merged_table[merged_table_length].start = MIN(subsequence_table[i].start, subsequence_table[i + 1].start);
+      merged_table[merged_table_length].end = MAX(subsequence_table[i].end, subsequence_table[i + 1].end); // TODO: I'm unsure now if max is necessary in the case that we can solve the problem by merging adjacent overlapping subsequences vs. merging overlapping sequences in order from largest subsequence length to smallest.
+      merged_table[merged_table_length].len = merged_table[merged_table_length].end - merged_table[merged_table_length].start + 1;
+      merged_table_length++;
+    }
+  }
+
+  *merged_length = merged_table_length;
+
+  return merged_table;
 }
 
 // FUNCTION SIGNATURE BEGINS, THIS FUNCTION IS REQUIRED
 boundedarray* lengthEachScene(charboundedarray* input_list)
 {
   charboundedarray *unique_labels = NULL;
-  subsequence_table_entry *subsequence_table;
+  subsequence_table_entry *subsequence_table = NULL;
+  int table_length = 0;
+  subsequence_table_entry *merged_table = NULL;
+  int merged_length = 0;
+  boundedarray *result = NULL;
+
   // WRITE YOUR CODE HERE
   assert(input_list != NULL);
 
-  if(!(input_list != NULL)) {
+  if (!(input_list != NULL)) {
     return NULL;
   }
 
@@ -690,10 +745,57 @@ boundedarray* lengthEachScene(charboundedarray* input_list)
   */
 
   unique_labels = alloc_get_unique_labels(input_list);
-  subsequence_table = alloc_get_subsequences(unique_labels, input_list);
+  subsequence_table = alloc_get_subsequences(unique_labels, input_list, &table_length);
+  merged_table = alloc_merge_adjacent_overlapping_subsequences(subsequence_table, table_length, &merged_length);
+
+  /*
+
+    NEXT: Implement step #5 above. Can I get away with simply merging all
+    overlapping and adjacent subsequences in the order in which they occur in
+    the input? It is manifest that it would work for test_1 and test_2 and test_4.
+
+  */
 
   // Finally, allocate and return the result.
+  result = calloc(1, sizeof(*(result)));
 
+  assert(result != NULL);
+
+  if (!(result != NULL)) {
     return NULL;
+  }
+
+  result->size = merged_length;
+
+  result->arr = calloc(result->size, sizeof(*(result->arr)));
+
+  assert(result->arr != NULL);
+
+  for (int i = 0; i < result->size; i++) {
+    result->arr[i] = merged_table[i].len;
+  }
+
+  return result;
 }
 // FUNCTION SIGNATURE ENDS
+
+
+/*
+
+-------------------------- test_suite_one.c --------------------------
+test_1                         Line 91    Expected 3 but was 2
+test_2                         Line 108   Expected 1 but was 2
+test_2                         Line 109   Expected 1 to be 4 at position 1
+                           2 run  3 failed
+
+
+
+============================ SEATEST v1.0 ============================
+
+                                Failed
+                             2 tests run
+                               in 0 ms
+
+======================================================================
+
+*/
