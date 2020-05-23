@@ -670,6 +670,13 @@ subsequence_table_entry *alloc_merge_adjacent_overlapping_subsequences(subsequen
   // TODO: Args check.
   subsequence_table_entry *merged_table = NULL;
   int merged_table_length = 0;
+  int i;
+  /* DE-ERRORING NOTES
+
+    subsequence_table - value is as expected - something must have
+    gone wrong with the merging.
+
+  */
 
   /*
 
@@ -679,9 +686,9 @@ subsequence_table_entry *alloc_merge_adjacent_overlapping_subsequences(subsequen
   */
   merged_table = calloc(table_length, sizeof(*(merged_table)));
 
-  for (int i = 0; i < table_length - 1; i++) {
+  for (i = 0; i < table_length - 1; i++) { // DE-ERRORING - the guard is problematic, we won't increment merged. But if I change it then I'm not sure that the last subsequence will be handled correctly. How do we merge the last subsequence? Something is definitely wrong with this merging, beyond an incorrect guard in the loop.
     // If the current table entry overlaps with the next table entry, merge them.
-    if (subsequence_table[i+1].start > subsequence_table[i].end) { // next_subsequence.start > current_subsequence.end
+    if (subsequence_table[i + 1].start > subsequence_table[i].end) { // next_subsequence.start > current_subsequence.end
       // Don't overlap. Keep the current subsequence as is.
       merged_table[merged_table_length].labels = NULL; // TODO
       merged_table[merged_table_length].start = subsequence_table[i].start;
@@ -692,11 +699,30 @@ subsequence_table_entry *alloc_merge_adjacent_overlapping_subsequences(subsequen
       // Do overlap. Merge.
 
       merged_table[merged_table_length].labels = NULL; // TODO
-      merged_table[merged_table_length].start = MIN(subsequence_table[i].start, subsequence_table[i + 1].start);
+      merged_table[merged_table_length].start = MIN(subsequence_table[i].start, subsequence_table[i + 1].start); // REMARK: is used here i+1, be careful with loop guard.
       merged_table[merged_table_length].end = MAX(subsequence_table[i].end, subsequence_table[i + 1].end); // TODO: I'm unsure now if max is necessary in the case that we can solve the problem by merging adjacent overlapping subsequences vs. merging overlapping sequences in order from largest subsequence length to smallest.
       merged_table[merged_table_length].len = merged_table[merged_table_length].end - merged_table[merged_table_length].start + 1;
       merged_table_length++;
     }
+  }
+
+  /*
+
+    If the last subsequence was not merged with the one before it add it to the
+    merged_table as is.
+
+    At this point, the falsity of the guard holds, hence i >= table_length - 1, actually, i = table_length - 1 = index of the last subsequence in subsequence_table.
+    Since after the completion of a single iteration, merged_table_length = the length of merged_table, therefore the last subsequence in it is at index = merged_table_length - 1
+    For the same reason, if we add an additional entry to merged_table below, it should be added at index = merged_table_length.
+
+  */
+  if (merged_table[merged_table_length - 1].end != subsequence_table[i].end) { // if the last subsequence was not merged with the one before it
+    merged_table[merged_table_length].labels = NULL; // TODO
+    merged_table[merged_table_length].start = subsequence_table[i].start;
+    merged_table[merged_table_length].end = subsequence_table[i].end;
+    merged_table[merged_table_length].len = subsequence_table[i].len;
+    merged_table_length++;
+    // TODO: More work is necessary to turn merged table into the right output - consider test_2
   }
 
   *merged_length = merged_table_length;
