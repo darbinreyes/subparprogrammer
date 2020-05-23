@@ -791,14 +791,21 @@ boundedarray* lengthEachScene(charboundedarray* input_list)
     return NULL;
   }
 
-  result->size = merged_length;
+  result->size = 0;
 
-  result->arr = calloc(result->size, sizeof(*(result->arr)));
+  result->arr = calloc(merged_length, sizeof(*(result->arr)));
 
   assert(result->arr != NULL);
 
-  for (int i = 0; i < result->size; i++) {
-    result->arr[i] = merged_table[i].len;
+  if (!(result->arr != NULL)) {
+    return NULL;
+  }
+
+  for (int i = 0; i < merged_length; i++) {
+    if (merged_table[i].end <= input_list->size - 1) { // Stop appending when we encounter a subsequence that has ending index = index of last element of input_list.
+      result->arr[result->size] = merged_table[i].len;
+      result->size++;
+    }
   }
 
   return result;
