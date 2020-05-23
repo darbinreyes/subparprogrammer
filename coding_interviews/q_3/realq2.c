@@ -656,9 +656,6 @@ subsequence_table_entry *alloc_get_subsequences(charboundedarray *labels, charbo
   return subsequence_table;
 }
 
-#define MAX(a, b) ( ( (a > b)? (a) : (b) ) )
-#define MIN(a, b) ( ( (a < b)? (a) : (b) ) )
-
 /*
 
   Returns a array of subsequence_table_entry's that result from merging the

@@ -1,5 +1,6 @@
 #include "seatest.h"
 #include "realq2.h"
+#include <stdio.h>
 
 /* Given test cases from the problem tab.
 ******* Example 1:
@@ -106,8 +107,8 @@ void test_2()
   assert_true(actual_output_list != NULL);
 
   assert_int_equal(expected_output_list.size, actual_output_list->size);
-  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, actual_output_list->size);
-
+  assert_n_array_equal(expected_output_list.arr, actual_output_list->arr, MIN(actual_output_list->size, expected_output_list.size)); // TODO: Add MIN to other test cases.
+  printf("yoyo = %d, %d, %d.\n", actual_output_list->arr[0], actual_output_list->arr[1], actual_output_list->arr[2]);
 }
 
 void test_3()
