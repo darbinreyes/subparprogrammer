@@ -579,6 +579,7 @@ typedef struct _subsequence_table_entry {
   charboundedarray *labels; // Labels in this subsequence.
   int start; // Starting index of this subsequence.
   int end;   // Ending index of this subsequence.
+  int len;   // end - start + 1
 } subsequence_table_entry;
 
 /*
@@ -646,6 +647,8 @@ subsequence_table_entry *alloc_get_subsequences(charboundedarray *labels, charbo
     */
     subsequence_table[i].start = get_start_index(labels->arr[i], input_list);
     subsequence_table[i].end = get_end_index(labels->arr[i], input_list);
+
+    subsequence_table[i].len = subsequence_table[i].end - subsequence_table[i].start + 1;
   }
 
   return subsequence_table;
@@ -663,31 +666,33 @@ boundedarray* lengthEachScene(charboundedarray* input_list)
     return NULL;
   }
 
-    /*
-      1. Compute an array containing each unique letter that occurs in input_list.
-      2. Compute an array containing the start index of each letter corresponding to array #1.
-      3. Same as #2 but for the end index.
-      4. Same as #2 but for the subsequence length.
-      5. Implement "Pseudo code for overlap test."
+  /*
 
-      Remark: Don't forget to use qsort(), if necessary. Don't forget to use
-      max(). Don't forget you may need to handle subsequence lengths = 1 such
-      that they are merged into left adjacent subsequences.
+    1. Compute an array containing each unique letter that occurs in input_list.
+    2. Compute an array containing the start index of each letter corresponding to array #1.
+    3. Same as #2 but for the end index.
+    4. Same as #2 but for the subsequence length.
+    5. Implement "Pseudo code for overlap test."
 
-      IMPORTANT REMARK: #5 above can generate the subsequences out of order so as a
-      final step you may need to sort the subsequences.
+    Remark: Don't forget to use qsort(), if necessary. Don't forget to use
+    max(). Don't forget you may need to handle subsequence lengths = 1 such
+    that they are merged into left adjacent subsequences.
 
-      Remark: The mem functions in string.h look like they might be very helpful.
-      Remark: Once we compute the starting and ending indexes for each label we
-      can focus on merging those index intervals in cases were they overlap, for
-      , if there is overlap, and we do not merge, a label will certainly appear
-      in more than one "scene"(a.k.a. subsequence).
+    IMPORTANT REMARK: #5 above can generate the subsequences out of order so as a
+    final step you may need to sort the subsequences.
 
-    */
+    Remark: The mem functions in string.h look like they might be very helpful.
+    Remark: Once we compute the starting and ending indexes for each label we
+    can focus on merging those index intervals in cases were they overlap, for
+    , if there is overlap, and we do not merge, a label will certainly appear
+    in more than one "scene"(a.k.a. subsequence).
 
-      unique_labels = alloc_get_unique_labels(input_list);
-      subsequence_table = alloc_get_subsequences(unique_labels, input_list);
-    // Finally, allocate and return the result.
+  */
+
+  unique_labels = alloc_get_unique_labels(input_list);
+  subsequence_table = alloc_get_subsequences(unique_labels, input_list);
+
+  // Finally, allocate and return the result.
 
     return NULL;
 }
