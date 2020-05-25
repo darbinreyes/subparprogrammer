@@ -303,7 +303,7 @@ void free_merge_adjacent_overlapping_subsequences(subsequence_table_entry *merge
   if (!(merged_table != 0)) {
     return;
   }
-
+  // TODO. Free if add labels to merged table.
   free(merged_table);
 }
 
