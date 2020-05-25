@@ -89,6 +89,18 @@ charboundedarray *alloc_get_unique_labels(charboundedarray *input_list) {
   return unique_labels;
 }
 
+// Free memory allocated by alloc_get_unique_labels().
+void free_get_unique_labels(charboundedarray *unique_labels) {
+  assert(unique_labels != NULL);
+
+  if (!(unique_labels != NULL)) {
+    return;
+  }
+
+  free(unique_labels->arr);
+  free(unique_labels);
+}
+
 // Returns the index of the first occurrence of l in input_list.
 int get_start_index(char l, charboundedarray *input_list) { // Using memchr() might be more efficient.
   // TODO: Args check.
@@ -216,6 +228,22 @@ subsequence_table_entry *alloc_get_subsequences(charboundedarray *labels, charbo
   return subsequence_table;
 }
 
+// Free memory allocated by alloc_get_subsequences().
+void free_get_subsequences(subsequence_table_entry *subsequence_table, int table_length) {
+
+  assert(subsequence_table != NULL);
+  if (!(subsequence_table != NULL)) {
+    return;
+  }
+
+  for (int i = 0; i < table_length; i++) {
+    free(subsequence_table[i].labels->arr);
+    free(subsequence_table[i].labels);
+  }
+
+  free(subsequence_table);
+}
+
 /*
 
   Returns an array of subsequence_table_entry's that result from merging the
@@ -266,6 +294,17 @@ subsequence_table_entry *alloc_merge_adjacent_overlapping_subsequences(subsequen
   *merged_length = merged_table_length;
 
   return merged_table;
+}
+
+// Free memory allocated by alloc_merge_adjacent_overlapping_subsequences().
+void free_merge_adjacent_overlapping_subsequences(subsequence_table_entry *merged_table, int merged_length) {
+  assert(merged_table != 0);
+
+  if (!(merged_table != 0)) {
+    return;
+  }
+
+  free(merged_table);
 }
 
 // FUNCTION SIGNATURE BEGINS, THIS FUNCTION IS REQUIRED
@@ -329,7 +368,10 @@ boundedarray* lengthEachScene(charboundedarray* input_list)
     result->size++;
   }
 
-  return result;
   // TODO: Add calls to free().
+  free_get_unique_labels(unique_labels);
+  free_get_subsequences(subsequence_table, table_length);
+  free_merge_adjacent_overlapping_subsequences(merged_table, merged_length);
+  return result;
 }
 // FUNCTION SIGNATURE ENDS
