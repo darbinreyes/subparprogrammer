@@ -1,0 +1,1 @@
+A collection of exercises in the C programming language.
