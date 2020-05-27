@@ -162,5 +162,9 @@ int** groupThePeople(int* groupSizes, int groupSizesSize, int* returnSize, int**
   *returnSize = return_size;
   *returnColumnSizes = return_column_sizes;
 
+  // TODO Free mem.
+  free(group_sizes_dup);
+
+
   return assigned_groups;
 }
