@@ -14,16 +14,8 @@ Use the dtrace command to trace system calls.
 #include <sys/uio.h>
 #include <unistd.h> // read, write
 #include <fcntl.h> // open, O_RDONLY
-
-#include <sys/errno.h> //  [ENOENT] O_CREAT is not set and the named file does not exist.
 #include <stdio.h> // perror(), to print detailed error messa
 #include <sys/stat.h> // See man 2 chmod.
-
-// ssize_t read(int fildes, void *buf, size_t nbyte);
-
-// ssize_t write(int fildes, const void *buf, size_t nbyte);
-
-// int open(const char *path, int oflag, ...);
 
 int main(void) {
   ssize_t w_nbytes;
@@ -51,8 +43,6 @@ int main(void) {
   #define STD_IN_FD  0
   #define STD_OUT_FD 1
   #define STD_ERR_FD 2
-
-  // TODO error checking.
 
   /*
     Acquire input file name.
