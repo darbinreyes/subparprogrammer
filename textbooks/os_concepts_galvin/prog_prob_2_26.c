@@ -10,6 +10,26 @@ Use the dtrace command to trace system calls.
 
 */
 
+/*
+******* Using dtrace
+
+sudo dtrace -n 'syscall:::entry /execname == "a.out"/ { @[probefunc] = count(); }'
+
+The above command counts all system calls made by this program.
+
+It is unclear so far whether or not I can use dtrace to print syscalls while
+this program is running. The above just provides a summary after this program
+has terminated.
+
+Problem SOLVED. Here is the dtrace command:
+
+sudo dtrace -n 'syscall:::entry /execname == "a.out"/ { printf("%s", probefunc); }'
+
+The key change is in using printf() instead of an aggregation ("@"). By default,
+aggregation types are printed AFTER dtrace exits.
+
+*/
+
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <unistd.h> // read, write
