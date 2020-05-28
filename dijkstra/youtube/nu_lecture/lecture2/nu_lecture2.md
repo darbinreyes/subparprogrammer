@@ -603,6 +603,10 @@ My comment:
 
 For, if we had only two points, they are necessarily collinear.
 
+By Inspection of EWD 1049 I was able to confirm that "triangle EBC is not degenerate" = "triangle EBC is a proper triangle, the points EBC are not collinear".
+
+This lecture's proof is also given in [EWD 1016](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD10xx/EWD1016.html).
+
 //
 
 ---
