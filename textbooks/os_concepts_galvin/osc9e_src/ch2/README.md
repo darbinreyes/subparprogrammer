@@ -87,7 +87,7 @@ The result of compilation is a file called `simple.ko`, this is the **compiled
 kernel module**.
 
 
-* **Loading and removing kernel modules**
+**Loading and removing kernel modules.**
 
 
 * command: `sudo insmod simple.ko`
@@ -228,3 +228,5 @@ scp -P 2222 -r * oscreader@127.0.0.1:/home/oscreader/Desktop/linux_osc9e_src
 
 
 ssh -p 2222 oscreader@127.0.0.1
+
+
