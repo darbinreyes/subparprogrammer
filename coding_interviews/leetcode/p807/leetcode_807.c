@@ -75,11 +75,84 @@ min(7, 8) = 7 = grid_max
 
 */
 
+/*
+******* Scratch work
+
+"1 < grid.length = grid[0].length <= 50."
+I assume this means the grid is square and between size 2-50 inclusive.
+
+"All heights grid[i][j] are in the range [0, 100]."
+TODO: Does this mean we should not increase any height beyond 100?
+
+
+*/
+
 #include <assert.h>
 
 #define MAX(a,b) (  ( (a) > (b) ) ? (a) : (b) )
 #define MIN(a,b) (  ( (a) < (b) ) ? (a) : (b) )
+#define MAX_GRID_SIZE 50
+
+// Returns the max value in row r.
+int row_max(const int r, const int** grid, const int gridSize, const int* gridRowSize) {
+  int m;
+  // TODO: Validate args.
+  assert(r < gridSize);
+
+  m = 0;
+
+  for (int i = 0; i < gridRowSize[r]; i++) {
+    if (grid[r][i] > m) {
+      m = grid[r][i];
+    }
+  }
+
+  return m;
+}
+
+// Returns the max value in column c.
+int col_max(const int c, const int** grid, const int gridSize, const int* gridRowSize) {
+  int m;
+  // TODO: Validate args.
+
+  m = 0;
+
+  for (int i = 0; i < gridSize; i++) {
+    assert(c < gridRowSize[i]);
+    if (grid[i][c] > m) {
+      m = grid[i][c];
+    }
+  }
+
+  return m;
+}
 
 int maxIncreaseKeepingSkyline(int** grid, int gridSize, int* gridColSize){
   // ? Is gridColSize really a row size?
+  int tb_grid_max[MAX_GRID_SIZE];
+  int lr_grid_max[MAX_GRID_SIZE];
+  int *gridRowSize;
+  int sum, tmp_max;
+
+  gridRowSize = gridColSize;
+
+  for (int i = 0; i < gridSize; i++) {
+    lr_grid_max[i] = row_max(i, grid, gridSize, gridRowSize);
+  }
+
+  for (int i = 0; i < gridSize; i++) {
+    assert(gridSize == gridRowSize[i]);
+    tb_grid_max[i] = col_max(i, grid, gridSize, gridRowSize);
+  }
+
+  sum = 0;
+
+  for (int i = 0; i < gridSize; i++) {
+    for (int j = 0; j < gridRowSize[i]; j++) {
+      tmp_max = MIN(lr_grid_max[i], tb_grid_max[j]);
+      sum += tmp_max - grid[i][j];
+    }
+  }
+
+  return sum;
 }
