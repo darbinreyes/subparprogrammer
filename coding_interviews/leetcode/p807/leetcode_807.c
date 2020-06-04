@@ -88,18 +88,71 @@ TODO: Does this mean we should not increase any height beyond 100?
 */
 
 #include <assert.h>
+#include <stdio.h>
 
 #define MAX(a,b) (  ( (a) > (b) ) ? (a) : (b) )
 #define MIN(a,b) (  ( (a) < (b) ) ? (a) : (b) )
 #define MAX_GRID_SIZE 50
 
 // Returns the max value in row r.
-int row_max(const int r, const int** grid, const int gridSize, const int* gridRowSize) {
+int row_max(const int r, int const * const * const grid, const int gridSize,  int const * const gridRowSize) {
   int m;
   // TODO: Validate args.
   assert(r < gridSize);
 
   m = 0;
+
+  /* Note on using the const qualifier with pointers.
+
+    You can always do a sanity check using the compiler, by ensuring that an
+    error is reported for changes to a variable that you do not want.
+
+    Notes:
+
+    const int i;
+    and
+    int const i;
+    have the same meaning.
+
+    to make grid read-only, place a const qualifier immediately before grid in
+    the parameter type.
+
+    Use "int const * const * const grid" all three of the following cause the
+    expected read-only error. The compiler will still generate the warning
+    "discards qualifiers in nested pointer types".
+
+    grid = NULL;     // Use "int ** const grid"
+    grid[0] = NULL;  // Use "int * const *grid"
+    grid[0][0] = 7;  // Use "int const * const *grid"
+
+    The declaration:
+
+    const int *gridRowSize
+
+    gridRowSize = NULL; // Does not cause an error.
+    gridRowSize[0] = 7; // Does cause an error.
+
+    It is equivalent to:
+    int const * gridRowSize
+
+    Therefore, when const is applied as a prefix, it applies to the deepest
+    level indirection only.
+
+    When const is applied immediately before the variable name, it applies to the
+    variable name, which is the shallowest level of indirection.
+
+    To have const can be applied to all levels of indirection, insert const
+    before and after each occurrence of *.
+
+    To ensure an error on both of the above use:
+
+    int const * const gridRowSize
+
+    The level of indirection to which a const applies is equal to the number of
+    "*" characters that appear after that const. Thus, in the above, the first
+    const has 1 "*" after it, therefore it applies to gridRowSize[0].
+
+  */
 
   for (int i = 0; i < gridRowSize[r]; i++) {
     if (grid[r][i] > m) {
@@ -111,7 +164,7 @@ int row_max(const int r, const int** grid, const int gridSize, const int* gridRo
 }
 
 // Returns the max value in column c.
-int col_max(const int c, const int** grid, const int gridSize, const int* gridRowSize) {
+int col_max(const int c, int * const *grid, const int gridSize, const int *gridRowSize) {
   int m;
   // TODO: Validate args.
 
