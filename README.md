@@ -3,8 +3,8 @@
 # subparprogrammer
 * A portfolio of purposeless, subpar code written by me.
 
-## Project 7: Operating System Concepts.
-* Current project status: [IN PROGRESS - Chapter 3](https://github.com/darbinreyes/subparprogrammer/tree/master/textbooks/os_concepts_galvin). 
+## [Project 7](https://github.com/darbinreyes/subparprogrammer/tree/master/textbooks/os_concepts_galvin): Operating System Concepts. Textbook problems and projects.
+* Current project status: IN PROGRESS. 
 * Complete programming problems and projects.
 
 
