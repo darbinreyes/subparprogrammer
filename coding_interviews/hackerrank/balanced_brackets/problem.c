@@ -55,7 +55,7 @@ if stack is empty after scanning the whole string, then return "YES" (it is bala
 
 // Does v0 work with "{[(])}"? ANS: Yes.
 
-Manual code trace:
+code trace:
 
 Step 0
 
@@ -99,6 +99,9 @@ Step 4
   mismatched, return "NO"
 
 */
+
+// NEXT: Implement a basic stack.
+
 char* isBalanced(char* s) {
 
 
