@@ -3,6 +3,7 @@
   https://www.hackerrank.com/challenges/balanced-brackets/problem
 
   Success Rate: 84%
+
 */
 
 
@@ -29,6 +30,75 @@ char* readline();
 // char* str = "hello world";
 // return str;
 //
+
+/*
+******* Scratch work
+
+Well, I already know the standard solution to this problem.
+
+Most important: use a stack.
+
+Working out the algorithm.
+
+// v0
+for each char in str
+  if c is opening bracket
+    push(c)
+  else // c is a closing bracket
+    if stack.top is opening bracket matching closing bracket c
+      pop()
+      discard c
+    else // stack.top is an opening bracket of a different kind the closing bracket c.
+      the string is not balanced, return
+
+if stack is empty after scanning the whole string, then return "YES" (it is balanced). Otherwise return "NO".
+
+// Does v0 work with "{[(])}"? ANS: Yes.
+
+Manual code trace:
+
+Step 0
+
+  {[(])} // string char pointer
+  ^
+
+  stack = {}
+
+Step 1
+
+  push("{")
+
+  stack = {"{"}
+
+  {[(])}
+   ^
+
+Step 2
+
+  push("[")
+
+  stack = {"{", "["}
+
+  {[(])}
+    ^
+
+Step 3
+
+  push("(")
+
+  stack = {"{", "[", "("}
+
+  {[(])}
+     ^
+
+Step 4
+
+  stack.top is "("
+  c is "]"
+  closing bracket kind differs from opening bracket kind on stack.top
+  mismatched, return "NO"
+
+*/
 char* isBalanced(char* s) {
 
 
