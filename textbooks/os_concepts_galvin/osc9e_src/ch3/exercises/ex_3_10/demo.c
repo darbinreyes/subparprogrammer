@@ -19,41 +19,99 @@
  * as dot, neato, sfdp, etc.
  */
 #include <gvc.h>
+#include <stdio.h>
+#include <string.h>
+#include <assert.h>
 
 int main(int argc, char **argv)
 {
-    Agraph_t *g;
-    Agnode_t *n, *m;
-    Agedge_t *e;
-    GVC_t *gvc;
+  Agraph_t *g;
+  Agnode_t *n, *m;
+  Agedge_t *e;
+  GVC_t *gvc;
+  FILE *fp;
+#define MAX_LINE_SIZE (3873 + 1 + 1) // By inspection of ps_out.txt. This 3873 is the max number of chars on a single line.
+  char line[MAX_LINE_SIZE];
+  int pid, ppid;
+  char cmd[MAX_LINE_SIZE];
+  int n_inputs;
+  char *s;
+  int n;
 
-    /* set up a graphviz context */
-    gvc = gvContext();
+#define NUM_PS_COLUMNS 15 // By inspection of ps_out.txt.
 
-    /* parse command line args - minimally argv[0] sets layout engine */
-    gvParseArgs(gvc, argc, argv);
+  fp = fopen("ps_out.txt", "r");
+  // TODO check return value.
+  assert(fp != NULL);
 
-    /* Create a simple digraph */
-    g = agopen("g", Agdirected, 0);
-    n = agnode(g, "n", 1);
-    m = agnode(g, "m", 1);
-    e = agedge(g, n, m, 0, 1);
+  s = fgets(line, MAX_LINE_SIZE, fp); // Consume the first line.
+  // TODO check return value.
+  assert(s != NULL);
 
-    /* Set an attribute - in this case one that affects the visible rendering */
-    agsafeset(n, "color", "red", "");
+  while ( ( n_inputs = fscanf(fp, "%*d %d %d %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %*s %s\n", &pid, &ppid, cmd) ) >= 0) {
 
-    /* Compute a layout using layout engine from command line args */
-    gvLayoutJobs(gvc, g);
+    if (n_inputs == 0) {
+      s = fgets(line, MAX_LINE_SIZE, fp);
+      // TODO check return value.
+      assert(s != NULL);
+    } else {
+      printf("next line = pid %d. ppid %d. cmd %s.\n", pid, ppid, cmd);
+    }
 
-    /* Write the graph according to -T and -o options */
-    gvRenderJobs(gvc, g);
+  }
 
-    /* Free layout data */
-    gvFreeLayout(gvc, g);
+  // TODO check return value.
 
-    /* Free graph structures */
-    agclose(g);
+  // TODO check return value.
 
-    /* close output file, free context, and return number of errors */
-    return (gvFreeContext(gvc));
+  n = fclose(fp);
+  // TODO check return value.
+  assert(n == 0);
+
+  /* set up a graphviz context */
+  gvc = gvContext();
+
+  /* parse command line args - minimally argv[0] sets layout engine */
+  gvParseArgs(gvc, argc, argv);
+
+  /* Create a simple digraph */
+
+  /*
+   ******* From the man cgraph page.
+
+   agopen
+    creates a new graph with the  given  name
+
+    Graph kinds
+      are  Agdirected,  Agundirected, Agstrictdirected, and Agstric-
+      tundirected.
+
+    The  final argument
+      points to a discpline structure
+      to tailor I/O, memory allocation, and  ID  allocation.
+        NULL
+          default discipline AgDefault-Disc
+  */
+  g = agopen("g", Agdirected, 0);
+  n = agnode(g, "n", 1);
+  m = agnode(g, "m", 1);
+  e = agedge(g, n, m, 0, 1);
+
+  /* Set an attribute - in this case one that affects the visible rendering */
+  agsafeset(n, "color", "red", "");
+
+  /* Compute a layout using layout engine from command line args */
+  gvLayoutJobs(gvc, g);
+
+  /* Write the graph according to -T and -o options */
+  gvRenderJobs(gvc, g);
+
+  /* Free layout data */
+  gvFreeLayout(gvc, g);
+
+  /* Free graph structures */
+  agclose(g);
+
+  /* close output file, free context, and return number of errors */
+  return (gvFreeContext(gvc));
 }
