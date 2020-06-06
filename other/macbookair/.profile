@@ -176,5 +176,5 @@ git config --global alias.st status
 # Tell node where to look for global modules.
 # export NODE_PATH=/opt/local/lib/node_modules
 
-# paste the text below to add the GPG key to your bash profile:
+# Github: "paste the text below to add the GPG key to your bash profile"
 export GPG_TTY=$(tty)
