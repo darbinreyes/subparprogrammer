@@ -250,21 +250,21 @@ agidnode() returns type `int`, this line is performing a suspicious type convers
 The man states that agidnode() returns type a 'Agnode_t *', so I assumed the man
 page was incorrect. WRONG!
 
-In fact, does return type a 'Agnode_t *'.
+The return type is indeed 'Agnode_t *'.
 
 The real problem was that I improperly parenthesized the assignment in the
 "if"'s guard. This resulted in the expression n = agidnode() == NULL, which is
 equivalent to (n = (agidnode() == NULL)), since "=="" binds tighter than "=",
-and (agidnode() == NULL) produces a int value.
+and (agidnode() == NULL) produces an int value.
 
 */
 
 /* ******* Graphviz pitfall.
 
   The id argument of agidnode() is NOT an int of your choosing. I gave up on
-  figuring out how to use it. Search the man page for "agid" details.
+  figuring out how to use it. Search the man page for "agid" if you wish.
 
-  Instead, use agnode() with a name = int converted  a string.
+  Instead, use agnode() with name = int converted to a string.
 
 */
 
@@ -300,14 +300,6 @@ Agnode_t  *agnode(Agraph_t *g, char *name, int createflag);
 
 Agnode_t  *agidnode(Agraph_t *g, ulong id, int createflag);
 
-arg0
-
-
-arg1
-
-
-arg2
-
 */
 
 /* ******* From the man cgraph page - agedge.
@@ -322,11 +314,4 @@ agedge searches in a graph or subgraph for an edge between the  given
 
 Agedge_t  *agidedge(Agraph_t * g, Agnode_t * t, Agnode_t * h, unsigned long id, int createflag);
 
-arg0
-
-
-arg1
-
-
-arg2
 */
