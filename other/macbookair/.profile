@@ -146,7 +146,7 @@ if [ "$GITHOME" = TRUE ]; then
     git config --global http.proxy ""
     #git config --global user.signingkey 3AA5C34371567BD2 # gpg --list-secret-keys --keyid-format LONG
     #git config --global -l
-    # Test
+    # Test 1085688+darbinreyes@users.noreply.github.com
 else
     echo Git set for work.
     git config --global user.email
