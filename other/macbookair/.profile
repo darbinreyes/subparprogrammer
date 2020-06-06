@@ -144,6 +144,7 @@ if [ "$GITHOME" = TRUE ]; then
     git config --global sendemail.from darbin.e.reyes@gmail.com
     git config --global sendemail.smtpServerPort 587
     git config --global http.proxy ""
+    #git config --global user.signingkey 3AA5C34371567BD2 # gpg --list-secret-keys --keyid-format LONG
     #git config --global -l
 else
     echo Git set for work.
@@ -151,6 +152,7 @@ else
     git config --global sendemail.smtpserver
     git config --global sendemail.from
     git config --global http.proxy
+    #git config --global user.signingkey 3AA5C34371567BD2 # gpg --list-secret-keys --keyid-format LONG
     #git config --global -l
 fi
 
