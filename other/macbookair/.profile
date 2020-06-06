@@ -137,23 +137,21 @@ alias gstat='git status'
 
 if [ "$GITHOME" = TRUE ]; then
     echo Git set for home.
-    git config --global user.email darbin.e.reyes@gmail.com
+    git config --global user.email 1085688+darbinreyes@users.noreply.github.com
     git config --global sendemail.smtpEncryption tls
     git config --global sendemail.smtpserver smtp.gmail.com
     git config --global sendemail.smtpUser darbin.e.reyes@gmail.com
     git config --global sendemail.from darbin.e.reyes@gmail.com
     git config --global sendemail.smtpServerPort 587
     git config --global http.proxy ""
-    #git config --global user.signingkey 3AA5C34371567BD2 # gpg --list-secret-keys --keyid-format LONG
+    git config --global commit.gpgsign true
     #git config --global -l
-    # Test 1085688+darbinreyes@users.noreply.github.com
 else
     echo Git set for work.
     git config --global user.email
     git config --global sendemail.smtpserver
     git config --global sendemail.from
     git config --global http.proxy
-    #git config --global user.signingkey 3AA5C34371567BD2 # gpg --list-secret-keys --keyid-format LONG
     #git config --global -l
 fi
 
