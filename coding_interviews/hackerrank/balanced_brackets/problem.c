@@ -167,7 +167,7 @@ int is_matching_brackets(char c_open, char c_close) {
 char* isBalanced(char* s) {
   char c;
 
-  while (*s != '\0') {
+  while (*s != '\0') { // INCREMENT s!
     if (is_open_bracket(*s)) {
       push(*s);
     } else if (is_close_bracket(*s)) {
