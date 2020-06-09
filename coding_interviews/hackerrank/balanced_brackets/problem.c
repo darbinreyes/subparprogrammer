@@ -102,9 +102,99 @@ Step 4
 
 // NEXT: Implement a basic stack.
 
+#define STACK_SIZE (1000+1)
+
+static char stack[STACK_SIZE];
+static int stack_next_free = 0; // Also == the number of items currently in the stack.
+
+void push(char c) {
+  assert(stack_next_free < STACK_SIZE); // Stack is not full.
+  stack[stack_next_free] = c;
+  stack_next_free++;
+}
+
+char pop(void) {
+  assert(stack_next_free > 0); // Stack is not empty
+  stack_next_free--;
+  return stack[stack_next_free];
+}
+
+char peek(void) {
+  assert(stack_next_free > 0); // Stack is not empty
+  return stack[stack_next_free - 1];
+}
+
+int is_empty(void) {
+  return (stack_next_free == 0);
+}
+
+int is_full(void) {
+  return !(stack_next_free < STACK_SIZE);
+}
+
+enum brackets {
+  CURLY_OPEN = '{',
+  CURLY_CLOSE = '}',
+  SQUARE_OPEN = '[',
+  SQUARE_CLOSE = ']',
+  PAREN_OPEN = '(',
+  PAREN_CLOSE = ')'
+};
+
+int is_open_bracket(char c) {
+  return ( (c == CURLY_OPEN) || (c == SQUARE_OPEN) || (c == PAREN_OPEN) );
+}
+
+int is_close_bracket(char c) {
+  return ( (c == CURLY_CLOSE) || (c == SQUARE_CLOSE) || (c == PAREN_CLOSE) );
+}
+
+int is_matching_brackets(char c_open, char c_close) {
+  if ( (c_open == CURLY_OPEN) && (c_close == CURLY_CLOSE) ) {
+    return 1;
+  }
+
+  if ( (c_open == SQUARE_OPEN) && (c_close == SQUARE_CLOSE) ) {
+    return 1;
+  }
+
+  if ( (c_open == PAREN_OPEN) && (c_close == PAREN_CLOSE) ) {
+    return 1;
+  }
+
+  return 0;
+}
 char* isBalanced(char* s) {
+  char c;
 
+  while (*s != '\0') {
+    if (is_open_bracket(*s)) {
+      push(*s);
+    } else if (is_close_bracket(*s)) {
+      if(is_empty()) { // The stack shouldn't be empty, top should contain an opening bracket.
+        return "NO";
+      } else {
+        c = peek();
+        if (is_open_bracket(c)) {
+          if (is_matching_brackets(c, *s)) {
+            pop();
+          } else {
+            return "YES";
+          }
+        } else {
+          return "NO";
+        }
+      }
+    } else {
+      assert(0); // Non-bracket char.
+    }
+  }
 
+  if (!is_empty()) {
+    return "NO";
+  }
+
+  return "YES";
 }
 
 int main()
