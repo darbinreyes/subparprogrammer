@@ -1,6 +1,6 @@
 CC = gcc
 MY_C_FILE = problem.c
-SEATEST_SRC_PATH = ../../seatest/src
+SEATEST_SRC_PATH = ../../../c_projects/seatest/src
 FILES = seatest_project.c test_suite_one.c $(MY_C_FILE) $(SEATEST_SRC_PATH)/seatest.c
 OUT_EXE = seatest_project
 
