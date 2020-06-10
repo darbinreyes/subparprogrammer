@@ -1,5 +1,5 @@
 /*
-  Beware of using asserts on hackerank. This my solution was not accepted until
+  Beware of using asserts on hackerrank. This my solution was not accepted until
   I removed asserts.
 
   https://www.hackerrank.com/challenges/balanced-brackets/problem
