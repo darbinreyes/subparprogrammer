@@ -102,25 +102,43 @@ Step 4
 
 // NEXT: Implement a basic stack.
 
-#define STACK_SIZE (1000+1)
+#define STACK_SIZE (2000+1)
 
 static char stack[STACK_SIZE];
 static int stack_next_free = 0; // Also == the number of items currently in the stack.
 
 void push(char c) {
-  assert(stack_next_free < STACK_SIZE); // Stack is not full.
+  //assert(stack_next_free < STACK_SIZE); // Stack is not full.
+
+  if(!(stack_next_free < STACK_SIZE)) {
+    printf("push() on full stack attempted.\n");
+    return;
+  }
+
   stack[stack_next_free] = c;
   stack_next_free++;
 }
 
 char pop(void) {
-  assert(stack_next_free > 0); // Stack is not empty
+  //assert(stack_next_free > 0); // Stack is not empty
+
+  if(!(stack_next_free > 0)) {
+    printf("pop() on empty stack attempted.\n");
+    return '\0';
+  }
+
   stack_next_free--;
   return stack[stack_next_free];
 }
 
 char peek(void) {
-  assert(stack_next_free > 0); // Stack is not empty
+  //assert(stack_next_free > 0); // Stack is not empty
+
+  if(!(stack_next_free > 0)) {
+    printf("peek() on empty stack attempted.\n");
+    return '\0';
+  }
+
   return stack[stack_next_free - 1];
 }
 
@@ -164,10 +182,13 @@ int is_matching_brackets(char c_open, char c_close) {
 
   return 0;
 }
+
 char* isBalanced(char* s) {
   char c;
 
-  while (*s != '\0') { // INCREMENT s!
+  stack_next_free = 0; // Reset stack.
+
+  while (*s != '\0') {
     if (is_open_bracket(*s)) {
       push(*s);
     } else if (is_close_bracket(*s)) {
@@ -179,15 +200,17 @@ char* isBalanced(char* s) {
           if (is_matching_brackets(c, *s)) {
             pop();
           } else {
-            return "YES";
+            return "NO";
           }
         } else {
           return "NO";
         }
       }
     } else {
-      assert(0); // Non-bracket char.
+      //assert(0); // Non-bracket char.
+      printf("Non-bracket char.\n");
     }
+    s++;
   }
 
   if (!is_empty()) {
@@ -196,6 +219,8 @@ char* isBalanced(char* s) {
 
   return "YES";
 }
+
+#if 0
 
 int main()
 {
@@ -251,3 +276,4 @@ char* readline() {
 
   return data;
 }
+#endif
