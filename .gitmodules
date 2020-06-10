@@ -1,0 +1,3 @@
+[submodule "c_projects/seatest"]
+	path = c_projects/seatest
+	url = git@github.com:keithn/seatest.git
