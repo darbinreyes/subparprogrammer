@@ -13,7 +13,7 @@
 
 void test_0()
 {
-  allocate_map();
+  allocate_map(); // TODO: Consider making seatest a submodule.
 }
 
 void test_fixture_one( void )
