@@ -1,32 +1,35 @@
-#include <assert.h>
+/*
 
-#define MIN_PID 300
-#define MAX_PID 5000
-#define NUM_PIDS (MAX_PID - MIN_PID + 1)
+  Programming Problem 3.20.
+
+*/
+#include <assert.h>
+#include "stack.h"
+#include "prog_prob_3_20.h"
 
 #define PID_STATE_IS_FREE 0
 #define PID_STATE_IS_IN_USE 1
 
-void push(int pid);
-int pop(void);
-int is_empty(void);
-void init(void);
+
 
 static char pid_state[NUM_PIDS];
 
 /*
 
+  Creates and initializes a data structure for representing PIDs.
 
+  @retval 0  If successful.
+  @retval -1 An error occurred. (This value is currently not used).
 
 */
 int allocate_map(void) {
 
   // All of this can be done at compile time so we need not worry about its time complexity.
-  init();
+  stack_init();
 
   for (int i = 0; i < NUM_PIDS; i++) {
     pid_state[i] = PID_STATE_IS_FREE;
-    push(i + MIN_PID);
+    stack_push(i + MIN_PID);
   }
 
   return 0; // Successful.
@@ -34,17 +37,20 @@ int allocate_map(void) {
 
 /*
 
+  Allocates and returns a PID.
 
+  @return  If successful, an integer satisfying pid >= MIN_PID && pid <= MAX_PID.
+  @retval -1 Failure. All PID are currently in use.
 
 */
 int allocate_pid(void) {
   int pid;
 
-  if (is_empty()) {
+  if (stack_is_empty()) {
     return -1; // No free PID is available.
   }
 
-  pid = pop(); // Get a free PID from the stack.
+  pid = stack_pop(); // Get a free PID from the stack.
 
   assert(pid >= MIN_PID && pid <= MAX_PID); // Assert that this PID's range is valid.
 
@@ -57,7 +63,11 @@ int allocate_pid(void) {
 
 /*
 
+  Releases a PID.
 
+  Does nothing if:
+  pid is out of the valid range. pid >= MIN_PID && pid <= MAX_PID.
+  pid is not marked as in use.
 
 */
 void release_pid(int pid) {
@@ -65,7 +75,8 @@ void release_pid(int pid) {
     return;
   }
 
-  // A PID that is being released should be currently in use. Return if it is not.
+  // A PID that is being released should be currently in use. Return if it is
+  // not.
   if(pid_state[pid - MIN_PID] != PID_STATE_IS_IN_USE) {
     return;
   }
@@ -74,28 +85,5 @@ void release_pid(int pid) {
 
   pid_state[pid - MIN_PID] = PID_STATE_IS_FREE; // Mark this PID as free.
 
-  push(pid); // Push the PID onto the stack.
-}
-
-static int free_pid_stack[NUM_PIDS];
-static int  stack_next_free = 0;
-
-void push(int pid) {
-  assert(stack_next_free < NUM_PIDS); // assert that the stack is not full.
-  free_pid_stack[stack_next_free] = pid;
-  stack_next_free++;
-}
-
-int pop(void) {
-  assert(stack_next_free > 0); // assert that the stack is not empty.
-  stack_next_free--;
-  return free_pid_stack[stack_next_free];
-}
-
-int is_empty(void) {
-  return (stack_next_free == 0);
-}
-
-void init(void) {
-  stack_next_free = 0;
+  stack_push(pid); // Push the PID onto the free stack.
 }
