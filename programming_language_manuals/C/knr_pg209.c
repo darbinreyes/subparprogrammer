@@ -1,3 +1,9 @@
+/*
+
+  B.5 Utility Functions: <stdlib.h>
+
+*/
+
 // testing getenv()
 #include <stdio.h>
 #include <stdlib.h>

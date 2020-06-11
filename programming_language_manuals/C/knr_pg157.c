@@ -1,3 +1,9 @@
+/*
+
+  A.3 Syntax Notation
+
+*/
+
 // Does C let you initialize an array with empty braces?
 
 #include <stdio.h>
