@@ -1,1 +1,0 @@
-console.log("The monkey claw is smelly.");
