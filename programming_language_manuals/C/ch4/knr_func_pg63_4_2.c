@@ -2,7 +2,7 @@
 
 **/
 
-#include "knr_pg63_func.h"
+#include "knr_func_pg63_4_2.h"
 
 double
 poo (

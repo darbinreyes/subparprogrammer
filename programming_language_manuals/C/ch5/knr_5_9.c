@@ -1,6 +1,8 @@
 #include <stdio.h>
 /**
 
+  5.9 Pointers vs. Multi-dimensional Arrays
+
 " For b, however, the definition only allocates 10 pointers and does not
 initialize them; initialization must be done explicitly, either statically or
 with code. "

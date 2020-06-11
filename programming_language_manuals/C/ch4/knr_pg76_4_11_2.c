@@ -1,3 +1,9 @@
+/*
+
+  4.11.2 Macro Substitution
+
+*/
+
 #include <stdio.h>
 
 // A string argument for a macro is OK right? ANS: YES.

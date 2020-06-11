@@ -1,4 +1,7 @@
 /**
+
+  4.2 Functions Returning Non-integers
+
  Will the compiler detect a mismatching declaration across source files?
  ANS: No!
 
@@ -32,7 +35,7 @@ poo (
  With no declaration of poo() at all, the compiler warns that poo() is
  implicitly. If you run it, it prints garbage too. Even though the source files
  we compiled together with:
- cc knr_pg63.c knr_pg63_func.c
+ cc knr_pg63_4_2.c knr_func_pg63_4_2.c
 
  This error is easy to avoid since they compiler warns you.
 
@@ -49,7 +52,7 @@ poo (
 
 **/
 
-#include "knr_pg63_func.h"
+#include "knr_func_pg63_4_2.h"
 
 int
 main (
