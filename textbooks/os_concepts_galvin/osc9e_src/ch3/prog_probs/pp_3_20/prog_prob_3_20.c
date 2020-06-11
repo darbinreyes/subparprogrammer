@@ -7,11 +7,6 @@
 #include "stack.h"
 #include "prog_prob_3_20.h"
 
-#define PID_STATE_IS_FREE 0
-#define PID_STATE_IS_IN_USE 1
-
-
-
 static char pid_state[NUM_PIDS];
 
 /*
@@ -86,4 +81,14 @@ void release_pid(int pid) {
   pid_state[pid - MIN_PID] = PID_STATE_IS_FREE; // Mark this PID as free.
 
   stack_push(pid); // Push the PID onto the free stack.
+}
+
+/*
+
+  Test related functions.
+
+*/
+
+char const * const test_get_pid_state_arr(void) {
+  return pid_state;
 }

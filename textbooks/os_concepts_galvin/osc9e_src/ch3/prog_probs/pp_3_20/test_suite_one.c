@@ -13,7 +13,14 @@
 
 void test_0()
 {
-  allocate_map(); // TODO: Consider making seatest a submodule.
+  char const * const pid_state = test_get_pid_state_arr();
+
+  allocate_map();
+
+  // Verify that the pid_state array is initialized to "all free".
+  for (int i = 0; i < NUM_PIDS; i++) {
+    assert_int_equal(PID_STATE_IS_FREE, pid_state[i]);
+  }
 }
 
 void test_fixture_one( void )
