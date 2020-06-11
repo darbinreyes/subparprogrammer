@@ -86,6 +86,7 @@ void release_pid(int pid) {
 /*
 
   Test related functions.
+  [What is the best way to expose the internal data structures in the test code?]
 
 */
 

@@ -31,3 +31,17 @@ int stack_is_empty(void) {
 void stack_init(void) {
   stack_next_free = 0;
 }
+
+/*
+
+  Test related functions.
+
+*/
+
+int const * const test_get_free_pid_stack(void) {
+  return free_pid_stack;
+}
+
+int test_get_stack_next_free(void) {
+  return stack_next_free;
+}
