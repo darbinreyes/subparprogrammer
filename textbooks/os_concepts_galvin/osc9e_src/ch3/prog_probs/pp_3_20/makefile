@@ -1,5 +1,5 @@
 CC = gcc
-MY_C_FILE = prog_prob_3_20.c
+MY_C_FILE = prog_prob_3_20.c stack.c
 SEATEST_SRC_PATH = ../../../../../../c_projects/seatest/src
 FILES = seatest_project.c test_suite_one.c $(MY_C_FILE) $(SEATEST_SRC_PATH)/seatest.c
 OUT_EXE = seatest_project
