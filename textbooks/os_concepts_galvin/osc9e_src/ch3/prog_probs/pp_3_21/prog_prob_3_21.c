@@ -9,6 +9,7 @@
 #include <assert.h>
 #include <stdlib.h> // strtoul()
 #include <limits.h> // ULONG_MAX
+#include <errno.h> // For errors from strtoul().
 
 void print_collatz(unsigned long int n);
 
@@ -27,20 +28,29 @@ int main(int argc, char **argv) {
   } else if (pid == 0) { // Child
     printf("This is the child process.\n");
 
-    if (argc != 2) {
+    if (argc != 2 || argv[1][0] == '-') {
       printf("Usage: Supply one integer argument greater than 0, e.g. \"a.out 8\". The argument is converted to unsigned long using strtoul().\n");
       return 1;
     }
 
+    errno = 0; // strtoul() sets errno.
+
     n = strtoul(argv[1], NULL, 10);
-    if (n == ULONG_MAX) {
-      printf("Failed to convert argument %s to unsigned long.\n", argv[1]);
+    if (n == ULONG_MAX && errno == ERANGE) {
+      printf("Failed to convert argument \'%s\' to unsigned long. Overflow.\n", argv[1]);
+      perror("Fuck");
       return 2;
+    }
+
+    if(n == 0 && errno == EINVAL) {
+      printf("Failed to convert argument \'%s\' to unsigned long. No conversion.\n", argv[1]);
+      perror("Fuck");
+      return 3;
     }
 
     if(n == 0) {
       printf("Argument must be greater than 0.\n");
-      return 3;
+      return 4;
     }
 
     print_collatz(n);
