@@ -1,6 +1,6 @@
 /*
 
-  Programming problem 3.21.
+  Programming problem 3.22.
 
 */
 
@@ -11,13 +11,11 @@
 #include <limits.h> // ULONG_MAX
 #include <errno.h> // For errors from strtoul().
 
-void print_collatz(unsigned long int n);
+int child_p(int argc, char **argv);
 
 int main(int argc, char **argv) {
   pid_t pid, cpid;
   int stat_loc;
-  unsigned long int n;
-
 
   printf("Parent process is about to fork().\n");
 
@@ -26,8 +24,34 @@ int main(int argc, char **argv) {
   if (pid < 0) {
     printf("fork() failed.\n");
   } else if (pid == 0) { // Child
-    printf("This is the child process.\n");
+    return child_p(argc, argv);
+  } else { // Parent
+    printf("Parent process is about to wait().\n");
+    cpid = wait(&stat_loc);
+    printf("Parent process returned from wait().\n");
+    assert(pid == cpid); // Check the wait() returns the child's PID.
+    if (WIFEXITED(stat_loc)) {
+      printf("Child process terminated with status value = %d.\n", WEXITSTATUS(stat_loc));
+    } else {
+      printf("Child process terminated abnormally.\n");
+    }
+  }
 
+  return 0;
+}
+
+void print_collatz(unsigned long int n);
+
+int child_p(int argc, char **argv) {
+    unsigned long int n;
+
+    printf("This is the child process.\n");
+    /*
+
+      Get the command line argument. It should be a single positive integer >=
+      1.
+
+    */
     if (argc != 2 || argv[1][0] == '-') {
       printf("Usage: Supply one integer argument greater than 0, e.g. \"a.out 8\". The argument is converted to unsigned long using strtoul().\n");
       return 1;
@@ -55,22 +79,8 @@ int main(int argc, char **argv) {
 
     print_collatz(n);
 
-  } else { // Parent
-    printf("Parent process is about to wait().\n");
-    cpid = wait(&stat_loc);
-    printf("Parent process returned from wait().\n");
-    assert(pid == cpid); // Check the wait() returns the child's PID.
-    if (WIFEXITED(stat_loc)) {
-      printf("Child process terminated with status value = %d.\n", WEXITSTATUS(stat_loc));
-    } else {
-      printf("Child process terminated abnormally.\n");
-    }
-  }
-
-  return 0;
+    return 0;
 }
-
-
 // Since the point of this is to learn about OS concepts and not C programming:
 // FYI: I will not check for overflow.
 // FYI: The command line parameter validation will be very basic.
