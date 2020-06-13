@@ -26,7 +26,7 @@ int main(int argc, char **argv) {
   int stat_loc;
 
   int shm_fd; // Shared memory related.
-
+  void *shm_ptr;
 
   printf("Parent process is about to fork().\n");
 
@@ -40,18 +40,53 @@ int main(int argc, char **argv) {
     printf("Parent process is about to wait().\n");
     cpid = wait(&stat_loc);
     printf("Parent process returned from wait().\n");
-    assert(pid == cpid); // Check the wait() returns the child's PID.
-    if (WIFEXITED(stat_loc)) {
-      printf("Child process terminated with status value = %d.\n", WEXITSTATUS(stat_loc));
-    } else {
+    assert(pid == cpid); // Check that wait() returns the child's PID.
+
+    if (!WIFEXITED(stat_loc)) {
       printf("Child process terminated abnormally.\n");
+      // Assume the collatz sequence was not written to the shared mem. object.
+      return 5;
+    }
+
+    if (WEXITSTATUS(stat_loc) != 0) {
+      printf("Child process terminated with ERROR status value = %d.\n", WEXITSTATUS(stat_loc));
+      return 4;
+    }
+
+    /*
+
+      Shared mem. consumer. Output the collatz sequence from shared mem. object
+      deallocate it, and return.
+
+    */
+
+    /* create shared mem. object */
+    shm_fd = shm_open(shm_name, O_RDWR, SHM_MODE);
+
+    if(shm_fd == -1) { // Error.
+      return 1;
+    }
+    /* Mem. map the shared mem. object. */
+    /* void *mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset); */
+    shm_ptr = mmap(0, SHM_SIZE, PROT_READ, MAP_SHARED, shm_fd, 0);
+
+    if (shm_ptr == MAP_FAILED) { // Error.
+     return 2;
+    }
+
+    /* Read from the shared mem. object. */
+    printf("%s", (char *) shm_ptr);
+
+    /* Remove the shared mem. object. */
+    if (shm_unlink(shm_name) == -1) { // Error.
+      return 3;
     }
   }
 
-  return 0;
+  return 0; // Success.
 }
 
-void print_collatz(unsigned long int n);
+void print_collatz(unsigned long int n, char *shm_ptr);
 
 int child_p(int argc, char **argv) {
   unsigned long int n;
@@ -99,7 +134,7 @@ int child_p(int argc, char **argv) {
   */
 
   /* create shared mem. object */
-  shm_fd = shm_open(shm_name, O_RDWR, SHM_MODE);
+  shm_fd = shm_open(shm_name, O_CREAT | O_RDWR, SHM_MODE);
 
   if(shm_fd == -1) { // Error.
     return 5;
@@ -119,9 +154,7 @@ int child_p(int argc, char **argv) {
   }
 
   /* Write to the share mem. object. */
-
-  // sprintf(ptr, "%s", message_0);
-  print_collatz(n);
+  print_collatz(n, shm_ptr);
 
   return 0;
 }
@@ -130,15 +163,17 @@ int child_p(int argc, char **argv) {
 // FYI: I will not check for overflow.
 // FYI: The command line parameter validation will be very basic.
 // FYI: I will assume the Collatz conjecture is in fact true. If it is false, then there will exist values of n for which this program will never terminate.
-void print_collatz(unsigned long int n) {
+void print_collatz(unsigned long int n, char *shm_ptr) {
   assert(n > 0);
 
+  // TODO: Check that we aren't writing more than the size of the shared mem.
+  // object.
   if (n == 1) {
     // Done.
-    printf("1.\n");
+    shm_ptr += sprintf(shm_ptr, "1.\n");
     return;
   } else {
-    printf("%lu, ", n);
+    shm_ptr += sprintf(shm_ptr, "%lu, ", n);
   }
 
   if ((n & 0x01) == 0) {
@@ -149,7 +184,7 @@ void print_collatz(unsigned long int n) {
     n = 3*n + 1;
   }
 
-  print_collatz(n);
+  print_collatz(n, shm_ptr);
 
 }
 
