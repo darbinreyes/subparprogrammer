@@ -5,7 +5,7 @@
 _main:                                  ## @main
 	.cfi_startproc
 ## %bb.0:
-	pushq	%rbp ## %rbp is the frame pointer register. It is callee saved by convention. Hence the pushq, and popq at the end. Note how a pushq allows us to write to memory with an implied memory address.
+	pushq	%rbp
 	.cfi_def_cfa_offset 16
 	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
@@ -20,7 +20,7 @@ _main:                                  ## @main
 	movl	-20(%rbp), %ecx
 	addl	-24(%rbp), %ecx
 	movl	%ecx, -28(%rbp)
-	popq	%rbp ## pop the stack, and store the value in %rbp, the frame pointer register. See pushq above.
+	popq	%rbp
 	retq
 	.cfi_endproc
                                         ## -- End function
