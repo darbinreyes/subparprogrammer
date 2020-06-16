@@ -87,7 +87,7 @@ int main(int argc, char **argv) {
   return 0; // Success.
 }
 
-void print_collatz(unsigned long int n, char *shm_ptr);
+int print_collatz(unsigned long int n, char *shm_ptr, int bw);
 
 int child_p(int argc, char **argv) {
   unsigned long int n;
@@ -102,8 +102,7 @@ int child_p(int argc, char **argv) {
 
   */
   if (argc != 2 || argv[1][0] == '-') {
-    printf("Usage: Supply one integer argument greater than 0, e.g. \"a.out 8\". \
-            The argument is converted to unsigned long using strtoul().\n");
+    printf("Usage: Supply one integer argument greater than 0, e.g. \"a.out 8\". The argument is converted to unsigned long using strtoul().\n");
     return 1;
   }
 
@@ -156,7 +155,7 @@ int child_p(int argc, char **argv) {
   }
 
   /* Write to the share mem. object. */
-  print_collatz(n, shm_ptr);
+  print_collatz(n, shm_ptr, 0);
 
   return 0;
 }
@@ -165,17 +164,30 @@ int child_p(int argc, char **argv) {
 // FYI: I will not check for overflow.
 // FYI: The command line parameter validation will be very basic.
 // FYI: I will assume the Collatz conjecture is in fact true. If it is false, then there will exist values of n for which this program will never terminate.
-void print_collatz(unsigned long int n, char *shm_ptr) {
+int print_collatz(unsigned long int n, char *shm_ptr, int bw) {
+  char tmp_str[128];
   assert(n > 0);
 
   // TODO: Check that we aren't writing more than the size of the shared mem.
   // object.
   if (n == 1) {
     // Done.
-    shm_ptr += sprintf(shm_ptr, "1.\n");
-    return;
+    bw += sprintf(tmp_str, "1.\n");
+    if (bw < SHM_SIZE) {
+      shm_ptr += sprintf(shm_ptr, "1.\n");
+      return 0;
+    } else {
+      return 1; // Sequence truncated.
+    }
+
   } else {
-    shm_ptr += sprintf(shm_ptr, "%lu, ", n);
+    bw += sprintf(tmp_str, "%lu, ", n);
+
+    if (bw < SHM_SIZE) {
+      shm_ptr += sprintf(shm_ptr, "%lu, ", n);
+    } else {
+      return 1; // Sequence truncated.
+    }
   }
 
   if ((n & 0x01) == 0) {
@@ -186,7 +198,6 @@ void print_collatz(unsigned long int n, char *shm_ptr) {
     n = 3*n + 1;
   }
 
-  print_collatz(n, shm_ptr);
+  return print_collatz(n, shm_ptr, bw);
 
 }
-
