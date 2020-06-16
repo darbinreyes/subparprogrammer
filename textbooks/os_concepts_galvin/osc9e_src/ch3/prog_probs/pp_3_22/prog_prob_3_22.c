@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
       return 5;
     }
 
-    if (WEXITSTATUS(stat_loc) != 0) {
+    if (WEXITSTATUS(stat_loc) > 0 && WEXITSTATUS(stat_loc) < 8) {
       printf("Child process terminated with ERROR status value = %d.\n", WEXITSTATUS(stat_loc));
       return 4;
     }
@@ -76,7 +76,12 @@ int main(int argc, char **argv) {
     }
 
     /* Read from the shared mem. object. */
-    printf("%s", (char *) shm_ptr);
+    if (WEXITSTATUS(stat_loc) == 8) {
+      printf("Sequence was truncated.\n");
+      printf("%s\n", (char *) shm_ptr);
+    } else {
+      printf("%s", (char *) shm_ptr);
+    }
 
     /* Remove the shared mem. object. */
     if (shm_unlink(shm_name) == -1) { // Error.
@@ -155,7 +160,9 @@ int child_p(int argc, char **argv) {
   }
 
   /* Write to the share mem. object. */
-  print_collatz(n, shm_ptr, 0);
+  if(print_collatz(n, shm_ptr, 0) != 0) {
+    return 8;
+  }
 
   return 0;
 }
