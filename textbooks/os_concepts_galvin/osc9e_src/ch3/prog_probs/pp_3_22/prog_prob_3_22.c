@@ -61,13 +61,14 @@ int main(int argc, char **argv) {
     */
 
     /* create shared mem. object */
-    shm_fd = shm_open(shm_name, O_RDWR, SHM_MODE);
+    shm_fd = shm_open(shm_name, O_RDONLY, SHM_MODE);
 
     if(shm_fd == -1) { // Error.
       return 1;
     }
     /* Mem. map the shared mem. object. */
-    /* void *mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset); */
+    /* void *mmap(void *addr, size_t len, int prot, int flags, int fd,
+       off_t offset); */
     shm_ptr = mmap(0, SHM_SIZE, PROT_READ, MAP_SHARED, shm_fd, 0);
 
     if (shm_ptr == MAP_FAILED) { // Error.
@@ -82,7 +83,7 @@ int main(int argc, char **argv) {
       return 3;
     }
   }
-
+  printf("Parent process: successful.\n");
   return 0; // Success.
 }
 
@@ -101,7 +102,8 @@ int child_p(int argc, char **argv) {
 
   */
   if (argc != 2 || argv[1][0] == '-') {
-    printf("Usage: Supply one integer argument greater than 0, e.g. \"a.out 8\". The argument is converted to unsigned long using strtoul().\n");
+    printf("Usage: Supply one integer argument greater than 0, e.g. \"a.out 8\". \
+            The argument is converted to unsigned long using strtoul().\n");
     return 1;
   }
 
