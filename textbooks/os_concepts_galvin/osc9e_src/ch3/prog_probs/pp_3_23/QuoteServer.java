@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
 
-public class DateServer
+public class QuoteServer
 {
   public static void main(String[] args) {
     try {
