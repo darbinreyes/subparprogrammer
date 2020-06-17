@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
 
-public class DateClient
+public class QuoteClient
 {
   public static void main(String[] args) {
     try {
