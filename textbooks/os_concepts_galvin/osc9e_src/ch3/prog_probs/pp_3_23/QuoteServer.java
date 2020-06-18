@@ -10,7 +10,7 @@ public class QuoteServer
     System.out.println(enddate.toString());
     TimeUnit tu = TimeUnit.SECONDS; // Time unit with which to calculate elapsed time between startdate and enddate.
     long diffms = enddate.getTime() - startdate.getTime(); // Time difference in milliseconds.
-    long diff = tu.convert(diffms, TimeUnit.MILLISECONDS);
+    long diff = tu.convert(diffms, TimeUnit.MILLISECONDS); // Convert diff in milliseconds into diff in seconds.
 
     System.out.println(diff);
 
@@ -29,8 +29,6 @@ public class QuoteServer
       Date ctimestamp;
 
       timestamp.setSeconds(0); // Zero out relevant field of the timestamp.
-      //timestamp.setMinutes(0);
-      //timestamp.setHours(0);
 
       System.out.println(timestamp.toString());
 
@@ -41,12 +39,18 @@ public class QuoteServer
 
         Socket client = sock.accept();
 
+        /*
+
+          Instead of returning a new quote every day this returns a new quote
+          after the 30 second of every minute. (For easier testing).
+
+        */
         ctimestamp = new java.util.Date();
         if (is_30seconds_passed(timestamp, ctimestamp)) {
           // Time for a new quote.
           timestamp = ctimestamp;
           timestamp.setSeconds(0);
-          timestamp.setMinutes( (timestamp.getMinutes() + 1) % 59 );
+          timestamp.setTime(timestamp.getTime() + 1000 * 60); // Set new timestamp to the next minute in the future.
           index = (index + 1) % quotes.length;
         }
 
@@ -55,7 +59,6 @@ public class QuoteServer
         PrintWriter pout = new PrintWriter(client.getOutputStream(), true);
 
           /* write the Date to the socket */
-        //pout.println(new java.util.Date().toString());
         pout.println(quotes[index]);
 
         /* close the socket and resume */
