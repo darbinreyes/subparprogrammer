@@ -21,6 +21,32 @@
 #include <math.h>
 #include <stdlib.h>
 
+/*
+  Add an entry to the back of the queue.
+*/
+int enqueu(int v) {
+  // if not full.
+  // append v to back of the queue.
+  // update back index.
+  // return 0 for success.
+  // else queue is full.
+  // return 1 for failure.
+  return 0;
+}
+
+/*
+  Remove an entry from the front of the queue.
+*/
+int dequeue(int *v) {
+  // if not empty.
+  // set *v to the entry at the front of the queue.
+  // update front index.
+  // return 0 for success.
+  // else queue is empty.
+  // return 1 for failure.
+  return 0;
+}
+
 int main() {
 
   /* Enter your code here. Read input from STDIN. Print output to STDOUT */
