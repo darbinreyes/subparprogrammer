@@ -31,8 +31,9 @@ int main(void) {
 
   //poo = doo; // Should work. It does.
   //poo(1);
-  poo = &doo; // Expect error. WRONG. It works. But does it actually call doo? ANS: It does.
-  poo(2);
 
-  return 0;
+  //poo = &doo; // Expect error. WRONG. It works. But does it actually call doo? ANS: It does.
+  //poo(2);
+
+   return 0;
 }
