@@ -12,8 +12,8 @@ _main:                                  ## @main
   .cfi_def_cfa_register %rbp
   xorl  %eax, %eax # Set to 0 the lower 32 bits of the RAX register a.k.a register EAX.
   movl  $0, -4(%rbp) # 32 bit move imm. value 0 into frame.
-  movl  %edi, -8(%rbp) # 32 bit move value in register EDI[?] into frame.
-  movq  %rsi, -16(%rbp) # 32 bit move value in register RSI[?] into frame.
+  movl  %edi, -8(%rbp) # 32 bit move value in register EDI[32 bit first argument register] into frame.
+  movq  %rsi, -16(%rbp) # 32 bit move value in register RSI[64 bit second argument register] into frame.
   movl  $5, -20(%rbp) # move 32 bit imm. value 5 into frame. This clearly corresponds to the C code local variable initialization.
   movl  $7, -24(%rbp) # move 32 bit imm. value 7 into frame. This clearly corresponds to the C code local variable initialization.
   movl  $0, -28(%rbp) # move 32 bit imm. value 0 into frame. This clearly corresponds to the C code local variable initialization.
