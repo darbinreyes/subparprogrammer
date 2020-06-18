@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
 
-public class DateServer
+public class HaikuServer
 {
   public static void main(String[] args) {
     String haiku = "fu-ru-i-ke ya\n"
@@ -16,8 +16,8 @@ public class DateServer
 
         PrintWriter pout = new PrintWriter(client.getOutputStream(), true);
 
-          /* write the Date to the socket */
-        pout.println(new java.util.Date().toString());
+          /* write the haiku to the socket */
+        pout.println(haiku);
 
         /* close the socket and resume */
         /* listening for connections */
