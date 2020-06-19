@@ -1,6 +1,5 @@
 CC = cc
 MY_C_FILE = p0.c
-SEATEST_SRC_PATH = ../../../../../../c_projects/seatest/src
 FILES = $(MY_C_FILE)
 OUT_EXE = p0
 
