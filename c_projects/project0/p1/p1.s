@@ -14,14 +14,12 @@ _main:                                  ## @main
 	movl	$0, -4(%rbp)
 	movl	%edi, -8(%rbp)
 	movq	%rsi, -16(%rbp)
-	leaq	L_.str(%rip), %rcx
-	movq	%rcx, -24(%rbp)
-	movl	$5, -28(%rbp)
-	movl	$7, -32(%rbp)
-	movl	$0, -36(%rbp)
-	movl	-28(%rbp), %edx
-	addl	-32(%rbp), %edx
-	movl	%edx, -36(%rbp)
+	movl	$5, -20(%rbp)
+	movl	$7, -24(%rbp)
+	movl	$0, -28(%rbp)
+	movl	-20(%rbp), %ecx
+	addl	-24(%rbp), %ecx
+	movl	%ecx, -28(%rbp)
 	popq	%rbp
 	retq
 	.cfi_endproc
@@ -29,6 +27,12 @@ _main:                                  ## @main
 	.section	__TEXT,__cstring,cstring_literals
 L_.str:                                 ## @.str
 	.asciz	"Hello Edsgar Dijkstra."
+
+	.section	__DATA,__data
+	.globl	_str                    ## @str
+	.p2align	3
+_str:
+	.quad	L_.str
 
 
 .subsections_via_symbols
