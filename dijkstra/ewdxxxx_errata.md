@@ -1,4 +1,4 @@
-This is a list of typos I have encountered in reading [EWD's](https://www.cs.utexas.edu/users/EWD/).
+This is a list of typos I have encountered in reading [EWDs](https://www.cs.utexas.edu/users/EWD/).
 
 ---
 
