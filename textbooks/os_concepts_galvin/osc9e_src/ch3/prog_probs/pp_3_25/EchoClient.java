@@ -1,12 +1,18 @@
 import java.net.*;
 import java.io.*;
 
-public class DateClient
+public class EchoClient
 {
   public static void main(String[] args) {
     try {
       Socket sock = new Socket("127.0.0.1", 6013);
 
+      /* Send something to the server */
+      String send_str = "Hello, my name is Dijkstra";
+      PrintWriter pout = new PrintWriter(sock.getOutputStream(), true);
+      pout.println(send_str);
+
+      /* ******** */
       InputStream in = sock.getInputStream();
       BufferedReader bin = new BufferedReader(new InputStreamReader(in));
 
