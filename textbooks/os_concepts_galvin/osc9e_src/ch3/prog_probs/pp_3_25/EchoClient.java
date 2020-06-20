@@ -8,22 +8,18 @@ public class EchoClient
       Socket sock = new Socket("127.0.0.1", 6013);
 
       /* Send something to the server */
-      String send_str = "Hello, my name is Dijkstra"; // FYI: Adding this causes the following exception after client prints date: java.net.SocketException: Connection reset
-      PrintWriter pout = new PrintWriter(sock.getOutputStream(), true);
-      pout.println(send_str);
-
-      /* ******** */
+      String send_str = "Hello, my name is Dijkstra.";
+      OutputStream out = sock.getOutputStream();
       InputStream in = sock.getInputStream();
-      BufferedReader bin = new BufferedReader(new InputStreamReader(in));
+      int next_byte;
 
-      /* read the date from the socket */
-      //String line;
-      //while ( (line = bin.readLine()) != null)
-        //System.out.println(line);
+      for (int i = 0; i < send_str.length(); i++){
+        out.write(send_str.charAt(i)); // Send a byte
+        next_byte = in.read(); // Receive a byte
+        System.out.println(new Integer(next_byte)); // Print received byte.
+      }
 
-      /* close the socket connection */
       sock.close();
-
     }
     catch (IOException ioe) {
       System.err.println(ioe);
