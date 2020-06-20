@@ -10,16 +10,30 @@ _main:                                  ## @main
 	.cfi_offset %rbp, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register %rbp
-	xorl	%eax, %eax
+	subq	$48, %rsp
 	movl	$0, -4(%rbp)
 	movl	%edi, -8(%rbp)
 	movq	%rsi, -16(%rbp)
-	movl	$5, -20(%rbp)
-	movl	$7, -24(%rbp)
-	movl	$0, -28(%rbp)
-	movl	-20(%rbp), %ecx
-	addl	-24(%rbp), %ecx
-	movl	%ecx, -28(%rbp)
+	movl	$5, -28(%rbp)
+	movl	$7, -32(%rbp)
+	movl	$0, -36(%rbp)
+	movl	-28(%rbp), %eax
+	addl	-32(%rbp), %eax
+	movl	%eax, -36(%rbp)
+	movl	$16, %edi
+	callq	_malloc
+	xorl	%ecx, %ecx
+	movq	%rax, -24(%rbp)
+	movq	-24(%rbp), %rax
+	movl	$2, (%rax)
+	movq	-24(%rbp), %rax
+	movl	$3, 4(%rax)
+	movq	-24(%rbp), %rax
+	movl	$5, 8(%rax)
+	movq	-24(%rbp), %rax
+	movl	$7, 12(%rax)
+	movl	%ecx, %eax
+	addq	$48, %rsp
 	popq	%rbp
 	retq
 	.cfi_endproc
