@@ -1,7 +1,7 @@
 CC = cc
-MY_C_FILE = p1.c
+MY_C_FILE = p2.c
 FILES = $(MY_C_FILE)
-OUT_EXE = p1
+OUT_EXE = p2
 
 build: $(FILES)
 	$(CC) -o $(OUT_EXE) $(FILES)
