@@ -11,6 +11,13 @@ public class EchoServer
       while (true) {
         Socket client = sock.accept();
 
+        /* Read what the client sent us */
+        InputStream in = client.getInputStream();
+        BufferedReader bin = new BufferedReader(new InputStreamReader(in));
+        String line;
+        while ( (line = bin.readLine()) != null)
+          System.out.println(line);
+        /*  ******* */
         PrintWriter pout = new PrintWriter(client.getOutputStream(), true);
 
           /* write the Date to the socket */
