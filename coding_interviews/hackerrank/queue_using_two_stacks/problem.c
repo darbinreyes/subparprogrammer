@@ -21,7 +21,7 @@
 #include <math.h>
 #include <stdlib.h>
 
-#define Q_SIZE (100000+1)
+#define Q_SIZE (100000 + 1)
 #define IS_EN_Q 1
 #define IS_DE_Q 2
 #define IS_PRINT_Q_FRONT 3
@@ -41,7 +41,7 @@ int is_full(void) {
 
 // Returns 1 if the queue is empty. Returns 0 otherwise.
 int is_empty(void) {
-  if(back_index == front_index) {
+  if (back_index == front_index) {
     return 1;
   }
 
@@ -58,6 +58,13 @@ int enqueu(int v) {
   // return 0 for success.
   // else queue is full.
   // return 1 for failure.
+
+  if (is_full()) {
+    return 1;
+  }
+
+  queue[back_index] = v;
+  back_index = (back_index + 1) % Q_SIZE;
   return 0;
 }
 
@@ -71,11 +78,39 @@ int dequeue(int *v) {
   // return 0 for success.
   // else queue is empty.
   // return 1 for failure.
+  if (is_empty()) {
+    return 1;
+  }
+
+  *v = queue[front_index];
+  front_index = (front_index + 1) % Q_SIZE;
+  return 0;
+}
+
+/*
+  Peek at the front entry.
+*/
+int peek(int *v) {
+  if (is_empty()) {
+    return 1;
+  }
+
+  *v = queue[front_index];
   return 0;
 }
 
 int main() {
-
+  int ns;
+  int cmd, val, nq;
+  char line[128];
   /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+  ns = scanf("%d\n", &nq);
+  printf("%d\n", nq);
+  while ( nq-- > 0 ) {
+    ns = scanf("%s\n", line);
+
+    printf("ns = %d, s = %s.\n", ns, line);
+  }
+  printf("Done.\n");
   return 0;
 }
