@@ -26,7 +26,7 @@ public class EchoServer
         // Furthermore, flushing the supposed buffer outside the loop would fail
         // because the client has already closed the connection.
         while ( (next_byte = in.read()) != -1) { // Receive a byte.
-          System.out.println(new Integer(next_byte)); // Print received byte.
+          System.out.println("Received/Echoing byte: "+ new Integer(next_byte)); // Print received byte.
           out.write(next_byte); // Send the byte back to the client.
         }
 
