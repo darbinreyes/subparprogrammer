@@ -8,7 +8,7 @@ _main:                                  ## @main
   pushq %rbp # push caller's rbp. rbp is callee saved.
   .cfi_def_cfa_offset 16
   .cfi_offset %rbp, -16
-  movq  %rsp, %rbp # copy set rbp top of stack.
+  movq  %rsp, %rbp # set rbp to top of stack.
   .cfi_def_cfa_register %rbp
   subq  $48, %rsp # subtract 48 from the top of stack. Makes space for local variables.
   movl  $0, -4(%rbp) # initialize local variable to 0 in the frame.
@@ -21,7 +21,7 @@ _main:                                  ## @main
   addl  -32(%rbp), %eax # add local variable to other local variable, place result in 32 bit result register eax.
   movl  %eax, -36(%rbp) # place result of addition in local variable in frame.
   movl  $16, %edi # write value 16 to 32 bit first argument register edi. 16 = sizeof(int)*4= 4*4=16.
-  callq _malloc # call malloc function with argument above.
+  callq _malloc # call malloc function with argument above, edi.
   xorl  %ecx, %ecx # zero out 32 bit 4th argument register ecx. ecx is also a 32 bit scratch register.
   movq  %rax, -24(%rbp) # place the value returned by malloc function in a local variable in the frame.
   movq  -24(%rbp), %rax # redundant instruction, recall optimizations were disabled. Places return value of malloc from the frame into register rax.
