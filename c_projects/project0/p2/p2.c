@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-char *str = "Hello Edsgar Dijkstra.";
+char *str = "Hello EdsgEr Dijkstra.";
 
 int main(int argc, char **argv) {
   int *heap_data;
