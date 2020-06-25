@@ -2,6 +2,7 @@
 
   https://www.hackerrank.com/challenges/queue-using-two-stacks/problem
 
+  Success Rate: 87.89%
 */
 
 
@@ -103,14 +104,62 @@ int main() {
   int ns;
   int cmd, val, nq;
   char line[128];
+  char *s;
+  char c;
   /* Enter your code here. Read input from STDIN. Print output to STDOUT */
-  ns = scanf("%d\n", &nq);
-  printf("%d\n", nq);
+  ns = scanf("%d\n", &nq); // First line contains a single integer. Equals number of subsequent lines.
+  //printf("%d\n", nq);
   while ( nq-- > 0 ) {
-    ns = scanf("%s\n", line);
+    /*
 
-    printf("ns = %d, s = %s.\n", ns, line);
+      Plan:
+      Get the whole line using gets().
+      Test the first character for equality with `1`, `2`, `3`.
+      Use sscanf() to obtain data from line.
+
+      '1' means the line contains two integers e.g. "1 42". It means enqueue 42.
+      '2' means dequeue front entry.
+      '3' means print front entry.
+
+    */
+    s = gets(line);
+
+    if (s == NULL) {
+      // gets() error.
+      return 1;
+    }
+
+    c = line[0];
+
+    if (c == '1') {
+      ns = sscanf(line, "%d %d\n", &cmd, &val);
+
+      if (ns != 2) {
+        // Expected number of input items assigned == 2.
+        return 2;
+      }
+
+      if (enqueu(val)) {
+        // Enqueue error
+        return 3;
+      }
+
+    } else if (c == '2') {
+      if (dequeue(&val)) {
+        // Dequeue error.
+        return 5;
+      }
+    } else if (c == '3') {
+      if (peek(&val)) {
+        // Peek error.
+        return 6;
+      }
+
+      printf("%d\n", val);
+    } else {
+      return 4; // Invalid first character.
+    }
   }
-  printf("Done.\n");
+
   return 0;
 }
