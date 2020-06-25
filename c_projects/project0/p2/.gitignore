@@ -1,2 +1,2 @@
-p2
-p2.dSYM
+*.out
+*.dSYM
