@@ -16,6 +16,14 @@ build_asm: $(FILES)
 build_dbg_asm: $(FILES)
 	$(CC) -O0 -g -o $(OUT_EXE).dbg.s -S $(FILES)
 
+# Step-wise compilation notes.
+# cc -O0 p0.c # Generates executable file a.out.
+# is equivalent to
+# cc -O0 p0.c -S # Generates assembly file p0.s.
+# as p0.s # Generates object code file a.out. This NOT an executable file.
+# ld a.out -lSystem # Generates executable file.
+# Without -l argument this error occurs "ld: dynamic main executables must link with libSystem.dylib for architecture x86_64"
+
 clean:
 	rm -Rf $(OUT_EXE) $(OUT_EXE).dSYM/
 
