@@ -10,11 +10,12 @@ This is just a test.
 4
 5
 6
-7</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #f8f8f2">int</span> <span style="color: #f8f8f2">main(int</span> <span style="color: #f8f8f2">argc,</span> <span style="color: #f8f8f2">char</span> <span style="color: #f92672">**</span><span style="color: #f8f8f2">argv)</span> <span style="color: #f8f8f2">{</span>
-  <span style="color: #f8f8f2">int</span> <span style="color: #f8f8f2">a</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">5</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">b</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">7</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">s</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
+7</pre></td><td><pre style="margin: 0; line-height: 125%"><span style="color: #66d9ef">int</span> <span style="color: #a6e22e">main</span><span style="color: #f8f8f2">(</span><span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">argc,</span> <span style="color: #66d9ef">char</span> <span style="color: #f92672">**</span><span style="color: #f8f8f2">argv)</span> <span style="color: #f8f8f2">{</span>
+  <span style="color: #66d9ef">int</span> <span style="color: #f8f8f2">a</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">5</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">b</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">7</span><span style="color: #f8f8f2">,</span> <span style="color: #f8f8f2">s</span> <span style="color: #f92672">=</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
 
   <span style="color: #f8f8f2">s</span> <span style="color: #f92672">=</span> <span style="color: #f8f8f2">a</span> <span style="color: #f92672">+</span> <span style="color: #f8f8f2">b;</span>
 
   <span style="color: #66d9ef">return</span> <span style="color: #ae81ff">0</span><span style="color: #f8f8f2">;</span>
 <span style="color: #f8f8f2">}</span>
 </pre></td></tr></table></div>
+
