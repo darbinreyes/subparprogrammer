@@ -6,6 +6,45 @@
 
 */
 
+/* ******* Scratch work.
+
+Start with stack of integers. A_0.
+
+Perform Q operations on it. i = 1 -> Q.
+
+Iteration, i = 1.
+
+Stack operated on = A_i-1 = A_1-1 = A_0.
+
+while A_0 not empty:
+
+  t = A_0.pop()
+  p = prime_i = prime_1 = 2.
+  d = t % prime_1 = t % 2.
+  if d == 0
+    Stack B_i = B_1
+    B_1.push(t)
+  else
+    Stack A_i = A_1
+    A_1.push(t)
+
+
+Upon termination, after Q iterations we have
+
+Q+1 distinct stacks: B_1 -> B_Q , and A_Q.
+In this order: B_1 -> B_Q , and A_Q.
+Pop all values off the stacks and return as int array.
+
+*******
+
+Plan:
+
+Implement single iteration.
+Confirm correctness with sample input.
+Generalize to more iterations.
+
+*/
+
 #include <assert.h>
 #include <limits.h>
 #include <math.h>
