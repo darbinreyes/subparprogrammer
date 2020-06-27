@@ -11,13 +11,20 @@ int main(void) {
   char write_msg[BUFFER_SIZE] = "Edsger Dijkstra";
   char read_msg[BUFFER_SIZE];
 
-  int fd[2];
+  int p2c_fd[2]; // Parent(write) to child(read) fd.
+  int c2p_fd[2]; // child(write) to parent(read) fd.
   pid_t pid;
 
   /* create the pipe */
-  if (pipe(fd) == -1) {
+  if (pipe(p2c_fd) == -1) {
     fprintf(stderr, "Pipe failed");
     return 1;
+  }
+
+  /* create the 2nd pipe */
+  if (pipe(c2p_fd) == -1) {
+    fprintf(stderr, "Pipe 2 failed");
+    return 2;
   }
 
   /* fork a child process */
@@ -25,28 +32,50 @@ int main(void) {
 
   if (pid < 0) { /* error occurred */
     fprintf(stderr, "Fork failed");
-    return 1;
+    return 3;
   }
 
   if (pid > 0) { /* parent process */
+    /* Parent write */
     /* close the unused end of the pipe */
-    close(fd[READ_END]);
+    close(p2c_fd[READ_END]);
 
     /* write to the pipe */
-    write(fd[WRITE_END], write_msg, strlen(write_msg) + 1);
+    write(p2c_fd[WRITE_END], write_msg, strlen(write_msg) + 1);
 
     /* close the write end of the pipe */
-    close(fd[WRITE_END]);
-  } else { /* child process */
+    close(p2c_fd[WRITE_END]);
+    /* Parent read */
     /* close the unused end of the pipe */
-    close(fd[WRITE_END]);
+    close(c2p_fd[WRITE_END]);
 
     /* read from the pipe */
-    read(fd[READ_END], read_msg, BUFFER_SIZE);
-    printf("read %s", read_msg);
+    read(c2p_fd[READ_END], read_msg, BUFFER_SIZE);
+    printf("Parent read. %s\n", read_msg);
+    /* close the read end of the pipe */
+    close(c2p_fd[READ_END]);
+  } else { /* child process */
+    /* Child read */
+    /* close the unused end of the pipe */
+    close(p2c_fd[WRITE_END]);
+
+    /* read from the pipe */
+    read(p2c_fd[READ_END], read_msg, BUFFER_SIZE);
+    printf("Child read. %s\n", read_msg);
 
     /* close the read end of the pipe */
-    close(fd[READ_END]);
+    close(p2c_fd[READ_END]);
+    /* Child write */
+    /* close the unused end of the pipe */
+    close(c2p_fd[READ_END]);
+
+    // TODO: Reverse casing of string.
+    // For now, just change the first character
+    read_msg[0] = 'X';
+    /* write to the pipe */
+    write(c2p_fd[WRITE_END], read_msg, strlen(read_msg) + 1);
+    /* close the write end of the pipe */
+    close(c2p_fd[WRITE_END]);
   }
 
   return 0;
