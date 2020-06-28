@@ -51,13 +51,15 @@ alias flashstk500='avrdude -c stk500 -p m644 -e  -U flash:w:lab0.hex -P /dev/cu.
 alias buildstk500='make'
 alias ll='ls -l -a -G'
 alias where='which'
+## Recursively searches current directory for file names that match *.txt.
+## and prints any lines in those txt files which match the word "RIS"
+#find . -name "*.txt" -print | xargs grep "RIS"
+# If you get an error like "find: ./sbin/authserver: Permission denied", don't use this alias. Use `sudo find . -name`.
 alias find-filename='find . -name '
 alias myrmdir='rm -drf'
 # run a speed test from bash per http://osxdaily.com/2013/07/31/speed-test-command-line/
 alias speedtest='curl -o /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
-## Recursively searches current directory for file names that match *.txt.
-## and prints any lines in those txt files which match the word "RIS"
-#find . -name "*.txt" -print | xargs grep "RIS"
+
 
 # Find a specific process by name
 alias grep-proc='ps -ax | grep '
