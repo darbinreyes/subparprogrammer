@@ -1,6 +1,7 @@
 # Simple assembly program.
-# Main function that calls the write system call, i.e.:
-#  ssize_t write(int fildes, const void *buf, size_t nbyte);
+# Main function that calls printf(), i.e.:
+#   int printf(const char * restrict format, ...);
+
 
 .section __TEXT,__text
 .globl _main
@@ -8,8 +9,8 @@ _main:
   pushq %rbp
   movq %rsp, %rbp
   movq str@GOTPCREL(%rip), %rdi # set 1st argument to string pointer. GOT = (Global Offset Table). https://developer.apple.com/library/archive/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/x86_64_code.html
-  syscall # issue a system call.
-  movl $7, %eax # Return 7 from exit.
+  callq _printf
+  movl $5, %eax # Return 5 from exit.
   popq %rbp
   retq
 
