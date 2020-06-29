@@ -6,7 +6,7 @@
 _main:
 
   movl $0x2000001, %eax # system call $1 with $0x2000000 offset. See comments at bottom of this file.
-  movl $7, %ebx # set the exit code to be $7.
+  movl $7, %edi # set the exit code to be $7.
   syscall # issue a system call.
 
 # System call numbers can be "found in /usr/include/sys/syscall.h".
