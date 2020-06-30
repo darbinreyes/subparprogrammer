@@ -45,6 +45,67 @@ Generalize to more iterations.
 
 */
 
+/* ******* Sample input 0 walk through.
+
+******* Input
+5 1 // means N = 5, Q = 1
+3 4 7 6 5 // means A_0 = [3, 4, 7, 6, 5]<-TOP
+*******
+
+for i = 1, to i = Q = 1
+
+
+
+t = A_0.pop() = 5. // A_0 = [3, 4, 7, 6]<-TOP
+p = prime_i = prime_1 = 2.
+
+if t % p == 0 // 5 % 2 == 0 // 1 == 0 // false
+  // B_i = B_1 = []<-TOP
+  B_i.push(t)
+else
+  // A_i = A_1 = []<-TOP
+  A_i.push(t) = A_1.push(5) // A_1 = [5]<-TOP
+
+*******
+t = A_0.pop() = 6. // A_0 = [3, 4, 7]<-TOP
+6 % 2 == 0
+// B_1 = []<-TOP
+B_1.push(6)
+// B_1 = [6]<-TOP
+*******
+t = A_0.pop() = 7. // A_0 = [3, 4]<-TOP
+7 % 2 == 0 // 1 == 0 // false
+// A_1 = [5]<-TOP
+A_1.push(7)
+// A_1 = [5, 7]<-TOP
+*******
+t = A_0.pop() = 4. // A_0 = [3]<-TOP
+4 % 2 == 0
+// B_1 = [6]<-TOP
+B_1.push(4)
+// B_1 = [6, 4]<-TOP
+*******
+t = A_0.pop() = 3. // A_0 = []<-TOP
+3 % 2 == 0 // 1 == 0 // false
+// A_1 = [5, 7]<-TOP
+A_1.push(3)
+// A_1 = [5, 7, 3]<-TOP
+******* Iterations complete.
+A_0 = []<-TOP
+B_1 = [6, 4]<-TOP
+A_1 = [5, 7, 3]<-TOP
+******* Printing the result
+4 = B_1.pop()
+6 = B_1.pop()
+3 = A_1.pop()
+7 = A_1.pop()
+5 = A_1.pop()
+*******
+
+Notice that the number of integers we start with = # end with.
+
+*/
+
 #include <assert.h>
 #include <limits.h>
 #include <math.h>
