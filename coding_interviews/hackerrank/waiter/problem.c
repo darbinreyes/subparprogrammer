@@ -229,7 +229,7 @@ int main()
     }
 
     int result_count;
-    int* result = waiter(number_count, number, q, &result_count); // DER: Given code has this compilation error. number_count undeclared. Looks like n is the correct variable name.
+    int* result = waiter(n, number, q, &result_count); // DER: Given code has this compilation error. number_count undeclared. Looks like n is the correct variable name.
 
     for (int result_itr = 0; result_itr < result_count; result_itr++) {
         fprintf(fptr, "%d", result[result_itr]);
