@@ -1,4 +1,4 @@
-% xcrun size -x -l -m a.out
+Output of xcrun size -x -l -m a.out
 #######
 Segment __PAGEZERO: 0x100000000 (vmaddr 0x0 fileoff 0)
 Segment __TEXT: 0x1000 (vmaddr 0x100000000 fileoff 0)
