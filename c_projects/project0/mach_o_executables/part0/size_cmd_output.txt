@@ -18,7 +18,27 @@ Segment __DATA: 0x1000 (vmaddr 0x100002000 fileoff 8192)
 Segment __LINKEDIT: 0x1000 (vmaddr 0x100003000 fileoff 12288)
 total 0x100004000
 
-########
+#######
+1. __PAGEZERO
+  no sections.
+2. __TEXT
+  has sections:
+  __text
+  __stubs
+  __stub_helper
+  __cstring // 0xe == 14 == sizeof("Hello World!\n") - 1
+__unwind_info
+3. __DATA_CONST
+  has sections:
+  __got
+4. __DATA
+  has sections:
+  __la_symbol_ptr
+  __data
+5. __LINKEDIT
+  no sections
+
+####### Remarks
 
 0x100000f50 // first instruction
 0x100000f50 // address of the __TEXT,__text
@@ -26,4 +46,7 @@ total 0x100004000
 Note 0x1000 = 2^12 = 4KB
 0x100000f50
 0x100003000
-0x100000000
+0x100000000 // Size of __PAGEZERO segment = 4GB.
+
+Notice the last occurence of "fileoff" = 12288.
+Since a.out is 12556 bytes, the 12288 is clearly an offset into a.out itself.
