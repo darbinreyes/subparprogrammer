@@ -7,3 +7,31 @@ Contents of (__TEXT,__text) section
 0000000100000f70  0e 00 00 00 31 c9 89 45 ec 89 c8 48 83 c4 20 5d
 0000000100000f80  c3
 #######
+Output of xcrun otool -v -t a.out
+#######
+xcrun otool -v -t a.out
+a.out:
+(__TEXT,__text) section
+_main:
+0000000100000f50  pushq %rbp
+0000000100000f51  movq  %rsp, %rbp
+0000000100000f54  subq  $0x20, %rsp
+0000000100000f58  movl  $0x0, -0x4(%rbp)
+0000000100000f5f  movl  %edi, -0x8(%rbp)
+0000000100000f62  movq  %rsi, -0x10(%rbp)
+0000000100000f66  leaq  0x35(%rip), %rdi
+0000000100000f6d  movb  $0x0, %al
+0000000100000f6f  callq 0x100000f82
+0000000100000f74  xorl  %ecx, %ecx
+0000000100000f76  movl  %eax, -0x14(%rbp)
+0000000100000f79  movl  %ecx, %eax
+0000000100000f7b  addq  $0x20, %rsp
+0000000100000f7f  popq  %rbp
+0000000100000f80  retq
+#######
+Output of xcrun otool -v -s __TEXT __cstring a.out
+#######
+xcrun otool -v -s __TEXT __cstring a.out
+a.out:
+Contents of (__TEXT,__cstring) section
+0000000100000fa2  Hello World!\n

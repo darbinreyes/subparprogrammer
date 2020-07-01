@@ -50,3 +50,71 @@ Note 0x1000 = 2^12 = 4KB
 
 Notice the last occurence of "fileoff" = 12288.
 Since a.out is 12556 bytes, the 12288 is clearly an offset into a.out itself.
+
+Except for the __PAGEZERO segment, the size of all segments is 1 page = 4KB.
+Segment lines show "vmaddr"
+section lines show "addr"
+
+Within the __TEXT segment, I confirmed that all sections are adjacent to one another, assuming padding is done to ensure alignment to 2 byte (1 word) boundaries.
+
+Note in __TEXT,__unwind_info 0x100000fb0 + 0x48 = '0x100000ff8' = 4294971384
+
+
+////
+
+Size of __TEXT segment is 0xa7 = 343 bytes.
+
+
+
+The __TEXT segments starts at 0x100000000, and ends at 0x100000000+0x1000 = start_address+ 1 page size.
+
+Thus its contents lie below address 0x100001000.
+
+The last __TEXT,__unwind_info section occurs immediately below 0x100000ff8, i.e.:
+
+0x100000ff7: // last byte address of __TEXT,__unwind_info
+1 0x100000ff8: 00  .
+2 0x100000ff9: 00  .
+3 0x100000ffa: 00  .
+4 0x100000ffb: 00  .
+5 0x100000ffc: 00  .
+6 0x100000ffd: 00  .
+7 0x100000ffe: 00  .
+8 0x100000fff: 00  . // last byte address of the __TEXT segment.
+0x100001000: 78  x
+
+That last byte address of __TEXT,__unwind_info is so close to the end of the segment
+that it suggest the following explanation for the address of the first instruction
+being 0x100000f50, viz.
+
+Guess:
+By convention, the machine instructions are placed at the higher address end of
+segment
+AND
+the machine instructions are required to be aligned to a 16 byte boundary.
+
+If this guess is correct, then
+
+"address of first instruction" = ("__TEXT segment start address" + "__TEXT segment size") - round_to_next_multiple_of_16.("total size of sections in __TEXT segment")
+
+round_to_next_multiple_of_16.(s) =
+if s % 16 == 0
+  return s
+else
+  return ((s / 16) + 1)* 16;
+
+Here is the calculation:
+
+(0x100000000+0x1000) - round16(0xa7)
+=
+(0x100000000+0x1000)-(0xa7//16 + 1)*16; hex(_) = 4294971216
+=
+0x100000f50
+
+and the address of the first instruction is:
+
+0x100000f50
+
+therefore my guess is correct.
+
+Q.E.D.
