@@ -1,3 +1,4 @@
+# Output of xcrun clang -E helloworld.c
 # 1 "helloworld.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
