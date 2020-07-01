@@ -119,42 +119,59 @@ char** split_string(char*);
 
 #define STACK_SIZE 50000
 
-int stack[STACK_SIZE];
-int stack_top = 0; // Points to the next free spot on the stack. == 0 means stack is empty. == STACK_SIZE means stack is full.
+typedef struct {
+  int stack[STACK_SIZE];
+  int stack_top; // Points to the next free spot on the stack. == 0 means stack is empty. == STACK_SIZE means stack is full.
+} istack_t;
+
+// Returns a pointer to a new stack if successful, NULL otherwise.
+istack_t *alloc_stack(void) {
+  istack_t *s;
+
+  s = calloc(1, sizeof(istack_t));
+
+  return s;
+}
+
+// Frees memory allocated for the given stack.
+void free_stack(istack_t *s) {
+  if (s != NULL)
+    free(s);
+}
 
 // Returns 1 if stack is empty, 0 otherwise.
-int stack_is_empty(void) {
-  if (stack_top == 0)
+int stack_is_empty(istack_t *s) {
+  if (s->stack_top == 0)
     return 1;
 
   return 0;
 }
 
 // Returns 1 if the stack is full, 0 otherwise.
-int stack_is_full(void) {
-  if (stack_top == STACK_SIZE)
+int stack_is_full(istack_t *s) {
+  if (s->stack_top == STACK_SIZE)
     return 1;
 
   return 0;
 }
 
 // Returns 0 if successful, 1 otherwise.
-int stack_push(int v) {
-  if(stack_is_full())
+int stack_push(istack_t *s, int v) {
+  if(stack_is_full(s))
     return 1;
 
-  stack[stack_top] = v;
-  stack_top++;
+  s->stack[s->stack_top] = v;
+  s->stack_top++;
   return 0;
 }
 
 // Returns 0 if successful, 1 otherwise.
-int stack_pop(int *v) {
-  if(stack_is_empty())
+int stack_pop(istack_t *s, int *v) {
+  if(stack_is_empty(s))
     return 1;
 
-  stack_top--;
-  *v = stack[stack_top];
+  s->stack_top--;
+  *v = s->stack[s->stack_top];
 
   return 0;
 }
@@ -173,10 +190,10 @@ int stack_pop(int *v) {
  *
  */
 int* waiter(int number_count, int* number, int q, int* result_count) {
-    /*
-     * Write your code here.
-     */
-
+  /*
+  * Write your code here.
+  */
+  return NULL;
 }
 
 int main()
@@ -212,7 +229,7 @@ int main()
     }
 
     int result_count;
-    int* result = waiter(number_count, number, q, &result_count);
+    int* result = waiter(number_count, number, q, &result_count); // DER: Given code has this compilation error. number_count undeclared. Looks like n is the correct variable name.
 
     for (int result_itr = 0; result_itr < result_count; result_itr++) {
         fprintf(fptr, "%d", result[result_itr]);
