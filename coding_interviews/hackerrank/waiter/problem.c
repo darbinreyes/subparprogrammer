@@ -117,6 +117,48 @@ Notice that the number of integers we start with = # end with.
 char* readline();
 char** split_string(char*);
 
+#define STACK_SIZE 50000
+
+int stack[STACK_SIZE];
+int stack_top = 0; // Points to the next free spot on the stack. == 0 means stack is empty. == STACK_SIZE means stack is full.
+
+// Returns 1 if stack is empty, 0 otherwise.
+int stack_is_empty(void) {
+  if (stack_top == 0)
+    return 1;
+
+  return 0;
+}
+
+// Returns 1 if the stack is full, 0 otherwise.
+int stack_is_full(void) {
+  if (stack_top == STACK_SIZE)
+    return 1;
+
+  return 0;
+}
+
+// Returns 0 if successful, 1 otherwise.
+int stack_push(int v) {
+  if(stack_is_full())
+    return 1;
+
+  stack[stack_top] = v;
+  stack_top++;
+  return 0;
+}
+
+// Returns 0 if successful, 1 otherwise.
+int stack_pop(int *v) {
+  if(stack_is_empty())
+    return 1;
+
+  stack_top--;
+  *v = stack[stack_top];
+
+  return 0;
+}
+
 /*
  * Complete the waiter function below.
  */
