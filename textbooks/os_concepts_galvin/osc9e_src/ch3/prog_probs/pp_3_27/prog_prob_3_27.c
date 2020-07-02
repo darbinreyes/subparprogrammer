@@ -15,19 +15,12 @@ int main(void) {
   char read_msg[BUFFER_SIZE];
 
   int p2c_fd[2]; // Parent(write) to child(read) fd.
-  int c2p_fd[2]; // child(write) to parent(read) fd.
   pid_t pid;
 
   /* create the pipe */
   if (pipe(p2c_fd) == -1) {
     fprintf(stderr, "Pipe failed");
     return 1;
-  }
-
-  /* create the 2nd pipe */
-  if (pipe(c2p_fd) == -1) {
-    fprintf(stderr, "Pipe 2 failed");
-    return 2;
   }
 
   /* fork a child process */
@@ -49,17 +42,6 @@ int main(void) {
 
     /* close the write end of the pipe */
     close(p2c_fd[WRITE_END]);
-    /* Parent read */
-
-    /* close the unused end of the pipe */
-    close(c2p_fd[WRITE_END]);
-
-    /* read from the pipe */
-    read(c2p_fd[READ_END], read_msg, BUFFER_SIZE);
-    printf("Parent read. %s\n", read_msg);
-
-    /* close the read end of the pipe */
-    close(c2p_fd[READ_END]);
   } else { /* child process */
     /* Child read */
 
@@ -72,20 +54,6 @@ int main(void) {
 
     /* close the read end of the pipe */
     close(p2c_fd[READ_END]);
-
-    /* Child write */
-
-    /* close the unused end of the pipe */
-    close(c2p_fd[READ_END]);
-
-    /* reverse casing of string */
-    toggle_str_case(read_msg);
-
-    /* write to the pipe */
-    write(c2p_fd[WRITE_END], read_msg, strlen(read_msg) + 1);
-
-    /* close the write end of the pipe */
-    close(c2p_fd[WRITE_END]);
   }
 
   return 0;
