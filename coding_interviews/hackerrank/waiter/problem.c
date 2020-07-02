@@ -197,12 +197,6 @@ int gcm(int a, int b) { // FYI: Is this slower than the typical implementation u
 
   assert(a > 1 && b > 1);
 
-  if (a < b) { // a shall be the greater.
-    t = a;
-    a = b;
-    b = t;
-  }
-
   while (a > 1) {
     if (a < b) { // a shall be the greater.
       t = a;
