@@ -2,13 +2,10 @@
 #include <stdio.h> // fprintf(), printf()
 #include <string.h> // strlen()
 #include <unistd.h> // pipe(), close(), write()
-#include <ctype.h> // toupper() etc.
 
 #define BUFFER_SIZE 25
 #define READ_END 0
 #define WRITE_END 1
-
-void toggle_str_case(char *s);
 
 int main(void) {
   char write_msg[BUFFER_SIZE] = "Edsger Dijkstra";
@@ -57,18 +54,4 @@ int main(void) {
   }
 
   return 0;
-}
-
-void toggle_str_case(char *s) {
-  char c;
-
-  while ( (c = *s) != '\0') {
-    if(isupper(c)) {
-      *s = tolower(c);
-    } else if(islower(c)) {
-      *s = toupper(c);
-    }
-
-    s++;
-  }
 }
