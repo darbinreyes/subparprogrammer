@@ -59,12 +59,9 @@ Within the __TEXT segment, I confirmed that all sections are adjacent to one ano
 
 Note in __TEXT,__unwind_info 0x100000fb0 + 0x48 = '0x100000ff8' = 4294971384
 
-
-////
+####### More Remarks
 
 Size of __TEXT segment is 0xa7 = 343 bytes.
-
-
 
 The __TEXT segments starts at 0x100000000, and ends at 0x100000000+0x1000 = start_address+ 1 page size.
 
