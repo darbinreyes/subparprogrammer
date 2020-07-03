@@ -51,8 +51,6 @@ int main(int argc, char **argv) {
       return 4;
     }
 
-    n = fread(cpbuf, sizeof(char), BUFFER_SIZE, src);
-
     /* man fread
 
       If an error occurs, or the end-of-file is reached, the return value is a
@@ -62,6 +60,15 @@ int main(int argc, char **argv) {
       callers must use feof(3) and ferror(3) to determine which occurred.
 
     */
+
+    while(!feof(src)) {
+      n = fread(cpbuf, sizeof(char), BUFFER_SIZE, src);
+      if (n < BUFFER_SIZE && ferror(src)) {
+        fprintf(stderr, "An error occurred for file name %s.\n", src_name);
+        perror(src_name);
+        return -1;
+      }
+    }
 
     if (n <= BUFFER_SIZE) { // Either we reached EOF or an error occurred.
       if (!feof(src)) {
