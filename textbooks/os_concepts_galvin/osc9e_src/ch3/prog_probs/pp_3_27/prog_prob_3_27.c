@@ -11,7 +11,7 @@
 
 int main(int argc, char **argv) {
   char cpbuf[BUFFER_SIZE];
-  int p2c_fd[2]; // Pipe fd's. Parent writes, child reads.
+  int fd[2]; // Pipe fd's. Parent writes, child reads.
   pid_t pid;
   char *src_name, *dest_name;
   FILE *src, *dest;
@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
   dest_name = argv[2]; // Destination file name.
 
   /* create the pipe */
-  if (pipe(p2c_fd) == -1) {
+  if (pipe(fd) == -1) {
     fprintf(stderr, "Pipe failed.\n");
     return 2;
   }
@@ -92,27 +92,27 @@ int main(int argc, char **argv) {
 
     /* Parent write to pipe. */
     /* close the unused end of the pipe */
-    close(p2c_fd[READ_END]);
+    close(fd[READ_END]);
 
     /* write to the pipe */
-    nw = write(p2c_fd[WRITE_END], cpbuf, n); // Note: The textbook doesn't check for errors here. I leave it that way.
+    nw = write(fd[WRITE_END], cpbuf, n); // Note: The textbook doesn't check for errors here. I leave it that way.
     printf("Parent wrote %d bytes.\n", nw);
 
     /* close the write end of the pipe */
-    close(p2c_fd[WRITE_END]);
+    close(fd[WRITE_END]);
   } else { /* child process */
 
     /* Child read from pipe */
     /* close the unused end of the pipe */
-    close(p2c_fd[WRITE_END]);
+    close(fd[WRITE_END]);
 
     /* read from the pipe */
-    n = read(p2c_fd[READ_END], cpbuf, BUFFER_SIZE);
+    n = read(fd[READ_END], cpbuf, BUFFER_SIZE);
 
     printf("Child read %d bytes.\n", n);
 
     /* close the read end of the pipe */
-    close(p2c_fd[READ_END]);
+    close(fd[READ_END]);
 
     /* Write to the destination file. */
     dest = fopen(dest_name, "w");
