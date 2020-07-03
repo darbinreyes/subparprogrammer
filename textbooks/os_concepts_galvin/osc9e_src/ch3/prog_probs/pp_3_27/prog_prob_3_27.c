@@ -10,8 +10,7 @@
 
 
 int main(int argc, char **argv) {
-  char write_msg[BUFFER_SIZE];
-  char read_msg[BUFFER_SIZE];
+  char cpbuf[BUFFER_SIZE];
   int p2c_fd[2]; // Pipe fd's. Parent writes, child reads.
   pid_t pid;
   char *src_name, *dest_name;
@@ -52,7 +51,7 @@ int main(int argc, char **argv) {
       return 4;
     }
 
-    n = fread(write_msg, sizeof(char), BUFFER_SIZE, src);
+    n = fread(cpbuf, sizeof(char), BUFFER_SIZE, src);
 
     /* man fread
 
@@ -96,7 +95,7 @@ int main(int argc, char **argv) {
     close(p2c_fd[READ_END]);
 
     /* write to the pipe */
-    nw = write(p2c_fd[WRITE_END], write_msg, n); // Note: The textbook doesn't check for errors here. I leave it that way.
+    nw = write(p2c_fd[WRITE_END], cpbuf, n); // Note: The textbook doesn't check for errors here. I leave it that way.
     printf("Parent wrote %d bytes.\n", nw);
 
     /* close the write end of the pipe */
@@ -108,7 +107,7 @@ int main(int argc, char **argv) {
     close(p2c_fd[WRITE_END]);
 
     /* read from the pipe */
-    n = read(p2c_fd[READ_END], read_msg, BUFFER_SIZE);
+    n = read(p2c_fd[READ_END], cpbuf, BUFFER_SIZE);
 
     printf("Child read %d bytes.\n", n);
 
@@ -122,7 +121,7 @@ int main(int argc, char **argv) {
       return 4;
     }
 
-    nw = fwrite(read_msg, sizeof(char), n, dest);
+    nw = fwrite(cpbuf, sizeof(char), n, dest);
     /* man fwrite
 
       If an error occurs, or the end-of-file is reached, the return value is a
