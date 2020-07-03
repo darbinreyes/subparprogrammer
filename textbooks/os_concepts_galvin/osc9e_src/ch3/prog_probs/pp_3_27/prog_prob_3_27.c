@@ -41,8 +41,6 @@ int main(int argc, char **argv) {
     return 3;
   }
 
-
-
   if (pid > 0) { /* parent process */
     /* Open the source file */
     src = fopen(src_name, "r");
@@ -65,12 +63,17 @@ int main(int argc, char **argv) {
 
       if (n < BUFFER_SIZE && ferror(src)) { // Bail if an error occurs.
         fprintf(stderr, "An error occurred for file name %s.\n", src_name);
-        perror(src_name);
+        perror("Parent");
         return -1;
       }
 
       /* Parent. write to the pipe */
       nw = write(fd[WRITE_END], cpbuf, n); // Note: The textbook doesn't check for errors here. I leave it that way.
+      if (nw == -1) {
+        fprintf(stderr, "Parent. Error writing to pipe.\n");
+        perror("Parent");
+        return -1;
+      }
       printf("Parent wrote %d bytes.\n", nw);
     }
 
