@@ -64,21 +64,22 @@ int main(int argc, char **argv) {
 
     */
 
-    if (n < BUFFER_SIZE) { // Either we reached EOF or an error occurred.
+    if (n <= BUFFER_SIZE) { // Either we reached EOF or an error occurred.
       if (!feof(src)) {
-        // We didn't reach EOF, therefore an error occurred.
+        // We didn't reach EOF.
         if (ferror(src)) {
           // File related error occurred.
           fprintf(stderr, "An error occurred for file name %s.\n", src_name);
           perror(src_name);
           return 5;
-        } else {
+        } else if (n < BUFFER_SIZE) {
           fprintf(stderr, "Unexpected. fread returned short object count but ferror returned 0. file name %s.\n", src_name);
           return 6;
+        } if (n == BUFFER_SIZE) {
+          // FYI: We don't reach EOF if we fread exactly as many bytes as the file contains.
+          fprintf(stderr, "file name %s. File copy will be truncated if its size is greater than %d bytes.\n", src_name, BUFFER_SIZE);
         }
       }
-    } else if (n == BUFFER_SIZE) {
-      fprintf(stderr, "file name %s too large. Only copying %d bytes.\n", src_name, n);
     } else {
       fprintf(stderr, "fread returned more bytes than size of buffer. This should never happen. file name %s.\n", src_name);
       return 7;
