@@ -1,0 +1,6 @@
+Output of xcrun otool -v -s __TEXT __cstring a.out
+#######
+xcrun otool -v -s __TEXT __cstring a.out
+a.out:
+Contents of (__TEXT,__cstring) section
+0000000100000fa2  Hello World!\n
