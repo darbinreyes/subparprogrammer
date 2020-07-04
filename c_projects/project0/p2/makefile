@@ -6,6 +6,9 @@ OUT_EXE = p2
 # Standard compilation
 build: $(FILES)
 	$(CC) -o $(OUT_EXE).out $(FILES)
+# Standard compilation
+build_nooptim: $(FILES)
+	$(CC) -O0 -o $(OUT_EXE).nooptim.out $(FILES)
 # Compile with no optimizations, generate debug info.
 build_dbg: $(FILES)
 	$(CC) -O0 -g -o $(OUT_EXE).dbg.out $(FILES)
