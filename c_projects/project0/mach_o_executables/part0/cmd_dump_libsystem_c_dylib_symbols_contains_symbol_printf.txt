@@ -1,0 +1,2514 @@
+                 (undefined) external _OSAtomicDequeue (from libsystem_platform)
+                 (undefined) external _OSAtomicEnqueue (from libsystem_platform)
+                 (undefined) external __Block_copy (from libsystem_blocks)
+                 (undefined) external __Block_release (from libsystem_blocks)
+                 (undefined) external ___bzero (from libsystem_platform)
+                 (undefined) external ___chmod_extended (from libsystem_kernel)
+                 (undefined) external ___commpage_gettimeofday (from libsystem_kernel)
+                 (undefined) external ___error (from libsystem_kernel)
+                 (undefined) external ___exit (from libsystem_kernel)
+                 (undefined) external ___fchmod_extended (from libsystem_kernel)
+                 (undefined) external ___fcntl (from libsystem_kernel)
+                 (undefined) external ___fcntl_nocancel (from libsystem_kernel)
+                 (undefined) external ___fork (from libsystem_kernel)
+                 (undefined) external ___fpclassifyd (from libsystem_m)
+                 (undefined) external ___fpclassifyl (from libsystem_m)
+                 (undefined) external ___fstat64_extended (from libsystem_kernel)
+                 (undefined) external ___fstat_extended (from libsystem_kernel)
+                 (undefined) external ___getdirentries64 (from libsystem_kernel)
+                 (undefined) external ___getlogin (from libsystem_kernel)
+                 (undefined) external ___gettimeofday (from libsystem_kernel)
+                 (undefined) external ___kill (from libsystem_kernel)
+                 (undefined) external ___lstat64_extended (from libsystem_kernel)
+                 (undefined) external ___lstat_extended (from libsystem_kernel)
+                 (undefined) external ___mkdir_extended (from libsystem_kernel)
+                 (undefined) external ___mkfifo_extended (from libsystem_kernel)
+                 (undefined) external ___open (from libsystem_kernel)
+                 (undefined) external ___open_extended (from libsystem_kernel)
+                 (undefined) external ___open_nocancel (from libsystem_kernel)
+                 (undefined) external ___platform_sigaction (from libsystem_platform)
+                 (undefined) external ___pthread_workqueue_setkill (from libsystem_pthread)
+                 (undefined) external ___recvfrom (from libsystem_kernel)
+                 (undefined) external ___recvfrom_nocancel (from libsystem_kernel)
+                 (undefined) external ___semwait_signal (from libsystem_kernel)
+                 (undefined) external ___semwait_signal_nocancel (from libsystem_kernel)
+                 (undefined) external ___sendto (from libsystem_kernel)
+                 (undefined) external ___sendto_nocancel (from libsystem_kernel)
+                 (undefined) external ___setlogin (from libsystem_kernel)
+                 (undefined) external ___settimeofday (from libsystem_kernel)
+                 (undefined) external ___sigaltstack (from libsystem_kernel)
+                 (undefined) external ___stat64_extended (from libsystem_kernel)
+                 (undefined) external ___stat_extended (from libsystem_kernel)
+                 (undefined) external ___sysctl (from libsystem_kernel)
+                 (undefined) external ___sysctlbyname (from libsystem_kernel)
+                 (undefined) external ___thread_selfusage (from libsystem_kernel)
+                 (undefined) external ___umask_extended (from libsystem_kernel)
+                 (undefined) external ___unix_conforming (from libsystem_pthread)
+                 (undefined) external ___wait4 (from libsystem_kernel)
+                 (undefined) external ___wait4_nocancel (from libsystem_kernel)
+                 (undefined) external __dyld_get_image_uuid (from libdyld)
+                 (undefined) external __dyld_images_for_addresses (from libdyld)
+                 (undefined) external __exit (from libsystem_kernel)
+                 (undefined) external __get_cpu_capabilities (from libsystem_kernel)
+                 (undefined) external __os_alloc_once (from libsystem_platform)
+                 (undefined) external __os_alloc_once_table (from libsystem_kernel)
+                 (undefined) external __os_log_pack_fill (from libsystem_trace)
+                 (undefined) external __os_log_pack_size (from libsystem_trace)
+                 (undefined) external __os_once (from libsystem_platform)
+                 (undefined) external __platform_bzero (from libsystem_platform)
+                 (undefined) external __platform_memccpy (from libsystem_platform)
+                 (undefined) external __platform_memchr (from libsystem_platform)
+                 (undefined) external __platform_memcmp (from libsystem_platform)
+                 (undefined) external __platform_memmove (from libsystem_platform)
+                 (undefined) external __platform_memset (from libsystem_platform)
+                 (undefined) external __platform_memset_pattern16 (from libsystem_platform)
+                 (undefined) external __platform_memset_pattern4 (from libsystem_platform)
+                 (undefined) external __platform_memset_pattern8 (from libsystem_platform)
+                 (undefined) external __platform_strchr (from libsystem_platform)
+                 (undefined) external __platform_strcmp (from libsystem_platform)
+                 (undefined) external __platform_strcpy (from libsystem_platform)
+                 (undefined) external __platform_strlcat (from libsystem_platform)
+                 (undefined) external __platform_strlcpy (from libsystem_platform)
+                 (undefined) external __platform_strlen (from libsystem_platform)
+                 (undefined) external __platform_strncmp (from libsystem_platform)
+                 (undefined) external __platform_strncpy (from libsystem_platform)
+                 (undefined) external __platform_strnlen (from libsystem_platform)
+                 (undefined) external __platform_strstr (from libsystem_platform)
+                 (undefined) external __simple_asl_log (from libsystem_platform)
+                 (undefined) external __simple_asl_log_prog (from libsystem_platform)
+                 (undefined) external __simple_asl_msg_new (from libsystem_platform)
+                 (undefined) external __simple_asl_msg_set (from libsystem_platform)
+                 (undefined) external __simple_asl_send (from libsystem_platform)
+                 (undefined) external __simple_dprintf (from libsystem_platform)
+                 (undefined) external __simple_salloc (from libsystem_platform)
+                 (undefined) external __simple_sappend (from libsystem_platform)
+                 (undefined) external __simple_sfree (from libsystem_platform)
+                 (undefined) external __simple_sprintf (from libsystem_platform)
+                 (undefined) external __simple_string (from libsystem_platform)
+                 (undefined) external __simple_vsprintf (from libsystem_platform)
+                 (undefined) external __tlv_atexit (from libdyld)
+                 (undefined) external __tlv_exit (from libdyld)
+                 (undefined) external _abort_with_payload (from libsystem_kernel)
+                 (undefined) external _access (from libsystem_kernel)
+                 (undefined) external _asl_append (from libsystem_asl)
+                 (undefined) external _asl_get (from libsystem_asl)
+                 (undefined) external _asl_match (from libsystem_asl)
+                 (undefined) external _asl_new (from libsystem_asl)
+                 (undefined) external _asl_next (from libsystem_asl)
+                 (undefined) external _asl_open (from libsystem_asl)
+                 (undefined) external _asl_release (from libsystem_asl)
+                 (undefined) external _asl_send (from libsystem_asl)
+                 (undefined) external _asl_set (from libsystem_asl)
+                 (undefined) external _asl_set_query (from libsystem_asl)
+                 (undefined) external _bootstrap_parent (from libxpc)
+                 (undefined) external _bootstrap_port (from libsystem_kernel)
+                 (undefined) external _calloc (from libsystem_malloc)
+                 (undefined) external _ccrng (from libcorecrypto)
+                 (undefined) external _ccrng_uniform (from libcorecrypto)
+                 (undefined) external _chdir (from libsystem_kernel)
+                 (undefined) external _chflags (from libsystem_kernel)
+                 (undefined) external _clock_get_time (from libsystem_kernel)
+                 (undefined) external _close$NOCANCEL (from libsystem_kernel)
+                 (undefined) external _dispatch_get_global_queue (from libdispatch)
+                 (undefined) external _dispatch_group_async_f (from libdispatch)
+                 (undefined) external _dispatch_group_create (from libdispatch)
+                 (undefined) external _dispatch_group_wait (from libdispatch)
+                 (undefined) external _dispatch_release (from libdispatch)
+                 (undefined) external _dladdr (from libdyld)
+                 (undefined) external _dlopen (from libdyld)
+                 (undefined) external _dlsym (from libdyld)
+                 (undefined) external _dup2 (from libsystem_kernel)
+                 (undefined) external _dyld_get_active_platform (from libdyld)
+                 (undefined) external _dyld_sdk_at_least (from libdyld)
+                 (undefined) external _execve (from libsystem_kernel)
+                 (undefined) external _fchdir (from libsystem_kernel)
+                 (undefined) external _fchmodat (from libsystem_kernel)
+                 (undefined) external _fcntl$NOCANCEL (from libsystem_kernel)
+                 (undefined) external _fegetenv (from libsystem_m)
+                 (undefined) external _fesetenv (from libsystem_m)
+                 (undefined) external _ffsctl (from libsystem_kernel)
+                 (undefined) external _flsl (from libsystem_platform)
+                 (undefined) external _free (from libsystem_malloc)
+                 (undefined) external _freeifaddrs (from libsystem_info)
+                 (undefined) external _fsctl (from libsystem_kernel)
+                 (undefined) external _fstat (from libsystem_kernel)
+                 (undefined) external _fstat$INODE64 (from libsystem_kernel)
+                 (undefined) external _fstatat (from libsystem_kernel)
+                 (undefined) external _fstatat$INODE64 (from libsystem_kernel)
+                 (undefined) external _fstatfs (from libsystem_kernel)
+                 (undefined) external _fstatfs$INODE64 (from libsystem_kernel)
+                 (undefined) external _fsync$NOCANCEL (from libsystem_kernel)
+                 (undefined) external _ftruncate (from libsystem_kernel)
+                 (undefined) external _getattrlist (from libsystem_kernel)
+                 (undefined) external _getattrlistbulk (from libsystem_kernel)
+                 (undefined) external _getdirentries (from libsystem_kernel)
+                 (undefined) external _getdtablesize (from libsystem_kernel)
+                 (undefined) external _geteuid (from libsystem_kernel)
+                 (undefined) external _getfsstat (from libsystem_kernel)
+                 (undefined) external _getfsstat$INODE64 (from libsystem_kernel)
+                 (undefined) external _getfsstat64 (from libsystem_kernel)
+                 (undefined) external _getgrgid (from libsystem_info)
+                 (undefined) external _getgrnam (from libsystem_info)
+                 (undefined) external _getgroupcount (from libsystem_info)
+                 (undefined) external _getgrouplist (from libsystem_info)
+                 (undefined) external _getifaddrs (from libsystem_info)
+                 (undefined) external _getpgrp (from libsystem_kernel)
+                 (undefined) external _getpid (from libsystem_kernel)
+                 (undefined) external _getpriority (from libsystem_kernel)
+                 (undefined) external _getpwnam (from libsystem_info)
+                 (undefined) external _getpwuid (from libsystem_info)
+                 (undefined) external _getpwuid_r (from libsystem_info)
+                 (undefined) external _getrlimit (from libsystem_kernel)
+                 (undefined) external _getrusage (from libsystem_kernel)
+                 (undefined) external _getsectiondata (from libmacho)
+                 (undefined) external _getsockopt (from libsystem_kernel)
+                 (undefined) external _getuid (from libsystem_kernel)
+                 (undefined) external _host_get_clock_service (from libsystem_kernel)
+                 (undefined) external _if_nametoindex (from libsystem_info)
+                 (undefined) external _ioctl (from libsystem_kernel)
+                 (undefined) external _issetugid (from libsystem_kernel)
+                 (undefined) external _kill (from libsystem_kernel)
+                 (undefined) external _lseek (from libsystem_kernel)
+                 (undefined) external _lstat (from libsystem_kernel)
+                 (undefined) external _lstat$INODE64 (from libsystem_kernel)
+                 (undefined) external _mach_absolute_time (from libsystem_kernel)
+                 (undefined) external _mach_approximate_time (from libsystem_kernel)
+                 (undefined) external _mach_boottime_usec (from libsystem_kernel)
+                 (undefined) external _mach_continuous_approximate_time (from libsystem_kernel)
+                 (undefined) external _mach_continuous_time (from libsystem_kernel)
+                 (undefined) external _mach_error_string (from libsystem_kernel)
+                 (undefined) external _mach_host_self (from libsystem_kernel)
+                 (undefined) external _mach_port_deallocate (from libsystem_kernel)
+                 (undefined) external _mach_task_self_ (from libsystem_kernel)
+                 (undefined) external _mach_timebase_info (from libsystem_kernel)
+                 (undefined) external _malloc (from libsystem_malloc)
+                 (undefined) external _mbr_gid_to_uuid (from libsystem_info)
+                 (undefined) external _mbr_uid_to_uuid (from libsystem_info)
+                 (undefined) external _mbr_uuid_to_id (from libsystem_info)
+                 (undefined) external _mkdirat (from libsystem_kernel)
+                 (undefined) external _mmap (from libsystem_kernel)
+                 (undefined) external _munmap (from libsystem_kernel)
+                 (undefined) external _nan (from libsystem_m)
+                 (undefined) external _nanf (from libsystem_m)
+                 (undefined) external _nanl (from libsystem_m)
+                 (undefined) external _notify_cancel (from libsystem_notify)
+                 (undefined) external _notify_check (from libsystem_notify)
+                 (undefined) external _notify_monitor_file (from libsystem_notify)
+                 (undefined) external _notify_post (from libsystem_notify)
+                 (undefined) external _notify_register_check (from libsystem_notify)
+                 (undefined) external _open$NOCANCEL (from libsystem_kernel)
+                 (undefined) external _open_dprotected_np (from libsystem_kernel)
+                 (undefined) external _openat$NOCANCEL (from libsystem_kernel)
+                 (undefined) external _os_unfair_lock_lock (from libsystem_platform)
+                 (undefined) external _os_unfair_lock_lock_with_options (from libsystem_platform)
+                 (undefined) external _os_unfair_lock_unlock (from libsystem_platform)
+                 (undefined) external _pathconf (from libsystem_kernel)
+                 (undefined) external _pipe (from libsystem_kernel)
+                 (undefined) external _posix_spawn (from libsystem_kernel)
+                 (undefined) external _posix_spawn_file_actions_addclose (from libsystem_kernel)
+                 (undefined) external _posix_spawn_file_actions_adddup2 (from libsystem_kernel)
+                 (undefined) external _posix_spawn_file_actions_addinherit_np (from libsystem_kernel)
+                 (undefined) external _posix_spawn_file_actions_destroy (from libsystem_kernel)
+                 (undefined) external _posix_spawn_file_actions_init (from libsystem_kernel)
+                 (undefined) external _posix_spawnattr_destroy (from libsystem_kernel)
+                 (undefined) external _posix_spawnattr_init (from libsystem_kernel)
+                 (undefined) external _posix_spawnattr_setflags (from libsystem_kernel)
+                 (undefined) external _posix_spawnattr_setsigdefault (from libsystem_kernel)
+                 (undefined) external _posix_spawnattr_setsigmask (from libsystem_kernel)
+                 (undefined) external _pread$NOCANCEL (from libsystem_kernel)
+                 (undefined) external _proc_name (from libsystem_kernel)
+                 (undefined) external _pthread_get_stackaddr_np (from libsystem_pthread)
+                 (undefined) external _pthread_get_stacksize_np (from libsystem_pthread)
+                 (undefined) external _pthread_getspecific (from libsystem_pthread)
+                 (undefined) external _pthread_key_create (from libsystem_pthread)
+                 (undefined) external _pthread_key_init_np (from libsystem_pthread)
+                 (undefined) external _pthread_kill (from libsystem_pthread)
+                 (undefined) external _pthread_mutex_destroy (from libsystem_pthread)
+                 (undefined) external _pthread_mutex_init (from libsystem_pthread)
+                 (undefined) external _pthread_mutex_lock (from libsystem_pthread)
+                 (undefined) external _pthread_mutex_trylock (from libsystem_pthread)
+                 (undefined) external _pthread_mutex_unlock (from libsystem_pthread)
+                 (undefined) external _pthread_once (from libsystem_pthread)
+                 (undefined) external _pthread_rwlock_destroy (from libsystem_pthread)
+                 (undefined) external _pthread_rwlock_rdlock (from libsystem_pthread)
+                 (undefined) external _pthread_rwlock_unlock (from libsystem_pthread)
+                 (undefined) external _pthread_rwlock_wrlock (from libsystem_pthread)
+                 (undefined) external _pthread_self (from libsystem_pthread)
+                 (undefined) external _pthread_setspecific (from libsystem_pthread)
+                 (undefined) external _pthread_sigmask (from libsystem_pthread)
+                 (undefined) external _pthread_stack_frame_decode_np (from libsystem_pthread)
+                 (undefined) external _pthread_testcancel (from libsystem_pthread)
+                 (undefined) external _pwrite$NOCANCEL (from libsystem_kernel)
+                 (undefined) external _read$NOCANCEL (from libsystem_kernel)
+                 (undefined) external _readlink (from libsystem_kernel)
+                 (undefined) external _realloc (from libsystem_malloc)
+                 (undefined) external _reallocarray$DARWIN_EXTSN (from libsystem_malloc)
+                 (undefined) external _rmdir (from libsystem_kernel)
+                 (undefined) external _select$NOCANCEL (from libsystem_kernel)
+                 (undefined) external _semaphore_create (from libsystem_kernel)
+                 (undefined) external _setattrlist (from libsystem_kernel)
+                 (undefined) external _setitimer (from libsystem_kernel)
+                 (undefined) external _setpgid (from libsystem_kernel)
+                 (undefined) external _setpriority (from libsystem_kernel)
+                 (undefined) external _setregid (from libsystem_kernel)
+                 (undefined) external _setreuid (from libsystem_kernel)
+                 (undefined) external _setrlimit (from libsystem_kernel)
+                 (undefined) external _setsid (from libsystem_kernel)
+                 (undefined) external _setsockopt (from libsystem_kernel)
+                 (undefined) external _sigprocmask (from libsystem_kernel)
+                 (undefined) external _sigsuspend (from libsystem_kernel)
+                 (undefined) external _sigsuspend$NOCANCEL (from libsystem_kernel)
+                 (undefined) external _socket (from libsystem_kernel)
+                 (undefined) external _socketpair (from libsystem_kernel)
+                 (undefined) external _stat (from libsystem_kernel)
+                 (undefined) external _stat$INODE64 (from libsystem_kernel)
+                 (undefined) external _statfs$INODE64 (from libsystem_kernel)
+                 (undefined) external _syslog$DARWIN_EXTSN (from libsystem_asl)
+                 (undefined) external _task_set_special_port (from libsystem_kernel)
+                 (undefined) external _umask (from libsystem_kernel)
+                 (undefined) external _unlink (from libsystem_kernel)
+                 (undefined) external _utimes (from libsystem_kernel)
+                 (undefined) external _vm_allocate (from libsystem_kernel)
+                 (undefined) external _vm_region_64 (from libsystem_kernel)
+                 (undefined) external _wait4 (from libsystem_kernel)
+                 (undefined) external _write$NOCANCEL (from libsystem_kernel)
+                 (undefined) external _writev$NOCANCEL (from libsystem_kernel)
+                 (undefined) external dyld_stub_binder (from libdyld)
+                 (indirect) external _bcmp (for __platform_memcmp)
+                 (indirect) external _bzero (for __platform_bzero)
+0000000000001b4c (__TEXT,__text) external mcount
+0000000000001bae (__TEXT,__text) external _sigaltstack
+0000000000001bd9 (__TEXT,__text) external _sigvec
+0000000000001be8 (__TEXT,__text) non-external _sigvec__
+0000000000001c21 (__TEXT,__text) external __sigvec_nobind
+0000000000001c2d (__TEXT,__text) external _sigsetmask
+0000000000001c56 (__TEXT,__text) external _sigblock
+0000000000001c7f (__TEXT,__text) external _sigpause$NOCANCEL
+0000000000001ce3 (__TEXT,__text) external _sighold
+0000000000001d25 (__TEXT,__text) external _sigrelse
+0000000000001d67 (__TEXT,__text) external _sigignore
+0000000000001d84 (__TEXT,__text) external _sigset
+0000000000001e6c (__TEXT,__text) external _clock_gettime_nsec_np
+0000000000001ff0 (__TEXT,__text) non-external __mach_boottime_usec
+000000000000204e (__TEXT,__text) external _clock_gettime
+                 (indirect) external _index (for __platform_strchr)
+0000000000002204 (__TEXT,__text) external _clock_getres
+000000000000227e (__TEXT,__text) external _clock_settime
+00000000000022cf (__TEXT,__text) non-external __boottime_fallback_usec
+0000000000002318 (__TEXT,__text) external _sbrk
+00000000000023a4 (__TEXT,__text) external _brk
+00000000000023bc (__TEXT,__text) external _bsd_signal
+000000000000240b (__TEXT,__text) external _lchflags
+0000000000002498 (__TEXT,__text) external _lchmod
+00000000000024dd (__TEXT,__text) external _lutimes
+00000000000025da (__TEXT,__text) external _fstatvfs
+000000000000263d (__TEXT,__text) non-external _cvt_statfs_to_statvfs
+0000000000002694 (__TEXT,__text) external _statvfs
+00000000000026f7 (__TEXT,__text) external _backtrace
+                 (indirect) external _memccpy (for __platform_memccpy)
+                 (indirect) external _memchr (for __platform_memchr)
+0000000000002746 (__TEXT,__text) external _backtrace_from_fp
+                 (indirect) external _memcmp (for __platform_memcmp)
+                 (indirect) external _memcpy (for __platform_memmove)
+                 (indirect) external _memmove (for __platform_memmove)
+0000000000002794 (__TEXT,__text) external _backtrace_symbols
+                 (indirect) external _memset (for __platform_memset)
+                 (indirect) external _memset_pattern16 (for __platform_memset_pattern16)
+                 (indirect) external _memset_pattern4 (for __platform_memset_pattern4)
+                 (indirect) external _memset_pattern8 (for __platform_memset_pattern8)
+00000000000028f3 (__TEXT,__text) non-external __backtrace_snprintf
+0000000000002a65 (__TEXT,__text) external _backtrace_symbols_fd
+0000000000002b47 (__TEXT,__text) external _backtrace_image_offsets
+0000000000002bd0 (__TEXT,__text) non-external (was a private external) ___confstr_init
+0000000000002be4 (__TEXT,__text) external _confstr
+0000000000002f20 (__TEXT,__text) external _crypt
+0000000000003151 (__TEXT,__text) non-external (was a private external) ___crypt_des_setkey
+                 (indirect) external _strchr (for __platform_strchr)
+                 (indirect) external _strcmp (for __platform_strcmp)
+                 (indirect) external _strcpy (for __platform_strcpy)
+                 (indirect) external _strlcat (for __platform_strlcat)
+                 (indirect) external _strlcpy (for __platform_strlcpy)
+                 (indirect) external _strlen (for __platform_strlen)
+                 (indirect) external _strncmp (for __platform_strncmp)
+                 (indirect) external _strncpy (for __platform_strncpy)
+                 (indirect) external _strnlen (for __platform_strnlen)
+                 (indirect) external _strstr (for __platform_strstr)
+0000000000003713 (__TEXT,__text) non-external _permute
+000000000000376f (__TEXT,__text) non-external (was a private external) ___crypt_des_cipher
+0000000000003b88 (__TEXT,__text) external _setkey
+0000000000003bcd (__TEXT,__text) external _encrypt
+0000000000003c6e (__TEXT,__text) non-external _init_perm
+0000000000003cdb (__TEXT,__text) external _devname_r
+0000000000003e19 (__TEXT,__text) external _devname
+0000000000003e65 (__TEXT,__text) external _getdiskbyname
+0000000000004466 (__TEXT,__text) non-external _gettype
+00000000000044d0 (__TEXT,__text) external _filesec_init
+00000000000044eb (__TEXT,__text) external _filesec_dup
+0000000000004595 (__TEXT,__text) external _filesec_free
+00000000000045b1 (__TEXT,__text) non-external _filesec_discard_aclbuf
+00000000000045e7 (__TEXT,__text) external _filesec_get_property
+000000000000477c (__TEXT,__text) external _filesec_set_property
+0000000000004974 (__TEXT,__text) external _filesec_unset_property
+0000000000004980 (__TEXT,__text) external _filesec_query_property
+00000000000049f0 (__TEXT,__text) external _fts_open$INODE64
+0000000000004a5c (__TEXT,__text) non-external ___fts_open
+0000000000004cc6 (__TEXT,__text) external _fts_open_b$INODE64
+0000000000004d55 (__TEXT,__text) external _fts_close$INODE64
+0000000000004e60 (__TEXT,__text) external _fts_read$INODE64
+0000000000005303 (__TEXT,__text) non-external _fts_safe_changedir
+0000000000005395 (__TEXT,__text) non-external _fts_build
+0000000000006080 (__TEXT,__text) external _fts_set$INODE64
+00000000000060a3 (__TEXT,__text) external _fts_children$INODE64
+00000000000061c7 (__TEXT,__text) non-external _fts_palloc
+0000000000006234 (__TEXT,__text) non-external _fts_alloc
+00000000000062c5 (__TEXT,__text) non-external _fts_sort
+00000000000063ae (__TEXT,__text) non-external _close_directory
+00000000000063f7 (__TEXT,__text) non-external _fts_stat2
+00000000000065bf (__TEXT,__text) non-external _advance_directory
+0000000000006642 (__TEXT,__text) external _compat_mode
+00000000000067c4 (__TEXT,__text) non-external _check_env_var
+000000000000681e (__TEXT,__text) external _getloadavg
+00000000000068d4 (__TEXT,__text) external _getttynam
+0000000000006923 (__TEXT,__text) external _setttyent
+0000000000006a24 (__TEXT,__text) external _getttyent
+0000000000007056 (__TEXT,__text) external _endttyent
+0000000000007089 (__TEXT,__text) non-external _skip
+000000000000712f (__TEXT,__text) external _getusershell
+0000000000007163 (__TEXT,__text) non-external _initshells
+0000000000007327 (__TEXT,__text) external _endusershell
+000000000000736a (__TEXT,__text) external _setusershell
+000000000000737c (__TEXT,__text) external _getvfsbyname
+0000000000007480 (__TEXT,__text) external __atexit_receipt
+00000000000074d8 (__TEXT,__text) external __init_clock_port
+000000000000752b (__TEXT,__text) external _nanosleep$NOCANCEL
+00000000000076b4 (__TEXT,__text) external _ftw$INODE64
+00000000000076c8 (__TEXT,__text) non-external _both_ftw
+0000000000007ae4 (__TEXT,__text) external _nftw$INODE64
+0000000000007af8 (__TEXT,__text) external _setlogin
+0000000000007b42 (__TEXT,__text) external _sigemptyset
+0000000000007b50 (__TEXT,__text) external _sigfillset
+0000000000007b5e (__TEXT,__text) external _sigaddset
+0000000000007b8f (__TEXT,__text) external _sigdelset
+0000000000007bc0 (__TEXT,__text) external _sigismember
+0000000000007bf6 (__TEXT,__text) external _fflagstostr
+0000000000007c79 (__TEXT,__text) external _strtofflags
+0000000000007d97 (__TEXT,__text) non-external (was a private external) __thread_stack_pcs
+0000000000007da4 (__TEXT,__text) non-external ___thread_stack_pcs
+0000000000007ed2 (__TEXT,__text) external _thread_stack_pcs
+0000000000007ee2 (__TEXT,__text) external _uname
+00000000000080a8 (__TEXT,__text) external _getlastlogx
+00000000000080ef (__TEXT,__text) non-external __pwuid_r
+0000000000008174 (__TEXT,__text) external _getlastlogxbyname
+0000000000008352 (__TEXT,__text) non-external (was a private external) __utmpx_asl
+00000000000087b0 (__TEXT,__text) non-external (was a private external) __utmpx_working_copy
+0000000000008a4c (__TEXT,__text) external _endutxent_wtmp
+0000000000008a57 (__TEXT,__text) external _getutxent_wtmp
+0000000000008a62 (__TEXT,__text) external _setutxent_wtmp
+0000000000008a6d (__TEXT,__text) external _wtmpxname
+0000000000008bc4 (__TEXT,__text) non-external _end_asl
+0000000000008bf4 (__TEXT,__text) non-external _end_file
+0000000000008c2f (__TEXT,__text) non-external _get_asl
+0000000000008df3 (__TEXT,__text) non-external _set_asl
+0000000000008f60 (__TEXT,__text) non-external _get_file
+000000000000910a (__TEXT,__text) non-external _set_file
+0000000000009324 (__TEXT,__text) non-external (was a private external) __utmpx32_64
+0000000000009389 (__TEXT,__text) non-external (was a private external) __utmpx64_32
+00000000000093ed (__TEXT,__text) external __openutx
+000000000000949e (__TEXT,__text) external __closeutx
+0000000000009511 (__TEXT,__text) non-external __os_debug_log_write_error
+0000000000009591 (__TEXT,__text) non-external __os_debug_log_init
+000000000000975f (__TEXT,__text) non-external __os_debug_log_open_file
+00000000000098cc (__TEXT,__text) external _moninit
+00000000000098d2 (__TEXT,__text) external _monstartup
+00000000000098d8 (__TEXT,__text) external _monaddition
+00000000000098de (__TEXT,__text) external _monreset
+00000000000098e4 (__TEXT,__text) external _monoutput
+00000000000098ea (__TEXT,__text) external _monitor
+00000000000098f0 (__TEXT,__text) external _moncontrol
+00000000000098f6 (__TEXT,__text) external _moncount
+00000000000098fc (__TEXT,__text) external _isascii
+000000000000990d (__TEXT,__text) external _isalnum
+0000000000009972 (__TEXT,__text) external _isalpha
+00000000000099d1 (__TEXT,__text) external _isblank
+0000000000009a30 (__TEXT,__text) external _iscntrl
+0000000000009a8f (__TEXT,__text) external _isdigit
+0000000000009ab3 (__TEXT,__text) external _isgraph
+0000000000009b12 (__TEXT,__text) external _islower
+0000000000009b71 (__TEXT,__text) external _isprint
+0000000000009bd0 (__TEXT,__text) external _ispunct
+0000000000009c2f (__TEXT,__text) external _isspace
+0000000000009c8e (__TEXT,__text) external _isupper
+0000000000009ced (__TEXT,__text) external _isxdigit
+0000000000009d11 (__TEXT,__text) external _toascii
+0000000000009d1c (__TEXT,__text) external _tolower
+0000000000009d5d (__TEXT,__text) external _toupper
+0000000000009d9e (__TEXT,__text) external _digittoint
+0000000000009de5 (__TEXT,__text) external _ishexnumber
+0000000000009e44 (__TEXT,__text) external _isideogram
+0000000000009ea3 (__TEXT,__text) external _isnumber
+0000000000009f02 (__TEXT,__text) external _isphonogram
+0000000000009f61 (__TEXT,__text) external _isrune
+0000000000009fc4 (__TEXT,__text) external _isspecial
+000000000000a023 (__TEXT,__text) external _digittoint_l
+000000000000a06a (__TEXT,__text) external _isalnum_l
+000000000000a0cf (__TEXT,__text) external _isalpha_l
+000000000000a12e (__TEXT,__text) external _isblank_l
+000000000000a18d (__TEXT,__text) external _iscntrl_l
+000000000000a1ec (__TEXT,__text) external _isdigit_l
+000000000000a24b (__TEXT,__text) external _isgraph_l
+000000000000a2aa (__TEXT,__text) external _ishexnumber_l
+000000000000a309 (__TEXT,__text) external _isideogram_l
+000000000000a368 (__TEXT,__text) external _islower_l
+000000000000a3c7 (__TEXT,__text) external _isnumber_l
+000000000000a426 (__TEXT,__text) external _isphonogram_l
+000000000000a485 (__TEXT,__text) external _isprint_l
+000000000000a4e4 (__TEXT,__text) external _ispunct_l
+000000000000a543 (__TEXT,__text) external _isrune_l
+000000000000a5ad (__TEXT,__text) external _isspace_l
+000000000000a60c (__TEXT,__text) external _isspecial_l
+000000000000a66b (__TEXT,__text) external _isupper_l
+000000000000a6ca (__TEXT,__text) external _isxdigit_l
+000000000000a729 (__TEXT,__text) external _tolower_l
+000000000000a749 (__TEXT,__text) external _toupper_l
+000000000000a769 (__TEXT,__text) external _bcopy
+000000000000a777 (__TEXT,__text) external _iswalnum
+000000000000a7dc (__TEXT,__text) external _iswalpha
+000000000000a83b (__TEXT,__text) external _iswcntrl
+000000000000a89a (__TEXT,__text) external _iswctype
+000000000000a905 (__TEXT,__text) external _iswdigit
+000000000000a929 (__TEXT,__text) external _iswgraph
+000000000000a988 (__TEXT,__text) external _iswlower
+000000000000a9e7 (__TEXT,__text) external _iswprint
+000000000000aa46 (__TEXT,__text) external _iswpunct
+000000000000aaa5 (__TEXT,__text) external _iswspace
+000000000000ab04 (__TEXT,__text) external _iswupper
+000000000000ab63 (__TEXT,__text) external _iswxdigit
+000000000000ab87 (__TEXT,__text) external _towlower
+000000000000abc8 (__TEXT,__text) external _towupper
+000000000000ac09 (__TEXT,__text) external _iswalnum_l
+000000000000ac6e (__TEXT,__text) external _iswalpha_l
+000000000000accd (__TEXT,__text) external _iswcntrl_l
+000000000000ad2c (__TEXT,__text) external _iswctype_l
+000000000000ad9e (__TEXT,__text) external _iswdigit_l
+000000000000adfd (__TEXT,__text) external _iswgraph_l
+000000000000ae5c (__TEXT,__text) external _iswlower_l
+000000000000aebb (__TEXT,__text) external _iswprint_l
+000000000000af1a (__TEXT,__text) external _iswpunct_l
+000000000000af79 (__TEXT,__text) external _iswspace_l
+000000000000afd8 (__TEXT,__text) external _iswupper_l
+000000000000b037 (__TEXT,__text) external _iswxdigit_l
+000000000000b096 (__TEXT,__text) external _towlower_l
+000000000000b0b6 (__TEXT,__text) external _towupper_l
+000000000000b0d6 (__TEXT,__text) external _iswblank
+000000000000b135 (__TEXT,__text) external _iswascii
+000000000000b146 (__TEXT,__text) external _iswhexnumber
+000000000000b1a5 (__TEXT,__text) external _iswideogram
+000000000000b204 (__TEXT,__text) external _iswnumber
+000000000000b263 (__TEXT,__text) external _iswphonogram
+000000000000b2c2 (__TEXT,__text) external _iswrune
+000000000000b325 (__TEXT,__text) external _iswspecial
+000000000000b384 (__TEXT,__text) external _iswblank_l
+000000000000b3e3 (__TEXT,__text) external _iswhexnumber_l
+000000000000b442 (__TEXT,__text) external _iswideogram_l
+000000000000b4a1 (__TEXT,__text) external _iswnumber_l
+000000000000b500 (__TEXT,__text) external _iswphonogram_l
+000000000000b55f (__TEXT,__text) external _iswrune_l
+000000000000b5c9 (__TEXT,__text) external _iswspecial_l
+000000000000b628 (__TEXT,__text) external _duplocale
+000000000000b65e (__TEXT,__text) non-external __duplocale
+000000000000b7fb (__TEXT,__text) external _freelocale
+000000000000b88a (__TEXT,__text) external _newlocale
+000000000000beb4 (__TEXT,__text) non-external (was a private external) ___numeric_ctype
+000000000000bf44 (__TEXT,__text) external _querylocale
+000000000000c0d4 (__TEXT,__text) external _uselocale
+000000000000c1a2 (__TEXT,__text) external ____mb_cur_max
+000000000000c1d0 (__TEXT,__text) external ____mb_cur_max_l
+000000000000c1fb (__TEXT,__text) non-external (was a private external) ___xlocale_init
+000000000000c228 (__TEXT,__text) non-external ___xlocale_release
+000000000000c265 (__TEXT,__text) non-external __releaselocale
+000000000000c43c (__TEXT,__text) external _acl_dup
+000000000000c494 (__TEXT,__text) external _acl_free
+000000000000c4a7 (__TEXT,__text) external _acl_init
+000000000000c50f (__TEXT,__text) external _acl_valid
+000000000000c53b (__TEXT,__text) external _acl_valid_fd_np
+000000000000c551 (__TEXT,__text) external _acl_valid_file_np
+000000000000c567 (__TEXT,__text) external _acl_valid_link
+000000000000c57d (__TEXT,__text) external _acl_calc_mask
+000000000000c593 (__TEXT,__text) external _acl_copy_entry
+000000000000c5ed (__TEXT,__text) external _acl_create_entry_np
+000000000000c6c0 (__TEXT,__text) external _acl_create_entry
+000000000000c6cf (__TEXT,__text) external _acl_delete_entry
+000000000000c799 (__TEXT,__text) external _acl_get_entry
+000000000000c801 (__TEXT,__text) external _acl_get_qualifier
+000000000000c867 (__TEXT,__text) external _acl_get_tag_type
+000000000000c89a (__TEXT,__text) external _acl_set_qualifier
+000000000000c8e9 (__TEXT,__text) external _acl_set_tag_type
+000000000000c922 (__TEXT,__text) external _acl_delete_fd_np
+000000000000c938 (__TEXT,__text) external _acl_delete_file_np
+000000000000c94e (__TEXT,__text) external _acl_delete_link_np
+000000000000c964 (__TEXT,__text) external _acl_get_fd
+000000000000c973 (__TEXT,__text) external _acl_get_fd_np
+000000000000c9ef (__TEXT,__text) external _acl_get_file
+000000000000c9fe (__TEXT,__text) non-external _acl_get_file1
+000000000000ca8b (__TEXT,__text) external _acl_get_link_np
+000000000000ca97 (__TEXT,__text) external _acl_set_fd_np
+000000000000cb04 (__TEXT,__text) external _acl_set_fd
+000000000000cb0e (__TEXT,__text) external _acl_set_file
+000000000000cb7b (__TEXT,__text) external _acl_set_link_np
+000000000000cbe6 (__TEXT,__text) external _acl_delete_def_file
+000000000000cbfc (__TEXT,__text) external _acl_add_flag_np
+000000000000cc06 (__TEXT,__text) external _acl_clear_flags_np
+000000000000cc14 (__TEXT,__text) external _acl_delete_flag_np
+000000000000cc20 (__TEXT,__text) external _acl_get_flag_np
+000000000000cc2d (__TEXT,__text) external _acl_get_flagset_np
+000000000000cc70 (__TEXT,__text) external _acl_set_flagset_np
+000000000000ccb2 (__TEXT,__text) external _acl_add_perm
+000000000000ccd6 (__TEXT,__text) external _acl_clear_perms
+000000000000cce4 (__TEXT,__text) external _acl_delete_perm
+000000000000cd0a (__TEXT,__text) external _acl_get_perm_np
+000000000000cd31 (__TEXT,__text) external _acl_get_permset
+000000000000cd66 (__TEXT,__text) external _acl_set_permset
+000000000000cd99 (__TEXT,__text) external _acl_maximal_permset_mask_np
+000000000000cda8 (__TEXT,__text) external _acl_get_permset_mask_np
+000000000000cddc (__TEXT,__text) external _acl_set_permset_mask_np
+000000000000ce16 (__TEXT,__text) external _acl_copy_ext
+000000000000cef1 (__TEXT,__text) external _acl_size
+000000000000cf3b (__TEXT,__text) external _acl_copy_ext_native
+000000000000d009 (__TEXT,__text) external _acl_copy_int
+000000000000d0a5 (__TEXT,__text) external _acl_copy_int_native
+000000000000d134 (__TEXT,__text) external _acl_from_text
+000000000000d7af (__TEXT,__text) external _acl_to_text
+000000000000dbe9 (__TEXT,__text) non-external _raosnprintf
+000000000000dcf4 (__TEXT,__text) external _getdate
+000000000000e234 (__TEXT,__text) non-external (was a private external) __st_get_timezone
+000000000000e241 (__TEXT,__text) non-external (was a private external) __st_set_timezone
+000000000000e24e (__TEXT,__text) external _asxprintf
+000000000000e2ee (__TEXT,__text) external _dxprintf
+000000000000e38d (__TEXT,__text) external _fxprintf
+000000000000e42d (__TEXT,__text) external _sxprintf
+000000000000e4d6 (__TEXT,__text) external _xprintf
+000000000000e587 (__TEXT,__text) external _vasxprintf
+000000000000e59f (__TEXT,__text) external _vdxprintf
+000000000000e5b6 (__TEXT,__text) external _vfxprintf
+000000000000e5ce (__TEXT,__text) external _vsxprintf
+000000000000e5fc (__TEXT,__text) external _vxprintf
+000000000000e61e (__TEXT,__text) external _free_printf_comp
+000000000000e6b2 (__TEXT,__text) external _new_printf_comp
+000000000000e844 (__TEXT,__text) non-external (was a private external) ___xprintf_domain_init
+000000000000e939 (__TEXT,__text) external _copy_printf_domain
+000000000000e9ac (__TEXT,__text) external _free_printf_domain
+000000000000e9ce (__TEXT,__text) external _new_printf_domain
+000000000000ea1b (__TEXT,__text) external _register_printf_domain_function
+000000000000eae0 (__TEXT,__text) non-external (was a private external) _register_printf_domain_render
+000000000000eba2 (__TEXT,__text) external _register_printf_domain_render_std
+000000000000ecc0 (__TEXT,__text) external _asxprintf_exec
+000000000000ed6a (__TEXT,__text) external _dxprintf_exec
+000000000000ee14 (__TEXT,__text) external _fxprintf_exec
+000000000000eebe (__TEXT,__text) external _sxprintf_exec
+000000000000ef6f (__TEXT,__text) external _xprintf_exec
+000000000000f01e (__TEXT,__text) external _vasxprintf_exec
+000000000000f038 (__TEXT,__text) external _vdxprintf_exec
+000000000000f051 (__TEXT,__text) external _vfxprintf_exec
+000000000000f06b (__TEXT,__text) external _vsxprintf_exec
+000000000000f099 (__TEXT,__text) external _vxprintf_exec
+000000000000f0b7 (__TEXT,__text) external _fparseln
+000000000000f38e (__TEXT,__text) external _login_tty
+000000000000f3f1 (__TEXT,__text) external _logwtmp
+000000000000f4fb (__TEXT,__text) external __mkpath_np
+000000000000f512 (__TEXT,__text) non-external __mkpath
+000000000000f902 (__TEXT,__text) external _mkpath_np
+000000000000f918 (__TEXT,__text) external _mkpathat_np
+000000000000f924 (__TEXT,__text) external _raise
+000000000000f96f (__TEXT,__text) external _opendev
+000000000000fb3c (__TEXT,__text) non-external _opendev_namebuf_init
+000000000000fb53 (__TEXT,__text) external _openpty
+000000000000fc81 (__TEXT,__text) external _forkpty
+000000000000fd38 (__TEXT,__text) external _uuid_clear
+000000000000fd47 (__TEXT,__text) external _uuid_compare
+000000000000fde0 (__TEXT,__text) external _uuid_copy
+000000000000fdf6 (__TEXT,__text) external _uuid_generate_time
+0000000000010125 (__TEXT,__text) external _uuid_generate_random
+00000000000101b2 (__TEXT,__text) external _uuid_generate
+00000000000101bc (__TEXT,__text) external _uuid_is_null
+00000000000101d9 (__TEXT,__text) external _uuid_pack
+0000000000010217 (__TEXT,__text) external _uuid_parse
+0000000000010342 (__TEXT,__text) external _uuid_unpack
+0000000000010380 (__TEXT,__text) external _uuid_unparse_lower
+00000000000103cf (__TEXT,__text) external _uuid_unparse_upper
+000000000001041e (__TEXT,__text) external _uuid_unparse
+000000000001046d (__TEXT,__text) external _tcgetsid
+0000000000010499 (__TEXT,__text) external __libc_initializer
+00000000000104de (__TEXT,__text) external ___libc_init
+0000000000010519 (__TEXT,__text) external __libc_fork_child
+000000000001053f (__TEXT,__text) external _chmodx_np
+0000000000010566 (__TEXT,__text) non-external _chmodx1
+00000000000107a2 (__TEXT,__text) non-external _chmodx_syscall
+00000000000107af (__TEXT,__text) external _fchmodx_np
+00000000000107d5 (__TEXT,__text) non-external _fchmodx_syscall
+00000000000107e1 (__TEXT,__text) external __NSGetArgv
+00000000000107ee (__TEXT,__text) external __NSGetArgc
+00000000000107fb (__TEXT,__text) external __NSGetEnviron
+0000000000010808 (__TEXT,__text) external __NSGetProgname
+0000000000010815 (__TEXT,__text) external __NSGetMachExecuteHeader
+0000000000010822 (__TEXT,__text) non-external (was a private external) __program_vars_init
+000000000001085e (__TEXT,__text) non-external (was a private external) __libc_fork_init
+0000000000010885 (__TEXT,__text) external _fork
+00000000000108b6 (__TEXT,__text) external _gettimeofday
+000000000001097d (__TEXT,__text) external _openx_np
+00000000000109a9 (__TEXT,__text) non-external __mkfilex_np
+0000000000010c06 (__TEXT,__text) external _mkfifox_np
+0000000000010c1d (__TEXT,__text) external _mkdirx_np
+0000000000010c34 (__TEXT,__text) external _posix_spawnp
+0000000000010f1f (__TEXT,__text) external _settimeofday
+0000000000010f98 (__TEXT,__text) external _sigaction
+0000000000010fa2 (__TEXT,__text) external __sigaction_nobind
+0000000000010fac (__TEXT,__text) external _statx_np$INODE64
+0000000000010fe6 (__TEXT,__text) non-external _statx1
+00000000000111a7 (__TEXT,__text) non-external _statx_syscall
+00000000000111b4 (__TEXT,__text) external _fstatx_np$INODE64
+00000000000111ed (__TEXT,__text) non-external _fstatx_syscall
+00000000000111f9 (__TEXT,__text) external _lstatx_np$INODE64
+0000000000011233 (__TEXT,__text) non-external _lstatx_syscall
+0000000000011240 (__TEXT,__text) external _statx64_np
+000000000001124a (__TEXT,__text) external _fstatx64_np
+0000000000011254 (__TEXT,__text) external _lstatx64_np
+000000000001125e (__TEXT,__text) external _umaskx_np
+0000000000011306 (__TEXT,__text) external _fgetrune
+00000000000113f7 (__TEXT,__text) external _fungetrune
+0000000000011484 (__TEXT,__text) external _fputrune
+000000000001151c (__TEXT,__text) external _mbrune
+00000000000115b6 (__TEXT,__text) external _mbrrune
+000000000001165a (__TEXT,__text) external _mbmb
+0000000000011736 (__TEXT,__text) non-external (was a private external) ___sgetrune
+000000000001180d (__TEXT,__text) non-external (was a private external) ___sputrune
+00000000000118e6 (__TEXT,__text) non-external (was a private external) _sgetrune
+0000000000011940 (__TEXT,__text) non-external (was a private external) _sputrune
+000000000001199d (__TEXT,__text) external _setinvalidrune
+0000000000011a8d (__TEXT,__text) external _login
+0000000000011aee (__TEXT,__text) external _logout
+0000000000011bc2 (__TEXT,__text) external _stpcpy
+0000000000011bfd (__TEXT,__text) external _stpncpy
+0000000000011c62 (__TEXT,__text) external _strcat
+0000000000011ca0 (__TEXT,__text) external _strncat
+0000000000011cf1 (__TEXT,__text) external _sync_volume_np
+0000000000011d4c (__TEXT,__text) external _fsync_volume_np
+0000000000011da7 (__TEXT,__text) external _dirfd
+0000000000011dc8 (__TEXT,__text) external __os_crash_fmt
+0000000000011e62 (__TEXT,__text) external __os_avoid_tail_call
+0000000000011e68 (__TEXT,__text) non-external __os_log_redirect
+0000000000011f44 (__TEXT,__text) non-external __os_abort_on_assumes
+0000000000011f6f (__TEXT,__text) external _creat$NOCANCEL
+0000000000011f80 (__TEXT,__text) external _gethostid
+0000000000011feb (__TEXT,__text) external _getwd
+0000000000012023 (__TEXT,__text) external _killpg
+000000000001204a (__TEXT,__text) external _sethostid
+00000000000120a7 (__TEXT,__text) external _setpgrp
+00000000000120d2 (__TEXT,__text) external _setrgid
+00000000000120e1 (__TEXT,__text) external _setruid
+00000000000120f0 (__TEXT,__text) external ___bt_close
+00000000000121d5 (__TEXT,__text) external ___bt_sync
+00000000000122a4 (__TEXT,__text) external ___bt_pgin
+00000000000123f4 (__TEXT,__text) non-external _mswap
+0000000000012428 (__TEXT,__text) external ___bt_pgout
+0000000000012569 (__TEXT,__text) external ___bt_delete
+0000000000012b8b (__TEXT,__text) external ___bt_dleaf
+0000000000012f1a (__TEXT,__text) non-external ___bt_pdelete
+000000000001314a (__TEXT,__text) non-external ___bt_relink
+00000000000131d0 (__TEXT,__text) external ___bt_get
+00000000000132a6 (__TEXT,__text) external ___bt_open
+0000000000013a5d (__TEXT,__text) external ___bt_fd
+0000000000013aaa (__TEXT,__text) external ___ovfl_get
+0000000000013b7f (__TEXT,__text) external ___ovfl_put
+0000000000013c84 (__TEXT,__text) external ___ovfl_delete
+0000000000013d43 (__TEXT,__text) external ___bt_free
+0000000000013d74 (__TEXT,__text) external ___bt_new
+0000000000013dc7 (__TEXT,__text) external ___bt_put
+000000000001430f (__TEXT,__text) external ___bt_search
+0000000000014550 (__TEXT,__text) external ___bt_seq
+000000000001490c (__TEXT,__text) external ___bt_setcur
+0000000000014959 (__TEXT,__text) non-external ___bt_first
+0000000000014b45 (__TEXT,__text) external ___bt_split
+00000000000151c8 (__TEXT,__text) non-external _bt_root
+00000000000152a2 (__TEXT,__text) non-external _bt_page
+000000000001544c (__TEXT,__text) non-external _bt_rroot
+000000000001554d (__TEXT,__text) non-external _bt_broot
+0000000000015668 (__TEXT,__text) non-external _bt_preserve
+00000000000156a8 (__TEXT,__text) non-external _bt_psplit
+0000000000015a40 (__TEXT,__text) external ___bt_ret
+0000000000015bde (__TEXT,__text) external ___bt_cmp
+0000000000015c7b (__TEXT,__text) external ___bt_defcmp
+0000000000015cc0 (__TEXT,__text) external ___bt_defpfx
+0000000000015d12 (__TEXT,__text) external _dbopen
+0000000000015d85 (__TEXT,__text) external ___dbpanic
+0000000000015db1 (__TEXT,__text) non-external ___dberr
+0000000000015dbc (__TEXT,__text) external ___hash_open
+00000000000162f5 (__TEXT,__text) non-external _alloc_segs
+00000000000163bd (__TEXT,__text) non-external _hdestroy
+00000000000164d4 (__TEXT,__text) non-external _hash_close
+0000000000016505 (__TEXT,__text) non-external _hash_delete
+0000000000016562 (__TEXT,__text) non-external _hash_fd
+0000000000016591 (__TEXT,__text) non-external _hash_get
+00000000000165d6 (__TEXT,__text) non-external _hash_put
+000000000001663d (__TEXT,__text) non-external _hash_seq
+000000000001689c (__TEXT,__text) non-external _hash_sync
+0000000000016904 (__TEXT,__text) external ___expand_table
+0000000000016a3a (__TEXT,__text) external ___call_hash
+0000000000016a64 (__TEXT,__text) non-external _flush_meta
+0000000000016bf6 (__TEXT,__text) non-external _hash_access
+0000000000016e98 (__TEXT,__text) external ___big_insert
+0000000000017133 (__TEXT,__text) external ___big_delete
+0000000000017297 (__TEXT,__text) external ___find_bigpair
+00000000000173a7 (__TEXT,__text) external ___find_last_page
+000000000001741a (__TEXT,__text) external ___big_return
+0000000000017615 (__TEXT,__text) non-external _collect_data
+0000000000017796 (__TEXT,__text) external ___big_keydata
+00000000000177db (__TEXT,__text) non-external _collect_key
+0000000000017903 (__TEXT,__text) external ___big_split
+0000000000017a93 (__TEXT,__text) external ___get_buf
+0000000000017ea5 (__TEXT,__text) non-external (was a private external) ___buf_init
+0000000000017edd (__TEXT,__text) external ___buf_free
+0000000000017fb4 (__TEXT,__text) external ___reclaim_buf
+0000000000018004 (__TEXT,__text) non-external _hash4
+00000000000180d0 (__TEXT,__text) external ___log2
+00000000000180ec (__TEXT,__text) external ___delpair
+000000000001821c (__TEXT,__text) external ___split_page
+0000000000018711 (__TEXT,__text) non-external _putpair
+0000000000018795 (__TEXT,__text) external ___addel
+00000000000189f1 (__TEXT,__text) external ___add_ovflpage
+0000000000018d7b (__TEXT,__text) external ___get_page
+0000000000018f13 (__TEXT,__text) external ___put_page
+0000000000019202 (__TEXT,__text) external ___ibitmap
+00000000000192b7 (__TEXT,__text) external ___free_ovflpage
+0000000000019356 (__TEXT,__text) non-external _fetch_bitmap
+00000000000193c3 (__TEXT,__text) external _dbm_open
+0000000000019496 (__TEXT,__text) external _dbm_close
+000000000001949e (__TEXT,__text) external _dbm_fetch
+00000000000194dc (__TEXT,__text) external _dbm_firstkey
+0000000000019526 (__TEXT,__text) external _dbm_nextkey
+000000000001957c (__TEXT,__text) external _dbm_delete
+00000000000195a1 (__TEXT,__text) external _dbm_store
+00000000000195d6 (__TEXT,__text) external _dbm_error
+00000000000195e6 (__TEXT,__text) external _dbm_clearerr
+00000000000195fc (__TEXT,__text) external _dbm_dirfno
+000000000001960c (__TEXT,__text) external _mpool_open
+00000000000196c0 (__TEXT,__text) external _mpool_filter
+00000000000196db (__TEXT,__text) external _mpool_new
+0000000000019778 (__TEXT,__text) non-external _mpool_bkt
+0000000000019849 (__TEXT,__text) external _mpool_get
+00000000000199ef (__TEXT,__text) external _mpool_put
+0000000000019a04 (__TEXT,__text) external _mpool_close
+0000000000019a4e (__TEXT,__text) external _mpool_sync
+0000000000019ab4 (__TEXT,__text) non-external _mpool_write
+0000000000019b19 (__TEXT,__text) external ___rec_close
+0000000000019bd5 (__TEXT,__text) external ___rec_sync
+0000000000019e0a (__TEXT,__text) external ___rec_delete
+0000000000019ec0 (__TEXT,__text) non-external _rec_rdelete
+0000000000019f16 (__TEXT,__text) external ___rec_dleaf
+000000000001a01c (__TEXT,__text) external ___rec_get
+000000000001a10c (__TEXT,__text) external ___rec_fpipe
+000000000001a22e (__TEXT,__text) external ___rec_vpipe
+000000000001a35c (__TEXT,__text) external ___rec_fmap
+000000000001a479 (__TEXT,__text) external ___rec_vmap
+000000000001a52b (__TEXT,__text) external ___rec_open
+000000000001a853 (__TEXT,__text) external ___rec_fd
+000000000001a8a0 (__TEXT,__text) external ___rec_put
+000000000001ab60 (__TEXT,__text) external ___rec_iput
+000000000001ad91 (__TEXT,__text) external ___rec_search
+000000000001af34 (__TEXT,__text) external ___rec_seq
+000000000001b0ec (__TEXT,__text) external ___rec_ret
+000000000001b24e (__TEXT,__text) external _timingsafe_bcmp
+000000000001b280 (__TEXT,__text) external ___hdtoa
+000000000001b4d0 (__TEXT,__text) non-external _dorounding
+000000000001b5d8 (__TEXT,__text) external ___hldtoa
+000000000001b860 (__TEXT,__text) external ___rv_alloc_D2A
+000000000001b89b (__TEXT,__text) external ___nrv_alloc_D2A
+000000000001b8dc (__TEXT,__text) external ___freedtoa
+000000000001b8fa (__TEXT,__text) external ___quorem_D2A
+000000000001ba3c (__TEXT,__text) external ___dtoa
+000000000001c96c (__TEXT,__text) external ___gdtoa
+000000000001da80 (__TEXT,__text) external ___gethex_D2A
+000000000001e3eb (__TEXT,__text) external ___rshift_D2A
+000000000001e499 (__TEXT,__text) external ___trailz_D2A
+000000000001e4e1 (__TEXT,__text) external ___hexdig_init_D2A
+000000000001e4e7 (__TEXT,__text) external ___hexnan_D2A
+000000000001e621 (__TEXT,__text) external ___Balloc_D2A
+000000000001e734 (__TEXT,__text) non-external _gdtoa_freelist_free
+000000000001e784 (__TEXT,__text) external ___Bfree_D2A
+000000000001e7d8 (__TEXT,__text) external ___lo0bits_D2A
+000000000001e867 (__TEXT,__text) external ___multadd_D2A
+000000000001e8fc (__TEXT,__text) external ___hi0bits_D2A
+000000000001e96e (__TEXT,__text) external ___i2b_D2A
+000000000001e991 (__TEXT,__text) external ___mult_D2A
+000000000001ea9a (__TEXT,__text) external ___pow5mult_D2A
+000000000001ebb6 (__TEXT,__text) external ___lshift_D2A
+000000000001ecbd (__TEXT,__text) external ___cmp_D2A
+000000000001ecfe (__TEXT,__text) external ___diff_D2A
+000000000001ee04 (__TEXT,__text) external ___b2d_D2A
+000000000001eed1 (__TEXT,__text) external ___d2b_D2A
+000000000001effa (__TEXT,__text) external ___strcp_D2A
+000000000001f01d (__TEXT,__text) external ___s2b_D2A
+000000000001f0f1 (__TEXT,__text) external ___ratio_D2A
+000000000001f195 (__TEXT,__text) external ___match_D2A
+000000000001f1d2 (__TEXT,__text) external ___copybits_D2A
+000000000001f231 (__TEXT,__text) external ___any_on_D2A
+000000000001f291 (__TEXT,__text) external _strtod_l
+000000000002077f (__TEXT,__text) external _strtod
+00000000000207a7 (__TEXT,__text) external ___increment_D2A
+0000000000020830 (__TEXT,__text) external ___decrement_D2A
+000000000002085e (__TEXT,__text) external ___set_ones_D2A
+00000000000208f6 (__TEXT,__text) non-external (was a private external) ___rvOK_D2A
+0000000000020bea (__TEXT,__text) non-external (was a private external) ___mantbits_D2A
+0000000000020c22 (__TEXT,__text) external ___strtodg
+0000000000022660 (__TEXT,__text) external _strtof_l
+0000000000022760 (__TEXT,__text) external _strtof
+0000000000022788 (__TEXT,__text) external ___strtopdd
+0000000000022b90 (__TEXT,__text) external ___strtopx
+0000000000022cd8 (__TEXT,__text) external ___ULtod_D2A
+0000000000022d68 (__TEXT,__text) external ___sum_D2A
+0000000000022eac (__TEXT,__text) external ___ulp_D2A
+0000000000022f15 (__TEXT,__text) external _alarm
+0000000000022f63 (__TEXT,__text) external _arc4random_addrandom
+0000000000022f69 (__TEXT,__text) external _arc4random
+0000000000022f92 (__TEXT,__text) external _arc4random_buf
+0000000000022fba (__TEXT,__text) non-external _arc4_init
+0000000000023067 (__TEXT,__text) external _arc4random_stir
+000000000002306d (__TEXT,__text) external _arc4random_uniform
+0000000000023098 (__TEXT,__text) non-external (was a private external) __arc4_fork_child
+000000000002309e (__TEXT,__text) external _basename_r
+000000000002314a (__TEXT,__text) external _basename
+000000000002318f (__TEXT,__text) external _clock
+00000000000231e1 (__TEXT,__text) external _closedir
+0000000000023246 (__TEXT,__text) external _ctermid
+000000000002327b (__TEXT,__text) external _ctermid_r
+00000000000232a7 (__TEXT,__text) external _daemon$1050
+0000000000023417 (__TEXT,__text) external _dirname_r
+00000000000234d5 (__TEXT,__text) external _dirname
+000000000002351a (__TEXT,__text) external _drand48
+000000000002359f (__TEXT,__text) external _erand48
+0000000000023649 (__TEXT,__text) non-external (was a private external) __e_visprintf
+0000000000023789 (__TEXT,__text) external _err_set_file
+00000000000237ae (__TEXT,__text) external _err_set_exit
+00000000000237f5 (__TEXT,__text) external _err_set_exit_b
+0000000000023837 (__TEXT,__text) external _execl
+000000000002397b (__TEXT,__text) external _execle
+0000000000023acd (__TEXT,__text) external _execlp
+0000000000023c01 (__TEXT,__text) external _execvp
+0000000000023c51 (__TEXT,__text) external _execv
+0000000000023c7b (__TEXT,__text) external _execvP
+0000000000023cb4 (__TEXT,__text) non-external _execvPe
+0000000000023fb8 (__TEXT,__text) external _fmtcheck
+000000000002402c (__TEXT,__text) non-external _get_next_format
+000000000002410b (__TEXT,__text) non-external _get_next_format_from_width
+000000000002415d (__TEXT,__text) non-external _get_next_format_from_precision
+00000000000244b4 (__TEXT,__text) external _fmtmsg
+0000000000024702 (__TEXT,__text) non-external _printfmt
+000000000002498b (__TEXT,__text) non-external _nextcomp
+00000000000249de (__TEXT,__text) external _fnmatch
+0000000000024a57 (__TEXT,__text) non-external _fnmatch1
+0000000000024f84 (__TEXT,__text) non-external (was a private external) _rangematch
+000000000002577f (__TEXT,__text) external _ftok
+00000000000257c8 (__TEXT,__text) external _getbsize
+0000000000025998 (__TEXT,__text) external _cgetset
+0000000000025a17 (__TEXT,__text) external _cgetcap
+0000000000025a8b (__TEXT,__text) external _cgetent
+0000000000025ab0 (__TEXT,__text) non-external _getent
+00000000000261ca (__TEXT,__text) external _cgetmatch
+000000000002621f (__TEXT,__text) external _cgetfirst
+0000000000026270 (__TEXT,__text) external _cgetclose
+00000000000262ad (__TEXT,__text) external _cgetnext
+00000000000266b5 (__TEXT,__text) external _cgetstr
+0000000000026904 (__TEXT,__text) external _cgetustr
+00000000000269ca (__TEXT,__text) external _cgetnum
+0000000000026a5f (__TEXT,__text) non-external (was a private external) ___private_getcwd
+0000000000026f21 (__TEXT,__text) non-external ___getcwd
+00000000000270a6 (__TEXT,__text) external _getcwd
+00000000000270b5 (__TEXT,__text) external _gethostname
+00000000000271c9 (__TEXT,__text) external _getlogin
+0000000000027203 (__TEXT,__text) non-external _getlogin_basic
+000000000002727d (__TEXT,__text) external _getlogin_r
+00000000000272e9 (__TEXT,__text) external _getmntinfo$INODE64
+000000000002730f (__TEXT,__text) non-external _getmntinfo_internal
+00000000000273d8 (__TEXT,__text) external _getmntinfo_r_np$INODE64
+0000000000027430 (__TEXT,__text) external _getpagesize
+00000000000274a9 (__TEXT,__text) external _getpeereid
+0000000000027507 (__TEXT,__text) external _getprogname
+0000000000027515 (__TEXT,__text) external _glob$INODE64
+000000000002752f (__TEXT,__text) non-external ___glob
+0000000000027840 (__TEXT,__text) external _glob_b$INODE64
+0000000000027860 (__TEXT,__text) non-external (was a private external) ___gl_globtilde
+0000000000027b35 (__TEXT,__text) non-external (was a private external) ___gl_g_Ctoc
+0000000000027c39 (__TEXT,__text) non-external (was a private external) ___gl_compare
+0000000000027c49 (__TEXT,__text) non-external (was a private external) ___gl_globextend
+0000000000027de8 (__TEXT,__text) non-external (was a private external) ___gl_match
+0000000000028073 (__TEXT,__text) external _globfree
+00000000000280cc (__TEXT,__text) non-external (was a private external) ___gl_g_strchr
+00000000000280eb (__TEXT,__text) non-external _glob0
+000000000002831d (__TEXT,__text) non-external _globexp1
+000000000002856d (__TEXT,__text) non-external _globfinal
+00000000000285e2 (__TEXT,__text) non-external _glob2
+0000000000028cd1 (__TEXT,__text) non-external _err_aborted
+0000000000028d41 (__TEXT,__text) external _isatty
+0000000000028dba (__TEXT,__text) external _jrand48
+0000000000028e07 (__TEXT,__text) external _lcong48
+0000000000028e64 (__TEXT,__text) external _lockf$NOCANCEL
+0000000000028f2c (__TEXT,__text) external _lrand48
+0000000000028f5d (__TEXT,__text) external _mrand48
+0000000000028f8c (__TEXT,__text) external _nice
+0000000000029013 (__TEXT,__text) external _nrand48
+0000000000029069 (__TEXT,__text) external _opendir$INODE64
+0000000000029078 (__TEXT,__text) external ___opendir2$INODE64
+00000000000290dc (__TEXT,__text) external _fdopendir$INODE64
+000000000002915e (__TEXT,__text) non-external ___opendir_common
+0000000000029368 (__TEXT,__text) non-external (was a private external) __filldir$INODE64
+00000000000295ca (__TEXT,__text) non-external _opendir_compar
+00000000000295e2 (__TEXT,__text) external _pause$NOCANCEL
+0000000000029607 (__TEXT,__text) external _popen
+0000000000029902 (__TEXT,__text) external _pclose
+00000000000299f8 (__TEXT,__text) external _psignal
+0000000000029a87 (__TEXT,__text) external __readdir_unlocked$INODE64
+0000000000029bfd (__TEXT,__text) external _readdir$INODE64
+0000000000029c33 (__TEXT,__text) external _readdir_r$INODE64
+0000000000029cd6 (__TEXT,__text) external _readpassphrase
+000000000002a265 (__TEXT,__text) non-external _handler
+000000000002a27c (__TEXT,__text) external _getpass
+000000000002a2d6 (__TEXT,__text) external _rewinddir$INODE64
+000000000002a33d (__TEXT,__text) external _scandir$INODE64
+000000000002a4e8 (__TEXT,__text) external _alphasort$INODE64
+000000000002a500 (__TEXT,__text) external _seed48
+000000000002a575 (__TEXT,__text) external _seekdir$INODE64
+000000000002a5ae (__TEXT,__text) external _sethostname
+000000000002a614 (__TEXT,__text) external _getmode
+000000000002a703 (__TEXT,__text) external _setmode
+000000000002abfc (__TEXT,__text) non-external _addcmd
+000000000002acbb (__TEXT,__text) non-external (was a private external) __sm_compress_mode
+000000000002ad85 (__TEXT,__text) external _setprogname
+000000000002ae20 (__TEXT,__text) external _siginterrupt
+000000000002ae90 (__TEXT,__text) external _signal
+000000000002ae9f (__TEXT,__text) non-external _signal__
+000000000002af03 (__TEXT,__text) external __signal_nobind
+000000000002af0f (__TEXT,__text) external _sleep$NOCANCEL
+000000000002af72 (__TEXT,__text) external _srand48
+000000000002afb0 (__TEXT,__text) external _sl_init
+000000000002affd (__TEXT,__text) external _sl_add
+000000000002b05e (__TEXT,__text) external _sl_free
+000000000002b0be (__TEXT,__text) external _sl_find
+000000000002b110 (__TEXT,__text) external _sysconf
+000000000002b7c4 (__TEXT,__text) external _sysctl
+000000000002b9a0 (__TEXT,__text) external _sysctlbyname
+000000000002ba9d (__TEXT,__text) external _sysctlnametomib
+000000000002bb1d (__TEXT,__text) external _telldir$INODE64
+000000000002bbc8 (__TEXT,__text) external __seekdir$INODE64
+000000000002bc73 (__TEXT,__text) non-external (was a private external) __fixtelldir$INODE64
+000000000002bca4 (__TEXT,__text) external __reclaim_telldir
+000000000002bce0 (__TEXT,__text) external _tcgetattr
+000000000002bcf4 (__TEXT,__text) external _tcsetattr
+000000000002bd90 (__TEXT,__text) external _tcsetpgrp
+000000000002bdce (__TEXT,__text) external _tcgetpgrp
+000000000002be0d (__TEXT,__text) external _cfgetospeed
+000000000002be17 (__TEXT,__text) external _cfgetispeed
+000000000002be21 (__TEXT,__text) external _cfsetospeed
+000000000002be2d (__TEXT,__text) external _cfsetispeed
+000000000002be39 (__TEXT,__text) external _cfsetspeed
+000000000002be49 (__TEXT,__text) external _cfmakeraw
+000000000002be87 (__TEXT,__text) external _tcsendbreak
+000000000002beef (__TEXT,__text) external _tcdrain$NOCANCEL
+000000000002bf02 (__TEXT,__text) external _tcflush
+000000000002bf5a (__TEXT,__text) external _tcflow
+000000000002bfbc (__TEXT,__text) external _time
+000000000002c02d (__TEXT,__text) external _times
+000000000002c15b (__TEXT,__text) external _ttyname
+000000000002c24d (__TEXT,__text) external _ttyname_r
+000000000002c301 (__TEXT,__text) external _ttyslot
+000000000002c309 (__TEXT,__text) external _ualarm
+000000000002c375 (__TEXT,__text) external _ulimit
+000000000002c4bc (__TEXT,__text) external _unvis
+000000000002cb40 (__TEXT,__text) external _strnunvisx
+000000000002cc88 (__TEXT,__text) external _strunvisx
+000000000002cc9e (__TEXT,__text) external _strunvis
+000000000002ccb4 (__TEXT,__text) external _strnunvis
+000000000002ccc0 (__TEXT,__text) external _usleep$NOCANCEL
+000000000002ccfb (__TEXT,__text) external _utime
+000000000002cd58 (__TEXT,__text) external _svis
+000000000002cda2 (__TEXT,__text) non-external _istrsenvisx
+000000000002d169 (__TEXT,__text) external _snvis
+000000000002d1bb (__TEXT,__text) external _strsvis
+000000000002d1cf (__TEXT,__text) non-external _istrsenvisxl
+000000000002d22b (__TEXT,__text) external _strsnvis
+000000000002d248 (__TEXT,__text) external _strsvisx
+000000000002d271 (__TEXT,__text) external _strsnvisx
+000000000002d296 (__TEXT,__text) external _strsenvisx
+000000000002d2bb (__TEXT,__text) external _vis
+000000000002d309 (__TEXT,__text) external _nvis
+000000000002d362 (__TEXT,__text) external _strvis
+000000000002d37a (__TEXT,__text) external _strnvis
+000000000002d39e (__TEXT,__text) external _strvisx
+000000000002d3cb (__TEXT,__text) external _strnvisx
+000000000002d3f7 (__TEXT,__text) external _strenvisx
+000000000002d41f (__TEXT,__text) non-external _do_hvis
+000000000002d515 (__TEXT,__text) non-external _do_mvis
+000000000002d68d (__TEXT,__text) non-external _do_svis
+000000000002daa8 (__TEXT,__text) external _wait$NOCANCEL
+000000000002dabe (__TEXT,__text) external _wait3
+000000000002dad5 (__TEXT,__text) external _waitpid$NOCANCEL
+000000000002dafb (__TEXT,__text) non-external (was a private external) __ascii_init
+000000000002db48 (__TEXT,__text) non-external __ascii_mbrtowc
+000000000002db8e (__TEXT,__text) non-external __ascii_mbsinit
+000000000002db99 (__TEXT,__text) non-external __ascii_mbsnrtowcs
+000000000002dc39 (__TEXT,__text) non-external __ascii_wcrtomb
+000000000002dc68 (__TEXT,__text) non-external __ascii_wcsnrtombs
+000000000002dd13 (__TEXT,__text) non-external (was a private external) __BIG5_init
+000000000002dd4a (__TEXT,__text) non-external __BIG5_mbrtowc
+000000000002de27 (__TEXT,__text) non-external __BIG5_wcrtomb
+000000000002de66 (__TEXT,__text) non-external __BIG5_mbsinit
+000000000002de7f (__TEXT,__text) external _btowc_l
+000000000002df44 (__TEXT,__text) external _btowc
+000000000002df6c (__TEXT,__text) non-external (was a private external) ___collate_load_tables
+000000000002e656 (__TEXT,__text) non-external (was a private external) ___collate_substitute
+000000000002e825 (__TEXT,__text) non-external (was a private external) ___collate_wcsdup
+000000000002e86d (__TEXT,__text) non-external (was a private external) ___collate_err
+000000000002e92a (__TEXT,__text) non-external (was a private external) ___collate_lookup_l
+000000000002ea00 (__TEXT,__text) non-external _chainsearch
+000000000002eada (__TEXT,__text) non-external _largesearch
+000000000002eb33 (__TEXT,__text) external ___collate_lookup
+000000000002ebac (__TEXT,__text) non-external (was a private external) ___collate_mbstowcs
+000000000002ecb1 (__TEXT,__text) non-external (was a private external) ___collate_lookup_which
+000000000002ed64 (__TEXT,__text) non-external (was a private external) ___collate_xfrm
+000000000002ef9a (__TEXT,__text) non-external (was a private external) ___collate_collating_symbol
+000000000002f141 (__TEXT,__text) non-external (was a private external) ___collate_equiv_class
+000000000002f2b5 (__TEXT,__text) external ___collate_equiv_match
+000000000002f5ff (__TEXT,__text) non-external (was a private external) ___collate_equiv_value
+000000000002f730 (__TEXT,__text) non-external (was a private external) ___collate_range_cmp
+000000000002f754 (__TEXT,__text) non-external (was a private external) __EUC_init
+000000000002f8d9 (__TEXT,__text) non-external __EUC_mbrtowc
+000000000002fa58 (__TEXT,__text) non-external __EUC_wcrtomb
+000000000002fb1a (__TEXT,__text) non-external __EUC_mbsinit
+000000000002fb34 (__TEXT,__text) non-external __EUC_free_extra
+000000000002fb45 (__TEXT,__text) external ___fix_locale_grouping_str
+000000000002fbe4 (__TEXT,__text) non-external (was a private external) ___fix_nogrouping
+000000000002fc05 (__TEXT,__text) non-external (was a private external) __GB18030_init
+000000000002fc3c (__TEXT,__text) non-external __GB18030_mbrtowc
+000000000002fd7e (__TEXT,__text) non-external __GB18030_wcrtomb
+000000000002fe77 (__TEXT,__text) non-external __GB18030_mbsinit
+000000000002fe90 (__TEXT,__text) non-external (was a private external) __GB2312_init
+000000000002fec7 (__TEXT,__text) non-external __GB2312_mbrtowc
+000000000002ffc6 (__TEXT,__text) non-external __GB2312_wcrtomb
+0000000000030005 (__TEXT,__text) non-external __GB2312_mbsinit
+000000000003001e (__TEXT,__text) non-external (was a private external) __GBK_init
+0000000000030055 (__TEXT,__text) non-external __GBK_mbrtowc
+0000000000030132 (__TEXT,__text) non-external __GBK_wcrtomb
+0000000000030171 (__TEXT,__text) non-external __GBK_mbsinit
+000000000003018a (__TEXT,__text) non-external (was a private external) ___part_load_locale
+00000000000303bf (__TEXT,__text) non-external (was a private external) ___ldpart_free_extra
+00000000000303d3 (__TEXT,__text) non-external (was a private external) ___messages_load_locale
+000000000003065f (__TEXT,__text) non-external (was a private external) ___get_current_messages_locale
+0000000000030682 (__TEXT,__text) non-external (was a private external) ___monetary_load_locale
+0000000000030b97 (__TEXT,__text) non-external (was a private external) ___get_current_monetary_locale
+0000000000030bba (__TEXT,__text) non-external (was a private external) ___numeric_load_locale
+0000000000030eaa (__TEXT,__text) non-external (was a private external) ___get_current_numeric_locale
+0000000000030ecd (__TEXT,__text) external ___getonlyClocaleconv
+0000000000030ed9 (__TEXT,__text) external ___setonlyClocaleconv
+0000000000030eeb (__TEXT,__text) external _localeconv_l
+0000000000031091 (__TEXT,__text) external _localeconv
+00000000000310cb (__TEXT,__text) external _mblen_l
+0000000000031167 (__TEXT,__text) external _mblen
+000000000003118f (__TEXT,__text) external _mbrlen_l
+00000000000311db (__TEXT,__text) external _mbrlen
+000000000003123e (__TEXT,__text) external _mbrtowc_l
+0000000000031280 (__TEXT,__text) external _mbrtowc
+00000000000312dc (__TEXT,__text) external _mbsinit_l
+000000000003130c (__TEXT,__text) external _mbsinit
+0000000000031356 (__TEXT,__text) external _mbsnrtowcs_l
+0000000000031397 (__TEXT,__text) external _mbsnrtowcs
+00000000000313f2 (__TEXT,__text) non-external (was a private external) ___mbsnrtowcs_std
+00000000000314f7 (__TEXT,__text) external _mbsrtowcs_l
+0000000000031545 (__TEXT,__text) external _mbsrtowcs
+00000000000315aa (__TEXT,__text) external _mbstowcs_l
+0000000000031654 (__TEXT,__text) external _mbstowcs
+0000000000031715 (__TEXT,__text) external _mbtowc_l
+00000000000317d6 (__TEXT,__text) external _mbtowc
+00000000000317fe (__TEXT,__text) non-external (was a private external) __MSKanji_init
+0000000000031835 (__TEXT,__text) non-external __MSKanji_mbrtowc
+0000000000031910 (__TEXT,__text) non-external __MSKanji_wcrtomb
+000000000003196c (__TEXT,__text) non-external __MSKanji_mbsinit
+0000000000031985 (__TEXT,__text) external _nextwctype_l
+0000000000031ac9 (__TEXT,__text) external _nextwctype
+0000000000031af4 (__TEXT,__text) external _nl_langinfo_l
+0000000000031f78 (__TEXT,__text) external _nl_langinfo
+0000000000031fa0 (__TEXT,__text) external ___maskrune
+0000000000031ff2 (__TEXT,__text) external ___istype
+000000000003205d (__TEXT,__text) external ___isctype
+0000000000032080 (__TEXT,__text) external ___toupper
+00000000000320c1 (__TEXT,__text) external ___tolower
+0000000000032102 (__TEXT,__text) external ___wcwidth
+000000000003216b (__TEXT,__text) external ___maskrune_l
+00000000000321c0 (__TEXT,__text) external ___istype_l
+00000000000321eb (__TEXT,__text) external ___toupper_l
+000000000003220b (__TEXT,__text) external ___tolower_l
+000000000003222b (__TEXT,__text) external ___wcwidth_l
+000000000003225a (__TEXT,__text) non-external (was a private external) __none_init
+00000000000322a7 (__TEXT,__text) non-external (was a private external) __none_mbrtowc
+00000000000322d3 (__TEXT,__text) non-external (was a private external) __none_mbsinit
+00000000000322de (__TEXT,__text) non-external (was a private external) __none_mbsnrtowcs
+0000000000032371 (__TEXT,__text) non-external (was a private external) __none_wcrtomb
+00000000000323a0 (__TEXT,__text) non-external (was a private external) __none_wcsnrtombs
+000000000003244b (__TEXT,__text) external ____runetype_l
+00000000000324e9 (__TEXT,__text) external ____runetype
+0000000000032511 (__TEXT,__text) external _setlocale
+0000000000032913 (__TEXT,__text) non-external _currentlocale
+00000000000329d6 (__TEXT,__text) non-external (was a private external) ___get_locale_env
+0000000000032a35 (__TEXT,__text) non-external _loadlocale
+0000000000032b9a (__TEXT,__text) non-external (was a private external) ___detect_path_locale
+0000000000032c2b (__TEXT,__text) non-external (was a private external) ___open_path_locale
+0000000000032d60 (__TEXT,__text) non-external (was a private external) ___setrunelocale
+00000000000332d1 (__TEXT,__text) external _setrunelocale
+000000000003330a (__TEXT,__text) non-external (was a private external) ___wrap_setrunelocale
+0000000000033332 (__TEXT,__text) external ____tolower_l
+00000000000333cf (__TEXT,__text) external ____tolower
+00000000000333f7 (__TEXT,__text) external ____toupper_l
+0000000000033494 (__TEXT,__text) external ____toupper
+00000000000334bc (__TEXT,__text) non-external (was a private external) __UTF8_init
+0000000000033509 (__TEXT,__text) non-external __UTF8_mbrtowc
+00000000000336e9 (__TEXT,__text) non-external __UTF8_wcrtomb
+000000000003379e (__TEXT,__text) non-external __UTF8_mbsinit
+00000000000337b8 (__TEXT,__text) non-external __UTF8_mbsnrtowcs
+0000000000033945 (__TEXT,__text) non-external __UTF8_wcsnrtombs
+0000000000033b02 (__TEXT,__text) external _wcrtomb_l
+0000000000033b44 (__TEXT,__text) external _wcrtomb
+0000000000033ba0 (__TEXT,__text) external _wcsftime_l
+0000000000033db9 (__TEXT,__text) external _wcsftime
+0000000000033de1 (__TEXT,__text) external _wcsnrtombs_l
+0000000000033e22 (__TEXT,__text) external _wcsnrtombs
+0000000000033e7d (__TEXT,__text) non-external (was a private external) ___wcsnrtombs_std
+000000000003407f (__TEXT,__text) external _wcsrtombs_l
+00000000000340cd (__TEXT,__text) external _wcsrtombs
+0000000000034132 (__TEXT,__text) non-external (was a private external) ___wcs_end_offset
+000000000003417f (__TEXT,__text) external _wcstod_l
+00000000000343d7 (__TEXT,__text) external _wcstod
+00000000000343ff (__TEXT,__text) external _wcstof_l
+0000000000034657 (__TEXT,__text) external _wcstof
+000000000003467f (__TEXT,__text) external _wcstoimax_l
+0000000000034895 (__TEXT,__text) external _wcstoimax
+00000000000348bd (__TEXT,__text) external _wcstol_l
+0000000000034ad3 (__TEXT,__text) external _wcstol
+0000000000034afb (__TEXT,__text) external _wcstold_l
+0000000000034d35 (__TEXT,__text) external _wcstold
+0000000000034d5d (__TEXT,__text) external _wcstoll_l
+0000000000034f73 (__TEXT,__text) external _wcstoll
+0000000000034f9b (__TEXT,__text) external _wcstombs_l
+0000000000035045 (__TEXT,__text) external _wcstombs
+0000000000035106 (__TEXT,__text) external _wcstoul_l
+0000000000035314 (__TEXT,__text) external _wcstoul
+000000000003533c (__TEXT,__text) external _wcstoull_l
+000000000003554a (__TEXT,__text) external _wcstoull
+0000000000035572 (__TEXT,__text) external _wcstoumax_l
+0000000000035780 (__TEXT,__text) external _wcstoumax
+00000000000357a8 (__TEXT,__text) external _wctob_l
+000000000003585b (__TEXT,__text) external _wctob
+0000000000035883 (__TEXT,__text) external _wctomb_l
+0000000000035938 (__TEXT,__text) external _wctomb
+0000000000035a00 (__TEXT,__text) external _towctrans_l
+0000000000035a94 (__TEXT,__text) external _towctrans
+0000000000035abc (__TEXT,__text) external _wctrans
+0000000000035b6a (__TEXT,__text) external _wctrans_l
+0000000000035b74 (__TEXT,__text) external _wctype_l
+0000000000035c1f (__TEXT,__text) external _wctype
+0000000000035c47 (__TEXT,__text) external _wcwidth
+0000000000035ccc (__TEXT,__text) external _wcwidth_l
+0000000000035d55 (__TEXT,__text) external _addr2ascii
+0000000000035df3 (__TEXT,__text) external _ascii2addr
+0000000000035e91 (__TEXT,__text) external _inet_addr
+0000000000035ebf (__TEXT,__text) external _inet_aton
+0000000000035ecb (__TEXT,__text) external __inet_aton_check
+00000000000360dc (__TEXT,__text) external _open_memstream
+00000000000361c1 (__TEXT,__text) non-external _memstream_update
+00000000000361ec (__TEXT,__text) non-external _memstream_write
+00000000000362da (__TEXT,__text) non-external _memstream_seek
+0000000000036366 (__TEXT,__text) non-external _memstream_close
+0000000000036373 (__TEXT,__text) external _inet_lnaof
+00000000000363a3 (__TEXT,__text) external _inet_makeaddr
+00000000000363dc (__TEXT,__text) external _inet_net_ntop
+00000000000368bd (__TEXT,__text) external _inet_net_pton
+0000000000036fd4 (__TEXT,__text) non-external _getbits
+0000000000037056 (__TEXT,__text) external _inet_neta
+00000000000370f1 (__TEXT,__text) external _inet_netof
+0000000000037120 (__TEXT,__text) external _inet_network
+000000000003731a (__TEXT,__text) external _inet_ntoa
+0000000000037374 (__TEXT,__text) external _link_addr
+00000000000374f0 (__TEXT,__text) external _link_ntoa
+00000000000375ca (__TEXT,__text) external _inet_nsap_addr
+000000000003774a (__TEXT,__text) external _inet_nsap_ntoa
+000000000003780c (__TEXT,__text) external _recv$NOCANCEL
+000000000003781c (__TEXT,__text) external _send$NOCANCEL
+000000000003782c (__TEXT,__text) external _sockatmark
+0000000000037852 (__TEXT,__text) external _setipv4sourcefilter
+00000000000379f7 (__TEXT,__text) non-external ___inaddr_to_index
+0000000000037aa2 (__TEXT,__text) external _setsourcefilter
+0000000000037bd1 (__TEXT,__text) external _getipv4sourcefilter
+0000000000037dd4 (__TEXT,__text) external _getsourcefilter
+0000000000037f48 (__TEXT,__text) external _catopen
+0000000000038332 (__TEXT,__text) non-external _loadCat
+0000000000038653 (__TEXT,__text) external _catgets
+00000000000389a8 (__TEXT,__text) external _catclose
+00000000000389f5 (__TEXT,__text) non-external ___nls_free_resources
+0000000000038a4b (__TEXT,__text) external _flockfile
+0000000000038a77 (__TEXT,__text) external __flockfile_debug_stub
+0000000000038a81 (__TEXT,__text) external _ftrylockfile
+0000000000038ab3 (__TEXT,__text) external _funlockfile
+0000000000038adf (__TEXT,__text) external _asprintf
+0000000000038b9d (__TEXT,__text) external _asprintf_l
+0000000000038c33 (__TEXT,__text) external _clearerr
+0000000000038c53 (__TEXT,__text) external _clearerr_unlocked
+0000000000038c5d (__TEXT,__text) external _dprintf
+0000000000038d1b (__TEXT,__text) external _dprintf_l
+0000000000038db1 (__TEXT,__text) external _fclose
+0000000000038e99 (__TEXT,__text) external _fdopen
+0000000000038f92 (__TEXT,__text) external _feof
+0000000000038fba (__TEXT,__text) external _feof_unlocked
+0000000000038fc9 (__TEXT,__text) external _ferror
+0000000000038ff1 (__TEXT,__text) external _ferror_unlocked
+0000000000039000 (__TEXT,__text) external _fflush
+000000000003903b (__TEXT,__text) non-external _sflush_locked
+0000000000039065 (__TEXT,__text) external ___sflush
+0000000000039206 (__TEXT,__text) external ___fflush
+0000000000039229 (__TEXT,__text) external _fgetc
+0000000000039270 (__TEXT,__text) external ___slbexpand
+00000000000392d7 (__TEXT,__text) external _fgetln
+0000000000039465 (__TEXT,__text) external _fgetpos
+000000000003948a (__TEXT,__text) external _fgets
+00000000000395b2 (__TEXT,__text) external _fgetwc
+000000000003960f (__TEXT,__text) external ___fgetwc
+00000000000396d7 (__TEXT,__text) external _fgetwc_l
+000000000003973d (__TEXT,__text) external _fgetwln_l
+00000000000397f4 (__TEXT,__text) external _fgetwln
+000000000003981c (__TEXT,__text) external _fgetws_l
+00000000000399f8 (__TEXT,__text) external _fgetws
+0000000000039a20 (__TEXT,__text) external _fileno
+0000000000039a44 (__TEXT,__text) external _fileno_unlocked
+0000000000039a4e (__TEXT,__text) external ___sfp
+0000000000039c2c (__TEXT,__text) external ___sinit
+0000000000039ce9 (__TEXT,__text) non-external _moreglue
+0000000000039e8e (__TEXT,__text) non-external (was a private external) ___sfprelease
+0000000000039edd (__TEXT,__text) external _f_prealloc
+0000000000039f3d (__TEXT,__text) external __cleanup
+0000000000039f4e (__TEXT,__text) external ___sflags
+0000000000039fe9 (__TEXT,__text) external _fopen
+000000000003a0bd (__TEXT,__text) external _fprintf
+000000000003a17b (__TEXT,__text) external _fprintf_l
+000000000003a211 (__TEXT,__text) external _fpurge
+000000000003a28f (__TEXT,__text) external _fputc
+000000000003a2f6 (__TEXT,__text) external _fputs
+000000000003a372 (__TEXT,__text) non-external (was a private external) ___fputwc
+000000000003a438 (__TEXT,__text) external _fputwc
+000000000003a49e (__TEXT,__text) external _fputwc_l
+000000000003a513 (__TEXT,__text) external _fputws_l
+000000000003a666 (__TEXT,__text) external _fputws
+000000000003a68e (__TEXT,__text) external _fread
+000000000003a6d5 (__TEXT,__text) external ___fread
+000000000003a8e1 (__TEXT,__text) external _freopen
+000000000003ac15 (__TEXT,__text) external _fscanf
+000000000003ad02 (__TEXT,__text) external _fscanf_l
+000000000003adfc (__TEXT,__text) external _fseek
+000000000003ae6a (__TEXT,__text) external __fseeko
+000000000003b2d0 (__TEXT,__text) external _fseeko
+000000000003b33b (__TEXT,__text) external _fsetpos
+000000000003b34a (__TEXT,__text) external _ftell
+000000000003b354 (__TEXT,__text) external _ftello
+000000000003b3ae (__TEXT,__text) external __ftello
+000000000003b4b3 (__TEXT,__text) external _funopen
+000000000003b553 (__TEXT,__text) external ___sfvwrite
+000000000003b8b3 (__TEXT,__text) external __fwalk
+000000000003b917 (__TEXT,__text) external _fwide
+000000000003b96e (__TEXT,__text) external _fwprintf
+000000000003ba2c (__TEXT,__text) external _fwprintf_l
+000000000003bac2 (__TEXT,__text) external _fwrite
+000000000003bb94 (__TEXT,__text) external _fwscanf
+000000000003bc52 (__TEXT,__text) external _fwscanf_l
+000000000003bce8 (__TEXT,__text) external _getc
+000000000003bd2f (__TEXT,__text) external _getc_unlocked
+000000000003bd55 (__TEXT,__text) external _getchar
+000000000003bda0 (__TEXT,__text) external _getchar_unlocked
+000000000003bdd0 (__TEXT,__text) external _getdelim
+000000000003bf69 (__TEXT,__text) non-external _sappend
+000000000003c084 (__TEXT,__text) external _getline
+000000000003c096 (__TEXT,__text) external _gets
+000000000003c14b (__TEXT,__text) external _getw
+000000000003c180 (__TEXT,__text) external _getwc
+000000000003c1a8 (__TEXT,__text) external _getwc_l
+000000000003c1b2 (__TEXT,__text) external _getwchar
+000000000003c1e4 (__TEXT,__text) external _getwchar_l
+000000000003c1fb (__TEXT,__text) external ___smakebuf
+000000000003c3d9 (__TEXT,__text) external ___swhatbuf
+000000000003c48e (__TEXT,__text) non-external ___evpinit
+000000000003c4b9 (__TEXT,__text) non-external ___loadevp
+000000000003c4ec (__TEXT,__text) external _mkostemps
+000000000003c54d (__TEXT,__text) non-external _find_temp_path
+000000000003c7b0 (__TEXT,__text) non-external __mkostemps_action
+000000000003c802 (__TEXT,__text) external _mkostempsat_np
+000000000003c857 (__TEXT,__text) external _mkstemps
+000000000003c89d (__TEXT,__text) external _mkstempsat_np
+000000000003c8d9 (__TEXT,__text) external _mkostemp
+000000000003c940 (__TEXT,__text) external _mkstemp
+000000000003c986 (__TEXT,__text) external _mkdtemp
+000000000003c9ca (__TEXT,__text) non-external __mkdtemp_action
+000000000003c9f6 (__TEXT,__text) external _mkdtempat_np
+000000000003ca32 (__TEXT,__text) external __mktemp
+000000000003ca73 (__TEXT,__text) non-external __mktemp_action
+000000000003cab5 (__TEXT,__text) external _mktemp
+000000000003caf6 (__TEXT,__text) external _mkstemp_dprotected_np
+000000000003cb6a (__TEXT,__text) non-external __mkstemp_dprotected_np_action
+000000000003cbc0 (__TEXT,__text) external _rpmatch
+000000000003cc78 (__TEXT,__text) non-external (was a private external) ___find_arguments
+000000000003df54 (__TEXT,__text) non-external _build_arg_table
+000000000003e124 (__TEXT,__text) non-external (was a private external) ___find_warguments
+000000000003f370 (__TEXT,__text) external _printf
+000000000003f43c (__TEXT,__text) external _printf_l
+000000000003f4e9 (__TEXT,__text) external _putc
+000000000003f550 (__TEXT,__text) external _putc_unlocked
+000000000003f584 (__TEXT,__text) external _putchar
+000000000003f5f2 (__TEXT,__text) external _putchar_unlocked
+000000000003f630 (__TEXT,__text) external _puts
+000000000003f6ee (__TEXT,__text) external _putw
+000000000003f750 (__TEXT,__text) external _putwc
+000000000003f778 (__TEXT,__text) external _putwc_l
+000000000003f782 (__TEXT,__text) external _putwchar
+000000000003f7b4 (__TEXT,__text) external _putwchar_l
+000000000003f7cb (__TEXT,__text) non-external (was a private external) ___srefill0
+000000000003f8f3 (__TEXT,__text) non-external _lflush
+000000000003f92e (__TEXT,__text) non-external (was a private external) ___srefill1
+000000000003f987 (__TEXT,__text) external ___srefill
+000000000003f9ae (__TEXT,__text) external _remove
+000000000003fa00 (__TEXT,__text) external _rewind
+000000000003fa5a (__TEXT,__text) external ___srget
+000000000003fa8a (__TEXT,__text) external _scanf
+000000000003fb7d (__TEXT,__text) external _scanf_l
+000000000003fc85 (__TEXT,__text) external _setbuf
+000000000003fc9e (__TEXT,__text) external _setbuffer
+000000000003fcb7 (__TEXT,__text) external _setlinebuf
+000000000003fcca (__TEXT,__text) external _setvbuf
+000000000003fe89 (__TEXT,__text) external _snprintf
+000000000003ff43 (__TEXT,__text) external _snprintf_l
+000000000003ffd5 (__TEXT,__text) external _sprintf
+0000000000040093 (__TEXT,__text) external _sprintf_l
+0000000000040129 (__TEXT,__text) external _sscanf
+00000000000401e7 (__TEXT,__text) external _sscanf_l
+000000000004027d (__TEXT,__text) external ___sread
+000000000004028e (__TEXT,__text) external ___swrite
+000000000004029f (__TEXT,__text) external ___sseek
+00000000000402ad (__TEXT,__text) external ___sclose
+00000000000402bb (__TEXT,__text) external __sread
+0000000000040319 (__TEXT,__text) external __swrite
+00000000000403c4 (__TEXT,__text) external __sseek
+00000000000404e8 (__TEXT,__text) external _swprintf
+00000000000405a2 (__TEXT,__text) external _swprintf_l
+0000000000040634 (__TEXT,__text) external _swscanf
+00000000000406f2 (__TEXT,__text) external _swscanf_l
+0000000000040788 (__TEXT,__text) external _tempnam
+0000000000040949 (__TEXT,__text) external _tmpfile
+0000000000040a74 (__TEXT,__text) external _tmpnam
+0000000000040ae7 (__TEXT,__text) non-external _tmpnam_buf_allocate
+0000000000040afe (__TEXT,__text) external _ungetc
+0000000000040b56 (__TEXT,__text) external ___ungetc
+0000000000040cf2 (__TEXT,__text) external ___ungetwc
+0000000000040d71 (__TEXT,__text) external _ungetwc
+0000000000040dd7 (__TEXT,__text) external _ungetwc_l
+0000000000040e4c (__TEXT,__text) non-external (was a private external) __vasprintf
+0000000000041024 (__TEXT,__text) external _vasprintf_l
+0000000000041043 (__TEXT,__text) external _vasprintf
+000000000004107d (__TEXT,__text) non-external (was a private external) __vdprintf
+0000000000041225 (__TEXT,__text) external _vdprintf_l
+0000000000041243 (__TEXT,__text) external _vdprintf
+000000000004127c (__TEXT,__text) external _vfprintf_l
+00000000000412c9 (__TEXT,__text) external _vfprintf
+000000000004132f (__TEXT,__text) non-external (was a private external) ___printf_is_memory_read_only
+000000000004138e (__TEXT,__text) non-external (was a private external) ___vfprintf
+0000000000045938 (__TEXT,__text) non-external _grouping_init
+00000000000459d2 (__TEXT,__text) non-external ___ultoa
+0000000000045ac3 (__TEXT,__text) non-external _grouping_print
+0000000000045df4 (__TEXT,__text) external _vfscanf
+0000000000045e51 (__TEXT,__text) non-external (was a private external) ___svfscanf_l
+0000000000048088 (__TEXT,__text) external _vfscanf_l
+00000000000480eb (__TEXT,__text) external ___svfscanf
+0000000000048119 (__TEXT,__text) non-external (was a private external) ___parsefloat_buf
+0000000000048210 (__TEXT,__text) external _vfwprintf_l
+000000000004844f (__TEXT,__text) non-external (was a private external) ___vfwprintf
+000000000004c034 (__TEXT,__text) external _vfwprintf
+000000000004c062 (__TEXT,__text) non-external ___mbsconv
+000000000004c205 (__TEXT,__text) non-external _grouping_init
+000000000004c348 (__TEXT,__text) non-external ___ultoa
+000000000004c43f (__TEXT,__text) non-external _grouping_print
+000000000004c6bd (__TEXT,__text) non-external ___sprint
+000000000004c870 (__TEXT,__text) external _vfwscanf
+000000000004c8e2 (__TEXT,__text) non-external (was a private external) ___vfwscanf
+000000000004ebac (__TEXT,__text) external _vfwscanf_l
+000000000004ec25 (__TEXT,__text) external _vprintf
+000000000004ec5d (__TEXT,__text) external _vprintf_l
+000000000004ec7a (__TEXT,__text) external _vscanf
+000000000004ecdc (__TEXT,__text) external _vscanf_l
+000000000004ed46 (__TEXT,__text) non-external (was a private external) __vsnprintf
+000000000004ef1d (__TEXT,__text) external _vsnprintf_l
+000000000004ef4c (__TEXT,__text) external _vsnprintf
+000000000004ef96 (__TEXT,__text) external _vsprintf_l
+000000000004f0ab (__TEXT,__text) external _vsprintf
+000000000004f0d9 (__TEXT,__text) external _vsscanf_l
+000000000004f212 (__TEXT,__text) non-external _eofread
+000000000004f21a (__TEXT,__text) external _vsscanf
+000000000004f248 (__TEXT,__text) external _vswprintf_l
+000000000004f4c5 (__TEXT,__text) external _vswprintf
+000000000004f4f3 (__TEXT,__text) external _vswscanf_l
+000000000004f71b (__TEXT,__text) non-external _eofread
+000000000004f723 (__TEXT,__text) external _vswscanf
+000000000004f751 (__TEXT,__text) external _vwprintf
+000000000004f789 (__TEXT,__text) external _vwprintf_l
+000000000004f7a6 (__TEXT,__text) external _vwscanf
+000000000004f7de (__TEXT,__text) external _vwscanf_l
+000000000004f7fb (__TEXT,__text) external ___swbuf
+000000000004f8c1 (__TEXT,__text) external _wprintf
+000000000004f98d (__TEXT,__text) external _wprintf_l
+000000000004fa3a (__TEXT,__text) external _wscanf
+000000000004fb06 (__TEXT,__text) external _wscanf_l
+000000000004fbb3 (__TEXT,__text) external ___swsetup
+000000000004fc80 (__TEXT,__text) external _open_wmemstream
+000000000004fd70 (__TEXT,__text) non-external _wmemstream_update
+000000000004fd9b (__TEXT,__text) non-external _wmemstream_write
+000000000004ff70 (__TEXT,__text) non-external _wmemstream_seek
+0000000000050055 (__TEXT,__text) non-external _wmemstream_close
+0000000000050062 (__TEXT,__text) external _asctime_r
+000000000005019a (__TEXT,__text) external _asctime
+00000000000501ab (__TEXT,__text) external _difftime
+0000000000050214 (__TEXT,__text) external _ftime
+0000000000050274 (__TEXT,__text) external _tzsetwall
+0000000000050280 (__TEXT,__text) non-external _tzsetwall_basic
+0000000000050414 (__TEXT,__text) non-external (was a private external) __st_tzset_basic
+0000000000050678 (__TEXT,__text) non-external _notify_check_tz
+00000000000506d8 (__TEXT,__text) non-external _settzname
+00000000000508f7 (__TEXT,__text) non-external _notify_register_tz
+0000000000050a4f (__TEXT,__text) non-external _tzload
+0000000000051499 (__TEXT,__text) non-external _tzparse
+000000000005190e (__TEXT,__text) non-external _gmtload
+0000000000051953 (__TEXT,__text) external _tzset
+000000000005195f (__TEXT,__text) non-external (was a private external) __st_localsub
+0000000000051b47 (__TEXT,__text) non-external _gmtsub
+0000000000051bcc (__TEXT,__text) non-external _timesub
+0000000000052098 (__TEXT,__text) external _localtime
+0000000000052157 (__TEXT,__text) non-external _localtime_key_init
+000000000005217b (__TEXT,__text) external _localtime_r
+00000000000521ca (__TEXT,__text) external _gmtime
+000000000005225b (__TEXT,__text) non-external _gmtime_key_init
+000000000005227f (__TEXT,__text) external _gmtime_r
+000000000005228e (__TEXT,__text) external _offtime
+000000000005229f (__TEXT,__text) external _ctime
+00000000000522ba (__TEXT,__text) external _ctime_r
+00000000000522eb (__TEXT,__text) non-external (was a private external) __st_time1
+0000000000052524 (__TEXT,__text) non-external _time2
+0000000000052588 (__TEXT,__text) external _mktime
+00000000000525ed (__TEXT,__text) external _timelocal
+0000000000052603 (__TEXT,__text) external _timegm
+0000000000052627 (__TEXT,__text) external _timeoff
+000000000005264c (__TEXT,__text) external _time2posix
+000000000005269a (__TEXT,__text) external _posix2time
+0000000000052795 (__TEXT,__text) non-external _typesequiv
+000000000005284a (__TEXT,__text) non-external _getzname
+00000000000528c4 (__TEXT,__text) non-external _getoffset
+0000000000052902 (__TEXT,__text) non-external _getrule
+0000000000052aa1 (__TEXT,__text) non-external _transtime
+0000000000052cad (__TEXT,__text) non-external _getsecs
+0000000000052daf (__TEXT,__text) non-external _gmt_init
+0000000000052e30 (__TEXT,__text) non-external _time2sub
+000000000005344c (__TEXT,__text) external _strftime_l
+00000000000535b4 (__TEXT,__text) non-external (was a private external) __st_fmt
+00000000000544b0 (__TEXT,__text) external _strftime
+00000000000544d8 (__TEXT,__text) non-external __yconv
+0000000000054648 (__TEXT,__text) external _strptime
+0000000000054670 (__TEXT,__text) external _strptime_l
+0000000000054707 (__TEXT,__text) non-external __strptime0
+00000000000563c0 (__TEXT,__text) non-external _first_wday_of
+000000000005646b (__TEXT,__text) external __time32_to_time
+0000000000056474 (__TEXT,__text) external __time_to_time32
+000000000005647d (__TEXT,__text) external __time64_to_time
+0000000000056486 (__TEXT,__text) external __time_to_time64
+000000000005648f (__TEXT,__text) external __time_to_long
+0000000000056498 (__TEXT,__text) external __long_to_time
+00000000000564a1 (__TEXT,__text) external __time_to_int
+00000000000564aa (__TEXT,__text) external __int_to_time
+00000000000564b3 (__TEXT,__text) non-external (was a private external) ___get_current_time_locale
+00000000000564d6 (__TEXT,__text) non-external (was a private external) ___time_load_locale
+000000000005673e (__TEXT,__text) external _memmem
+00000000000567c5 (__TEXT,__text) external _rindex
+00000000000567e1 (__TEXT,__text) external _strcasecmp_l
+00000000000568cb (__TEXT,__text) external _strcasecmp
+00000000000568f3 (__TEXT,__text) external _strncasecmp_l
+00000000000569f6 (__TEXT,__text) external _strncasecmp
+0000000000056a1e (__TEXT,__text) external _strcasestr_l
+0000000000056af0 (__TEXT,__text) external _strcasestr
+0000000000056b18 (__TEXT,__text) external _strcoll_l
+0000000000056bef (__TEXT,__text) external _strcoll
+0000000000056c17 (__TEXT,__text) external _strcspn
+0000000000056cc6 (__TEXT,__text) external _strdup
+0000000000056d0a (__TEXT,__text) non-external (was a private external) ___errstr
+0000000000056dbc (__TEXT,__text) external _strerror_r
+0000000000056e1a (__TEXT,__text) external _strerror
+0000000000056e98 (__TEXT,__text) external _strmode
+0000000000056fc2 (__TEXT,__text) external _strndup
+0000000000057017 (__TEXT,__text) external _strnstr
+0000000000057093 (__TEXT,__text) external _strpbrk
+00000000000570bc (__TEXT,__text) external _strrchr
+00000000000570d8 (__TEXT,__text) external _strsep
+0000000000057117 (__TEXT,__text) external _strsignal
+0000000000057278 (__TEXT,__text) non-external _sig_keycreate
+000000000005729e (__TEXT,__text) external _strspn
+0000000000057342 (__TEXT,__text) external _strtok_r
+00000000000573b3 (__TEXT,__text) external _strtok
+00000000000573c4 (__TEXT,__text) external _strxfrm_l
+0000000000057678 (__TEXT,__text) external _strxfrm
+00000000000576a0 (__TEXT,__text) external _swab
+0000000000057794 (__TEXT,__text) external _wcpcpy
+00000000000577ba (__TEXT,__text) external _wcpncpy
+0000000000057814 (__TEXT,__text) external _wcscasecmp_l
+000000000005789d (__TEXT,__text) external _wcscasecmp
+00000000000578c5 (__TEXT,__text) external _wcscat
+00000000000578eb (__TEXT,__text) external _wcschr
+000000000005790c (__TEXT,__text) external _wcscmp
+0000000000057928 (__TEXT,__text) external _wcscoll_l
+0000000000057f60 (__TEXT,__text) external _wcscoll
+0000000000057f88 (__TEXT,__text) external _wcscpy
+0000000000057fa4 (__TEXT,__text) external _wordexp
+0000000000058ad0 (__TEXT,__text) external _wordfree
+0000000000058b0d (__TEXT,__text) non-external _we_read_fully
+0000000000058b63 (__TEXT,__text) external _wcscspn
+0000000000058bac (__TEXT,__text) external _wcsdup
+0000000000058bec (__TEXT,__text) external _wcslcat
+0000000000058c8d (__TEXT,__text) external _wcslcpy
+0000000000058cf0 (__TEXT,__text) external _wcslen
+0000000000058d0b (__TEXT,__text) external _wcsncasecmp_l
+0000000000058dc5 (__TEXT,__text) external _wcsncasecmp
+0000000000058ded (__TEXT,__text) external _wcsncat
+0000000000058e34 (__TEXT,__text) external _wcsncmp
+0000000000058e60 (__TEXT,__text) external _wcsncpy
+0000000000058eb0 (__TEXT,__text) external _wcsnlen
+0000000000058ecb (__TEXT,__text) external _wcspbrk
+0000000000058f07 (__TEXT,__text) external _wcsrchr
+0000000000058f1f (__TEXT,__text) external _wcsspn
+0000000000058f6f (__TEXT,__text) external _fmemopen
+00000000000590f0 (__TEXT,__text) non-external _fmemopen_read
+000000000005913a (__TEXT,__text) non-external _fmemopen_write
+00000000000591ab (__TEXT,__text) non-external _fmemopen_seek
+0000000000059205 (__TEXT,__text) non-external _fmemopen_close
+000000000005922d (__TEXT,__text) external _wcsstr
+0000000000059298 (__TEXT,__text) external _wcstok
+000000000005930e (__TEXT,__text) external _wcswidth_l
+000000000005938b (__TEXT,__text) external _wcswidth
+00000000000593b3 (__TEXT,__text) external _wcsxfrm_l
+000000000005954f (__TEXT,__text) external _wcsxfrm
+0000000000059577 (__TEXT,__text) external _wmemchr
+0000000000059599 (__TEXT,__text) external _wmemcmp
+00000000000595c4 (__TEXT,__text) external _wmemcpy
+00000000000595e0 (__TEXT,__text) external _wmemmove
+00000000000595fc (__TEXT,__text) external _wmemset
+0000000000059617 (__TEXT,__text) non-external (was a private external) __UTF2_init
+0000000000059664 (__TEXT,__text) non-external __UTF2_mbrtowc
+00000000000597bb (__TEXT,__text) non-external __UTF2_wcrtomb
+000000000005983f (__TEXT,__text) non-external __UTF2_mbsinit
+0000000000059859 (__TEXT,__text) non-external __UTF2_mbsnrtowcs
+00000000000599e6 (__TEXT,__text) non-external __UTF2_wcsnrtombs
+0000000000059ba3 (__TEXT,__text) non-external (was a private external) ___guard_setup
+0000000000059d17 (__TEXT,__text) external ___stack_chk_fail
+0000000000059d7b (__TEXT,__text) external _a64l
+0000000000059e06 (__TEXT,__text) external __Exit
+0000000000059e0f (__TEXT,__text) external _abs
+0000000000059e1c (__TEXT,__text) non-external (was a private external) ___atexit_init
+0000000000059e4d (__TEXT,__text) external _atexit
+0000000000059e8e (__TEXT,__text) non-external _atexit_register
+0000000000059f9c (__TEXT,__text) external _atexit_b
+0000000000059fd1 (__TEXT,__text) external ___cxa_atexit
+0000000000059ffd (__TEXT,__text) external ___cxa_finalize_ranges
+000000000005a196 (__TEXT,__text) external ___cxa_finalize
+000000000005a1ce (__TEXT,__text) external ___cxa_thread_atexit
+000000000005a1d8 (__TEXT,__text) external _atof
+000000000005a202 (__TEXT,__text) external _atof_l
+000000000005a211 (__TEXT,__text) external _atoi
+000000000005a240 (__TEXT,__text) external _atoi_l
+000000000005a254 (__TEXT,__text) external _atol
+000000000005a283 (__TEXT,__text) external _atol_l
+000000000005a297 (__TEXT,__text) external _atoll
+000000000005a2c6 (__TEXT,__text) external _atoll_l
+000000000005a2da (__TEXT,__text) external _bsearch
+000000000005a341 (__TEXT,__text) external _bsearch_b
+000000000005a3ad (__TEXT,__text) external _div
+000000000005a3db (__TEXT,__text) external _exit
+000000000005a42b (__TEXT,__text) non-external (was a private external) ___findenv_locked
+000000000005a4aa (__TEXT,__text) non-external (was a private external) ___environ_lock
+000000000005a4c0 (__TEXT,__text) non-external (was a private external) ___environ_unlock
+000000000005a4d1 (__TEXT,__text) non-external (was a private external) ___environ_lock_fork_child
+000000000005a4e1 (__TEXT,__text) external __getenvp
+000000000005a52d (__TEXT,__text) external _getenv
+000000000005a57a (__TEXT,__text) external _getopt
+000000000005a7bb (__TEXT,__text) external _getopt_long
+000000000005a7cb (__TEXT,__text) non-external _getopt_internal
+000000000005ad4b (__TEXT,__text) external _getopt_long_only
+000000000005ad5b (__TEXT,__text) non-external _permute_args
+000000000005adf8 (__TEXT,__text) non-external _parse_long_options
+000000000005b17e (__TEXT,__text) external _getsubopt
+000000000005b2a6 (__TEXT,__text) external _hcreate
+000000000005b368 (__TEXT,__text) external _hdestroy
+000000000005b3e5 (__TEXT,__text) external _hsearch
+000000000005b494 (__TEXT,__text) external _heapsort
+000000000005b72a (__TEXT,__text) external _imaxabs
+000000000005b73a (__TEXT,__text) external _imaxdiv
+000000000005b769 (__TEXT,__text) external _insque
+000000000005b792 (__TEXT,__text) external _labs
+000000000005b7a2 (__TEXT,__text) external _ldiv
+000000000005b7d1 (__TEXT,__text) external _llabs
+000000000005b7e1 (__TEXT,__text) external _lldiv
+000000000005b810 (__TEXT,__text) external _lsearch
+000000000005b87f (__TEXT,__text) external _lfind
+000000000005b8d1 (__TEXT,__text) external _mergesort
+000000000005c0da (__TEXT,__text) non-external _insertionsort
+000000000005c16b (__TEXT,__text) external __putenvp
+000000000005c1cf (__TEXT,__text) external _putenv
+000000000005c265 (__TEXT,__text) external _qsort
+000000000005c2a2 (__TEXT,__text) non-external __qsort
+000000000005caff (__TEXT,__text) non-external __isort
+000000000005cc96 (__TEXT,__text) external _qsort_r
+000000000005cce2 (__TEXT,__text) non-external __qsort
+000000000005d5e5 (__TEXT,__text) non-external __isort
+000000000005d77c (__TEXT,__text) external _radixsort
+000000000005d849 (__TEXT,__text) non-external _r_sort_a
+000000000005dc31 (__TEXT,__text) external _sradixsort
+000000000005ddc0 (__TEXT,__text) non-external _r_sort_b
+000000000005e14e (__TEXT,__text) non-external _r_sort_count_allocate
+000000000005e180 (__TEXT,__text) external _rand_r
+000000000005e1d3 (__TEXT,__text) external _rand
+000000000005e23c (__TEXT,__text) external _srand
+000000000005e24b (__TEXT,__text) external _sranddev
+000000000005e2bf (__TEXT,__text) external _srandom
+000000000005e376 (__TEXT,__text) external _random
+000000000005e42b (__TEXT,__text) external _srandomdev
+000000000005e4e7 (__TEXT,__text) external _initstate
+000000000005e633 (__TEXT,__text) external _setstate
+000000000005e6e5 (__TEXT,__text) external _reallocf
+000000000005e722 (__TEXT,__text) external _realpath
+000000000005ee49 (__TEXT,__text) external _remque
+000000000005ee67 (__TEXT,__text) non-external __legacy_crt1_environ
+000000000005ee8a (__TEXT,__text) non-external (was a private external) __owned_ptr_add
+000000000005ef1c (__TEXT,__text) non-external (was a private external) __owned_ptr_search
+000000000005ef93 (__TEXT,__text) non-external (was a private external) __owned_ptr_alloc
+000000000005eff7 (__TEXT,__text) non-external (was a private external) ___init__env_owned_locked
+000000000005f048 (__TEXT,__text) non-external (was a private external) ___setenv_locked
+000000000005f3b5 (__TEXT,__text) non-external (was a private external) ___unsetenv_locked
+000000000005f47d (__TEXT,__text) external __allocenvstate
+000000000005f487 (__TEXT,__text) external __copyenv
+000000000005f4f3 (__TEXT,__text) external __deallocenvstate
+000000000005f535 (__TEXT,__text) external __setenvp
+000000000005f5b3 (__TEXT,__text) external __unsetenvp
+000000000005f618 (__TEXT,__text) external _setenv
+000000000005f6c5 (__TEXT,__text) external _unsetenv
+000000000005f748 (__TEXT,__text) external _hash_create
+000000000005f7b1 (__TEXT,__text) external _hash_destroy
+000000000005f87b (__TEXT,__text) external _hash_search
+000000000005f975 (__TEXT,__text) external _hash_traverse
+000000000005f9e0 (__TEXT,__text) external _hash_purge
+000000000005fa55 (__TEXT,__text) external _hash_stats
+000000000005fc7a (__TEXT,__text) external _strtoimax_l
+000000000005fe91 (__TEXT,__text) external _strtoimax
+000000000005feb9 (__TEXT,__text) external _strtol_l
+00000000000600d0 (__TEXT,__text) external _strtol
+00000000000600f8 (__TEXT,__text) external _strtoll_l
+000000000006030f (__TEXT,__text) external _strtoll
+0000000000060337 (__TEXT,__text) external _strtoq
+000000000006035f (__TEXT,__text) external _strtoq_l
+0000000000060369 (__TEXT,__text) external _strtoul_l
+000000000006056f (__TEXT,__text) external _strtoul
+0000000000060597 (__TEXT,__text) external _strtoull_l
+000000000006079d (__TEXT,__text) external _strtoull
+00000000000607c5 (__TEXT,__text) external _strtoumax_l
+00000000000609cb (__TEXT,__text) external _strtoumax
+00000000000609f3 (__TEXT,__text) external _strtouq
+0000000000060a1b (__TEXT,__text) external _strtouq_l
+0000000000060a25 (__TEXT,__text) external _system$NOCANCEL
+0000000000060c68 (__TEXT,__text) external _tdelete
+0000000000060d44 (__TEXT,__text) external _tfind
+0000000000060dac (__TEXT,__text) external _tsearch
+0000000000060e2d (__TEXT,__text) external _twalk
+0000000000060e45 (__TEXT,__text) non-external _trecurse
+0000000000060ed2 (__TEXT,__text) external _posix_openpt
+0000000000060ef3 (__TEXT,__text) external _grantpt
+0000000000060f04 (__TEXT,__text) external _ptsname
+0000000000060f94 (__TEXT,__text) non-external _ptsname_once_init
+0000000000060fb8 (__TEXT,__text) external _ptsname_r
+0000000000061084 (__TEXT,__text) external _unlockpt
+0000000000061095 (__TEXT,__text) external _l64a
+00000000000610ee (__TEXT,__text) external _ecvt
+00000000000610fa (__TEXT,__text) non-external ___cvt
+00000000000612b9 (__TEXT,__text) external _fcvt
+00000000000612c8 (__TEXT,__text) external _gcvt
+000000000006153f (__TEXT,__text) external _qsort_b
+000000000006154d (__TEXT,__text) external _heapsort_b
+00000000000617fc (__TEXT,__text) non-external (was a private external) ___heapsort_r
+0000000000061ab0 (__TEXT,__text) external ___ldtoa
+0000000000061c34 (__TEXT,__text) external _timespec_get
+0000000000061c58 (__TEXT,__text) external _strtold
+0000000000061c90 (__TEXT,__text) external _strtold_l
+0000000000061ccb (__TEXT,__text) external __Read_RuneMagi
+0000000000062267 (__TEXT,__text) external _mergesort_b
+0000000000062adb (__TEXT,__text) non-external _insertionsort
+0000000000062b70 (__TEXT,__text) external _psort
+0000000000062ca8 (__TEXT,__text) non-external _getargs
+0000000000062d44 (__TEXT,__text) non-external __psort_parallel
+0000000000062d99 (__TEXT,__text) non-external __psort
+000000000006364f (__TEXT,__text) external _psort_b
+0000000000063787 (__TEXT,__text) non-external _getargs
+0000000000063823 (__TEXT,__text) non-external __psort_parallel
+0000000000063878 (__TEXT,__text) non-external __psort
+000000000006417c (__TEXT,__text) external _psort_r
+00000000000642bf (__TEXT,__text) non-external _getargs
+000000000006435b (__TEXT,__text) non-external __psort_parallel
+00000000000643b5 (__TEXT,__text) non-external __psort
+0000000000064cf1 (__TEXT,__text) external _scandir_b$INODE64
+0000000000064ea0 (__TEXT,__text) external _getmntinfo64
+0000000000064f82 (__TEXT,__text) external _inet_ntop
+0000000000064fc3 (__TEXT,__text) external _inet_ntop6
+000000000006521a (__TEXT,__text) external _inet_ntop4
+000000000006532e (__TEXT,__text) external _inet_pton
+000000000006568a (__TEXT,__text) non-external _inet_pton4
+000000000006577a (__TEXT,__text) non-external (was a private external) ___printf_arginfo_errno
+0000000000065795 (__TEXT,__text) non-external (was a private external) ___printf_render_errno
+000000000006584c (__TEXT,__text) non-external (was a private external) ___printf_arginfo_float
+0000000000065887 (__TEXT,__text) non-external (was a private external) ___printf_render_float
+0000000000066374 (__TEXT,__text) non-external (was a private external) ___printf_arginfo_hexdump
+0000000000066397 (__TEXT,__text) non-external (was a private external) ___printf_render_hexdump
+00000000000665af (__TEXT,__text) non-external (was a private external) ___printf_arginfo_int
+000000000006662c (__TEXT,__text) non-external (was a private external) ___printf_render_int
+0000000000066caa (__TEXT,__text) non-external (was a private external) ___printf_arginfo_ptr
+0000000000066cd3 (__TEXT,__text) non-external (was a private external) ___printf_render_ptr
+0000000000066d2e (__TEXT,__text) non-external (was a private external) ___printf_arginfo_quote
+0000000000066d49 (__TEXT,__text) non-external (was a private external) ___printf_render_quote
+0000000000066f9e (__TEXT,__text) non-external (was a private external) ___printf_arginfo_str
+0000000000066fd0 (__TEXT,__text) non-external (was a private external) ___printf_render_str
+0000000000067298 (__TEXT,__text) non-external (was a private external) ___printf_arginfo_chr
+00000000000672d6 (__TEXT,__text) non-external (was a private external) ___printf_render_chr
+00000000000673e4 (__TEXT,__text) non-external (was a private external) ___printf_arginfo_time
+00000000000673ff (__TEXT,__text) non-external (was a private external) ___printf_render_time
+000000000006771f (__TEXT,__text) non-external (was a private external) ___printf_arginfo_vis
+000000000006773a (__TEXT,__text) non-external (was a private external) ___printf_render_vis
+0000000000067834 (__TEXT,__text) non-external (was a private external) ___printf_flush
+0000000000067867 (__TEXT,__text) non-external (was a private external) ___printf_puts
+00000000000678d1 (__TEXT,__text) non-external (was a private external) ___printf_pad
+000000000006795a (__TEXT,__text) non-external (was a private external) ___printf_out
+00000000000679e8 (__TEXT,__text) non-external (was a private external) ___printf_arginfo_pct
+00000000000679f0 (__TEXT,__text) non-external (was a private external) ___printf_render_pct
+0000000000067a06 (__TEXT,__text) non-external (was a private external) ___printf_arginfo_n
+0000000000067a21 (__TEXT,__text) non-external (was a private external) ___printf_render_n
+0000000000067a8f (__TEXT,__text) non-external (was a private external) _arrayfree
+0000000000067aa6 (__TEXT,__text) non-external (was a private external) _xprintf_calloc
+0000000000067ad6 (__TEXT,__text) non-external _flush_queues
+0000000000067ba2 (__TEXT,__text) non-external (was a private external) _xprintf_malloc
+0000000000067bcf (__TEXT,__text) non-external (was a private external) ___printf_comp
+0000000000068428 (__TEXT,__text) non-external _arrayget
+00000000000684b7 (__TEXT,__text) non-external (was a private external) ___printf_exec
+00000000000688f8 (__TEXT,__text) non-external (was a private external) ___v2printf
+0000000000068c1b (__TEXT,__text) non-external (was a private external) ___xvprintf
+0000000000068de6 (__TEXT,__text) non-external (was a private external) ___xprintf_vector
+00000000000694a3 (__TEXT,__text) external ___default_utx
+00000000000694c3 (__TEXT,__text) non-external ___default_utx_init
+0000000000069516 (__TEXT,__text) non-external (was a private external) ___setutxent
+0000000000069552 (__TEXT,__text) external __setutxent
+00000000000695bb (__TEXT,__text) external _setutxent
+00000000000695df (__TEXT,__text) non-external (was a private external) ___endutxent
+0000000000069634 (__TEXT,__text) external __endutxent
+000000000006967f (__TEXT,__text) external _endutxent
+00000000000696a3 (__TEXT,__text) non-external (was a private external) ___getutxent
+00000000000698d7 (__TEXT,__text) external __getutxent
+0000000000069929 (__TEXT,__text) external _getutxent
+000000000006994d (__TEXT,__text) external __getutxid
+0000000000069a05 (__TEXT,__text) non-external ___getutxid
+0000000000069a7f (__TEXT,__text) external _getutxid
+0000000000069ab0 (__TEXT,__text) external __getutxline
+0000000000069b55 (__TEXT,__text) external _getutxline
+0000000000069b86 (__TEXT,__text) external __pututxline
+0000000000069c46 (__TEXT,__text) non-external (was a private external) ___pututxline
+0000000000069f43 (__TEXT,__text) external _pututxline
+0000000000069f74 (__TEXT,__text) non-external (was a private external) ___utmpxname
+000000000006a04c (__TEXT,__text) external __utmpxname
+000000000006a0ab (__TEXT,__text) external _utmpxname
+000000000006a0dc (__TEXT,__text) external _getutmp
+000000000006a129 (__TEXT,__text) external _getutmpx
+000000000006a1a9 (__TEXT,__text) external _strfmon
+000000000006a263 (__TEXT,__text) non-external __strfmon
+000000000006b0c5 (__TEXT,__text) external _strfmon_l
+000000000006b17b (__TEXT,__text) non-external ___calc_left_pad
+000000000006b20a (__TEXT,__text) non-external ___setup_vars
+000000000006b2c4 (__TEXT,__text) external _memset_s
+000000000006b315 (__TEXT,__text) external _rb_tree_init
+000000000006b330 (__TEXT,__text) external _rb_tree_find_node
+000000000006b38b (__TEXT,__text) external _rb_tree_find_node_geq
+000000000006b403 (__TEXT,__text) external _rb_tree_find_node_leq
+000000000006b47b (__TEXT,__text) external _rb_tree_insert_node
+000000000006b662 (__TEXT,__text) external _rb_tree_remove_node
+000000000006b8b8 (__TEXT,__text) external _rb_tree_iterate
+000000000006b929 (__TEXT,__text) external _rb_tree_count
+000000000006b93b (__TEXT,__text) non-external _rb_tree_reparent_nodes
+000000000006b9db (__TEXT,__text) non-external _rb_tree_removal_rebalance
+000000000006bb28 (__TEXT,__text) external _regncomp_l
+000000000006bcc2 (__TEXT,__text) external _regncomp
+000000000006bcea (__TEXT,__text) external _regcomp_l
+000000000006bd45 (__TEXT,__text) external _regcomp
+000000000006bd6d (__TEXT,__text) external _regwncomp_l
+000000000006bd98 (__TEXT,__text) external _regwncomp
+000000000006bdc0 (__TEXT,__text) external _regwcomp_l
+000000000006be19 (__TEXT,__text) external _regwcomp
+000000000006be6d (__TEXT,__text) external _regfree
+000000000006be77 (__TEXT,__text) external _tre_fill_pmatch
+000000000006c020 (__TEXT,__text) non-external _tre_reset_last_matched_branches
+000000000006c1a2 (__TEXT,__text) external _regnexec
+000000000006c1f0 (__TEXT,__text) non-external _tre_match
+000000000006c38c (__TEXT,__text) external _regexec
+000000000006c3a6 (__TEXT,__text) external _regwnexec
+000000000006c3db (__TEXT,__text) external _regwexec
+000000000006c417 (__TEXT,__text) external _tre_ast_new_node
+000000000006c492 (__TEXT,__text) external _tre_ast_new_literal
+000000000006c4cd (__TEXT,__text) external _tre_ast_new_iter
+000000000006c524 (__TEXT,__text) external _tre_ast_new_union
+000000000006c55e (__TEXT,__text) external _tre_ast_new_catenation
+000000000006c598 (__TEXT,__text) external _tre_compile
+000000000006db5c (__TEXT,__text) non-external _tre_add_tags
+000000000006f754 (__TEXT,__text) non-external _tre_ast_to_tnfa
+000000000006f7f7 (__TEXT,__text) external _tre_free
+000000000006f95b (__TEXT,__text) non-external _tre_merge_branches
+000000000006fa72 (__TEXT,__text) non-external _tre_add_tag_right
+000000000006fb24 (__TEXT,__text) non-external _tre_add_tag_left
+000000000006fbd6 (__TEXT,__text) non-external _tre_copy_ast
+000000000006ff10 (__TEXT,__text) non-external _tre_set_union
+0000000000070318 (__TEXT,__text) non-external _tre_match_empty
+00000000000704e8 (__TEXT,__text) non-external _tre_make_trans
+0000000000070808 (__TEXT,__text) external _tre_tnfa_run_backtrack
+00000000000731e8 (__TEXT,__text) external _tre_tnfa_run_parallel
+0000000000075560 (__TEXT,__text) external _tre_mem_new_impl
+0000000000075595 (__TEXT,__text) external _tre_mem_destroy
+00000000000755d8 (__TEXT,__text) external _tre_mem_alloc_impl
+00000000000756f4 (__TEXT,__text) external _tre_parse
+00000000000777ac (__TEXT,__text) non-external _tre_parse_bound
+000000000007795f (__TEXT,__text) non-external _tre_search_cnames
+00000000000779f1 (__TEXT,__text) non-external _tre_new_item
+0000000000077a6c (__TEXT,__text) external _tre_stack_new
+0000000000077ad1 (__TEXT,__text) external _tre_stack_destroy
+0000000000077af1 (__TEXT,__text) external _tre_stack_num_objects
+0000000000077afa (__TEXT,__text) non-external (was a private external) _tre_stack_push_int
+0000000000077b06 (__TEXT,__text) non-external _tre_stack_push
+0000000000077b83 (__TEXT,__text) non-external (was a private external) _tre_stack_push_voidptr
+0000000000077b8d (__TEXT,__text) non-external (was a private external) _tre_stack_pop_int
+0000000000077ba6 (__TEXT,__text) non-external (was a private external) _tre_stack_pop_voidptr
+0000000000077bc0 (__TEXT,__text) external _creat
+0000000000077bd1 (__TEXT,__text) external _sigpause
+0000000000077c3c (__TEXT,__text) external _lockf
+0000000000077d04 (__TEXT,__text) external _pause
+0000000000077d29 (__TEXT,__text) external _sleep
+0000000000077d8c (__TEXT,__text) external _tcdrain
+0000000000077daf (__TEXT,__text) external _usleep
+0000000000077dea (__TEXT,__text) external _wait
+0000000000077e00 (__TEXT,__text) external _waitpid
+0000000000077e26 (__TEXT,__text) external _nanosleep
+0000000000077fbd (__TEXT,__text) external _recv
+0000000000077fcd (__TEXT,__text) external _send
+0000000000077fdd (__TEXT,__text) external _system
+0000000000078228 (__TEXT,__text) external _popen$DARWIN_EXTSN
+0000000000078528 (__TEXT,__text) external _fdopen$DARWIN_EXTSN
+000000000007861e (__TEXT,__text) external _fopen$DARWIN_EXTSN
+00000000000786ef (__TEXT,__text) external _realpath$DARWIN_EXTSN
+0000000000078e19 (__TEXT,__text) external _getgroups$DARWIN_EXTSN
+0000000000078e86 (__TEXT,__text) external _daemon
+0000000000078f94 (__TEXT,__text) external _getmntinfo
+0000000000078fba (__TEXT,__text) non-external _getmntinfo_internal
+0000000000079083 (__TEXT,__text) external _getmntinfo_r_np
+00000000000790db (__TEXT,__text) external _glob
+00000000000790f5 (__TEXT,__text) non-external ___glob
+0000000000079431 (__TEXT,__text) external _glob_b
+0000000000079451 (__TEXT,__text) non-external _glob0
+00000000000796e6 (__TEXT,__text) non-external _globexp1
+000000000007994b (__TEXT,__text) non-external _globfinal
+00000000000799c0 (__TEXT,__text) non-external _glob2
+000000000007a0af (__TEXT,__text) non-external _err_aborted
+000000000007a11f (__TEXT,__text) external _opendir
+000000000007a12e (__TEXT,__text) external ___opendir2
+000000000007a192 (__TEXT,__text) external _fdopendir
+000000000007a211 (__TEXT,__text) non-external ___opendir_common
+000000000007a3de (__TEXT,__text) non-external (was a private external) __filldir
+000000000007a63f (__TEXT,__text) non-external _opendir_compar
+000000000007a657 (__TEXT,__text) external __readdir_unlocked
+000000000007a77f (__TEXT,__text) external _readdir
+000000000007a7b5 (__TEXT,__text) external _readdir_r
+000000000007a858 (__TEXT,__text) external _rewinddir
+000000000007a8b8 (__TEXT,__text) external _scandir
+000000000007aa62 (__TEXT,__text) external _alphasort
+000000000007aa7a (__TEXT,__text) external _seekdir
+000000000007aab3 (__TEXT,__text) external _telldir
+000000000007ab5f (__TEXT,__text) external __seekdir
+000000000007abff (__TEXT,__text) non-external (was a private external) __fixtelldir
+000000000007ac30 (__TEXT,__text) external _fts_open
+000000000007ac9c (__TEXT,__text) non-external ___fts_open
+000000000007af06 (__TEXT,__text) external _fts_open_b
+000000000007af95 (__TEXT,__text) external _fts_close
+000000000007b0a0 (__TEXT,__text) external _fts_read
+000000000007b543 (__TEXT,__text) non-external _fts_safe_changedir
+000000000007b5d5 (__TEXT,__text) non-external _fts_build
+000000000007c28c (__TEXT,__text) external _fts_set
+000000000007c2af (__TEXT,__text) external _fts_children
+000000000007c3d3 (__TEXT,__text) non-external _fts_palloc
+000000000007c440 (__TEXT,__text) non-external _fts_alloc
+000000000007c4d1 (__TEXT,__text) non-external _fts_sort
+000000000007c5ba (__TEXT,__text) non-external _close_directory
+000000000007c603 (__TEXT,__text) non-external _fts_stat2
+000000000007c7f4 (__TEXT,__text) non-external _advance_directory
+000000000007c878 (__TEXT,__text) external _ftw
+000000000007c88c (__TEXT,__text) non-external _both_ftw
+000000000007cca8 (__TEXT,__text) external _nftw
+000000000007ccbc (__TEXT,__text) external _statx_np
+000000000007ccf6 (__TEXT,__text) non-external _statx1
+000000000007ceb7 (__TEXT,__text) non-external _statx_syscall
+000000000007cec4 (__TEXT,__text) external _fstatx_np
+000000000007cefd (__TEXT,__text) non-external _fstatx_syscall
+000000000007cf09 (__TEXT,__text) external _lstatx_np
+000000000007cf43 (__TEXT,__text) non-external _lstatx_syscall
+000000000007cf50 (__TEXT,__text) external _scandir_b
+000000000007d0fe (__TEXT,__text) external ___strlcat_chk
+000000000007d1cc (__TEXT,__text) non-external (was a private external) ___chk_init
+000000000007d20b (__TEXT,__text) non-external (was a private external) ___chk_fail_overflow
+000000000007d214 (__TEXT,__text) non-external (was a private external) ___chk_fail_overlap
+000000000007d21d (__TEXT,__text) non-external (was a private external) ___chk_overlap
+000000000007d249 (__TEXT,__text) external ___memset_chk
+000000000007d25b (__TEXT,__text) external ___strlcpy_chk
+000000000007d2a6 (__TEXT,__text) external ___strncat_chk
+000000000007d32e (__TEXT,__text) external ___strncpy_chk
+000000000007d38b (__TEXT,__text) external ___memmove_chk
+000000000007d39d (__TEXT,__text) external ___strcpy_chk
+000000000007d3f0 (__TEXT,__text) external ___memccpy_chk
+000000000007d43d (__TEXT,__text) external ___snprintf_chk
+000000000007d4db (__TEXT,__text) external ___snprintf_object_size_chk
+000000000007d586 (__TEXT,__text) external ___strcat_chk
+000000000007d5ff (__TEXT,__text) external ___vsprintf_chk
+000000000007d648 (__TEXT,__text) external ___stpcpy_chk
+000000000007d69d (__TEXT,__text) external ___sprintf_chk
+000000000007d769 (__TEXT,__text) external ___sprintf_object_size_chk
+000000000007d836 (__TEXT,__text) external ___memcpy_chk
+000000000007d848 (__TEXT,__text) external ___stpncpy_chk
+000000000007d8a7 (__TEXT,__text) external ___vsnprintf_chk
+000000000007d8c2 (__TEXT,__text) non-external _fts_build.cold.1
+000000000007d8d7 (__TEXT,__text) non-external _fts_build.cold.2
+000000000007d8ec (__TEXT,__text) non-external _fts_build.cold.3
+000000000007d901 (__TEXT,__text) non-external _fts_build.cold.4
+000000000007d916 (__TEXT,__text) non-external _fts_build.cold.5
+000000000007d92b (__TEXT,__text) non-external _fts_build.cold.6
+000000000007d940 (__TEXT,__text) non-external _advance_directory.cold.1
+000000000007d955 (__TEXT,__text) external __os_debug_log_error_str
+000000000007da3a (__TEXT,__text) external __os_debug_log
+000000000007dc9c (__TEXT,__text) non-external ___xprintf_domain_init.cold.1
+000000000007dcbf (__TEXT,__text) external __os_crash
+000000000007dd08 (__TEXT,__text) external __os_assumes_log
+000000000007dfe3 (__TEXT,__text) external __os_assert_log
+000000000007e2a5 (__TEXT,__text) external __os_assumes_log_ctx
+000000000007e54b (__TEXT,__text) external __os_assert_log_ctx
+000000000007e7d4 (__TEXT,__text) non-external __os_crash_fmt.cold.1
+000000000007e80b (__TEXT,__text) non-external ___bt_split.cold.1
+000000000007e833 (__TEXT,__text) non-external ___bt_split.cold.2
+000000000007e85b (__TEXT,__text) non-external _bt_broot.cold.1
+000000000007e883 (__TEXT,__text) non-external _bt_psplit.cold.1
+000000000007e8ab (__TEXT,__text) non-external _bt_psplit.cold.2
+000000000007e8d4 (__TEXT,__text) non-external _hash_access.cold.1
+000000000007e8fc (__TEXT,__text) non-external _mpool_new.cold.1
+000000000007e93c (__TEXT,__text) non-external ___hdtoa.cold.1
+000000000007e964 (__TEXT,__text) non-external ___hldtoa.cold.1
+000000000007e98c (__TEXT,__text) external ___assert_rtn
+000000000007eac6 (__TEXT,__text) external _err
+000000000007eb52 (__TEXT,__text) external _verrc
+000000000007ec23 (__TEXT,__text) external _verr
+000000000007ec49 (__TEXT,__text) external _errc
+000000000007ecb0 (__TEXT,__text) external _errx
+000000000007ed1b (__TEXT,__text) external _verrx
+000000000007edb9 (__TEXT,__text) external _warn
+000000000007ee70 (__TEXT,__text) external _vwarnc
+000000000007ef15 (__TEXT,__text) external _vwarn
+000000000007ef38 (__TEXT,__text) external _warnc
+000000000007efd2 (__TEXT,__text) external _warnx
+000000000007f070 (__TEXT,__text) external _vwarnx
+000000000007f0e6 (__TEXT,__text) non-external _getbsize.cold.1
+000000000007f103 (__TEXT,__text) non-external _sl_init.cold.1
+000000000007f118 (__TEXT,__text) non-external _sl_init.cold.2
+000000000007f130 (__TEXT,__text) non-external _unvis.cold.1
+000000000007f153 (__TEXT,__text) non-external _unvis.cold.2
+000000000007f176 (__TEXT,__text) non-external _strnunvisx.cold.1
+000000000007f199 (__TEXT,__text) non-external _strnunvisx.cold.2
+000000000007f1bc (__TEXT,__text) non-external _strnunvisx.cold.3
+000000000007f1e0 (__TEXT,__text) non-external _istrsenvisx.cold.1
+000000000007f203 (__TEXT,__text) non-external _istrsenvisx.cold.2
+000000000007f226 (__TEXT,__text) non-external _istrsenvisx.cold.3
+000000000007f249 (__TEXT,__text) non-external _memstream_update.cold.1
+000000000007f26a (__TEXT,__text) non-external _memstream_seek.cold.1
+000000000007f28d (__TEXT,__text) non-external _memstream_seek.cold.2
+000000000007f2b0 (__TEXT,__text) non-external _inet_net_pton.cold.1
+000000000007f2d1 (__TEXT,__text) non-external _inet_net_pton.cold.2
+000000000007f2f4 (__TEXT,__text) non-external _inet_net_pton.cold.3
+000000000007f315 (__TEXT,__text) non-external _setipv4sourcefilter.cold.1
+000000000007f338 (__TEXT,__text) non-external ___inaddr_to_index.cold.1
+000000000007f35b (__TEXT,__text) non-external _getipv4sourcefilter.cold.1
+000000000007f37e (__TEXT,__text) non-external _getipv4sourcefilter.cold.2
+000000000007f3a1 (__TEXT,__text) non-external _getipv4sourcefilter.cold.3
+000000000007f3c4 (__TEXT,__text) non-external __mkstemp_dprotected_np_action.cold.1
+000000000007f3e7 (__TEXT,__text) external _perror
+000000000007f4e8 (__TEXT,__text) non-external ___vfprintf.cold.1
+000000000007f514 (__TEXT,__text) non-external ___ultoa.cold.1
+000000000007f53d (__TEXT,__text) non-external ___svfscanf_l.cold.1
+000000000007f565 (__TEXT,__text) non-external ___vfwprintf.cold.1
+000000000007f591 (__TEXT,__text) non-external ___ultoa.cold.1
+000000000007f5b9 (__TEXT,__text) non-external ___vfwscanf.cold.1
+000000000007f5e1 (__TEXT,__text) non-external _wmemstream_update.cold.1
+000000000007f602 (__TEXT,__text) non-external _wmemstream_seek.cold.1
+000000000007f625 (__TEXT,__text) non-external _wmemstream_seek.cold.2
+000000000007f648 (__TEXT,__text) external _regerror
+000000000007f790 (__TEXT,__text) external _abort
+000000000007f817 (__TEXT,__text) non-external (was a private external) ___abort
+000000000007f8c2 (__TEXT,__text) external _abort_report_np
+000000000007f973 (__TEXT,__text) non-external _atexit_register.cold.1
+000000000007f994 (__TEXT,__text) non-external _getopt_internal.cold.1
+000000000007f9ac (__TEXT,__text) non-external _ptsname.cold.1
+000000000007f9c1 (__TEXT,__text) non-external _ptsname.cold.2
+000000000007f9d7 (__TEXT,__text) non-external _ptsname_once_init.cold.1
+000000000007f9f0 (__TEXT,__text) non-external ___ldtoa.cold.1
+000000000007fa16 (__TEXT,__text) non-external __psort.cold.1
+000000000007fa52 (__TEXT,__text) non-external __psort.cold.1
+000000000007fa8e (__TEXT,__text) non-external __psort.cold.1
+000000000007faca (__TEXT,__text) non-external ___printf_arginfo_errno.cold.1
+000000000007faec (__TEXT,__text) non-external ___printf_arginfo_float.cold.1
+000000000007fb0f (__TEXT,__text) non-external ___printf_render_float.cold.1
+000000000007fb32 (__TEXT,__text) non-external ___printf_arginfo_hexdump.cold.1
+000000000007fb53 (__TEXT,__text) non-external ___printf_arginfo_int.cold.1
+000000000007fb76 (__TEXT,__text) non-external ___printf_render_int.cold.1
+000000000007fbb3 (__TEXT,__text) non-external ___printf_render_int.cold.2
+000000000007fbd6 (__TEXT,__text) non-external ___printf_arginfo_ptr.cold.1
+000000000007fbf9 (__TEXT,__text) non-external ___printf_arginfo_quote.cold.1
+000000000007fc1a (__TEXT,__text) non-external ___printf_arginfo_str.cold.1
+000000000007fc3b (__TEXT,__text) non-external ___printf_arginfo_chr.cold.1
+000000000007fc5e (__TEXT,__text) non-external ___printf_arginfo_time.cold.1
+000000000007fc7f (__TEXT,__text) non-external ___printf_arginfo_vis.cold.1
+000000000007fca3 (__TEXT,__text) non-external ___printf_arginfo_n.cold.1
+000000000007fcc6 (__TEXT,__text) non-external ___printf_comp.cold.1
+000000000007fcdd (__TEXT,__text) non-external ___printf_exec.cold.1
+000000000007fcf8 (__TEXT,__text) non-external __setutxent.cold.1
+000000000007fd1e (__TEXT,__text) non-external __setutxent.cold.2
+000000000007fd44 (__TEXT,__text) non-external __endutxent.cold.1
+000000000007fd6c (__TEXT,__text) non-external __endutxent.cold.2
+000000000007fd94 (__TEXT,__text) non-external __getutxent.cold.1
+000000000007fdbc (__TEXT,__text) non-external __getutxent.cold.2
+000000000007fde4 (__TEXT,__text) non-external __getutxid.cold.1
+000000000007fe0c (__TEXT,__text) non-external __getutxid.cold.2
+000000000007fe34 (__TEXT,__text) non-external __getutxline.cold.1
+000000000007fe5c (__TEXT,__text) non-external __getutxline.cold.2
+000000000007fe84 (__TEXT,__text) non-external __pututxline.cold.1
+000000000007feac (__TEXT,__text) non-external __pututxline.cold.2
+000000000007fed4 (__TEXT,__text) non-external __utmpxname.cold.1
+000000000007fefc (__TEXT,__text) non-external __utmpxname.cold.2
+000000000007ff27 (__TEXT,__text) non-external _fts_build.cold.1
+000000000007ff3c (__TEXT,__text) non-external _fts_build.cold.2
+000000000007ff51 (__TEXT,__text) non-external _fts_build.cold.3
+000000000007ff66 (__TEXT,__text) non-external _fts_build.cold.4
+000000000007ff7b (__TEXT,__text) non-external _fts_build.cold.5
+000000000007ff90 (__TEXT,__text) non-external _fts_build.cold.6
+000000000007ffa5 (__TEXT,__text) non-external _advance_directory.cold.1
+000000000007ffba (__TEXT,__text) non-external ___chk_fail_overflow.cold.1
+000000000007ffcc (__TEXT,__text) non-external ___chk_fail_overlap.cold.1
+00000000000810d0 (__TEXT,__const) non-external (was a private external) _cVersionString
+00000000000810f8 (__TEXT,__const) non-external (was a private external) _cVersionNumber
+0000000000081100 (__TEXT,__const) external $ld$weak$os10.11$_getentropy
+0000000000081101 (__TEXT,__const) external $ld$weak$os10.11$_clock_getres
+0000000000081102 (__TEXT,__const) external $ld$weak$os10.11$_clock_gettime
+0000000000081103 (__TEXT,__const) external $ld$weak$os10.11$_clock_settime
+0000000000081104 (__TEXT,__const) external $ld$weak$os10.11$_basename_r
+0000000000081105 (__TEXT,__const) external $ld$weak$os10.11$_dirname_r
+0000000000081106 (__TEXT,__const) external $ld$weak$os10.11$_mkostemp
+0000000000081107 (__TEXT,__const) external $ld$weak$os10.11$_mkostemps
+0000000000081108 (__TEXT,__const) external $ld$weak$os10.11$_timingsafe_bcmp
+0000000000081109 (__TEXT,__const) external $ld$weak$os10.12$_utimensat
+0000000000081150 (__TEXT,__const) non-external _a64toi
+00000000000811d0 (__TEXT,__const) non-external _Rotates
+00000000000811e0 (__TEXT,__const) non-external _PC2
+0000000000081220 (__TEXT,__const) non-external _PC1
+0000000000081260 (__TEXT,__const) non-external _IP
+00000000000812a0 (__TEXT,__const) non-external _ExpandTr
+00000000000812d0 (__TEXT,__const) non-external _CIFP
+0000000000081310 (__TEXT,__const) non-external _P32Tr
+0000000000081330 (__TEXT,__const) non-external _S
+0000000000081530 (__TEXT,__const) external _sys_nerr
+0000000000081534 (__TEXT,__const) non-external (was a private external) ___utx_magic__
+0000000000081540 (__TEXT,__const) non-external _tmundef
+0000000000081580 (__TEXT,__const) non-external _rcsid
+00000000000815cc (__TEXT,__const) non-external _fparseln.dstr
+00000000000815d0 (__TEXT,__const) non-external _rcsid
+0000000000081620 (__TEXT,__const) non-external _rcsid
+0000000000081670 (__TEXT,__const) non-external (was a private external) ___rune_depreciated_msg
+0000000000081730 (__TEXT,__const) non-external _rcsid
+0000000000081850 (__TEXT,__const) external ___hexdig_D2A
+0000000000081950 (__TEXT,__const) non-external ___pow5mult_D2A.p05
+0000000000081960 (__TEXT,__const) external ___bigtens_D2A
+0000000000081990 (__TEXT,__const) external ___tinytens_D2A
+00000000000819c0 (__TEXT,__const) external ___tens_D2A
+0000000000081ad0 (__TEXT,__const) non-external _strtod_l.fpi
+0000000000081ae4 (__TEXT,__const) non-external _strtod_l.fpinan
+0000000000081b00 (__TEXT,__const) non-external _tinytens
+0000000000081b40 (__TEXT,__const) non-external (was a private external) ___fivesbits_D2A
+0000000000081b9c (__TEXT,__const) non-external _strtof_l.fpi0
+0000000000081bd0 (__TEXT,__const) non-external ___strtopdd.fpi0
+0000000000081bf0 (__TEXT,__const) non-external _escape
+0000000000081cf0 (__TEXT,__const) non-external _fnmatch.initial
+0000000000081d70 (__TEXT,__const) non-external _nv
+0000000000082160 (__TEXT,__const) non-external _nogrouping
+0000000000082161 (__TEXT,__const) non-external ___nogrouping
+0000000000082170 (__TEXT,__const) non-external _inet_net_pton_ipv4.xdigits
+0000000000082181 (__TEXT,__const) non-external _inet_net_pton_ipv4.digits
+0000000000082190 (__TEXT,__const) non-external _inet_net_pton_ipv6.xdigits_l
+00000000000821b0 (__TEXT,__const) non-external _inet_net_pton_ipv6.xdigits_u
+00000000000821c1 (__TEXT,__const) non-external _getv4.digits
+00000000000821cc (__TEXT,__const) non-external _getbits.digits
+00000000000821e0 (__TEXT,__const) non-external _gets.w
+0000000000082220 (__TEXT,__const) non-external _padchar
+000000000008225f (__TEXT,__const) non-external (was a private external) ___puts_null__
+0000000000082270 (__TEXT,__const) non-external ___vfprintf.xdigs_lower
+0000000000082280 (__TEXT,__const) non-external ___vfprintf.xdigs_upper
+0000000000082290 (__TEXT,__const) non-external _blanks
+00000000000822a0 (__TEXT,__const) non-external _zeroes
+00000000000822b0 (__TEXT,__const) non-external ___svfscanf_l.basefix
+00000000000822e0 (__TEXT,__const) non-external ___vfwprintf.xdigs_lower
+00000000000822f0 (__TEXT,__const) non-external ___vfwprintf.xdigs_upper
+0000000000082360 (__TEXT,__const) non-external _blanks
+00000000000823a0 (__TEXT,__const) non-external _zeroes
+00000000000823e0 (__TEXT,__const) non-external ___vfwscanf.basefix
+0000000000082410 (__TEXT,__const) non-external _asctime_r.wday_name
+0000000000082430 (__TEXT,__const) non-external _asctime_r.mon_name
+0000000000082480 (__TEXT,__const) non-external _wildabbr
+0000000000082484 (__TEXT,__const) non-external _gmt
+0000000000082490 (__TEXT,__const) non-external _notify_tz_name
+00000000000824ac (__TEXT,__const) non-external _year_lengths
+00000000000824c0 (__TEXT,__const) non-external _mon_lengths
+0000000000082520 (__TEXT,__const) non-external __strptime0.start_of_month
+00000000000825a0 (__TEXT,__const) non-external _command_substitution_str
+00000000000825b5 (__TEXT,__const) non-external _syntax_error_str
+00000000000825d0 (__TEXT,__const) non-external _unbound_variable_str
+00000000000825f0 (__TEXT,__const) non-external _illoptchar
+0000000000082610 (__TEXT,__const) non-external _gnuoptchar
+0000000000082630 (__TEXT,__const) non-external _recargchar
+0000000000082660 (__TEXT,__const) non-external _ambig
+0000000000082680 (__TEXT,__const) non-external _noarg
+00000000000826b0 (__TEXT,__const) non-external _recargstring
+00000000000826e0 (__TEXT,__const) non-external _illoptstring
+0000000000082700 (__TEXT,__const) non-external _degrees
+0000000000082720 (__TEXT,__const) non-external _seps
+0000000000082734 (__TEXT,__const) non-external (was a private external) __rp_alist
+0000000000082760 (__TEXT,__const) non-external _rcsid
+00000000000827b0 (__TEXT,__const) non-external _inet_pton4.digits
+00000000000827c0 (__TEXT,__const) non-external _inet_pton6.xdigits_l
+00000000000827e0 (__TEXT,__const) non-external _inet_pton6.xdigits_u
+0000000000082800 (__TEXT,__const) non-external (was a private external) ___lowercase_hex
+0000000000082820 (__TEXT,__const) non-external (was a private external) ___uppercase_hex
+0000000000082831 (__TEXT,__const) non-external (was a private external) __utmpx_vers
+000000000008283c (__TEXT,__const) non-external _rcsid
+00000000000834b0 (__TEXT,__cstring) non-external _itoa64
+0000000000084660 (__TEXT,__cstring) non-external __printf_tbl_flags
+0000000000085640 (__TEXT,__cstring) non-external _hexlist
+00000000000888f0 (__DATA,__const) external _sys_errlist
+0000000000088c48 (__DATA,__const) non-external _getttyent.nonexistent
+0000000000088c90 (__DATA,__const) non-external _okshells
+0000000000088cb0 (__DATA,__const) non-external _mapping
+0000000000088eb0 (__DATA,__const) non-external _utmpx_types
+0000000000088f10 (__DATA,__const) external __c_locale
+0000000000088f20 (__DATA,__const) non-external _acl_flags
+0000000000088fe0 (__DATA,__const) non-external _acl_perms
+0000000000089150 (__DATA,__const) non-external __printf_tbl_defaults_fbsd
+00000000000891e0 (__DATA,__const) external _kOSThermalNotificationPressureLevelName
+00000000000891f0 (__DATA,__const) non-external _validlist
+0000000000089240 (__DATA,__const) external _sys_signame
+0000000000089340 (__DATA,__const) external _sys_siglist
+0000000000089440 (__DATA,__const) non-external __C_messages_locale
+0000000000089460 (__DATA,__const) non-external __C_monetary_locale
+0000000000089508 (__DATA,__const) non-external __C_numeric_locale
+0000000000089520 (__DATA,__const) non-external _categories
+0000000000089590 (__DATA,__const) non-external _wctype_l.props
+00000000000896a0 (__DATA,__const) non-external _fmt_padding
+0000000000089720 (__DATA,__const) non-external __C_time_locale
+00000000000898f0 (__DATA,__const) non-external _rerrs
+0000000000089ac0 (__DATA,__const) non-external _cnames
+000000000008a0c0 (__DATA,__const) non-external _tre_macros
+000000000008a190 (__DATA,__crash_info) non-external (was a private external) _gCRAnnotations
+000000000008a1d0 (__DATA,__data) external _clock_sem
+000000000008a1d4 (__DATA,__data) external _clock_port
+000000000008a1d8 (__DATA,__data) non-external (was a private external) ___chk_assert_no_overlap
+000000000008a1e0 (__DATA,__data) non-external (was a private external) ___locale_key
+000000000008a1e8 (__DATA,__data) non-external ___atexit_new_registration
+000000000008a1f0 (__DATA,__data) non-external __libSystem_atfork_prepare
+000000000008a1f8 (__DATA,__data) non-external __libSystem_atfork_parent
+000000000008a200 (__DATA,__data) non-external __libSystem_atfork_child
+000000000008a208 (__DATA,__data) non-external ___atexit
+000000000008a210 (__DATA,__data) non-external _NXArgv_pointer
+000000000008a218 (__DATA,__data) non-external _NXArgc_pointer
+000000000008a220 (__DATA,__data) non-external _environ_pointer
+000000000008a228 (__DATA,__data) non-external ___progname_pointer
+000000000008a230 (__DATA,__data) non-external __mh_execute_header_pointer
+000000000008a240 (__DATA,__data) external ___stack_chk_guard
+000000000008a280 (__DATA,__data) non-external _atexit_mutex
+000000000008a2c0 (__DATA,__data) non-external ___c_locale
+000000000008a888 (__DATA,__data) non-external (was a private external) ___global_locale
+000000000008ae50 (__DATA,__data) external ___cleanup
+000000000008ae58 (__DATA,__data) external ___sdidinit
+000000000008ae70 (__DATA,__data) external ___sglue
+000000000008ae94 (__DATA,__data) non-external ___stream_max
+000000000008aea0 (__DATA,__data) non-external ___scounted
+000000000008aea8 (__DATA,__data) non-external _lastglue
+000000000008aeb0 (__DATA,__data) external _timezone
+000000000008aeb8 (__DATA,__data) external _daylight
+000000000008aec0 (__DATA,__data) non-external (was a private external) ___darwin_altzone
+000000000008aed0 (__DATA,__data) non-external _lclptr
+000000000008aee0 (__DATA,__data) external _tzname
+000000000008aef0 (__DATA,__data) non-external _lcl_notify
+000000000008af00 (__DATA,__data) non-external (was a private external) _lcl_rwlock
+000000000008afd0 (__DATA,__data) non-external _getpagesize.value
+000000000008afd8 (__DATA,__data) non-external (was a private external) ___env_owned
+000000000008afe0 (__DATA,__data) non-external _gdtoa_tsd_key
+000000000008afe8 (__DATA,__data) non-external _gdtoa_tsd_lock
+000000000008b028 (__DATA,__data) non-external _realpath$DARWIN_EXTSN.rootdev_inited
+000000000008b02c (__DATA,__data) non-external _realpath$DARWIN_EXTSN.rootdev
+000000000008b030 (__DATA,__data) non-external _p5s
+000000000008b038 (__DATA,__data) external ___gdtoa_locks
+000000000008b040 (__DATA,__data) non-external ___sFX
+000000000008b2b0 (__DATA,__data) external _optreset
+000000000008b2b8 (__DATA,__data) non-external ___strerror_ebuf
+000000000008b2c0 (__DATA,__data) external _optarg
+000000000008b2d0 (__DATA,__data) external ___sF
+000000000008b4a0 (__DATA,__data) non-external _getopt.place
+000000000008b4a8 (__DATA,__data) non-external _fptr
+000000000008b4b0 (__DATA,__data) non-external _rptr
+000000000008b4c0 (__DATA,__data) non-external _randtbl
+000000000008b540 (__DATA,__data) non-external _nonopt_end
+000000000008b544 (__DATA,__data) non-external _nonopt_start
+000000000008b548 (__DATA,__data) non-external _place
+000000000008b550 (__DATA,__data) non-external _next
+000000000008b55c (__DATA,__data) external _optind
+000000000008b560 (__DATA,__data) non-external _buf_asctime
+000000000008b5a8 (__DATA,__data) external _opterr
+000000000008b5b0 (__DATA,__data) non-external _basename.bname
+000000000008b5bc (__DATA,__data) external _optopt
+000000000008b5c8 (__DATA,__data) non-external _gmtptr
+000000000008b5d0 (__DATA,__data) non-external _gmt_notify
+000000000008b5e0 (__DATA,__data) non-external ___parsefloat_buf.parsefloat_tsd_key
+000000000008b5e8 (__DATA,__data) non-external ___parsefloat_buf.bsiz
+000000000008b5f0 (__DATA,__data) non-external ___parsefloat_buf.parsefloat_tsd_lock
+000000000008b630 (__DATA,__data) non-external ___utx__
+000000000008b638 (__DATA,__data) non-external _strtok.last
+000000000008b640 (__DATA,__data) non-external ___default_utx.once
+000000000008b650 (__DATA,__data) non-external _inet_ntoa.ret
+000000000008b668 (__DATA,__data) non-external _sig_init_once
+000000000008b680 (__DATA,__data) non-external _lcl_TZname
+000000000008b780 (__DATA,__data) non-external _sbrk_region_size
+000000000008b790 (__DATA,__data) non-external _dktypenames
+000000000008b7f0 (__DATA,__data) non-external _fstypenames
+000000000008b878 (__DATA,__data) non-external _threadsafe
+000000000008b888 (__DATA,__data) non-external _wtmp_func.1
+000000000008b890 (__DATA,__data) non-external _wtmp_func.2
+000000000008b898 (__DATA,__data) non-external _wtmp_func.3
+000000000008b8a0 (__DATA,__data) non-external _wtmp_file.0
+000000000008b8a8 (__DATA,__data) non-external _C
+000000000008b8b0 (__DATA,__data) non-external (was a private external) ___xprintf_domain_once
+000000000008b8c0 (__DATA,__data) non-external _opendev_namebuf_once
+000000000008b8d0 (__DATA,__data) external ___default_hash
+000000000008b8d8 (__DATA,__data) non-external ___strtopx.fpi0
+000000000008b8f0 (__DATA,__data) external __rand48_seed
+000000000008b8f8 (__DATA,__data) external __rand48_mult
+000000000008b900 (__DATA,__data) external __rand48_add
+000000000008b908 (__DATA,__data) non-external _ctermid.def
+000000000008b918 (__DATA,__data) non-external (was a private external) ___logname_mutex
+000000000008b958 (__DATA,__data) non-external ___kernel_supports_unionfs.kernel_supports_unionfs
+000000000008b960 (__DATA,__data) non-external (was a private external) ___popen_pidlist_mutex
+000000000008b9a0 (__DATA,__data) non-external _ttyname_lock
+000000000008b9e0 (__DATA,__data) external ___collate_load_error
+000000000008b9e4 (__DATA,__data) non-external _numempty
+000000000008b9e8 (__DATA,__data) non-external __C_lconv
+000000000008ba48 (__DATA,__data) non-external _numempty
+000000000008ba4c (__DATA,__data) external ___mb_cur_max
+000000000008ba50 (__DATA,__data) external ___mb_sb_limit
+000000000008ba60 (__DATA,__data) non-external _current_categories
+000000000008bb40 (__DATA,__data) external __CurrentRuneLocale
+000000000008bb50 (__DATA,__data) external ___stdinp
+000000000008bb58 (__DATA,__data) external ___stdoutp
+000000000008bb60 (__DATA,__data) external ___stderrp
+000000000008bb68 (__DATA,__data) non-external _uglue
+000000000008bb88 (__DATA,__data) non-external _filelist_lock
+000000000008bbc8 (__DATA,__data) non-external _tmpnam_buf_control
+000000000008bbe0 (__DATA,__data) non-external _localtime_once
+000000000008bbf0 (__DATA,__data) non-external _gmtime_once
+000000000008bc00 (__DATA,__data) non-external _gmt_once
+000000000008bc10 (__DATA,__data) non-external _dash_prefix
+000000000008bc18 (__DATA,__data) non-external _r_sort_count_control
+000000000008bc30 (__DATA,__data) non-external _state
+000000000008bc38 (__DATA,__data) non-external _rand_type
+000000000008bc3c (__DATA,__data) non-external _rand_deg
+000000000008bc40 (__DATA,__data) non-external _rand_sep
+000000000008bc48 (__DATA,__data) non-external _end_ptr
+000000000008bc50 (__DATA,__data) external __cthread_init_routine
+000000000008bc58 (__DATA,__data) non-external ___systemfn_mutex
+000000000008bca0 (__DATA,__data) external _off32
+000000000008bcd0 (__DATA,__data) external _skip
+000000000008bd00 (__DATA,__data) external _off64
+000000000008bd30 (__DATA,__data) non-external _zeroes
+000000000008bd40 (__DATA,__data) non-external _blanks
+000000000008bd50 (__DATA,__data) non-external ___systemfn_mutex
+000000000008bd90 (__DATA,__data) non-external ___kernel_supports_unionfs.kernel_supports_unionfs
+000000000008bd98 (__DATA,__constrw) external __DefaultRuneLocale
+000000000008ca20 (__DATA,__constrw) non-external (was a private external) __DefaultRuneXLocale
+000000000008d710 (__DATA,__bss) non-external _sbrk_needs_init
+000000000008d718 (__DATA,__bss) non-external _sbrk_curbrk
+000000000008d720 (__DATA,__bss) non-external ___dirhelper_func
+000000000008d730 (__DATA,__bss) non-external _cryptresult
+000000000008d748 (__DATA,__bss) non-external _constdatablock
+000000000008d750 (__DATA,__bss) non-external ___crypt_des_setkey.des_ready
+000000000008d758 (__DATA,__bss) non-external _PC1ROT
+000000000008d760 (__DATA,__bss) non-external _KS
+000000000008d7e0 (__DATA,__bss) non-external _PC2ROT
+000000000008d7f0 (__DATA,__bss) non-external _IE3264
+000000000008d7f8 (__DATA,__bss) non-external _SPE
+000000000008d800 (__DATA,__bss) non-external _CF6464
+000000000008d808 (__DATA,__bss) non-external _devname.buf
+000000000008d810 (__DATA,__bss) non-external _getdiskbyname.dp
+000000000008d818 (__DATA,__bss) non-external _parsed
+000000000008d819 (__DATA,__bss) non-external _unix2003_mode
+000000000008d81a (__DATA,__bss) non-external _parse_error
+000000000008d820 (__DATA,__bss) non-external _getttyent.tty
+000000000008d860 (__DATA,__bss) non-external _getttyent.line
+000000000008d868 (__DATA,__bss) non-external _tf
+000000000008d870 (__DATA,__bss) non-external _slot
+000000000008d878 (__DATA,__bss) non-external _seq
+000000000008d880 (__DATA,__bss) non-external _zapchar
+000000000008d888 (__DATA,__bss) non-external _brapreg
+000000000008d8a8 (__DATA,__bss) non-external _decpreg
+000000000008d8c8 (__DATA,__bss) non-external _hexpreg
+000000000008d8e8 (__DATA,__bss) non-external _curshell
+000000000008d8f0 (__DATA,__bss) non-external _shells
+000000000008d8f8 (__DATA,__bss) non-external _strings
+000000000008d900 (__DATA,__bss) non-external __utmpx_working_copy.idzero
+000000000008d908 (__DATA,__bss) non-external _pw_size
+000000000008d910 (__DATA,__bss) non-external _get_asl.utx
+000000000008db90 (__DATA,__bss) non-external _get_file.ux
+000000000008de10 (__DATA,__bss) non-external _wtmp_func.0
+000000000008de18 (__DATA,__bss) non-external _wtmp_file.1
+000000000008de20 (__DATA,__bss) non-external _wtmp_file.2
+000000000008de28 (__DATA,__bss) non-external _wtmp_file.3
+000000000008de30 (__DATA,__bss) non-external _wtmp_file.4
+000000000008de38 (__DATA,__bss) non-external _wtmp_file.5
+000000000008de40 (__DATA,__bss) non-external _wtmp_file.6
+000000000008de48 (__DATA,__bss) non-external _wtmp_file.7
+000000000008de50 (__DATA,__bss) non-external _wtmp_asl.0
+000000000008de58 (__DATA,__bss) non-external _wtmp_asl.1
+000000000008de60 (__DATA,__bss) non-external _wtmp_asl.2
+000000000008de68 (__DATA,__bss) non-external _wtmp_asl.5
+000000000008de70 (__DATA,__bss) non-external _wtmp_asl.6
+000000000008de78 (__DATA,__bss) non-external _getdate.tm
+000000000008deb0 (__DATA,__bss) non-external _xprintf_domain_default
+000000000008deb8 (__DATA,__bss) non-external _namebuf
+000000000008dec0 (__DATA,__bss) non-external _uuid_generate_time.node_id
+000000000008dec8 (__DATA,__bss) non-external _uuid_generate_time.has_init
+000000000008decc (__DATA,__bss) non-external _get_clock.adjustment
+000000000008ded0 (__DATA,__bss) non-external _get_clock.last
+000000000008dee0 (__DATA,__bss) non-external _get_clock.clock_seq
+000000000008dee4 (__DATA,__bss) non-external _gettimeofday.validtz
+000000000008dee8 (__DATA,__bss) non-external _gettimeofday.cached_tz.0
+000000000008deec (__DATA,__bss) non-external _gettimeofday.cached_tz.1
+000000000008def0 (__DATA,__bss) non-external _fgetrune.warn_depreciated
+000000000008def4 (__DATA,__bss) non-external _fungetrune.warn_depreciated
+000000000008def8 (__DATA,__bss) non-external _fputrune.warn_depreciated
+000000000008defc (__DATA,__bss) non-external _mbrune.warn_depreciated
+000000000008df00 (__DATA,__bss) non-external _mbrrune.warn_depreciated
+000000000008df04 (__DATA,__bss) non-external _mbmb.warn_depreciated
+000000000008df08 (__DATA,__bss) non-external _sgetrune.warn_depreciated
+000000000008df0c (__DATA,__bss) non-external _sputrune.warn_depreciated
+000000000008df10 (__DATA,__bss) non-external _setinvalidrune.warn_depreciated
+000000000008df18 (__DATA,__bss) non-external _rng
+000000000008df20 (__DATA,__bss) non-external _dirname.dname
+000000000008df30 (__DATA,__bss) non-external _nextcomp.lmsgverb
+000000000008df50 (__DATA,__bss) non-external _nextcomp.state
+000000000008df60 (__DATA,__bss) non-external _getbsize.header
+000000000008df78 (__DATA,__bss) non-external _toprec
+000000000008df80 (__DATA,__bss) non-external _topreclen
+000000000008df88 (__DATA,__bss) non-external _gottoprec
+000000000008df90 (__DATA,__bss) non-external _pfp
+000000000008df98 (__DATA,__bss) non-external _dbp
+000000000008dfa0 (__DATA,__bss) non-external _slash
+000000000008dfa8 (__DATA,__bss) non-external _getmntinfo$INODE64.vars
+000000000008dfc0 (__DATA,__bss) non-external _signo
+000000000008e040 (__DATA,__bss) non-external _getpass.buf
+000000000008e048 (__DATA,__bss) non-external _seed48.sseed
+000000000008e050 (__DATA,__bss) non-external _ttyname_init
+000000000008e058 (__DATA,__bss) non-external _ttyname_key
+000000000008e060 (__DATA,__bss) non-external ___collate_load_tables.cache
+000000000008e068 (__DATA,__bss) non-external ___collate_range_cmp.s1
+000000000008e070 (__DATA,__bss) non-external ___collate_range_cmp.s2
+000000000008e078 (__DATA,__bss) non-external ___messages_load_locale.cache
+000000000008e080 (__DATA,__bss) non-external _empty
+000000000008e088 (__DATA,__bss) non-external ___monetary_load_locale.cache
+000000000008e090 (__DATA,__bss) non-external _empty
+000000000008e098 (__DATA,__bss) non-external ___numeric_load_locale.cache
+000000000008e0a0 (__DATA,__bss) non-external __onlyClocaleconv
+000000000008e0a4 (__DATA,__bss) non-external _empty
+000000000008e0a8 (__DATA,__bss) non-external _nl_langinfo_l.csym
+000000000008e0b0 (__DATA,__bss) non-external _new_categories
+000000000008e190 (__DATA,__bss) non-external _saved_categories
+000000000008e270 (__DATA,__bss) non-external _currentlocale.current_locale_string
+000000000008e278 (__DATA,__bss) non-external ___setrunelocale.CachedRuneLocale
+000000000008e280 (__DATA,__bss) non-external ___setrunelocale.cache_lock
+000000000008e288 (__DATA,__bss) non-external _addr2ascii.staticbuf
+000000000008e290 (__DATA,__bss) non-external _link_ntoa.obuf
+000000000008e2d0 (__DATA,__bss) non-external _usual_extra
+000000000008f0a0 (__DATA,__bss) non-external _usual
+000000000008fab8 (__DATA,__bss) non-external _gets.warned
+000000000008fac0 (__DATA,__bss) non-external ___getevp.predicate
+000000000008fad0 (__DATA,__bss) non-external ___stdout_evp
+000000000008fae0 (__DATA,__bss) non-external ___fallback_evp
+000000000008faf0 (__DATA,__bss) non-external _tmpnam.tmpcount
+000000000008faf8 (__DATA,__bss) non-external _tmpnam_buf
+000000000008fb08 (__DATA,__bss) non-external _localtime_key_error
+000000000008fb10 (__DATA,__bss) non-external _localtime_key
+000000000008fb14 (__DATA,__bss) non-external _gmtime_key_error
+000000000008fb18 (__DATA,__bss) non-external _gmtime_key
+000000000008fb20 (__DATA,__bss) non-external _tm
+000000000008fb58 (__DATA,__bss) non-external ___time_load_locale.cache
+000000000008fb60 (__DATA,__bss) non-external _sig_keycreated
+000000000008fb68 (__DATA,__bss) non-external _sig_key
+000000000008fb70 (__DATA,__bss) non-external ___environ_lock_obj
+000000000008fb78 (__DATA,__bss) non-external _htable
+000000000008fb80 (__DATA,__bss) non-external _htablesize
+000000000008fb88 (__DATA,__bss) non-external _r_sort_a.count
+000000000008fb90 (__DATA,__bss) non-external _r_sort_a.nc
+000000000008fb94 (__DATA,__bss) non-external _r_sort_a.bmin
+000000000008fb98 (__DATA,__bss) non-external _r_sort_a_count
+000000000008fba0 (__DATA,__bss) non-external _r_sort_b_count
+000000000008fba8 (__DATA,__bss) non-external _r_sort_b.count
+000000000008fbb0 (__DATA,__bss) non-external _r_sort_b.nc
+000000000008fbb4 (__DATA,__bss) non-external _r_sort_b.bmin
+000000000008fbb8 (__DATA,__bss) non-external _realpath.rootdev
+000000000008fbbc (__DATA,__bss) non-external _realpath.rootdev_inited
+000000000008fbc0 (__DATA,__bss) non-external _ptsname_once
+000000000008fbc8 (__DATA,__bss) non-external _ptsname_buffer_specific_key
+000000000008fbd0 (__DATA,__bss) non-external _l64a.buf
+000000000008fbd8 (__DATA,__bss) non-external ___cvt.s
+000000000008fbe0 (__DATA,__bss) non-external _getmntinfo64.mntbuf
+000000000008fbe8 (__DATA,__bss) non-external _getmntinfo64.mntsize
+000000000008fbf0 (__DATA,__bss) non-external _getmntinfo64.bufsize
+000000000008fc00 (__DATA,__bss) non-external _arg_type_queue
+000000000008fc10 (__DATA,__bss) non-external _printf_info_queue
+000000000008fc20 (__DATA,__bss) non-external _union_arg_queue
+000000000008fc30 (__DATA,__bss) non-external _getmntinfo.vars
+000000000008fc48 (__DATA,__common) non-external (was a private external) ___crypt_des_setkey_called
+000000000008fc50 (__DATA,__common) non-external (was a private external) ___atexit_receipt_handler
+000000000008fc58 (__DATA,__common) external _getdate_err
+000000000008fc60 (__DATA,__common) external __os_crash_callback
+000000000008fc68 (__DATA,__common) non-external (was a private external) __e_err_file
+000000000008fc70 (__DATA,__common) non-external (was a private external) __e_err_exit
+000000000008fc80 (__DATA,__common) non-external (was a private external) ___logname
+000000000008fc88 (__DATA,__common) non-external (was a private external) ___popen_pidlist
+000000000008fc90 (__DATA,__common) external __sigintr
+000000000008fc98 (__DATA,__common) external __PathLocale
+000000000008fca0 (__DATA,__common) external _suboptarg
+000000000008fca8 (__DATA,__common) non-external (was a private external) __saved_environ
