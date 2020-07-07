@@ -1,3 +1,4 @@
+MacBook-Air:part0 darbinreyes$ xcrun nm -nm /usr/lib/system/libsystem_c.dylib
                  (undefined) external _OSAtomicDequeue (from libsystem_platform)
                  (undefined) external _OSAtomicEnqueue (from libsystem_platform)
                  (undefined) external __Block_copy (from libsystem_blocks)
