@@ -276,7 +276,7 @@ int* waiter(int number_count, int* number, int q, int* result_count) {
     istack_t *B_stks[MAX_STACKS];
     istack_t *A_stk_prev, *A_stk_next, *tmp_stk;
     int *result;
-    int i;
+    int i, j;
     int n;
 
     // Validate arguments
@@ -306,6 +306,7 @@ int* waiter(int number_count, int* number, int q, int* result_count) {
         stack_push(A_stk_prev, number[i]);
     }
 
+    // Initialize A_1 stack.
     A_stk_next = alloc_stack();
 
     if (A_stk_next == NULL)
@@ -314,11 +315,11 @@ int* waiter(int number_count, int* number, int q, int* result_count) {
     // Perform q iterations.
     // TODO: Verify this works for N == 1.
     for (i = 0; i < q; i++) {
-        // if n % prime_i, push B_i, else push A_i
+        // if n % prime_i, push B_i, else push A_i. My iterations are 0 based. The problem uses 1 based.
         B_stks[i] =  NULL;
-        if (!stack_is_empty(A_stk_prev)) { // TODO: change to loop.
+        while (!stack_is_empty(A_stk_prev)) {
             stack_pop(A_stk_prev, &n); // pop stack A_i-1
-            if (n % primes[i] == 0) { // test if current number is divisible by prime_i.
+            if (n % primes[i] == 0) { // test if current number is divisible by i-th prime.
                 if (B_stks[i] ==  NULL) { // first push, initialize stack B_i
                     B_stks[i] = alloc_stack();
                     if (B_stks[i] == NULL)
@@ -328,8 +329,47 @@ int* waiter(int number_count, int* number, int q, int* result_count) {
             } else {
                 stack_push(A_stk_next, n);
             }
+        } // while
+        // Swap A_stk_next and A_stk_prev this avoids allocating q "A" stacks. This way we only need 2 "A" stacks.
+        tmp_stk = A_stk_next;
+        A_stk_next = A_stk_prev;
+        A_stk_prev = tmp_stk;
+    }
+
+    /*
+
+      At this point,
+      B_1 ... B_Q correspond to B_stks[0] ... B_stks[Q-1].
+      If B_stks[i] == NULL, means stack is empty.
+      and
+      A_Q corresponds to A_stk_prev.
+
+    */
+
+    /* Fill in the returned array. */
+
+    // Pop all "B" stacks.
+    j = 0;
+    for (i = 0; i < q; i++) {
+        if(B_stks[i] != NULL) {
+            while (!stack_is_empty(B_stks[i])) {
+                stack_pop(B_stks[i], &n);
+                result[j] = n;
+                j++;
+            }
+            free_stack(B_stks[i]);
         }
     }
+
+    // Pop A_Q stack.
+    while (!stack_is_empty(A_stk_prev)) {
+        stack_pop(A_stk_prev, &n);
+        result[j] = n;
+        j++;
+    }
+
+    free_stack(A_stk_prev);
+    free_stack(A_stk_next);
 
     return result;
     // IMPORTANT: Make sure the call to waiter() below is correct. Esp. 1st argument.
