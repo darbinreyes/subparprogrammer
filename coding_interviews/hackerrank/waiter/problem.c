@@ -312,23 +312,23 @@ int* waiter(int number_count, int* number, int q, int* result_count) {
     return NULL;
 
   // Perform q iterations.
-  // TODO: Verify this work for N == 1.
+  // TODO: Verify this works for N == 1.
   for (i = 0; i < q; i++) {
-    // if n % prime_i, push B_i, else push A_i
-    B_stks[i] =  NULL;
-    if (!stack_is_empty(A_stk_prev)) { // TODO: change to loop.
-      stack_pop(A_stk_prev, &n); // pop stack A_i-1
-      if (n % primes[i] == 0) { // test if current number is divisible by prime_i.
-        if (B_stks[i] ==  NULL) { // first push, initialize stack B_i
-          B_stks[i] = alloc_stack();
-          if (B_stks[i] == NULL)
-            return NULL;
-        }
-        stack_push(B_stks[i], n); // TODO: Test if stack is full before push.
-      } else {
-        stack_push(A_stk_next, n);
+      // if n % prime_i, push B_i, else push A_i
+      B_stks[i] =  NULL;
+      if (!stack_is_empty(A_stk_prev)) { // TODO: change to loop.
+          stack_pop(A_stk_prev, &n); // pop stack A_i-1
+          if (n % primes[i] == 0) { // test if current number is divisible by prime_i.
+              if (B_stks[i] ==  NULL) { // first push, initialize stack B_i
+                  B_stks[i] = alloc_stack();
+                  if (B_stks[i] == NULL)
+                      return NULL;
+              }
+              stack_push(B_stks[i], n); // TODO: Test if stack is full before push.
+          } else {
+              stack_push(A_stk_next, n);
+          }
       }
-    }
   }
 
   return result;
