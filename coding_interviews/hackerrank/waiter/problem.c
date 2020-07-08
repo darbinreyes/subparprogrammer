@@ -297,12 +297,11 @@ int* waiter(int number_count, int* number, int q, int* result_count) {
         return NULL;
 
     // Initialize A_0 stack.
+    A_stk_prev = alloc_stack();
+
+    if (A_stk_prev == NULL)
+        return NULL;
     for (i = 0; i < number_count; i++) {
-        A_stk_prev = alloc_stack();
-
-        if (A_stk_prev == NULL)
-            return NULL;
-
         stack_push(A_stk_prev, number[i]);
     }
 
