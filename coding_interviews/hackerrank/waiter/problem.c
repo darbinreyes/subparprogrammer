@@ -376,7 +376,8 @@ int* waiter(int number_count, int* number, int q, int* result_count) {
 
 int main()
 {
-    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
+    FILE* fptr = stdout;
+    //FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
 
     char** nq = split_string(readline());
 
