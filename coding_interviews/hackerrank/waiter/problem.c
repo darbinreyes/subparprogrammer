@@ -111,7 +111,6 @@ Notice that the number of integers we start with = # end with.
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
 
 char* readline();
 char** split_string(char*);
