@@ -131,88 +131,90 @@ Q [1, 1200]
 #define MIN_NUMBER 2
 
 typedef struct {
-  int stack[STACK_SIZE];
-  int stack_top; // Points to the next free spot on the stack. == 0 means stack is empty. == STACK_SIZE means stack is full.
+    int stack[STACK_SIZE];
+    int stack_top; // Points to the next free spot on the stack. == 0 means stack is empty. == STACK_SIZE means stack is full.
 } istack_t;
 
 // Returns a pointer to a new stack if successful, NULL otherwise.
 istack_t *alloc_stack(void) {
-  istack_t *s;
+    istack_t *s;
 
-  s = calloc(1, sizeof(istack_t));
+    s = calloc(1, sizeof(istack_t));
 
-  if (s == NULL)
-    return NULL;
+    if (s == NULL)
+        return NULL;
 
-  return s;
+    return s;
 }
 
 // Frees memory allocated for the given stack.
 void free_stack(istack_t *s) {
-  if (s != NULL)
-    free(s);
+    if (s != NULL)
+        free(s);
 }
 
 // Returns 1 if stack is empty, 0 otherwise.
 int stack_is_empty(istack_t *s) {
-  if (s->stack_top == 0)
-    return 1;
+    if (s->stack_top == 0)
+        return 1;
 
-  return 0;
+    return 0;
 }
 
 // Returns 1 if the stack is full, 0 otherwise.
 int stack_is_full(istack_t *s) {
-  if (s->stack_top == STACK_SIZE)
-    return 1;
+    if (s->stack_top == STACK_SIZE)
+        return 1;
 
-  return 0;
+    return 0;
 }
 
 // Returns 0 if successful, 1 otherwise.
 int stack_push(istack_t *s, int v) {
-  if(stack_is_full(s))
-    return 1;
+    if (stack_is_full(s))
+        return 1;
 
-  s->stack[s->stack_top] = v;
-  s->stack_top++;
-  return 0;
+    s->stack[s->stack_top] = v;
+    s->stack_top++;
+    return 0;
 }
 
 // Returns 0 if successful, 1 otherwise.
 int stack_pop(istack_t *s, int *v) {
-  if(stack_is_empty(s))
-    return 1;
+    if (stack_is_empty(s))
+        return 1;
 
-  s->stack_top--;
-  *v = s->stack[s->stack_top];
+    s->stack_top--;
+    *v = s->stack[s->stack_top];
 
-  return 0;
+    return 0;
 }
 
 // Euclid's Algorithm. Given two numbers, to find their greatest command measure.
 // If the two given numbers do not have common measure, returns 1, else returns the greatest common measure/a.k.a greatest common divisor.
 int gcm(int a, int b) { // FYI: Is this slower than the typical implementation using modulus?
-  // If the lesser be continually subtracted from the greater until an unit is left the original numbers will be prime to one another.
-  int t;
+    // If the lesser be continually subtracted from the greater until an unit is left the original numbers will be prime to one another.
+    int t;
 
-  assert(a > 1 && b > 1);
+    if (!(a > 1 && b > 1))
+        return -1;
 
-  while (a > 1) {
-    if (a < b) { // a shall be the greater.
-      t = a;
-      a = b;
-      b = t;
+    while (a > 1) {
+        if (a < b) { // `a` shall be the greater.
+            t = a;
+            a = b;
+            b = t;
+        }
+        a = a - b;
     }
-    a = a - b;
-  }
 
-  if (a == 0)
-    return b;
+    if (a == 0)
+        return b;
 
-  assert(a == 1);
+    if (a != 1)
+        return -1;
 
-  return 1;
+    return 1;
 }
 
 // Returns 1 if n is prime, 0 otherwise.
@@ -228,31 +230,31 @@ int is_prime(int n) {
     FYI Improvement: We could skip the gcd test when i*i == n.
   */
 
-  for (int i = 2; i < n; i++) {
-    if (gcm(i, n) != 1)
-      return 0; // Not prime.
-  }
+    for (int i = 2; i < n; i++) {
+        if (gcm(i, n) != 1)
+            return 0; // Not prime.
+    }
 
-  return 1; // Is prime.
+    return 1; // Is prime.
 }
 
 // Given a prime number, returns the next prime number.
 // If p < 2, returns 1, otherwise returns the next prime number after p.
 int next_prime(int p) {
-  assert(p <= MAX_NUMBER);
-  assert(p >= MIN_NUMBER);
-  int i;
+    int i;
 
-  // Pre-condition: p is prime.
+    // Pre-condition: p is prime.
 
-  if(p < 2)
-    return 1;
+    if(p < 2)
+        return 1;
 
-  for (i = p + 1; !is_prime(i) ; i++)
-    ; // Since there are an infinite number of primes, and we are incrementing by 1, therefore this loop will terminate.
+    for (i = p + 1; !is_prime(i) ; i++)
+        ; // Since there are an infinite number of primes, and we are incrementing by 1, therefore this loop will terminate.
 
-  return i;
+    return i;
 }
+
+// TODO: MAKE ALL INDENTS 4 SPACES.
 
 /*
  * Complete the waiter function below.
