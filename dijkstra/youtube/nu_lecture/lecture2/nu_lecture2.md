@@ -1,4 +1,3 @@
-# * [ ] TODO: Move images into subdir. HTML export style.
 International Computers Limited
 
 and 
@@ -59,24 +58,6 @@ However, the conjecture of Sylvester would be that, in a finite population, wher
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=05m40s)
 
----
-
-// 
-
-My comment. I'm a bit confused about the statement of the theorem. As soon as you have more than one point, there exists a line through exactly two of them, right? If you have 3 points on the same line and one point off that line the points are not collinear (not all lie on the same line) and there exists a line through exactly two points. Can you draw a picture in which the points are not collinear and there is no line through exactly two points? 
-
-I think I get it, as soon as we have a point that is not collinear with all the others you necessarily create a line that passes through exactly two of them. In the case of 3 points on a line and one point off that line we can take the line through any one of the 3 collinear points and the single point off that line.
-
-We ignore the case of a single point since no lines can be drawn. 
-
-In the case of only two points, they are both collinear and there exists a line through exactly two of them. This is why Dijkstra specifies that the whole program has "the points are not collinear" as a precondition.
-
-The key is to focus on the existence of a line that goes through exactly two points. The theorem states that as soon as the points are not collinear we can be sure that a line through exactly two points exists.
-
-//
-
----
-
 In terms of members and clubs the theorem is not true. It is not too difficult to construct a counter example. Place a population of seven, yes, yea, place a population of seven persons in a regular fashion around a ring, 
 
 ![a.0](a.0.png)
@@ -95,7 +76,6 @@ And I do that by putting these three members in one club. The remaining six club
 * // BB
   * 7×6/2
 
-// My comment: I don't understand this translation of the problem.
 
 That is, in the complete, in the population of 7 persons, you can isolate 21 pairs, each pair uniquely determines the triangle to, each edge uniquely determines the triangle to which it belongs, however you see that with these 7 clubs of 3 members it is not true that all persons belong to the same club, because each club has at most 3 members, and it is not true that there exists a club with exactly two members.
 
@@ -111,7 +91,6 @@ We will have one variable, q, of type line. I may need a little bit more space, 
 
 ![b.11](b.11.png)
 
-// My comment: Note the syntax for a variable and its type. Variable name, colon, variable type.
 
 And what can we do with. We have to initialize that variable, now since lines are determined by two points, my proposal is that the program initializes q such that upon initialization P holds. 
 
@@ -156,23 +135,10 @@ Well the only thing of course is that here, as the repeatable statement, we have
 
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=12m15s)
 
----
 
-//
-
-// My comment: notice here again, like in "Reasoning About Programs Problem 2", Dijkstra uses the phrase "change [variable in the repeatable statement]", it is a sort of abstraction for the as yet undetermined program statements, we know that the variable's value must be changed and that therefore our attention is to focus next on how that variable will be changed.
-
-// falsity of the guard = ¬(nopo.q > 2) = (nopo.q ≤ 2) = nopo.q is at most 2 = nopo of q is at most 2.
-
-// P = nopo.q ≥ 2 = nopo of q is at least 2.
-
-//
-
----
 
 So this is the program and it's OK and does the job, provided that we can demonstrate that this program **terminates**. 
 
-// My comment: Recall our separation of concerns from "Reasoning About Programs": 1. Partial correctness. 2. Termination.
 
 Now, in order to prove termination of this program we might have to do two things. First of all, we might have to take into account things that we didn't know, secondly, that are given but we haven't used yet, secondly [sic], we may have to resolve some of the non-determinism. Alia [sic, audio not clear] sort of vagueness in the statement that changes q. One thing that I have omitted to point out, and that is that here, we are confining our situation to the case that the points are **not collinear**. 
 
@@ -240,19 +206,6 @@ Now we have to think about a termination argument. Now listen, in the original s
 
 How do we find the termination argument? Well, the standard way is that you define a natural function on the state space which in each step of the repetition is decreased by at least 1, however, since our **space consists of a finite number of states** we can **drop** the constraint of the **variant** function being **integer**, it suffices to define an **integer [did he mean real?] function of the state** of which subsequently we can prove that it's **bounded from below** and **decreases** in each step. Now our current state **always exists** of a line q, and a point E, not on that line. Can anybody think of a **real function** of a point and a line that is bounded from below? The euclidian distance, yes, thank you very much. But if we do take the Euclidian distance, then I know which of the other two B and C, will be taken as our new E, the choice which **minimizes** the distance to the new q as much as possible. 
 
----
-
-//
-
-My comment:
-
-"then I know which of the other two B and C, will be taken as our new E, the choice which **minimizes** the distance to the new q"
-
-For termination, minimizing is one way to achieve decreasing steps in the repetition.
-
-//
-
----
 
 So here, we put of B and C, 
 
@@ -284,27 +237,9 @@ And I call that little b.
 
 ![a.11](a.11.png)
 
+
 ![a.12](a.12.png)
 
----
-
-//
-My comment. Understanding the picture.
-
-The precondition of the whole program is that "the points are not collinear. Therefore we draw a line, call it q, and we draw a point not on the line, call it E.
-
-The guard of the repetition is "nopo.q > 2", therefore at least three points lie on q, call them A, B, C.
-
-In changing q we have three possibilities, from E to A or B or C. Any other line like A-B would not change q.
-
-Let the line E-A be chosen as the new q. Now we must chose which of the other points, B, C we will take as our new E. We make that choice by taking the one that minimizes the distance to the new q, i.e. we consider the distance between the new q and points B and C and the lesser becomes our new E.
-
-In looking for a termination argument we make use of the definition of euclidian distance between a point and a line, i.e. the length of a perpendicular from a point to a line. We now consider the distance between q and E, call it h.
-
-
-//
-
----
 
 And I will do the same for capital C, which has a distance little c to the new q, only I don't make that drawing because that **invokes a case analysis** because there are all sorts of places where C might lie and I'm not going to do that. My **proof** obligation for the **termination** is, that I can demonstrate, that the **minimum** of little b and little c is **actually** less than h.
 
@@ -319,7 +254,8 @@ And if I can show that, I have satisfied my proof obligation, [it] means that **
 
 Now, I have to show this, I'm going to simplify that, the very first thing is that I wish to eliminate, that operator that takes the minimum, so without changing the value of this boolean expression, I wish to **eliminate the minimum function**, 
 
-// My comment. He calls this a function but he does not use the dot notation f.x. Instead min appears as a infix operator like x + y.
+
+
 
 ![b.29](b.29.png)
 
@@ -333,20 +269,9 @@ and the minimum of b and c, less than h, is according to the rules of my game, i
 
 ![a.14](a.14.png)
 
----
-
-// 
-
 
 [Pause and think](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=27m37s)
 
-My comment. Note the long pause. Taking the time to think. Remember to really pause and think when solving a problem. No rush.
-
-Don't forget little b and c are lines, while capital B and C are points.
-
-//
-
----
 
 Everrrybody agrees? 
 
@@ -357,15 +282,15 @@ Everrrybody agrees?
 
 Huh? No sir, because for the termination argument I need actual decrease, so the minimum of these, of this, if this value has to be less h, then b, then b is less than h or c is less than h. And this is an equivalence because, these two boolean expressions have the **same value**.
 
-// My comment. [x] TODO. Convince myself of that min equivalence.
+
 
 Now, the next thing I wish to do, is to eliminate the lower case letters, obviously, obviously, because little b and h and little c, they only occur in that picture, 
 
-// My comment: "they only occur in that picture" and do not occur in the program we are developing.
+
 
 and the sooner I liberate myself from that **picture**, the better. Now, ehh, my claim is that there is a simple expression, that has the **same value** as b less than h. Is anybody willing to make a suggestion? The length of BA or AB, yes, is less than EA, yah, and that follows from similar **triangles**.
 
-// My comment. EUCLID FTW!
+
 
 ![a.15](a.15.png)
 
@@ -475,7 +400,7 @@ So, oops, OK. Ehh, next step, what does this follow from? Do we have a way to de
 
 Yes, for instance, x plus x prime, is at least, I can even put at least here, yes. x plus x prime is at least y plus y prime. 
 
-// My comment. Notice the slanted way he writes the \>= symbol.
+
 
 ![a.25](a.25.png)
 
@@ -483,7 +408,7 @@ Yes, for instance, x plus x prime, is at least, I can even put at least here, ye
 
 Monotonicity of the addition. Write now down the **contrapositive** of this relation. x less than y or x prime less than y prime follows from x plus x prime less than y plus y prime. 
 
-// My comment. My study of Dijkstra's Predicate Calculus and Program Semantics has paid off here. Notice how effortlessly we were able to turn the expression with a conjunction into one with a disjunction by writing down the equivalent contrapositive. 
+
 
 ![a.27](a.27.png)
 
@@ -503,7 +428,7 @@ Now h differs from 0, tells us because the points A, B, and C are all different,
 
 # next read through, draw some examples.
 
-// My comment. Here I am lost. I don't understand what he says about h differing from 0 and triangle EBC not being degenerate.
+
 
 ![a.31](a.31.png)
 
@@ -545,34 +470,6 @@ Sylvester's original statement of the problem. And that will give you another as
 
 When I tried to read that I discovered that I couldn't, there were too many negations and unless's etc. And in utter despair finally I took the concise oxford dictionary, because I now wanted to know very precisely what "unless" means. Yah, I am a modest man and I am not afraid of going to the authorities. It was very illuminating because, the C.O.D. gives two meanings for unless, one is "if-not", now "if" is a follows from, and "not" is negation, this is or.
 
----
-
-//
-
-// My comment. 
-```text
-// C.O.D. Definition of "unless"
-// "if is a follows from"
-"X if Y" 
-= 
-X ⇐ Y 
-= 
-X ∨ ¬Y.
-// "not is negation"
-"X if-not Y"
-=
-"X if ¬Y" 
-=
-X ⇐ ¬Y
-=
-X ∨ ¬¬Y
-=
-X ∨ Y. // "this is or"
-
-```
-//
-
----
 
 And the other one it gives is "except when". And if you start analyzing what "except when" means then you will come to not equivalent [≢]. So even the statement of, the theorem, is already ambiguous. Coxeter makes it worse in the sense that, he does not give, to begin with, the formulation of Sylvester, he gives his own definition, or statement of the theorem, but thereby he drops the requirement that the points are distinct, and then the theorem is false, you see, you can easily construct a counter example. OK that is what I wanted to say about how a once deep theorem, these days, is a trivial programming exercise. Any questions? "[D. Knuth?] Do you know of a corresponding three dimensional theorem?" Yes, yes, and that is, that depends on how you, generalize distinct points. One way of defining distinctness in the plane, is that any two points uniquely determine, the line through them. The generalization for three dimensions is that any three points, uniquely determine the plane through them. And then, what you then can do is take one point, project the other points in the plane, prove the theorem in the plane, and then restore the lines in the planes again. My guess is that Coxeter has missed that generalization, because he never took the trouble of stating explicitly that the points should be distinct, or he didn't care. I mean that's the other possibility. Yes, sir. "...". Untrained mathematicians find it very difficult, no not necessarily, the program is short, I think the correctness proof simple, but what is certainly true is that in general, a program is a very compact deposit of our intellectual labors, sure. Yes, sir. "...". Yes. Yes. Real euclidian plane. Yah. Finite number of points, each point is red or blue, there exists a line that contains more than one point of homogenous color. Ahh hah, ahh hah, yeah, OK. Its not an open it is a closed problem. OK well, I might try it, tonight in bed. 
 
@@ -581,87 +478,4 @@ Well, thinking horizontally is a nice place. "...". No, same argument. Yea, yea,
 [Video bookmark](https://www.youtube.com/watch?v=U_zcIgNNjbw&t=54m20s)
 
 And immediately if you suggest this, you say well what can you conclude, people come up with the sum. To do it the other way around, it's just a form that we don't know it, it's logically equivalent. I find that a little bit frightening. OK. Thank you.
-
----
-
-//
-
-My comment. Reminder: Given a point and a line you can always draw a perpendicular connecting them. This is defined to be distance between a point and a line.
-
-// a.5
-
-//
-
----
-
----
-
-//
-
-My comment: 
-"The fact that the points are not collinear implies that there are at least **three** points"
-
-For, if we had only two points, they are necessarily collinear.
-
-By Inspection of EWD 1049 I was able to confirm that "triangle EBC is not degenerate" = "triangle EBC is a proper triangle, the points EBC are not collinear".
-
-This lecture's proof is also given in [EWD 1016](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD10xx/EWD1016.html).
-
-//
-
----
-
-* // BB
- * P : nopo.q ≥ 2 ∧ E lies not on q.
-
-
-```text
-//v0
-q : line
-; initializes q {P
-; do nopo.q > 2 →
-  q := ... {P}
-  od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
-```
-
-```
-// v1
-{points are not collinear}
-q : line; E : point
-; initializes q, E {P
-; do nopo.q > 2 →
-  q := ... {P}
-od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
-```
-
-
-```
-// v2
-{points are not collinear}
-q : line; E : point
-; initializes q, E {P
-; do nopo.q > 2 → {A, B, C lie on q, and E lies not on q}
-  q, E  := ... {P}
-od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
-```
-
-```
-// v3
-{points are not collinear}
-q : line; E : point
-; initializes q, E {P
-; do nopo.q > 2 → {A, B, C lie on q, and E lies not on q}
-  q, E  := "line E A", "of B and C, the nearest to our new q" {P}
-od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
-```
-
-```
-// v4
-{points are not collinear}
-q : line; E : point
-; initializes q, E {P
-; do nopo.q > 2 → {A, B, C lie on q, and E lies not on q}
-  q, E  := "line E A",  {P}
-od {P ∧ nopo.q ≤ 2, hence nopo.q = 2}
-```
 
