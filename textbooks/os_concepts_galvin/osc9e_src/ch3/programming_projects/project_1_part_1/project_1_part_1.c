@@ -1,33 +1,15 @@
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #define LINE_BUFFER_SIZE 80
 
-// Returns 0 if successful. At most max - 1 tokens are returned. Returns 1 if there were more than max - 1 tokens in line.
-// Parses line into space separated tokens, returns tokens in args.
-// The last token in args is indicated by a subsequent NULL pointer.
-int parse_input(char *line, char **args, int max) {
-    int i = 0;
-    char *s;
-    s = strtok(line, " \n");
 
-    while (s != NULL && i < max - 1) {
-        args[i] = s;
-        i++;
-        s = strtok(NULL, " \n");
-    }
+int parse_input(char *line, char **args, int max);
 
-    args[i] = NULL;
-
-    if (s != NULL && i == max - 1) {
-        return 1;
-    }
-
-    return 0;
-}
 
 int main(int argc, char **argv) {
-    char *args[4];//LINE_BUFFER_SIZE/2+1];
+    char *args[LINE_BUFFER_SIZE/2+1];
     int should_run = 1;
     char line[LINE_BUFFER_SIZE];
     char *l;
@@ -64,10 +46,33 @@ int main(int argc, char **argv) {
         }
 
         /* Check is the user wants to exit */
-        if(strcmp(line, "exit\n") == 0) {
+        if(args[0] != NULL && strcmp(args[0], "exit") == 0) {
             printf("Ok. Goodbye!\n");
             should_run = 0;
         }
+    }
+
+    return 0;
+}
+
+// Returns 0 if successful. At most max - 1 tokens are returned. Returns 1 if there were more than max - 1 tokens in line.
+// Parses line into space separated tokens, returns tokens in args.
+// The last token in args is indicated by a subsequent NULL pointer.
+int parse_input(char *line, char **args, int max) {
+    int i = 0;
+    char *s;
+    s = strtok(line, " \n");
+
+    while (s != NULL && i < max - 1) {
+        args[i] = s;
+        i++;
+        s = strtok(NULL, " \n");
+    }
+
+    args[i] = NULL;
+
+    if (s != NULL && i == max - 1) {
+        return 1;
     }
 
     return 0;
