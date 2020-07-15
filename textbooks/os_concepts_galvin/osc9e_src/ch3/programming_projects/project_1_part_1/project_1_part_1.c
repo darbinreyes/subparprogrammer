@@ -34,7 +34,7 @@ int main(int argc, char **argv) {
 
     while (should_run) {
         printf("darbinsshell> ");
-        // ? fflush(stdout)
+        // ? fflush(stdout) // The use of this function might be evident after adding fork()+exec() call.
 
         /* Get a line of input */
         line[0] = '\0';
