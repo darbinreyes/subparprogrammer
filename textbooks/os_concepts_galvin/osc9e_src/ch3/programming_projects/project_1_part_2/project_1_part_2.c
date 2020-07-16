@@ -81,12 +81,15 @@ int main(int argc, char **argv) {
             return 1;
         }
 
+
         /* Check if the user wants to exit, otherwise try to run the given command */
         if (args[0] != NULL && strcmp(args[0], "exit") == 0) {
             printf("Ok. Goodbye!\n");
             should_run = 0;
         } else if (args[0] != NULL && strcmp(args[0], "history") == 0) {
             print_history();
+        } else if (args[0] != NULL && strcmp(args[0], "!!") == 0) {
+            printf("BANG BANG\n");
         } else if (args[0] != NULL) {
             run_cmd(args, no_wait);
         }
