@@ -5,9 +5,40 @@
 #include <sys/wait.h>
 
 #define LINE_BUFFER_SIZE 80
+#define HISTORY_SIZE 3
 
 int parse_input(char *line, char **args, int max, int *no_wait);
 void run_cmd(char **args, int no_wait);
+
+static char history_lines[HISTORY_SIZE][LINE_BUFFER_SIZE];
+static char *history_ptrs[HISTORY_SIZE];
+static int history_mri = 0;
+static int history_count = 0;
+
+void print_history (void) {
+    int i, hi;
+    printf("Total command count: %d.\n", history_count);
+    for (i = 0; i < HISTORY_SIZE; i++) {
+        hi = history_mri - i;
+        if (hi < 0)
+            hi += HISTORY_SIZE;
+        printf("%d :%d: %s\n", history_count - i, hi, history_ptrs[hi]);
+    }
+}
+
+void add_history(char *line) {
+    if (history_count < HISTORY_SIZE)  {
+        strcpy(history_lines[history_count], line);
+        history_ptrs[history_count] = history_lines[history_count];
+        history_mri = history_count;
+    } else {
+        history_mri = (history_mri + 1) % HISTORY_SIZE;
+        strcpy(history_lines[history_mri], line);
+    }
+
+    history_count++;
+
+}
 
 int main(int argc, char **argv) {
     char *args[LINE_BUFFER_SIZE/2+1];
@@ -42,6 +73,8 @@ int main(int argc, char **argv) {
             return 2;
         }
 
+        add_history(line);
+
         /* Parse the input line */
         if (parse_input(line, args, sizeof(args)/sizeof(args[0]), &no_wait)) {
             fprintf(stderr, "Input line had too many tokens.\n");
@@ -52,6 +85,8 @@ int main(int argc, char **argv) {
         if (args[0] != NULL && strcmp(args[0], "exit") == 0) {
             printf("Ok. Goodbye!\n");
             should_run = 0;
+        } else if (args[0] != NULL && strcmp(args[0], "history") == 0) {
+            print_history();
         } else if (args[0] != NULL) {
             run_cmd(args, no_wait);
         }
