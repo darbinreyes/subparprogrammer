@@ -6,9 +6,8 @@
 
 #define LINE_BUFFER_SIZE 80
 
-
 int parse_input(char *line, char **args, int max, int *no_wait);
-pid_t run_cmd(char **args, int no_wait);
+void run_cmd(char **args, int no_wait);
 
 int main(int argc, char **argv) {
     char *args[LINE_BUFFER_SIZE/2+1];
@@ -16,11 +15,10 @@ int main(int argc, char **argv) {
     char line[LINE_BUFFER_SIZE];
     char *l;
     int no_wait;
-    pid_t pid;
 
     while (should_run) {
         printf("darbinsshell> ");
-        //fflush(stdout); // The use of this function might be evident after adding fork()+exec() call.
+        //fflush(stdout); // The purpose of calling this function is unclear.
 
         /* Get a line of input */
         line[0] = '\0';
@@ -32,9 +30,10 @@ int main(int argc, char **argv) {
             return 1;
         }
 
+        /* User press control+d key. Treat it as a request to terminate. */
         if (l == NULL && feof(stdin)) {
             fprintf(stderr, "fgets got eof. Bye.\n");
-            return 3;
+            return 0;
         }
 
         /* Check if the input line was too long */
@@ -43,33 +42,40 @@ int main(int argc, char **argv) {
             return 2;
         }
 
-        //printf("You entered: %s", line);
+        /* Parse the input line */
         if (parse_input(line, args, sizeof(args)/sizeof(args[0]), &no_wait)) {
             fprintf(stderr, "Input line had too many tokens.\n");
             return 1;
         }
 
-        /* Check is the user wants to exit */
+        /* Check if the user wants to exit, otherwise try to run the given command */
         if (args[0] != NULL && strcmp(args[0], "exit") == 0) {
             printf("Ok. Goodbye!\n");
             should_run = 0;
-        }
-
-        if (args[0] != NULL) {
-            pid = run_cmd(args, no_wait);
-            if (pid <= 0) {
-                fprintf(stderr, "Command error. Bye.\n");
-                return 1;
-            }
+        } else if (args[0] != NULL) {
+            run_cmd(args, no_wait);
         }
     }
 
     return 0;
 }
 
-// Returns 0 if successful. At most max - 1 tokens are returned. Returns 1 if there were more than max - 1 tokens in line.
-// Parses line into space separated tokens, returns tokens in args.
-// The last token in args is indicated by a subsequent NULL pointer.
+/*
+
+    Parses line into space delimited tokens and stores the result in args. The
+    format of args is identical to the typical argv argument passed to main().
+    The last token in args is indicated by a subsequent NULL pointer.
+
+    Returns 0 if successful, otherwise an error occurred.
+
+    At most max - 1 tokens are returned. If there are more than max - 1 tokens
+    parsing stops, args should not be used, this is considered an error, 1 is
+    returned. `no_wait` indicates the presence of an '&' character as the final
+    token in line. If no_wait == 0, '&' was not present, if == 1, '&' was
+    present. If '&' is present as the final token in line, the '&' is not
+    returned in args.
+
+*/
 int parse_input(char *line, char **args, int max, int *no_wait) {
     int i = 0;
     char *s;
@@ -101,34 +107,34 @@ int parse_input(char *line, char **args, int max, int *no_wait) {
 
 /*
 
-    Creates a child process using fork(). The child calls execvp() and the
-    parent waits for the child to terminate before returning. If no_wait != 0
-    the parent does not wait and instead returns immediately.
+    Creates a child process using fork(). If successful, only the parent returns
+    from this function. After the fork, the child calls execvp() to execute the
+    command specified by args. If no_wait == 0, the parent waits for the child
+    to terminate before returning from this function. If no_wait == 1, the
+    parent not wait for the child to terminate and returns immediately.
 
 */
-pid_t run_cmd(char **args, int no_wait) {
+void run_cmd(char **args, int no_wait) {
     pid_t pid;
     int stat_loc;
 
     pid = fork();
 
     if (pid < 0) {
-        fprintf(stderr, "fork() error.\n");
+        /* fork() failed. Terminate. */
+        fprintf(stderr, "fork() error. Bye.\n");
+        exit(1);
     } else if (pid > 0) {
         /* Parent process */
-        if(no_wait)
-            ;//fprintf(stderr, "Parent not waiting.\n");
-        else {
-            wait(&stat_loc);
-            fprintf(stderr, "Parent returned from wait.\n");
+        if (no_wait == 0) {
+            waitpid(pid, &stat_loc, 0);
         }
-
     } else {
         /* Child process */
-        execvp(args[0], args); // Only returns upon error.
-        fprintf(stderr, "\nexec() error.\n");
+        execvp(args[0], args); // execvp() only returns if an error occurred.
+        /* execvp() error. Terminate. */
+        fprintf(stderr, "Exec() error.\n");
         exit(1);
     }
 
-    return pid;
 }
