@@ -6,12 +6,12 @@
 
 */
 
-/*
-
+/* ******* Scratch Work *******
     Notes from Carrano, Chapter 26, A Heap Implementation.
 
     A heap is a complete binary tree whose nodes are ordered in specific manner.
-    In a maxheap each node is greater than or equal to the objects in the nodes descendants.
+    In a maxheap each node is greater than or equal to the objects in the nodes
+    descendants.
 
     The interface to a maxheap has the following methods:
     void add(T newEntry)
@@ -21,7 +21,14 @@
     getSize();
     clear();
 
-    NEXT: pg. 707, "Since the tree is complete."
+    See pg. 714.
+
+    NEXT:
+
+    Finished reviewing heap implementation.
+    Might want to use a function pointer for node comparison.
+    Implement max heap, convert to min heap.
+    Define how to handle array size and how to mark entries as empty.
 
 
-*/
+************** */
