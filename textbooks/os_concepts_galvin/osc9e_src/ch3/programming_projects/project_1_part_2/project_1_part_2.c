@@ -10,28 +10,105 @@
 int parse_input(char *line, char **args, int max, int *no_wait);
 void run_cmd(char **args, int no_wait);
 
+/* Array of input line buffers. */
 static char history_lines[HISTORY_SIZE][LINE_BUFFER_SIZE];
+/*
+
+    Circular array, history_ptrs[history_mri] always points to the most recent
+    command e.g.:
+
+    history_ptrs[history_mri], most recent
+    history_ptrs[history_mri - 1], second most recent
+    history_ptrs[history_mri - 2], third most recent
+    ...
+    etc.
+
+*/
 static char *history_ptrs[HISTORY_SIZE];
-static int history_mri = 0;
-static int history_count = 0;
+static int history_mri = 0; /* mri = most recent command index */
+static int history_count = 0; /* Monotonic total command count. */
 
 void print_history (void) {
-    int i, hi;
+    int i, hi; // hi = history index.
     printf("Total command count: %d.\n", history_count);
     for (i = 0; i < HISTORY_SIZE; i++) {
         hi = history_mri - i;
+        /*
+
+            This accounts for the fact that we are iterating over the circular
+            history array with decreasing indexes.
+
+        */
         if (hi < 0)
             hi += HISTORY_SIZE;
         printf("%d :%d: %s\n", history_count - i, hi, history_ptrs[hi]);
     }
 }
 
+/* Print most recent command */
+void print_mr_cmd(void) {
+    if (history_count > 0)
+        printf("%s", history_ptrs[history_mri]);
+    else
+        printf("No such command. History is empty.\n");
+}
+
+// Copies the most recent input line from the history into line.
+void get_mr_line(char *line) {
+    if (history_count > 0) {
+        strcpy(line, history_ptrs[history_mri]);
+    }
+}
+
+/*
+
+    Returns 1 if a most recent command exists and copies it to `line`.
+    Returns 0 Otherwise.
+
+*/
+int get_history_mr_cmd(char *line) {
+    if (history_count == 0) {
+        printf("No such command. History is empty.\n");
+        return 0;
+    }
+
+    /* Echo most recent command. */
+    printf("%s", history_ptrs[history_mri]);
+
+    /* Return most recent command. */
+    strcpy(line, history_ptrs[history_mri]);
+
+    return 1;
+}
+
 void add_history(char *line) {
     if (history_count < HISTORY_SIZE)  {
-        strcpy(history_lines[history_count], line);
+        /* History is not full yet. */
+        strcpy(history_lines[history_count], line); // Save input line.
+        /*
+            Assuming a history of size 3.
+            1st command is stored in 0
+            2nd command is stored in 1
+            3rd command is stored in 2
+
+        */
         history_ptrs[history_count] = history_lines[history_count];
         history_mri = history_count;
     } else {
+        /* History is stored in a circular array. */
+        /*
+
+            Assuming a history of size 3.
+
+            1st command is stored in 0
+            2nd command is stored in 1
+            3rd command is stored in 2
+            history_count >= HISTORY_SIZE
+            4th command is stored in 0
+            5th command is stored in 1
+            etc.
+
+        */
         history_mri = (history_mri + 1) % HISTORY_SIZE;
         strcpy(history_lines[history_mri], line);
     }
@@ -44,39 +121,46 @@ int main(int argc, char **argv) {
     char *args[LINE_BUFFER_SIZE/2+1];
     int should_run = 1;
     char line[LINE_BUFFER_SIZE];
+    char line_tokenized[LINE_BUFFER_SIZE];
     char *l;
     int no_wait;
+    int is_history_cmd = 0;
 
     while (should_run) {
-        printf("darbinsshell> ");
-        //fflush(stdout); // The purpose of calling this function is unclear.
+        if (is_history_cmd) {
+            is_history_cmd = 0;
 
-        /* Get a line of input */
-        line[0] = '\0';
-        l = fgets(line, LINE_BUFFER_SIZE, stdin);
+        } else {
+            printf("darbinsshell> ");
+            //fflush(stdout); // The purpose of calling this function is unclear.
 
-        /* Check if fgets encountered an error */
-        if (l == NULL && ferror(stdin)) {
-            fprintf(stderr, "fgets error. Bye.\n");
-            return 1;
+            /* Get a line of input */
+            line[0] = '\0';
+            l = fgets(line, LINE_BUFFER_SIZE, stdin);
+
+            /* Check if fgets encountered an error */
+            if (l == NULL && ferror(stdin)) {
+                fprintf(stderr, "fgets error. Bye.\n");
+                return 1;
+            }
+
+            /* User press control+d key. Treat it as a request to terminate. */
+            if (l == NULL && feof(stdin)) {
+                fprintf(stderr, "fgets got eof. Bye.\n");
+                return 0;
+            }
+
+            /* Check if the input line was too long */
+            if (strlen(line) == LINE_BUFFER_SIZE - 1 && line[LINE_BUFFER_SIZE - 2] != '\n') {
+                fprintf(stderr, "Input line was too long.\n");
+                return 2;
+            }
         }
 
-        /* User press control+d key. Treat it as a request to terminate. */
-        if (l == NULL && feof(stdin)) {
-            fprintf(stderr, "fgets got eof. Bye.\n");
-            return 0;
-        }
-
-        /* Check if the input line was too long */
-        if (strlen(line) == LINE_BUFFER_SIZE - 1 && line[LINE_BUFFER_SIZE - 2] != '\n') {
-            fprintf(stderr, "Input line was too long.\n");
-            return 2;
-        }
-
-        add_history(line);
+        strcpy(line_tokenized, line);
 
         /* Parse the input line */
-        if (parse_input(line, args, sizeof(args)/sizeof(args[0]), &no_wait)) {
+        if (parse_input(line_tokenized, args, sizeof(args)/sizeof(args[0]), &no_wait)) {
             fprintf(stderr, "Input line had too many tokens.\n");
             return 1;
         }
@@ -86,13 +170,31 @@ int main(int argc, char **argv) {
         if (args[0] != NULL && strcmp(args[0], "exit") == 0) {
             printf("Ok. Goodbye!\n");
             should_run = 0;
-        } else if (args[0] != NULL && strcmp(args[0], "history") == 0) {
+            exit(0);
+        }
+
+        if (args[0] != NULL && strcmp(args[0], "history") == 0) {
+            add_history(line); // Bash does this.
             print_history();
-        } else if (args[0] != NULL && strcmp(args[0], "!!") == 0) {
+        }
+
+        if (args[0] != NULL && strcmp(args[0], "!!") == 0) {
             printf("BANG BANG\n");
+            is_history_cmd = get_history_mr_cmd(line);
+            /*
+
+                Bash does not include !! in the history, instead we save a copy
+                of the most recent command.
+
+            */
+            if (is_history_cmd)
+                add_history(line);
         } else if (args[0] != NULL) {
+            add_history(line);
             run_cmd(args, no_wait);
         }
+
+
     }
 
     return 0;
