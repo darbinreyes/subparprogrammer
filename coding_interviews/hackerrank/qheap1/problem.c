@@ -30,5 +30,8 @@
     Implement max heap, convert to min heap.
     Define how to handle array size and how to mark entries as empty.
 
+    The fundamental concept of a heap is the observation that it can be
+    represented as a complete binary tree and that a complete binary tree can
+    always be represented by an array.
 
 ************** */
