@@ -45,21 +45,6 @@ void print_history (void) {
     }
 }
 
-/* Print most recent command */
-void print_mr_cmd(void) {
-    if (history_count > 0)
-        printf("%s", history_ptrs[history_mri]);
-    else
-        printf("No such command. History is empty.\n");
-}
-
-// Copies the most recent input line from the history into line.
-void get_mr_line(char *line) {
-    if (history_count > 0) {
-        strcpy(line, history_ptrs[history_mri]);
-    }
-}
-
 /*
 
     Returns 1 if a most recent command exists and copies it to `line`.
@@ -77,6 +62,108 @@ int get_history_mr_cmd(char *line) {
 
     /* Return most recent command. */
     strcpy(line, history_ptrs[history_mri]);
+
+    return 1;
+}
+
+/*
+
+    Copies to `line` a command from the history identified by `N`.
+
+    Returns 1 if the command exists. Returns 0 Otherwise.
+
+*/
+int get_history_Nth_cmd(int N, char *line) {
+    int i, hi; // hi = history index.
+
+    if (history_count == 0) {
+        printf("No such command. History is empty.\n");
+        return 0;
+    }
+
+    /* ******* Scratch work *******
+        assert history_count > 0.
+
+        When history is not full, history_count < HISTORY_SIZE
+        if history_count == 1
+            N == 1 is the only valid value.
+        if history_count == 2
+            N == 2, 1 OK
+        if history_count == 3, history is full, code below works.
+
+        Thus,
+
+        if history_count < HISTORY_SIZE
+            valid N means
+            N >= 1 && N <= history_count
+
+            1 > 1, false
+            1 <= 1 - 3 // 1 <= -2, false
+            N = 1  is OK
+            i = 1 - 1 = 0.
+            hi = 0 - 0 = 0.
+
+            0 > 1, false
+            0 <= 1 - 3 // 0 <= -2, false
+
+            N = 2, history_count = 2
+            2 > 2, false
+            2 <= 2 - 3 // 2 <= -1, false
+            i = 2 - 2 = 0.
+            hi = 1 - 0 = 1
+
+    ************** */
+
+    // When history is non-empty and not full, this validates N.
+    if (history_count < HISTORY_SIZE) {
+        if (N < 1 || N > history_count) {
+            printf("No such command.\n");
+            return 0;
+        }
+    }
+
+    // When history is full, this validates N.
+    if (N > history_count || N <= history_count - HISTORY_SIZE) {
+        printf("No such command.\n");
+        return 0;
+    }
+
+    /* ******* Scratch work *******
+        assert N <= history_count && N > history_count - HISTORY_SIZE
+        Use N to identify the command in command history.
+
+        N = most recent command.
+
+        if N == history_count
+            return history_ptrs[history_mri]
+
+        if history_count - N == 0
+            return history_ptrs[history_mri]
+
+        // case N = 11
+
+        history_count - N = 12 - 11 = 1
+
+        // case N = 10
+
+        history_count - N = 12 - 10 = 2
+
+
+    ************** */
+
+    i = history_count - N;
+    hi = history_mri - i;
+
+    if (hi < 0)
+        hi += HISTORY_SIZE;
+
+    history_ptrs[hi]
+
+    /* Echo command. */
+    printf("%s", history_ptrs[hi]);
+
+    /* Return command. */
+    strcpy(line, history_ptrs[hi]);
 
     return 1;
 }
