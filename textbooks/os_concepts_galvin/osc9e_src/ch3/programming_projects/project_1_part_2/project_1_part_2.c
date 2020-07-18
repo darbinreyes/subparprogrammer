@@ -17,7 +17,6 @@ int get_history_mr_cmd(char *line);
 int get_history_Nth_cmd(int N, char *line);
 void add_history(char *line);
 
-
 /* Array of input line buffers. */
 static char history_lines[HISTORY_SIZE][LINE_BUFFER_SIZE];
 /*
@@ -42,11 +41,12 @@ static int history_mri = 0; /* mri = most recent command index */
 */
 static int history_count = 0;
 
+static char *args[LINE_BUFFER_SIZE/2+1];
+static char line[LINE_BUFFER_SIZE];
+static char line_tokenized[LINE_BUFFER_SIZE];
+
 int main(int argc, char **argv) {
-    char *args[LINE_BUFFER_SIZE/2+1];
     int should_run = 1;
-    char line[LINE_BUFFER_SIZE];
-    char line_tokenized[LINE_BUFFER_SIZE];
     char *l;
     int no_wait;
     int is_line_from_history = 0;
