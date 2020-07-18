@@ -6,7 +6,7 @@
 #include <ctype.h>
 
 #define LINE_BUFFER_SIZE 80
-#define HISTORY_SIZE 3
+#define HISTORY_SIZE 10
 
 int parse_input(char *line, char **args, int max, int *no_wait);
 void run_cmd(char **args, int no_wait);
@@ -38,8 +38,7 @@ static int history_count = 0;
 
 void print_history (void) {
     int i, hi; // hi = history index.
-    printf("Total command count: %d.\n", history_count);
-    for (i = 0; i < HISTORY_SIZE; i++) {
+    for (i = 0; i < HISTORY_SIZE && i < history_count; i++) {
         hi = history_mri - i;
         /*
 
@@ -49,7 +48,7 @@ void print_history (void) {
         */
         if (hi < 0)
             hi += HISTORY_SIZE;
-        printf("%d :%d: %s\n", history_count - i, hi, history_ptrs[hi]);
+        printf("  %d   %s\n", history_count - i, history_ptrs[hi]);
     }
 }
 
@@ -290,10 +289,8 @@ int main(int argc, char **argv) {
         } else if (is_hist_cmd) {
             print_history();
         } else if (is_bangbang_cmd) {
-            printf("BANG BANG\n");
             is_line_from_history = get_history_mr_cmd(line);
         } else if (is_bang_cmd) {
-            printf("BANG N\n");
             N = atoi(&args[0][1]);
             is_line_from_history = get_history_Nth_cmd(N, line);
         } else  {
