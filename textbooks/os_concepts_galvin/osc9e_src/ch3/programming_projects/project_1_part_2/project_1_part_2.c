@@ -110,10 +110,10 @@ int main(int argc, char **argv) {
         if (!is_bangbang_cmd && !is_bang_cmd) {
             /*
 
-                Bash does not include !! in the history, instead we save a copy
-                of the most recent command.
-                Also, bash places the history command in command history before
-                displaying the history. Adding the history here mimics bash.
+                Bash does not include !! or !N  in the history, instead we save
+                a copy of the fetched command. Also, bash places the history
+                command in command history before displaying the history. Adding
+                the history here mimics bash.
 
             */
             add_history(line);
