@@ -3,12 +3,14 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <ctype.h>
 
 #define LINE_BUFFER_SIZE 80
 #define HISTORY_SIZE 3
 
 int parse_input(char *line, char **args, int max, int *no_wait);
 void run_cmd(char **args, int no_wait);
+int parse_input2(char **args, int *is_exit_cmd, int *is_hist_cmd, int *is_bangbang_cmd, int *is_bang_cmd);
 
 /* Array of input line buffers. */
 static char history_lines[HISTORY_SIZE][LINE_BUFFER_SIZE];
@@ -26,7 +28,13 @@ static char history_lines[HISTORY_SIZE][LINE_BUFFER_SIZE];
 */
 static char *history_ptrs[HISTORY_SIZE];
 static int history_mri = 0; /* mri = most recent command index */
-static int history_count = 0; /* Monotonic total command count. */
+/*
+
+    Monotonic total command count. This program does not handle an overflow of
+    this variable.
+
+*/
+static int history_count = 0;
 
 void print_history (void) {
     int i, hi; // hi = history index.
@@ -157,8 +165,6 @@ int get_history_Nth_cmd(int N, char *line) {
     if (hi < 0)
         hi += HISTORY_SIZE;
 
-    history_ptrs[hi]
-
     /* Echo command. */
     printf("%s", history_ptrs[hi]);
 
@@ -211,12 +217,20 @@ int main(int argc, char **argv) {
     char line_tokenized[LINE_BUFFER_SIZE];
     char *l;
     int no_wait;
-    int is_history_cmd = 0;
+    int is_line_from_history = 0;
+    int N;
+    int is_exit_cmd, is_hist_cmd, is_bangbang_cmd, is_bang_cmd; /* Input flags.*/
 
     while (should_run) {
-        if (is_history_cmd) {
-            is_history_cmd = 0;
 
+        if (is_line_from_history) {
+            /*
+
+                This command was fetched from the command history, skip fetching
+                input from user.
+
+            */
+            is_line_from_history = 0;
         } else {
             printf("darbinsshell> ");
             //fflush(stdout); // The purpose of calling this function is unclear.
@@ -252,32 +266,37 @@ int main(int argc, char **argv) {
             return 1;
         }
 
-
-        /* Check if the user wants to exit, otherwise try to run the given command */
-        if (args[0] != NULL && strcmp(args[0], "exit") == 0) {
-            printf("Ok. Goodbye!\n");
-            should_run = 0;
-            exit(0);
+        if (!parse_input2(args, &is_exit_cmd, &is_hist_cmd, &is_bangbang_cmd, &is_bang_cmd)) {
+            continue;
         }
 
-        if (args[0] != NULL && strcmp(args[0], "history") == 0) {
-            add_history(line); // Bash does this.
-            print_history();
-        }
-
-        if (args[0] != NULL && strcmp(args[0], "!!") == 0) {
-            printf("BANG BANG\n");
-            is_history_cmd = get_history_mr_cmd(line);
+        if (!is_bangbang_cmd && !is_bang_cmd) {
             /*
 
                 Bash does not include !! in the history, instead we save a copy
                 of the most recent command.
+                Also, bash places the history command in command history before
+                displaying the history. Adding the history here mimics bash.
 
             */
-            if (is_history_cmd)
-                add_history(line);
-        } else if (args[0] != NULL) {
             add_history(line);
+        }
+
+        /* Check if the user wants to exit, otherwise try to run the given command */
+        if (is_exit_cmd) {
+            printf("Ok. Goodbye!\n");
+            should_run = 0; // I don't see the point of this, but it is given by the problem statement.
+            exit(0);
+        } else if (is_hist_cmd) {
+            print_history();
+        } else if (is_bangbang_cmd) {
+            printf("BANG BANG\n");
+            is_line_from_history = get_history_mr_cmd(line);
+        } else if (is_bang_cmd) {
+            printf("BANG N\n");
+            N = atoi(&args[0][1]);
+            is_line_from_history = get_history_Nth_cmd(N, line);
+        } else  {
             run_cmd(args, no_wait);
         }
 
@@ -285,6 +304,41 @@ int main(int argc, char **argv) {
     }
 
     return 0;
+}
+
+/*
+
+    Second step of input parsing. Returns several boolean flags. Returns 0 if
+    `args` is empty, none of the flags are set. Otherwise returns 1 flags are set
+    accordingly.
+
+*/
+int parse_input2(char **args, int *is_exit_cmd, int *is_hist_cmd, int *is_bangbang_cmd, int *is_bang_cmd) {
+    *is_exit_cmd = 0;
+    *is_hist_cmd = 0;
+    *is_bang_cmd = 0;
+    *is_bangbang_cmd = 0;
+
+    if (args[0] == NULL)
+        return 0;
+    /* Check if the user wants to exit, otherwise try to run the given command */
+    if (args[0] != NULL && strcmp(args[0], "exit") == 0) {
+        *is_exit_cmd = 1;
+    }
+
+    if (args[0] != NULL && strcmp(args[0], "history") == 0) {
+        *is_hist_cmd = 1;
+    }
+
+    if (args[0] != NULL && strcmp(args[0], "!!") == 0) {
+        *is_bangbang_cmd = 1;
+    }
+
+    if (args[0] != NULL && args[0][0] == '!' && isdigit(args[0][1])) {
+        *is_bang_cmd = 1;
+    }
+
+    return 1;
 }
 
 /*
