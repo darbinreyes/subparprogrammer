@@ -1,3 +1,11 @@
+/*
+
+    Chapter 3, programming project 1, part 2.
+
+    A basic shell implementation with support for command history.
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -5,8 +13,8 @@
 #include <sys/wait.h>
 #include <ctype.h>
 
-#define LINE_BUFFER_SIZE 80
-#define HISTORY_SIZE 10
+#define LINE_BUFFER_SIZE 80 // Given by problem.
+#define HISTORY_SIZE 10 // Given by problem.
 
 int parse_input(char *line, char **args, int max, int *no_wait);
 void run_cmd(char **args, int no_wait);
@@ -41,7 +49,7 @@ static int history_mri = 0; /* mri = most recent command index */
 */
 static int history_count = 0;
 
-static char *args[LINE_BUFFER_SIZE/2+1];
+static char *args[LINE_BUFFER_SIZE/2+1]; // Given by problem.
 static char line[LINE_BUFFER_SIZE];
 static char line_tokenized[LINE_BUFFER_SIZE];
 
@@ -155,7 +163,7 @@ int main(int argc, char **argv) {
 /*
 
     Second step of input parsing. Returns several boolean flags. Returns 0 if
-    `args` is empty, none of the flags are set. Otherwise returns 1 flags are
+    `args` is empty, none of the flags are set. Otherwise returns 1, flags are
     set accordingly.
 
 */
@@ -275,6 +283,11 @@ void run_cmd(char **args, int no_wait) {
 
 void print_history (void) {
     int i, hi; // hi = history index.
+
+    /*
+        i < history_count ensures correct printing before the
+        history is full.
+    */
     for (i = 0; i < HISTORY_SIZE && i < history_count; i++) {
         hi = history_mri - i;
         /*
@@ -291,7 +304,7 @@ void print_history (void) {
 
 /*
 
-    Returns 1 if a most recent command exists and copies it to `line`.
+    Returns 1 if most recent command exists and copies it to `line`.
     Returns 0 Otherwise.
 
 */
