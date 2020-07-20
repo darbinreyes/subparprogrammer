@@ -14,7 +14,7 @@
 #include <ctype.h>
 
 #define LINE_BUFFER_SIZE 80 // Given by problem.
-#define HISTORY_SIZE 10 // Given by problem.
+#define HISTORY_SIZE 3 // Given by problem.
 
 int parse_input(char *line, char **args, int max, int *no_wait);
 void run_cmd(char **args, int no_wait);
