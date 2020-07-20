@@ -35,3 +35,16 @@
     always be represented by an array.
 
 ************** */
+
+/* ******* Input Constraints *******
+
+Q >= 1, && Q <= 100000 // Therefore the heap must have a size >= 100000
+
+v >= -1000000000 && v <= 1000000000 // There an int is sufficient to hold values. We can use 2^31 = 2147483648 to mark empty elements in the array.
+
+************** */
+
+#define HEAP_ARRAY_SIZE 100001
+#define MAX_HEAP_ENTRIES (HEAP_ARRAY_SIZE - 1) // Our heap array will be 1 based to make indexing simpler.
+static int num_entries = 0;
+
