@@ -136,28 +136,91 @@ if 91 > 90
 i = 1|v = 91
 p = 0
 
+*******
+
+statement|i  |v  |p
+---------|---|---|---
+0        |1  |91 |0
 
 ******* ******* */
 
 // Returns 1 if successfully added v to the heap or if v is already in the heap. Returns 0 if the v could not be added, e.g. if the heap is full.
 int heap_add(int v) {
     // if value v is already in the heap.
-    if (heap_contains(v))
+    if (heap_contains(v)) // TODO:
         return 1;
 
     if (heap_is_full())
         return 0;
 
-    if (heap_is_empty()) {
-        num_entries++;
-        heap_array[ROOT_INDEX] = v;
+    num_entries++;
+    float_up(num_entries, v);
+
+    return 1;
+}
+
+void reheap(int i, int v) {
+    int lc_i, rc_i, largerc_i;
+
+    lc_i = left_child(i);
+    rc_i = right_child(i);
+
+    if (lc_i <= num_entries && rc_i <= num_entries) {
+        if (heap_array[lc_i] > heap_array[rc_i]) // Never equal since we aren't allowing duplicates.
+            largerc_i = lc_i;
+        else
+            largerc_i = rc_i;
+    } else if (lc_i <= num_entries) {
+        // Since the heap is always a complete binary tree, a node with less than 2 children can only have a left child. Otherwise it has no children.
+        largerc_i = lc_i;
+    } else {
+        // i is a node without any children.
+        largerc_i = -1;
+    }
+
+    if(largerc_i == -1) {
+        heap_array[i] = v;
+        return;
+    }
+
+
+    // assert node at position i has two children or 1 left child.
+
+    if (v < heap_array[largerc_i]) {
+        heap_array[i] = heap_array[largerc_i];
+        reheap(largerc_i, v);
+    } else {
+        // assert v >= heap_array[largerc_i]
+        // Since duplicates are not allowed we can assert
+        // assert v > heap_array[largerc_i]
+        // i.e. v is greater than the largest child of node i, therefore v should be the parent of heap_array[largerc_i].
+        heap_array[i] = v;
+        return;
+    }
+}
+
+// Returns 1 if the root is successfully removed, returns the root value in v. Returns 0 if an error occurred, e.g. the heap is empty.
+int heap_rm_root(int *v) {
+
+    if (v == NULL)
+        return 0;
+
+    if (heap_is_empty())
+        return 0;
+
+    if (num_entries == 1) { // Single entry in the heap, return the root.
+        *v = heap_array[num_entries];
+        num_entries--;
         return 1;
     }
 
-    num_entries++;
-    heap_array[num_entries] = v;
-    float_up(num_entries, v);
+    // assert num_entries > 1
 
+    // The standard algorithm is: 1. Place the last leaf at the root, this forms a "semi-heap" 2. Perform a re-heap to create a heap again.
+    *v = heap_array[ROOT_INDEX];
+    heap_array[ROOT_INDEX] = heap_array[num_entries];
+    num_entries--;
+    reheap(ROOT_INDEX, heap_array[ROOT_INDEX]);
     return 1;
 }
 
