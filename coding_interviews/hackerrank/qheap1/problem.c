@@ -43,9 +43,11 @@ Q >= 1, && Q <= 100000 // Therefore the heap must have a size >= 100000
 v >= -1000000000 && v <= 1000000000 // There an int is sufficient to hold values. We can use 2^31 = 2147483648 to mark empty elements in the array.
 
 ************** */
+
 #include <stdio.h>
 #define HEAP_ARRAY_SIZE 100001
-#define MAX_HEAP_ENTRIES (HEAP_ARRAY_SIZE - 1) // Our heap array will be 1 based to make indexing simpler.
+// Our heap array will be 1 based to make indexing simpler.
+#define MAX_HEAP_ENTRIES (HEAP_ARRAY_SIZE - 1)
 static int num_entries = 0;
 static int heap_array[HEAP_ARRAY_SIZE];
 
@@ -76,7 +78,12 @@ int heap_contains(int v) {
     */
     if(heap_is_empty()) // Heap is empty
         return 0;
-    // TODO: can we do this without searching every node. The ADT heap does not include this function.
+    /*
+
+        TODO: can we do this without searching every node. The ADT heap does not
+        include this function.
+
+    */
     return 0;
 }
 
@@ -102,7 +109,13 @@ void float_up(int i, int v) {
         return;
     }
 
-    if (v > heap_array[p]) { // Since heap_add() checks heap_contains(), we will never have heap_array[i] == heap_array[p] here.
+    if (v > heap_array[p]) {
+        /*
+
+            Since heap_add() checks heap_contains(), we will never have
+            heap_array[i] == heap_array[p] here.
+
+        */
         heap_array[i] = heap_array[p];
         float_up(p, v);
     } else {
@@ -154,7 +167,12 @@ statement|i  |v  |p
 
 ******* ******* */
 
-// Returns 1 if successfully added v to the heap or if v is already in the heap. Returns 0 if the v could not be added, e.g. if the heap is full.
+/*
+
+    Returns 1 if successfully added v to the heap or if v is already in the
+    heap. Returns 0 if the v could not be added, e.g. if the heap is full.
+
+*/
 int heap_add(int v) {
     // if value v is already in the heap.
     if (heap_contains(v)) // TODO:
@@ -201,8 +219,8 @@ int has_child(int i) {
 
     @retval j <= 0  If the node does not have children.
     @retval j > 0   If the node has children. If the node has two children, j is
-                    the index of the node containing the larger value. Otherwise,
-                    j is the index of the one and only child.
+                    the index of the node containing the larger value.
+                    Otherwise, j is the index of the one and only child.
 
 */
 int larger_child(int i) {
@@ -285,7 +303,12 @@ void reheap(int i, int v) {
     }
 }
 
-// Returns 1 if the root is successfully removed, returns the root value in v. Returns 0 if an error occurred, e.g. the heap is empty.
+/*
+
+    Returns 1 if the root is successfully removed, returns the root value in v.
+    Returns 0 if an error occurred, e.g. the heap is empty.
+
+*/
 int heap_rm_root(int *v) {
 
     if (v == NULL)
@@ -302,13 +325,49 @@ int heap_rm_root(int *v) {
 
     // assert num_entries > 1
 
-    // The standard algorithm is: 1. Place the last leaf at the root, this forms a "semi-heap" 2. Perform a re-heap to create a heap again.
+    /*
+
+        The standard algorithm is: 1. Place the last leaf at the root, this
+        forms a "semi-heap" 2. Perform a re-heap to create a heap again.
+
+    */
     *v = heap_array[ROOT_INDEX];
     heap_array[ROOT_INDEX] = heap_array[num_entries];
     num_entries--;
     reheap(ROOT_INDEX, heap_array[ROOT_INDEX]);
     return 1;
 }
+
+/*
+
+    int  heap_create(int a[], int l);
+
+    Creating a heap from a given array of values.
+
+    The most obvious implementation of this is to use the heap_add() function
+    on each value in the given array. Since the real work in heap_add() is done
+    by the float_up() function, and the float_up() function is O(log.n), adding
+    n entries is O(n * log.n).
+
+    We can do better by exploiting the reheap() function. The observation that
+    leads to this improvement is that using heap_add() maintains the defining
+    heap property at each addition. But we if we only need the final state of
+    the array to be a heap, then we have some flexibility in the intermediate
+    steps leading up to the a heap upon termination. We can implement
+    heap_create() with O(n) by maintaining a semiheap at each intermediate step.
+    The final reheap operation produces a heap.
+
+    The algorithm is:
+
+    1. Place the given array into the heap array in the given order.
+
+    2. Starting from the last leaf, continuing in reverse level order, we reheap
+    at every node until we reach the root. The final reheap that occurs at the
+    root produces a heap. [Note that the reheap operation is a recursive
+    operation, therefore a reheap at the root of a tall binary tree
+    potentially recurses from the very top down to the leaf nodes.]
+
+*/
 
 int main(void) {
     return 0;
