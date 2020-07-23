@@ -256,29 +256,14 @@ void reheapv2(int root_index) {
 
 
 void reheap(int i, int v) {
-    int lc_i, rc_i, largerc_i;
+    int largerc_i;
 
-    lc_i = left_child(i);
-    rc_i = right_child(i);
+    largerc_i = larger_child(i)
 
-    if (lc_i <= num_entries && rc_i <= num_entries) {
-        if (heap_array[lc_i] > heap_array[rc_i]) // Never equal since we aren't allowing duplicates.
-            largerc_i = lc_i;
-        else
-            largerc_i = rc_i;
-    } else if (lc_i <= num_entries) {
-        // Since the heap is always a complete binary tree, a node with less than 2 children can only have a left child. Otherwise it has no children.
-        largerc_i = lc_i;
-    } else {
-        // i is a node without any children.
-        largerc_i = -1;
-    }
-
-    if(largerc_i == -1) {
+    if(largerc_i <= 0) {
         heap_array[i] = v;
         return;
     }
-
 
     // assert node at position i has two children or 1 left child.
 
@@ -286,12 +271,17 @@ void reheap(int i, int v) {
         heap_array[i] = heap_array[largerc_i];
         reheap(largerc_i, v);
     } else {
-        // assert v >= heap_array[largerc_i]
-        // Since duplicates are not allowed we can assert
-        // assert v > heap_array[largerc_i]
-        // i.e. v is greater than the largest child of node i, therefore v should be the parent of heap_array[largerc_i].
+        /*
+
+            assert v >= heap_array[largerc_i]
+            Since duplicates are not allowed we can assert
+            assert v > heap_array[largerc_i]
+
+            i.e. v is greater than the largest child of node i, therefore v
+            should be the parent of heap_array[largerc_i].
+
+        */
         heap_array[i] = v;
-        return;
     }
 }
 
