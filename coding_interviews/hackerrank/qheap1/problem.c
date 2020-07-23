@@ -64,6 +64,16 @@ int heap_is_full(void) {
 
 // Returns 1 if v is in the heap. Returns 0 otherwise.
 int heap_contains(int v) {
+
+    /*
+
+        This function cannot be implemented by performing an addition of value
+        v, for, we can construct two heaps containing value v in which v is
+        located. The only thing we can assert is that, if v is greater than the
+        root value, then v is certainly not in the heap, otherwise, v may or may
+        not be in the heap.
+
+    */
     if(heap_is_empty()) // Heap is empty
         return 0;
     // TODO: can we do this without searching every node. The ADT heap does not include this function.
@@ -198,6 +208,91 @@ void reheap(int i, int v) {
         return;
     }
 }
+
+/* ******* ******* */
+/* reheapv2() is the reheap implementation as implemented
+by Data Structures, Carrano. */
+
+/*
+
+    Returns 1 if the node identified by `i` has a child. Returns 0 otherwise, in
+    this case, by definition, `i` is a leaf node.
+
+*/
+int has_child(int i) {
+    int lc_i, rc_i;
+
+    lc_i = left_child(i);
+    rc_i = right_child(i);
+
+    if (lc_i <= num_entries || rc_i <= num_entries)
+        return 1;
+
+    return 0;
+}
+
+/*
+
+    Returns the index of the larger child of the specified node.
+
+
+    @param[in] i  The index of a node in the heap.
+
+
+    @retval j <= 0  If the node does not have children.
+    @retval j > 0   If the node has children. If the node has two children, j is
+                    the index of the node containing the larger value. Otherwise,
+                    j is the index of the one and only child.
+
+*/
+int larger_child(int i) {
+    int lc_i, rc_i, largerc_i;
+
+    lc_i = left_child(i);
+    rc_i = right_child(i);
+
+    if (lc_i <= num_entries && rc_i <= num_entries) {
+        /* Never equal since we aren't allowing duplicates. */
+        if (heap_array[lc_i] > heap_array[rc_i])
+            largerc_i = lc_i;
+        else
+            largerc_i = rc_i;
+    } else if (lc_i <= num_entries) {
+        /*
+
+            Since the heap is always a complete binary tree, a node with less
+            than 2 children can only have a left child. Otherwise it has no
+            children. The two blocks below should never execute.
+        */
+        largerc_i = lc_i;
+    } else if (rc_i <= num_entries) {
+        largerc_i = rc_i;
+    } else {
+        /* i is a node without any children. */
+        largerc_i = 0;
+    }
+
+    return largerc_i;
+}
+
+void reheapv2(int root_index) {
+    /* Transforms the semiheap rooted at root_index into a heap */
+    int done = 0;
+    int orphan = heap_array[root_index];
+    int larger_child_index;
+
+    while (!done &&  (larger_child_index = larger_child(root_index)) > 0) {
+        if (orphan < heap_array[larger_child_index]) {
+            heap_array[root_index] = heap_array[larger_child_index];
+            root_index = larger_child_index;
+        } else
+            done = 1;
+    }
+
+    heap_array[root_index] = orphan;
+}
+
+/* ******* ******* */
 
 // Returns 1 if the root is successfully removed, returns the root value in v. Returns 0 if an error occurred, e.g. the heap is empty.
 int heap_rm_root(int *v) {
