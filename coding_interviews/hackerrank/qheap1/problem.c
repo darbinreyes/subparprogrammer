@@ -398,9 +398,16 @@ int  heap_create(int *v, int l) {
 
     num_entries = l;
 
-    /* Perform a reheap at every node starting from the last node, up to and
-       including the root node. */
-    for (i = num_entries; i > 0; i--)
+    /*
+
+        Perform a reheap at every node starting from the last node, up to and
+        including the root node. Since reheaping a single node is a no-op we
+        should skip calling reheap on any leaf nodes. This is achieved by
+        starting the  reheaps at the parent node of the last leaf, which is node
+        num_entries/2.
+
+    */
+    for (i = num_entries/2; i > 0; i--)
         reheap(i, heap_array[i]);
 
     return 0;
