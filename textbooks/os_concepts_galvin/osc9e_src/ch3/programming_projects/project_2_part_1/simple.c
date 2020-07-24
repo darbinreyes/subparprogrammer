@@ -12,8 +12,9 @@ int simple_init(void)
     struct task_struct *t = NULL;
     printk(KERN_INFO "Dijkstra Loading Module\n");
 
+    printk(KERN_INFO "S PID CMD\n");
     for_each_process(t) {
-        printk(KERN_INFO "%d %d %d\n", t->state, t->pid, t->comm);
+        printk(KERN_INFO "%ld %d %s\n", t->state, t->pid, t->comm);
     }
 
     return 0;
