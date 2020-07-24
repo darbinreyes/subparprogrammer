@@ -2,17 +2,26 @@
 #include <linux/module.h>
 #include <linux/kernel.h>
 
+/* ******* My includes ******* */
+#include <linux/sched.h> // `for_each_process()`, `struct task_struct`.
+
+
 /* This function is called when the module is loaded. */
 int simple_init(void)
 {
-       printk(KERN_INFO "Dijkstra Loading Module\n");
+    struct task_struct *t = NULL;
+    printk(KERN_INFO "Dijkstra Loading Module\n");
 
-       return 0;
+    for_each_process(t) {
+        printk(KERN_INFO "%d %d %d\n", t->state, t->pid, t->comm);
+    }
+
+    return 0;
 }
 
 /* This function is called when the module is removed. */
 void simple_exit(void) {
-	printk(KERN_INFO "Dijkstra Removing Module\n");
+    printk(KERN_INFO "Dijkstra Removing Module\n");
 }
 
 /* Macros for registering module entry and exit points. */
