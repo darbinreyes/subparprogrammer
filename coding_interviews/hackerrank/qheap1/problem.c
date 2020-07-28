@@ -47,7 +47,7 @@ v >= -1000000000 && v <= 1000000000 // There an int is sufficient to hold values
 #include <stdio.h>
 #define HEAP_ARRAY_SIZE 100001
 // Our heap array will be 1 based to make indexing simpler.
-#define MAX_HEAP_ENTRIES (HEAP_ARRAY_SIZE - 1)
+#define HEAP_SIZE (HEAP_ARRAY_SIZE - 1)
 static int num_entries = 0;
 static int heap_array[HEAP_ARRAY_SIZE];
 
@@ -60,7 +60,7 @@ int heap_is_empty(void) {
 
 // Returns 1 if the heap is full. Returns 0 otherwise.
 int heap_is_full(void) {
-    return (num_entries == MAX_HEAP_ENTRIES);
+    return (num_entries == HEAP_SIZE);
 }
 
 
@@ -389,7 +389,7 @@ int  heap_create(int *v, int l) {
     if (!heap_is_empty())
         return 1;
 
-    if (l > MAX_HEAP_ENTRIES) /* Given array is too large. */
+    if (l > HEAP_SIZE) /* Given array is too large. */
         return 1;
 
     /* Fill the heap array in the same order as given */
