@@ -233,5 +233,10 @@ int main(void) {
     heap_rm_root(&t);
     print_heap();
 
+    /* The hackerrank problem specifies deleting a specific
+    element from the heap, but this is not a standard method
+    of the heap ADT. This could be implemented by reheaping to
+    fill the empty spot created by removing an element. */
+
     return 0;
 }
