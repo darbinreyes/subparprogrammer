@@ -40,11 +40,13 @@
 
 Q >= 1, && Q <= 100000 // Therefore the heap must have a size >= 100000
 
-v >= -1000000000 && v <= 1000000000 // There an int is sufficient to hold values. We can use 2^31 = 2147483648 to mark empty elements in the array.
+v >= -1000000000 && v <= 1 000 000 000 // Therefore an int is sufficient to hold values. We can use 2^31 = 2 147 483 648 to mark empty elements in the array.
 
 ************** */
 
 #include <stdio.h>
+#include <stdlib.h>
+
 #define HEAP_ARRAY_SIZE 100001
 // Our heap array will be 1 based to make indexing simpler.
 #define HEAP_SIZE (HEAP_ARRAY_SIZE - 1)
@@ -188,6 +190,33 @@ int heap_rm_root(int *v) {
     return 1;
 }
 
+/*
+
+    Returns 1 if value v was removed from the heap. Returns 0 otherwise.
+
+*/
+int heap_rm_value(int v) {
+    int i;
+
+    if (heap_is_empty())
+        return 0;
+
+    for (i = 1; i <= num_entries; i++) {
+        if (heap_array[i] == v)
+            break;
+    }
+
+    if (i > num_entries)
+        return 0; // v was not in the heap.
+
+    // treat removing value v as removing the root of the heap rooted at i.
+    heap_array[i] = heap_array[num_entries];
+    num_entries--;
+    reheap(i, heap_array[i]);
+
+    return 1;
+}
+
 int heap_peek_root(int *v) {
     if (v == NULL)
         return 0;
@@ -222,6 +251,7 @@ void print_heap(void) {
 
 
 int main(void) {
+    /*
     int v[] = {90, 80, 60, 70, 30, 20, 50, 10, 40};
     int l = sizeof(v)/sizeof(v[0]);
     int i, t;
@@ -232,11 +262,44 @@ int main(void) {
     print_heap();
     heap_rm_root(&t);
     print_heap();
+    heap_rm_value(90);
+    print_heap();
+    */
 
     /* The hackerrank problem specifies deleting a specific
     element from the heap, but this is not a standard method
     of the heap ADT. This could be implemented by reheaping to
-    fill the empty spot created by removing an element. */
+    fill the empty spot created by removing an element.
+
+    I have implemented this operation in heap_rm_value(). */
+    char line[32];
+    int Q, op, v;
+
+    gets(line);
+
+    Q = atoi(line);
+
+    if (Q == 0)
+        return 0; // Nothing to do.
+
+    while (Q > 0) {
+        gets(line);
+
+        if (line[0] == '1') {
+            sscanf(line, "%d %d", &op, &v);
+            heap_add(v);
+        } else if (line[0] == '2') {
+            sscanf(line, "%d %d", &op, &v);
+            heap_rm_value(v);
+        } else if (line[0] == '3') {
+            heap_peek_root(&v);
+            printf("%d\n", v);
+        } else {
+            return 1; // Invalid query type.
+        }
+        Q--;
+    }
+
 
     return 0;
 }
