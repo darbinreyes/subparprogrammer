@@ -1,5 +1,18 @@
 /*
 
+    See problem.c for problem solution.
+
+    The problem specifies a min heap be used, this is my implementation of a max
+    heap, which I then turned into a min heap implementation.
+
+    maxheap_sort.c is an implementation of the "heap sort" algorithm, which is
+    based on the idea sorting by placing items into a max heap and then removing
+    the root node 1 at a time until the max heap is empty.
+
+*/
+
+/*
+
     https://www.hackerrank.com/challenges/qheap1/problem
 
     Success Rate: 67.73%
@@ -441,6 +454,32 @@ void print_heap_array (void) {
 
     printf("\n");
 }
+
+/*
+
+    Notes from Carrano on "using a heap to sort an array", a.k.a. heap sort.
+
+    Algorithm v0:
+
+        Place all array entries into the heap.
+        Remove the root 1 at a time.
+
+    Algorithm v1:
+
+        The sorting can be done with less memory and less operations if we don't
+        use the heap ADT. We want to sort a given array in place, without using
+        an extra array inside the heap ADT. Also sorting algorithms in general
+        always sort in place. Also, our heap ADT uses 1 based indexing, but for
+        sorting in place we need to adapt our heap code to use 0 based
+        indexing.
+
+        Don't use the heap ADT, all we want
+
+
+
+
+
+*/
 
 int main(void) {
     int v[] = {20, 40, 30, 10, 90, 70};
