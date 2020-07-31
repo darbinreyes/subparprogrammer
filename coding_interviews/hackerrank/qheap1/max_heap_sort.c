@@ -11,6 +11,7 @@
 
 */
 #include <stdio.h>
+#include <assert.h>
 
 /*
 
@@ -38,7 +39,8 @@
 
 
 */
-#include <assert.h>
+
+#define ROOT_INDEX 0
 
 int parent_i(int i) {
     assert(i >= 0);
@@ -122,6 +124,12 @@ void heap_create(int a[], int l) {
 
     assert (num_entries == 0);
 
+    assert(l >= 0);
+    assert(a != NULL);
+
+    if (l == 0) // Nothing to do.
+        return;
+
     // Init. heap with as is array.
     for (i = 0; i < l; i++) {
         heap[i] = a[i];
@@ -170,11 +178,52 @@ void print_heap_array (void) {
     printf("\n");
 }
 
+void max_heap_sort (int a[], int l) {
+    int v;
+
+    assert(l >= 0);
+    assert(a != NULL);
+    assert(num_entries > 0);
+    // assert: a is a max heap.
+
+    /*
+
+        "The largest item in the array is now
+
+        first in the array,
+
+        so we swap it with the last item in the array,
+
+        The array is now partitioned into a tree region
+
+        and a sorted region."
+
+    */
+
+    // Swap root with last. Array is now partitioned.
+    v = heap[last_leaf_i()];
+    heap[last_leaf_i()] = heap[ROOT_INDEX];
+    heap[ROOT_INDEX] = v;
+    a[last_leaf_i()] = heap[last_leaf_i()];
+    num_entries--;
+    reheap(ROOT_INDEX, heap[ROOT_INDEX]);
+}
+void print_array(int a[], int l) {
+    while (l-- > 0)
+        printf("%d ", *a++);
+
+    printf("\n");
+}
 int main(void) {
     int a[] = {20, 40, 30, 10, 90, 70};
+    int a2[64];
     int l = sizeof(a)/sizeof(*a);
     heap_create(a, l);
     print_heap_array();
     print_heap();
+    while (num_entries > 0)
+        max_heap_sort (a2, 64);
+
+    print_array(a2, l);
     return 0;
 }
