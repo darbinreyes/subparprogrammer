@@ -67,8 +67,6 @@ int right_child_i(int i) {
     return i * 2 + 2;
 }
 
-#define HEAP_SIZE 64
-
 // If i has children, returns the index of the larger child.
 int larger_child_i(int heap[], int num_entries, int i) {
     int l, r;
@@ -234,6 +232,11 @@ int max_heap_sort (int heap[], int num_entries) {
 
 void print_array(int a[], int l) {
 
+    if (l == 0) {
+        printf("Array is empty.\n");
+        return;
+    }
+
     while (l-- > 0)
         printf("%d ", *a++);
 
@@ -244,6 +247,8 @@ int main(void) {
     int a[] = {20, 40, 30, 10, 90, 70};
     int const l = sizeof(a)/sizeof(*a);
     int n;
+
+    // Tested l = 0 l = 1, l = 2, l = 6.
 
     heap_create(a, l);
 
