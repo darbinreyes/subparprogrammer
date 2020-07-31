@@ -1,4 +1,5 @@
 [ 3354.343803] Dijkstra Loading Module
+               S PID CMD
 [ 3354.343807] 1 1 systemd
 [ 3354.343808] 1 144 systemd-udevd
 [ 3354.343809] 0 15304 systemd-udevd
