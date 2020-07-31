@@ -69,149 +69,142 @@ int right_child_i(int i) {
 
 #define HEAP_SIZE 64
 
-typedef struct _heap_t {
-    int heap[HEAP_SIZE];
-    int num_entries; // ! We are using 0 indexing, so the last leaf node is at position num_entries - 1. Valid node indexes are defined by i < num_entries.
-} heap_t;
-
 // If i has children, returns the index of the larger child.
-int larger_child_i(heap_t * const h, int i) {
+int larger_child_i(int heap[], int num_entries, int i) {
     int l, r;
 
-    assert(h != NULL);
+    assert(heap != NULL);
     assert(i >= 0);
 
     l = left_child_i(i);
     r = right_child_i(i);
 
-    if (l < h->num_entries && r < h->num_entries) {
-        if (h->heap[l] > h->heap[r])
+    if (l < num_entries && r < num_entries) {
+        if (heap[l] > heap[r])
             return l;
         else
             return r;
-    } else if (l < h->num_entries) {
+    } else if (l < num_entries) {
         return l; // Only a left child.
-    } else if (r < h->num_entries) {
+    } else if (r < num_entries) {
         return r; // Only a right child.
     } else {
         return -1; // Node i has no children.
     }
 }
 
-void reheap(heap_t * const h, int i, int v) {
+void reheap(int heap[], int num_entries, int i, int v) {
     int largerc_i;
 
     // assert: The root node has been removed and the last leaf value has been copied the root node. A reheap transforms a heap in which only the root node is out of place (a.k.a a semiheap) into a heap. OR, we are creating a heap from a given array.
-    assert(h != NULL);
+
+    assert(heap != NULL);
     assert(i >= 0);
 
-    largerc_i = larger_child_i(h, i);
 
-    if (largerc_i == -1) { // Node i has no children, no work to do.
-        h->heap[i] = v;
+    largerc_i = larger_child_i(heap, num_entries, i);
+
+    if (largerc_i == -1) { // Node i has no children, no reheap is necessary.
+        heap[i] = v;
         return;
     }
 
-    // Swap the larger child value up towards the root.
-    if (h->heap[largerc_i] > v) {
-        h->heap[i] = h->heap[largerc_i];
-        reheap(h, largerc_i, v);
+    // Copy the larger child value up towards the root.
+    if (heap[largerc_i] > v) {
+        heap[i] = heap[largerc_i];
+        reheap(heap, num_entries, largerc_i, v);
     } else {
-        h->heap[i] = v;
+        heap[i] = v;
     }
 }
 
-int last_leaf_i(heap_t * const h) {
-    assert(h != NULL);
-    assert(h->num_entries > 0);
+int last_leaf_i(int num_entries) {
 
-    return h->num_entries - 1;
+    assert(num_entries > 0);
+
+    return num_entries - 1;
 }
 
-void heap_create(heap_t * const h, int a[], int l) {
-    int i = 0;
+void heap_create(int a[], int l) {
+    int i;
 
-    assert(h != NULL);
     assert(a != NULL);
     assert(l >= 0);
-    assert (h->num_entries == 0); // heap_create() is only valid if the heap is empty.
 
-    if (l == 0) // Nothing to do.
+    if (l <= 1) // Nothing to do.
         return;
 
-    // Init. heap with array in the given order.
-    for (i = 0; i < l; i++) {
-        h->heap[i] = a[i];
-        h->num_entries++;
-    }
+    i = parent_i(last_leaf_i(l));
 
-    i = parent_i(last_leaf_i(h));
-
-    if (i == -1) // The last leaf is also the root node, i.e. l = 1.
+    if (i == -1) // Node i does not have children, nothing to reheap.
         return;
 
     // Reheap starting at the parent of the last leaf node and ending at the root node (i.e. reverse level order).
     while (i >= 0) {
-        reheap(h, i, h->heap[i]);
+        reheap(a, l, i, a[i]);
         i--;
     }
 }
 
 
 // Print each level of the heap on a separate line.
-void _print_heap(heap_t * const h, int n, int start_i) {
+void _print_heap(int heap[], int num_entries, int n, int start_i) {
     int i;
 
-    assert(h != NULL);
+    assert(heap != NULL);
 
-    if (h->num_entries == 0) {
+    if (num_entries == 0) {
         printf("Heap is empty.\n");
         return;
     }
 
-    for (i = start_i; i < (start_i + n) && i < h->num_entries; i++) {
-        printf("%d ", h->heap[i]);
+    // Print nodes in the current level
+    for (i = start_i; i < (start_i + n) && i < num_entries; i++) {
+        printf("%d ", heap[i]);
     }
 
     printf("\n");
 
-    if (i >= h->num_entries) // Done printing.
+    if (i >= num_entries) // Done printing.
         return;
 
     n *= 2; // Each level has 2x the number of nodes as the previous level.
-    _print_heap (h, n, i);
+    _print_heap (heap, num_entries, n, i);
 }
 
-void print_heap(heap_t * const h) {
+void print_heap(int heap[], int num_entries) {
 
-    assert(h != NULL);
+    assert(heap != NULL);
 
-    _print_heap(h, 1, 0);
+    _print_heap(heap, num_entries, 1, 0);
 }
 
-void print_heap_array (heap_t * const h) {
+void print_heap_array (int heap[], int num_entries) {
 
-    assert(h != NULL);
+    assert(heap != NULL);
+    assert(num_entries >= 0);
 
-    if (h->num_entries == 0) {
+    if (num_entries == 0) {
         printf("Heap is empty.\n");
         return;
     }
 
-    for (int i = 0; i < h->num_entries; i++) {
-        printf("%d ", h->heap[i]);
-    }
+    for (int i = 0; i < num_entries; i++)
+        printf("%d ", heap[i]);
+
 
     printf("\n");
 }
 
-void max_heap_sort (heap_t * const h, int a[], int l) {
+// Returns the number of entries at the beginning of the array that form the heap partition. Elements after this partition form the sorted array. Returns 0 when sorting is completed.
+int max_heap_sort (int heap[], int num_entries) {
     int v;
 
-    assert(h != NULL);
-    assert(l >= 0);
-    assert(a != NULL);
-    assert(h->num_entries > 0);
+    assert(heap != NULL);
+    assert(num_entries >= 0);
+
+    if (num_entries == 0 || num_entries == 1) // No sorting work required.
+        return 0;
 
     // assert: a is a max heap.
 
@@ -229,13 +222,14 @@ void max_heap_sort (heap_t * const h, int a[], int l) {
 
     */
 
-    // Swap root with last. Array is now partitioned.
-    v = h->heap[last_leaf_i(h)];
-    h->heap[last_leaf_i(h)] = h->heap[ROOT_INDEX];
-    h->heap[ROOT_INDEX] = v;
-    a[last_leaf_i(h)] = h->heap[last_leaf_i(h)]; // Return next sorted value.
-    h->num_entries--;
-    reheap(h, ROOT_INDEX, h->heap[ROOT_INDEX]);
+    // Swap root node with last leaf node and decrement number of nodes. Array is now partitioned into a heap part and a sorted part.
+    v = heap[last_leaf_i(num_entries)];
+    heap[last_leaf_i(num_entries)] = heap[ROOT_INDEX];
+    heap[ROOT_INDEX] = v;
+    num_entries--;
+    reheap(heap, num_entries, ROOT_INDEX, heap[ROOT_INDEX]);
+
+    return num_entries;
 }
 
 void print_array(int a[], int l) {
@@ -247,20 +241,20 @@ void print_array(int a[], int l) {
 }
 
 int main(void) {
-    heap_t h;
     int a[] = {20, 40, 30, 10, 90, 70};
-    int a2[64];
-    int l = sizeof(a)/sizeof(*a);
+    int const l = sizeof(a)/sizeof(*a);
+    int n;
 
-    h.num_entries = 0;
+    heap_create(a, l);
 
-    heap_create(&h, a, l);
-    print_heap_array(&h);
-    print_heap(&h);
+    print_heap_array(a, l);
+    print_heap(a, l);
 
-    while (h.num_entries > 0)
-        max_heap_sort (&h, a2, 64);
+    n = l;
+    while (n > 0)
+        n = max_heap_sort (a, n);
 
-    print_array(a2, l);
+    print_array(a, l);
+
     return 0;
 }
