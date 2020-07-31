@@ -10,7 +10,7 @@
     the root node 1 at a time until the max heap is empty.
 
 */
-
+#include <stdio.h>
 
 /*
 
@@ -38,8 +38,143 @@
 
 
 */
+#include <assert.h>
+
+int parent_i(int i) {
+    assert(i >= 0);
+
+    if (i == 0) // The root node has no parent.
+        return -1;
+
+    if (i % 2 == 0)
+        return i / 2 - 1;
+    else
+        return i / 2;
+}
+
+int left_child_i(int i) {
+    assert(i >= 0);
+    return i * 2 + 1;
+}
+
+int right_child_i(int i) {
+    assert(i >= 0);
+    return i * 2 + 2;
+}
+
+#define HEAP_SIZE 64
+
+static int heap[HEAP_SIZE];
+static int num_entries = 0; // ! We are using 0 indexing, so the last leaf node is at position num_entries - 1. Valid node indexes are defined by i < num_entries.
+
+int larger_child_i(int i) {
+    int l, r;
+
+    assert(i >= 0);
+
+    l = left_child_i(i);
+    r = right_child_i(i);
+
+    if (l < num_entries && r < num_entries) {
+        if (heap[l] > heap[r])
+            return l;
+        else
+            return r;
+    } else if (l < num_entries) {
+        return l; // Only a left child.
+    } else if (r < num_entries) {
+        return r; // Only a right child.
+    } else {
+        return -1; // Node i has no children.
+    }
+}
+
+void reheap(int i, int v) {
+    int largerc_i;
+    // assert: The root node has been removed and the last leaf value has been copied the root node. A reheap transforms a heap in which only the root node is out of place (a.k.a a semiheap) into a heap.
+
+    assert(i >= 0);
+
+    largerc_i = larger_child_i(i);
+
+    if (largerc_i == -1) { // Node i has no children.
+        heap[i] = v;
+        return;
+    }
+
+    // Copy the larger child value up towards the root.
+    if (heap[largerc_i] > v) {
+        heap[i] = heap[largerc_i];
+        reheap(largerc_i, v);
+    } else {
+        heap[i] = v;
+    }
+}
+
+int last_leaf_i(void) {
+    assert(num_entries > 0);
+
+    return num_entries - 1;
+}
+
+void heap_create(int a[], int l) {
+    int i = 0;
+
+    assert (num_entries == 0);
+
+    // Init. heap with as is array.
+    for (i = 0; i < l; i++) {
+        heap[i] = a[i];
+        num_entries++;
+    }
+
+    // Reheap starting at the parent of the last leaf node ending at the root (reverse level order).
+    i = parent_i(last_leaf_i());
+
+    if (i == -1) // The last leaf is also the root node, i.e. l = 1.
+        return;
+
+    while (i >= 0) {
+        reheap(i, heap[i]);
+        i--;
+    }
+}
+
+
+// Print each level of the heap on a separate line.
+void _print_heap(int n, int start_i) {
+    int i;
+
+    for (i = start_i; i < (start_i + n) && i < num_entries; i++) {
+        printf("%d ", heap[i]);
+    }
+
+    printf("\n");
+
+    if (i >= num_entries)
+        return;
+
+    n *= 2;
+    _print_heap (n, i);
+}
+
+void print_heap(void) {
+    _print_heap(1, 0);
+}
+
+void print_heap_array (void) {
+    for (int i = 0; i < num_entries; i++) {
+        printf("%d ", heap[i]);
+    }
+
+    printf("\n");
+}
 
 int main(void) {
     int a[] = {20, 40, 30, 10, 90, 70};
+    int l = sizeof(a)/sizeof(*a);
+    heap_create(a, l);
+    print_heap_array();
+    print_heap();
     return 0;
 }
