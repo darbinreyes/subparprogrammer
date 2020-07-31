@@ -227,6 +227,8 @@ int max_heap_sort (int heap[], int num_entries) {
     num_entries--;
     reheap(heap, num_entries, ROOT_INDEX, heap[ROOT_INDEX]);
 
+    max_heap_sort (heap, num_entries); // Recursive call.
+
     return num_entries;
 }
 
@@ -246,7 +248,6 @@ void print_array(int a[], int l) {
 int main(void) {
     int a[] = {20, 40, 30, 10, 90, 70};
     int const l = sizeof(a)/sizeof(*a);
-    int n;
 
     // Tested l = 0 l = 1, l = 2, l = 6.
 
@@ -255,9 +256,7 @@ int main(void) {
     print_heap_array(a, l);
     print_heap(a, l);
 
-    n = l;
-    while (n > 0)
-        n = max_heap_sort (a, n);
+    max_heap_sort (a, l);
 
     print_array(a, l);
 
