@@ -116,12 +116,10 @@ void reheap(int heap[], int num_entries, int i, int v) {
     }
 }
 
-int last_leaf_i(int num_entries) {
+#define last_leaf_index(num_entries) ({ \
+    assert(num_entries > 0); \
+    ( (num_entries) > 0 ) ?  ( (num_entries) - 1) : 0; })
 
-    assert(num_entries > 0);
-
-    return num_entries - 1;
-}
 
 void heap_create(int a[], int l) {
     int i;
@@ -132,7 +130,7 @@ void heap_create(int a[], int l) {
     if (l <= 1) // Nothing to do.
         return;
 
-    i = parent_i(last_leaf_i(l));
+    i = parent_i(last_leaf_index(l));
 
     if (i == -1) // Node i does not have children, nothing to reheap.
         return;
@@ -223,10 +221,10 @@ Just experimenting with #defines I've seen in the OS Linux headers.
     (arr)[(i)] = (arr)[(j)]; \
     (arr)[(j)] = t; })
 
+
+
 // Returns the number of entries at the beginning of the array that form the heap partition. Elements after this partition form the sorted array. Returns 0 when sorting is completed.
 void _max_heap_sort (int heap[], int num_entries) {
-    int v, i, j;
-
     assert(heap != NULL);
     assert(num_entries >= 0);
 
@@ -250,12 +248,7 @@ void _max_heap_sort (int heap[], int num_entries) {
     */
 
     // Swap root node with last leaf node and decrement number of nodes. Array is now partitioned into a heap part and a sorted part.
-
-    array_swap(heap, (num_entries - 1), ROOT_INDEX);
-
-    //v = heap[last_leaf_i(num_entries)];
-    //heap[last_leaf_i(num_entries)] = heap[ROOT_INDEX];
-    //heap[ROOT_INDEX] = v;
+    array_swap(heap, last_leaf_index(num_entries) , ROOT_INDEX);
 
     num_entries--;
     reheap(heap, num_entries, ROOT_INDEX, heap[ROOT_INDEX]);
