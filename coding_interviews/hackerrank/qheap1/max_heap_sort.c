@@ -42,30 +42,17 @@
 
 #define ROOT_INDEX 0
 
-// Returns the index of the parent of node i.
-int parent_i(int i) {
-    assert(i >= 0);
+#define parent_index(i) ({ \
+    assert((i) > 0); \
+    ( (i) % 2 == 0 ) ?  ((i)/2 - 1) : ((i)/2); })
 
-    if (i == 0) // The root node has no parent, indicate this with a negative index.
-        return -1;
+#define left_child_index(i) ({ \
+    assert((i) >= 0); \
+    ((i) * 2 + 1); })
 
-    // assert: i > 0
-
-    if (i % 2 == 0) // Since i > 0 at this point, and the smallest even number is 2, the return value will never be negative.
-        return i / 2 - 1;
-    else
-        return i / 2;
-}
-
-int left_child_i(int i) {
-    assert(i >= 0);
-    return i * 2 + 1;
-}
-
-int right_child_i(int i) {
-    assert(i >= 0);
-    return i * 2 + 2;
-}
+#define right_child_index(i) ({ \
+    assert((i) >= 0); \
+    ((i) * 2 + 2); })
 
 // If i has children, returns the index of the larger child.
 int larger_child_i(int heap[], int num_entries, int i) {
@@ -74,8 +61,8 @@ int larger_child_i(int heap[], int num_entries, int i) {
     assert(heap != NULL);
     assert(i >= 0);
 
-    l = left_child_i(i);
-    r = right_child_i(i);
+    l = left_child_index(i);
+    r = right_child_index(i);
 
     if (l < num_entries && r < num_entries) {
         if (heap[l] > heap[r])
@@ -130,7 +117,7 @@ void heap_create(int a[], int l) {
     if (l <= 1) // Nothing to do.
         return;
 
-    i = parent_i(last_leaf_index(l));
+    i = parent_index(last_leaf_index(l));
 
     if (i == -1) // Node i does not have children, nothing to reheap.
         return;
@@ -142,85 +129,10 @@ void heap_create(int a[], int l) {
     }
 }
 
-
-// Print each level of the heap on a separate line.
-void _print_heap(int heap[], int num_entries, int n, int start_i) {
-    int i;
-
-    assert(heap != NULL);
-
-    if (num_entries == 0) {
-        printf("Heap is empty.\n");
-        return;
-    }
-
-    // Print nodes in the current level
-    for (i = start_i; i < (start_i + n) && i < num_entries; i++) {
-        printf("%d ", heap[i]);
-    }
-
-    printf("\n");
-
-    if (i >= num_entries) // Done printing.
-        return;
-
-    n *= 2; // Each level has 2x the number of nodes as the previous level.
-    _print_heap (heap, num_entries, n, i);
-}
-
-void print_heap(int heap[], int num_entries) {
-
-    assert(heap != NULL);
-
-    _print_heap(heap, num_entries, 1, 0);
-}
-
-void print_heap_array (int heap[], int num_entries) {
-
-    assert(heap != NULL);
-    assert(num_entries >= 0);
-
-    if (num_entries == 0) {
-        printf("Heap is empty.\n");
-        return;
-    }
-
-    for (int i = 0; i < num_entries; i++)
-        printf("%d ", heap[i]);
-
-
-    printf("\n");
-}
-
-/*
-
-Just experimenting with #defines I've seen in the OS Linux headers.
-
-*
-* swap - swap value of @a and @b
-*
-#define swap(a, b) \
-    do { typeof(a) __tmp = (a); (a) = (b); (b) = __tmp; } while (0)
-
- *
- * container_of - cast a member of a structure out to the containing structure
- * @ptr:    the pointer to the member.
- * @type:   the type of the container struct this is embedded in.
- * @member: the name of the member within the struct.
- *
- *
-#define container_of(ptr, type, member) ({          \
-    const typeof( ((type *)0)->member ) *__mptr = (ptr);    \
-    (type *)( (char *)__mptr - offsetof(type,member) );})
-
-
-*/
-
 #define array_swap(arr, i, j) ({ \
     typeof((arr)[0]) t = (arr)[(i)]; \
     (arr)[(i)] = (arr)[(j)]; \
     (arr)[(j)] = t; })
-
 
 
 // Returns the number of entries at the beginning of the array that form the heap partition. Elements after this partition form the sorted array. Returns 0 when sorting is completed.
@@ -254,19 +166,6 @@ void _max_heap_sort (int heap[], int num_entries) {
     reheap(heap, num_entries, ROOT_INDEX, heap[ROOT_INDEX]);
 
     _max_heap_sort (heap, num_entries); // Recursive call.
-/*
-
-n = 6.
-swap(a, 0, 5)
-
-the heap part of the array is now 0->4
-therefore the list index is 4
-and n = 6
-so last = n - 2;
-
-for (last = )
-
-*/
 }
 
 void max_heap_sort(int heap[], int num_entries) {
