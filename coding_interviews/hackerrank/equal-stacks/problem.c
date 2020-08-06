@@ -59,34 +59,19 @@ int pop(my_stack_t *s) {
     return v;
 }
 
-int min_height_stack (int *mh) {
-    int min_stack_i, min_height;
-
-    min_stack_i = 0;
-    min_height = stacks[0].height;
-
-    for (int i = 1; i < NUM_STACKS; i++) {
-        if (stacks[i].height < min_height) {
-            min_stack_i = i;
-            min_height = stacks[i].height;
-        }
-    }
-
-    *mh = min_height;
-
-    return min_stack_i;
-}
-
-#define LINE_SIZE 500000
+#define LINE_SIZE 500000 // TODO: Comment on why this value.
 
 int main(void) {
-    int n1, n2, n3, i, done, mh, mhi;
+    int n1, n2, n3;
     long t;
     char line[LINE_SIZE];
     char *endptr;
 
+    /* Get the first line of input. The size of 3 stacks. */
     scanf("%d %d %d\n", &n1, &n2, &n3);
 
+    /* Get the values in the 1st stack. The first number is the **top** of the
+       stack. */
     fgets(line, LINE_SIZE, stdin);
 
     endptr = line;
@@ -96,6 +81,8 @@ int main(void) {
         push(&stacks[0], t);
     }
 
+    /* Get the values in the 2nd stack. The first number is the **top** of the
+       stack. */
     fgets(line, LINE_SIZE, stdin);
 
     endptr = line;
@@ -105,6 +92,8 @@ int main(void) {
         push(&stacks[1], t);
     }
 
+    /* Get the values in the 3rd stack. The first number is the **top** of the
+       stack. */
     fgets(line, LINE_SIZE, stdin);
 
     endptr = line;
@@ -118,41 +107,9 @@ int main(void) {
         printf("height = %d\n", stacks[i].height);
     }
 
-    done = 0;
-    mh = -1;
+    /* Output: Print a single integer denoting the maximum height at which all
+       stacks will be of equal height. */
 
-    while (!done) {
-        mhi = min_height_stack (&mh);
-
-        if (mh == 0) {
-            break;
-        }
-
-        for (i = 0; i < NUM_STACKS; i++) {
-
-            if (i == mhi)
-                continue;
-
-            if (stacks[i].height > mh) {
-                pop(&stacks[i]);
-            }
-        }
-
-        for (i = 0; i < NUM_STACKS; i++) {
-            if (stacks[i].height != mh) {
-                break;
-            }
-        }
-
-        if (i == NUM_STACKS)
-            break;
-
-    }
-
-    if (mh == 0)
-        printf("0\n");
-    else
-        printf("%d\n", mh);
 
     return 0;
 }
