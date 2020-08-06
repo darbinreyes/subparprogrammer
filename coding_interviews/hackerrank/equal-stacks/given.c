@@ -8,15 +8,116 @@
 
 char* readline();
 char** split_string(char*);
+/*****************************/
+
+#define STACK_SIZE 100000
+
+typedef struct _stack_t {
+    int stack[STACK_SIZE];
+    int num_entries;
+    int height;
+} my_stack_t;
+
+#define NUM_STACKS 3
+
+static my_stack_t stacks[NUM_STACKS];
+
+int push(my_stack_t *s, int v) {
+    if (s->num_entries >= STACK_SIZE) { // Stack is full.
+        return -1;
+    }
+    s->height += v;
+    s->stack[s->num_entries] = v;
+    s->num_entries++;
+    return 0;
+}
+
+int pop(my_stack_t *s) {
+    int v;
+    if (s->num_entries <= 0) { // Stack is empty.
+        return -1;
+    }
+
+    s->num_entries--;
+    v = s->stack[s->num_entries];
+    s->height -= v;
+    return v;
+}
+
+void init_stack(int c, int *h, my_stack_t *s) {
+    int i;
+
+    for (i = c - 1; i >= 0; i--) {
+        push(s, h[i]);
+    }
+}
+
+
+// Returns 1 if all three stacks currently have equal heights. 0 Otherwise.
+int stack_heights_equal (void) {
+    int i;
+    int ec, h;
+
+    ec = 0; // Equal count.
+    h = stacks[0].height;
+
+    for (i = 0; i < NUM_STACKS; i++) { // TODO: If necessary we can optimize this later.
+        if (stacks[i].height == h)
+            ec++;
+    }
+
+    return (ec == NUM_STACKS);
+}
+
+// Returns a pointer to the first stack having the minimum height.
+my_stack_t *min_height_stack(void) {
+    int i, h, mi;
+
+    mi = 0;
+    h = stacks[0].height;
+
+    for (i = 0; i < NUM_STACKS; i++) { // TODO: If necessary we can optimize this later.
+        if (stacks[i].height < h) {
+            mi = i;
+            h = stacks[i].height;
+        }
+    }
+
+    return &stacks[mi];
+}
+
+// Pops a single value off any stack whose height is greater than h.
+void pop_greater_than(int h) {
+    int i;
+
+    for (i = 0; i < NUM_STACKS; i++) { // // TODO: If necessary we can optimize this later.
+        if (stacks[i].height > h) {
+            pop(&stacks[i]);
+        }
+    }
+}
+
+/*****************************/
 
 /*
  * Complete the equalStacks function below.
  */
 int equalStacks(int h1_count, int* h1, int h2_count, int* h2, int h3_count, int* h3) {
     /*
-     * Write your code here.
-     */
+    * Write your code here.
+    */
+    my_stack_t *min_h_stack;
 
+    init_stack(h1_count, h1, &stacks[0]);
+    init_stack(h2_count, h2, &stacks[1]);
+    init_stack(h3_count, h3, &stacks[2]);
+
+    while (!stack_heights_equal()) {
+        min_h_stack = min_height_stack();
+        pop_greater_than(min_h_stack->height);
+    }
+
+    return stacks[0].height;
 }
 
 int main()

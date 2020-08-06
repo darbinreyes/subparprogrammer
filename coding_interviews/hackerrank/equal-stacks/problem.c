@@ -70,6 +70,7 @@ int pop(my_stack_t *s) {
 #define LINE_SIZE 500000
 
 static char line[LINE_SIZE];
+
 static my_stack_t input_stack;
 
 void init_stack(int n, my_stack_t *s) {
