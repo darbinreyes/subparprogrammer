@@ -107,6 +107,22 @@ void init_stack(int n, my_stack_t *s) {
     }
 }
 
+// Returns 1 if all three stacks currently have equal heights. 0 Otherwise.
+int stack_heights_equal (void) {
+    int i;
+    int ec, h;
+
+    ec = 0; // Equal count.
+    h = stacks[0].height;
+
+    for (i = 0; i < NUM_STACKS; i++) { // TODO: If necessary we can optimize this later.
+        if (stacks[i].height == h)
+            ec++;
+    }
+
+    return (ec == NUM_STACKS);
+}
+
 int main(void) {
     int n[NUM_STACKS];
     int i;
@@ -125,6 +141,9 @@ int main(void) {
 
     /* Output: Print a single integer denoting the maximum height at which all
        stacks will be of equal height. */
+
+    /* To begin with we will definitely need a function for testing if the
+    stacks are currently of equal height. */
 
 
     return 0;
