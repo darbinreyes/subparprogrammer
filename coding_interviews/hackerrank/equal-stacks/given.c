@@ -186,7 +186,7 @@ int main()
         h3[h3_itr] = h3_item;
     }
 
-    int result = equalStacks(h1_count, h1, h2_count, h2, h3_count, h3);
+    int result = equalStacks(n1, h1, n2, h2, n3, h3);
 
     fprintf(fptr, "%d\n", result);
 
