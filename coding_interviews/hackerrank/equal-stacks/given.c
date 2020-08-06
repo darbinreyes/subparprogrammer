@@ -128,7 +128,7 @@ int equalStacks(int h1_count, int* h1, int h2_count, int* h2, int h3_count, int*
 
 int main()
 {
-    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
+    FILE* fptr = stdout; //fopen(getenv("OUTPUT_PATH"), "w");
 
     char** n1N2N3 = split_string(readline());
 
