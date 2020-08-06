@@ -145,6 +145,39 @@ int main(void) {
     /* To begin with we will definitely need a function for testing if the
     stacks are currently of equal height. */
 
+    /*
+
+
+        Next, we need to pop values off the stacks in such a way that we can
+        determine the "the maximum height at which all stacks will be of equal
+        height."
+
+        0. Since all values are positive (between [1,100]), popping a value off
+        the a stack can only decrease its height. This suggests that we should
+        start with the stack having the smallest height. Let us call this
+        stack `sh_stack` (smallest height stack).
+
+        The two remaining stacks must then have a height equal to or greater
+        than the height of `sh_stack`. We can now identify 3 possibilities to
+        deal with respect to the height of the two remaining stacks:
+
+        1. Both of the remaining two stacks have heights equal to the height of
+        `sh_stack`. We are done, we can print the height of any stack and
+        terminate.
+
+        2. One of the two remaining stacks has a height greater than the height
+        of `sh_stack`. In this case we can pop a single value off the stack with
+        the greater height. After that we can test if the heights have become
+        equal, if so, print the height of any one of the stacks and we are done,
+        otherwise determine the new smallest stack and repeat ("0." above).
+
+        3. Both of the two remaining stacks has a height greater than the height
+        of `sh_stack`. In this case we pop a single value off of both remaining
+        stacks. After that, we test for equal heights, and if they are of equal
+        height we are done. Otherwise determine the new smallest stack and
+        repeat ("0." above).
+
+    */
 
     return 0;
 }
