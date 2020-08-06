@@ -59,48 +59,64 @@ int pop(my_stack_t *s) {
     return v;
 }
 
-#define LINE_SIZE 500000 // TODO: Comment on why this value.
+/*
 
-int main(void) {
-    int n1, n2, n3;
+    The max value is "100", 3 characters.
+    For n values, on a single line, n*3 characters + (n-1) single character spaces + 1 new line character + 1 null terminator
+    The max number of stack values is 100000.
+    Thus the max line size = 100000*3+(100000-1)+1+1 = 400001.
+
+*/
+#define LINE_SIZE 500000
+
+static char line[LINE_SIZE];
+static my_stack_t input_stack;
+
+void init_stack(int n, my_stack_t *s) {
+    int i;
     long t;
-    char line[LINE_SIZE];
     char *endptr;
 
+    /*
+
+       Get the values to place in the stack. The first number is the **top** of
+       the stack.
+
+    */
+    fgets(line, LINE_SIZE, stdin);
+
+    endptr = line;
+
+    for (i = 0; i < n; i++) {
+        t = strtol(endptr, &endptr, 10);
+        push(&input_stack, t);
+    }
+
+    /*
+
+        Since the first number in the input line is the **top** of the stack we
+        want the values in reverse order from how they are currently ordered in
+        `input_stack`, the following loop places the values in the stack in the
+        desired order.
+
+    */
+
+    for (i = 0; i < n; i++) {
+        t = pop(&input_stack);
+        push(s, t);
+    }
+}
+
+int main(void) {
+    int n[NUM_STACKS];
+    int i;
+
     /* Get the first line of input. The size of 3 stacks. */
-    scanf("%d %d %d\n", &n1, &n2, &n3);
+    scanf("%d %d %d\n", &n[0], &n[1], &n[2]);
 
-    /* Get the values in the 1st stack. The first number is the **top** of the
-       stack. */
-    fgets(line, LINE_SIZE, stdin);
-
-    endptr = line;
-
-    for (i = 0; i < n1; i++) {
-        t = strtol(endptr, &endptr, 10);
-        push(&stacks[0], t);
-    }
-
-    /* Get the values in the 2nd stack. The first number is the **top** of the
-       stack. */
-    fgets(line, LINE_SIZE, stdin);
-
-    endptr = line;
-
-    for (i = 0; i < n2; i++) {
-        t = strtol(endptr, &endptr, 10);
-        push(&stacks[1], t);
-    }
-
-    /* Get the values in the 3rd stack. The first number is the **top** of the
-       stack. */
-    fgets(line, LINE_SIZE, stdin);
-
-    endptr = line;
-
-    for (i = 0; i < n3; i++) {
-        t = strtol(endptr, &endptr, 10);
-        push(&stacks[2], t);
+    /* Initialize the 3 stacks. */
+    for (i = 0; i < NUM_STACKS; i++) {
+        init_stack(n[i], &stacks[i]);
     }
 
     for (i = 0; i < NUM_STACKS; i++) {
