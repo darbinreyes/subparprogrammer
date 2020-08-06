@@ -123,6 +123,34 @@ int stack_heights_equal (void) {
     return (ec == NUM_STACKS);
 }
 
+// Returns a pointer to the first stack having the minimum height.
+my_stack_t *min_height_stack(void) {
+    int i, h, mi;
+
+    mi = 0;
+    h = stacks[0].height;
+
+    for (i = 0; i < NUM_STACKS; i++) { // TODO: If necessary we can optimize this later.
+        if (stacks[i].height < h) {
+            mi = i;
+            h = stacks[i].height;
+        }
+    }
+
+    return &stacks[mi];
+}
+
+// Pops a single value off any stack whose height is greater than h.
+void pop_greater_than(int h) {
+    int i;
+
+    for (i = 0; i < NUM_STACKS; i++) { // // TODO: If necessary we can optimize this later.
+        if (stacks[i].height > h) {
+            pop(&stacks[i]);
+        }
+    }
+}
+
 int main(void) {
     int n[NUM_STACKS];
     int i;
@@ -178,6 +206,7 @@ int main(void) {
         repeat ("0." above).
 
     */
+
 
     return 0;
 }
