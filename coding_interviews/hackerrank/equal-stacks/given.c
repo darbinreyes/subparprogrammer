@@ -108,6 +108,12 @@ int equalStacks(int h1_count, int* h1, int h2_count, int* h2, int h3_count, int*
     */
     my_stack_t *min_h_stack;
 
+    if (h1_count == 0 || h2_count == 0 || h3_count == 0)
+        return 0; // 0 is the only possible solution.
+
+    if (h1 == NULL || h2 == NULL || h3 == NULL)
+        return 0; // 0 is the only possible solution.
+
     init_stack(h1_count, h1, &stacks[0]);
     init_stack(h2_count, h2, &stacks[1]);
     init_stack(h3_count, h3, &stacks[2]);
