@@ -154,6 +154,7 @@ void pop_greater_than(int h) {
 int main(void) {
     int n[NUM_STACKS];
     int i;
+    my_stack_t *min_h_stack;
 
     /* Get the first line of input. The size of 3 stacks. */
     scanf("%d %d %d\n", &n[0], &n[1], &n[2]);
@@ -207,6 +208,12 @@ int main(void) {
 
     */
 
+    while (!stack_heights_equal()) {
+        min_h_stack = min_height_stack();
+        pop_greater_than(min_h_stack->height);
+    }
+
+    printf("%d\n", stacks[0].height);
 
     return 0;
 }
