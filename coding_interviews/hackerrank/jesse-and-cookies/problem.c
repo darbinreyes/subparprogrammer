@@ -226,6 +226,51 @@ int heap_rm_root(int *v) {
     return 1;
 }
 
+/*
+
+    Constructs a heap from the given array of values.
+
+    @param[in] v The array of values.
+    @param[in] l The length of the array.
+
+    @retval 0 If successful.
+    @retval 1 Otherwise, an error occurred.
+
+*/
+int  heap_create(int *v, int l) {
+    int i;
+    if (l <= 0 || v == NULL)
+        return 1;
+
+    /* For now, this operation is only valid for creating a new array. */
+    if (!heap_is_empty())
+        return 1;
+
+    if (l > HEAP_SIZE) /* Given array is too large. */
+        return 1;
+
+    /* Fill the heap array in the same order as given */
+    for (i = 0; i < l; i++)
+        heap_array[i + 1] = v[i];
+
+    num_entries = l;
+
+    /*
+
+        Perform a reheap at every node starting from the last node, up to and
+        including the root node. Since reheaping a single node is a no-op we
+        should skip calling reheap on any leaf nodes. This is achieved by
+        starting the  reheaps at the parent node of the last leaf, which is node
+        num_entries/2.
+
+    */
+    for (i = num_entries/2; i > 0; i--)
+        reheap(i, heap_array[i]);
+
+    return 0;
+}
+
+
 int main(void) {
     return 0;
 }
