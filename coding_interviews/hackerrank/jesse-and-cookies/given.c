@@ -16,6 +16,30 @@ int cookies(int k, int A_count, int* A) {
     /*
     * Write your code here.
     */
+
+    /* Pseudo code solution:
+
+        validate args.
+
+        possibly handle corner case inputs.
+
+        init_min_heap(heap)
+
+        heap_create(heap, A, A_count)
+
+        opcount = 0;
+
+        while (heap->num_entries > 1 && !is_done(k, heap)) { // is_done() will call heap_peek_root().
+            c0 = heap_rm_root(heap)
+            c1 = heap_rm_root(heap)
+            cn = c0 + 2 * c1
+            heap_add(heap, cn);
+            opcount++
+        }
+
+        return opcount;
+
+    */
     return 0;
 }
 
