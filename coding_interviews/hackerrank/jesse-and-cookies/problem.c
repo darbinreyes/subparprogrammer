@@ -270,6 +270,27 @@ int  heap_create(int *v, int l) {
     return 0;
 }
 
+// Print each level of the heap on a separate line.
+void _print_heap(int n, int start_i) {
+    int i;
+
+    for (i = start_i; i < (start_i + n) && i <= num_entries; i++) {
+        printf("%d ", heap_array[i]);
+    }
+
+    printf("\n");
+
+    if (i > num_entries)
+        return;
+
+    n *= 2;
+    _print_heap (n, i);
+}
+
+void print_heap(void) {
+    _print_heap(1, 1);
+}
+
 
 int main(void) {
     return 0;
