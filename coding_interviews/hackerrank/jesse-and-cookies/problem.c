@@ -293,5 +293,13 @@ void print_heap(void) {
 
 
 int main(void) {
+    int v[] = {20, 40, 30, 10, 90, 70};
+    int l = sizeof(v)/sizeof(v[0]);
+    int t;
+
+    heap_create (v, l);
+    print_heap();
+    heap_rm_root(&t);
+    print_heap();
     return 0;
 }
