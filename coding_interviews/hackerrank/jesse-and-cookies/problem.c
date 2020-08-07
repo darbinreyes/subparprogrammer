@@ -104,7 +104,7 @@ function a comparison function.
 5.[ ] Allow the heap to grow if it becomes full. Could just double the array size when it becomes full.
 6.[ ] Add a header file so that using the heap only requires including a header. Dont forget #include guards.
 7.[ ] ? Consider lumping the heap operations into the heap struct using UEFI style function pointers.
-
+8.[ ] Add arg checks to all functions.
 */
 
 typedef struct _heap_t {
@@ -338,6 +338,23 @@ int  heap_create(heap_t *heap, int *v, int l) {
         reheap(heap, i, heap->heap_array[i]); /************** max vs min heap different *******/
 
     return 0;
+}
+
+/*
+
+    Returns the value at the root of the heap in v, the heap is not modified. Returns
+    1 if successful. 0 otherwise.
+
+*/
+int heap_peek_root(heap_t *heap, int *v) {
+    if (v == NULL)
+        return 0;
+
+    if (heap_is_empty(heap))
+        return 0;
+
+    *v = heap->heap_array[ROOT_INDEX];
+    return 1;
 }
 
 // Print each level of the heap on a separate line.
