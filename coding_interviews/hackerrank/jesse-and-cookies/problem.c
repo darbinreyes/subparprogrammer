@@ -86,21 +86,21 @@ Implement while loop above using min heap operations.
 #define HEAP_ARRAY_SIZE 100001
 // Our heap array will be 1 based to make indexing simpler.
 #define HEAP_SIZE (HEAP_ARRAY_SIZE - 1)
-static int num_entries = 0;
-static int heap_array[HEAP_ARRAY_SIZE];
 
 #define ROOT_INDEX 1
-/*
+
+/* Improving upon my heap implementation in `subparprogrammer/coding_interviews/hackerrank/qheap1/max_heap.c`.
 
 TODO: Generalize by:
 
-1. Replacing static externals with struct * arg. to functions.
-2. Use #define to toggle whether this is a min heap or a max heap.
-3. Replace simple functions with macros.
-4. Allow storage of types other than int. This will require the user to provide
+1.[x] Replacing static externals with struct * arg. to functions.
+2.[ ] Use #define to toggle whether this is a min heap or a max heap.
+3.[ ] Replace simple functions with macros.
+4.[ ] Allow storage of types other than int. This will require the user to provide
 function a comparison function.
-5. Allow the heap to grow if it becomes full. Could just double the array size when it becomes full.
-6. ? Consider lumping the heap operations into the heap struct using UEFI style function pointers.
+5.[ ] Allow the heap to grow if it becomes full. Could just double the array size when it becomes full.
+6.[ ] Add a header file so that using the heap only requires including a header. Dont forget #include guards.
+7.[ ] ? Consider lumping the heap operations into the heap struct using UEFI style function pointers.
 
 */
 
@@ -111,13 +111,13 @@ typedef struct _heap_t {
 } heap_t;
 
 // Returns 1 if the heap is empty. Returns 0 otherwise.
-int heap_is_empty(void) {
-    return (num_entries == 0);
+int heap_is_empty(heap_t *heap) {
+    return (heap->num_entries == 0);
 }
 
 // Returns 1 if the heap is full. Returns 0 otherwise.
-int heap_is_full(void) {
-    return (num_entries == HEAP_SIZE);
+int heap_is_full(heap_t *heap) {
+    return (heap->num_entries == HEAP_SIZE);
 }
 
 int left_child(int parent) {
@@ -132,22 +132,22 @@ int parent(int child) {
     return child/2;
 }
 
-void float_up(int i, int v) {
+void float_up(heap_t *heap, int i, int v) {
     int p;
 
     p = parent(i);
 
     if (p == 0) { // The root has been replaced.
-        heap_array[ROOT_INDEX] = v;
+        heap->heap_array[ROOT_INDEX] = v;
         return;
     }
 
-    if (v < heap_array[p]) {
-        heap_array[i] = heap_array[p];
-        float_up(p, v);
+    if (v < heap->heap_array[p]) {
+        heap->heap_array[i] = heap->heap_array[p];
+        float_up(heap, p, v);
     } else {
         // assert v >= heap_array[p]
-        heap_array[i] = v;
+        heap->heap_array[i] = v;
         return;
     }
 }
@@ -158,31 +158,31 @@ void float_up(int i, int v) {
     heap. Returns 0 if the v could not be added, e.g. if the heap is full.
 
 */
-int heap_add(int v) {
+int heap_add(heap_t *heap, int v) {
 
-    if (heap_is_full())
+    if (heap_is_full(heap))
         return 0;
 
-    num_entries++;
-    float_up(num_entries, v);
+    heap->num_entries++;
+    float_up(heap, heap->num_entries, v);
 
     return 1;
 }
 
-int smaller_child(int i) {
+int smaller_child(heap_t *heap, int i) {
     int lc_i, rc_i, smallerc_i;
 
     lc_i = left_child(i);
     rc_i = right_child(i);
 
-    if (lc_i <= num_entries && rc_i <= num_entries) {
-        if (heap_array[lc_i] < heap_array[rc_i])
+    if (lc_i <= heap->num_entries && rc_i <= heap->num_entries) {
+        if (heap->heap_array[lc_i] < heap->heap_array[rc_i])
             smallerc_i = lc_i;
         else
             smallerc_i = rc_i;
-    } else if (lc_i <= num_entries) {
+    } else if (lc_i <= heap->num_entries) {
         smallerc_i = lc_i;
-    } else if (rc_i <= num_entries) {
+    } else if (rc_i <= heap->num_entries) {
         smallerc_i = rc_i;
     } else {
         /* i is a node without any children. */
@@ -192,21 +192,21 @@ int smaller_child(int i) {
     return smallerc_i;
 }
 
-void reheap(int i, int v) {
+void reheap(heap_t *heap, int i, int v) {
     int smallerc_i;
 
-    smallerc_i = smaller_child(i);
+    smallerc_i = smaller_child(heap, i);
 
     if(smallerc_i <= 0) {
-        heap_array[i] = v;
+        heap->heap_array[i] = v;
         return;
     }
 
-    if (v > heap_array[smallerc_i]) {
-        heap_array[i] = heap_array[smallerc_i];
-        reheap(smallerc_i, v);
+    if (v > heap->heap_array[smallerc_i]) {
+        heap->heap_array[i] = heap->heap_array[smallerc_i];
+        reheap(heap, smallerc_i, v);
     } else {
-        heap_array[i] = v;
+        heap->heap_array[i] = v;
     }
 }
 
@@ -216,17 +216,17 @@ void reheap(int i, int v) {
     Returns 0 if an error occurred, e.g. the heap is empty.
 
 */
-int heap_rm_root(int *v) {
+int heap_rm_root(heap_t *heap, int *v) {
 
     if (v == NULL)
         return 0;
 
-    if (heap_is_empty())
+    if (heap_is_empty(heap))
         return 0;
 
-    if (num_entries == 1) { // Single entry in the heap, return the root.
-        *v = heap_array[num_entries];
-        num_entries--;
+    if (heap->num_entries == 1) { // Single entry in the heap, return the root.
+        *v = heap->heap_array[heap->num_entries];
+        heap->num_entries--;
         return 1;
     }
 
@@ -238,10 +238,10 @@ int heap_rm_root(int *v) {
         forms a "semi-heap" 2. Perform a re-heap to create a heap again.
 
     */
-    *v = heap_array[ROOT_INDEX];
-    heap_array[ROOT_INDEX] = heap_array[num_entries];
-    num_entries--;
-    reheap(ROOT_INDEX, heap_array[ROOT_INDEX]);
+    *v = heap->heap_array[ROOT_INDEX];
+    heap->heap_array[ROOT_INDEX] = heap->heap_array[heap->num_entries];
+    heap->num_entries--;
+    reheap(heap, ROOT_INDEX, heap->heap_array[ROOT_INDEX]);
     return 1;
 }
 
@@ -256,13 +256,13 @@ int heap_rm_root(int *v) {
     @retval 1 Otherwise, an error occurred.
 
 */
-int  heap_create(int *v, int l) {
+int  heap_create(heap_t *heap, int *v, int l) {
     int i;
     if (l <= 0 || v == NULL)
         return 1;
 
     /* For now, this operation is only valid for creating a new array. */
-    if (!heap_is_empty())
+    if (!heap_is_empty(heap))
         return 1;
 
     if (l > HEAP_SIZE) /* Given array is too large. */
@@ -270,9 +270,9 @@ int  heap_create(int *v, int l) {
 
     /* Fill the heap array in the same order as given */
     for (i = 0; i < l; i++)
-        heap_array[i + 1] = v[i];
+        heap->heap_array[i + 1] = v[i];
 
-    num_entries = l;
+    heap->num_entries = l;
 
     /*
 
@@ -283,31 +283,37 @@ int  heap_create(int *v, int l) {
         num_entries/2.
 
     */
-    for (i = num_entries/2; i > 0; i--)
-        reheap(i, heap_array[i]);
+    for (i = heap->num_entries/2; i > 0; i--)
+        reheap(heap, i, heap->heap_array[i]);
 
     return 0;
 }
 
 // Print each level of the heap on a separate line.
-void _print_heap(int n, int start_i) {
+void _print_heap(heap_t *heap, int n, int start_i) {
     int i;
 
-    for (i = start_i; i < (start_i + n) && i <= num_entries; i++) {
-        printf("%d ", heap_array[i]);
+    for (i = start_i; i < (start_i + n) && i <= heap->num_entries; i++) {
+        printf("%d ", heap->heap_array[i]);
     }
 
     printf("\n");
 
-    if (i > num_entries)
+    if (i > heap->num_entries)
         return;
 
     n *= 2;
-    _print_heap (n, i);
+    _print_heap (heap, n, i);
 }
 
-void print_heap(void) {
-    _print_heap(1, 1);
+void print_heap(heap_t *heap) {
+
+    if (heap->num_entries == 0) {
+        printf("Empty heap.\n");
+        return;
+    }
+
+    _print_heap(heap, 1, 1);
 }
 
 
@@ -315,10 +321,11 @@ int main(void) {
     int v[] = {20, 40, 30, 10, 90, 70};
     int l = sizeof(v)/sizeof(v[0]);
     int t;
+    static heap_t heap;
 
-    heap_create (v, l);
-    print_heap();
-    heap_rm_root(&t);
-    print_heap();
+    heap_create (&heap, v, l);
+    print_heap(&heap);
+    heap_rm_root(&heap, &t);
+    print_heap(&heap);
     return 0;
 }
