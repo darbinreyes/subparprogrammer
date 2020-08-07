@@ -80,3 +80,152 @@ Implement while loop above using min heap operations.
 
 
 */
+
+#include <stdio.h>
+
+#define HEAP_ARRAY_SIZE 100001
+// Our heap array will be 1 based to make indexing simpler.
+#define HEAP_SIZE (HEAP_ARRAY_SIZE - 1)
+static int num_entries = 0;
+static int heap_array[HEAP_ARRAY_SIZE];
+
+#define ROOT_INDEX 1
+
+// Returns 1 if the heap is empty. Returns 0 otherwise.
+int heap_is_empty(void) {
+    return (num_entries == 0);
+}
+
+// Returns 1 if the heap is full. Returns 0 otherwise.
+int heap_is_full(void) {
+    return (num_entries == HEAP_SIZE);
+}
+
+int left_child(int parent) {
+    return 2 * parent;
+}
+
+int right_child(int parent) {
+    return 2 * parent + 1;
+}
+
+int parent(int child) {
+    return child/2;
+}
+
+void float_up(int i, int v) {
+    int p;
+
+    p = parent(i);
+
+    if (p == 0) { // The root has been replaced.
+        heap_array[ROOT_INDEX] = v;
+        return;
+    }
+
+    if (v < heap_array[p]) {
+        heap_array[i] = heap_array[p];
+        float_up(p, v);
+    } else {
+        // assert v >= heap_array[p]
+        heap_array[i] = v;
+        return;
+    }
+}
+
+/*
+
+    Returns 1 if successfully added v to the heap or if v is already in the
+    heap. Returns 0 if the v could not be added, e.g. if the heap is full.
+
+*/
+int heap_add(int v) {
+
+    if (heap_is_full())
+        return 0;
+
+    num_entries++;
+    float_up(num_entries, v);
+
+    return 1;
+}
+
+int smaller_child(int i) {
+    int lc_i, rc_i, smallerc_i;
+
+    lc_i = left_child(i);
+    rc_i = right_child(i);
+
+    if (lc_i <= num_entries && rc_i <= num_entries) {
+        if (heap_array[lc_i] < heap_array[rc_i])
+            smallerc_i = lc_i;
+        else
+            smallerc_i = rc_i;
+    } else if (lc_i <= num_entries) {
+        smallerc_i = lc_i;
+    } else if (rc_i <= num_entries) {
+        smallerc_i = rc_i;
+    } else {
+        /* i is a node without any children. */
+        smallerc_i = 0;
+    }
+
+    return smallerc_i;
+}
+
+void reheap(int i, int v) {
+    int smallerc_i;
+
+    smallerc_i = smaller_child(i);
+
+    if(smallerc_i <= 0) {
+        heap_array[i] = v;
+        return;
+    }
+
+    if (v > heap_array[smallerc_i]) {
+        heap_array[i] = heap_array[smallerc_i];
+        reheap(smallerc_i, v);
+    } else {
+        heap_array[i] = v;
+    }
+}
+
+/*
+
+    Returns 1 if the root is successfully removed, returns the root value in v.
+    Returns 0 if an error occurred, e.g. the heap is empty.
+
+*/
+int heap_rm_root(int *v) {
+
+    if (v == NULL)
+        return 0;
+
+    if (heap_is_empty())
+        return 0;
+
+    if (num_entries == 1) { // Single entry in the heap, return the root.
+        *v = heap_array[num_entries];
+        num_entries--;
+        return 1;
+    }
+
+    // assert num_entries > 1
+
+    /*
+
+        The standard algorithm is: 1. Place the last leaf at the root, this
+        forms a "semi-heap" 2. Perform a re-heap to create a heap again.
+
+    */
+    *v = heap_array[ROOT_INDEX];
+    heap_array[ROOT_INDEX] = heap_array[num_entries];
+    num_entries--;
+    reheap(ROOT_INDEX, heap_array[ROOT_INDEX]);
+    return 1;
+}
+
+int main(void) {
+    return 0;
+}
