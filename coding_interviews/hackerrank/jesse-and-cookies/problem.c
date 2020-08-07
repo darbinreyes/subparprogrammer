@@ -82,6 +82,7 @@ Implement while loop above using min heap operations.
 */
 
 #include <stdio.h>
+#include <assert.h>
 
 #define HEAP_ARRAY_SIZE 100001
 // Our heap array will be 1 based to make indexing simpler.
@@ -95,6 +96,8 @@ TODO: Generalize by:
 
 1.[x] Replacing static externals with struct * arg. to functions.
 2.[ ] Use #define to toggle whether this is a min heap or a max heap.
+Remark on #2. If we use a #define, we can only toggle between the two heap types at compile time.
+
 3.[ ] Replace simple functions with macros.
 4.[ ] Allow storage of types other than int. This will require the user to provide
 function a comparison function.
@@ -106,11 +109,10 @@ function a comparison function.
 
 typedef struct _heap_t {
     /* Represents a min or max heap. */
+    const int min_or_max_heap; // 0 means min heap, otherwise this is a max heap.
     int heap_array[HEAP_ARRAY_SIZE];
     int num_entries;
 } heap_t;
-
-/************** max vs min heap different *******/
 
 // Returns 1 if the heap is empty. Returns 0 otherwise.
 int heap_is_empty(heap_t *heap) {
@@ -218,7 +220,6 @@ int larger_child(heap_t *heap, int i) {
     rc_i = right_child(i);
 
     if (lc_i <= heap->num_entries && rc_i <= heap->num_entries) {
-        /* Never equal since we aren't allowing duplicates. */
         if (heap->heap_array[lc_i] > heap->heap_array[rc_i])
             largerc_i = lc_i;
         else
@@ -366,12 +367,24 @@ void print_heap(heap_t *heap) {
     _print_heap(heap, 1, 1);
 }
 
+/* I borrowed this macro style from linux/list.h. */
+ // Declare a max heap variable.
+#define MAX_HEAP(name) \
+    heap_t name = {1}
+
+// Declare a min heap variable.
+#define MIN_HEAP(name) \
+    heap_t name = {0}
+
 
 int main(void) {
     int v[] = {20, 40, 30, 10, 90, 70};
     int l = sizeof(v)/sizeof(v[0]);
     int t;
-    static heap_t heap;
+    //static heap_t heap = {1};
+    static MIN_HEAP(heap);
+
+    assert(heap.min_or_max_heap == 0);
 
     heap_create (&heap, v, l);
     print_heap(&heap);
