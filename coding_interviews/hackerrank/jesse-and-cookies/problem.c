@@ -90,6 +90,25 @@ static int num_entries = 0;
 static int heap_array[HEAP_ARRAY_SIZE];
 
 #define ROOT_INDEX 1
+/*
+
+TODO: Generalize by:
+
+1. Replacing static externals with struct * arg. to functions.
+2. Use #define to toggle whether this is a min heap or a max heap.
+3. Replace simple functions with macros.
+4. Allow storage of types other than int. This will require the user to provide
+function a comparison function.
+5. Allow the heap to grow if it becomes full. Could just double the array size when it becomes full.
+6. ? Consider lumping the heap operations into the heap struct using UEFI style function pointers.
+
+*/
+
+typedef struct _heap_t {
+    /* Represents a min or max heap. */
+    int heap_array[HEAP_ARRAY_SIZE];
+    int num_entries;
+} heap_t;
 
 // Returns 1 if the heap is empty. Returns 0 otherwise.
 int heap_is_empty(void) {
