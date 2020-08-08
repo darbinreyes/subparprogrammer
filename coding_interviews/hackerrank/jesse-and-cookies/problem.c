@@ -139,6 +139,7 @@ int parent(int child) {
 void float_up(heap_t *heap, int i, int v) {
 /************** max vs min heap different *******/
     int p;
+    int c;
 
     p = parent(i);
 
@@ -147,7 +148,12 @@ void float_up(heap_t *heap, int i, int v) {
         return;
     }
 
-    if (v < heap->heap_array[p]) {
+    if(!heap->min_or_max_heap)
+        c = v < heap->heap_array[p];
+    else
+        c = v > heap->heap_array[p];
+
+    if (c) {
         heap->heap_array[i] = heap->heap_array[p];
         float_up(heap, p, v);
     } else {
@@ -173,6 +179,45 @@ int heap_add(heap_t *heap, int v) {
 
     return 1;
 }
+
+/*
+
+    This is a helper function for reheap().
+
+    If heap is a min heap, returns the index of the child with the lesser value. If i has no children, 0 is returned.
+    If heap is a max heap, returns the index of the child with the greater value. If i has no children, 0 is returned.
+
+*/
+int reheap_child(heap_t *heap, int i) {
+/************** max vs min heap different *******/ // max heap uses larger_child()
+    int lc_i, rc_i, reheap_child_i;
+    int c;
+
+    lc_i = left_child(i);
+    rc_i = right_child(i);
+
+    if (lc_i <= heap->num_entries && rc_i <= heap->num_entries) {
+        if(!heap->min_or_max_heap)
+            c = heap->heap_array[lc_i] < heap->heap_array[rc_i];
+        else
+            c = heap->heap_array[lc_i] > heap->heap_array[rc_i];
+
+        if (c)
+            reheap_child_i = lc_i;
+        else
+            reheap_child_i = rc_i;
+    } else if (lc_i <= heap->num_entries) {
+        reheap_child_i = lc_i;
+    } else if (rc_i <= heap->num_entries) {
+        reheap_child_i = rc_i;
+    } else {
+        /* i is a node without any children. */
+        reheap_child_i = 0;
+    }
+
+    return reheap_child_i;
+}
+
 
 int smaller_child(heap_t *heap, int i) {
 /************** max vs min heap different *******/ // max heap uses larger_child()
@@ -242,20 +287,32 @@ int larger_child(heap_t *heap, int i) {
     return largerc_i;
 }
 
+/*
+
+    A reheap operation transforms a semiheap into a heap. A semiheap is a heap
+    in which only the root node's value is out of place. This operation is used for
+    instance, when the root node is removed from the heap in order to
+    reestablish the heap invariant. It is also used to more efficiently form a heap
+    from a given array of values.
+
+    Performs a reheap operation at the subtree rooted at node `i` in order to
+    find an appropriate location for value `v` in the heap.
+
+*/
 void reheap(heap_t *heap, int i, int v) {
 /************** max vs min heap different *******/
-    int smallerc_i;
+    int reheap_child_i;
 
-    smallerc_i = smaller_child(heap, i); /************** max vs min heap different *******/
+    reheap_child_i = reheap_child(heap, i); /************** max vs min heap different *******/
 
-    if(smallerc_i <= 0) {
+    if(reheap_child_i <= 0) {
         heap->heap_array[i] = v;
         return;
     }
 
-    if (v > heap->heap_array[smallerc_i]) {
-        heap->heap_array[i] = heap->heap_array[smallerc_i];
-        reheap(heap, smallerc_i, v);
+    if (v > heap->heap_array[reheap_child_i]) {
+        heap->heap_array[i] = heap->heap_array[reheap_child_i];
+        reheap(heap, reheap_child_i, v);
     } else {
         heap->heap_array[i] = v;
     }
