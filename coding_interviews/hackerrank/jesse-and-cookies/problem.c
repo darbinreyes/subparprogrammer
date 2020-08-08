@@ -101,7 +101,7 @@ TODO: Generalize by:
 2.[x] Use #define to toggle whether this is a min heap or a max heap.
 Remark on #2. If we use a #define, we can only toggle between the two heap types at compile time.
 
-8.[ ] Add arg checks to all functions.
+8.[x] Add arg checks to all functions.
 
 3.[ ] Replace simple functions with macros.
 
