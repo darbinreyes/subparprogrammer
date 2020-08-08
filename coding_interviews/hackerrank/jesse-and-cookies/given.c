@@ -1,3 +1,11 @@
+/*
+
+    https://www.hackerrank.com/challenges/jesse-and-cookies/problem
+
+    Success Rate: 67.21%
+
+*/
+
 #include <assert.h>
 #include <limits.h>
 #include <math.h>
