@@ -95,7 +95,7 @@ Implement while loop above using min heap operations.
 TODO: Generalize by:
 
 1.[x] Replacing static externals with struct * arg. to functions.
-2.[ ] Use #define to toggle whether this is a min heap or a max heap.
+2.[x] Use #define to toggle whether this is a min heap or a max heap.
 Remark on #2. If we use a #define, we can only toggle between the two heap types at compile time.
 
 3.[ ] Replace simple functions with macros.
@@ -137,7 +137,6 @@ int parent(int child) {
 }
 
 void float_up(heap_t *heap, int i, int v) {
-/************** max vs min heap different *******/
     int p;
     int c;
 
@@ -189,7 +188,6 @@ int heap_add(heap_t *heap, int v) {
 
 */
 int reheap_child(heap_t *heap, int i) {
-/************** max vs min heap different *******/ // max heap uses larger_child()
     int lc_i, rc_i, reheap_child_i;
     int c;
 
@@ -218,75 +216,6 @@ int reheap_child(heap_t *heap, int i) {
     return reheap_child_i;
 }
 
-
-int smaller_child(heap_t *heap, int i) {
-/************** max vs min heap different *******/ // max heap uses larger_child()
-    int lc_i, rc_i, smallerc_i;
-
-    lc_i = left_child(i);
-    rc_i = right_child(i);
-
-    if (lc_i <= heap->num_entries && rc_i <= heap->num_entries) {
-        if (heap->heap_array[lc_i] < heap->heap_array[rc_i])
-            smallerc_i = lc_i;
-        else
-            smallerc_i = rc_i;
-    } else if (lc_i <= heap->num_entries) {
-        smallerc_i = lc_i;
-    } else if (rc_i <= heap->num_entries) {
-        smallerc_i = rc_i;
-    } else {
-        /* i is a node without any children. */
-        smallerc_i = 0;
-    }
-
-    return smallerc_i;
-}
-
-/*
-
-    Returns the index of the larger child of the specified node.
-
-
-    @param[in] i  The index of a node in the heap.
-
-
-    @retval j <= 0  If the node does not have children.
-    @retval j > 0   If the node has children. If the node has two children, j is
-                    the index of the node containing the larger value.
-                    Otherwise, j is the index of the one and only child.
-
-*/
-int larger_child(heap_t *heap, int i) {
-/************** max vs min heap different *******/ // See above.
-    int lc_i, rc_i, largerc_i;
-
-    lc_i = left_child(i);
-    rc_i = right_child(i);
-
-    if (lc_i <= heap->num_entries && rc_i <= heap->num_entries) {
-        if (heap->heap_array[lc_i] > heap->heap_array[rc_i])
-            largerc_i = lc_i;
-        else
-            largerc_i = rc_i;
-    } else if (lc_i <= heap->num_entries) {
-        /*
-
-            Since the heap is always a complete binary tree, a node with less
-            than 2 children can only have a left child. Otherwise it has no
-            children. The two blocks below should never execute.
-        */
-        largerc_i = lc_i;
-    } else if (rc_i <= heap->num_entries) {
-        largerc_i = rc_i;
-    } else {
-        /* i is a node without any children. */
-        largerc_i = 0;
-    }
-
-    return largerc_i;
-}
-
 /*
 
     A reheap operation transforms a semiheap into a heap. A semiheap is a heap
@@ -300,11 +229,10 @@ int larger_child(heap_t *heap, int i) {
 
 */
 void reheap(heap_t *heap, int i, int v) {
-/************** max vs min heap different *******/
     int reheap_child_i;
     int c;
 
-    reheap_child_i = reheap_child(heap, i); /************** max vs min heap different *******/
+    reheap_child_i = reheap_child(heap, i);
 
     if(reheap_child_i <= 0) {
         heap->heap_array[i] = v;
