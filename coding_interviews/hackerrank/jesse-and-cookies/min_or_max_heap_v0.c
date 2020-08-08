@@ -83,7 +83,7 @@ Implement while loop above using min heap operations.
 
 #include <stdio.h>
 
-#define NDEBUG // This disables asserts at compile time.
+//#define NDEBUG // This disables asserts at compile time.
 
 #include <assert.h>
 
@@ -504,7 +504,6 @@ int main(void) {
 
     static MIN_HEAP(min_heap);
     static MAX_HEAP(max_heap);
-    assert(0);
 
     assert(min_heap.min_or_max_heap == 0);
     assert(max_heap.min_or_max_heap != 0);
