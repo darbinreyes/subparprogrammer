@@ -6,6 +6,82 @@
 
 */
 
+
+/* Scratch Work.
+
+We are given an array of integers `A` whose size is N ([1, 1 000 000])
+and whose members `A[i]` are all non-negative ([0, 1 000 000]).
+
+We are also given a non-negative integer `k` ([0, 1 000 000 000]).
+
+The task is:
+
+repetition
+
+`n` = 0
+
+while len(`A`) > 1 && !all_greater_than_or_equal_to(`A`, `k`) {
+
+remove the two least members from `A`, call them `c0`, `c1`.
+compute `cn` =  c0 + 2 * c1
+place `cn` in A.
+n++
+
+}
+
+assert: len(`A`) <= 1 || all_greater_than_or_equal_to(`A`, `k`)
+
+if len(`A`) == 1 && `A[0]` < k
+    return -1 // means no solution is possible.
+
+
+return `n`
+
+*/
+
+/* Scratch Work.
+
+
+We could try starting with a sorted array, but as we are removing and then adding
+items to the array this would require resorting O(n^2) each time we remove or add an item.
+We can avoid resorting by because the array is sorted, insertion is O(n).
+
+Using a sorted linked list would also involve O(n) insertion.
+
+Since we are removing the minimum element in each iteration, a min heap seems
+appropriate. Adding and removing is O(log.n).
+
+Other considerations:
+
+* When should we return -1?
+  * As soon as len(`A`) and `A[last]` < k, no solution is possible.
+
+
+if k == 0, we can immediately return 0, since each element in the array is
+bounded by [0, 1 000 000] and it is given that the array contains at least 1
+element.
+
+Variable sizes:
+
+Does `k` fit in an int? Yes.
+
+What about the array `A`? In the worst case, we might end up with a value =
+N_max * A_i_max = 10^6 * 10^6 = 10^12, this suggests that we should use
+**long.**
+
+Plan:
+
+Insert my min heap implementation from a previous problem
+
+Add code to create a min heap from the array 'A'.
+
+Implement `all_greater_than_or_equal_to()`
+
+Implement while loop above using min heap operations.
+
+
+*/
+
 #include <assert.h>
 #include <limits.h>
 #include <math.h>
@@ -22,7 +98,7 @@ char** split_string(char*);
 
 #include <assert.h>
 
-#define HEAP_ARRAY_SIZE 100001
+#define HEAP_ARRAY_SIZE 1000001
 // Our heap array will be 1 based to make indexing simpler.
 #define HEAP_SIZE (HEAP_ARRAY_SIZE - 1)
 
@@ -388,44 +464,6 @@ int heap_peek_root(heap_t *heap, int *v) {
     return 1;
 }
 
-// Print each level of the heap on a separate line.
-void _print_heap(heap_t *heap, int n, int start_i) {
-    int i;
-
-    // No arg check here since this function is wrapped with print_heap().
-
-    for (i = start_i; i < (start_i + n) && i <= heap->num_entries; i++) {
-        printf("%d ", heap->heap_array[i]);
-    }
-
-    printf("\n");
-
-    if (i > heap->num_entries)
-        return;
-
-    n *= 2;
-    _print_heap (heap, n, i);
-}
-
-void print_heap(heap_t *heap) {
-
-    if (heap == NULL) {
-        assert(0);
-        return;
-    }
-
-    if (heap->num_entries == 0) {
-        printf("Empty heap.\n");
-        return;
-    }
-
-    _print_heap(heap, 1, 1);
-}
-
-/* I borrowed this macro style from linux/list.h. */
- // Declare a max heap variable.
-#define MAX_HEAP(name) \
-    heap_t name = {1}
 
 // Declare a min heap variable.
 #define MIN_HEAP(name) \
@@ -439,8 +477,14 @@ int cookies(int k, int A_count, int* A) {
     /*
     * Write your code here.
     */
+    int opcount = 0; // The max value of the operation count = N_max - 1
+    static MIN_HEAP(min_heap);
+
+    min_heap.num_entries = 0; // Reset the min heap.
 
     /* Pseudo code solution:
+
+        [To start I will assume that transferring `A` into an array of type long is not necessary. If a test case fails, I will use type long.]
 
         validate args.
 
