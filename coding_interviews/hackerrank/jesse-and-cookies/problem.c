@@ -302,6 +302,7 @@ int larger_child(heap_t *heap, int i) {
 void reheap(heap_t *heap, int i, int v) {
 /************** max vs min heap different *******/
     int reheap_child_i;
+    int c;
 
     reheap_child_i = reheap_child(heap, i); /************** max vs min heap different *******/
 
@@ -310,7 +311,12 @@ void reheap(heap_t *heap, int i, int v) {
         return;
     }
 
-    if (v > heap->heap_array[reheap_child_i]) {
+    if(!heap->min_or_max_heap)
+        c = v > heap->heap_array[reheap_child_i];
+    else
+        c = v < heap->heap_array[reheap_child_i];
+
+    if (c) {
         heap->heap_array[i] = heap->heap_array[reheap_child_i];
         reheap(heap, reheap_child_i, v);
     } else {
@@ -455,14 +461,22 @@ int main(void) {
     int v[] = {20, 40, 30, 10, 90, 70};
     int l = sizeof(v)/sizeof(v[0]);
     int t;
-    //static heap_t heap = {1};
-    static MIN_HEAP(heap);
 
-    assert(heap.min_or_max_heap == 0);
+    static MIN_HEAP(min_heap);
+    static MAX_HEAP(max_heap);
 
-    heap_create (&heap, v, l);
-    print_heap(&heap);
-    heap_rm_root(&heap, &t);
-    print_heap(&heap);
+    assert(min_heap.min_or_max_heap == 0);
+    assert(max_heap.min_or_max_heap != 0);
+
+    heap_create (&min_heap, v, l);
+    print_heap(&min_heap);
+    heap_rm_root(&min_heap, &t);
+    print_heap(&min_heap);
+
+    heap_create (&max_heap, v, l);
+    print_heap(&max_heap);
+    heap_rm_root(&max_heap, &t);
+    print_heap(&max_heap);
+
     return 0;
 }
