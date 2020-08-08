@@ -82,6 +82,9 @@ Implement while loop above using min heap operations.
 */
 
 #include <stdio.h>
+
+#define NDEBUG // This disables asserts at compile time.
+
 #include <assert.h>
 
 #define HEAP_ARRAY_SIZE 100001
@@ -98,13 +101,17 @@ TODO: Generalize by:
 2.[x] Use #define to toggle whether this is a min heap or a max heap.
 Remark on #2. If we use a #define, we can only toggle between the two heap types at compile time.
 
+8.[ ] Add arg checks to all functions.
+
 3.[ ] Replace simple functions with macros.
+
 4.[ ] Allow storage of types other than int. This will require the user to provide
 function a comparison function.
+
 5.[ ] Allow the heap to grow if it becomes full. Could just double the array size when it becomes full.
 6.[ ] Add a header file so that using the heap only requires including a header. Dont forget #include guards.
 7.[ ] ? Consider lumping the heap operations into the heap struct using UEFI style function pointers.
-8.[ ] Add arg checks to all functions.
+
 */
 
 typedef struct _heap_t {
@@ -114,25 +121,76 @@ typedef struct _heap_t {
     int num_entries;
 } heap_t;
 
-// Returns 1 if the heap is empty. Returns 0 otherwise.
+/*
+
+    Returns -1 if heap is NULL. Returns 1 if the heap is empty. Returns 0 if not empty.
+
+*/
 int heap_is_empty(heap_t *heap) {
+    assert(heap != NULL);
+
+    if (!(heap != NULL))
+        return -1;
+
     return (heap->num_entries == 0);
 }
 
-// Returns 1 if the heap is full. Returns 0 otherwise.
+/*
+
+    Returns -1 if heap is NULL. Returns 1 if the heap is full. Returns 0 if not full.
+
+*/
 int heap_is_full(heap_t *heap) {
+    assert(heap != NULL);
+
+    if (!(heap != NULL))
+        return -1;
+
     return (heap->num_entries == HEAP_SIZE);
 }
 
+/*
+
+    Returns -1 if `parent` is not > 0, which is an invalid index. Otherwise,
+    returns the index ( > 0) of the left child of node `parent`.
+
+*/
 int left_child(int parent) {
+    assert(parent > 0); // Valid indexes into the heap array start at 1.
+
+    if(!(parent > 0))
+        return -1;
+
     return 2 * parent;
 }
 
+/*
+
+    Returns -1 if `parent` is not > 0, which is an invalid index. Otherwise,
+    returns the index ( > 0) of the right child of node `parent`.
+
+*/
 int right_child(int parent) {
+    assert(parent > 0); // Valid indexes into the heap array start at 1.
+
+    if(!(parent > 0))
+        return -1;
+
     return 2 * parent + 1;
 }
 
+/*
+
+    Returns -1 if `child` is not > 0, which is an invalid index. Otherwise,
+    returns the index ( > 0) of the parent of node `child`.
+
+*/
 int parent(int child) {
+    assert(child > 0); // Valid indexes into the heap array start at 1.
+
+    if(!(child > 0))
+        return -1;
+
     return child/2;
 }
 
@@ -140,7 +198,15 @@ void float_up(heap_t *heap, int i, int v) {
     int p;
     int c;
 
+    assert(heap != NULL && i > 0);
+
+    if (!(heap != NULL && i > 0))
+        return;
+
     p = parent(i);
+
+    if (p == -1) // Error, bail.
+        return;
 
     if (p == 0) { // The root has been replaced.
         heap->heap_array[ROOT_INDEX] = v;
@@ -164,11 +230,17 @@ void float_up(heap_t *heap, int i, int v) {
 
 /*
 
+    Returns -1 if heap is NULL.
     Returns 1 if successfully added v to the heap or if v is already in the
     heap. Returns 0 if the v could not be added, e.g. if the heap is full.
 
 */
 int heap_add(heap_t *heap, int v) {
+
+    assert(heap != NULL);
+
+    if (!(heap != NULL))
+        return -1;
 
     if (heap_is_full(heap))
         return 0;
@@ -181,6 +253,8 @@ int heap_add(heap_t *heap, int v) {
 
 /*
 
+    Returns -1 if an error occurred.
+
     This is a helper function for reheap().
 
     If heap is a min heap, returns the index of the child with the lesser value. If i has no children, 0 is returned.
@@ -191,8 +265,16 @@ int reheap_child(heap_t *heap, int i) {
     int lc_i, rc_i, reheap_child_i;
     int c;
 
+    assert(heap != NULL);
+
+    if (!(heap != NULL))
+        return -1;
+
     lc_i = left_child(i);
     rc_i = right_child(i);
+
+    if (lc_i == -1 || rc_i == -1)
+        return -1;
 
     if (lc_i <= heap->num_entries && rc_i <= heap->num_entries) {
         if(!heap->min_or_max_heap)
@@ -232,7 +314,15 @@ void reheap(heap_t *heap, int i, int v) {
     int reheap_child_i;
     int c;
 
+    assert(heap != NULL);
+
+    if (!(heap != NULL))
+        return;
+
     reheap_child_i = reheap_child(heap, i);
+
+    if (reheap_child_i == -1) // Error, bail.
+        return;
 
     if(reheap_child_i <= 0) {
         heap->heap_array[i] = v;
@@ -260,10 +350,12 @@ void reheap(heap_t *heap, int i, int v) {
 */
 int heap_rm_root(heap_t *heap, int *v) {
 
-    if (v == NULL)
+    assert(heap != NULL && v != NULL);
+
+    if (!(heap != NULL && v != NULL))
         return 0;
 
-    if (heap_is_empty(heap))
+    if (heap_is_empty(heap) == 1)
         return 0;
 
     if (heap->num_entries == 1) { // Single entry in the heap, return the root.
@@ -283,7 +375,7 @@ int heap_rm_root(heap_t *heap, int *v) {
     *v = heap->heap_array[ROOT_INDEX];
     heap->heap_array[ROOT_INDEX] = heap->heap_array[heap->num_entries];
     heap->num_entries--;
-    reheap(heap, ROOT_INDEX, heap->heap_array[ROOT_INDEX]); /************** max vs min heap different *******/
+    reheap(heap, ROOT_INDEX, heap->heap_array[ROOT_INDEX]);
     return 1;
 }
 
@@ -300,11 +392,14 @@ int heap_rm_root(heap_t *heap, int *v) {
 */
 int  heap_create(heap_t *heap, int *v, int l) {
     int i;
-    if (l <= 0 || v == NULL)
+
+    assert(heap != NULL && v != NULL && l >= 0);
+
+    if (!(heap != NULL && v != NULL && l >= 0))
         return 1;
 
     /* For now, this operation is only valid for creating a new array. */
-    if (!heap_is_empty(heap))
+    if (heap_is_empty(heap) != 1)
         return 1;
 
     if (l > HEAP_SIZE) /* Given array is too large. */
@@ -326,7 +421,7 @@ int  heap_create(heap_t *heap, int *v, int l) {
 
     */
     for (i = heap->num_entries/2; i > 0; i--)
-        reheap(heap, i, heap->heap_array[i]); /************** max vs min heap different *******/
+        reheap(heap, i, heap->heap_array[i]);
 
     return 0;
 }
@@ -338,10 +433,13 @@ int  heap_create(heap_t *heap, int *v, int l) {
 
 */
 int heap_peek_root(heap_t *heap, int *v) {
-    if (v == NULL)
+
+    assert(heap != NULL && v != NULL);
+
+    if (!(heap != NULL && v != NULL))
         return 0;
 
-    if (heap_is_empty(heap))
+    if (heap_is_empty(heap) == 1)
         return 0;
 
     *v = heap->heap_array[ROOT_INDEX];
@@ -352,6 +450,7 @@ int heap_peek_root(heap_t *heap, int *v) {
 void _print_heap(heap_t *heap, int n, int start_i) {
     int i;
 
+    // No arg check here since this function is wrapped with print_heap().
     for (i = start_i; i < (start_i + n) && i <= heap->num_entries; i++) {
         printf("%d ", heap->heap_array[i]);
     }
@@ -366,6 +465,11 @@ void _print_heap(heap_t *heap, int n, int start_i) {
 }
 
 void print_heap(heap_t *heap) {
+
+    assert(heap != NULL);
+
+    if (!(heap != NULL))
+        return;
 
     if (heap->num_entries == 0) {
         printf("Empty heap.\n");
@@ -392,6 +496,7 @@ int main(void) {
 
     static MIN_HEAP(min_heap);
     static MAX_HEAP(max_heap);
+    assert(0);
 
     assert(min_heap.min_or_max_heap == 0);
     assert(max_heap.min_or_max_heap != 0);
