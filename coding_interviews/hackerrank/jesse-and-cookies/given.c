@@ -104,27 +104,6 @@ char** split_string(char*);
 
 #define ROOT_INDEX 1
 
-/* Improving upon my heap implementation in `subparprogrammer/coding_interviews/hackerrank/qheap1/max_heap.c`.
-
-TODO: Generalize by:
-
-1.[x] Replacing static externals with struct * arg. to functions.
-2.[x] Use #define to toggle whether this is a min heap or a max heap.
-Remark on #2. If we use a #define, we can only toggle between the two heap types at compile time.
-
-8.[x] Add arg checks to all functions.
-
-3.[ ] Replace simple functions with macros.
-
-4.[ ] Allow storage of types other than int. This will require the user to provide
-function a comparison function.
-
-5.[ ] Allow the heap to grow if it becomes full. Could just double the array size when it becomes full.
-6.[ ] Add a header file so that using the heap only requires including a header. Dont forget #include guards.
-7.[ ] ? Consider lumping the heap operations into the heap struct using UEFI style function pointers.
-
-*/
-
 typedef struct _heap_t {
     /* Represents a min or max heap. */
     const int min_or_max_heap; // 0 means min heap, otherwise this is a max heap.
@@ -469,6 +448,18 @@ int heap_peek_root(heap_t *heap, int *v) {
 #define MIN_HEAP(name) \
     heap_t name = {0}
 
+// Returns 1 if we are done. Returns 0 if not.
+int is_done(int k, heap_t *h) {
+    int i;
+
+    // assert h->num_entries > 1.
+
+    for (i = ROOT_INDEX; i <= h->num_entries; i++)
+        if (h->heap_array[i] < k) // One of the cookies is not sweet enough, not done..
+            return 0;
+
+    return 1;
+}
 
 /*
  * Complete the cookies function below.
@@ -478,19 +469,49 @@ int cookies(int k, int A_count, int* A) {
     * Write your code here.
     */
     int opcount = 0; // The max value of the operation count = N_max - 1
+    int c0, c1, cn, done;
     static MIN_HEAP(min_heap);
 
-    min_heap.num_entries = 0; // Reset the min heap.
+    if (k <= 0) // It is given that all elements in `A` are >= 0.
+        return 0;
 
+    if (A == NULL || A_count <= 0) // No "cookies" to operate on, no solution is possible..
+        return -1;
+
+    if (A_count == 1 && A[0] < k) // Only 1 cookie, we can't make it sweeter.
+        return -1;
+
+    min_heap.num_entries = 0; // Reset the min heap since it is static.
+
+    heap_create(&min_heap, A, A_count);
+
+
+    heap_peek_root(&min_heap, &c0); // Peek at the least sweet cookie.
+    // !( done = is_done(k, &min_heap) )
+    while (min_heap.num_entries > 1 && c0 < k) {
+        heap_rm_root(&min_heap, &c0);
+        heap_rm_root(&min_heap, &c1);
+        cn = c0 + 2 * c1;
+        heap_add(&min_heap, cn);
+        opcount++;
+        heap_peek_root(&min_heap, &c0); // Peek at the least sweet cookie.
+    }
+
+    // assert: min_heap.num_entries <= 1 || c0 >= k
+
+    if (min_heap.num_entries == 1 && c0 < k) // We stopped because we only had 1 cookie remaining and that cookie isn't sweet enough.
+        return -1; // No solution
+
+    return opcount;
     /* Pseudo code solution:
 
         [To start I will assume that transferring `A` into an array of type long is not necessary. If a test case fails, I will use type long.]
 
-        validate args.
+        [x] validate args.
 
-        possibly handle corner case inputs.
+        [x] possibly handle corner case inputs.
 
-        init_min_heap(heap)
+        [x] init_min_heap(heap)
 
         heap_create(heap, A, A_count)
 
@@ -504,15 +525,17 @@ int cookies(int k, int A_count, int* A) {
             opcount++
         }
 
+        Handle the case of terminating with 1 cookie.
+
         return opcount;
 
     */
-    return 0;
+
 }
 
 int main()
 {
-    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
+    FILE* fptr = stdout;// fopen(getenv("OUTPUT_PATH"), "w");
 
     char** nk = split_string(readline());
 
