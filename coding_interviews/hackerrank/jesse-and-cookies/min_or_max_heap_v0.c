@@ -34,7 +34,7 @@ function a comparison function.
 5.[ ] Allow the heap to grow if it becomes full. Could just double the array size when it becomes full.
 6.[ ] Add a header file so that using the heap only requires including a header. Dont forget #include guards.
 7.[ ] ? Consider lumping the heap operations into the heap struct using UEFI style function pointers.
-
+8.[ ] Use const where it improves correctness.
 */
 
 typedef struct _heap_t {
