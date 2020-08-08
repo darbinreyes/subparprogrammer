@@ -4,6 +4,42 @@
 
     Success Rate: 67.21%
 
+    This is my solution which passes all test cases on hackerrank.
+    Hackerrank has a general bug in its test cases for C code submissions.
+    In turns out that the working around to this is to submit your C code as
+    C++. The conversion to C++ is usually minimal.
+
+*/
+
+/*
+
+My comment in the discussion for this challenge:
+
+https://www.hackerrank.com/challenges/jesse-and-cookies/forum/comments/518624
+
+"
+Using C, I hit a runtime error on test case 5 as well, even though my output was correct. Adapting my C to C++ as you suggested got me past test case 5. It turns out that this is a VERY COMMON hackerrank bug when using C code submissions. The "C to C++" workaround appears to work accross several coding challenges.
+
+I once had a similarly frustrating experiance with another hackerrank problem. I wasted many hours trying to pass a test case only to discover that my code was correct all along, and the hacckerank test case was wrong. I also frequently observe compilation errors in the given skeleton C code. Hackerrank is buggy in general.
+
+Since then, I code, test, and debug, the challenges on my local machine. If a test case fails, don't waste your life by assuming hackerrank is bug free, it isn't, like most software. Just use the points to get the test case.
+
+FYI for Mac users: The C++ skeleton code generally doesn't compile on Macs. Use C. Then plug it into the C++ inside hackerrank's editor.
+"
+*/
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+vector<string> split_string(string);
+
+/*
+
+    https://www.hackerrank.com/challenges/jesse-and-cookies/problem
+
+    Success Rate: 67.21%
+
 */
 
 
@@ -82,16 +118,16 @@ Implement while loop above using min heap operations.
 
 */
 
-#include <assert.h>
-#include <limits.h>
-#include <math.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+//#include <assert.h>
+//#include <limits.h>
+//#include <math.h>
+//#include <stdbool.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <string.h>
 
-char* readline();
-char** split_string(char*);
+//char* readline();
+//char** split_string(char*);
 
 
 #define NDEBUG // This disables asserts at compile time.
@@ -464,12 +500,12 @@ int is_done(int k, heap_t *h) {
 /*
  * Complete the cookies function below.
  */
-int cookies(int k, int A_count, int* A) {
+int _cookies(int k, int A_count, int* A) {
     /*
     * Write your code here.
     */
     int opcount = 0; // The max value of the operation count = N_max - 1
-    int c0, c1, cn, done;
+    int c0, c1, cn;
     static MIN_HEAP(min_heap);
 
     if (k <= 0) // It is given that all elements in `A` are >= 0.
@@ -484,7 +520,6 @@ int cookies(int k, int A_count, int* A) {
     min_heap.num_entries = 0; // Reset the min heap since it is static.
 
     heap_create(&min_heap, A, A_count);
-
 
     heap_peek_root(&min_heap, &c0); // Peek at the least sweet cookie.
     // !( done = is_done(k, &min_heap) )
@@ -503,9 +538,6 @@ int cookies(int k, int A_count, int* A) {
         return -1; // No solution
 
     return opcount;
-
-    // SOLVED. See notes in given.cpp .
-
     /* Pseudo code solution:
 
         [To start I will assume that transferring `A` into an array of type long is not necessary. If a test case fails, I will use type long.]
@@ -536,95 +568,78 @@ int cookies(int k, int A_count, int* A) {
 
 }
 
+/*
+ * Complete the cookies function below.
+ */
+int cookies(int k, vector<int> A) {
+    /*
+     * Write your code here.
+     */
+    //int _A[HEAP_ARRAY_SIZE];
+    //_cookies(int k, int A_count, int* A)
+    return _cookies(k, A.size(),  A.data());
+}
+
 int main()
 {
-    FILE* fptr = stdout;// fopen(getenv("OUTPUT_PATH"), "w");
+    ofstream fout(getenv("OUTPUT_PATH"));
 
-    char** nk = split_string(readline());
+    string nk_temp;
+    getline(cin, nk_temp);
 
-    char* n_endptr;
-    char* n_str = nk[0];
-    int n = strtol(n_str, &n_endptr, 10);
+    vector<string> nk = split_string(nk_temp);
 
-    if (n_endptr == n_str || *n_endptr != '\0') { exit(EXIT_FAILURE); }
+    int n = stoi(nk[0]);
 
-    char* k_endptr;
-    char* k_str = nk[1];
-    int k = strtol(k_str, &k_endptr, 10);
+    int k = stoi(nk[1]);
 
-    if (k_endptr == k_str || *k_endptr != '\0') { exit(EXIT_FAILURE); }
+    string A_temp_temp;
+    getline(cin, A_temp_temp);
 
-    char** A_temp = split_string(readline());
+    vector<string> A_temp = split_string(A_temp_temp);
 
-    int A[n];
+    vector<int> A(n);
 
     for (int A_itr = 0; A_itr < n; A_itr++) {
-        char* A_item_endptr;
-        char* A_item_str = A_temp[A_itr];
-        int A_item = strtol(A_item_str, &A_item_endptr, 10);
-
-        if (A_item_endptr == A_item_str || *A_item_endptr != '\0') { exit(EXIT_FAILURE); }
+        int A_item = stoi(A_temp[A_itr]);
 
         A[A_itr] = A_item;
     }
 
-    int result = cookies(k, n, A);
+    int result = cookies(k, A);
 
-    fprintf(fptr, "%d\n", result);
+    fout << result << "\n";
 
-    fclose(fptr);
+    fout.close();
 
     return 0;
 }
 
-char* readline() {
-    size_t alloc_length = 1024;
-    size_t data_length = 0;
-    char* data = malloc(alloc_length);
+vector<string> split_string(string input_string) {
+    string::iterator new_end = unique(input_string.begin(), input_string.end(), [] (const char &x, const char &y) {
+        return x == y and x == ' ';
+    });
 
-    while (true) {
-        char* cursor = data + data_length;
-        char* line = fgets(cursor, alloc_length - data_length, stdin);
+    input_string.erase(new_end, input_string.end());
 
-        if (!line) { break; }
-
-        data_length += strlen(cursor);
-
-        if (data_length < alloc_length - 1 || data[data_length - 1] == '\n') { break; }
-
-        size_t new_length = alloc_length << 1;
-        data = realloc(data, new_length);
-
-        if (!data) { break; }
-
-        alloc_length = new_length;
+    while (input_string[input_string.length() - 1] == ' ') {
+        input_string.pop_back();
     }
 
-    if (data[data_length - 1] == '\n') {
-        data[data_length - 1] = '\0';
+    vector<string> splits;
+    char delimiter = ' ';
+
+    size_t i = 0;
+    size_t pos = input_string.find(delimiter);
+
+    while (pos != string::npos) {
+        splits.push_back(input_string.substr(i, pos - i));
+
+        i = pos + 1;
+        pos = input_string.find(delimiter, i);
     }
 
-    data = realloc(data, data_length);
-
-    return data;
-}
-
-char** split_string(char* str) {
-    char** splits = NULL;
-    char* token = strtok(str, " ");
-
-    int spaces = 0;
-
-    while (token) {
-        splits = realloc(splits, sizeof(char*) * ++spaces);
-        if (!splits) {
-            return splits;
-        }
-
-        splits[spaces - 1] = token;
-
-        token = strtok(NULL, " ");
-    }
+    splits.push_back(input_string.substr(i, min(pos, input_string.length()) - i + 1));
 
     return splits;
 }
