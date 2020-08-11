@@ -28,54 +28,6 @@
 #include <stdio.h>
 #include <math.h>
 
-// Euclid's Algorithm. Given two numbers, to find their greatest command measure.
-// If the two given numbers do not have common measure, returns 1, else returns the greatest common measure/a.k.a greatest common divisor.
-int gcm(int a, int b) { // FYI: Is this slower than the typical implementation using modulus?
-    // If the lesser be continually subtracted from the greater until an unit is left the original numbers will be prime to one another.
-    int t;
-
-    if (!(a > 1 && b > 1))
-        return -1;
-
-    while (a > 1) {
-        if (a < b) { // `a` shall be the greater.
-            t = a;
-            a = b;
-            b = t;
-        }
-        a = a - b;
-    }
-
-    if (a == 0)
-        return b;
-
-    if (a != 1)
-        return -1;
-
-    return 1;
-}
-
-// Returns 1 if n is prime, 0 otherwise.
-int is_prime(int n) {
-    int sq;
-  /*
-    ******* Scratch work.
-    i < sqrt(n) // Trick: We only need to test for divisors up to the square root.
-    i^2 < n
-
-    n = 13
-          2  3   4   5
-    i^2 = 4, 9, 16, 25 < 13
-    FYI Improvement: We could skip the gcd test when i*i == n.
-  */
-    sq = (int)sqrt(n);
-    for (int i = 2; i <= sq; i++) {
-        if (gcm(i, n) != 1)
-            return 0; // Not prime.
-    }
-
-    return 1; // Is prime.
-}
 
 // For non-prime n, returns a factor of n which reduces n then most according to rule #1 in the problem statement.
 int best_factor(int n) {
@@ -84,7 +36,7 @@ int best_factor(int n) {
     int tgm;
     int sq;
 
-    gm = 1000001;
+    gm = n;
     tgm = 1;
 
     sq = (int) sqrt(n);
@@ -92,7 +44,7 @@ int best_factor(int n) {
         if (n % i == 0) {
             of = n / i;
             // assert n = i * of
-            printf("%d = %d x %d.\n", n, i, of);
+            //printf("%d = %d x %d.\n", n, i, of);
             tgm = (i > of) ? i : of;
             if (tgm < gm)
                 gm = tgm;
@@ -135,7 +87,11 @@ some mathematical fact, which if known, allows you to avoid this brute force met
 
 */
 
-int downToZero(int N) {
+#define ARRAY_SIZE 1000000
+
+static int a[ARRAY_SIZE+1];
+
+int downToZero(int N, int use_a) {
     int mcount = 0;
     int t;
 
@@ -146,12 +102,21 @@ int downToZero(int N) {
         return 1;
 
     while (N > 0) {
-        if(is_prime(N)) {
+        t = best_factor(N);
+
+        if (t == N) {
             N--;
         } else {
-            N = best_factor(N);
+            if (use_a == 0)
+                N = t;
+            else {
+                if (a[t] <= a[N-1])
+                    N = t;
+                else
+                    N--;
+            }
         }
-        printf("N = %d\n", N);
+        //printf("N = %d\n", N);
         mcount++;
     }
 
@@ -161,7 +126,13 @@ int downToZero(int N) {
 int main(void) {
     int N = 812849;
 
-    printf("N = %d\n", N);
-    printf("mcount = %d\n", downToZero(N));
+    for (int i = 1; i <= ARRAY_SIZE; i++) {
+        a[i] = downToZero(i, 0);
+    }
+
+    //printf("a[7273] = %d\n", a[7273]);
+
+    //printf("N = %d\n", N);
+    printf("mcount = %d\n", downToZero(N, 1));
     return 0;
 }
