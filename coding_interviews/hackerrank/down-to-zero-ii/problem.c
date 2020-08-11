@@ -27,7 +27,7 @@
 
 #include <stdio.h>
 #include <math.h>
-
+#include <assert.h>
 
 // For non-prime n, returns a factor of n which reduces n then most according to rule #1 in the problem statement.
 int best_factor(int n) {
@@ -95,11 +95,8 @@ int downToZero(int N, int use_a) {
     int mcount = 0;
     int t;
 
-    if (N == 0)
-        return 0;
-
-    if (N == 1)
-        return 1;
+    if (N <= 3)
+        return N;
 
     while (N > 0) {
         t = best_factor(N);
@@ -110,7 +107,8 @@ int downToZero(int N, int use_a) {
             if (use_a == 0)
                 N = t;
             else {
-                if (a[t] <= a[N-1])
+                //assert(a[t] != a[N-1]);
+                if (a[t] < a[N-1])
                     N = t;
                 else
                     N--;
@@ -124,7 +122,7 @@ int downToZero(int N, int use_a) {
 }
 
 int main(void) {
-    int N = 812849;
+    int N = 808707;
 
     for (int i = 1; i <= ARRAY_SIZE; i++) {
         a[i] = downToZero(i, 0);
