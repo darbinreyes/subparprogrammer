@@ -5,7 +5,7 @@
 */
 #include <assert.h>
 #include "stack.h"
-#include "prog_prob_3_20.h"
+#include "prog_prob_4_20.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <time.h>
