@@ -97,26 +97,28 @@ long get_rand_sleep_ns(void) {
     frd = (float) RAND_MAX;
 
 
-    frn = 1000000000.0 * (frn/frd);
+    frn = 10000000.0 * (frn/frd);
 
     return (long) frn;
 }
 
 void *runner(void *param) {
-
+    int pid;
     struct timespec rqtp; // /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include/sys/_types/_timespec.h
 
     rqtp.tv_nsec = get_rand_sleep_ns();
+    pid = allocate_pid();
 
-    printf("Herro. Sleeping for %ld ns.\n", rqtp.tv_nsec);
+    printf("Herro. Got pid = %d. Sleeping for %ld ns.\n", pid, rqtp.tv_nsec);
 
     nanosleep(&rqtp, NULL);
 
+    release_pid(pid);
 
     return NULL;
 }
 
-#define N_THREADS 10
+#define N_THREADS 100
 
 int main(void) {
     /*
@@ -129,6 +131,7 @@ int main(void) {
     int i;
 
     sranddev(); // Set a seed for rand().
+    assert(allocate_map() == 0);
 
     for (i = 0; i < N_THREADS; i++) {
         pthread_attr_init(&attr[i]);
