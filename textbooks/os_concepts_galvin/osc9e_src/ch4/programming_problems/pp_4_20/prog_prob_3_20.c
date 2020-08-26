@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <time.h>
 #include <pthread.h>
+#include <stdlib.h>
 
 static char pid_state[NUM_PIDS];
 
@@ -87,13 +88,35 @@ void release_pid(int pid) {
     stack_push(pid); // Push the PID onto the free stack.
 }
 
+long get_rand_sleep_ns(void) {
+    float frn;
+    float frd;
+
+
+    frn = (float) rand();
+    frd = (float) RAND_MAX;
+
+
+    frn = 1000000000.0 * (frn/frd);
+
+    return (long) frn;
+}
 
 void *runner(void *param) {
+
     struct timespec rqtp; // /Library/Developer/CommandLineTools/SDKs/MacOSX10.15.sdk/usr/include/sys/_types/_timespec.h
-    rqtp.tv_nsec = 1000000000;
+
+    rqtp.tv_nsec = get_rand_sleep_ns();
+
+    printf("Herro. Sleeping for %ld ns.\n", rqtp.tv_nsec);
+
     nanosleep(&rqtp, NULL);
-    printf("Herro.\n");
+
+
+    return NULL;
 }
+
+#define N_THREADS 10
 
 int main(void) {
     /*
@@ -101,8 +124,24 @@ int main(void) {
         Create N threads that call allocate_pid(), sleep, release_pid().
 
     */
+    pthread_t tid[N_THREADS];
+    pthread_attr_t attr[N_THREADS];
+    int i;
 
-    printf("Dijkstra.\n");
+    sranddev(); // Set a seed for rand().
+
+    for (i = 0; i < N_THREADS; i++) {
+        pthread_attr_init(&attr[i]);
+        pthread_create(&tid[i], &attr[i], runner, NULL);
+    }
+
+    for (i = 0; i < N_THREADS; i++) {
+        pthread_join(tid[i], NULL);
+    }
+
+    printf("Done.\n");
+
+    return 0;
 }
 
 
