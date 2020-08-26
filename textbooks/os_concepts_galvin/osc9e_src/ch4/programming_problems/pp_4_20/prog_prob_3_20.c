@@ -6,6 +6,7 @@
 #include <assert.h>
 #include "stack.h"
 #include "prog_prob_3_20.h"
+#include <stdio.h>
 
 static char pid_state[NUM_PIDS];
 
@@ -83,13 +84,11 @@ void release_pid(int pid) {
   stack_push(pid); // Push the PID onto the free stack.
 }
 
-/*
+int main(void) {
+  /*
 
-  Test related functions.
-  [What is the best way to expose the internal data structures in the test code?]
+    Create 100 threads that call allocate_pid(), sleep, release_pid().
 
-*/
-
-char const * const test_get_pid_state_arr(void) {
-  return pid_state;
+  */
+  printf("Dijkstra.\n");
 }
