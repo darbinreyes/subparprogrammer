@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 #define ARRAY_SIZE 10
 
@@ -8,11 +9,11 @@ int as;
 
 long avg, min, max;
 
-void *avg_thread(void *param){
+void *avg_thread(void *param) {
 
     avg = 0;
 
-    for(int i = 0; i < as; i++) {
+    for (int i = 0; i < as; i++) {
         avg += a[i]; // FYI: Not checking for overflow.
     }
 
@@ -21,11 +22,11 @@ void *avg_thread(void *param){
     return NULL;
 }
 
-void *min_thread(void *param){
+void *min_thread(void *param) {
     long t;
 
     t = a[0];
-    for(int i = 1; i < as; i++) {
+    for (int i = 1; i < as; i++) {
         if (a[i] < t)
             t = a[i];
     }
@@ -35,12 +36,12 @@ void *min_thread(void *param){
     return NULL;
 }
 
-void *max_thread(void *param){
+void *max_thread(void *param) {
 
     long t;
 
     t = a[0];
-    for(int i = 1; i < as; i++) {
+    for (int i = 1; i < as; i++) {
         if (a[i] > t)
             t = a[i];
     }
@@ -54,7 +55,7 @@ int main(int argc, char **argv) {
 
     int i;
 
-    if(argc <= 1) {
+    if (argc <= 1) {
         printf("Usage: Provide up to %d positive integers. "
                "More than that will be ignored. Example ./a.out 2 3 5 7.\n", ARRAY_SIZE);
         return 1;
@@ -72,7 +73,7 @@ int main(int argc, char **argv) {
 
     printf("%d inputs: ", as);
 
-    for(i = 0; i < as; i++) {
+    for (i = 0; i < as; i++) {
         printf("%ld ", a[i]);
     }
 
