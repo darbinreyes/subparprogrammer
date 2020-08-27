@@ -51,8 +51,15 @@ void *max_thread(void *param) {
     return NULL;
 }
 
-int main(int argc, char **argv) {
+#define NUM_THREADS 3
 
+typedef
+void *(*stat_thread_func)(void *param);
+
+int main(int argc, char **argv) {
+    pthread_t tid[NUM_THREADS];
+    pthread_attr_t attr[NUM_THREADS];
+    stat_thread_func thread_funcs[NUM_THREADS] = {avg_thread, min_thread, max_thread};
     int i;
 
     if (argc <= 1) {
@@ -79,9 +86,14 @@ int main(int argc, char **argv) {
 
     printf("\n");
 
-    avg_thread(NULL);
-    min_thread(NULL);
-    max_thread(NULL);
+    for(i = 0; i < NUM_THREADS; i++) {
+        pthread_attr_init(&attr[i]);
+        pthread_create(&tid[i], &attr[i], thread_funcs[i], NULL);
+    }
+
+    for(i = 0; i < NUM_THREADS; i++) {
+        pthread_join(tid[i], NULL);
+    }
 
     printf("avg. %ld\nmin. %ld\nmax. %ld\n", avg, min, max);
 
