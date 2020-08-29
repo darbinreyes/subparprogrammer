@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <limits.h>
+#include <pthread.h>
 
 /*
 
@@ -63,22 +64,32 @@ int is_inside_circle(point_t *p){
 
 double inside = 0.0;
 
-void inside_count(long n) {
+void *inside_count(long const * const np) {
     point_t p;
+    long n;
+
+    n = *np;
 
     while (n-- > 0) {
         get_rand_point(&p);
         if (is_inside_circle(&p))
             inside++;
     }
+
+    return NULL;
 }
 
+#define NUM_THREADS 4
+
 int main(int argc, char **argv) {
+    pthread_t tid[NUM_THREADS];
+    pthread_attr_t attr[NUM_THREADS];
     long num_points;
     double t;
+    int i;
 
     if (argc <= 1 || argc > 2) {
-        printf("Usage: Provide 1 positive integer. Example: ./a.out 7.\n");
+        printf("Usage: Provide 1 positive integer. Example: ./a.out 7.\n4 times as many points will be generated, since 4 threads are created e.g. if you enter 10, then 40 points are generated.\n");
         return -1;
     }
 
@@ -89,9 +100,16 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-    t = (double) num_points;
+    t = (double) num_points * NUM_THREADS;
 
-    inside_count(num_points);
+    for (i = 0; i < NUM_THREADS; i++) {
+        pthread_attr_init(&attr[i]);
+        pthread_create(&tid[i], &attr[i], ( void * (*)(void *)  )inside_count, &num_points);
+    }
+
+    for (i = 0; i < NUM_THREADS; i++) {
+        pthread_join(tid[i], NULL);
+    }
 
     t = 4.0 * inside / t;
 
