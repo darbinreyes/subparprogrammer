@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <limits.h>
-#include <pthread.h>
+#include <omp.h>
 
 /*
 
@@ -79,11 +79,9 @@ void *inside_count(long const * const np) {
     return NULL;
 }
 
-#define NUM_THREADS 4
+
 
 int main(int argc, char **argv) {
-    pthread_t tid[NUM_THREADS];
-    pthread_attr_t attr[NUM_THREADS];
     long num_points;
     double t;
     int i;
@@ -100,8 +98,10 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-    t = (double) num_points * NUM_THREADS;
+    t = (double) num_points;
 
+    //inside_count(& )
+/*
     for (i = 0; i < NUM_THREADS; i++) {
         pthread_attr_init(&attr[i]);
         pthread_create(&tid[i], &attr[i], ( void * (*)(void *)  )inside_count, &num_points);
@@ -110,7 +110,7 @@ int main(int argc, char **argv) {
     for (i = 0; i < NUM_THREADS; i++) {
         pthread_join(tid[i], NULL);
     }
-
+*/
     t = 4.0 * inside / t;
 
     printf("Pi ~= %.12f. It should be close to 3.141592653589793.\n", t);
