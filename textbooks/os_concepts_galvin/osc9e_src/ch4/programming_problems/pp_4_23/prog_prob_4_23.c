@@ -3,7 +3,18 @@
 #include <math.h>
 #include <limits.h>
 #include <omp.h>
+/*
 
+
+libomp has the following notes:
+    To use this OpenMP library:
+     * For clang-3.8+, or clang-3.7 with +openmp variant:
+        add "-fopenmp" during compilation / linking.
+     * For clang-3.7 without +openmp variant, use:
+        "-I/opt/local/include/libomp -L/opt/local/lib/libomp -fopenmp"
+
+
+*/
 /*
 
     The unit circle described in the problem is has a radius of 1 and is
@@ -63,13 +74,14 @@ int is_inside_circle(point_t *p){
 }
 
 double inside = 0.0;
+double t = 0.0;
 
 void *inside_count(long const * const np) {
     point_t p;
     long n;
 
     n = *np;
-
+    t += (double) n;
     while (n-- > 0) {
         get_rand_point(&p);
         if (is_inside_circle(&p))
@@ -83,7 +95,6 @@ void *inside_count(long const * const np) {
 
 int main(int argc, char **argv) {
     long num_points;
-    double t;
     int i;
 
     if (argc <= 1 || argc > 2) {
@@ -98,9 +109,13 @@ int main(int argc, char **argv) {
         return -1;
     }
 
-    t = (double) num_points;
+    #pragma omp parallel
+    {
+        inside_count(&num_points);
+    }
 
-    //inside_count(& )
+    printf("num_points = %.12f.\n", t);
+
 /*
     for (i = 0; i < NUM_THREADS; i++) {
         pthread_attr_init(&attr[i]);
