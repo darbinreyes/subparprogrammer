@@ -25,7 +25,7 @@ int 0x10
 jmp $ ; infinite loop.
 
 the_secret:
-    db 'D'
+    db 'D' ; The author uses double quotes here.
 
 times 510-($-$$) db 0
 
