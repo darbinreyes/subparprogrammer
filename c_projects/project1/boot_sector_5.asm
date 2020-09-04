@@ -102,7 +102,7 @@ mov bx, [0x7ffe]
 mov al, bl
 int 0x10
 
-; expect C -
+; expect C - correct.
 mov al, 'X'
 mov bx, [0x7ffa]
 mov al, bl
