@@ -30,6 +30,28 @@ push 'A' ; Push characters A, B, C
 push 'B'
 push 'C'
 
+
+;;; v2 tests.
+
+; expect C - correct.
+mov al, 'X'
+mov bx, [0x7ffa]
+mov al, bl
+int 0x10
+
+; expect A - correct.
+mov al, 'X' ; something other than what we expect.
+mov bx, [0x7ffd] ; This address is NOT 2 byte aligned. bx == 0x4100 == ‘A’, 0x00
+mov al, bh
+int 0x10
+
+; Can avoid the use of bx as a temporary register? Does this print B? - correct.
+mov al, 'X' ; something other than what we expect.
+mov al, [0x7ffc]
+int 0x10
+
+;;; End of v2 tests.
+
 ; Pop the value off stack into bx. Again, in 16-bit mode, pop, pops, a 16 bit
 ; value. Since we don't want to overwrite the value in ah, we use bx as a
 ; temporary register. We use bl to get the character value we want to print.
