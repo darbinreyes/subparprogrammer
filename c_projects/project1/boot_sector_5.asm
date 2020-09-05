@@ -1,3 +1,10 @@
+; This started as my version of the figure 3.6 program. When my I discovered my
+; answer to question 2 was wrong, comments and test code pilled up while trying
+; to figure things out. Full details in Evernote.
+;
+; Messy code I wrote as part of determining the stack layout in memory and
+; how little endianess works in x86 with push/pop, mov al/h/bl/h in 16 bit mode.
+
 ;
 ; A boot sector program that uses the stack.
 ;
