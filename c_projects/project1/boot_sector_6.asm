@@ -9,17 +9,17 @@
 ;   * x </<=/>/>=/==/!= y.
 ;
 
-mov bx, 30
+mov bx, 41
 
 ;
 ; Test cases.
 ;
-; [] bx == 30, prints B.
-; [] bx == 39, prints B.
-; [] bx == 4, prints A.
-; [] bx == 3, prints A.
-; [] bx == 40, prints C.
-; [] bx == 40, prints C.
+; [x] bx == 30, prints B.
+; [x] bx == 39, prints B.
+; [x] bx == 4, prints A.
+; [x] bx == 3, prints A.
+; [x] bx == 40, prints C.
+; [x] bx == 41, prints C.
 ;
 
 ; pseudo C code to translate into x86.
@@ -39,6 +39,8 @@ jle print_a
 cmp bx, 40
 jl print_b
 
+jmp print_c
+
 print_a:
     mov al, 'A'
     jmp done
@@ -47,7 +49,8 @@ print_b:
     mov al, 'B'
     jmp done
 
-mov al, 'C'
+print_c:
+    mov al, 'C'
 
 done:
     mov ah, 0x0e ; int_0x10(ah=0x0e) BIOS scrolling teletype mode.
