@@ -1,5 +1,5 @@
 ;
-; Question 5. Implementation print_hex.
+; Question 5. Implementation of print_hex.
 ;
 
 [org 0x7c00] ; Tell assembler where we will be loaded into memory.
@@ -17,7 +17,7 @@ pusha ; save register values
 
 mov bx, HEX_OUT ; Initialize HEX_OUT pointer
 add bx, 5
-mov ax, 0 ; Nibble's printed count.
+mov ax, 0 ; Nibbles printed count.
 
 
 next_nibble:
