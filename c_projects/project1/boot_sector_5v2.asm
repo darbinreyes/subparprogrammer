@@ -26,10 +26,17 @@ mov sp, bp ; By convention, our current stack is empty when the top of the
 ; character, the assembler assumes we want a 0 in the most significant byte while
 ; the character itself is taken as the least significant byte.
 
-push 'A' ; Push characters A, B, C
-push 'B'
-push 'C'
+;push 'A' ; Push characters A, B, C
+;push 'B'
+;push 'C'
 
+;push 0x0041
+;push 0x0042
+;push 0x0043
+
+push 0x4441 ; D, A
+push 0x4542 ; E, B
+push 0x4643 ; F, C
 
 ;;; v2 tests.
 
@@ -45,9 +52,34 @@ mov bx, [0x7ffd] ; This address is NOT 2 byte aligned. bx == 0x4100 == ‘A’, 
 mov al, bh
 int 0x10
 
-; Can avoid the use of bx as a temporary register? Does this print B? - correct.
+; expect B - correct.
+; Can avoid the use of bx as a temporary register? ANS: YES. Does this print B? ANS: YES.
 mov al, 'X' ; something other than what we expect.
 mov al, [0x7ffc]
+int 0x10
+
+; expect F - correct.
+mov al, 'X'
+mov bx, [0x7ffa]
+mov al, bh
+int 0x10
+
+; expect E - correct.
+mov al, 'X'
+mov bx, [0x7ffd]
+mov al, bl
+int 0x10
+
+; expect D - correct.
+mov al, 'X'
+mov bx, [0x7ffe]
+mov al, bh
+int 0x10
+
+; expect A - correct.
+mov al, 'X'
+mov bx, [0x7ffe]
+mov al, bl
 int 0x10
 
 ;;; End of v2 tests.
