@@ -14,6 +14,33 @@ jmp $ ; Infinite loop.
 print_hex:
     ; TODO : manipulate chars at HEX_OUT to reflect DX
 pusha ; save register values
+and dx, 0x000f
+cmp dx, 10
+jl is_decimal
+
+cmp dx, 16
+jl is_hex
+
+popa
+ret ; Out of nibble range. Should not occur.
+
+is_hex:
+mov cx, dx
+sub cx, 10
+add cx, 'a' ; cx contains our character.
+jmp update_str
+
+is_decimal:
+mov cx, dx
+add cx, '0' ; cx contains our character.
+jmp update_str
+
+update_str:
+mov bx, HEX_OUT
+add bx, 5
+mov dx, [bx]
+mov dl, cl
+mov [bx], dx
 
 mov bx, HEX_OUT ; print the string pointed to
 call print_string ; by BX
