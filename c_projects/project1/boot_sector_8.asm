@@ -13,9 +13,12 @@ jmp $ ; Infinite loop.
 ; prints the value of DX as hex.
 print_hex:
     ; TODO : manipulate chars at HEX_OUT to reflect DX
+pusha ; save register values
 
 mov bx, HEX_OUT ; print the string pointed to
 call print_string ; by BX
+
+popa ; restore register values
 ret
 
 %include "print_string.asm"
