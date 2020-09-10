@@ -1,0 +1,1 @@
+; Read some sectors from the boot disk using our disk_read function.
