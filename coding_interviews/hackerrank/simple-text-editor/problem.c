@@ -20,9 +20,27 @@
 
 /* Constraints.
 
-    The sum of the lengths of all W in the input <= 10^6
+*    1 <= Q <= 10^6
     =>
-    The length of the character buffer should be 10^6 chars.
+     an int is big enough to store Q.
+
+*    1 <= k <= |S|
+    =>
+     k is a 1 based index. k will always be within the bounds of the current editor buffer string.
+
+*    sum(all W) <= 10^6
+    =>
+     The length of the character/editor buffer should be 10^6 chars.
+
+*    sum(all k in delete(k)) <= 2*10^6
+    =>
+     2*10^6 is the upper bound on the total number of characters deleted.
+
+*    all input characters are lower case English letters
+    =
+     for all c in S, c in [a-z]
+
+    it is guaranteed that the sequence of ops "is possible to perform"
 
 */
 
@@ -140,8 +158,8 @@ int main() {
 
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */
 
-    /* Initialize buffer pointer */
-//    cend = cbuf;
+    /* IMPORTANT: k is a 1 based index. */
+
 
     return 0;
 }
