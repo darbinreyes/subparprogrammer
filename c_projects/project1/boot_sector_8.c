@@ -22,14 +22,14 @@ dx = dx >> 4
 
 */
 
-static char s[] = “0x0000”;
+static char s[] = "0x0000";
 
 void print_nibble(unsigned char n, int i) {
     unsigned char c;
     if (n >= 0 && n < 10)
-        c = n + ‘a’;
+        c = n + 'a';
     else if (n >= 10 && n < 16)
-        c = n - 10 + ‘a’;
+        c = n - 10 + 'a';
     else
         return; // n out of range
 
