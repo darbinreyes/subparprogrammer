@@ -20,6 +20,9 @@ mov ds, bx
 mov al, [the_secret] ; The ds segment register is implied here.
 int 0x10 ; X? Yes.
 
+mov al, [ds:the_secret]
+int 0x10 ; X? Yes.
+
 mov al, [es:the_secret] ; Explicitly specify that the es segment register be
                         ; used for addressing.
 int 0x10 ; X? No.
