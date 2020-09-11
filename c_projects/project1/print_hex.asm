@@ -1,19 +1,13 @@
 ;
-; Question 5. Implementation of print_hex.
+; Question 5. Implementation of print_hex. Caller sets DX = value to print in
+; hex. IMPORTANT: This function uses the stack!
 ;
 
-[org 0x7c00] ; Tell assembler where we will be loaded into memory.
-
-mov dx, 0x1fb6 ; store the value to print in dx
-call print_hex ; call the function
-
-
-jmp $ ; Infinite loop.
-
 ; prints the value of DX as hex.
-print_hex: ; FYI: This routine always converts and prints 4 nibbles, even if e.g. dx == 0x0000.
-    ; TODO : manipulate chars at HEX_OUT to reflect DX
-pusha ; save register values
+print_hex: ; FYI: This routine always converts and prints 4 nibbles, even if
+           ; e.g. DX == 0x0000.
+
+pusha ; Save all register values on the stack.
 
 mov bx, HEX_OUT ; Initialize HEX_OUT pointer
 add bx, 5
@@ -43,7 +37,9 @@ add cx, '0' ; cl contains our ASCII character.
 jmp update_str
 
 update_str:
-mov dx, [bx] ; Load before store to preserve the most significant byte.
+mov dx, [bx] ; Load before store to preserve the most significant byte. [Works
+             ; fine but actually we are allowed to load/store individual bytes
+             ; see boot_sector_10.asm.]
 mov dl, cl   ; cl contains our ASCII character.
 mov [bx], dx ; Store ASCII character.
 
@@ -54,7 +50,7 @@ add ax, 1
 cmp ax, 4
 jl next_nibble
 
-mov bx, HEX_OUT ; print the string pointed to
+mov bx, HEX_OUT   ; print the string pointed to
 call print_string ; by BX
 
 print_hex_done:
@@ -62,12 +58,5 @@ print_hex_done:
 popa ; restore register values
 ret
 
-%include "print_string.asm"
-
 ; global variables
 HEX_OUT: db '0x0000', 0
-
-; 0 padding and magic number.
-
-times 510-($-$$) db 0
-dw 0xaa55
