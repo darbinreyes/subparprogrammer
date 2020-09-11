@@ -26,8 +26,8 @@ disk_load:
 
     cmp dh, al ; AL = number of sectors actually read, if these aren't equal an
               ; error occurred.
-
     jne disk_error_al
+
     ret ; DONE!
 
 disk_error:

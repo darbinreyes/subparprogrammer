@@ -17,7 +17,7 @@ mov bx, 0x9000 ; By convention, the BIOS int 0x13 routine uses [ES:BX] as the
 ; destination address in memory for the disk read. ES is 0 by default, so we
 ; don't need to set it explicitly.
 
-mov dh, 5 ; Argument to disk_load function = number of sectors to read.
+mov dh, 2 ; Argument to disk_load function = number of sectors to read.
 mov dl, [BOOT_DRIVE] ; Argument to disk_load function = disk drive number.
 call disk_load ; Our function: Read from a disk into memory! This function will
                ; print a message and hang if an error occurs.
