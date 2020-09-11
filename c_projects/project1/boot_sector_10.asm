@@ -9,7 +9,8 @@ mov [BOOT_DRIVE], dl ; By convention the BIOS stores the boot disk device number
 ; here in a single instruction, even though we are in 16 bit real mode.)
 
 mov bp, 0x8000 ; Initialize our stack base pointer to a safe location. The
-               ; disk_load function uses the stack a little bit.
+               ; disk_load function uses the stack a little bit, so does
+               ; print_string and print_hex.
 mov sp, bp ; Stack is always initially empty.
 
 mov bx, 0x9000 ; By convention, the BIOS int 0x13 routine uses [ES:BX] as the
