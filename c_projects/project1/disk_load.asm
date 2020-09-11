@@ -27,16 +27,21 @@ disk_load:
     cmp dh, al ; AL = number of sectors actually read, if these aren't equal an
               ; error occurred.
 
-    jne disk_error
+    jne disk_error_al
     ret ; DONE!
 
 disk_error:
     mov bx, DISK_ERROR_MSG
-    ;call print_string
+    call print_string
+    jmp $ ; Infinite loop.
+
+disk_error_al:
+    mov bx, DISK_ERROR_MSG_AL
+    call print_string
     jmp $ ; Infinite loop.
 
 ; Variables.
-DISK_ERROR_MSG db "YO YO YO! Disk read error!", 0 ; NEED ":" HERE?
-
+DISK_ERROR_MSG: db "CF set. Disk read error!", 0 ; NEED ":" HERE? ANS: No. Works the same. Assembler doesn't report an error .
+DISK_ERROR_MSG_AL: db "DH != AL. Disk read error!", 0
 
 
