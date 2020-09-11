@@ -4,6 +4,7 @@
 
 */
 
+#include <assert.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
@@ -64,7 +65,10 @@
 #include <assert.h>
 
 #define CHAR_BUF_LEN 1000000
-#define CHAR_BUF_SIZE (CHAR_BUF_LEN+1)
+#define CHAR_BUF_SIZE (CHAR_BUF_LEN + 1) /* +1 for null terminator. */
+/* +2 for initial operator character and a single space character  +1 for
+   possible new line character. */
+#define LINE_BUF_SIZE (2 + CHAR_BUF_SIZE + 1)
 
 static char cbuf[CHAR_BUF_SIZE]; // Stores characters currently in the editor.
 static int clen = 0; // The number of characters current in cbuf.
@@ -76,8 +80,10 @@ void append(char *w) {
     assert(w != NULL);
     assert(clen < CHAR_BUF_SIZE);
 
-    while (*w != '\0') {
+    /* We test for a '\n' because fgets() retains new lines in the input. */
+    while (*w != '\n' && *w != '\0') {
         *cend = *w;
+        w++;
         cend++;
         clen++;
     }
@@ -153,12 +159,76 @@ print(2)
     } // else // k is out of bounds, treat is as a NO-OP.
 }
 
+void undo(void) {
+    // TODO.
+    return;
+}
 
 int main() {
+    static char line[LINE_BUF_SIZE]; // TODO: Use clang to see where this ends up. Should be in the DATA segment.
+    //static char W[CHAR_BUF_SIZE];
+    int Q = 0, op = 0, n = 0;
+    char *s = NULL;
+
+#define APPEND_OP '1'
+#define DELETE_OP '2'
+#define PRINT_OP  '3'
+#define UNDO_OP   '4'
 
     /* Enter your code here. Read input from STDIN. Print output to STDOUT */
 
-    /* IMPORTANT: k is a 1 based index. */
+
+
+    /* Read inputs. First line = Q, then read Q lines, each indicating an
+    operation between 1-4. */
+
+    // printf("YOYO\n");
+
+    n = scanf("%d\n", &Q);
+
+    if (n != 1)  { /* Invalid input. Terminate.*/
+        assert(0);
+        return 1;
+    }
+
+    while (Q-- > 0) { // [x] Q == 0 is handled correctly.
+
+        /*
+
+            FYI MAN: "The newline, if any, is retained." "If any characters are
+            read and there is no error, a `\0' character is appended to end the
+            string."
+
+            TODO: Full error checking for fgets().
+
+            FYI MAN: "do not distinguish between end-of-file and error, and
+            callers must use feof(3) and ferror(3) to determine which occurred."
+
+        */
+        s = fgets(line, LINE_BUF_SIZE, stdin); /* Read a line. */
+
+        /* Since we know to read exactly Q lines this should not occur. Error.
+           Terminate. */
+        if (s == NULL) {
+            return 3;
+        }
+
+        // printf("%s", line);
+
+        if (line[0] == APPEND_OP) {
+            append(&line[2]);
+        } else if (line[0] == DELETE_OP) {
+            n = atoi(&line[2]); // TODO: Error check n.
+            delete(n);
+        } else if (line[0] == PRINT_OP) {
+            n = atoi(&line[2]);
+            print(n - 1); /*  -1, IMPORTANT: in "print(k)", k is a 1 based index. */
+        } else if (line[0] == UNDO_OP) {
+            undo(); // TODO:
+        } else {
+            return 2;  /* Invalid input. Terminate.*/
+        }
+    }
 
 
     return 0;
