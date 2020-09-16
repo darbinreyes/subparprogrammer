@@ -74,6 +74,26 @@ static char cbuf[CHAR_BUF_SIZE]; // Stores characters currently in the editor.
 static int clen = 0; // The number of characters current in cbuf.
 static char *cend = cbuf; // Points to the next free spot in cbuf.
 
+/*
+
+    Structure that stores information necessary to undo an append(W) or
+    delete(k) operation.
+
+    To undo an append(W) operation, we can execute a delete(W.length).
+
+    To undo a delete(k) operation, we can execute a append(W) operation with
+    W = k characters that where deleted.
+
+*/
+
+typedef
+struct _undo_op {
+    char append_or_delete; // 0 = append, 1 = delete.
+} undo_op;
+
+static undo_op undo_stack[CHAR_BUF_LEN];
+static int undo_stack_top = 0;
+
 
 /* Append the given characters. */
 void append(char *w) {
@@ -165,8 +185,7 @@ void undo(void) {
 }
 
 int main() {
-    static char line[LINE_BUF_SIZE]; // TODO: Use clang to see where this ends up. Should be in the DATA segment.
-    //static char W[CHAR_BUF_SIZE];
+    static char line[LINE_BUF_SIZE];
     int Q = 0, op = 0, n = 0;
     char *s = NULL;
 
@@ -175,14 +194,12 @@ int main() {
 #define PRINT_OP  '3'
 #define UNDO_OP   '4'
 
-    /* Enter your code here. Read input from STDIN. Print output to STDOUT */
+    /*
 
+        Read inputs. First line = Q, then read Q lines, each indicating an
+        operation between 1-4.
 
-
-    /* Read inputs. First line = Q, then read Q lines, each indicating an
-    operation between 1-4. */
-
-    // printf("YOYO\n");
+    */
 
     n = scanf("%d\n", &Q);
 
@@ -212,8 +229,6 @@ int main() {
         if (s == NULL) {
             return 3;
         }
-
-        // printf("%s", line);
 
         if (line[0] == APPEND_OP) {
             append(&line[2]);
