@@ -89,6 +89,7 @@ static char *cend = cbuf; // Points to the next free spot in cbuf.
 typedef
 struct _undo_op {
     char append_or_delete; // 0 = append, 1 = delete.
+    int n; // if  append
 } undo_op;
 
 static undo_op undo_stack[CHAR_BUF_LEN];
@@ -99,6 +100,8 @@ static int undo_stack_top = 0;
 void append(char *w) {
     assert(w != NULL);
     assert(clen < CHAR_BUF_SIZE);
+
+    undo_stack[undo_stack_top].append_or_delete = 0;
 
     /* We test for a '\n' because fgets() retains new lines in the input. */
     while (*w != '\n' && *w != '\0') {
