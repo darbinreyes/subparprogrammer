@@ -22,6 +22,8 @@ jmp $ ; Infinite loop.
 
 ; This is were we land after switching to 32 bit protected mode.
 
+BEGIN_PM:
+
 mov ebx, MSG_PROT_MODE
 call print_string_pm ; Our 32 bit print routine.
 
