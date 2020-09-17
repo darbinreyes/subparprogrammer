@@ -89,7 +89,8 @@ static char *cend = cbuf; // Points to the next free spot in cbuf.
 typedef
 struct _undo_op {
     char append_or_delete; // 0 = append, 1 = delete.
-    int n; // if  append
+    int n; // if append, n == number of characters appended. if delete, n == length of s.
+    char *s; // if delete, s == the string of characters that was deleted.
 } undo_op;
 
 static undo_op undo_stack[CHAR_BUF_LEN];
@@ -102,6 +103,7 @@ void append(char *w) {
     assert(clen < CHAR_BUF_SIZE);
 
     undo_stack[undo_stack_top].append_or_delete = 0;
+    undo_stack[undo_stack_top].n = clen;
 
     /* We test for a '\n' because fgets() retains new lines in the input. */
     while (*w != '\n' && *w != '\0') {
@@ -110,71 +112,83 @@ void append(char *w) {
         cend++;
         clen++;
     }
+
+    *cend = '\0';
+
+    undo_stack[undo_stack_top].n = clen - undo_stack[undo_stack_top].n;
+    undo_stack_top++;
 }
 
 /* Delete k characters. */
 void delete(int k) {
 
-/*
+    /*
 
-[A][]
-   ^cend
+        [A][]
+           ^cend
 
-clen = 1.
+        clen = 1.
 
-# after delete(1)
+        # after delete(1)
 
-[A][]
-^cend
+        [A][]
+        ^cend
 
-clen = 0.
+        clen = 0.
 
+    */
 
-
-*/
     assert(k >= 0);
 
-    if (k == 0) // No-op.
-        return;
+    if (k > clen) // Attempting to delete more characters than currently exist in the buffer.
+        k = clen;
 
-/* If k is greater than or equal the number of characters in the buffer we just
-reset to the initial empty state. */
+    /*
 
-    if (k >= clen) {
-        cend = cbuf;
-        clen = 0;
-        return;
-    }
+        cbuf == "h e l \0"
+                 0 1 2
+        cend           ^
+        clen == 3
+    */
 
-    while (clen > 0) {
-        cend--;
-        clen--;
-    }
+    undo_stack[undo_stack_top].append_or_delete = 1;
+    undo_stack[undo_stack_top].n = k;
+    undo_stack[undo_stack_top].s = malloc(k + 1);
+    assert(undo_stack[undo_stack_top].s != NULL);
+    undo_stack[undo_stack_top].s[0] = '\0';
+
+
+    cend -= k;
+    clen -= k;
+
+    strncpy(undo_stack[undo_stack_top].s, cend, k);
+    *cend = '\0';
+    undo_stack_top++;
 }
 
 /* Print the k-th character. */
 void print (int k) {
     assert(k >= 0);
 
-/*
+    /*
 
-[A][B][]...
-      ^cbuf
-clen = 2.
+        [A][B][]...
+              ^cbuf
+        clen = 2.
 
-print(0)
+        print(0)
 
-# prints A
+        # prints A
 
-print(1)
+        print(1)
 
-# prints B
+        # prints B
 
-print(2)
+        print(2)
 
-# out of bounds.
+        # out of bounds.
 
-*/
+    */
 
     if (k < clen) {
         putchar(cbuf[k]);
@@ -183,8 +197,28 @@ print(2)
 }
 
 void undo(void) {
-    // TODO.
-    return;
+    if (undo_stack_top <= 0)
+        return; // Undo stack is empty.
+
+    undo_stack_top--;
+
+    if (undo_stack[undo_stack_top].append_or_delete == 0) {
+        // Undo append operation.
+        cend -= undo_stack[undo_stack_top].n;
+        clen -= undo_stack[undo_stack_top].n;
+        *cend = '\0';
+        return;
+    }
+
+    if (undo_stack[undo_stack_top].append_or_delete == 1) {
+        // Undo delete operation.
+        strcpy(cend, undo_stack[undo_stack_top].s);
+        cend += undo_stack[undo_stack_top].n;
+        clen += undo_stack[undo_stack_top].n;
+        free(undo_stack[undo_stack_top].s);
+        undo_stack[undo_stack_top].s = NULL;
+        return;
+    }
 }
 
 int main() {
