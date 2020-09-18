@@ -18,6 +18,7 @@ call load_kernel ; Load our kernel from disk to memory.
 jmp $ ; Infinite loop.
 
 %include "ch1-ch3/print_string.asm"
+%include "ch1-ch3/disk_load.asm"
 
 [bits 16] ; Some of the includes above contain the [bits 32] assembler directive.
 
@@ -25,6 +26,12 @@ load_kernel:
 
 mov bx, MSG_LOAD_KERNEL ; Print.
 call print_string
+
+mov bx, KERNEL_OFFSET ; disk_load function, argument for destination address is passed in ES:BX, this assumes ES == 0.
+mov dh, 15 ; disk_load function, argument for the number of sectors to read from the drive is passed in DH. 15 is an arbitrary large number given by the author. So we don't need to adjust this frequently as our kernel code grows.
+mov dl, [BOOT_DRIVE] ; disk_load function, argument indicating which  to read from is passed in DL.
+
+call disk_load ; Note, this function skips the reading first sector, which should be our boot sector.
 
 ret
 
