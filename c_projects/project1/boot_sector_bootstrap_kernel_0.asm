@@ -50,7 +50,7 @@ BEGIN_PM:
 mov ebx, MSG_PROT_MODE
 call print_string_pm
 
-;call KERNEL_OFFSET ; Jump to our kernel code. It should return after printing an X.
+call KERNEL_OFFSET ; Jump to our kernel code. It should return after printing an X.
 
 jmp $ ; Infinite loop, in case the jump to our kernel code above fails.
 
