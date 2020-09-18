@@ -1,6 +1,8 @@
 ; A very simple printing routine for use in 32 bit protected mode since
 ; we won't be able to use the BIOS once we make the switch into 32 bit protected mode
 ; This function doesn't scroll, all prints start at the upper left corner.
+; The address of the first character of the string to be printed should be passed
+; in EBX.
 
 [bits 32]
 

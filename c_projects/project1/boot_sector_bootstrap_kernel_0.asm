@@ -15,14 +15,23 @@ call print_string
 
 call load_kernel ; Load our kernel from disk to memory.
 
+call switch_to_pm ; Switch from 16 bit real mode to 32 bit protected mode.
+                  ; If successful, this function will not return HERE, but
+                  ; will jump instead to BEGIN_PM below.
+
 jmp $ ; Infinite loop.
+
 
 %include "ch1-ch3/print_string.asm"
 %include "ch1-ch3/disk_load.asm"
+%include "ch4/gdt.asm"
+%include "ch4/print_string_pm.asm" ; FYI: Includes a [bits 32] directive.
+%include "ch4/switch_to_pm.asm" ; FYI: Includes a [bits 32] directive.
+
 
 [bits 16] ; Some of the includes above contain the [bits 32] assembler directive.
 
-load_kernel:
+load_kernel: ; Reads 15 sectors after the first sector into memory at address KERNEL_OFFSET.
 
 mov bx, MSG_LOAD_KERNEL ; Print.
 call print_string
@@ -35,6 +44,15 @@ call disk_load ; Note, this function skips the reading first sector, which shoul
 
 ret
 
+[bits 32] ; We jump here if we successfully switch into 32 bit protected mode.
+BEGIN_PM:
+
+mov ebx, MSG_PROT_MODE
+call print_string_pm
+
+;call KERNEL_OFFSET ; Jump to our kernel code. It should return after printing an X.
+
+jmp $ ; Infinite loop, in case the jump to our kernel code above fails.
 
 ; Global variables.
 BOOT_DRIVE db 0
