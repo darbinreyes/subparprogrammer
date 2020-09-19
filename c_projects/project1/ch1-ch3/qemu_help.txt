@@ -445,3 +445,10 @@ When using -nographic, press 'ctrl-a h' to get some help.
 
 See <https://qemu.org/contribute/report-a-bug> for how to report bugs.
 More information on the QEMU project at <https://qemu.org>.
+
+===============================
+OFFICIAL DOCS
+===============================
+* https://www.qemu.org/docs/master/
+
+* Some of the option values are listed here: https://www.qemu.org/docs/master/system/invocation.html#hxtool-1
