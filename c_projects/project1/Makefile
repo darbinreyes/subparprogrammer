@@ -11,11 +11,13 @@ run: all
 # This is the actual disk image that the computer loads,
 # which is the combination of our compiled boot sector and kernel.
 os-image: boot_sect.bin kernel.bin
-	cat $^ > os-image
+	cat $^ > $@
 
 # Assemble the boot sector to raw machine code
 #	The -I option tells nasm where to find our useful assembly
 #	routines that we include in boot_sect.asm.
+boot_sect.bin: boot/boot_sect.asm
+	nasm $< -I 'boot/' -f bin -o $@
 
 kernel.bin: kernel_entry.o kernel.o
 	i386-elf-ld -o $@ -Ttext 0x1000 $^ --oformat binary
@@ -28,6 +30,9 @@ kernel.o: kernel/kernel.c
 kernel_entry.o: kernel/kernel_entry.asm
 	nasm $< -f elf -o $@
 
+# Disassemble our kernel - might be useful for debugging.
+kernel.dis: kernel.bin
+	ndisasm -b 32 $< > $@
 
 clean:
-	rm *.bin *.o
+	rm -Rf *.bin *.o os-image
