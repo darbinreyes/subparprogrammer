@@ -2,6 +2,21 @@
 # $^ = all target dependency files.
 # $< = first target dependency file.
 # $@ = target file.
+# THE FIRST TARGET = THE DEFAULT TARGET.
+all: os-image
+
+run: all
+	qemu-system-i386 -drive file=os-image,if=floppy,format=raw
+
+# This is the actual disk image that the computer loads,
+# which is the combination of our compiled boot sector and kernel.
+os-image: boot_sect.bin kernel.bin
+	cat $^ > os-image
+
+# Assemble the boot sector to raw machine code
+#	The -I option tells nasm where to find our useful assembly
+#	routines that we include in boot_sect.asm.
+
 kernel.bin: kernel_entry.o kernel.o
 	i386-elf-ld -o $@ -Ttext 0x1000 $^ --oformat binary
 
@@ -12,3 +27,7 @@ kernel.o: kernel/kernel.c
 # Build the kernel entry object file.
 kernel_entry.o: kernel/kernel_entry.asm
 	nasm $< -f elf -o $@
+
+
+clean:
+	rm *.bin *.o
