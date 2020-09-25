@@ -13,4 +13,4 @@
 
 call main ; Call the main function of our C kernel.
 
-jmp $ ; Infinite loop if the kernel returns.
+jmp $ ; Infinite loop if/when the kernel returns.
