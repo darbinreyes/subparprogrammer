@@ -3,6 +3,15 @@
 # $< = first target dependency file.
 # $@ = target file.
 # THE FIRST TARGET = THE DEFAULT TARGET.
+# Some of the suggestions by the author did not work e.g. his use of ${OBJ}.
+# RTFM: https://www.gnu.org/software/make/manual/
+
+# Automatically expand to a list of existing files that
+# match the patterns.
+C_SOURCES = $(wildcard kernel/*.c drivers/*.c)
+HEADERS = $(wildcard kernel/*.h drivers/*.h)
+OBJ = ${C_SOURCES:.c=.o}
+
 all: os-image
 
 run: all
@@ -22,8 +31,13 @@ boot_sect.bin: boot/boot_sect.asm
 kernel.bin: kernel_entry.o kernel.o
 	i386-elf-ld -o $@ -Ttext 0x1000 $^ --oformat binary
 
-# Build the kernel object file.
-kernel.o: kernel/kernel.c
+#    Build the kernel object file.
+#    kernel.o: kernel/kernel.c
+#    i386-elf-gcc -ffreestanding -c $< -o $@
+# Generic rule for building 'somefile.o' from 'somefile.c'.
+# IMPORTANT: The % operator does not match sub-directories, hence `kernel/%.c`.
+# kernel/%.c
+%.o: kernel/%.c
 	i386-elf-gcc -ffreestanding -c $< -o $@
 
 # Build the kernel entry object file.
