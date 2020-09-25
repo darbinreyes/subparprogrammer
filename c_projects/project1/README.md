@@ -6,3 +6,17 @@ inspired by my study of Operating System Concepts, Galvin. This text provides a
 path toward that end.
 
 
+The text eventually suggests that our source code be well organized, as follows:
+
+* We will copy the directory structure of the Linux kernel as follows:
+    * [Besides keeping our code organized as it grows, we want our makefile to facilitate the addition of new source files and easy incremental testing with our emulator (bochs/qemu)]
+    * boot/ , anything related to booting, including the boot sector and its dependencies, basically all 16-bit real mode code. e.g.:
+        * boot_sect.asm
+        * print_string.asm
+        * gdt.asm
+        * switch_to_pm.asm
+    * kernel/
+        * The kernel’s main file, and any other parts of the kernel code. But no device driver specific code here. Right now, just:
+        * kernel.c
+    * drivers/
+        * any hardware specific driver code.
