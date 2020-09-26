@@ -17,6 +17,9 @@ all: os-image
 run: all
 	qemu-system-i386 -drive file=os-image,if=floppy,format=raw
 
+runb: all
+	bochs -q
+
 # This is the actual disk image that the computer loads,
 # which is the combination of our compiled boot sector and kernel.
 os-image: boot_sect.bin kernel.bin
