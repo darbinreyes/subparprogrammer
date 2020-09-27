@@ -1,3 +1,7 @@
+#ifndef __SCREEN_H__ // Add a standard include guard.
+#define __SCREEN_H__
+
+
 #define VIDEO_ADDRESS 0xB8000
 #define MAX_ROWS 25
 #define MAX_COLS 80
@@ -57,3 +61,5 @@ port is used to read/write a single byte of data to the index-selected register.
 This scheme is used with the 0x3D4-0x3D5 I/O ports.
 
 */
+
+#endif
