@@ -4,8 +4,12 @@
 # ... Bochs emulates a box inside a box.
 
 # RTFM: http://bochs.sourceforge.net/doc/docbook/user/index.html
+#       http://bochs.sourceforge.net/doc/docbook/user/using-bochs.html#COMMANDLINE
 
 # Tell bochs to use our boot sector code as though it were a floppy disk
 # inserted into a computer at boot time.
+
 floppya: 1_44=os-image, status=inserted
 boot: a
+
+# vga: extension=none
