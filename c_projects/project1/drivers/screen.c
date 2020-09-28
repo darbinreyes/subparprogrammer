@@ -153,7 +153,7 @@ void print_ch_at(char c, char cattr, int row, int col) {
             next row.
 
         */
-        vid_mem_offset = row_col_to_screen_video_mem_offset(row, 79);
+        vid_mem_offset = row_col_to_screen_video_mem_offset(trow, 79);
     } else {
         /* Print the character as-is. */
         vid_mem[vid_mem_offset] = c;
