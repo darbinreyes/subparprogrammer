@@ -17,6 +17,8 @@ void main(void) {
     print_ch_at('X', 0, -1, -1);
     print_ch_at('Y', 0, -1, -1);
     print_ch_at('Z', 0, -1, -1);
+    print_ch_at('\n', 0, -1, -1);
+    print_ch_at('\n', 0, -1, -1);
     //print_ch_at('j', 0, 0, 2);
     //print_ch_at('k', 0, -1, -1);
     print("Darbin Reyes!");
