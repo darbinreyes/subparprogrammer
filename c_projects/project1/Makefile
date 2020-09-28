@@ -6,6 +6,8 @@
 # Some of the suggestions by the author did not work e.g. his use of ${OBJ}.
 # RTFM: https://www.gnu.org/software/make/manual/
 
+# IMPORTANT: Always disable optimizations.
+
 # Automatically expand to a list of existing files that
 # match the patterns.
 C_SOURCES = $(wildcard kernel/*.c drivers/*.c)
@@ -29,10 +31,10 @@ os-image: boot_sect.bin kernel.bin
 #	The -I option tells nasm where to find our useful assembly
 #	routines that we include in boot_sect.asm.
 boot_sect.bin: boot/boot_sect.asm
-	nasm $< -I 'boot/' -f bin -o $@
+	nasm -O0 $< -I 'boot/' -f bin -o $@
 
-kernel.bin: kernel_entry.o kernel.o
-	i386-elf-ld -o $@ -Ttext 0x1000 $^ --oformat binary
+kernel.bin: kernel_entry.o kernel.o screen.o low_level.o
+	i386-elf-ld -O0 -o $@ -Ttext 0x1000 $^ --oformat binary
 
 #    Build the kernel object file.
 #    kernel.o: kernel/kernel.c
@@ -41,11 +43,18 @@ kernel.bin: kernel_entry.o kernel.o
 # IMPORTANT: The % operator does not match sub-directories, hence `kernel/%.c`.
 # kernel/%.c
 %.o: kernel/%.c
-	i386-elf-gcc -ffreestanding -c $< -o $@
+	i386-elf-gcc -O0 -ffreestanding -c $< -o $@
+
+screen.o: drivers/screen.c
+	i386-elf-gcc -O0 -ffreestanding -c $< -o $@
+
+# The use of -masm=intel below changes the syntax for the inline assembly from GAS to NASM.
+low_level.o: kernel/low_level.c
+	i386-elf-gcc -masm=intel -O0 -ffreestanding -c $< -o $@
 
 # Build the kernel entry object file.
 kernel_entry.o: kernel/kernel_entry.asm
-	nasm $< -f elf -o $@
+	nasm -O0 $< -f elf -o $@
 
 # Disassemble our kernel - might be useful for debugging.
 kernel.dis: kernel.bin
