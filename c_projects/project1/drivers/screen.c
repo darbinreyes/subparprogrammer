@@ -169,6 +169,8 @@ void print_ch_at(char c, char cattr, int row, int col) {
 
     // offset = handle_scrolling(offset); // vid_mem_offset = handle_scrolling(vid_mem_offset);
 
+    vid_mem_offset = handle_scrolling(vid_mem_offset);
+
     //vid_mem_offset = handle_scrolling(vid_mem_offset);
 
     // Use the handle_scrolling(offset) result.
