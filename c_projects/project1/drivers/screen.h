@@ -27,6 +27,8 @@ Cursor Location Low 0xF = 0d15.
 #define CURSOR_LOCATION_LOW_BYTE 0x0F
 
 void print_ch_at(char c, char cattr, int row, int col);
+void print_at(char *s, int row, int col);
 void print(char *s);
+void clear_screen(void);
 
 #endif

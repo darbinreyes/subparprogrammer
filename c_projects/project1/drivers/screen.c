@@ -73,6 +73,8 @@
 
 int row_col_to_screen_video_mem_offset(int row, int col);
 
+int vid_mem_offset_to_row (int vid_mem_offset);
+
 int get_cursor(void);
 
 void set_cursor(int vid_mem_offset);
@@ -143,7 +145,7 @@ void print_ch_at(char c, char cattr, int row, int col) {
             `(row * MAX_COLS + col) * 2` / `(MAX_COLS* 2)` == row.
 
         */
-        trow = vid_mem_offset / (MAX_COLS * 2);
+        trow = vid_mem_offset_to_row (vid_mem_offset);
         // vid_mem_offset = // get_screen_offset(79, rows); // row_col_to_screen_video_mem_offset(trows, 79);
         /*
 
@@ -180,6 +182,16 @@ void print_ch_at(char c, char cattr, int row, int col) {
 // vid_mem_offset = get_screen_offset(row, col); // row_col_to_screen_video_mem_offset(row, col).
 int row_col_to_screen_video_mem_offset(int row, int col) {
     return ((row * MAX_COLS) + col) * 2;
+}
+
+int vid_mem_offset_to_row (int vid_mem_offset) {
+    /*
+
+        Convert vid_mem_offset into current row position. The algebra is:
+        `(row * MAX_COLS + col) * 2` / `(MAX_COLS* 2)` == row.
+
+    */
+    return vid_mem_offset / (MAX_COLS * 2);
 }
 
 /*
@@ -235,11 +247,99 @@ void set_cursor(int vid_mem_offset) {
 
 }
 
+#define NULL 0U
+
+void memory_copy (void *dst, void *src, int n) {
+    unsigned char *d, *s;
+
+    if (dst == NULL || src == NULL || n == 0)
+        return;
+
+    d = dst;
+    s = src;
+
+    for (int i = 0; i < n; i++) {
+        d[i] = s[i];
+    }
+}
+
+void zero_memory (void *dst, int n) {
+    unsigned char *d;
+
+    if (dst == NULL || n == 0)
+        return;
+
+    d = dst;
+
+    for (int i = 0; i < n; i++)
+        d[i] = 0;
+}
+
 int handle_scrolling(int vid_mem_offset) {
-    // TODO:
+    int trow;
+    unsigned char *vid_mem;
+
+    /*
+
+        Check if scrolling must be done.
+        if no, return vid_mem_offset unchanged.
+        if yes,
+            Copy row to row-1, starting at row == 1, ending at row == 24.
+            Clear row == 24.
+            Return video memory offset of row == 24, col == 0.
+
+    */
+
+    trow = vid_mem_offset_to_row (vid_mem_offset);
+
+    if (trow < 25)
+        return vid_mem_offset;
+
+    vid_mem = (unsigned char *) VIDEO_ADDRESS;
+
+
+/*
+    for (int row = 1; row < MAX_ROWS; row++) {
+        memory_copy(vid_mem[vid_mem_offset], vid_mem[vid_mem_offset + MAX_COLS * 2], MAX_COLS * 2);
+        vid_mem_offset = vid_mem_offset + MAX_COLS * 2;
+    }
+*/
+    /* Scrolling requires copying 24 out of the 25 rows. */
+    #define SCROLL_MEM_COPY_SIZE (((MAX_ROWS - 1) * MAX_COLS) * 2)
+
+    memory_copy(vid_mem, vid_mem + MAX_COLS * 2, SCROLL_MEM_COPY_SIZE); // Copy rows.
+
+    zero_memory (vid_mem + SCROLL_MEM_COPY_SIZE, MAX_COLS * 2); // Clear last row.
+
+    vid_mem_offset = row_col_to_screen_video_mem_offset (24, 0);
+
     return vid_mem_offset;
 }
 
+void clear_screen(void) {
+    unsigned char *vid_mem;
+
+    vid_mem = (unsigned char *) VIDEO_ADDRESS;
+
+    #define CLEAR_SIZE (MAX_ROWS * MAX_COLS * 2)
+
+    zero_memory (vid_mem, CLEAR_SIZE);
+}
+
+/* Note: Empty string is a NO-OP. */
+void print_at(char *s, int row, int col) {
+
+    if (*s == '\0')
+        return;
+
+    print_ch_at(*s, 0, row, col);
+    s++;
+
+    while (*s != '\0') {
+        print_ch_at(*s, 0, -1, -1);
+        s++;
+    }
+}
 
 void print(char *s) {
 
@@ -249,4 +349,4 @@ void print(char *s) {
     }
 }
 
-/* TODO: scrolling , clear screen, print_at(). */
+/* TODO: [x]scrolling , [x]clear screen, [x]print_at(). */
