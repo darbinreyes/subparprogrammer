@@ -37,7 +37,7 @@
     ports a register indexing scheme is used. For example, an I/O port will be
     used to provide an index, which selects a particular register, then a second
     I/O port is used to read/write a single byte of data to the index-selected
-    register. This scheme is used with the 0x3D4-0x3D5 I/O ports.
+    register. This scheme is used with the 0x3D4 and 0x3D5 I/O ports.
 
 
     Related to Nick Blundel's Text
@@ -53,16 +53,6 @@
     C's printf(), recall that the "f" == formatted, i.e. we are not implementing
     format specifier support, nor making use of C's variable argument mechanism
     that printf requires in order to implement.
-
-
-    Plan:
-
-        print_char()
-
-        get_cursor()
-        set_cursor()
-        get_screen_offset()
-        handle_scrolling().
 
 */
 
@@ -129,10 +119,8 @@ void print_ch_at(char c, char cattr, int row, int col) {
 
     /* Determine where the character wills be printed. */
     if (row >= 0 && col >= 0) {
-        // vid_mem_offset = get_screen_offset(row, col); // row_col_to_screen_video_mem_offset(row, col).
         vid_mem_offset = row_col_to_screen_video_mem_offset(row, col);
     } else {
-        // vid_mem_offset = get_cursor(); // get_current_cursor_pos_video_mem_offset().
         vid_mem_offset = get_cursor();
     }
 
@@ -146,7 +134,6 @@ void print_ch_at(char c, char cattr, int row, int col) {
 
         */
         trow = vid_mem_offset_to_row (vid_mem_offset);
-        // vid_mem_offset = // get_screen_offset(79, rows); // row_col_to_screen_video_mem_offset(trows, 79);
         /*
 
             Set the video memory offset to the last column of the current row.
@@ -167,21 +154,13 @@ void print_ch_at(char c, char cattr, int row, int col) {
     /* Advance the cursor position. */
     vid_mem_offset += 2;
 
-    // offset = handle_scrolling(offset); // vid_mem_offset = handle_scrolling(vid_mem_offset);
-
     vid_mem_offset = handle_scrolling(vid_mem_offset);
-
-    //vid_mem_offset = handle_scrolling(vid_mem_offset);
-
-    // Use the handle_scrolling(offset) result.
-    // set_cursor(offset); //  set_cursor(vid_mem_offset);
 
     set_cursor(vid_mem_offset);
 }
 
 /****** Helper functions. *******/
 
-// vid_mem_offset = get_screen_offset(row, col); // row_col_to_screen_video_mem_offset(row, col).
 int row_col_to_screen_video_mem_offset(int row, int col) {
     return ((row * MAX_COLS) + col) * 2;
 }
@@ -245,7 +224,7 @@ void set_cursor(int vid_mem_offset) {
     port_byte_out(REG_SCREEN_CTRL_IO_PORT, CURSOR_LOCATION_HIGH_BYTE);
     port_byte_out(REG_SCREEN_DATA_IO_PORT, (unsigned char) (vid_mem_offset >> 8) );
     port_byte_out(REG_SCREEN_CTRL_IO_PORT, CURSOR_LOCATION_LOW_BYTE);
-    port_byte_out(REG_SCREEN_DATA_IO_PORT, (vid_mem_offset & 0x00FF) );
+    port_byte_out(REG_SCREEN_DATA_IO_PORT, (vid_mem_offset & 0x00FF));
 
 }
 
@@ -282,6 +261,7 @@ int handle_scrolling(int vid_mem_offset) {
     unsigned char *vid_mem;
 
     /*
+        Steps:
 
         Check if scrolling must be done.
         if no, return vid_mem_offset unchanged.
@@ -299,13 +279,6 @@ int handle_scrolling(int vid_mem_offset) {
 
     vid_mem = (unsigned char *) VIDEO_ADDRESS;
 
-
-/*
-    for (int row = 1; row < MAX_ROWS; row++) {
-        memory_copy(vid_mem[vid_mem_offset], vid_mem[vid_mem_offset + MAX_COLS * 2], MAX_COLS * 2);
-        vid_mem_offset = vid_mem_offset + MAX_COLS * 2;
-    }
-*/
     /* Scrolling requires copying 24 out of the 25 rows. */
     #define SCROLL_MEM_COPY_SIZE (((MAX_ROWS - 1) * MAX_COLS) * 2)
 
@@ -350,5 +323,3 @@ void print(char *s) {
         s++;
     }
 }
-
-/* TODO: [x]scrolling , [x]clear screen, [x]print_at(). */
