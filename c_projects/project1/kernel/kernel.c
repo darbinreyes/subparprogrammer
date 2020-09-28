@@ -22,8 +22,8 @@ void main(void) {
     //print_ch_at('j', 0, 0, 2);
     //print_ch_at('k', 0, -1, -1);
     print("Darbin Reyes!");
-    clear_screen();
-    print_at("Edsger Dijkstra!", 1, 0);
+    //clear_screen();
+    //print_at("Edsger Dijkstra!", 24, 73);
 
 /*
 
