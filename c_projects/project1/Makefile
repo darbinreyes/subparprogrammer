@@ -17,10 +17,10 @@ OBJ = ${C_SOURCES:.c=.o}
 all: os-image
 
 run: all
-	qemu-system-i386 -drive file=os-image,if=floppy,format=raw
-
-runb: all
 	bochs -q
+
+runq: all
+	qemu-system-i386 -drive file=os-image,if=floppy,format=raw
 
 # This is the actual disk image that the computer loads,
 # which is the combination of our compiled boot sector and kernel.
