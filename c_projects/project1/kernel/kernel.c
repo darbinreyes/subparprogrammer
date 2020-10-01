@@ -7,6 +7,7 @@
 void main(void) {
     int r;
     unsigned char st;
+    unsigned char resp;
 
     // unsigned char *video_memory = (unsigned char *) 0x000b8000;
     // *video_memory = 'D';
@@ -36,7 +37,22 @@ void main(void) {
         r = PS_2_controller_get_status_register(&st);
         print_byteb (st);
     //}
+    print("\n resp = ");
+    //resp = send_disable_kbd_cmd ();
+    resp = send_kbd_cmd (0xF5);
+    print_byteb (resp);
 
+    print("\n resp = ");
+    resp = send_kbd_cmd (0xF2);
+    print_byteb (resp);
+
+    print("\n resp = ");
+    resp = receive_kbd_byte ();
+    print_byteb (resp);
+
+    print("\n resp = ");
+    resp = receive_kbd_byte ();
+    print_byteb (resp);
     // if (r == -1) {
     //     print(" Arg. NULL.");
     // } else if (r == 0) {
