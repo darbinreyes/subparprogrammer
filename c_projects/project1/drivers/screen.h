@@ -30,5 +30,5 @@ void print_ch_at(char c, char cattr, int row, int col);
 void print_at(char *s, int row, int col);
 void print(char *s);
 void clear_screen(void);
-
+void print_byteb (unsigned char b);
 #endif
