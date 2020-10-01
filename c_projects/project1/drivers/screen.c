@@ -320,3 +320,13 @@ void print(char *s) {
         s++;
     }
 }
+
+/* Prints a byte in binary format.*/
+void print_byteb (unsigned char b) {
+    print("0b");
+    for (int i = 7; i >= 0; i--)
+        if (b & BITN(i))
+            print_ch_at('1', 0, -1, -1);
+        else
+            print_ch_at('0', 0, -1, -1);
+}
