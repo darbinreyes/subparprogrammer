@@ -12,3 +12,9 @@
 # inserted into a computer at boot time.
 floppya: 1_44=os-image, status=inserted
 boot: a
+
+# FYI: ROM Images are located at `/opt/local/share/bochs/` , bios.bin-1.13.0 , BIOS-bochs-legacy, BIOS-bochs-latest
+
+romimage: file=/opt/local/share/bochs/BIOS-bochs-legacy
+
+keyboard: type=mf
