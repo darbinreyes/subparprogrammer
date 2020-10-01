@@ -58,8 +58,7 @@
 
 #include "screen.h"
 #include "../kernel/low_level.h"
-
-
+#include "../mylibc/mylibc.h"
 
 int row_col_to_screen_video_mem_offset(int row, int col);
 
@@ -227,8 +226,6 @@ void set_cursor(int vid_mem_offset) {
     port_byte_out(REG_SCREEN_DATA_IO_PORT, (vid_mem_offset & 0x00FF));
 
 }
-
-#define NULL 0U
 
 void memory_copy (void *dst, void *src, int n) {
     unsigned char *d, *s;
