@@ -78,12 +78,14 @@ unsigned char time_out_err:1;
 unsigned char parity_err:1;
 } ps2_ctrl_stat_t;
 
-
+/*
     resp = send_kbd_cmd (0xF5); // Disable scanning
     print_byteb (resp);
 
     print("\n resp = ");
     resp = send_kbd_cmd (0xF2); // ID KBD
+*/
+
 
 int PS_2_controller_get_status_register(unsigned char *ctlr_stat);
 unsigned char send_disable_kbd_cmd (void);
