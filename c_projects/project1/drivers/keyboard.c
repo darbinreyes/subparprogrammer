@@ -1,7 +1,10 @@
 /*
 
-    GOAL: A PS/2 keyboard driver that allows you to get keyboard input from the
-    use.
+INCREMENTAL GOAL:
+[] short get_scn_code(void);
+[] char getch(void);
+[] char *prompt_user_for_str(char *prompt);
+[] With interrupts.
 
 */
 
@@ -35,57 +38,8 @@ int PS_2_controller_get_status_register(unsigned char *ctlr_stat) {
     if (ctlr_stat == NULL)
         return -1;
 
-    *ctlr_stat = port_byte_in (IO_PORT_PS_2_CTLR_STAT_REGISTER);
+    *ctlr_stat = port_byte_in (IO_PS2_CTLR_STAT_REGISTER);
     return 0;
-}
-
-/*
-
-
-*/
-unsigned char send_disable_kbd_cmd (void) {
-    unsigned char resp;
-    unsigned char st_reg;
-    int timeout_counter;
-    int r;
-
-    // SEND.
-    // Send the KBD a disable command (Stop sending scan codes/ignore the user).
-
-    timeout_counter = 1000000;
-    r = PS_2_controller_get_status_register(&st_reg);
-
-    while (timeout_counter > 0 && ( (st_reg & BIT1) == BUF_IS_FULL ) ) {
-        r = PS_2_controller_get_status_register(&st_reg);
-        timeout_counter--;
-    }
-
-    if (timeout_counter == 0) {
-        return 1;
-    }
-
-    if (( (st_reg & BIT1) == BUF_IS_FULL )) {
-        return 2;
-    }
-
-    port_byte_out (IO_PORT_PS_2_CTLR_DATA, DISABLE_KBD_CMD); // Disable KBD command.
-
-
-    // RECEIVE.
-    // Wait from ACK response from KBD.
-
-    timeout_counter = 1000000;
-    r = PS_2_controller_get_status_register(&st_reg);
-
-    while (timeout_counter > 0 && ( (st_reg & BIT0) == BUF_IS_EMPTY ) ) {
-        r = PS_2_controller_get_status_register(&st_reg);
-        timeout_counter--;
-    }
-
-    resp = port_byte_in (IO_PORT_PS_2_CTLR_DATA);
-
-    return resp;
-
 }
 
 
@@ -118,7 +72,7 @@ unsigned char send_kbd_cmd (unsigned char cmd) {
         return 2;
     }
 
-    port_byte_out (IO_PORT_PS_2_CTLR_DATA, cmd); // Disable KBD command.
+    port_byte_out (IO_PS2_CTLR_DATA, cmd); // Disable KBD command.
 
 
     // RECEIVE.
@@ -140,7 +94,7 @@ unsigned char send_kbd_cmd (unsigned char cmd) {
         return 4;
     }
 
-    resp = port_byte_in (IO_PORT_PS_2_CTLR_DATA);
+    resp = port_byte_in (IO_PS2_CTLR_DATA);
 
     return resp;
 
@@ -176,7 +130,7 @@ unsigned char receive_kbd_byte (void) {
         return 2;
     }
 
-    resp = port_byte_in (IO_PORT_PS_2_CTLR_DATA);
+    resp = port_byte_in (IO_PS2_CTLR_DATA);
 
     return resp;
 
