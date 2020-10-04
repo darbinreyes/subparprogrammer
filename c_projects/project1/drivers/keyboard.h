@@ -5,21 +5,9 @@
 
 /*
 
-I/O port addresses used for communication with the PS/2 controller.
+Commands that can be sent to a PS/2 keyboard.
 
 */
-#define IO_PS2_CTLR_DATA          (0x60) // CTLR = ConTroLleR.
-#define IO_PS2_CTLR_STAT_REGISTER (0x64)
-#define IO_PS2_CTLR_CMD_REGISTER  (0x64)
-
-/*
-
-Commands that can be sent to a PS/2 device (e.g. keyboard). This driver assumes keyboard).
-
-*/
-#define DISABLE_KBD_CMD (0xF5)
-#define IDENTIFY_DEVICE_CMD (0xF2)
-
 typedef
 enum _ps2_kbd_cmd {
 // If expects data, send after command.
@@ -37,27 +25,27 @@ RESEND_CMD = 0xFE, // Expects Data: No. Response: 0xXX="Previously sent byte"/0x
 RESET_AND_SELF_TEST = 0xFF // Expects Data: No. Response: 0xAA=self-test passed, 0xFC||0xFD=self-test failed, 0xFE=RESEND.
 } ps2_kbd_cmd;
 
+/*
+
+Responses from a PS/2 keyboard.
+
+*/
 typedef
 enum _ps2_kbd_rsp_t {
-KEY_DETECT_OR_BUF_ERR0 = 0x00,
+KEY_DETECT_OR_BUF_ERR_0 = 0x00,
 SELF_TEST_PASSED = 0xAA,
 ECHO_RSP = 0xEE,
 ACK = 0xFA,
 SELF_TEST_FAILED = 0xFC, // [] Test // else response may be 0xFD.
 RESEND_RSP = 0xFE, // [] TODO: If used, limit retries to 3.
-KEY_DETECT_OR_BUF_ERR0 = 0xFF
+KEY_DETECT_OR_BUF_ERR_1 = 0xFF
 } ps2_kbd_rsp_t;
 
-/*
-    resp = send_kbd_cmd (0xF5); // Disable scanning
-    print_byteb (resp);
 
-    print("\n resp = ");
-    resp = send_kbd_cmd (0xF2); // ID KBD
-*/
+// unsigned char send_kbd_cmd (unsigned char cmd);
+unsigned char send_cmd (unsigned char cmd);
 
+//unsigned char receive_kbd_byte (void);
+unsigned char rcv_data (void);
 
-int PS_2_controller_get_status_register(unsigned char *ctlr_stat);
-unsigned char send_kbd_cmd (unsigned char cmd);
-unsigned char receive_kbd_byte (void);
 #endif

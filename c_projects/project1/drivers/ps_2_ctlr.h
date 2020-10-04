@@ -29,6 +29,15 @@ I/O port 0x60 and 0x64.
 #ifndef __PS_2_CTLR_H__
 #define __PS_2_CTLR_H__
 
+/*
+
+I/O port addresses used for communication with the PS/2 controller.
+
+*/
+#define IO_PS2_CTLR_DATA          (0x60) // CTLR = ConTroLleR.
+#define IO_PS2_CTLR_STAT_REGISTER (0x64)
+#define IO_PS2_CTLR_CMD_REGISTER  (0x64)
+
 typedef
 enum _ctlr_cmd_t {
 R_CMD_BYTE = 0x20,
@@ -66,5 +75,7 @@ unsigned char rcv_timeout:1; // 6 [] Test? 0=,1= // Value on power on = 0
 unsigned char par_err:1; // 7 [] Test? 0=,1= // Value on power on = 0
 } ps_2_ctrl_stat_t;
 
+// int PS_2_controller_get_status_register(unsigned char *ctlr_stat);
+int rcv_ctlr_stat(unsigned char *ctlr_stat);
 
 #endif
