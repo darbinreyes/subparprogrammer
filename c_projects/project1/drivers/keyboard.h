@@ -40,7 +40,7 @@ enum _ps2_kbd_cmd_t {
     */
     DISABLE_SCANNING = 0xF5, // See above.
     SET_DEFAULTS = 0xF6, // [x] Tested. Expects Data: No. Response: default.
-    // RESEND_CMD = 0xFE, // [x] Tested. BOCHS PANIC. Expects Data: No. Response: 0xXX="Previously sent byte"/0xFE=RESEND.
+    // RESEND_CMD = 0xFE, // [x] Tested. Causes BOCHS PANIC. Expects Data: No. Response: 0xXX="Previously sent byte"/0xFE=RESEND.
     RESET_AND_SELF_TEST = 0xFF // [x] Tested. but returns ACK instead instead off 0xAA. Expects Data: No. Response: 0xAA=self-test passed, 0xFC||0xFD=self-test failed, 0xFE=RESEND.
 } ps2_kbd_cmd_t;
 
