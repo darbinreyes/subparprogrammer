@@ -17,44 +17,7 @@ void main(void) {
     print_byteb (st);
     print("\n");
 
-/*    resp = send_cmd (IDENTIFY_KBD); // ID KBD
-    print_byteh (resp);
-    print("\n");
-
-    resp = rcv_data ();
-    print_byteh (resp);
-    print("\n");
-
-    resp = rcv_data ();
-    print_byteh (resp);
-    print("\n");*/
-
-    /*
-
-    * [x] Does this clear the inhibit bit in the status register?
-        * No.
-    * [x] Does this stop the kbd from sending scan codes?
-        * Yes.
-
-    */
-
     resp = send_cmd (DISABLE_SCANNING); // Disable scanning
-    print_byteh (resp);
-    print("\n");
-
-/*    r = get_ctlr_stat(&st); // Read status register
-    print_byteb (st);
-    print("\n");*/
-
-    resp = send_cmd (GET_SET_SCAN_CODE_SET);
-    print_byteh (resp);
-    print("\n");
-
-    resp = send_cmd (GET_SCAN_CODE_SET);
-    print_byteh (resp);
-    print("\n");
-
-    resp = rcv_data ();
     print_byteh (resp);
     print("\n");
 
