@@ -10,25 +10,14 @@ void main(void) {
     unsigned char st;
     unsigned char resp;
 
-
-    //print_ch_at('i', 0, 0, 1);
-    //print_ch_at('k', 0, -1, -1);
-    //print("Darbin Reyes!");
-    //print_at("Edsger Dijkstra!", 24, 73);
-    //clear_screen();
-
     clear_screen();
     print_at("Edsger Dijkstra!\n", 0, 0);
 
-    r = rcv_ctlr_stat(&st);
+    r = get_ctlr_stat(&st); // Read status register
     print_byteb (st);
     print("\n");
 
-    // print("\n resp = ");
-    // resp = send_cmd (0xF5); // Disable scanning
-    // print_byteb (resp);
-
-    resp = send_cmd (IDENTIFY_KBD); // ID KBD
+/*    resp = send_cmd (IDENTIFY_KBD); // ID KBD
     print_byteh (resp);
     print("\n");
 
@@ -38,6 +27,36 @@ void main(void) {
 
     resp = rcv_data ();
     print_byteh (resp);
+    print("\n");*/
+
+    /*
+
+    * [x] Does this clear the inhibit bit in the status register?
+        * No.
+    * [x] Does this stop the kbd from sending scan codes?
+        * Yes.
+
+    */
+
+    resp = send_cmd (DISABLE_SCANNING); // Disable scanning
+    print_byteh (resp);
+    print("\n");
+
+/*    r = get_ctlr_stat(&st); // Read status register
+    print_byteb (st);
+    print("\n");*/
+
+    resp = send_cmd (GET_SET_SCAN_CODE_SET);
+    print_byteh (resp);
+    print("\n");
+
+    resp = send_cmd (GET_SCAN_CODE_SET);
+    print_byteh (resp);
+    print("\n");
+
+    resp = rcv_data ();
+    print_byteh (resp);
+    print("\n");
 
     return;
 }

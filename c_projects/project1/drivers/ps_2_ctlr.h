@@ -75,7 +75,11 @@ unsigned char rcv_timeout:1; // 6 [] Test? 0=,1= // Value on power on = 0
 unsigned char par_err:1; // 7 [] Test? 0=,1= // Value on power on = 0
 } ps_2_ctrl_stat_t;
 
-// int PS_2_controller_get_status_register(unsigned char *ctlr_stat);
-int rcv_ctlr_stat(unsigned char *ctlr_stat);
+int get_ctlr_stat(unsigned char *ctlr_stat);
+
+unsigned char send_cmd (unsigned char cmd);
+
+unsigned char rcv_data (void);
+// int send_cmd_ctlr(unsigned char cmd)
 
 #endif
