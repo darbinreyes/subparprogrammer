@@ -5,21 +5,39 @@
 #include "../drivers/keyboard.h"
 #include "../mylibc/mylibc.h"
 
-void main(void) {
+int main(void) {
     int r;
-    unsigned char st;
-    unsigned char resp;
+    unsigned char stat;
+    unsigned char b;
 
     clear_screen();
     print_at("Edsger Dijkstra!\n", 0, 0);
 
-    r = get_ctlr_stat(&st); // Read status register
-    print_byteb (st);
+    r = get_ctlr_stat(&stat); // Read status register
+
+    if (r != 0) {
+        print("Error 0.\n");
+        return 1;
+    }
+
+    print_byteb (stat);
     print("\n");
 
-    resp = send_cmd (DISABLE_SCANNING); // Disable scanning
-    print_byteh (resp);
+    r = send_byte (DISABLE_SCANNING); // Disable scanning
+
+    if (r != 0) {
+        print("Error 1.\n");
+        return 1;
+    }
+    r = rcv_byte (&b);
+
+    if (r != 0) {
+        print("Error 2.\n");
+        return 1;
+    }
+
+    print_byteh (b);
     print("\n");
 
-    return;
+    return 0;
 }

@@ -39,23 +39,23 @@ I/O port addresses used for communication with the PS/2 controller.
 #define IO_PS2_CTLR_CMD_REGISTER  (0x64)
 
 typedef
-enum _ctlr_cmd_t {
-R_CMD_BYTE = 0x20,
-W_CMD_BYTE = 060,
-SELF_TEST = 0xAA, // [] Test response 0x55 = passed // 0xFC = test failed.
-INTERFACE_TEST = 0xAB, // [] Test response 0x00 = test passed, // osdev8042 = "test **1st** PS/2 port" // Will not test response 0x01, 0x02, 0x04, 0x04
-DIAG_DUMP = 0xAC,
-DISABLE_DEV = 0xAD, // [] Test disables KDB. // osdev8042 = "disable **1st** PS/2 port"
-ENABLE_DEV = 0xAE, // [] Test enables KDB. // osdev8042 = "enable **1st** PS/2 port"
-R_INPUT_PORT = 0xC0,
-R_OUTPUT_PORT = 0xD0,
+enum _ctlr_cmd_t { // [] Tested. Expects data? x. Returns response? x.
+    R_CMD_BYTE = 0x20,
+    W_CMD_BYTE = 060,
+    SELF_TEST = 0xAA, // [] Test response 0x55 = passed // 0xFC = test failed.
+    INTERFACE_TEST = 0xAB, // [] Test response 0x00 = test passed, // osdev8042 = "test **1st** PS/2 port" // Will not test response 0x01, 0x02, 0x04, 0x04
+    DIAG_DUMP = 0xAC,
+    DISABLE_DEV = 0xAD, // [] Test disables KDB. // osdev8042 = "disable **1st** PS/2 port"
+    ENABLE_DEV = 0xAE, // [] Test enables KDB. // osdev8042 = "enable **1st** PS/2 port"
+    R_INPUT_PORT = 0xC0,
+    R_OUTPUT_PORT = 0xD0,
 
-W_OUTPUT_PORT = 0xD1,
-R_TEST_INPUTS = 0xE0,
+    W_OUTPUT_PORT = 0xD1,
+    R_TEST_INPUTS = 0xE0,
 
-// Pulse **LOW**, 6 microseconds.
-PULSE_OUTPUT_PORT_BIT0 = 0xFE, // [] Test pulse means "system reset", 0=pulse, 1=don't pulse.
-PULSE_OUTPUT_PORT_BIT1 = 0xFD // "Gate A20"
+    // Pulse **LOW**, 6 microseconds.
+    PULSE_OUTPUT_PORT_BIT0 = 0xFE, // [] Test pulse means "system reset", 0=pulse, 1=don't pulse.
+    PULSE_OUTPUT_PORT_BIT1 = 0xFD // "Gate A20"
 } ctlr_cmd_t;
 
 /*
@@ -65,21 +65,19 @@ PS/2 controller status register bit definitions.
 */
 typedef
 struct _ps_2_ctrl_stat_t { // _ps_2_ctrl_stat_t
-unsigned char obuf_full:1; // 0 [x] // Value on power on = 0, 1=keyboard key was pressed.
-unsigned char ibuf_full:1; // 1 [x] // Value on power on = 0
-unsigned char sys_flg:1; // 2[] Test, 0=,1= // Value on power on = 0
-unsigned char data_or_cmd:1; // 3 [] 0=,1= // Value on power on = 0
-unsigned char dev_inhibited:1; // 4 [] Test 0=,1= // Value on power on = 1
-unsigned char tx_timeout:1; // 5 [] Test? 0=,1= // Value on power on = 0
-unsigned char rcv_timeout:1; // 6 [] Test? 0=,1= // Value on power on = 0
-unsigned char par_err:1; // 7 [] Test? 0=,1= // Value on power on = 0
+    unsigned char obuf_full:1; // 0 [x] // Value on power on = 0, 1=keyboard key was pressed.
+    unsigned char ibuf_full:1; // 1 [x] // Value on power on = 0
+    unsigned char sys_flg:1; // 2[] Test, 0=,1= // Value on power on = 0
+    unsigned char data_or_cmd:1; // 3 [] 0=,1= // Value on power on = 0
+    unsigned char dev_inhibited:1; // 4 [] Test 0=,1= // Value on power on = 1
+    unsigned char tx_timeout:1; // 5 [] Test? 0=,1= // Value on power on = 0
+    unsigned char rcv_timeout:1; // 6 [] Test? 0=,1= // Value on power on = 0
+    unsigned char par_err:1; // 7 [] Test? 0=,1= // Value on power on = 0
 } ps_2_ctrl_stat_t;
 
-int get_ctlr_stat(unsigned char *ctlr_stat);
-
-unsigned char send_cmd (unsigned char cmd);
-
-unsigned char rcv_data (void);
-// int send_cmd_ctlr(unsigned char cmd)
+int get_ctlr_stat(unsigned char *stat);
+int send_byte (unsigned char b);
+int rcv_byte (unsigned char *b);
+// int send_byte_ctlr(unsigned char b);
 
 #endif

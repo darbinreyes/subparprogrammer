@@ -2,6 +2,8 @@
 #include "../kernel/low_level.h"
 #include "ps_2_ctlr.h"
 
+#define POLL_COUNT (0x01 << 20)
+
 // TODO: driver start()
 // TODO: driver stop()
 
@@ -9,38 +11,41 @@
 
     Returns the value of the PS/2 controller's status register.
 
-    @retval -1 Arg. NULL.
+    @retval 1 Arg. NULL.
 
     @retval 0 Successful. The status has been returned in cntlr_stat.
 
 */
-int get_ctlr_stat(unsigned char *ctlr_stat) {
+int get_ctlr_stat(unsigned char *stat) {
     // TODO: Use bit packed structure.
-    if (ctlr_stat == NULL)
-        return -1;
+    if (stat == NULL)
+        return 1;
 
-    *ctlr_stat = port_byte_in (IO_PS2_CTLR_STAT_REGISTER);
+    *stat = port_byte_in (IO_PS2_CTLR_STAT_REGISTER);
     return 0;
 }
 
 /*
 
+    Send.
 
 */
-unsigned char send_cmd (unsigned char cmd) {
-    unsigned char resp;
-    unsigned char st_reg;
-    int timeout_counter;
+int send_byte (unsigned char b) {
+    unsigned char stat;
+    int timeout_counter = POLL_COUNT;
     int r;
 
-    // SEND.
-    // Send the KBD a disable command (Stop sending scan codes/ignore the user).
+    r = get_ctlr_stat(&stat);
 
-    timeout_counter = 1000000;
-    r = get_ctlr_stat(&st_reg);
+    if (r != 0)
+        return 4;
 
-    while (timeout_counter > 0 && ( (st_reg & BIT1) == 1 ) ) {
-        r = get_ctlr_stat(&st_reg);
+    while (timeout_counter > 0 && ( (stat & BIT1) == 1 ) ) {
+        r = get_ctlr_stat(&stat);
+
+        if (r != 0)
+            return 4;
+
         timeout_counter--;
     }
 
@@ -48,57 +53,39 @@ unsigned char send_cmd (unsigned char cmd) {
         return 1;
     }
 
-    if (( (st_reg & BIT1) == 1 )) {
+    if (( (stat & BIT1) == 1 )) {
         return 2;
     }
 
-    port_byte_out (IO_PS2_CTLR_DATA, cmd); // Disable KBD command.
+    port_byte_out (IO_PS2_CTLR_DATA, b);
 
-
-    // RECEIVE.
-    // Wait from ACK response from KBD.
-
-    timeout_counter = 1000000;
-    r = get_ctlr_stat(&st_reg);
-
-    while (timeout_counter > 0 && ( (st_reg & BIT0) == 0 ) ) {
-        r = get_ctlr_stat(&st_reg);
-        timeout_counter--;
-    }
-
-    if (timeout_counter == 0) {
-        return 3;
-    }
-
-    if (( (st_reg & BIT0) == 0 )) {
-        return 4;
-    }
-
-    resp = port_byte_in (IO_PS2_CTLR_DATA);
-
-    return resp;
-
+    return 0;
 }
 
 /*
 
-
+    Receive.
 
 */
-unsigned char rcv_data (void) {
-    unsigned char resp;
-    unsigned char st_reg;
-    int timeout_counter;
+int rcv_byte (unsigned char *b) {
+    unsigned char stat;
+    int timeout_counter = POLL_COUNT;
     int r;
 
-    // RECEIVE.
-    // Wait from ACK response from KBD.
+    if (b == NULL)
+        return 3;
 
-    timeout_counter = 1000000;
-    r = get_ctlr_stat(&st_reg);
+    r = get_ctlr_stat(&stat);
 
-    while (timeout_counter > 0 && ( (st_reg & BIT0) == 0 ) ) {
-        r = get_ctlr_stat(&st_reg);
+    if (r != 0)
+        return 4;
+
+    while (timeout_counter > 0 && ( (stat & BIT0) == 0 ) ) {
+        r = get_ctlr_stat(&stat);
+
+        if (r != 0)
+            return 4;
+
         timeout_counter--;
     }
 
@@ -106,11 +93,20 @@ unsigned char rcv_data (void) {
         return 1;
     }
 
-    if (( (st_reg & BIT0) == 0 )) {
+    if (( (stat & BIT0) == 0 )) {
         return 2;
     }
 
-    resp = port_byte_in (IO_PS2_CTLR_DATA);
+    *b = port_byte_in (IO_PS2_CTLR_DATA);
 
-    return resp;
+    return 0;
+}
+
+/*
+
+    Send a byte to the PS/2 controller.
+
+*/
+void send_byte_ctlr (unsigned char b) {
+    port_byte_out (IO_PS2_CTLR_CMD_REGISTER, b);
 }
