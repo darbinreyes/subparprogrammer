@@ -330,3 +330,28 @@ void print_byteb (unsigned char b) {
         else
             print_ch_at('0', 0, -1, -1);
 }
+
+// Nibble to ASCII hexit. Upper nibble is masked out, lower nibble is converted to an ASCII character in the set [0-9|A-F].
+char nibtoa (unsigned char b) {
+    b = 0x0F & b; // lower nibble.
+
+    if (b >= 0 && b <= 9)
+        b += '0';
+    else if (b > 9)
+        b = b - 10 + 'A';
+    return b;
+}
+
+void print_byteh (unsigned char b) {
+    char c;
+
+    print("0x");
+
+    c = nibtoa (b >> 4); // upper nibble
+
+    print_ch_at(c, 0, -1, -1);
+
+    c = nibtoa (b); // lower nibble
+
+    print_ch_at(c, 0, -1, -1);
+}
