@@ -5,7 +5,7 @@
 
 /*
 
-PS/2 keyboard command
+    PS/2 keyboard command
 
 */
 typedef
@@ -46,7 +46,7 @@ enum _ps2_kbd_cmd_t {
 
 /*
 
-PS/2 keyboard command arguments/data. To be sent subsequent to the command.
+    PS/2 keyboard command arguments/data. To be sent subsequent to the command.
 
 */
 typedef
@@ -63,7 +63,7 @@ enum _ps2_kbd_cmd_data_t {
 
 /*
 
-Responses from a PS/2 keyboard.
+    Responses from a PS/2 keyboard.
 
 */
 typedef
