@@ -40,22 +40,22 @@ I/O port addresses used for communication with the PS/2 controller.
 
 typedef
 enum _ctlr_cmd_t { // [] Tested. Expects data? x. Returns response? x.
-    R_CMD_BYTE = 0x20,
-    W_CMD_BYTE = 060,
-    SELF_TEST = 0xAA, // [] Test response 0x55 = passed // 0xFC = test failed.
-    INTERFACE_TEST = 0xAB, // [] Test response 0x00 = test passed, // osdev8042 = "test **1st** PS/2 port" // Will not test response 0x01, 0x02, 0x04, 0x04
-    DIAG_DUMP = 0xAC,
-    DISABLE_DEV = 0xAD, // [] Test disables KDB. // osdev8042 = "disable **1st** PS/2 port"
-    ENABLE_DEV = 0xAE, // [] Test enables KDB. // osdev8042 = "enable **1st** PS/2 port"
-    R_INPUT_PORT = 0xC0,
-    R_OUTPUT_PORT = 0xD0,
+    R_CMD_BYTE = 0x20, // [] Tested. "Controller config. byte." See spec.
+    W_CMD_BYTE = 060, // [] Tested.
+    SELF_TEST = 0xAA, // [x] Tested. Response 0x55 = passed // 0xFC = test failed.
+    INTERFACE_TEST = 0xAB, // [x] Tested. Response 0x00 = test passed, // osdev8042 = "test **1st** PS/2 port" // Will not test response 0x01, 0x02, 0x04, 0x04
+    // DIAG_DUMP = 0xAC, // Will not use.
+    DISABLE_DEV = 0xAD, // [] Tested. disables KDB. // osdev8042 = "disable **1st** PS/2 port"
+    ENABLE_DEV = 0xAE, // [] Tested. enables KDB. // osdev8042 = "enable **1st** PS/2 port"
+    // R_INPUT_PORT = 0xC0, // Will not use.
+    R_OUTPUT_PORT = 0xD0, // [] Tested. "Controller output port." See spec.
 
-    W_OUTPUT_PORT = 0xD1,
-    R_TEST_INPUTS = 0xE0,
+    // W_OUTPUT_PORT = 0xD1, // Will not use.
+    // R_TEST_INPUTS = 0xE0,// Will not use.
 
     // Pulse **LOW**, 6 microseconds.
-    PULSE_OUTPUT_PORT_BIT0 = 0xFE, // [] Test pulse means "system reset", 0=pulse, 1=don't pulse.
-    PULSE_OUTPUT_PORT_BIT1 = 0xFD // "Gate A20"
+    PULSE_OUTPUT_PORT_BIT0 = 0xFE, // [x] Tested. Pulse low for 6 us "system reset", 0=pulse, 1=don't pulse.
+    //PULSE_OUTPUT_PORT_BIT1 = 0xFD // Will not use."Gate A20"
 } ctlr_cmd_t;
 
 /*
@@ -78,6 +78,6 @@ struct _ps_2_ctrl_stat_t { // _ps_2_ctrl_stat_t
 int get_ctlr_stat(unsigned char *stat);
 int send_byte (unsigned char b);
 int rcv_byte (unsigned char *b);
-// int send_byte_ctlr(unsigned char b);
+void send_byte_ctlr (unsigned char b);
 
 #endif

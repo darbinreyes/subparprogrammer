@@ -77,4 +77,6 @@ enum _ps2_kbd_rsp_t {
     // KEY_DETECT_OR_BUF_ERR_1 = 0xFF // Not tested. Not sure how to simulate this error in BOCHS so can't test.
 } ps2_kbd_rsp_t;
 
+int get_scan_code(unsigned char *sc);
+char scan_code_to_ascii (unsigned char sc);
 #endif
