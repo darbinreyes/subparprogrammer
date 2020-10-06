@@ -25,15 +25,15 @@ int main(void) {
     print_byteb (stat);
     print("\n");
 
-    r = get_scan_code(&sc);
+    // r = get_scan_code(&sc);
 
-    if (r != 0) {
-        print("Error 1.\n");
-        return 1;
-    }
+    // if (r != 0) {
+    //     print("Error 1.\n");
+    //     return 1;
+    // }
 
-    print_byteh(sc);
-    print("\n");
+    // print_byteh(sc);
+    // print("\n");
 
     while(1) {
         r = get_scan_code(&sc);
@@ -43,10 +43,12 @@ int main(void) {
             return 1;
         }
 
-        c = scan_code_to_ascii (sc);
+        if ( (sc & BIT7) == 0) {
+            c = scan_code_to_ascii (sc);
 
-        print_ch_at(c, 0, -1, -1);
-        print("\n");
+            print_ch_at(c, 0, -1, -1);
+            //print("\n");
+        }
     }
 
     return 0;
