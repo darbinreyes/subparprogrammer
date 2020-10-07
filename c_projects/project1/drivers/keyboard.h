@@ -79,4 +79,5 @@ enum _ps2_kbd_rsp_t {
 
 int get_scan_code(unsigned char *sc);
 char scan_code_to_ascii (unsigned char sc);
+int get_scan_code2(unsigned char *sc);
 #endif

@@ -38,6 +38,9 @@ I/O port addresses used for communication with the PS/2 controller.
 #define IO_PS2_CTLR_STAT_REGISTER (0x64)
 #define IO_PS2_CTLR_CMD_REGISTER  (0x64)
 
+#define PS2_BUF_EMPTY (0)
+#define PS2_BUF_FULL  (1)
+
 typedef
 enum _ctlr_cmd_t { // [] Tested. Expects data? x. Returns response? x.
     R_CMD_BYTE = 0x20, // [] Tested. "Controller config. byte." See spec.

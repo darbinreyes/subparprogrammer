@@ -43,7 +43,6 @@ char kc_rc_to_ascii[][21] = {
  {  '?'/*<L-CTRL>*/,   '?'/*<L-ALT>*/,'?'/*<L-CMD>NoSc*/,' '/*<SPACE>*/,                                                                                                                                                   '?'/*<R-CMD>NoSc*/,'?'/*<R-ALT>*/,                                '?'/*<R-CTRL>*/,                       '?'/*<CUR-LEFT>*/,   '?'/*<CUR-DOWN>*/,'?'/*<CUR-RIGHT>*/,   '0',                                               '.',             '?'/*<NUMPAD-ENTER>*/}
 };
 
-
 #define KEY_CODE_FROM_ROW_COL(r, c)  ( ( ( (r) & 0x07) << 5 ) | ( (c) & 0x1F) ) // Row = upper 3 bits. Col. = lower 5 bits.
 #define NOT_A_SCAN_CODE 0xFF
 #define SCAN_CODE_TODO  0xFE
@@ -303,7 +302,7 @@ char scan_code_to_ascii (unsigned char sc) {
     return '^';
 }
 
-// TODO: scan code -> grid key code -> ASCII code // How to distinguish 'a' vs. 'A'?
+// Returns a 1 byte scan code from the keyboard.
 int get_scan_code(unsigned char *sc) {
     unsigned char stat;
     int r;
@@ -314,7 +313,7 @@ int get_scan_code(unsigned char *sc) {
     if (r != 0)
         return 1;
 
-    while ( ( (stat & BIT0) == 0 ) ) { // Loop until a scan code is received.
+    while ( ( (stat & BIT0) == PS2_BUF_EMPTY ) ) { // Loop until a scan code is received.
         r = get_ctlr_stat(&stat);
 
         if (r != 0)
@@ -327,6 +326,55 @@ int get_scan_code(unsigned char *sc) {
         return 2;
 
     *sc = b;
+
+    return 0;
+}
+
+// Returns a 2 byte scan code from the keyboard. Caller must ensure that `sc` is 2 bytes in size.
+int get_scan_code2(unsigned char *sc) {
+    unsigned char stat;
+    int r;
+    unsigned char b;
+
+    r = get_ctlr_stat(&stat);
+
+    if (r != 0)
+        return 1;
+
+    while ( ( (stat & BIT0) == PS2_BUF_EMPTY ) ) { // Loop until a scan code is received.
+        r = get_ctlr_stat(&stat);
+
+        if (r != 0)
+            return 2;
+    }
+
+    r = rcv_byte (&b);
+
+    if (r != 0)
+        return 3;
+
+    *sc = b;
+
+    if (b != 0xE0) {
+        // This is a single byte scan code.
+        *(sc+1) = 0x00;
+        return 0;
+    }
+
+    // Get the second scan code byte.
+    while ( ( (stat & BIT0) == PS2_BUF_EMPTY ) ) { // Loop until a scan code is received.
+        r = get_ctlr_stat(&stat);
+
+        if (r != 0)
+            return 4;
+    }
+
+    r = rcv_byte (&b);
+
+    if (r != 0)
+        return 5;
+
+    *(sc+1) = b;
 
     return 0;
 }

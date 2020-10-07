@@ -10,6 +10,7 @@ int main(void) {
     unsigned char stat;
     unsigned char b;
     unsigned char sc;
+    unsigned char sc2[2];
     char c;
 
     clear_screen();
@@ -35,28 +36,51 @@ int main(void) {
     // print_byteh(sc);
     // print("\n");
 
+    // while(1) {
+    //     r = get_scan_code(&sc);
+
+    //     if (r != 0) {
+    //         print("Error 2.\n");
+    //         return 1;
+    //     }
+
+    //     if ( (sc & BIT7) == 0) { // Only print scan codes indicating press (not released).
+    //         print("[");
+    //         print_byteh(sc);
+    //         print("]");
+    //         //c = scan_code_to_ascii (sc);
+
+    //         //print_ch_at(c, 0, -1, -1);
+    //         //print("\n");
+    //     } else {
+    //         print("(");
+    //         print_byteh(sc);
+    //         print(")");
+    //     }
+    // }
+
     while(1) {
-        r = get_scan_code(&sc);
+        r = get_scan_code2(sc2);
 
         if (r != 0) {
             print("Error 2.\n");
             return 1;
         }
 
-        if ( (sc & BIT7) == 0) { // Only print scan codes indicating press (not released).
-            // print("[");
-            // print_byteh(sc);
-            // print("]");
-            c = scan_code_to_ascii (sc);
-
-            print_ch_at(c, 0, -1, -1);
-            //print("\n");
+        if (sc2[1] != 0x00) {
+            print(" 2 byte sc.");
+            print("[");
+            print_byteh(sc2[0]);
+            print("]");
+            print("[");
+            print_byteh(sc2[1]);
+            print("]");
         } else {
-            // print("[");
-            // print_byteh(sc);
-            // print("]");
+            print(" 1 byte sc.\n");
+            print("[");
+            print_byteh(sc2[0]);
+            print("]");
         }
     }
-
     return 0;
 }
