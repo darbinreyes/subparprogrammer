@@ -43,11 +43,18 @@ int main(void) {
             return 1;
         }
 
-        if ( (sc & BIT7) == 0) {
+        if ( (sc & BIT7) == 0) { // Only print scan codes indicating press (not released).
+            // print("[");
+            // print_byteh(sc);
+            // print("]");
             c = scan_code_to_ascii (sc);
 
             print_ch_at(c, 0, -1, -1);
             //print("\n");
+        } else {
+            // print("[");
+            // print_byteh(sc);
+            // print("]");
         }
     }
 
