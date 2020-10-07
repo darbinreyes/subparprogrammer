@@ -27,11 +27,13 @@ In this range the characters I am familiar with are:
 
 */
 
+int a[1024];
+
 int main(void) {
     int c;
 
-    while (1) {
-        c = getchar();
+    // while (1) {
+        // c = getchar();
         /*
             Notes behaviur of getchar():
             ===
@@ -59,8 +61,10 @@ int main(void) {
             <CUR-RIGHT> mapped to "^[[C"/returns "[C".
             <CUR-LEFT> mapped to "^[[D"/returns "[D".
         */
-        printf("char = %X = %c\n", c, c);
-    }
+        // printf("char = %X = %c\n", c, c);
+    // }
+    for (int i = 0; i < 1024; i++)
+        printf("%d\n", a[i]);
 
     return 0;
 }
