@@ -43,7 +43,7 @@ unsigned char ascii_code;
 unsigned char r;
 unsigned char c;
 };
-/* , {0x00, '?', -1, -1} */
+
 struct _sctokc_t sc_to_kc_tbl[][21] = { // State == pressed.
  {  {0x01, '?'/*ESC*/, 0, 0},   {0x3B, 'X'/*F1*/, 0, 1},   {0x3C, 'X'/*F2*/, 0, 2},         {0x3D, 'X'/*F3*/, 0, 3}, {0x3E, 'X'/*F4*/, 0, 4},         {0x3F, 'X'/*F5*/, 0, 5},           {0x40, 'X'/*F6*/, 0, 6},           {0x41, 'X'/*F7*/, 0, 7},            {0x42, 'X'/*F8*/, 0, 8},           {0x43, 'X'/*F9*/, 0, 9},          {0x44, 'X'/*F10*/, 0, 10}, {0x57, 'X'/*F11*/, 0, 11},   {0x58, 'X'/*F12*/, 0, 12},              {0x00, '?'/*EJECT No-Sc*/, 0, 13}, {0x00, '?'/*F13 No-Sc*/, 0, 14},        {0x00, '?'/*F14 No-Sc*/, 0, 15},        {0x00, '?'/*F15 No-Sc*/, 0, 16},         {0x00, '?'/*F16 No-Sc*/, 0, 17},       {0x00, '?'/*F17 No-Sc*/, 0, 18},   {0x00, '?'/*F18 No-Sc*/, 0, 19},              {0x00, '?'/*F19 No-Sc*/, 0, 20} }, /*[x][x]*/
  {  {0x29, '`', 1, 0},          {0x02, '1', 1, 1},         {0x03, '2', 1, 2},               {0x04, '3', 1, 3},       {0x05, '4', 1, 4},               {0x06, '5', 1, 5},                 {0x07, '6', 1, 6},                 {0x08, '7', 1, 7},                  {0x09, '8', 1, 8},                 {0x0A, '9', 1, 9},                {0x0B, '0', 1, 10},        {0x0C, '-', 1, 11},          {0x0D, '=', 1, 12},                     {0x0E, '?'/*DEL*/, 1, 13},         {0x00, '?'/*Fn No-Sc*/, 1, 14},         {0xE0/*0x47*/, '?'/*HOME*/, 1, 15},     {0xE0/*0x49*/, '?'/*PGUP*/, 1, 16},      {0x00, '?'/*NUMCLEAR  No-Sc*/, 1, 17}, {0x00, '='/*NUMEQ No-Sc*/, 1, 18}, {0xE0/*0x35*/, '/'/*NUMSLASH*/, 1, 19},       {0x37, '*', 1, 20} }, /*[x][x]*/
@@ -55,13 +55,23 @@ struct _sctokc_t sc_to_kc_tbl[][21] = { // State == pressed.
 
 int sc_to_kc_tbl_row_len[] = {21, 21, 21, 17, 16, 13};
 
+char kc_rc_to_ascii[][21] = {
+ {  '?'/*<ESC>*/,      'X'/*<F1>*/,   'X'/*<F2>*/,       'X'/*<F3>*/,   'X'/*<F4>*/,                    'X'/*<F5>*/,              'X'/*<F6>*/,                 'X'/*<F7>*/,                   'X'/*<F8>*/,                 'X'/*<F9>*/,       'X'/*<F10>*/,'X'/*<F11>*/,                   'X'/*<F12>*/,   '?'/*<EJECT>*/,     '?'/*<F13>*/,        '?'/*<F14>*/,  '?'/*<F15>*/,         '?'/*<F16>*/,                 '?'/*<F17>*/,        '?'/*<F18>*/,    '?'/*<F19>*/},
+ {  '`',               '1',           '2',               '3',           '4',                            '5',                      '6',                         '7',                           '8',                         '9',               '0',         '-',                            '=',            '?'/*<BACKSPACE>*/, '?'/*<Fn>*/,         '?'/*<HOME>*/, '?'/*<PG-UP>*/,       '?'/*<NUMPAD-CLEAR/NUMLOCK>*/,'='/*NUMPAD"="NoSc*/, '/'/*NUMPAD-/*/,'*'/*NUMPAD"*"*/},
+ {  '?'/*<TAB>*/,      'q',           'w',               'e',           'r',                            't',                      'y',                         'u',                           'i',                         'o',               'p',         '[',                            ']',            '\\',               '?'/*<DEL/NUMLOCK>*/,'?'/*<END>*/,  '?'/*<PG-DOWN>*/,     '7',                          '8',                 '9',             '-'},
+ {  '?'/*<CAPSLOCK>*/, 'a',           's',               'd',           'f',                            'g',                      'h',                         'j',                           'k',                         'l',               ';',         '\'',                           '?'/*<RETURN>*/,                                                                              '4',                          '5',                 '6',             '+'},
+ {  '?'/*<L-SHIFT>*/,  'z',           'x',               'c',           'v',                            'b',                      'n',                         'm',                           ',',                         '.',               '/',                                         '?'/*<R-SHIFT>*/,                                        '?'/*<CUR-UP>*/,                     '1',                          '2',                 '3'},
+ {  '?'/*<L-CTRL>*/,   '?'/*<L-ALT>*/,'?'/*<L-CMD>NoSc*/,' '/*<SPACE>*/,                                                                                                                                                   '?'/*<R-CMD>NoSc*/,'?'/*<R-ALT>*/,                              '?'/*<R-CTRL>*/,                       '?'/*<CUR-LEFT>*/,'?'/*<CUR-DOWN>*/,'?'/*<CUR-RIGHT>*/,'0',                                               '.',             '?'/*<NUMPAD-ENTER>*/}
+};
+
+
 #define KEY_CODE_FROM_ROW_COL(r, c)  ( ( ( (r) & 0x07) << 5 ) | ( (c) & 0x1F) ) // Row = upper 3 bits. Col. = lower 5 bits.
 #define NOT_A_SCAN_CODE 0xFF
 #define SCAN_CODE_TODO  0xFE
 #define KEY_CODE_TO_ROW(kc) ( ( (kc) & 0xE0 ) >> 5 )
 #define KEY_CODE_TO_COL(kc) ( (kc) & 0x1F )
 
-// 1 byte scan codes.
+// 1 byte scan codes. // State == pressed.
 unsigned char sc_to_kc_tbl2[] = {
     NOT_A_SCAN_CODE, /*0x00 Not a scan code .*/
     KEY_CODE_FROM_ROW_COL(0, 0),/*0x01 <ESC> p.|r,c=0,0*/
@@ -175,7 +185,7 @@ unsigned char sc_to_kc_tbl2[] = {
     KEY_CODE_FROM_ROW_COL(0, 12)/*0x58 <F12> p.|r,c=0,12*/
 };
 
-// 2 byte scan codes. With 0xE0 for first byte.
+// 2 byte scan codes. With 0xE0 for first byte. // State == pressed.
 unsigned char sc_to_kc_tbl3[] = {
 
     SCAN_CODE_TODO,/*0x10 <(Media)PREV-TRACK> p.|r,c=,*/
