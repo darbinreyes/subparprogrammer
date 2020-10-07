@@ -53,6 +53,7 @@ struct _sctokc_t sc_to_kc_tbl[][21] = { // State == pressed.
  {  {0x1D, '?'/*LCTRL*/, 5, 0}, {0x38, '?'/*LALT*/, 5, 1}, {0x00, '?'/*LCMD No-Sc*/, 5, 2}, {0x39, ' ', 5, 3},       {0x00, '?'/*RCMD No-Sc*/, 5, 4}, {0xE0/*0x38*/, '?'/*RALT*/, 5, 5}, {0xE0/*1D*/, '?' /*RCTRL*/, 5, 6}, {0xE0/*0x4B*/, '?'/*CLEFT*/, 5, 7}, {0xE0/*0x50*/, '?'/*DOWN*/, 5, 8}, {0xE0/*4D*/, '?'/*RIGHT*/, 5, 9}, {0x52, '0', 5, 10},        {0x53, '.', 5, 11},          {0xE0/*0x1C*/, '?'/*NUMENTER*/, 5, 12} } /*[x][x]*/
 };
 
+
 /*
 21
 21
@@ -64,6 +65,126 @@ struct _sctokc_t sc_to_kc_tbl[][21] = { // State == pressed.
 */
 int sc_to_kc_tbl_row_len[] = {21, 21, 21, 17, 16, 13};
 
+#define KEY_CODE_FROM_ROW_COL(r, c)  ( ( (r & 0x03) << 5 ) | (c & 0x1F) )
+
+// Single byte scan codes.
+unsigned char sc_to_kc_tbl2[] = {
+    0xFF, /*0x00 Not a scan code .*/
+    KEY_CODE_FROM_ROW_COL(0, 0),/*0x01 <ESC> p.|r,c=0,0*/
+    KEY_CODE_FROM_ROW_COL(1, 1),/*0x02 1 p.|r,c=1,1*/
+    KEY_CODE_FROM_ROW_COL(1, 2),/*0x03 2 p.|r,c=1,2*/
+    KEY_CODE_FROM_ROW_COL(1, 3),/*0x04 3 p.|r,c=1,3*/
+    KEY_CODE_FROM_ROW_COL(1, 4),/*0x05 4 p.|r,c=1,4*/
+    KEY_CODE_FROM_ROW_COL(1, 5),/*0x06 5 p.|r,c=1,5*/
+    KEY_CODE_FROM_ROW_COL(1, 6),/*0x07 6 p.|r,c=1,6*/
+    KEY_CODE_FROM_ROW_COL(1, 7),/*0x08 7 p.|r,c=1,7*/
+    KEY_CODE_FROM_ROW_COL(1, 8),/*0x09 8 p.|r,c=1,8*/
+    KEY_CODE_FROM_ROW_COL(1, 9),/*0x0A 9 p.|r,c=1,9*/
+    KEY_CODE_FROM_ROW_COL(1, 10),/*0x0B 0 p.|r,c=1,10*/
+    KEY_CODE_FROM_ROW_COL(1, 11),/*0x0C - p.|r,c=1,11*/
+    KEY_CODE_FROM_ROW_COL(1, 12),/*0x0D = p.|r,c=1,12*/
+    KEY_CODE_FROM_ROW_COL(1, 13),/*0x0E <BACKSPACE> p.|r,c=1,13*/
+
+    KEY_CODE_FROM_ROW_COL(2, 0),/*0x0F <TAB> p.|r,c=2,0*/
+    KEY_CODE_FROM_ROW_COL(2, 1),/*0x10 q p.|r,c=2,1*/
+    KEY_CODE_FROM_ROW_COL(2, 2),/*0x11 w p.|r,c=2,2*/
+    KEY_CODE_FROM_ROW_COL(2, 3),/*0x12 e p.|r,c=2,3*/
+    KEY_CODE_FROM_ROW_COL(2, 4),/*0x13 r p.|r,c=2,4*/
+    KEY_CODE_FROM_ROW_COL(2, 5),/*0x14 t p.|r,c=2,5*/
+    KEY_CODE_FROM_ROW_COL(2, 6),/*0x15 y p.|r,c=2,6*/
+    KEY_CODE_FROM_ROW_COL(2, 7),/*0x16 u p.|r,c=2,7*/
+    KEY_CODE_FROM_ROW_COL(2, 8),/*0x17 i p.|r,c=2,8*/
+    KEY_CODE_FROM_ROW_COL(2, 9),/*0x18 o p.|r,c=2,9*/
+    KEY_CODE_FROM_ROW_COL(2, 10),/*0x19 p p.|r,c=2,10*/
+    KEY_CODE_FROM_ROW_COL(2, 11),/*0x1A [ p.|r,c=2,11*/
+    KEY_CODE_FROM_ROW_COL(2, 12),/*0x1B ] p.|r,c=2,12*/
+    KEY_CODE_FROM_ROW_COL(2, 13),/*0x1C <ENTER> p.|r,c=2,13*/
+
+    KEY_CODE_FROM_ROW_COL(5, 0),/*0x1D <L-CTLR> p.|r,c=5,0*/
+
+    KEY_CODE_FROM_ROW_COL(3, 1),/*0x1E a p.|r,c=3,1*/
+    KEY_CODE_FROM_ROW_COL(3, 2),/*0x1F s p.|r,c=3,2*/
+    KEY_CODE_FROM_ROW_COL(3, 3),/*0x20 d p.|r,c=3,3*/
+    KEY_CODE_FROM_ROW_COL(3, 4),/*0x21 f p.|r,c=3,4*/
+    KEY_CODE_FROM_ROW_COL(3, 5),/*0x22 g p.|r,c=3,5*/
+    KEY_CODE_FROM_ROW_COL(3, 6),/*0x23 h p.|r,c=3,6*/
+    KEY_CODE_FROM_ROW_COL(3, 7),/*0x24 j p.|r,c=3,7*/
+    KEY_CODE_FROM_ROW_COL(3, 8),/*0x25 k p.|r,c=3,8*/
+    KEY_CODE_FROM_ROW_COL(3, 9),/*0x26 l p.|r,c=3,9*/
+    KEY_CODE_FROM_ROW_COL(3, 10),/*0x27 ; p.|r,c=3,10*/
+    KEY_CODE_FROM_ROW_COL(3, 11),/*0x28 ' p.|r,c=3,11*/
+
+    KEY_CODE_FROM_ROW_COL(1, 0),/*0x29 ` p.|r,c=1,0*/
+
+
+    KEY_CODE_FROM_ROW_COL(4, 0),/*0x2A <L-SHIFT> p.|r,c=4,0*/
+
+    KEY_CODE_FROM_ROW_COL(2, 13),/*0x2B \ p.|r,c=2,13*/
+
+    KEY_CODE_FROM_ROW_COL(4, 1),/*0x2C z p.|r,c=4,1*/
+    KEY_CODE_FROM_ROW_COL(4, 2),/*0x2D x p.|r,c=4,2*/
+    KEY_CODE_FROM_ROW_COL(4, 3),/*0x2E c p.|r,c=4,3*/
+    KEY_CODE_FROM_ROW_COL(4, 4),/*0x2F v p.|r,c=4,4*/
+    KEY_CODE_FROM_ROW_COL(4, 5),/*0x30 b p.|r,c=4,5*/
+    KEY_CODE_FROM_ROW_COL(4, 6),/*0x31 n p.|r,c=4,6*/
+    KEY_CODE_FROM_ROW_COL(4, 7),/*0x32 m p.|r,c=4,7*/
+    KEY_CODE_FROM_ROW_COL(4, 8),/*0x33 , p.|r,c=4,8*/
+    KEY_CODE_FROM_ROW_COL(4, 9),/*0x34 . p.|r,c=4,9*/
+    KEY_CODE_FROM_ROW_COL(4, 10),/*0x35 / p.|r,c=4,10*/
+    KEY_CODE_FROM_ROW_COL(4, 11),/*0x36 <R-SHIFT> p.|r,c=4,11*/
+
+    KEY_CODE_FROM_ROW_COL(1, 20),/*0x37 NUMPAD-* p.|r,c=1,20*/
+
+    KEY_CODE_FROM_ROW_COL(5, 1),/*0x38 <L-ALT> p.|r,c=5,1*/
+
+    KEY_CODE_FROM_ROW_COL(5, 3),/*0x39 <SPACE> p.|r,c=5,3*/
+
+    KEY_CODE_FROM_ROW_COL(3, 0),/*0x3A <CAPSLOCK> p.|r,c=3,0*/
+
+    KEY_CODE_FROM_ROW_COL(0, 1),/*0x3B <F1> p.|r,c=0,1*/
+    KEY_CODE_FROM_ROW_COL(0, 2),/*0x3C <F2> p.|r,c=0,2*/
+    KEY_CODE_FROM_ROW_COL(0, 3),/*0x3D <F3> p.|r,c=0,3*/
+    KEY_CODE_FROM_ROW_COL(0, 4),/*0x3E <F4> p.|r,c=0,4*/
+    KEY_CODE_FROM_ROW_COL(0, 5),/*0x3F <F5> p.|r,c=0,5*/
+    KEY_CODE_FROM_ROW_COL(0, 6),/*0x40 <F6> p.|r,c=0,6*/
+    KEY_CODE_FROM_ROW_COL(0, 7),/*0x41 <F7> p.|r,c=0,7*/
+    KEY_CODE_FROM_ROW_COL(0, 8),/*0x42 <F8> p.|r,c=0,8*/
+    KEY_CODE_FROM_ROW_COL(0, 9),/*0x43 <F9> p.|r,c=0,9*/
+    KEY_CODE_FROM_ROW_COL(0, 10),/*0x44 <F10> p.|r,c=0,10*/
+
+    KEY_CODE_FROM_ROW_COL(1, 17),/*0x45 <NUMLOCK> p.|r,c=1,17|Not a key on my keyboard.|Try <CLEAR>*/
+
+    KEY_CODE_FROM_ROW_COL(0, 15),/*0x46 <SCROLL-LOCK> p.|r,c=0,15|Not a key on my keyboard.|Try <F14>*/
+
+    KEY_CODE_FROM_ROW_COL(2, 17),/*0x47 NUMPAD-7 p.|r,c=2,17*/
+    KEY_CODE_FROM_ROW_COL(2, 18),/*0x48 NUMPAD-8 p.|r,c=2,18*/
+    KEY_CODE_FROM_ROW_COL(2, 19),/*0x49 NUMPAD-9 p.|r,c=2,19*/
+    KEY_CODE_FROM_ROW_COL(2, 20),/*0x4A NUMPAD-"-" p.|r,c=2,20*/
+
+    KEY_CODE_FROM_ROW_COL(3, 14),/*0x4B NUMPAD-4 p.|r,c=3,14*/
+    KEY_CODE_FROM_ROW_COL(3, 15),/*0x4C NUMPAD-5 p.|r,c=3,15*/
+    KEY_CODE_FROM_ROW_COL(3, 16),/*0x4D NUMPAD-6 p.|r,c=3,16*/
+    KEY_CODE_FROM_ROW_COL(3, 17),/*0x4E NUMPAD-+ p.|r,c=3,17*/
+
+    KEY_CODE_FROM_ROW_COL(4, 13),/*0x4F NUMPAD-1 p.|r,c=4,13*/
+    KEY_CODE_FROM_ROW_COL(4, 14),/*0x50 NUMPAD-2 p.|r,c=4,14*/
+    KEY_CODE_FROM_ROW_COL(4, 15),/*0x51 NUMPAD-3 p.|r,c=4,15*/
+
+    KEY_CODE_FROM_ROW_COL(5, 10),/*0x52 NUMPAD-0 p.|r,c=5,10*/
+    KEY_CODE_FROM_ROW_COL(5, 11),/*0x53 NUMPAD-"." p.|r,c=5,11*/
+
+    0xFF, /*0x54 Not a scan code .*/
+    0xFF, /*0x55 Not a scan code .*/
+    0xFF, /*0x56 Not a scan code .*/
+
+    KEY_CODE_FROM_ROW_COL(0, 11),/*0x57 <F11> p.|r,c=0,11*/
+    KEY_CODE_FROM_ROW_COL(0, 12)/*0x58 <F12> p.|r,c=0,12*/
+};
+
+// 2 byte scan codes. With 0xE0 for first byte.
+//unsigned char sc_to_kc_tbl2[] = {
+/*0x1C <F12> p.|r,c=0,12*/
+//};
 
 char scan_code_to_ascii (unsigned char sc) {
 //    int i = 0;
