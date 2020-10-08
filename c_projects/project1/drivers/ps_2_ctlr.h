@@ -96,7 +96,8 @@ struct _ps_2_ctrl_stat_t {
 } ps_2_ctrl_stat_t;
 
 
-int get_ctlr_stat(unsigned char *stat);
+
+int get_ctlr_stat(ps_2_ctrl_stat_t *stat);
 int send_byte (unsigned char b);
 int rcv_byte (unsigned char *b);
 void send_byte_ctlr (unsigned char b);
