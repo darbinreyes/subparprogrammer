@@ -1,11 +1,18 @@
+/*
+
+===.md
+
+* [] driver start().
+* [] driver stop().
+
+===
+
+*/
 #include "../mylibc/mylibc.h"
 #include "../kernel/low_level.h"
 #include "ps_2_ctlr.h"
 
 #define POLL_COUNT (0x01 << 20)
-
-// TODO: driver start()
-// TODO: driver stop()
 
 /*
 
@@ -13,15 +20,31 @@
 
     @retval 1 Arg. NULL.
 
-    @retval 0 Successful. The status has been returned in cntlr_stat.
+    @retval 0 Successful. The status has been returned in stat.
 
 */
-int get_ctlr_stat(unsigned char *stat) {
-    // TODO: Use bit packed structure.
+int get_ctlr_stat(ps_2_ctrl_stat_t *stat) {
+    unsigned char b;
+    unsigned char *pb;
+
     if (stat == NULL)
         return 1;
 
-    *stat = port_byte_in (IO_PS2_CTLR_STAT_REGISTER);
+    b = port_byte_in (IO_PS2_CTLR_STAT_REGISTER);
+    pb = (unsigned char *) stat;
+    *pb = b;
+
+    /* TEMP. FYI.
+
+        Type conversion not allowed.
+            struct <- int
+
+        Allowed
+            int* <- struct*
+            *struct = int
+
+    */
+
     return 0;
 }
 
@@ -31,7 +54,7 @@ int get_ctlr_stat(unsigned char *stat) {
 
 */
 int send_byte (unsigned char b) {
-    unsigned char stat;
+    ps_2_ctrl_stat_t stat;
     int timeout_counter = POLL_COUNT;
     int r;
 
@@ -40,7 +63,7 @@ int send_byte (unsigned char b) {
     if (r != 0)
         return 4;
 
-    while (timeout_counter > 0 && ( (stat & BIT1) == 1 ) ) {
+    while (timeout_counter > 0 && stat.ibuf_full == PS2_BUF_FULL) {
         r = get_ctlr_stat(&stat);
 
         if (r != 0)
@@ -53,7 +76,7 @@ int send_byte (unsigned char b) {
         return 1;
     }
 
-    if (( (stat & BIT1) == 1 )) {
+    if (stat.ibuf_full == PS2_BUF_FULL) {
         return 2;
     }
 
@@ -68,7 +91,7 @@ int send_byte (unsigned char b) {
 
 */
 int rcv_byte (unsigned char *b) {
-    unsigned char stat;
+    ps_2_ctrl_stat_t stat;
     int timeout_counter = POLL_COUNT;
     int r;
 
@@ -80,7 +103,7 @@ int rcv_byte (unsigned char *b) {
     if (r != 0)
         return 4;
 
-    while (timeout_counter > 0 && ( (stat & BIT0) == 0 ) ) {
+    while (timeout_counter > 0 && stat.obuf_full == PS2_BUF_EMPTY) {
         r = get_ctlr_stat(&stat);
 
         if (r != 0)
@@ -93,7 +116,7 @@ int rcv_byte (unsigned char *b) {
         return 1;
     }
 
-    if (( (stat & BIT0) == 0 )) {
+    if (stat.obuf_full == PS2_BUF_EMPTY) {
         return 2;
     }
 
