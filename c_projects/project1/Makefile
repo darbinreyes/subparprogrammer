@@ -45,17 +45,17 @@ kernel.bin: kernel_entry.o kernel.o screen.o low_level.o keyboard.o ps_2_ctlr.o
 %.o: kernel/%.c
 	i386-elf-gcc -O0 -ffreestanding -c $< -o $@
 
-screen.o: drivers/screen.c
+screen.o: drivers/screen.c drivers/screen.h
 	i386-elf-gcc -O0 -ffreestanding -c $< -o $@
 
-keyboard.o: drivers/keyboard.c
+keyboard.o: drivers/keyboard.c drivers/keyboard.h
 	i386-elf-gcc -O0 -ffreestanding -c $< -o $@
 
-ps_2_ctlr.o: drivers/ps_2_ctlr.c
+ps_2_ctlr.o: drivers/ps_2_ctlr.c drivers/ps_2_ctlr.h
 	i386-elf-gcc -O0 -ffreestanding -c $< -o $@
 
 # The use of -masm=intel below changes the syntax for the inline assembly from GAS to NASM.
-low_level.o: kernel/low_level.c
+low_level.o: kernel/low_level.c kernel/low_level.h
 	i386-elf-gcc -masm=intel -O0 -ffreestanding -c $< -o $@
 
 # Build the kernel entry object file.
