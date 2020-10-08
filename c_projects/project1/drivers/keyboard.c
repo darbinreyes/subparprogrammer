@@ -32,8 +32,10 @@ From my notes:
 */
 
 //int sc_to_kc_tbl_row_len[] = {21, 21, 21, 17, 16, 13};
+#define KEY_CODE_TO_ASCII_ROWS 6
+#define KEY_CODE_TO_ASCII_COLS 21
 
-char kc_rc_to_ascii[6][21] = {
+char kc_rc_to_ascii[KEY_CODE_TO_ASCII_ROWS][KEY_CODE_TO_ASCII_COLS] = {
 /* Apple USB Keyboard Model A1243 */
  {  '?'/*<ESC>*/,      'X'/*<F1>*/,   'X'/*<F2>*/,       'X'/*<F3>*/,   'X'/*<F4>*/,                    'X'/*<F5>*/,              'X'/*<F6>*/,                 'X'/*<F7>*/,                   'X'/*<F8>*/,                 'X'/*<F9>*/,       'X'/*<F10>*/,  'X'/*<F11>*/,                   'X'/*<F12>*/,   '?'/*<EJECT>*/,        '?'/*<F13>*/,        '?'/*<F14>*/,     '?'/*<F15>*/,         '?'/*<F16>*/,                 '?'/*<F17>*/,        '?'/*<F18>*/,    '?'/*<F19>*/         },
  {  '`',               '1',           '2',               '3',           '4',                            '5',                      '6',                         '7',                           '8',                         '9',               '0',           '-',                            '=',            '?'/*<BACKSPACE>*/,    '?'/*<Fn>*/,         '?'/*<HOME>*/,    '?'/*<PG-UP>*/,       '?'/*<NUMPAD-CLEAR/NUMLOCK>*/,'='/*NUMPAD"="NoSc*/, '/'/*NUMPAD-/*/,'*'/*NUMPAD"*"*/     },
@@ -43,7 +45,7 @@ char kc_rc_to_ascii[6][21] = {
  {  '?'/*<L-CTRL>*/,   '?'/*<L-ALT>*/,'?'/*<L-CMD>NoSc*/,' '/*<SPACE>*/,                                                                                                                                                   '?'/*<R-CMD>NoSc*/,'?'/*<R-ALT>*/,                                '?'/*<R-CTRL>*/,                       '?'/*<CUR-LEFT>*/,   '?'/*<CUR-DOWN>*/,'?'/*<CUR-RIGHT>*/,   '0',                                               '.',             '?'/*<NUMPAD-ENTER>*/}
 };
 
-char shift_kc_rc_to_ascii[6][21] = {
+char shift_kc_rc_to_ascii[KEY_CODE_TO_ASCII_ROWS][KEY_CODE_TO_ASCII_COLS] = {
 /* Apple USB Keyboard Model A1243 */
  {  '?'/*<ESC>*/,      'X'/*<F1>*/,   'X'/*<F2>*/,       'X'/*<F3>*/,   'X'/*<F4>*/,                    'X'/*<F5>*/,              'X'/*<F6>*/,                 'X'/*<F7>*/,                   'X'/*<F8>*/,                 'X'/*<F9>*/,       'X'/*<F10>*/,  'X'/*<F11>*/,                   'X'/*<F12>*/,   '?'/*<EJECT>*/,        '?'/*<F13>*/,        '?'/*<F14>*/,     '?'/*<F15>*/,         '?'/*<F16>*/,                 '?'/*<F17>*/,        '?'/*<F18>*/,    '?'/*<F19>*/         }, // 21
  {  '~',               '!',           '@',               '#',           '$',                            '%',                      '^',                         '&',                           '*',                         '(',               ')',           '_',                            '+',            '?'/*<BACKSPACE>*/,    '?'/*<Fn>*/,         '?'/*<HOME>*/,    '?'/*<PG-UP>*/,       '?'/*<NUMPAD-CLEAR/NUMLOCK>*/,'='/*NUMPAD"="NoSc*/, '/'/*NUMPAD-/*/,'*'/*NUMPAD"*"*/     },
@@ -307,6 +309,10 @@ char scan_code_to_ascii (unsigned char sc) {
     if(kc != 0xFF) {
         r = KEY_CODE_TO_ROW(kc);
         c = KEY_CODE_TO_COL(kc);
+        // [] Improve this. e.g. use assert.
+        if (r >= KEY_CODE_TO_ASCII_ROWS || c >= KEY_CODE_TO_ASCII_COLS)
+            return '!';
+
         return kc_rc_to_ascii[r][c];
     }
 
@@ -315,7 +321,7 @@ char scan_code_to_ascii (unsigned char sc) {
 
 // Returns a 1 byte scan code from the keyboard.
 int get_scan_code(unsigned char *sc) {
-    unsigned char stat;
+    ps_2_ctrl_stat_t stat;
     int r;
     unsigned char b;
 
@@ -324,7 +330,7 @@ int get_scan_code(unsigned char *sc) {
     if (r != 0)
         return 1;
 
-    while ( ( (stat & BIT0) == PS2_BUF_EMPTY ) ) { // Loop until a scan code is received.
+    while (stat.obuf_full == PS2_BUF_EMPTY) { // Loop until a scan code is received.
         r = get_ctlr_stat(&stat);
 
         if (r != 0)
@@ -343,7 +349,7 @@ int get_scan_code(unsigned char *sc) {
 
 // Returns a 2 byte scan code from the keyboard. Caller must ensure that `sc` is 2 bytes in size.
 int get_scan_code2(unsigned char *sc) {
-    unsigned char stat;
+    ps_2_ctrl_stat_t stat;
     int r;
     unsigned char b;
 
@@ -352,7 +358,7 @@ int get_scan_code2(unsigned char *sc) {
     if (r != 0)
         return 1;
 
-    while ( ( (stat & BIT0) == PS2_BUF_EMPTY ) ) { // Loop until a scan code is received.
+    while (stat.obuf_full == PS2_BUF_EMPTY) { // Loop until a scan code is received.
         r = get_ctlr_stat(&stat);
 
         if (r != 0)
@@ -373,7 +379,7 @@ int get_scan_code2(unsigned char *sc) {
     }
 
     // Get the second scan code byte.
-    while ( ( (stat & BIT0) == PS2_BUF_EMPTY ) ) { // Loop until a scan code is received.
+    while (stat.obuf_full == PS2_BUF_EMPTY) { // Loop until a scan code is received.
         r = get_ctlr_stat(&stat);
 
         if (r != 0)
