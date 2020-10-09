@@ -1,3 +1,5 @@
+// []IMPORTANT: Add param checks in all C functions. []Avoid/remove unnecessary/dangerous macros.
+
 // Print a single character to via direct write to video memory.
 
 #include "../drivers/screen.h"
