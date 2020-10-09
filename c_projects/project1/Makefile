@@ -7,6 +7,7 @@
 # RTFM: https://www.gnu.org/software/make/manual/
 
 # IMPORTANT: Always disable optimizations.
+# IMPORTANT: Always turn on all warnings with -Wall gcc flag. "This enables all the warnings about constructions"
 
 # Automatically expand to a list of existing files that
 # match the patterns.
@@ -43,20 +44,20 @@ kernel.bin: kernel_entry.o kernel.o screen.o low_level.o keyboard.o ps_2_ctlr.o
 # IMPORTANT: The % operator does not match sub-directories, hence `kernel/%.c`.
 # kernel/%.c
 %.o: kernel/%.c
-	i386-elf-gcc -O0 -ffreestanding -c $< -o $@
+	i386-elf-gcc -Wall -O0 -ffreestanding -c $< -o $@
 
 screen.o: drivers/screen.c drivers/screen.h
-	i386-elf-gcc -O0 -ffreestanding -c $< -o $@
+	i386-elf-gcc -Wall -O0 -ffreestanding -c $< -o $@
 
 keyboard.o: drivers/keyboard.c drivers/keyboard.h
-	i386-elf-gcc -O0 -ffreestanding -c $< -o $@
+	i386-elf-gcc -Wall -O0 -ffreestanding -c $< -o $@
 
 ps_2_ctlr.o: drivers/ps_2_ctlr.c drivers/ps_2_ctlr.h
-	i386-elf-gcc -O0 -ffreestanding -c $< -o $@
+	i386-elf-gcc -Wall -O0 -ffreestanding -c $< -o $@
 
 # The use of -masm=intel below changes the syntax for the inline assembly from GAS to NASM.
 low_level.o: kernel/low_level.c kernel/low_level.h
-	i386-elf-gcc -masm=intel -O0 -ffreestanding -c $< -o $@
+	i386-elf-gcc -Wall -masm=intel -O0 -ffreestanding -c $< -o $@
 
 # Build the kernel entry object file.
 kernel_entry.o: kernel/kernel_entry.asm
