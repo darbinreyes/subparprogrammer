@@ -29,10 +29,10 @@
 
 int main(void) {
     int r;
-    unsigned char b;
+    // unsigned char b;
     unsigned char sc[2];
-    char c;
-    ps_2_ctrl_stat_t stat;
+    // char c;
+    // ps_2_ctrl_stat_t stat;
 
 
     clear_screen();
