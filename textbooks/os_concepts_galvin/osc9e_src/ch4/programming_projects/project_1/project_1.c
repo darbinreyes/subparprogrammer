@@ -3,10 +3,24 @@
 #include <assert.h>
 #include <pthread.h>
 
+#define NUM_THREADS (1 + 1 + 9) // 1 row checker, 1 column checker, 9 sub-grid checkers = 11 threads.
 #define PUZ_SIZE      9 // A puzzle is a 9x9 grid.
 #define PUZ_MIN_ENTRY 1
 #define PUZ_MAX_ENTRY 9
 #define PUZ_SUBGRID_SIZE 3 // The sub-grids are 3x3.
+#define ROW_COL_SUBGRID_CHECK_PASSED (0)
+#define ROW_COL_SUBGRID_CHECK_FAILED (1)
+#define DIGIT_NOT_FOUND (0)
+#define DIGIT_FOUND (1)
+
+/* This struct is used to pass to each thread the information it needs to check it's part of the puzzle. */
+typedef
+struct _sudoku_puz_t {
+    const int (*sudoku_puz)[PUZ_SIZE]; // Points to the sudoku puzzle solution to be checked.
+    int row; // Remaining members are used only for sub-grid checking.
+    int col;
+    int i;  // Used for sub-grid result index.
+} sudoku_puz_t;
 
 /* Puzzle solution checking results. */
 /*
@@ -21,18 +35,11 @@ static int rowr[PUZ_SIZE];
 static int colr[PUZ_SIZE];
 static int subgridr[PUZ_SIZE];
 
-/* This struct is used to pass to each thread the information it needs to check it's part of the puzzle. */
-typedef
-struct _sudoku_puz_t {
-    const int (*sudoku_puz)[PUZ_SIZE]; // Points to the sudoku puzzle solution to be checked.
-    int row; // Remaining members are used only for sub-grid checking.
-    int col;
-    int i;  // Used for sub-grid result index.
-} sudoku_puz_t;
+static void reset_digits_arr(int a[]) {
+    assert(a != NULL);
 
-static void zero_arr(int a[]) {
-    for (int i = 1 /* Index 0 unused. */; i < PUZ_SIZE + 1; i++) {
-        a[i] = 0;
+    for (int i = 1 /* Index 0 unused. See note above. */; i < PUZ_SIZE + 1; i++) {
+        a[i] = DIGIT_NOT_FOUND;
     }
 }
 
@@ -44,16 +51,22 @@ static void zero_arr(int a[]) {
 
 */
 static int digit_is_missing(const int a[]) {
-    for (int i = 1 /* Index 0 unused. */; i < PUZ_SIZE + 1; i++) {
-        if (a[i] == 0)
+
+    assert(a != NULL);
+
+    for (int i = 1; i < PUZ_SIZE + 1; i++) {
+        if (a[i] == DIGIT_NOT_FOUND)
             return 1;
     }
+
     return 0;
 }
 
 static void *row_checker(void *param) {
-    int digits[PUZ_SIZE + 1] = {0}; // + 1 for convenience.
+    int digits[PUZ_SIZE + 1] = {0}; // + 1 for convenience. Index 0 unused.
     int i, j, d;
+
+    assert(param != NULL);
 
     sudoku_puz_t *puz;
 
@@ -64,38 +77,48 @@ static void *row_checker(void *param) {
         for (j = 0; j < PUZ_SIZE; j++) {
             assert(puz->sudoku_puz[i][j] >= PUZ_MIN_ENTRY && puz->sudoku_puz[i][j] <= PUZ_MAX_ENTRY);
             d = puz->sudoku_puz[i][j];
-            digits[d] = 1;
+            digits[d] = DIGIT_FOUND;
         }
 
         if(digit_is_missing(digits)) // Save result.
-            rowr[i] = 1;
+            /* We could just bail here, since a single error in the puzzle solution means that the whole solution is incorrect. Keeping it this way facilitates a future improvement: reporting exactly where errors are found. */
+            rowr[i] = ROW_COL_SUBGRID_CHECK_FAILED; // Note: compared to the sub-grid checker, i can be a local variable here.
 
-        zero_arr(digits);
+        reset_digits_arr(digits);
     }
 
     return NULL;
 }
 
 static void *col_checker(void *param) {
-    int digits[PUZ_SIZE + 1] = {0}; // + 1 for convenience.
+    int digits[PUZ_SIZE + 1] = {0};
     int i, j, d;
+
+    assert(param != NULL);
 
     sudoku_puz_t *puz;
 
     puz = (sudoku_puz_t *) param;
 
+    /*
+
+        The only difference compared to row_checker() is the interchange of i
+        and j inside the inner loop, and that the results are stored in colr[]
+        instead of rowr[].
+
+    */
     for (i = 0; i < PUZ_SIZE; i++) {
 
         for (j = 0; j < PUZ_SIZE; j++) {
             assert(puz->sudoku_puz[j][i] >= PUZ_MIN_ENTRY && puz->sudoku_puz[j][i] <= PUZ_MAX_ENTRY);
             d = puz->sudoku_puz[j][i];
-            digits[d] = 1;
+            digits[d] = DIGIT_FOUND;
         }
 
-        if(digit_is_missing(digits)) // Save result.
-            colr[i] = 1;
+        if(digit_is_missing(digits))
+            colr[i] = ROW_COL_SUBGRID_CHECK_FAILED;
 
-        zero_arr(digits);
+        reset_digits_arr(digits);
     }
 
     return NULL;
@@ -106,6 +129,8 @@ static void *subgrid_checker(void *param) {
     int i, j, d;
     sudoku_puz_t *puz;
 
+    assert(param != NULL);
+
     puz = (sudoku_puz_t *) param;
 
     /* To check a 3x3 sub-grid, we start at the upper left element of the sub-grid. */
@@ -114,14 +139,14 @@ static void *subgrid_checker(void *param) {
         for (j = 0 + puz->col; j < puz->col + PUZ_SUBGRID_SIZE; j++) {
             assert(puz->sudoku_puz[i][j] >= PUZ_MIN_ENTRY && puz->sudoku_puz[i][j] <= PUZ_MAX_ENTRY);
             d = puz->sudoku_puz[i][j];
-            digits[d] = 1;
+            digits[d] = DIGIT_FOUND;
         }
     }
 
     if(digit_is_missing(digits)) // Save result.
-        subgridr[puz->i] = 1; // Note the use of `puz->i` as the index here. The reason is that this function checks 1 sub-grid only, compared to the row checker, which checks all rows in a single call. Using `puz->i` allows us to remember where to store the next result between calls.
+        subgridr[puz->i] = ROW_COL_SUBGRID_CHECK_FAILED; // Note the use of `puz->i` as the index here. The reason is that this function checks 1 sub-grid only, compared to the row checker, which checks all rows in a single call. Using `puz->i` allows us to remember where to store the next result between calls.
 
-    //zero_arr(digits); // Not necessary here.
+    //reset_digits_arr(digits); // Not necessary here. This function only checks a single sub-grid at a time.
 
     return NULL;
 }
@@ -139,17 +164,17 @@ static int sol_valid(void) {
     return 1;
 }
 
-static void zero_results(void) {
+
+
+static void reset_results_arr(void) {
 
     /* Zero out the result arrays. */
     for (int i = 0; i < PUZ_SIZE; i++) {
-        rowr[i] = 0;
-        colr[i] = 0;
-        subgridr[i] = 0;
+        rowr[i]     = ROW_COL_SUBGRID_CHECK_PASSED; // In the initial state, we assume the puzzle solution is valid.
+        colr[i]     = ROW_COL_SUBGRID_CHECK_PASSED;
+        subgridr[i] = ROW_COL_SUBGRID_CHECK_PASSED;
     }
 }
-
-#define NUM_THREADS (1 + 1 + 9) // 1 row checker, 1 column checker, 9 sub-grid checkers = 11 threads.
 
 // Returns 1 if the solution was correct. 0 otherwise, the solution is incorrect.
 static int check_puz_sol(const int (*puz_arr)[9]) {
@@ -157,6 +182,8 @@ static int check_puz_sol(const int (*puz_arr)[9]) {
     pthread_attr_t attr[NUM_THREADS];
     sudoku_puz_t   puz[NUM_THREADS]; // Argument passed to each thread's start function.
     int            v, i;
+
+    assert(puz_arr != NULL);
 
     for (i = 0; i < NUM_THREADS; i++)
         pthread_attr_init(&attr[i]);
@@ -212,7 +239,7 @@ static int check_puz_sol(const int (*puz_arr)[9]) {
     else
         printf("Solution contains an error.\n");
 
-    zero_results(); // Zeros out rowr[], colr[], and subgridr[] to prepare for validating the next puzzle.
+    reset_results_arr(); // Prepare for validating the next puzzle.
 
     return v;
 }
