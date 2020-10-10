@@ -1,4 +1,5 @@
-// []IMPORTANT: Add param checks in all C functions. []Avoid/remove unnecessary/dangerous macros.
+// []IMPORTANT: Add param checks in all C functions. []Avoid/remove unnecessary/dangerous macros. - Elements of Programming Style - Brian Kernighan [] fully specify function pre and post conditions.
+
 
 // Print a single character to via direct write to video memory.
 
