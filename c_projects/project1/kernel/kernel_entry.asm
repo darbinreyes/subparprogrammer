@@ -7,6 +7,12 @@
 [extern main] ; Declare that we will be referencing the external symbol "main".
               ; The linker will substitute the final address.
 
+;%include "../boot/enable_pm_interrupts.asm"
+
+%include "boot/idt.asm"
+
+;lidt [idt_register]
+
 ; To link this program with the kernel use (order of .o files is essential):
 ; i386-elf-gcc -ffreestanding -c kernel.c -o kernel.o
 ; i386-elf-ld -o kernel.bin -Ttext 0x1000 kernel_entry.o kernel.o --oformat binary
