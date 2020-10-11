@@ -22,11 +22,11 @@ call switch_to_pm ; Switch from 16 bit real mode to 32 bit protected mode.
 jmp $ ; Infinite loop.
 
 
-%include "ch1-ch3/print_string.asm"
-%include "ch1-ch3/disk_load.asm"
-%include "ch4/gdt.asm"
-%include "ch4/print_string_pm.asm" ; FYI: Includes a [bits 32] directive.
-%include "ch4/switch_to_pm.asm" ; FYI: Includes a [bits 32] directive.
+%include "print_string.asm"
+%include "disk_load.asm"
+%include "gdt.asm"
+%include "print_string_pm.asm" ; FYI: Includes a [bits 32] directive.
+%include "switch_to_pm.asm" ; FYI: Includes a [bits 32] directive.
 
 
 [bits 16] ; Some of the includes above contain the [bits 32] assembler directive.
