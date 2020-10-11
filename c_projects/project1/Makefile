@@ -31,6 +31,7 @@ os-image: boot_sect.bin kernel.bin
 # Assemble the boot sector to raw machine code
 #	The -I option tells nasm where to find our useful assembly
 #	routines that we include in boot_sect.asm.
+#	NOTE: nasm reports file not found errors with "fatal: unable to open include file"
 boot_sect.bin: boot/boot_sect.asm
 	nasm -O0 $< -I 'boot/' -f bin -o $@
 
