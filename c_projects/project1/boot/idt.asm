@@ -1,7 +1,7 @@
 ; Our interrupt descriptor table (IDT).
 ; This configures ...
 
-; - - - - - - - Intel SDM Vol.1.Ch.6.5.1 - - - - - -
+; - - - - - - - Table 6-1. Exceptions and Interrupts - Intel SDM Vol.1.Ch.6.5.1 - - - - - -
 ;
 ; Vector | Mnemonic | Description | Source |
 ; -------|----------|-------------|--------|
@@ -41,5 +41,248 @@
 ; - - - - - - -
 
 idt_start:
-
 ; A trap gate descriptor without an exception handler procedure.
+; - - - - - - -
+; Offset   ; low order ; Offset to procedure entry point ; 0x00`00.
+; Selector ; Segment Selector for destination code segment 0x00`08.
+; Reserved ; 0b0`0000.
+; constant ; 0b000.
+; constant ; 0b111.
+; D ; Size of gate ; 1 = 32-bits ;  0b1.
+; constant ; 0b0.
+; DPL ; Descriptor Privilege Level ; 0b00.
+; P ; Segment Present Flag ; 0b0.
+; Offset ; high order ; Offset to procedure entry point ; 0x00`00.
+;- - - - - - -
+; Reminder Intel CPUs are Little-Endian.
+;- - - - - - - Default trap gate descriptor 0 - - - - - - -;
+dw 0x0000     ; Offset low (15<-0)
+dw 0x0008    ; Segment Selector (31<-16)
+; 4-byte boundary.
+db 00000000b ; constant (7<-5), Reserved (4<-0)
+db 00001111b ; P (15)  DPL (14<-13) constant (12)  D (11) constant (10<-8)
+dw 0x0000    ; Offset high (31<-16)
+;- - - - - - - Default trap gate descriptor 1 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 2 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 3 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 4 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 5 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 6 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 7 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 8 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 9 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 10 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 11 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 12 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 13 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 14 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 15 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 16 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 17 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 18 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 19 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 20 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 21 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 22 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 23 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 24 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 25 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 26 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 27 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 28 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 29 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000;- - - - - - - Default trap gate descriptor 30 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - Default trap gate descriptor 31 - - - - - - -;
+dw 0x0000
+dw 0x0008
+; 4-byte boundary.
+db 00000000b
+db 00001111b
+dw 0x0000
+;- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ;
+idt_end:
+
+; IDTR
+idt_register: ; Holds both the 32-bit base address and 16-bit limit for the IDT
+
+dw idt_end - idt_start - 1 ; The size of our GDT, ALWAYS LESS 1 OF THE TRUE SIZE. ; 16 bits
+dd idt_start ; Starting address of our IDT.
