@@ -61,6 +61,7 @@ low_level.o: kernel/low_level.c kernel/low_level.h
 	i386-elf-gcc -Wall -masm=intel -O0 -ffreestanding -c $< -o $@
 
 # Build the kernel entry object file.
+# [] Add .asm files as dep. and test make reports changes.
 kernel_entry.o: kernel/kernel_entry.asm
 	nasm -O0 $< -f elf -o $@
 

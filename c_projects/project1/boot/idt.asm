@@ -147,7 +147,7 @@ db 00000000b
 db 00001111b
 dw 0x0000
 ;- - - - - - - Default trap gate descriptor 13 - - - - - - -;
-dw 0x0000
+dw my_gp_int_handler;dw 0x0000
 dw 0x0008
 ; 4-byte boundary.
 db 00000000b
