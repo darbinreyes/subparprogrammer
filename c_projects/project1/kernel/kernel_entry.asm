@@ -11,7 +11,7 @@
 
 %include "boot/idt.asm"
 
-;lidt [idt_register]
+call en_ints
 
 ; To link this program with the kernel use (order of .o files is essential):
 ; i386-elf-gcc -ffreestanding -c kernel.c -o kernel.o
@@ -20,3 +20,12 @@
 call main ; Call the main function of our C kernel.
 
 jmp $ ; Infinite loop if/when the kernel returns.
+
+en_ints:
+lidt [idt_register]
+;sti
+ret
+
+my_gp_int_handler:
+jmp $
+ret
