@@ -53,6 +53,49 @@ void sort(int a[], unsigned int len) {
     }
 }
 
+void merge(int am[], const unsigned int am_len, \
+           int a0[], const unsigned int a0_len, \
+           int a1[], const unsigned int a1_len) {
+    assert(am != NULL & a0 != NULL & a1 != NULL);
+    assert(am_len >= a0_len + a1_len && a0_len > 0 && a1_len > 0);
+    unsigned int i = 0, j = 0, k = 0;
+
+    /* Merge sorted arrays a0 and a1 into a single array am. */
+    while (i < a0_len && j < a1_len) {
+        /* Inspect a0 and a1 for the minimum element. */
+        if (a0[i] < a1[j]) {
+            am[k] = a0[i];
+            k++;
+            i++;
+        } else if (a0[i] == a1[j]) {
+            am[k] = a0[i];
+            k++;
+            i++;
+            am[k] = a1[j];
+            k++;
+            j++;
+        } else { // a0[i] > a1[j]
+            am[k] = a1[j];
+            k++;
+            j++;
+        }
+    }
+
+    /* One of the arrays may contain elements which were not placed in am, in
+    this case all we need to do this copy over the remaining elements into am. */
+    while (i < a0_len) {
+        am[k] = a0[i];
+        k++;
+        i++;
+    }
+
+    while (j < a1_len) {
+        am[k] = a1[j];
+        k++;
+        j++;
+    }
+}
+
 void print_a(int a[], unsigned int len) {
 
     assert(a != NULL && len > 0);
