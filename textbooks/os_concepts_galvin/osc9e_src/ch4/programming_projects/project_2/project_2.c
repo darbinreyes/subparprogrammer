@@ -55,6 +55,11 @@ void *merge_runner(void *param) {
 
 #define NUM_THREADS 3
 
+//#define IN_ARRAY_LEN_2 1024
+
+//static int in_a2[IN_ARRAY_LEN_2];
+//static int in_len_a2
+
 int main(int argc, char **argv) {
     pthread_t tid[NUM_THREADS];
     pthread_attr_t attr[NUM_THREADS];
@@ -64,8 +69,13 @@ int main(int argc, char **argv) {
     sort_param_t sp0, sp1;
     merge_param_t mp;
 
+
+
     // TODO: handle len == 1
     assert(in_len > 1);
+
+    printf("Input array: ");
+    print_a(in_a, in_len);
 
     for (i = 0; i < NUM_THREADS; i++)
         pthread_attr_init(&attr[i]);
