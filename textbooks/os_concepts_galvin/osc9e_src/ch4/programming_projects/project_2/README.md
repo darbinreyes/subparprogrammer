@@ -127,7 +127,6 @@ if (i < a0_len && j < a1_len) {
 // Returns index of the minimum element.
 int get_min_index(int a[], unsigned int len) {
     unsigned int min, minidx;
-
     if (a == NULL || len <= 0) {
         assert(0);
         return -1;
@@ -141,23 +140,19 @@ int get_min_index(int a[], unsigned int len) {
             minidx = i;
         }
     }
-
     return mindx;
 }
 
 // 0 = success
 int swap(int a[], unsigned int i, unsigned  int j, unsigned int len) {
     int t;
-
     if (a == NULL || i >= len || j >= len) {
         assert(0);
         return 1;
     }
-
     t = a[i];
     a[i] = a[j];
     a[j] = t;
-
     return 0;
 }
 
@@ -215,6 +210,11 @@ Here’s the output:
 
 
 ![](imgs/img2.png)
+
+
+
+![](imgs/img3.png)
+
 
 End.
 ===
