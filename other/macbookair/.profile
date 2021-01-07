@@ -1,5 +1,10 @@
 # !!!!!!!!!!!! This is NOT a bash script, its a config file !!!!!! see Evernote notes on this
 # !!! Don't forget to push changes to .profile to /Users/darbinreyes/dev/private_dev/misc/my_bash/profiles/ local git repo.
+# Dec. 31, 2020 - Maybe in the future: switch default shell.
+# The default interactive shell is now zsh.
+# To update your account to use zsh, please run `chsh -s /bin/zsh`.
+# For more details, please visit https://support.apple.com/kb/HT208050.
+# MacBook-Air:os-from-scratch darbinreyes$
 #####################
 # My PATH additions
 #####################
@@ -13,9 +18,10 @@ if [ "$MY_BASH_PROFILE_CALLED" = TRUE ]; then
 else
     if [ "$MAC_PORTS_PATH_RM" = TRUE ]; then
         echo Mac Ports Path Removed.
+        export PATH="~/bin:.:$PATH"
     else
         echo Using Mac Ports path
-        export PATH="/opt/local/include:/opt/local/bin:/opt/local/sbin:/opt/:$PATH" # !!! dont forget the ":" delimiter BITCH!
+        export PATH="~/bin:.:/opt/local/include:/opt/local/bin:/opt/local/sbin:/opt/:$PATH" # !!! dont forget the ":" delimiter BITCH!
     fi
     echo my path = $PATH
     echo my python path = $PYTHONPATH
