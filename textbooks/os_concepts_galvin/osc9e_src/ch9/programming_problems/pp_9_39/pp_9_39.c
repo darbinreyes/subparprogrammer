@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <assert.h>
+#include <assert.h>
 #include <ctype.h>
+#include "queue.h"
 
 /*!
     @function rand_ref_str
@@ -151,6 +152,8 @@ int main(int argc, char **argv) {
     printf("\n");
 
     free(ref_str);
+
+    test_queue();
 
     return 0;
 }
