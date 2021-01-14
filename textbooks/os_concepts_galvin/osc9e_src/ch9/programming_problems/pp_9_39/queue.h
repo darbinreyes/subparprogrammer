@@ -22,6 +22,8 @@ int queue_is_empty(queue_t *q);
 
 int deq(queue_t *q, int *e);
 
+int queue_contains(queue_t *q, int e);
+
 void test_queue(void);
 
 #endif
