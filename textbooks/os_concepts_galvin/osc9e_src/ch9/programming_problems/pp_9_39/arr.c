@@ -24,17 +24,15 @@
 */
 int alloc_arr(arr_t *a, int arr_len) {
 
-    assert(a != NULL && arr_len > 0);
-
     if (a == NULL || arr_len <= 0) {
+        assert(0);
         return 1;
     }
 
     a->arr = calloc(arr_len, sizeof(int));
 
-    assert(a->arr != NULL);
-
     if(a->arr == NULL) {
+        assert(0);
         return 2;
     }
 
@@ -55,9 +53,8 @@ int alloc_arr(arr_t *a, int arr_len) {
 */
 int free_arr(arr_t *a) {
 
-    assert(a != NULL && a->arr != NULL);
-
     if(a == NULL || a->arr == NULL) {
+        assert(0);
         return 1;
     }
 
@@ -84,9 +81,8 @@ int free_arr(arr_t *a) {
 int arr_contains(arr_t *a, int e) {
     int i;
 
-    assert(a != NULL && a->arr != NULL && a->num_entries >= 0);
-
     if (a == NULL || a->arr == NULL || a->num_entries < 0) {
+        assert(0);
         return -1;
     }
 
@@ -112,17 +108,18 @@ int arr_contains(arr_t *a, int e) {
 */
 int arr_add(arr_t *a, int e) {
 
-    assert(a != NULL && a->arr != NULL);
-
     if(a == NULL || a->arr == NULL) {
+        assert(0);
         return 1;
     }
 
     if(a->arr_len <= 0) {
+        assert(0);
         return 2;
     }
 
     if(a->num_entries < 0) {
+        assert(0);
         return 3;
     }
 

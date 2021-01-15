@@ -85,15 +85,13 @@ static int opt_r(arr_t *page_frames, const int * const rs, const int len_rs, con
     int ffnr_j = -1; // ffnr = furthest future next reference. Current index into rs of the page to be replaced. This index can be thought of as how far into the future page number rs[ffnr_j] will be referenced.
     int i, j;
 
-    assert(page_frames != NULL && page_frames->arr != NULL && page_frames->num_entries > 0);
-
     if (page_frames == NULL || page_frames->arr == NULL || page_frames->num_entries <= 0) {
+        assert(0);
         return 1;
     }
 
-    assert(rs != NULL && len_rs >= 0);
-
     if (rs == NULL || len_rs < 0) {
+        assert(0);
         return 2;
     }
 
@@ -105,9 +103,9 @@ static int opt_r(arr_t *page_frames, const int * const rs, const int len_rs, con
 
         if(j == len_rs) {
             /* Page is never referenced again, we can end the search early and
-            replaced this page.
+            replace this page.
             */
-            page_frames->arr[i] = page_num;
+            page_frames->arr[i] = page_num; // Replace
             return 0;
         } else {
             if(j > ffnr_j) {
@@ -119,9 +117,9 @@ static int opt_r(arr_t *page_frames, const int * const rs, const int len_rs, con
     }
 
     // Sanity check - we should always find a page to replace.
-    assert(ffnr_i >= 0 && ffnr_j >= 0);
 
     if (ffnr_i < 0 || ffnr_j < 0) {
+        assert(0);
         return 3;
     }
 
@@ -156,9 +154,8 @@ int do_opt(const int len_rs, const int * const rs, const int npf) {
     arr_t page_frames;
     int tr;
 
-    assert(len_rs > 0 && rs != NULL && npf > 0);
-
     if (len_rs <= 0 || rs == NULL || npf <= 0) {
+        assert(0);
         return -1;
     }
 
@@ -172,9 +169,8 @@ int do_opt(const int len_rs, const int * const rs, const int npf) {
 
     tr = alloc_arr(&page_frames, npf);
 
-    assert(!tr);
-
     if (tr) {
+        assert(0);
         return -2;
     }
 
@@ -184,18 +180,19 @@ int do_opt(const int len_rs, const int * const rs, const int npf) {
 
         tr = arr_contains(&page_frames, page_num);
 
-        assert(tr == 1 || tr == 0);
-
         if(tr == 1) {
             // Page is in memory
             ;
         } else if (tr == 0) {
             // Page is not in memory
+            num_page_faults++;
+
             if (free_npf-- > 0) {
-                // Use free frame
+                // Use free frame to service page fault
                 tr = arr_add(&page_frames, page_num);
-                assert(!tr);
                 if(tr) {
+                    // arr_add() error
+                    assert(0);
                     num_page_faults = -5;
                     break;
                 }
@@ -203,15 +200,17 @@ int do_opt(const int len_rs, const int * const rs, const int npf) {
                 // Page replacement required
                 tr = opt_r(&page_frames, &rs[i], len_rs - i, page_num);
 
-                assert(!tr);
-
                 if (tr) {
+                    // opt_r() error
+                    assert(0);
                     num_page_faults = -6;
                     break;
                 }
             }
 
         } else {
+            // arr_contains() error.
+            assert(0);
             num_page_faults = -3;
             break;
         }
@@ -219,9 +218,8 @@ int do_opt(const int len_rs, const int * const rs, const int npf) {
 
     tr = free_arr(&page_frames);
 
-    assert(!tr);
-
     if(tr) {
+        assert(0);
         num_page_faults = -4;
     }
 
