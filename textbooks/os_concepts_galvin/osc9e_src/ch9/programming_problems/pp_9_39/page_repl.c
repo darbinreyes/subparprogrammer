@@ -130,3 +130,100 @@ static int opt_r(arr_t *page_frames, const int * const rs, const int len_rs, con
 
     return 0;
 }
+
+/*!
+    @function do_opt
+
+    @discussion Returns the number of page faults that would occur with the OPT
+    page replacement algorithm applied to the given reference string rs and npf
+    number of page frames.
+
+    @param len_rs    The length of the reference string rs.
+
+    @param rs    The reference string to use.
+
+    @param npf    The number of page frames to use.
+
+    @result Greater than 0 if successful. Otherwise an error occurred. Note that
+    0 is not a valid number of page faults, all algorithms must page fault to
+    fill their empty page frames.
+*/
+int do_opt(const int len_rs, const int * const rs, const int npf) {
+    int free_npf = npf;
+    int i = 0;
+    int page_num;
+    int num_page_faults = 0;
+    arr_t page_frames;
+    int tr;
+
+    assert(len_rs > 0 && rs != NULL && npf > 0);
+
+    if (len_rs <= 0 || rs == NULL || npf <= 0) {
+        return -1;
+    }
+
+// int alloc_arr(arr_t *a, int arr_len);
+
+// int free_arr(arr_t *a);
+
+// int arr_contains(arr_t *a, int e);
+
+// int arr_add(arr_t *a, int e);
+
+    tr = alloc_arr(&page_frames, npf);
+
+    assert(!tr);
+
+    if (tr) {
+        return -2;
+    }
+
+    while(i < len_rs) {
+        page_num = rs[i];
+        i++;
+
+        tr = arr_contains(&page_frames, page_num);
+
+        assert(tr == 1 || tr == 0);
+
+        if(tr == 1) {
+            // Page is in memory
+            ;
+        } else if (tr == 0) {
+            // Page is not in memory
+            if (free_npf-- > 0) {
+                // Use free frame
+                tr = arr_add(&page_frames, page_num);
+                assert(!tr);
+                if(tr) {
+                    num_page_faults = -5;
+                    break;
+                }
+            } else {
+                // Page replacement required
+                tr = opt_r(&page_frames, &rs[i], len_rs - i, page_num);
+
+                assert(!tr);
+
+                if (tr) {
+                    num_page_faults = -6;
+                    break;
+                }
+            }
+
+        } else {
+            num_page_faults = -3;
+            break;
+        }
+    }
+
+    tr = free_arr(&page_frames);
+
+    assert(!tr);
+
+    if(tr) {
+        num_page_faults = -4;
+    }
+
+    return num_page_faults;
+}
