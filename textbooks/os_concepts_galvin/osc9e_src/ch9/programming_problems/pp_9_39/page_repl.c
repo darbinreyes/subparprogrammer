@@ -240,5 +240,39 @@ int deq(queue_t *q, int *e);
 
 int queue_contains(queue_t *q, int e);
 
+while not done
+pn = rs[i]
+tr = queue_contains(q)
+if(tr == 1)
+    //page is in memory
+else if(tr == 0)
+    //page fault
+    if(free_npf-- > 0)
+        // service fault with free frame
+        enq(&page_frames, pn)
+    else
+        // page replacement required
+        deq(&page_frames, &tr);
+        enq(&page_frames, pn);
+else
+    // queue_contains error, bail.
+
+// done
+free_queue(&page_frames)
+
 
 */
+int do_fifo(const int len_rs, const int * const rs, const int npf) {
+    int free_npf = npf;
+    int i = 0;
+    int page_num;
+    int num_page_faults = 0;
+    queue_t page_frames;
+    int tr;
+
+    if (len_rs <= 0 || rs == NULL || npf <= 0) {
+        assert(0);
+        return -1;
+    }
+
+}
