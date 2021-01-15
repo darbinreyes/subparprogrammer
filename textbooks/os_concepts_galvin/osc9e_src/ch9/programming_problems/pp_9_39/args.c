@@ -36,24 +36,28 @@ Usage:
 
 /*!
 
+    @function get_arg_pi
+
+    @discussion Gets a argument that is a positive integer.
+
     @result Less than 0 if an error occurred in which case the program should
     bail. 0 if the argument was not present, npf is untouched. 1 the argument
     was present and its value was valid.
 */
-int get_arg_npf(const int argc, const char * const * const argv, int * const npf) {
+int get_arg_pi(const int argc, const char * const * const argv, int * const pi, const char * const arg_name) {
     int arg_name_present;
     int i;
     char *endptr = NULL;
     int v;
 
-    if(argc < 0 || argv == NULL || npf == NULL) {
+    if(argc < 0 || argv == NULL || pi == NULL || arg_name == NULL) {
         assert(0);
         return -1;
     }
 
     arg_name_present = 0;
     for (i = 1; i < argc; i++) {
-        if (strcmp(argv[i], "-npf") == 0) {
+        if (strcmp(argv[i], arg_name) == 0) {
             arg_name_present = 1;
             break;
 
@@ -88,13 +92,9 @@ int get_arg_npf(const int argc, const char * const * const argv, int * const npf
         return -5;
     }
 
-    *npf = v;
+    *pi = v;
 
     return 1;
-    // arg name present
-    // arg value present - it is required - if not - error
-    // arg value present - is it a valid integer per strtol()?
-    // arg value present - is it > 0 ?
 }
 
 
