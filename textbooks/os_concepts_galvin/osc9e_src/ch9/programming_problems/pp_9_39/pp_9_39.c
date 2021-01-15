@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <ctype.h>
 #include "queue.h"
-#include "list.h"
+#include "page_repl.h"
 
 /*!
     @function rand_ref_str
@@ -106,8 +106,6 @@ int arg_ref_str(char *ref_str_arg, int ref_str_len, int *ref_str) {
     return 0;
 }
 
-int do_lru(int len, int *rf, const int npf);
-
 int main(int argc, char **argv) {
     int i;
     int ref_str_len = 100;
@@ -166,54 +164,4 @@ int main(int argc, char **argv) {
     //test_list();
 
     return 0;
-}
-
-int do_lru(int len, int *rf, const int npf) {
-    int n_free_pf = npf;
-    int i = 0;
-    int page_num;
-    int num_page_faults = 0;
-    list_t l;
-    list_node_t *n = NULL;
-
-    alloc_list(&l, 0);
-
-    while (i < len) {
-        page_num = rf[i];
-        i++;
-
-        if(list_contains(&l, page_num) == 1) {
-            // Page in memory - update MRU page.
-            if(list_remove_node(&l, page_num, &n) == 1)
-                assert(list_add_tail(&l, n) == 0);
-            else
-                assert(0); // Should be in list - we just checked.
-        } else {
-            // Page not in memory - page fault
-            num_page_faults++;
-
-            if(n_free_pf-- > 0) {
-                // Place page in a free frame - make it the MRU
-                n = calloc(1, sizeof(list_node_t));
-                assert(n != NULL);
-                n->e = page_num;
-                assert(list_add_tail(&l, n) == 0);
-            } else {
-                // Replace LRU page with page just referenced.
-
-                assert(l.len > 0); // We should have a least one page frame
-
-                if(list_remove_node(&l, l.head->e, &n) == 1) { // Remove head = LRU page.
-                    n->e = page_num;
-                    assert(list_add_tail(&l, n) == 0);
-                } else
-                    assert(0);
-            }
-
-        }
-    }
-
-    free_list2(&l);
-
-    return num_page_faults;
 }
