@@ -152,13 +152,13 @@ int main(int argc, char **argv) {
 
     printf("\n");
 
-    printf("# page frames | LRU | OPT\n");
-         //"           %d | %2d | %2d\n"
-    for(i = 1; i < 8; i++) {
+    printf("# page frames | FIFO | LRU | OPT\n");
 
-        p0 = do_lru(ref_str_len, ref_str, i);
-        p1 = do_opt(ref_str_len, ref_str, i);
-        printf("%13d | %3d | %3d\n", i, p0, p1);
+    for(i = 1; i < 8; i++) {
+        p0 = do_fifo(ref_str_len, ref_str, i);
+        p1 = do_lru(ref_str_len, ref_str, i);
+        p2 = do_opt(ref_str_len, ref_str, i);
+        printf("%13d | %4d | %3d | %3d\n", i, p0, p1, p2);
     }
 
     free(ref_str);

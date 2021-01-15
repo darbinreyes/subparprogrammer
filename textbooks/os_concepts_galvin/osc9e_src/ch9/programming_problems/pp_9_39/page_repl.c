@@ -224,42 +224,23 @@ int do_opt(const int len_rs, const int * const rs, const int npf) {
     return num_page_faults;
 }
 
-/*
+/*!
 
-int alloc_queue(queue_t *q, int qlen);
+    @function do_fifo
 
-int free_queue(queue_t *q);
+    @discussion Returns the number of page faults that would occur with the FIFO
+    page replacement algorithm applied to the given reference string rs and npf
+    number of page frames.
 
-int queue_is_full(queue_t *q);
+    @param len_rs    The length of the reference string rs.
 
-int enq(queue_t *q, int e);
+    @param rs    The reference string to use.
 
-int queue_is_empty(queue_t *q);
+    @param npf    The number of page frames to use.
 
-int deq(queue_t *q, int *e);
-
-int queue_contains(queue_t *q, int e);
-
-while not done
-pn = rs[i]
-tr = queue_contains(q)
-if(tr == 1)
-    //page is in memory
-else if(tr == 0)
-    //page fault
-    if(free_npf-- > 0)
-        // service fault with free frame
-        enq(&page_frames, pn)
-    else
-        // page replacement required
-        deq(&page_frames, &tr);
-        enq(&page_frames, pn);
-else
-    // queue_contains error, bail.
-
-// done
-free_queue(&page_frames)
-
+    @result Greater than 0 if successful. Otherwise an error occurred. Note that
+    0 is not a valid number of page faults, all algorithms must page fault to
+    fill their empty page frames.
 
 */
 int do_fifo(const int len_rs, const int * const rs, const int npf) {
@@ -273,6 +254,65 @@ int do_fifo(const int len_rs, const int * const rs, const int npf) {
     if (len_rs <= 0 || rs == NULL || npf <= 0) {
         assert(0);
         return -1;
+    }
+
+    tr = alloc_queue(&page_frames, npf);
+
+    if(tr) {
+        assert(0);
+        return -2;
+    }
+
+    while(i < len_rs) {
+        page_num = rs[i];
+        i++;
+
+        tr = queue_contains(&page_frames, page_num);
+
+        if(tr == 1) {
+            // Page is in memory
+            ;
+        } else if (tr == 0) {
+            // Page is not in memory - page fault!
+            num_page_faults++;
+            if(free_npf-- > 0) {
+                // Service page fault with a free frame
+                tr = enq(&page_frames, page_num);
+                if(tr) {
+                    // enq() error
+                    assert(0);
+                    num_page_faults = -4;
+                    break;
+                }
+            } else {
+                // Replace the page at the front of the queue
+                tr = deq(&page_frames, &tr);
+                if(tr) {
+                    assert(0);
+                    num_page_faults = -5;
+                    break;
+                }
+
+                tr = enq(&page_frames, page_num);
+                if(tr) {
+                    assert(0);
+                    num_page_faults = -6;
+                    break;
+                }
+            }
+        } else {
+            // queue_contains error.
+            assert(0);
+            num_page_faults = -3;
+            break;
+        }
+    }
+
+    tr = free_queue(&page_frames);
+
+    if(tr) {
+        assert(0);
+        num_page_faults = -7;
     }
 
     return num_page_faults;
