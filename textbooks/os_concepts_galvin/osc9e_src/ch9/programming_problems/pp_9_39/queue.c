@@ -184,7 +184,7 @@ int queue_is_empty(queue_t *q) {
                 not empty. The pointer is not touched if the queue is empty or
                 if an error occurs.
 
-    @result 0 on sucess. Other values indicate an error.
+    @result 0 on success. Other values indicate an error.
 */
 int deq(queue_t *q, int *e) {
     int r;
