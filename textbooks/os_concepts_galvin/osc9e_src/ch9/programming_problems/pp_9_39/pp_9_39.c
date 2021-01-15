@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <ctype.h>
 #include "page_repl.h"
+#include "args.h"
 
 /*!
     @function rand_ref_str
@@ -142,6 +143,11 @@ int main(int argc, char **argv) {
     if(rand_ref_str(ref_str_len, ref_str))
         return 2;
 #endif
+
+    if(get_arg_npf(argc, argv, &num_page_frames) < 0) {
+        printf("Error getting -npf arg.\n");
+        return 4;
+    }
 
     printf("reference string length = %d. number of page frames = %d.\n", ref_str_len, num_page_frames);
     printf("reference string =\n");
