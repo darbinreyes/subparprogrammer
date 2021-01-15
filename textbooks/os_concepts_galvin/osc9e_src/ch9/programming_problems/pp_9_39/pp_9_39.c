@@ -113,6 +113,7 @@ int main(int argc, char **argv) {
     int *ref_str = NULL;
     char *ref_str_arg = "1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6";
     int p0, p1, p2;
+    char *arg_name = NULL;
 
 #define FIXED_REF_STR 1
 
@@ -144,9 +145,18 @@ int main(int argc, char **argv) {
         return 2;
 #endif
 
-    if(get_arg_npf(argc, argv, &num_page_frames) < 0) {
-        printf("Error getting -npf arg.\n");
+    arg_name = "-npf"; // Number of page frames
+
+    if(get_arg_pi(argc, argv, &num_page_frames, arg_name) < 0) {
+        printf("Error getting %s arg.\n", arg_name);
         return 4;
+    }
+
+    arg_name = "-rsl"; // Reference string length
+
+    if(get_arg_pi(argc, argv, &ref_str_len, arg_name) < 0) {
+        printf("Error getting %s arg.\n", arg_name);
+        return 5;
     }
 
     printf("reference string length = %d. number of page frames = %d.\n", ref_str_len, num_page_frames);
