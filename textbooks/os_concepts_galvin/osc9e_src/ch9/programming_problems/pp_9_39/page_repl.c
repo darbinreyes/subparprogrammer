@@ -275,4 +275,5 @@ int do_fifo(const int len_rs, const int * const rs, const int npf) {
         return -1;
     }
 
+    return num_page_faults;
 }
