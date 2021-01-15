@@ -111,9 +111,9 @@ int do_lru(int len, int *rf, const int npf);
 int main(int argc, char **argv) {
     int i;
     int ref_str_len = 100;
-    int num_page_frames = 10;
+    int num_page_frames = 3;
     int *ref_str = NULL;
-    char *ref_str_arg = "2 6 0 2 5 4 1 6 3 7";
+    char *ref_str_arg = "1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6";
     int page_faults;
 
 #define FIXED_REF_STR 1
@@ -201,7 +201,7 @@ int do_lru(int len, int *rf, const int npf) {
             } else {
                 // Replace LRU page with page just referenced.
 
-                assert(l.len > 0); // We just have a least one page frame
+                assert(l.len > 0); // We should have a least one page frame
 
                 if(list_remove_node(&l, l.head->e, &n) == 1) { // Remove head = LRU page.
                     n->e = page_num;
@@ -212,6 +212,8 @@ int do_lru(int len, int *rf, const int npf) {
 
         }
     }
+
+    free_list2(&l);
 
     return num_page_faults;
 }
