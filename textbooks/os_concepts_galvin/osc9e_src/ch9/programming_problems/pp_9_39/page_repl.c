@@ -6,6 +6,7 @@
 #include <assert.h>
 #include "list.h"
 #include "arr.h"
+#include "queue.h"
 
 int do_lru(const int len_rs, const int * const rs, const int npf) {
     int n_free_pf = npf;
@@ -164,14 +165,6 @@ int do_opt(const int len_rs, const int * const rs, const int npf) {
         return -1;
     }
 
-// int alloc_arr(arr_t *a, int arr_len);
-
-// int free_arr(arr_t *a);
-
-// int arr_contains(arr_t *a, int e);
-
-// int arr_add(arr_t *a, int e);
-
     tr = alloc_arr(&page_frames, npf);
 
     if (tr) {
@@ -230,3 +223,22 @@ int do_opt(const int len_rs, const int * const rs, const int npf) {
 
     return num_page_faults;
 }
+
+/*
+
+int alloc_queue(queue_t *q, int qlen);
+
+int free_queue(queue_t *q);
+
+int queue_is_full(queue_t *q);
+
+int enq(queue_t *q, int e);
+
+int queue_is_empty(queue_t *q);
+
+int deq(queue_t *q, int *e);
+
+int queue_contains(queue_t *q, int e);
+
+
+*/
