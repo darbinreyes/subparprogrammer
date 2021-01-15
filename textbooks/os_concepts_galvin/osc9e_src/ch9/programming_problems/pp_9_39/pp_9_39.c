@@ -157,6 +157,10 @@ int main(int argc, char **argv) {
 
     printf("LRU page faults = %d\n", page_faults);
 
+    page_faults = do_opt(ref_str_len, ref_str, num_page_frames);
+
+    printf("OPT page faults = %d\n", page_faults);
+
     free(ref_str);
 
     //test_queue();
