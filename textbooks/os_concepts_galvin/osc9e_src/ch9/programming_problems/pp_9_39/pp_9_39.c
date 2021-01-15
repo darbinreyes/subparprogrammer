@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <ctype.h>
-#include "queue.h"
 #include "page_repl.h"
 
 /*!
@@ -155,7 +154,7 @@ int main(int argc, char **argv) {
 
     printf("# page frames | LRU | OPT\n");
          //"           %d | %2d | %2d\n"
-    for(i = 1; i < 7; i++) {
+    for(i = 1; i < 8; i++) {
 
         p0 = do_lru(ref_str_len, ref_str, i);
         p1 = do_opt(ref_str_len, ref_str, i);
