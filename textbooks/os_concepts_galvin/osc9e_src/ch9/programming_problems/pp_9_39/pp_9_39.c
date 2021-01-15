@@ -109,10 +109,10 @@ int arg_ref_str(char *ref_str_arg, int ref_str_len, int *ref_str) {
 int main(int argc, char **argv) {
     int i;
     int ref_str_len = 100;
-    int num_page_frames = 3;
+    int num_page_frames = 2;
     int *ref_str = NULL;
     char *ref_str_arg = "1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6";
-    int page_faults;
+    int p0, p1, p2;
 
 #define FIXED_REF_STR 1
 
@@ -153,19 +153,16 @@ int main(int argc, char **argv) {
 
     printf("\n");
 
-    page_faults = do_lru(ref_str_len, ref_str, num_page_frames);
+    printf("# page frames | LRU | OPT\n");
+         //"           %d | %2d | %2d\n"
+    for(i = 1; i < 7; i++) {
 
-    printf("LRU page faults = %d\n", page_faults);
-
-    page_faults = do_opt(ref_str_len, ref_str, num_page_frames);
-
-    printf("OPT page faults = %d\n", page_faults);
+        p0 = do_lru(ref_str_len, ref_str, i);
+        p1 = do_opt(ref_str_len, ref_str, i);
+        printf("%13d | %3d | %3d\n", i, p0, p1);
+    }
 
     free(ref_str);
-
-    //test_queue();
-
-    //test_list();
 
     return 0;
 }

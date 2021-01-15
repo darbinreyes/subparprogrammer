@@ -81,8 +81,13 @@ int do_lru(const int len_rs, const int * const rs, const int npf) {
     @result 0 if successful. Other values indicate error.
 */
 static int opt_r(arr_t *page_frames, const int * const rs, const int len_rs, const int page_num) {
-    int ffnr_i = -1; // ffnr = furthest future next reference. Current index into page_frames->arr of the page to be replaced.
-    int ffnr_j = -1; // ffnr = furthest future next reference. Current index into rs of the page to be replaced. This index can be thought of as how far into the future page number rs[ffnr_j] will be referenced.
+    /* ffnr = furthest future next reference. Current index into
+       page_frames->arr of the page to be replaced. */
+    int ffnr_i = -1;
+    /* ffnr = furthest future next reference. Current index into rs of the page
+       to be replaced. This index can be thought of as how far into the future
+       page number rs[ffnr_j] will be referenced. */
+    int ffnr_j = -1;
     int i, j;
 
     if (page_frames == NULL || page_frames->arr == NULL || page_frames->num_entries <= 0) {
@@ -103,13 +108,13 @@ static int opt_r(arr_t *page_frames, const int * const rs, const int len_rs, con
 
         if(j == len_rs) {
             /* Page is never referenced again, we can end the search early and
-            replace this page.
-            */
+               replace this page. */
             page_frames->arr[i] = page_num; // Replace
             return 0;
         } else {
             if(j > ffnr_j) {
-                // This page is referenced further into the future, update the candidate replacement page.
+                /* This page is referenced further into the future, update the
+                   candidate replacement page. */
                 ffnr_j = j;
                 ffnr_i = i;
             }
