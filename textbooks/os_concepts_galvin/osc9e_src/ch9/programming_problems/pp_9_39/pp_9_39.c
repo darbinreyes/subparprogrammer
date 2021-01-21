@@ -114,6 +114,7 @@ int main(int argc, char **argv) {
     char *ref_str_arg = "1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6";
     int p0, p1, p2;
     char *arg_name = NULL;
+    int use_rand = 0;
 
 #define FIXED_REF_STR 1
 
@@ -157,6 +158,17 @@ int main(int argc, char **argv) {
     if(get_arg_pi(argc, argv, &ref_str_len, arg_name) < 0) {
         printf("Error getting %s arg.\n", arg_name);
         return 5;
+    }
+
+    arg_name = "-rand";
+
+    if (get_arg_bool(argc, argv, &use_rand, arg_name) < 0) {
+        printf("Error getting %s arg.\n", arg_name);
+        return 6;
+    }
+
+    if(use_rand) {
+        printf("rand arg. present\n");
     }
 
     printf("reference string length = %d. number of page frames = %d.\n", ref_str_len, num_page_frames);
