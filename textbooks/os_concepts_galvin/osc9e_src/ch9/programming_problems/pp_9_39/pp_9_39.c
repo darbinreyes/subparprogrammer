@@ -135,21 +135,27 @@ int print_ref_str(int *ref_str, int ref_str_len) {
     table of the number for page faults for FIFO, LRU, and OPT for a number of
     page frames from 1 to 7.
 */
-int run_mode0(int *ref_str, int ref_str_len) {
+int run_mode0(int *ref_str, int ref_str_len, int npf) {
     int p0, p1, p2;
+    int npf_l = 1, npf_h = 8;
 
     if(ref_str == NULL || ref_str_len <= 0) {
         assert(0);
         return 1;
     }
 
-    printf("Running in mode 0.\n");
+    if (npf > 0) {
+        npf_l = npf;
+        npf_h = npf + 1;
+    }
+
+    //printf("Running in mode 0.\n");
 
     print_ref_str(ref_str, ref_str_len);
 
     printf("# page frames | FIFO | LRU | OPT\n");
 
-    for(int i = 1; i < 8; i++) {
+    for(int i = npf_l; i < npf_h; i++) {
         p0 = do_fifo(ref_str_len, ref_str, i);
         p1 = do_lru(ref_str_len, ref_str, i);
         p2 = do_opt(ref_str_len, ref_str, i);
@@ -162,7 +168,7 @@ int run_mode0(int *ref_str, int ref_str_len) {
 int main(int argc, char **argv) {
     int i;
     int ref_str_len = 100;
-    int num_page_frames = 2;
+    int num_page_frames = -1;
     int *ref_str = NULL;
     char *arg_name = NULL;
     int use_rand = 0;
@@ -198,7 +204,7 @@ int main(int argc, char **argv) {
 #endif
 
     if (argc == 1) {
-        run_mode0(ref_str, ref_str_len);
+        run_mode0(ref_str, ref_str_len, -1);
         return 0;
     }
 
@@ -207,6 +213,11 @@ int main(int argc, char **argv) {
     if(get_arg_pi(argc, argv, &num_page_frames, arg_name) < 0) {
         printf("Error getting %s arg.\n", arg_name);
         return 4;
+    }
+
+    if (argc == 3 && num_page_frames > 0) {
+        run_mode0(ref_str, ref_str_len, num_page_frames);
+        return 0;
     }
 
     arg_name = "-rsl"; // Reference string length
