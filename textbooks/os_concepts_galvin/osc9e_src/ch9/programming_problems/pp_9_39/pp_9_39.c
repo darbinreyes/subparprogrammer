@@ -167,7 +167,7 @@ int run_mode0(int *ref_str, int ref_str_len, int npf) {
 
 int main(int argc, char **argv) {
     int i;
-    int ref_str_len = 100;
+    int ref_str_len = 25;
     int num_page_frames = -1;
     int *ref_str = NULL;
     char *arg_name = NULL;
@@ -204,7 +204,22 @@ int main(int argc, char **argv) {
 #endif
 
     if (argc == 1) {
+        if(len_ref_str_arg(fixed_ref_str_arg, &ref_str_len))
+            return 2;
+
+        ref_str = calloc(ref_str_len, sizeof(int));
+
+        if(ref_str == NULL) {
+            assert(0);
+            printf("calloc() returned NULL! Bye!\n");
+            return 1;
+        }
+
+        if(arg_ref_str(fixed_ref_str_arg, ref_str_len, ref_str))
+            return 3;
+
         run_mode0(ref_str, ref_str_len, -1);
+        free(ref_str);
         return 0;
     }
 
@@ -216,15 +231,23 @@ int main(int argc, char **argv) {
     }
 
     if (argc == 3 && num_page_frames > 0) {
+        if(len_ref_str_arg(fixed_ref_str_arg, &ref_str_len))
+            return 2;
+
+        ref_str = calloc(ref_str_len, sizeof(int));
+
+        if(ref_str == NULL) {
+            assert(0);
+            printf("calloc() returned NULL! Bye!\n");
+            return 1;
+        }
+
+        if(arg_ref_str(fixed_ref_str_arg, ref_str_len, ref_str))
+            return 3;
+
         run_mode0(ref_str, ref_str_len, num_page_frames);
+        free(ref_str);
         return 0;
-    }
-
-    arg_name = "-rsl"; // Reference string length
-
-    if(get_arg_pi(argc, argv, &ref_str_len, arg_name) < 0) {
-        printf("Error getting %s arg.\n", arg_name);
-        return 5;
     }
 
     arg_name = "-rand";
@@ -234,13 +257,34 @@ int main(int argc, char **argv) {
         return 6;
     }
 
-    if(use_rand) {
-        printf("rand arg. present\n");
+    if(argc == 4 && use_rand) {
+        printf("-rand arg. present\n");
+        ref_str_len = 20;
+        ref_str = calloc(ref_str_len, sizeof(int));
+
+        if(ref_str == NULL) {
+            printf("calloc() returned NULL! Bye!\n");
+            return 1;
+        }
+
+        if(rand_ref_str(ref_str_len, ref_str))
+            return 2;
+
+        run_mode0(ref_str, ref_str_len, num_page_frames);
+        free(ref_str);
+        return 0;
     }
 
-    printf("reference string length = %d. number of page frames = %d.\n", ref_str_len, num_page_frames);
+    printf("Unsupported command line arg. combination. Bye!\n");
+    return 0;
+    ///////////////////////TODO
 
-    free(ref_str);
+    arg_name = "-rsl"; // Reference string length
+
+    if(get_arg_pi(argc, argv, &ref_str_len, arg_name) < 0) {
+        printf("Error getting %s arg.\n", arg_name);
+        return 5;
+    }
 
     return 0;
 }
