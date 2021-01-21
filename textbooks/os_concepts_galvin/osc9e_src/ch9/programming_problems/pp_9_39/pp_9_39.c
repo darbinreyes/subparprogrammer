@@ -106,20 +106,71 @@ int arg_ref_str(char *ref_str_arg, int ref_str_len, int *ref_str) {
     return 0;
 }
 
+static char *fixed_ref_str_arg = "1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6";
+
+/*!*/
+int print_ref_str(int *ref_str, int ref_str_len) {
+
+    if(ref_str == NULL || ref_str_len <= 0) {
+        assert(0);
+        return 1;
+    }
+
+    printf("reference string length = %d.\n", ref_str_len);
+    printf("reference string =\n");
+
+    for(int i = 0; i < ref_str_len; i++) {
+        printf("%d ", ref_str[i]);
+    }
+
+    printf("\n");
+
+    return 0;
+}
+
+/*!
+    @function run_mode0
+
+    @discussion No arguments provided. Uses fixed reference string. Prints a
+    table of the number for page faults for FIFO, LRU, and OPT for a number of
+    page frames from 1 to 7.
+*/
+int run_mode0(int *ref_str, int ref_str_len) {
+    int p0, p1, p2;
+
+    if(ref_str == NULL || ref_str_len <= 0) {
+        assert(0);
+        return 1;
+    }
+
+    printf("Running in mode 0.\n");
+
+    print_ref_str(ref_str, ref_str_len);
+
+    printf("# page frames | FIFO | LRU | OPT\n");
+
+    for(int i = 1; i < 8; i++) {
+        p0 = do_fifo(ref_str_len, ref_str, i);
+        p1 = do_lru(ref_str_len, ref_str, i);
+        p2 = do_opt(ref_str_len, ref_str, i);
+        printf("%13d | %4d | %3d | %3d\n", i, p0, p1, p2);
+    }
+
+    return 0;
+}
+
 int main(int argc, char **argv) {
     int i;
     int ref_str_len = 100;
     int num_page_frames = 2;
     int *ref_str = NULL;
-    char *ref_str_arg = "1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6";
-    int p0, p1, p2;
     char *arg_name = NULL;
     int use_rand = 0;
 
 #define FIXED_REF_STR 1
 
 #if FIXED_REF_STR
-    if(len_ref_str_arg(ref_str_arg, &ref_str_len))
+    if(len_ref_str_arg(fixed_ref_str_arg, &ref_str_len))
         return 2;
 
     printf("Fixed ref_str_len = %d\n", ref_str_len);
@@ -131,7 +182,7 @@ int main(int argc, char **argv) {
         return 1;
     }
 
-    if(arg_ref_str(ref_str_arg, ref_str_len, ref_str))
+    if(arg_ref_str(fixed_ref_str_arg, ref_str_len, ref_str))
         return 3;
 
 #else
@@ -145,6 +196,11 @@ int main(int argc, char **argv) {
     if(rand_ref_str(ref_str_len, ref_str))
         return 2;
 #endif
+
+    if (argc == 1) {
+        run_mode0(ref_str, ref_str_len);
+        return 0;
+    }
 
     arg_name = "-npf"; // Number of page frames
 
@@ -172,22 +228,6 @@ int main(int argc, char **argv) {
     }
 
     printf("reference string length = %d. number of page frames = %d.\n", ref_str_len, num_page_frames);
-    printf("reference string =\n");
-
-    for(i = 0; i < ref_str_len; i++) {
-        printf("%d ", ref_str[i]);
-    }
-
-    printf("\n");
-
-    printf("# page frames | FIFO | LRU | OPT\n");
-
-    for(i = 1; i < 8; i++) {
-        p0 = do_fifo(ref_str_len, ref_str, i);
-        p1 = do_lru(ref_str_len, ref_str, i);
-        p2 = do_opt(ref_str_len, ref_str, i);
-        printf("%13d | %4d | %3d | %3d\n", i, p0, p1, p2);
-    }
 
     free(ref_str);
 
