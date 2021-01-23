@@ -275,7 +275,7 @@ int main(int argc, char **argv) {
     char *arg_name = NULL;
     int use_rand = 0;
 
-    printf("%s", usage_str);
+
 
     if (argc == 1) { // Usage: a.out
         if(get_ref_str_len(fixed_ref_str_arg, &len))
@@ -351,7 +351,9 @@ int main(int argc, char **argv) {
 
     // Usage: a.out -npf 10 -rand -rsl 31
 
+    printf("%s", usage_str);
     printf("Unsupported command line arg. combination. Bye!\n");
+
     return 0;
     ///////////////////////TODO
 
