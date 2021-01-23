@@ -105,7 +105,9 @@ int get_ref_str_len(const char *ref_str, int * const len) {
     @function ref_str_to_int_arr
 
     @discussion Converts a list of integers given in string format to an array
-    of integers.
+    of integers. This function assumes that get_ref_str_len() has been called to
+    calculate the len argument, that function does **essential** validation on
+    ref_str.
 
     @param ref_str Reference string encoded as a character string e.g.
     "2 3 5". Must contain only non-negative integers. Must contain only digits
@@ -118,7 +120,11 @@ int get_ref_str_len(const char *ref_str, int * const len) {
 
     @result 0 if successful. Otherwise an error occurred.
 */
-int ref_str_to_int_arr(char *ref_str, int len, int *int_ref_str) {
+int ref_str_to_int_arr(const char *ref_str, int len, int *int_ref_str) {
+    char *endptr = NULL;
+    const char *s;
+    int l = 0;
+    long t;
     int i = 0;
 
     if (ref_str == NULL || len <= 0 || int_ref_str == NULL) {
@@ -126,15 +132,19 @@ int ref_str_to_int_arr(char *ref_str, int len, int *int_ref_str) {
     }
 
     while (*ref_str != '\0') {
-        if(isdigit(*ref_str)) {
-            if(i >= len)
-                return 2; // Found more digits than expected.
 
-            int_ref_str[i] = atoi(ref_str);
-            i++;
-        }
+        if (len-- == 0)
+            return 2; // Converted more integers than expected.
 
-        ref_str++;
+        t = strtol(ref_str, &endptr, 10);
+
+        *int_ref_str = (int) t;
+        int_ref_str++;
+
+        if (endptr == NULL) // Sanity check, should not occur.
+            return 3;
+
+        ref_str = endptr; // endptr should point to a space char or '\0'
     }
 
     return 0;
