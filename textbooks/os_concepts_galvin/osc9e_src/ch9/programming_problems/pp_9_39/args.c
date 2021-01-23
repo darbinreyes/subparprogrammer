@@ -3,36 +3,39 @@
     Functions for getting arguments from the command line. Below are some usage
     examples.
 
-Usage:
-    a.out
-
-    Default mode: Prints the number of page faults for a fixed reference string
-    and 1 to 7 page frames.
-    Reference string: 1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6.
-----------------
-    a.out -npf 8
-    Run against the fixed reference string using 8 page frames.
-    Argument must be > 0.
-----------------
-    a.out -npf 9 -rand
-    Use 9 page frames against a randomly generated reference string. The random
-    reference string contains only page numbers in the range 0 to 9. The random
-    reference string length is 20 by default. If -npf is not specified 7
-    is the default.
-----------------
-    a.out -npf 10 -rand -rsl 31
-    Use 10 page frames against a randomly generated reference string. The random
-    reference string contains only page numbers in the range 0 to 9. The random
-    reference string length is set to 31. If -npf is not specified 7
-    is the default.
-----------------
-    a.out -npf 11 -rs '1 2 3 4 5 1 2 3 6'
-    Use 11 page frames against the reference string specified by the -rs
-    argument. The single quotes are required.
 */
+
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
+
+const char * usage_str =
+"Usage:\n\
+    a.out\n\
+\n\
+    Default mode: Prints the number of page faults for a fixed reference string\n\
+    and 1 to 7 page frames.\n\
+    Reference string: 1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6.\n\
+----------------\n\
+    a.out -npf 8\n\
+    Run against the fixed reference string using 8 page frames.\n\
+    Argument must be > 0.\n\
+----------------\n\
+    a.out -npf 9 -rand\n\
+    Use 9 page frames against a randomly generated reference string. The random\n\
+    reference string contains only page numbers in the range 0 to 9. The random\n\
+    reference string length is 20 by default. If -npf is not specified 7\n\
+    is the default.\n\
+----------------\n\
+    a.out -npf 10 -rand -rsl 31\n\
+    Use 10 page frames against a randomly generated reference string. The random\n\
+    reference string contains only page numbers in the range 0 to 9. The random\n\
+    reference string length is set to 31. If -npf is not specified 7\n\
+    is the default.\n\
+----------------\n\
+    a.out -npf 11 -rs '1 2 3 4 5 1 2 3 6'\n\
+    Use 11 page frames against the reference string specified by the -rs\n\
+    argument. The single quotes are required.\n";
 
 /*!
 
