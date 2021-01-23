@@ -1,3 +1,9 @@
+/*!
+    @header Page replacement algorithm simulator.
+    Programming Problem 9.39 from Operating System Concepts, Galvin.
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
@@ -5,6 +11,34 @@
 #include "page_repl.h"
 #include "args.h"
 #include <errno.h>
+
+static const char * usage_str =
+"Usage:\n\
+    a.out\n\
+\n\
+    Default mode: Prints the number of page faults for a fixed reference string\n\
+    and 1 to 7 page frames.\n\
+    Reference string: 1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6.\n\
+----------------\n\
+    a.out -npf 8\n\
+    Run against the fixed reference string using 8 page frames.\n\
+    Argument must be > 0.\n\
+----------------\n\
+    a.out -npf 9 -rand\n\
+    Use 9 page frames against a randomly generated reference string. The random\n\
+    reference string contains only page numbers in the range 0 to 9. The random\n\
+    reference string length is 20 by default. If -npf is not specified 7\n\
+    is the default.\n\
+----------------\n\
+    a.out -npf 10 -rand -rsl 31\n\
+    Use 10 page frames against a randomly generated reference string. The random\n\
+    reference string contains only page numbers in the range 0 to 9. The random\n\
+    reference string length is set to 31. If -npf is not specified 7\n\
+    is the default.\n\
+----------------\n\
+    a.out -npf 11 -rs '1 2 3 4 5 1 2 3 6'\n\
+    Use 11 page frames against the reference string specified by the -rs\n\
+    argument. The single quotes are required.";
 
 /*!
     @function rand_ref_str
@@ -154,7 +188,22 @@ int ref_str_to_int_arr(const char *ref_str, int len, int *int_ref_str) {
    solution. */
 static char *fixed_ref_str_arg = "1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6";
 
-/*!*/
+/*!
+    @function print_ref_str
+
+    @discussion Prints the reference string and its length. Here length means
+    the number of integers in the list of integers in ref_str e.g. if
+    ref_str = "2 3 5" then its length is 3.
+
+    @param ref_str The reference string.
+
+    @param len  The length of the reference string. Here length means the number
+    of integers in the list of integers in ref_str e.g. if ref_str = "2 3 5"
+    then its length is 3.
+
+    @result 0 if successful. Otherwise an error occurred.
+
+*/
 int print_ref_str(int *ref_str, int len) {
 
     if(ref_str == NULL || len <= 0) {
@@ -175,13 +224,20 @@ int print_ref_str(int *ref_str, int len) {
 }
 
 /*!
-    @function run_mode0
+    @function run_cmd
 
-    @discussion No arguments provided. Uses fixed reference string. Prints a
-    table of the number for page faults for FIFO, LRU, and OPT for a number of
-    page frames from 1 to 7.
+    @discussion Runs as specified by the user with command line arguments.
+
+    @param ref_str The reference string as an integer array e.g. {2, 3, 5, 7}.
+    Must not be empty, must all be non-negative.
+
+    @param len The number of integers in ref_str. Must be non-negative.
+
+    @param npf The number of page frames to use.
+
+
 */
-int run_mode0(int *ref_str, int len, int npf) {
+int run_cmd(int *ref_str, int len, int npf) {
     int p0, p1, p2;
     int npf_l = 1, npf_h = 8;
 
@@ -219,6 +275,8 @@ int main(int argc, char **argv) {
     char *arg_name = NULL;
     int use_rand = 0;
 
+    printf("%s", usage_str);
+
     if (argc == 1) { // Usage: a.out
         if(get_ref_str_len(fixed_ref_str_arg, &len))
             return 2;
@@ -234,7 +292,7 @@ int main(int argc, char **argv) {
         if(ref_str_to_int_arr(fixed_ref_str_arg, len, ref_str))
             return 3;
 
-        run_mode0(ref_str, len, -1);
+        run_cmd(ref_str, len, -1);
         free(ref_str);
         return 0;
     }
@@ -261,7 +319,7 @@ int main(int argc, char **argv) {
         if(ref_str_to_int_arr(fixed_ref_str_arg, len, ref_str))
             return 3;
 
-        run_mode0(ref_str, len, num_page_frames);
+        run_cmd(ref_str, len, num_page_frames);
         free(ref_str);
         return 0;
     }
@@ -273,7 +331,7 @@ int main(int argc, char **argv) {
         return 6;
     }
 
-    if(argc == 4 && use_rand) { // a.out -npf 9 -rand
+    if(argc == 4 && num_page_frames > 0 && use_rand) { // Usage: a.out -npf 9 -rand
         printf("-rand arg. present\n");
         len = 20;
         ref_str = calloc(len, sizeof(int));
@@ -286,10 +344,12 @@ int main(int argc, char **argv) {
         if(rand_ref_str(len, ref_str))
             return 2;
 
-        run_mode0(ref_str, len, num_page_frames);
+        run_cmd(ref_str, len, num_page_frames);
         free(ref_str);
         return 0;
     }
+
+    // Usage: a.out -npf 10 -rand -rsl 31
 
     printf("Unsupported command line arg. combination. Bye!\n");
     return 0;
