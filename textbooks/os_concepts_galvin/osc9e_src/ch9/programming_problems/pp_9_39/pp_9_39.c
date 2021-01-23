@@ -9,25 +9,25 @@
 /*!
     @function rand_ref_str
 
-    @discussion Fills reference string ref_str with ref_str_len random integers
+    @discussion Fills reference string ref_str with len random integers
     in the range 0-9.
 
-    @param ref_str_len Length of ref_str array.
+    @param len Length of ref_str array.
 
     @param ref_str Array of integers to be filled with random numbers in range
                    0-9.
 
     @result 0 if successful. Otherwise an error occurred.
 */
-int rand_ref_str(int ref_str_len, int *ref_str) {
+int rand_ref_str(int len, int *ref_str) {
 
-    if (ref_str_len <= 0 || ref_str == NULL) {
+    if (len <= 0 || ref_str == NULL) {
         return 1;
     }
 
     sranddev();
 
-    for(int i = 0; i < ref_str_len; i++) {
+    for(int i = 0; i < len; i++) {
         ref_str[i] = rand()/(RAND_MAX/10 + 1);
     }
 
@@ -37,8 +37,8 @@ int rand_ref_str(int ref_str_len, int *ref_str) {
 /*!
     @function get_ref_str_len
 
-    @discussion Returns the length of a reference string encoded as a string of
-    space separated non-negative integers.
+    @discussion Returns the length of a list of integers given as a string e.g.
+    if ref_str = "2 3 5" then *len == 3.
 
     @param ref_str Reference string encoded as a character string e.g.
     "2 3 5". Must contain only non-negative integers. Must contain only digits
@@ -58,18 +58,18 @@ int get_ref_str_len(const char *ref_str, int * const len) {
     long t;
 
     if (ref_str == NULL || len == NULL) {
-        return -1;
+        return 1;
     }
 
     if (*ref_str == '\0') // Reject empty string.
-        return -2;
+        return 2;
 
     s = ref_str; // keep pointer to first char.
 
     // Make sure we only have digits and spaces.
     while (*ref_str != '\0') {
         if(!isdigit(*ref_str) && !isspace(*ref_str))
-            return -3;
+            return 3;
 
         ref_str++;
     }
@@ -80,16 +80,16 @@ int get_ref_str_len(const char *ref_str, int * const len) {
         t = strtol(ref_str, &endptr, 10);
 
         if (t < 0)
-            return -4; // Shouldn't happen, we rejected '-' chars above.
+            return 4; // Shouldn't happen, we rejected '-' chars above.
 
         if (t == 0 && errno == EINVAL)
-            return -5; // Conversion failed.
+            return 5; // Conversion failed.
 
         if (errno == ERANGE)
-            return -6; // Over/under-flow.
+            return 6; // Over/under-flow.
 
         if (endptr == NULL) // Sanity check, should not occur.
-            return -7;
+            return 7;
 
         l++;
 
@@ -104,30 +104,30 @@ int get_ref_str_len(const char *ref_str, int * const len) {
 /*!
     @function ref_str_to_int_arr
 
-    @discussion Fills reference string ref_str with ref_str_len integers
-    obtained from ref_str.
+    @discussion Converts a list of integers given in string format to an array
+    of integers.
 
+    @param ref_str Reference string encoded as a character string e.g.
+    "2 3 5". Must contain only non-negative integers. Must contain only digits
+    and spaces.
 
-    @param ref_str Reference string encoded as a character string. It must
-                       consist of space separated integers in the range 0-9.
+    @param len Length of ref_str as obtained from get_ref_str_len() e.g.
+     if ref_str = "2 3 5" then len must be == 3.
 
-    @param ref_str_len Length of ref_str array.
-
-    @param int_ref_str Array of integers to be filled with random numbers in range
-                   0-9.
+    @param int_ref_str An integer array with length equal to len.
 
     @result 0 if successful. Otherwise an error occurred.
 */
-int ref_str_to_int_arr(char *ref_str, int ref_str_len, int *int_ref_str) {
+int ref_str_to_int_arr(char *ref_str, int len, int *int_ref_str) {
     int i = 0;
 
-    if (ref_str == NULL || ref_str_len <= 0 || int_ref_str == NULL) {
+    if (ref_str == NULL || len <= 0 || int_ref_str == NULL) {
         return 1;
     }
 
     while (*ref_str != '\0') {
         if(isdigit(*ref_str)) {
-            if(i >= ref_str_len)
+            if(i >= len)
                 return 2; // Found more digits than expected.
 
             int_ref_str[i] = atoi(ref_str);
@@ -145,17 +145,17 @@ int ref_str_to_int_arr(char *ref_str, int ref_str_len, int *int_ref_str) {
 static char *fixed_ref_str_arg = "1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6";
 
 /*!*/
-int print_ref_str(int *ref_str, int ref_str_len) {
+int print_ref_str(int *ref_str, int len) {
 
-    if(ref_str == NULL || ref_str_len <= 0) {
+    if(ref_str == NULL || len <= 0) {
         assert(0);
         return 1;
     }
 
-    printf("reference string length = %d.\n", ref_str_len);
+    printf("reference string length = %d.\n", len);
     printf("reference string =\n");
 
-    for(int i = 0; i < ref_str_len; i++) {
+    for(int i = 0; i < len; i++) {
         printf("%d ", ref_str[i]);
     }
 
@@ -171,11 +171,11 @@ int print_ref_str(int *ref_str, int ref_str_len) {
     table of the number for page faults for FIFO, LRU, and OPT for a number of
     page frames from 1 to 7.
 */
-int run_mode0(int *ref_str, int ref_str_len, int npf) {
+int run_mode0(int *ref_str, int len, int npf) {
     int p0, p1, p2;
     int npf_l = 1, npf_h = 8;
 
-    if(ref_str == NULL || ref_str_len <= 0) {
+    if(ref_str == NULL || len <= 0) {
         assert(0);
         return 1;
     }
@@ -187,14 +187,14 @@ int run_mode0(int *ref_str, int ref_str_len, int npf) {
 
     //printf("Running in mode 0.\n");
 
-    print_ref_str(ref_str, ref_str_len);
+    print_ref_str(ref_str, len);
 
     printf("# page frames | FIFO | LRU | OPT\n");
 
     for(int i = npf_l; i < npf_h; i++) {
-        p0 = do_fifo(ref_str_len, ref_str, i);
-        p1 = do_lru(ref_str_len, ref_str, i);
-        p2 = do_opt(ref_str_len, ref_str, i);
+        p0 = do_fifo(len, ref_str, i);
+        p1 = do_lru(len, ref_str, i);
+        p2 = do_opt(len, ref_str, i);
         printf("%13d | %4d | %3d | %3d\n", i, p0, p1, p2);
     }
 
@@ -203,17 +203,17 @@ int run_mode0(int *ref_str, int ref_str_len, int npf) {
 
 int main(int argc, char **argv) {
     int i;
-    int ref_str_len = 25;
+    int len = 25;
     int num_page_frames = -1;
     int *ref_str = NULL;
     char *arg_name = NULL;
     int use_rand = 0;
 
     if (argc == 1) { // Usage: a.out
-        if(get_ref_str_len(fixed_ref_str_arg, &ref_str_len))
+        if(get_ref_str_len(fixed_ref_str_arg, &len))
             return 2;
 
-        ref_str = calloc(ref_str_len, sizeof(int));
+        ref_str = calloc(len, sizeof(int));
 
         if(ref_str == NULL) {
             assert(0);
@@ -221,10 +221,10 @@ int main(int argc, char **argv) {
             return 1;
         }
 
-        if(ref_str_to_int_arr(fixed_ref_str_arg, ref_str_len, ref_str))
+        if(ref_str_to_int_arr(fixed_ref_str_arg, len, ref_str))
             return 3;
 
-        run_mode0(ref_str, ref_str_len, -1);
+        run_mode0(ref_str, len, -1);
         free(ref_str);
         return 0;
     }
@@ -237,10 +237,10 @@ int main(int argc, char **argv) {
     }
 
     if (argc == 3 && num_page_frames > 0) { // Usage: a.out -npf 7
-        if(get_ref_str_len(fixed_ref_str_arg, &ref_str_len))
+        if(get_ref_str_len(fixed_ref_str_arg, &len))
             return 2;
 
-        ref_str = calloc(ref_str_len, sizeof(int));
+        ref_str = calloc(len, sizeof(int));
 
         if(ref_str == NULL) {
             assert(0);
@@ -248,10 +248,10 @@ int main(int argc, char **argv) {
             return 1;
         }
 
-        if(ref_str_to_int_arr(fixed_ref_str_arg, ref_str_len, ref_str))
+        if(ref_str_to_int_arr(fixed_ref_str_arg, len, ref_str))
             return 3;
 
-        run_mode0(ref_str, ref_str_len, num_page_frames);
+        run_mode0(ref_str, len, num_page_frames);
         free(ref_str);
         return 0;
     }
@@ -265,18 +265,18 @@ int main(int argc, char **argv) {
 
     if(argc == 4 && use_rand) { // a.out -npf 9 -rand
         printf("-rand arg. present\n");
-        ref_str_len = 20;
-        ref_str = calloc(ref_str_len, sizeof(int));
+        len = 20;
+        ref_str = calloc(len, sizeof(int));
 
         if(ref_str == NULL) {
             printf("calloc() returned NULL! Bye!\n");
             return 1;
         }
 
-        if(rand_ref_str(ref_str_len, ref_str))
+        if(rand_ref_str(len, ref_str))
             return 2;
 
-        run_mode0(ref_str, ref_str_len, num_page_frames);
+        run_mode0(ref_str, len, num_page_frames);
         free(ref_str);
         return 0;
     }
@@ -287,7 +287,7 @@ int main(int argc, char **argv) {
 
     arg_name = "-rsl"; // Reference string length
 
-    if(get_arg_pi(argc, argv, &ref_str_len, arg_name) < 0) {
+    if(get_arg_pi(argc, argv, &len, arg_name) < 0) {
         printf("Error getting %s arg.\n", arg_name);
         return 5;
     }
