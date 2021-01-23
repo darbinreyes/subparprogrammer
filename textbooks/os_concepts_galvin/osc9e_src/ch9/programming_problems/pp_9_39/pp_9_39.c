@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include "page_repl.h"
 #include "args.h"
+#include <errno.h>
 
 /*!
     @function rand_ref_str
@@ -39,32 +40,61 @@ int rand_ref_str(int ref_str_len, int *ref_str) {
     @discussion Returns the length of a reference string encoded as a string of
     space separated non-negative integers.
 
-    @param ref_str_arg Reference string encoded as a character string e.g.
+    @param ref_str Reference string encoded as a character string e.g.
     "2 3 5".
 
-    @param ref_str_len If successful, upon return, the length of the reference
-    string. e.g. if ref_str_arg = "2 3 5" then *ref_str_len == 3.
+    @param len If successful, upon return, the length of the reference
+    string. e.g. if ref_str = "2 3 5" then *len == 3.
 
     @result 0 if successful. Otherwise an error occurred, in which case the
     program should bail.
 */
-int get_ref_str_len(const char * const ref_str_arg, int * const ref_str_len) {
+int get_ref_str_len(const char *ref_str, int * const len) {
     char *endptr = NULL;
-    int len = 0;
+    const char *s;
+    int l = 0;
+    long t;
 
-    if (ref_str_arg == NULL || ref_str_len == NULL) {
-        return 1;
+    if (ref_str == NULL || len == NULL) {
+        return -1;
     }
 
-    while (*ref_str_arg != '\0') {
-        strtol(str)
-        if(isdigit(*ref_str_arg))
-            len++;
+    if (*ref_str == '\0') // Reject empty string.
+        return -2;
 
-        ref_str_arg++;
+    s = ref_str; // keep pointer to first char.
+
+    // Make sure we only have digits and spaces.
+    while (*ref_str != '\0') {
+        if(!isdigit(*ref_str) && !isspace(*ref_str))
+            return -3;
+
+        ref_str++;
     }
 
-    *ref_str_len = len;
+    ref_str = s; // Reset
+
+    while (*ref_str != '\0') {
+        t = strtol(ref_str, &endptr, 10);
+
+        if (t < 0)
+            return -4; // Shouldn't happen, we rejected '-' chars above.
+
+        if (t == 0 && errno == EINVAL)
+            return -5; // Conversion failed.
+
+        if (errno == ERANGE)
+            return -6; // Over/under-flow.
+
+        if (endptr == NULL) // Sanity check, should not occur.
+            return -7;
+
+        l++;
+
+        ref_str = endptr; // endptr should point to a space char or '\0'
+    }
+
+    *len = l;
 
     return 0;
 }
