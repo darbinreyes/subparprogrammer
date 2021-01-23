@@ -41,10 +41,12 @@ int rand_ref_str(int ref_str_len, int *ref_str) {
     space separated non-negative integers.
 
     @param ref_str Reference string encoded as a character string e.g.
-    "2 3 5".
+    "2 3 5". Must contain only non-negative integers. Must contain only digits
+    and spaces.
 
     @param len If successful, upon return, the length of the reference
-    string. e.g. if ref_str = "2 3 5" then *len == 3.
+    string. e.g. if ref_str = "2 3 5" then *len == 3. Not touched if an error
+    occurs.
 
     @result 0 if successful. Otherwise an error occurred, in which case the
     program should bail.
@@ -100,39 +102,39 @@ int get_ref_str_len(const char *ref_str, int * const len) {
 }
 
 /*!
-    @function arg_ref_str
+    @function ref_str_to_int_arr
 
     @discussion Fills reference string ref_str with ref_str_len integers
-    obtained from ref_str_arg.
+    obtained from ref_str.
 
 
-    @param ref_str_arg Reference string encoded as a character string. It must
+    @param ref_str Reference string encoded as a character string. It must
                        consist of space separated integers in the range 0-9.
 
     @param ref_str_len Length of ref_str array.
 
-    @param ref_str Array of integers to be filled with random numbers in range
+    @param int_ref_str Array of integers to be filled with random numbers in range
                    0-9.
 
     @result 0 if successful. Otherwise an error occurred.
 */
-int arg_ref_str(char *ref_str_arg, int ref_str_len, int *ref_str) {
+int ref_str_to_int_arr(char *ref_str, int ref_str_len, int *int_ref_str) {
     int i = 0;
 
-    if (ref_str_arg == NULL || ref_str_len <= 0 || ref_str == NULL) {
+    if (ref_str == NULL || ref_str_len <= 0 || int_ref_str == NULL) {
         return 1;
     }
 
-    while (*ref_str_arg != '\0') {
-        if(isdigit(*ref_str_arg)) {
+    while (*ref_str != '\0') {
+        if(isdigit(*ref_str)) {
             if(i >= ref_str_len)
                 return 2; // Found more digits than expected.
 
-            ref_str[i] = atoi(ref_str_arg);
+            int_ref_str[i] = atoi(ref_str);
             i++;
         }
 
-        ref_str_arg++;
+        ref_str++;
     }
 
     return 0;
@@ -219,7 +221,7 @@ int main(int argc, char **argv) {
             return 1;
         }
 
-        if(arg_ref_str(fixed_ref_str_arg, ref_str_len, ref_str))
+        if(ref_str_to_int_arr(fixed_ref_str_arg, ref_str_len, ref_str))
             return 3;
 
         run_mode0(ref_str, ref_str_len, -1);
@@ -246,7 +248,7 @@ int main(int argc, char **argv) {
             return 1;
         }
 
-        if(arg_ref_str(fixed_ref_str_arg, ref_str_len, ref_str))
+        if(ref_str_to_int_arr(fixed_ref_str_arg, ref_str_len, ref_str))
             return 3;
 
         run_mode0(ref_str, ref_str_len, num_page_frames);
