@@ -34,20 +34,21 @@ int rand_ref_str(int ref_str_len, int *ref_str) {
 }
 
 /*!
-    @function len_ref_str_arg
+    @function get_ref_str_len
 
-    @discussion Returns the length of the fixed (instead of random) reference
-    string supplied on the command line as a string of characters.
+    @discussion Returns the length of a reference string encoded as a string of
+    space separated non-negative integers.
 
-    @param ref_str_arg Reference string encoded as a character string. It must
-    consist of space separated integers in the range 0-9.
+    @param ref_str_arg Reference string encoded as a character string e.g.
+    "2 3 5".
 
     @param ref_str_len If successful, upon return, the length of the reference
-    string. e.g. if ref_str_arg = "2 3 5", *ref_str_len == 3.
+    string. e.g. if ref_str_arg = "2 3 5" then *ref_str_len == 3.
 
-    @result 0 if successful. Otherwise an error occurred.
+    @result 0 if successful. Otherwise an error occurred, in which case the
+    program should bail.
 */
-int len_ref_str_arg(char *ref_str_arg, int *ref_str_len) {
+int get_ref_str_len(const char * const ref_str_arg, int * const ref_str_len) {
     char *endptr = NULL;
     int len = 0;
 
@@ -56,6 +57,7 @@ int len_ref_str_arg(char *ref_str_arg, int *ref_str_len) {
     }
 
     while (*ref_str_arg != '\0') {
+        strtol(str)
         if(isdigit(*ref_str_arg))
             len++;
 
@@ -106,6 +108,8 @@ int arg_ref_str(char *ref_str_arg, int ref_str_len, int *ref_str) {
     return 0;
 }
 
+/* Reference string from exercise 9.8 - the page fault counts match the
+   solution. */
 static char *fixed_ref_str_arg = "1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6";
 
 /*!*/
@@ -173,38 +177,8 @@ int main(int argc, char **argv) {
     char *arg_name = NULL;
     int use_rand = 0;
 
-#define FIXED_REF_STR 1
-
-#if FIXED_REF_STR
-    if(len_ref_str_arg(fixed_ref_str_arg, &ref_str_len))
-        return 2;
-
-    printf("Fixed ref_str_len = %d\n", ref_str_len);
-
-    ref_str = calloc(ref_str_len, sizeof(int));
-
-    if(ref_str == NULL) {
-        printf("calloc() returned NULL! Bye!\n");
-        return 1;
-    }
-
-    if(arg_ref_str(fixed_ref_str_arg, ref_str_len, ref_str))
-        return 3;
-
-#else
-    ref_str = calloc(ref_str_len, sizeof(int));
-
-    if(ref_str == NULL) {
-        printf("calloc() returned NULL! Bye!\n");
-        return 1;
-    }
-
-    if(rand_ref_str(ref_str_len, ref_str))
-        return 2;
-#endif
-
-    if (argc == 1) {
-        if(len_ref_str_arg(fixed_ref_str_arg, &ref_str_len))
+    if (argc == 1) { // Usage: a.out
+        if(get_ref_str_len(fixed_ref_str_arg, &ref_str_len))
             return 2;
 
         ref_str = calloc(ref_str_len, sizeof(int));
@@ -230,8 +204,8 @@ int main(int argc, char **argv) {
         return 4;
     }
 
-    if (argc == 3 && num_page_frames > 0) {
-        if(len_ref_str_arg(fixed_ref_str_arg, &ref_str_len))
+    if (argc == 3 && num_page_frames > 0) { // Usage: a.out -npf 7
+        if(get_ref_str_len(fixed_ref_str_arg, &ref_str_len))
             return 2;
 
         ref_str = calloc(ref_str_len, sizeof(int));
@@ -257,7 +231,7 @@ int main(int argc, char **argv) {
         return 6;
     }
 
-    if(argc == 4 && use_rand) {
+    if(argc == 4 && use_rand) { // a.out -npf 9 -rand
         printf("-rand arg. present\n");
         ref_str_len = 20;
         ref_str = calloc(ref_str_len, sizeof(int));
