@@ -12,33 +12,7 @@
 #include "args.h"
 #include <errno.h>
 
-static const char * usage_str =
-"Usage:\n\
-    a.out\n\
-\n\
-    Default mode: Prints the number of page faults for a fixed reference string\n\
-    and 1 to 7 page frames.\n\
-    Reference string: 1 2 3 4 2 1 5 6 2 1 2 3 7 6 3 2 1 2 3 6.\n\
-----------------\n\
-    a.out -npf 8\n\
-    Run against the fixed reference string using 8 page frames.\n\
-    Argument must be > 0.\n\
-----------------\n\
-    a.out -npf 9 -rand\n\
-    Use 9 page frames against a randomly generated reference string. The random\n\
-    reference string contains only page numbers in the range 0 to 9. The random\n\
-    reference string length is 20 by default. If -npf is not specified 7\n\
-    is the default.\n\
-----------------\n\
-    a.out -npf 10 -rand -rsl 31\n\
-    Use 10 page frames against a randomly generated reference string. The random\n\
-    reference string contains only page numbers in the range 0 to 9. The random\n\
-    reference string length is set to 31. If -npf is not specified 7\n\
-    is the default.\n\
-----------------\n\
-    a.out -npf 11 -rs '1 2 3 4 5 1 2 3 6'\n\
-    Use 11 page frames against the reference string specified by the -rs\n\
-    argument. The single quotes are required.";
+extern const char * usage_str;
 
 /*!
     @function rand_ref_str
@@ -275,8 +249,6 @@ int main(int argc, char **argv) {
     char *arg_name = NULL;
     int use_rand = 0;
 
-
-
     if (argc == 1) { // Usage: a.out
         if(get_ref_str_len(fixed_ref_str_arg, &len))
             return 2;
@@ -285,7 +257,6 @@ int main(int argc, char **argv) {
 
         if(ref_str == NULL) {
             assert(0);
-            printf("calloc() returned NULL! Bye!\n");
             return 1;
         }
 
@@ -312,7 +283,6 @@ int main(int argc, char **argv) {
 
         if(ref_str == NULL) {
             assert(0);
-            printf("calloc() returned NULL! Bye!\n");
             return 1;
         }
 
@@ -332,8 +302,31 @@ int main(int argc, char **argv) {
     }
 
     if(argc == 4 && num_page_frames > 0 && use_rand) { // Usage: a.out -npf 9 -rand
-        printf("-rand arg. present\n");
         len = 20;
+        ref_str = calloc(len, sizeof(int));
+
+        if(ref_str == NULL) {
+            return 1;
+        }
+
+        if(rand_ref_str(len, ref_str))
+            return 2;
+
+        run_cmd(ref_str, len, num_page_frames);
+        free(ref_str);
+        return 0;
+    }
+
+    arg_name = "-rsl"; // Reference string length
+
+    len = -1;
+
+    if(get_arg_pi(argc, argv, &len, arg_name) < 0) {
+        printf("Error getting %s arg.\n", arg_name);
+        return 7;
+    }
+
+    if(argc == 6 && num_page_frames > 0 && use_rand && len > 0) {  // Usage: a.out -npf 10 -rand -rsl 31
         ref_str = calloc(len, sizeof(int));
 
         if(ref_str == NULL) {
@@ -349,20 +342,10 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    // Usage: a.out -npf 10 -rand -rsl 31
+    // @TODO Usage: a.out -npf 11 -rs '1 2 3 4 5 1 2 3 6'
 
     printf("%s", usage_str);
     printf("Unsupported command line arg. combination. Bye!\n");
 
-    return 0;
-    ///////////////////////TODO
-
-    arg_name = "-rsl"; // Reference string length
-
-    if(get_arg_pi(argc, argv, &len, arg_name) < 0) {
-        printf("Error getting %s arg.\n", arg_name);
-        return 5;
-    }
-
-    return 0;
+    return 8;
 }
