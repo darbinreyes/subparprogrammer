@@ -593,4 +593,41 @@ John 200
 MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ ls
 awk.txt    awkdouble  byron0.txt  byron2.txt
 awkbackwards  awkscore  byron1.txt  score.txt
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ subl awk.txt
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ ls
+awk.txt    awkdouble  byron0.txt  byron2.txt
+awkbackwards  awkscore  byron1.txt  score.txt
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ man field
+No manual entry for field
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ >field
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ vim field
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ cx field
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ echo '2 3
+> 5 7'
+2 3
+5 7
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ echo '2 3
+5 7' | field 2
+3
+7
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ echo '2 3
+5 7' | field 1
+2
+5
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ >addup
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ vim addup
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ ls
+addup    awkbackwards  byron0.txt  field
+addup~    awkdouble  byron1.txt  field~
+awk.txt    awkscore  byron2.txt  score.txt
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ cx addup
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ echo '2 3
+5 7' | add
+addbuiltin  addftinfo   addmoddel   addup
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ echo '2 3
+5 7' | addup 2
+10
+MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$ echo '2 3
+5 7' | addup 1
+7
 MacBook-Air:ch4.4_the_awk_pattern_scanning_and_processing_language darbinreyes$
