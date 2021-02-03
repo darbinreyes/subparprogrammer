@@ -1,0 +1,3 @@
+case "$1" in
+hello) echo caca
+esac
