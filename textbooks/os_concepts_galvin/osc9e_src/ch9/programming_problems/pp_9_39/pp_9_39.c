@@ -248,6 +248,7 @@ int main(int argc, char **argv) {
     int *ref_str = NULL;
     char *arg_name = NULL;
     int use_rand = 0;
+    int use_rs = 0;
 
     if (argc == 1) { // Usage: a.out
         if(get_ref_str_len(fixed_ref_str_arg, &len))
@@ -260,8 +261,10 @@ int main(int argc, char **argv) {
             return 1;
         }
 
-        if(ref_str_to_int_arr(fixed_ref_str_arg, len, ref_str))
+        if(ref_str_to_int_arr(fixed_ref_str_arg, len, ref_str)) {
+            free(ref_str);
             return 3;
+        }
 
         run_cmd(ref_str, len, -1);
         free(ref_str);
@@ -286,8 +289,10 @@ int main(int argc, char **argv) {
             return 1;
         }
 
-        if(ref_str_to_int_arr(fixed_ref_str_arg, len, ref_str))
+        if(ref_str_to_int_arr(fixed_ref_str_arg, len, ref_str)) {
+            free(ref_str);
             return 3;
+        }
 
         run_cmd(ref_str, len, num_page_frames);
         free(ref_str);
@@ -302,15 +307,17 @@ int main(int argc, char **argv) {
     }
 
     if(argc == 4 && num_page_frames > 0 && use_rand) { // Usage: a.out -npf 9 -rand
-        len = 20;
+        len = 20; // Default length of random reference string.
         ref_str = calloc(len, sizeof(int));
 
         if(ref_str == NULL) {
             return 1;
         }
 
-        if(rand_ref_str(len, ref_str))
+        if(rand_ref_str(len, ref_str)) {
+            free(ref_str);
             return 2;
+        }
 
         run_cmd(ref_str, len, num_page_frames);
         free(ref_str);
@@ -334,18 +341,48 @@ int main(int argc, char **argv) {
             return 1;
         }
 
-        if(rand_ref_str(len, ref_str))
+        if(rand_ref_str(len, ref_str)) {
+            free(ref_str);
             return 2;
+        }
 
         run_cmd(ref_str, len, num_page_frames);
         free(ref_str);
         return 0;
     }
 
+    arg_name = "-rs"; // Given reference string
+
+    if (get_arg_bool(argc, argv, &use_rs, arg_name) < 0) {
+        printf("Error getting %s arg.\n", arg_name);
+        return 8;
+    }
+
     // @TODO Usage: a.out -npf 11 -rs '1 2 3 4 5 1 2 3 6'
+
+    if (argc == 5 && num_page_frames > 0 && use_rs) {
+        if(get_ref_str_len(argv[use_rs + 1], &len)) // Assumes the reference string is provided after the -rs argument.
+            return 2;
+
+        ref_str = calloc(len, sizeof(int));
+
+        if(ref_str == NULL) {
+            assert(0);
+            return 1;
+        }
+
+        if(ref_str_to_int_arr(argv[use_rs + 1], len, ref_str)) {
+            free(ref_str);
+            return 3;
+        }
+
+        run_cmd(ref_str, len, num_page_frames);
+        free(ref_str);
+        return 0;
+    }
 
     printf("%s", usage_str);
     printf("Unsupported command line arg. combination. Bye!\n");
 
-    return 8;
+    return 9;
 }

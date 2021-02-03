@@ -120,9 +120,10 @@ int get_arg_pi(const int argc, const char * const * const argv, int * const pi, 
 
     @param argv    The usual argv argument to main().
 
-    @param b       Pointer to an int, set to 1 if the argument was present or 0
-                   if not present. The pointer is not touched if an error
-                   occurred.
+    @param b       Pointer to an int, set to the argument number if the argument
+                   was present, the argument number is always greater than or
+                   equal to 1, if the argument was present, or 0 if not present.
+                   The pointer is not touched if an error occurred.
 
     @param arg_name    The name of the command line argument e.g. -rand
 
@@ -139,7 +140,7 @@ int get_arg_bool(const int argc, const char * const * const argv, int * const b,
 
     for (i = 1; i < argc; i++) {
         if (strcmp(argv[i], arg_name) == 0) {
-            *b = 1;
+            *b = i;
             return 1;
         }
     }
