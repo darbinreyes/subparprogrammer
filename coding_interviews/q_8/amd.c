@@ -25,6 +25,7 @@ The key bit of magic is n = n & (n - 1)
 
 this expression clears all the lower order bits that have already been counted
 while leaving any high order bits that are set untouched.
+is there a way to reason towards this solution instead of just memorizing it?
 */
 
 /*
