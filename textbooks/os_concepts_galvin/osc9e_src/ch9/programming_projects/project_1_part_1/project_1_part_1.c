@@ -112,3 +112,109 @@ Modifications
       of free page frames and that you implement a page replacement strategy:
       use either FIFO or LRU page replacement.
 */
+
+#include <string.h>
+#include <stdio.h>
+#include <errno.h>
+#include <assert.h>
+
+
+/*
+
+    Array of virtual addresses read from addresses.txt.
+    It is given that each address fits in a 16-bit integer and that there are
+    1000 of them.
+
+*/
+#define NVADDRESSES 1000
+static short vaddrs[NVADDRESSES];
+
+/*
+Temporary string buffer for use with fgets() when reading addresses.txt line by
+line.
+
+// Temp.
+18446744073709551615 = 2**64 - 1
++1 for sizeof('\n').
+//
+
+The minimum size for this buffer would be
+sizeof("65536") // 5 chars + 1 NULL terminator
++1 for potential new line character after that. Total = 7 bytes.
+
+*/
+static char t_addr_str[sizeof("65536") + 1];
+
+/*!
+
+    @function main
+
+    @discussion Given: to run the program, use `./a.out addresses.txt`.
+
+    @param argc
+
+    @param argv
+
+    @result
+*/
+int main (int argc, const char * const * const argv) {
+    FILE *vaddrs_fp;
+    const char *vaddrs_fname = "addresses.txt";
+    long t_vaddr;
+    size_t i = 0;
+
+
+    assert(sizeof(short) == 2); // Verify the size of integers.
+    assert(sizeof(int) == 4);
+    assert(sizeof(long) == 8);
+
+    if (argc != 1 && argc != 2) {
+        printf("Usage 1: ./a.out. The default input filename is addresses.txt.\n");
+        printf("Usage 2: ./a.out addresses.txt. addresses.txt can be any properly formatted filename.\n");
+        return 1;
+    }
+
+    if (argc == 2) { // Use given filename instead of default.
+        vaddrs_fname = argv[1];
+    }
+
+    printf("Input \"addresses\" filename is: \"%s\"\n", vaddrs_fname);
+
+    printf("OK...\n");
+
+    /*
+        Read file addresses.txt 1 line at a time.
+        For each line, if the line is not empty, and we haven't reached EOF,
+        convert address to an unsigned integer, take lower 16 bits,
+        print the page number and page offset. Compare page offset to
+        correct.txt.
+    */
+
+    errno = 0; // Per man page.
+    vaddrs_fp = fopen (vaddrs_fname, "r");
+
+    if (vaddrs_fp == NULL) {
+        printf("fopen(\"r\") returned NULL! filename = %s. error = %s.\n", vaddrs_fname, strerror(errno));
+        return 3;
+    }
+
+    clearerr(vaddrs_fp); // Not necessary at this point, just a precaution/reminder for later.
+    while (fgets(t_addr_str, sizeof(t_addr_str), vaddrs_fp) && !feof(vaddrs_fp)) {
+        printf("line %lu = %s", i, t_addr_str);
+        i++;
+    }
+
+    if (feof(vaddrs_fp) && ferror(vaddrs_fp)) {
+        printf("Got fgets() error! filename = %s. error = %s.\n", vaddrs_fname, strerror(errno));
+        return 4; // Bail. FYI: The OS will close the file.
+    }
+
+    errno = 0;
+    if (fclose(vaddrs_fp)) {
+        printf("fclose() returned error! filename = %s. error = %s.\n", vaddrs_fname, strerror(errno));
+        return 5;
+    }
+
+    printf("Done.\n");
+    return 0;
+}
