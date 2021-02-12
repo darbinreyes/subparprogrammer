@@ -137,24 +137,89 @@ Modifications
 #include <limits.h>
 
 /*!
-    @defined
-    @discussion Given: Virtual address space size: 2^16 = 65536. Therefore the
-    max virtual address is 1 less than that.
+    @defined V_ADDR_UINT_T
+    @discussion Unsigned integer type used to represent virtual addresses.
 */
-#define MAX_VADDRESS ((unsigned long) ((1 << 16) - 1))
+#define V_ADDR_UINT_T unsigned short
 
 /*!
-    @defined NVADDRESSES
-    @discussion  It is given that each address fits in a 16-bit integer and that
-    there are 1000 of them.
+    @typedef v_addr_t
+    @discussion Typedef for the unsigned integer type used to represent virtual
+    addresses.
 */
-#define NVADDRESSES 1000U
+typedef V_ADDR_UINT_T v_addr_t;
 
-static unsigned short vaddrs[NVADDRESSES]; /* Array of virtual addresses read
+/*!
+    @defined V_ADDR_NBITS
+    @discussion The number of bits in a virtual address.
+*/
+#define V_ADDR_NBITS (sizeof(v_addr_t) * 8)
+
+/*!
+    @defined MAX_V_ADDR
+    @discussion The max value of a virtual address is equal to the max unsigned
+    integer value that can be represented with the number of bits in a virtual
+    address.
+
+*/
+#define MAX_V_ADDR ((v_addr_t)~0UL)
+
+/*
+    // @TODO Why didn't this work???? //#define MAX_V_ADDR (~((v_addr_t)0U))
+    $ a.out addresses_error.txt
+    ...
+    line # 999.
+    line is 45563
+    Virtual address # 998. 45563 = 0xB1FB
+    line # 1000.
+    line is 66666
+    Virtual address # 999. 1130 = 0x46A
+    Done.
+*/
+
+/*!
+    @defined MAX_V_ADDR_UL
+    @discussion MAX_V_ADDR value type cast to an unsigned long. Used for
+    verifying that addresses read from addresses.txt are within the valid range
+    for virtual addresses.
+*/
+#define MAX_V_ADDR_UL ((unsigned long) MAX_V_ADDR)
+
+
+/*!
+    @defined MAX_NUM_V_ADDRS
+    @discussion The max number of virtual addresses allowed in the addresses.txt
+    file.
+*/
+#define MAX_NUM_V_ADDRS 1000U
+
+static unsigned short vaddrs[MAX_NUM_V_ADDRS]; /* Array of virtual addresses read
                                               from addresses.txt. It is given
                                               that each address fits in a 16-bit
                                               integer and that there are 1000 of
                                               them. */
+
+/*!
+    @defined V_ADDR_STR_SIZE
+    @discussion Size of temporary string buffer for use with fgets() when
+    reading addresses.txt line by line. Although the initial implementation of
+    this program uses 16-bit virtual addresses the buffer size used here assumes 64-bits so that this value need
+    not be updated if the number of bits in a virtual address is increased. The
+    buffer size calculation is:
+    2^64 - 1
+    = (decimal, 20 digits) 18446744073709551615
+    = (octal, 22 digits) 1777777777777777777777
+    = (decimal, 2+20 digits) 0x18446744073709551615 // Allowing for leading 0x
+    = (octal, 1+22 digits) 01777777777777777777777  // Allowing for leading 0
+    = (decimal, 1+2+20 digits) -0x18446744073709551615 // Allowing for leading 0x and sign
+    = (octal, 1+1+22 digits) -01777777777777777777777  // Allowing for leading 0 and sign
+    Thus we conclude 1+1+22 = 24 characters are required to read a virtual
+    address value as a string. Adding +1 for a null terminator and +1 for a
+    potential new line character yields a final total of 26 characters.
+    Finally,the value is arbitrarily increased to 32, the next nearest power of
+    2.
+*/
+#define V_ADDR_STR_SIZE (32)
 
 /*!
     @function init_vaddrs
@@ -169,14 +234,7 @@ int init_vaddrs(const char *vaddrs_fname) {
     size_t i = 0;
     unsigned long t_vaddr = 0;
     char *endptr = NULL;
-    char t_addr_str[sizeof("65536") + 1]; /* Temporary string buffer for use
-                                             with fgets() when reading
-                                             addresses.txt line by line.
-                                             The minimum size for this buffer is
-                                             sizeof("65536") = 5 digits + 1 NULL
-                                             terminator +1 for potential new
-                                             line character after that.
-                                             Total = 7 bytes. */
+    char t_addr_str[V_ADDR_STR_SIZE];
 
     if (vaddrs_fname == NULL) {
         assert(0);
@@ -242,13 +300,13 @@ int init_vaddrs(const char *vaddrs_fname) {
                 return 5;
             }
 
-            if (t_vaddr > MAX_VADDRESS) {
-                printf("Virtual address out of range (> %lu)! %lu = 0x%lX\n", MAX_VADDRESS, t_vaddr, t_vaddr);
+            if (t_vaddr > MAX_V_ADDR_UL) {
+                printf("Virtual address out of range (> %lu)! %lu = 0x%lX\n", MAX_V_ADDR_UL, t_vaddr, t_vaddr);
                 return 6;
             }
 
-            if (i >= NVADDRESSES) {
-                printf("Number of virtual addresses exceeds max allowed (%d).\n", NVADDRESSES);
+            if (i >= MAX_NUM_V_ADDRS) {
+                printf("Number of virtual addresses exceeds max allowed (%d).\n", MAX_NUM_V_ADDRS);
                 return 7;
             }
 
@@ -304,6 +362,7 @@ int get_arg_vaddrs_filename (int argc, const char * const * const argv, const ch
 
     return 0;
 }
+
 /*!
 
     @function main
@@ -352,3 +411,44 @@ int main (int argc, const char * const * const argv) {
 
     return 0;
 }
+
+// Scratch work //@TODO
+#define V_MEM_SIZE (1 << 16)
+#define P_MEM_SIZE (1 << 16)
+#define PAGE_SIZE (1 << 8)
+#define FRAME_SIZE PAGE_SIZE
+#define BACKING_STORE_SIZE (1 << 16)
+
+static unsigned char p_mem[P_MEM_SIZE];
+
+typedef struct _page_table_entry_t {
+    frame_number_t fn;
+    unsigned char in_pmem:1, // 1 = the page is in memory at frame number fn, 0 = page fault, page is in backing store.
+                  // Currently unused fields.
+                  mode:3, // UNIX style rwx permissions for this page.
+                  cp_on_w:1, // 1 = This page is copy on write, 0 = not copy on write.
+                  locked:1, // 1 = This page is locked into memory by the OS, it cannot be kicked out/replaced.
+                        :2;
+} page_table_entry_t;
+
+#define PAGE_TABLE_LEN (V_MEM_SIZE/PAGE_SIZE)
+
+static page_table_entry_t page_table[PAGE_TABLE_LEN];
+
+typedef v_addr_t p_addr_t;
+
+/*!
+    @discussion Translates the given virtual address to a physical address.
+
+    @result 0 if successful. Otherwise error.
+*/
+int translate_v2p_addr(v_addr_t vaddr, p_addr_t *paddr) {
+    /* consult the page table, if in mem. return physical address, else a page
+       fault occurred, read the page from the backing store into physical memory
+       update the page table, re-do the translation, return the physical
+       address.
+    */
+    return 0;
+}
+
+static p_addr_t next_free_frame_base_addr = 0;
