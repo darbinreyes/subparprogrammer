@@ -137,23 +137,23 @@ Modifications
 #include <limits.h>
 
 /*!
-    @defined V_ADDR_UINT_T
+    @defined ADDR_UINT_T
     @discussion Unsigned integer type used to represent virtual addresses.
 */
-#define V_ADDR_UINT_T unsigned short
+#define ADDR_UINT_T unsigned short
 
 /*!
-    @typedef v_addr_t
+    @typedef addr_t
     @discussion Typedef for the unsigned integer type used to represent virtual
     addresses.
 */
-typedef V_ADDR_UINT_T v_addr_t;
+typedef ADDR_UINT_T addr_t;
 
 /*!
-    @defined V_ADDR_NBITS
+    @defined ADDR_NBITS
     @discussion The number of bits in a virtual address.
 */
-#define V_ADDR_NBITS (sizeof(v_addr_t) * 8)
+#define ADDR_NBITS (sizeof(addr_t) * 8)
 
 /*!
     @defined MAX_V_ADDR
@@ -162,10 +162,10 @@ typedef V_ADDR_UINT_T v_addr_t;
     address.
 
 */
-#define MAX_V_ADDR ((v_addr_t)~0UL)
+#define MAX_V_ADDR ((addr_t)~0UL)
 
 /*
-    // @TODO Why didn't this work???? //#define MAX_V_ADDR (~((v_addr_t)0U))
+    // @TODO Why didn't this work???? //#define MAX_V_ADDR (~((addr_t)0U))
     $ a.out addresses_error.txt
     ...
     line # 999.
@@ -181,7 +181,8 @@ typedef V_ADDR_UINT_T v_addr_t;
     @defined MAX_V_ADDR_UL
     @discussion MAX_V_ADDR value type cast to an unsigned long. Used for
     verifying that addresses read from addresses.txt are within the valid range
-    for virtual addresses.
+    for virtual addresses. addresses.txt is parsed using strtol(), hence the use
+    of long.
 */
 #define MAX_V_ADDR_UL ((unsigned long) MAX_V_ADDR)
 
@@ -193,7 +194,7 @@ typedef V_ADDR_UINT_T v_addr_t;
 */
 #define MAX_NUM_V_ADDRS 1000U
 
-static unsigned short vaddrs[MAX_NUM_V_ADDRS]; /* Array of virtual addresses read
+static addr_t vaddrs[MAX_NUM_V_ADDRS]; /* Array of virtual addresses read
                                               from addresses.txt. It is given
                                               that each address fits in a 16-bit
                                               integer and that there are 1000 of
@@ -224,14 +225,14 @@ static unsigned short vaddrs[MAX_NUM_V_ADDRS]; /* Array of virtual addresses rea
 /*!
     @function init_vaddrs
     @discussion Initializes the vaddrs array according to the contents of the
-    given filename
+    given filename.
     @param vaddrs_fname The filename of the file from which to read the virtual
     addresses.
     @result 0 if successful, otherwise error. The program should terminate.
 */
 int init_vaddrs(const char *vaddrs_fname) {
     FILE *vaddrs_fp = NULL;
-    size_t i = 0;
+    size_t i = 0, ln = 1;
     unsigned long t_vaddr = 0;
     char *endptr = NULL;
     char t_addr_str[V_ADDR_STR_SIZE];
@@ -240,15 +241,6 @@ int init_vaddrs(const char *vaddrs_fname) {
         assert(0);
         return 1;
     }
-
-    /* TEMP.
-       x Read file addresses.txt 1 line at a time.
-        For each line, if the line is not empty, and we haven't reached EOF,
-       x convert address to an unsigned integer,
-        take lower 16 bits,
-        print the page number and page offset. Compare page offset to
-        correct.txt.
-    */
 
     errno = 0; // Per man page.
     vaddrs_fp = fopen (vaddrs_fname, "r");
@@ -272,52 +264,54 @@ int init_vaddrs(const char *vaddrs_fname) {
             break;
         }
 
-        printf("line # %lu.\n", i + 1);
+        printf("line # %lu.\n", ln++);
 
-        if (*t_addr_str != '\0') {
-            if (t_addr_str[strlen(t_addr_str) - 1] == '\n')
-                printf("line is %s", t_addr_str);
-            else
-                printf("line is %s\n", t_addr_str);
+        if (!strcmp(t_addr_str, "\n")) // Skip blank lines.
+            continue;
 
-            // FYI: strtol() with base = 0 provides handling for hex and octal.
-            errno = 0;
-            t_vaddr = (unsigned long) strtol(t_addr_str, &endptr, 0);
-
-            if (t_addr_str == endptr) {
-                printf("strtol() found no digits at all! error = %s.\n", \
-                       strerror(errno));
-                return 3;
-            }
-
-            if (*endptr != '\n' && *endptr != '\0') {
-                printf("strtol() returned unexpected endptr!\n");
-                return 4;
-            }
-
-            if (errno != 0 && (t_vaddr == LONG_MAX || t_vaddr == LONG_MIN)) {
-                printf("strtol() overflowed or underflowed! error = %s.\n", strerror(errno));
-                return 5;
-            }
-
-            if (t_vaddr > MAX_V_ADDR_UL) {
-                printf("Virtual address out of range (> %lu)! %lu = 0x%lX\n", MAX_V_ADDR_UL, t_vaddr, t_vaddr);
-                return 6;
-            }
-
-            if (i >= MAX_NUM_V_ADDRS) {
-                printf("Number of virtual addresses exceeds max allowed (%d).\n", MAX_NUM_V_ADDRS);
-                return 7;
-            }
-
-            vaddrs[i] = (unsigned short) t_vaddr;
-            printf("Virtual address # %lu. %u = 0x%X\n", i, vaddrs[i], vaddrs[i]);
-            i++;
-
-        } else {
+        if (*t_addr_str == '\0') {
             printf("Unexpected empty string!\n");
             return 8;
         }
+
+        if (t_addr_str[strlen(t_addr_str) - 1] == '\n')
+            printf("line is %s", t_addr_str);
+        else
+            printf("line is %s\n", t_addr_str);
+
+        // FYI: strtol() with base = 0 provides handling for hex and octal.
+        errno = 0;
+        t_vaddr = (unsigned long) strtol(t_addr_str, &endptr, 0);
+
+        if (t_addr_str == endptr) {
+            printf("strtol() found no digits at all! error = %s.\n", \
+                   strerror(errno));
+            return 3;
+        }
+
+        if (*endptr != '\n' && *endptr != '\0') {
+            printf("strtol() returned unexpected endptr!\n");
+            return 4;
+        }
+
+        if (errno != 0 && (t_vaddr == LONG_MAX || t_vaddr == LONG_MIN)) {
+            printf("strtol() overflowed or underflowed! error = %s.\n", strerror(errno));
+            return 5;
+        }
+
+        if (t_vaddr > MAX_V_ADDR_UL) {
+            printf("Virtual address out of range (> %lu)! %lu = 0x%lX\n", MAX_V_ADDR_UL, t_vaddr, t_vaddr);
+            return 6;
+        }
+
+        if (i >= MAX_NUM_V_ADDRS) {
+            printf("Number of virtual addresses exceeds max allowed (%d).\n", MAX_NUM_V_ADDRS);
+            return 7;
+        }
+
+        vaddrs[i] = (addr_t) t_vaddr;
+        printf("Virtual address # %lu. %u = 0x%X\n", i, vaddrs[i], vaddrs[i]);
+        i++;
 
     }
 
@@ -367,7 +361,7 @@ int get_arg_vaddrs_filename (int argc, const char * const * const argv, const ch
 
     @function main
 
-    @discussion Given: to run the program, use `./a.out addresses.txt`.
+    @discussion To run the program, use `./a.out addresses.txt`.
 
     @param argc
 
@@ -412,43 +406,41 @@ int main (int argc, const char * const * const argv) {
     return 0;
 }
 
-// Scratch work //@TODO
-#define V_MEM_SIZE (1 << 16)
-#define P_MEM_SIZE (1 << 16)
-#define PAGE_SIZE (1 << 8)
-#define FRAME_SIZE PAGE_SIZE
-#define BACKING_STORE_SIZE (1 << 16)
+// // Scratch work //@TODO
+// #define V_MEM_SIZE (1 << 16)
+// #define P_MEM_SIZE (1 << 16)
+// #define PAGE_SIZE (1 << 8)
+// #define FRAME_SIZE PAGE_SIZE
+// #define BACKING_STORE_SIZE (1 << 16)
 
-static unsigned char p_mem[P_MEM_SIZE];
+// static unsigned char p_mem[P_MEM_SIZE];
 
-typedef struct _page_table_entry_t {
-    frame_number_t fn;
-    unsigned char in_pmem:1, // 1 = the page is in memory at frame number fn, 0 = page fault, page is in backing store.
-                  // Currently unused fields.
-                  mode:3, // UNIX style rwx permissions for this page.
-                  cp_on_w:1, // 1 = This page is copy on write, 0 = not copy on write.
-                  locked:1, // 1 = This page is locked into memory by the OS, it cannot be kicked out/replaced.
-                        :2;
-} page_table_entry_t;
+// typedef struct _page_table_entry_t {
+//     frame_number_t fn;
+//     unsigned char in_pmem:1, // 1 = the page is in memory at frame number fn, 0 = page fault, page is in backing store.
+//                   // Currently unused fields.
+//                   mode:3, // UNIX style rwx permissions for this page.
+//                   cp_on_w:1, // 1 = This page is copy on write, 0 = not copy on write.
+//                   locked:1, // 1 = This page is locked into memory by the OS, it cannot be kicked out/replaced.
+//                         :2;
+// } page_table_entry_t;
 
-#define PAGE_TABLE_LEN (V_MEM_SIZE/PAGE_SIZE)
+// #define PAGE_TABLE_LEN (V_MEM_SIZE/PAGE_SIZE)
 
-static page_table_entry_t page_table[PAGE_TABLE_LEN];
+// static page_table_entry_t page_table[PAGE_TABLE_LEN];
 
-typedef v_addr_t p_addr_t;
+// /*!
+//     @discussion Translates the given virtual address to a physical address.
 
-/*!
-    @discussion Translates the given virtual address to a physical address.
+//     @result 0 if successful. Otherwise error.
+// */
+// int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
+//     /* consult the page table, if in mem. return physical address, else a page
+//        fault occurred, read the page from the backing store into physical memory
+//        update the page table, re-do the translation, return the physical
+//        address.
+//     */
+//     return 0;
+// }
 
-    @result 0 if successful. Otherwise error.
-*/
-int translate_v2p_addr(v_addr_t vaddr, p_addr_t *paddr) {
-    /* consult the page table, if in mem. return physical address, else a page
-       fault occurred, read the page from the backing store into physical memory
-       update the page table, re-do the translation, return the physical
-       address.
-    */
-    return 0;
-}
-
-static p_addr_t next_free_frame_base_addr = 0;
+// static addr_t next_free_frame_base_addr = 0;
