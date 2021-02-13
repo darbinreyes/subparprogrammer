@@ -204,7 +204,8 @@ static addr_t vaddrs[MAX_NUM_V_ADDRS]; /* Array of virtual addresses read
     @defined V_ADDR_STR_SIZE
     @discussion Size of temporary string buffer for use with fgets() when
     reading addresses.txt line by line. Although the initial implementation of
-    this program uses 16-bit virtual addresses the buffer size used here assumes 64-bits so that this value need
+    this program uses 16-bit virtual addresses the buffer size used here assumes
+    64-bits so that this value need
     not be updated if the number of bits in a virtual address is increased. The
     buffer size calculation is:
     2^64 - 1
@@ -212,8 +213,10 @@ static addr_t vaddrs[MAX_NUM_V_ADDRS]; /* Array of virtual addresses read
     = (octal, 22 digits) 1777777777777777777777
     = (decimal, 2+20 digits) 0x18446744073709551615 // Allowing for leading 0x
     = (octal, 1+22 digits) 01777777777777777777777  // Allowing for leading 0
-    = (decimal, 1+2+20 digits) -0x18446744073709551615 // Allowing for leading 0x and sign
-    = (octal, 1+1+22 digits) -01777777777777777777777  // Allowing for leading 0 and sign
+    = (decimal, 1+2+20 digits) -0x18446744073709551615
+    // Allowing for leading 0x and sign
+    = (octal, 1+1+22 digits) -01777777777777777777777
+    // Allowing for leading 0 and sign
     Thus we conclude 1+1+22 = 24 characters are required to read a virtual
     address value as a string. Adding +1 for a null terminator and +1 for a
     potential new line character yields a final total of 26 characters.
@@ -246,8 +249,8 @@ int init_vaddrs(const char *vaddrs_fname) {
     vaddrs_fp = fopen (vaddrs_fname, "r");
 
     if (vaddrs_fp == NULL) {
-        printf("fopen(\"r\") returned NULL! filename = %s. error = %s.\n", \
-               vaddrs_fname, strerror(errno));
+        fprintf(stderr, "fopen(\"r\") returned NULL! filename = %s. \
+                error = %s.\n", vaddrs_fname, strerror(errno));
         return 2;
     }
 
@@ -270,42 +273,45 @@ int init_vaddrs(const char *vaddrs_fname) {
             continue;
 
         if (*t_addr_str == '\0') {
-            printf("Unexpected empty string!\n");
+            fprintf(stderr, "Unexpected empty string!\n");
             return 8;
         }
 
         if (t_addr_str[strlen(t_addr_str) - 1] == '\n')
-            printf("line is %s", t_addr_str);
+            fprintf(stderr, "line is %s", t_addr_str);
         else
-            printf("line is %s\n", t_addr_str);
+            fprintf(stderr, "line is %s\n", t_addr_str);
 
         // FYI: strtol() with base = 0 provides handling for hex and octal.
         errno = 0;
         t_vaddr = (unsigned long) strtol(t_addr_str, &endptr, 0);
 
         if (t_addr_str == endptr) {
-            printf("strtol() found no digits at all! error = %s.\n", \
+            fprintf(stderr, "strtol() found no digits at all! error = %s.\n", \
                    strerror(errno));
             return 3;
         }
 
         if (*endptr != '\n' && *endptr != '\0') {
-            printf("strtol() returned unexpected endptr!\n");
+            fprintf(stderr, "strtol() returned unexpected endptr!\n");
             return 4;
         }
 
         if (errno != 0 && (t_vaddr == LONG_MAX || t_vaddr == LONG_MIN)) {
-            printf("strtol() overflowed or underflowed! error = %s.\n", strerror(errno));
+            fprintf(stderr, "strtol() overflowed or underflowed! \
+                    error = %s.\n", strerror(errno));
             return 5;
         }
 
         if (t_vaddr > MAX_V_ADDR_UL) {
-            printf("Virtual address out of range (> %lu)! %lu = 0x%lX\n", MAX_V_ADDR_UL, t_vaddr, t_vaddr);
+            fprintf(stderr, "Virtual address out of range (> %lu)! %lu \
+                    = 0x%lX\n", MAX_V_ADDR_UL, t_vaddr, t_vaddr);
             return 6;
         }
 
         if (i >= MAX_NUM_V_ADDRS) {
-            printf("Number of virtual addresses exceeds max allowed (%d).\n", MAX_NUM_V_ADDRS);
+            fprintf(stderr, "Number of virtual addresses exceeds max allowed\
+                             (%d).\n", MAX_NUM_V_ADDRS);
             return 7;
         }
 
@@ -319,13 +325,15 @@ int init_vaddrs(const char *vaddrs_fname) {
         /* fgets() function does not distinguish between end-of-file and error,
            and callers must use feof(3) and ferror(3) to determine which
            occurred. */
-        printf("Got fgets() error! filename = %s. error = %s.\n", vaddrs_fname, strerror(errno));
+        fprintf(stderr, "Got fgets() error! filename = %s. error = %s.\n", \
+                vaddrs_fname, strerror(errno));
         return 9; // Bail. FYI: The OS will close the file.
     }
 
     errno = 0;
     if (fclose(vaddrs_fp)) {
-        printf("fclose() returned error! filename = %s. error = %s.\n", vaddrs_fname, strerror(errno));
+        fprintf(stderr, "fclose() returned error! filename = %s. \
+                error = %s.\n", vaddrs_fname, strerror(errno));
         return 9;
     }
 
@@ -340,7 +348,8 @@ int init_vaddrs(const char *vaddrs_fname) {
     @param fname
     @result 0 if successful. Error otherwise.
 */
-int get_arg_vaddrs_filename (int argc, const char * const * const argv, const char ** const fname) {
+int get_arg_vaddrs_filename (int argc, const char * const * const argv, \
+                             const char ** const fname) {
     const char *vaddrs_fname = "addresses.txt";
 
     if (argc < 1 || argv == NULL || fname == NULL) {
