@@ -143,6 +143,15 @@ Modifications
 #define ADDR_NBITS (16U)
 
 /*!
+    @defined PAGE_OFFSET_NBITS
+    @discussion The number of bits used to represent a byte offset into a page.
+    This must be less than the number of bits in an address.
+
+    @TODO assert(PAGE_OFFSET_NBITS < ADDR_NBITS)
+*/
+#define PAGE_OFFSET_NBITS (8U)
+
+/*!
     @defined ADDR_UINT_T
     @discussion Unsigned integer type used to represent virtual addresses.
 */
@@ -348,7 +357,7 @@ int get_arg_vaddrs_filename (int argc, const char * const * const argv, \
     return 0;
 }
 
-int translate_main(void);
+int translate_all(void);
 
 /*!
 
@@ -374,6 +383,7 @@ int main (int argc, const char * const * const argv) {
     assert(sizeof(int) == 4);
     assert(sizeof(long) == 8);
     assert(ADDR_NBITS < sizeof(addr_t) * 8);
+    assert(PAGE_OFFSET_NBITS < ADDR_NBITS);
 
     if (argc != 1 && argc != 2) {
         printf("Usage 1: ./a.out. The default input filename is "\
@@ -395,21 +405,12 @@ int main (int argc, const char * const * const argv) {
         return 3;
     }
 
-    translate_main();
+    translate_all();
 
     printf("Done.\n");
 
     return 0;
 }
-
-/*!
-    @defined PAGE_OFFSET_NBITS
-    @discussion The number of bits used to represent a byte offset into a page.
-    This must be less than the number of bits in an address.
-
-    @TODO assert(PAGE_OFFSET_NBITS < ADDR_NBITS)
-*/
-#define PAGE_OFFSET_NBITS (8)
 
 /*!
     @defined PAGE_SIZE
@@ -433,9 +434,6 @@ int main (int argc, const char * const * const argv) {
 /*!
     @defined V_MEM_SIZE
     @discussion The size of virtual memory in bytes.
-
-    @TODO This will probably not work with ADDR_NBITS == 64.
-    assert(ADDR_NBITS < 64).
 */
 #define V_MEM_SIZE (1UL << ADDR_NBITS)
 
@@ -450,8 +448,6 @@ int main (int argc, const char * const * const argv) {
     @discussion The size of the backing store memory in bytes.
 */
 #define BACKING_STORE_SIZE V_MEM_SIZE
-
-static unsigned char p_mem[P_MEM_SIZE];
 
 // Scratch work //@TODO
 
@@ -485,22 +481,12 @@ typedef struct _pg_tbl_entry_t {
 */
 #define NUM_BS_PAGES (BACKING_STORE_SIZE/PAGE_SIZE)
 
-static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
-
-/*!
-    @discussion Buffer used for destination of a read operation on the backing
-    store.
-*/
-static unsigned char page_io_buffer[PAGE_SIZE];
-
-/*!
-    @discussion The page frame number of the next free frame. When a page fault
-    occurs, the new page is read into physical memory at byte address ==
-    free_framen * PAGE_SIZE.
-*/
-static addr_t free_framen = 0;
-
-int backing_store_read(addr_t page_num) {
+int backing_store_read(addr_t page_num, unsigned char *dst) {
+    /*!
+        @discussion Buffer used for destination of a read operation on the backing
+        store.
+    */
+    static unsigned char page_io_buffer[PAGE_SIZE];
     const char *bs_fname = "BACKING_STORE.bin";
     static FILE *bs_fp;
     size_t nb;
@@ -549,10 +535,13 @@ int backing_store_read(addr_t page_num) {
         return 5;
     }
 
-    memcpy(p_mem + free_framen++ * PAGE_SIZE, page_io_buffer, sizeof(page_io_buffer));
+    memcpy(dst, page_io_buffer, sizeof(page_io_buffer));
+    //memcpy(p_mem + ffn * PAGE_SIZE, page_io_buffer, sizeof(page_io_buffer));
 
     return 0;
 }
+
+static unsigned char p_mem[P_MEM_SIZE];
 
 /*!
     @discussion Translates the given virtual address to a physical address.
@@ -560,14 +549,23 @@ int backing_store_read(addr_t page_num) {
     @result 0 if successful. Otherwise error.
 */
 int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
+    /*!
+        @discussion The page frame number of the next free frame. When a page fault
+        occurs, the new page is read into physical memory at byte address ==
+        free_framen * PAGE_SIZE.
+    */
+    static addr_t free_framen = 0;
+    static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
     addr_t page_offset, page_num, frame_num;
     /* consult the page table, if in mem. return physical address, else a page
        fault occurred, read the page from the backing store into physical memory
        update the page table, re-do the translation, return the physical
        address.
     */
-    if (paddr == NULL)
+    if (paddr == NULL) {
+        assert(0);
         return 1;
+    }
 
     page_offset = (vaddr & (PAGE_SIZE - 1));
     page_num = (vaddr & (V_MEM_SIZE - 1)) >> PAGE_OFFSET_NBITS;
@@ -579,11 +577,23 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     if (page_table[page_num].im) { // The page is in memory.
         frame_num = page_table[page_num].fn;
     } else { // Page fault! Get the page from the backing store, update page_table.
-        if(backing_store_read(page_num))
+        frame_num = free_framen;
+
+        if (frame_num >= NUM_PAGE_FRAMES) {
+            fprintf(stderr, "frame_num is out of bounds %lu >= %lu.\n", \
+                    frame_num, NUM_PAGE_FRAMES);
+            assert(0);
+            return 2;
+        }
+
+        if(backing_store_read(page_num, p_mem + frame_num * PAGE_SIZE)) {
             assert(0); // @TODO Handle gracefully with asserts off.
-        frame_num = free_framen - 1;
+            return 3;
+        }
+
         page_table[page_num].fn = frame_num;
         page_table[page_num].im = 1;
+        free_framen++;
     }
 
     assert(frame_num < NUM_PAGE_FRAMES);
@@ -595,11 +605,11 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
 /*
     @discussion Translates each address.
 */
-int translate_main(void) {
+int translate_all(void) {
     size_t i;
     addr_t paddr;
 
-    for (i = 0; i < MAX_NUM_V_ADDRS; i++) {
+    for (i = 0; i < vaddrs_len; i++) {
         if(translate_v2p_addr(vaddrs[i], &paddr)) {
             assert(0);
             return 1;
