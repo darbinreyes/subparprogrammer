@@ -269,9 +269,9 @@ int init_vaddrs(const char *vaddrs_fname) {
         }
 
         if (t_addr_str[strlen(t_addr_str) - 1] == '\n')
-            fprintf(stderr, "line is %s", t_addr_str);
+            printf("line is %s", t_addr_str);
         else
-            fprintf(stderr, "line is %s\n", t_addr_str);
+            printf("line is %s\n", t_addr_str);
 
         // FYI: strtol() with base = 0 provides handling for hex and octal.
         errno = 0;
