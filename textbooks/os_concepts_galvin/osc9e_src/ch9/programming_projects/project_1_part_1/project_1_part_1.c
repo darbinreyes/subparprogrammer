@@ -216,11 +216,14 @@ static size_t vaddrs_len; // Number of addresses read from addresses.txt
 
 /*!
     @function init_vaddrs
+
     @discussion Initializes the vaddrs array according to the contents of the
     given filename.
+
     @param vaddrs_fname The filename of the file from which to read the virtual
     addresses e.g. addresses.txt.
-    @result 0 if successful, otherwise error. The program should terminate.
+
+    @result 0 if successful. Otherwise error, the program should terminate.
 */
 int init_vaddrs(const char *vaddrs_fname) {
     FILE *vaddrs_fp = NULL;
@@ -333,10 +336,13 @@ int init_vaddrs(const char *vaddrs_fname) {
 
 /*!
     @function get_arg_vaddrs_filename
+
     @discussion Gets the addresses.txt filename argument.
-    @param argc
-    @param argv
-    @param fname
+
+    @param argc The usual main() arg.
+    @param argv The usual main() arg.
+    @param fname The filename if successful.
+
     @result 0 if successful. Error otherwise.
 */
 int get_arg_vaddrs_filename (int argc, const char * const * const argv, \
@@ -357,7 +363,37 @@ int get_arg_vaddrs_filename (int argc, const char * const * const argv, \
     return 0;
 }
 
-int translate_all(void);
+int translate_v2p_addr(addr_t vaddr, addr_t *paddr);
+int p_mem_read(addr_t paddr, signed char *v);
+
+/*
+    @function translate_all
+    @discussion Translates all virtual addresses to physical addresses and
+    prints the result.
+    @result 0 if successful.
+*/
+int translate_all(void) {
+    size_t i;
+    addr_t paddr;
+    signed char v;
+
+    for (i = 0; i < vaddrs_len; i++) {
+        if(translate_v2p_addr(vaddrs[i], &paddr)) {
+            assert(0);
+            return 1;
+        }
+        //Virtual address: 16916 Physical address: 20 Value: 0
+        if(p_mem_read(paddr, &v)) {
+            assert(0);
+            return 2;
+        }
+
+        printf("Virtual address: %lu Physical address: %lu Value: %d\n",
+               vaddrs[i], paddr, v);
+    }
+
+    return 0;
+}
 
 /*!
 
@@ -365,9 +401,8 @@ int translate_all(void);
 
     @discussion To run the program, use `./a.out addresses.txt`.
 
-    @param argc
-
-    @param argv
+    @param argc The usual main() arg.
+    @param argv The usual main() arg.
 
     @result 0 if successful.
 */
@@ -382,6 +417,7 @@ int main (int argc, const char * const * const argv) {
     assert(sizeof(short) == 2); // Verify the size of integers.
     assert(sizeof(int) == 4);
     assert(sizeof(long) == 8);
+    /* This program only deals with virtual addresses less than 64-bits wide. */
     assert(ADDR_NBITS < sizeof(addr_t) * 8);
     assert(PAGE_OFFSET_NBITS < ADDR_NBITS);
 
@@ -405,7 +441,9 @@ int main (int argc, const char * const * const argv) {
         return 3;
     }
 
-    translate_all();
+    if (translate_all()) {
+        return 4;
+    }
 
     printf("Done.\n");
 
@@ -449,8 +487,6 @@ int main (int argc, const char * const * const argv) {
 */
 #define BACKING_STORE_SIZE V_MEM_SIZE
 
-// Scratch work //@TODO
-
 typedef struct _pg_tbl_entry_t {
     addr_t fn;          // frame number
     unsigned char im:1; // 1 = the page is in memory at frame number fn, 0 = page fault, page is in backing store.
@@ -481,15 +517,30 @@ typedef struct _pg_tbl_entry_t {
 */
 #define NUM_BS_PAGES (BACKING_STORE_SIZE/PAGE_SIZE)
 
+/*!
+    @function backing_store_read
+
+    @discussion Reads a page (page_num) from the backing store into the
+    specified address in physical memory (dst).
+
+    @param page_num Identifies the location of a page on the backing to read
+    from.
+    @param dst The destination address in physical memory for the read.
+
+    @result 0 if successful.
+*/
 int backing_store_read(addr_t page_num, unsigned char *dst) {
-    /*!
-        @discussion Buffer used for destination of a read operation on the backing
-        store.
-    */
+    /*! @discussion Temporary buffer used for destination of a read operation on
+        the backing store. */
     static unsigned char page_io_buffer[PAGE_SIZE];
     const char *bs_fname = "BACKING_STORE.bin";
     static FILE *bs_fp;
     size_t nb;
+
+    if (dst == NULL) {
+        assert(0);
+        return 1;
+    }
 
     if (page_num >= NUM_BS_PAGES) {
         fprintf(stderr, "page_num is out of bounds for backing store. " \
@@ -518,9 +569,7 @@ int backing_store_read(addr_t page_num, unsigned char *dst) {
     }
 
     errno = 0;
-
     nb = fread(page_io_buffer, 1, sizeof(page_io_buffer), bs_fp);
-
     if (nb < sizeof(page_io_buffer) && ferror(bs_fp)) {
         fprintf(stderr, "fread() short byte count + error. filename = %s. "
                 "error = %s.\n", bs_fname, strerror(errno));
@@ -536,7 +585,6 @@ int backing_store_read(addr_t page_num, unsigned char *dst) {
     }
 
     memcpy(dst, page_io_buffer, sizeof(page_io_buffer));
-    //memcpy(p_mem + ffn * PAGE_SIZE, page_io_buffer, sizeof(page_io_buffer));
 
     return 0;
 }
@@ -544,23 +592,37 @@ int backing_store_read(addr_t page_num, unsigned char *dst) {
 static unsigned char p_mem[P_MEM_SIZE];
 
 /*!
+    @function translate_v2p_addr
+
     @discussion Translates the given virtual address to a physical address.
+
+    @param vaddr The virtual address.
+    @param paddr The physical address if successful.
 
     @result 0 if successful. Otherwise error.
 */
 int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
-    /*!
-        @discussion The page frame number of the next free frame. When a page fault
-        occurs, the new page is read into physical memory at byte address ==
-        free_framen * PAGE_SIZE.
-    */
+    /*! @discussion The page frame number of the next free frame. When a page
+        fault occurs, the new page is read into physical memory at byte address
+        == free_framen * PAGE_SIZE. */
     static addr_t free_framen = 0;
     static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
     addr_t page_offset, page_num, frame_num;
-    /* consult the page table, if in mem. return physical address, else a page
-       fault occurred, read the page from the backing store into physical memory
-       update the page table, re-do the translation, return the physical
-       address.
+    /*
+        Steps:
+        Extract the page offset and page number from the virtual address.
+
+        Take the page number as an index into the page table to obtain the page
+        table entry.
+
+        If the page table entry indicates that the page is in memory, save the
+        frame number from that page table entry. Otherwise a page fault has
+        occurred, i.e. the page is not in memory. Read the page from the backing
+        store into a free frame in physical memory, and update the page table.
+        Save the frame number of the free frame.
+
+        Concatenate the saved frame number and page offset to form the physical
+        address.
     */
     if (paddr == NULL) {
         assert(0);
@@ -569,14 +631,17 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
 
     page_offset = (vaddr & (PAGE_SIZE - 1));
     page_num = (vaddr & (V_MEM_SIZE - 1)) >> PAGE_OFFSET_NBITS;
-    // get frame number from page table at index == page_num.
-    assert(page_num < PAGE_TABLE_LEN);
 
-    frame_num = 0;
+    if (page_num >= PAGE_TABLE_LEN) {
+        assert(0);
+        return 1;
+    }
 
-    if (page_table[page_num].im) { // The page is in memory.
+    if (page_table[page_num].im) {
+        // The page is in memory.
         frame_num = page_table[page_num].fn;
-    } else { // Page fault! Get the page from the backing store, update page_table.
+    } else {
+        // Page fault! Get the page from the backing store, update page_table.
         frame_num = free_framen;
 
         if (frame_num >= NUM_PAGE_FRAMES) {
@@ -587,7 +652,7 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         }
 
         if(backing_store_read(page_num, p_mem + frame_num * PAGE_SIZE)) {
-            assert(0); // @TODO Handle gracefully with asserts off.
+            assert(0);
             return 3;
         }
 
@@ -602,22 +667,29 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     return 0;
 }
 
-/*
-    @discussion Translates each address.
-*/
-int translate_all(void) {
-    size_t i;
-    addr_t paddr;
+/*!
+    @function p_mem_read
 
-    for (i = 0; i < vaddrs_len; i++) {
-        if(translate_v2p_addr(vaddrs[i], &paddr)) {
-            assert(0);
-            return 1;
-        }
-        //Virtual address: 16916 Physical address: 20 Value: 0
-        printf("v addr = %lu. p addr = %lu. value = %d.\n",
-               vaddrs[i], paddr, (signed char)p_mem[paddr]);
+    @discussion Returns the value of a byte in physical memory at the given
+    physical address.
+
+    @param paddr The physical address.
+
+    @param v If successful, the value of the byte at the address.
+
+    @result 0 if successful.
+*/
+int p_mem_read(addr_t paddr, signed char *v) {
+    if (paddr >= P_MEM_SIZE) {
+        assert(0);
+        return 1;
     }
 
+    if (v == NULL) {
+        assert(0);
+        return 2;
+    }
+
+    *v = p_mem[paddr];
     return 0;
 }
