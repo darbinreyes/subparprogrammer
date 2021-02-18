@@ -1,7 +1,7 @@
 /*!
 
     @header Chapter 9 Programming Project: Designing a Virtual Memory Manager
-    @discussion
+    @discussion This implementation starts with *v0.c and adds a TLB.
     * A program that translates logical to physical addresses.
     * Virtual address space size: 2^16 = 65536.
     * Given a file containing **logical addresses**.
@@ -59,7 +59,7 @@ Handling Page Faults
       TLB or the page table. (After being brought into memory, page number 15
       should never result in a page fault, since this project specifies that the
       physical address space size = the virtual address space size, therefore no
-      page every gets kicked out of physical memory. In practice, the physical
+      page ever gets kicked out of physical memory. In practice, the physical
       address space size is the lesser, and we must replace pages in physical
       memory according to some page replacement strategy, such as FIFO, LRU,
       MRU, LFU, MFU, or ideally "OPT". Furthermore, this project specifies a
@@ -91,7 +91,7 @@ How to Begin
     the program is correct using the page table only. Recall the TLB only speeds
     things up, like normal the normal CPU caches.
     * Recall that the TLB only has 16 entries, so a replacement strategy will be
-      requireD: use FIFO or LRU.
+      required: use FIFO or LRU.
 
 How to Run Your Program
 ===
