@@ -332,7 +332,7 @@ int init_vaddrs(const char *vaddrs_fname) {
         /* fgets() function does not distinguish between end-of-file and error,
            and callers must use feof(3) and ferror(3) to determine which
            occurred. */
-        fprintf(stderr, "Got fgets() error! filename = %s. error = %s.\n", \
+        fprintf(stderr, "fgets() error! filename = %s. error = %s.\n", \
                 vaddrs_fname, strerror(errno));
         return 9; // Bail. FYI: The OS will close the file.
     }
@@ -372,6 +372,8 @@ int get_arg_vaddrs_filename (int argc, const char * const * const argv, \
 
     return 0;
 }
+
+int translate_main(void);
 
 /*!
 
@@ -417,6 +419,8 @@ int main (int argc, const char * const * const argv) {
         return 3;
     }
 
+    translate_main();
+
     printf("Done.\n");
 
     return 0;
@@ -445,7 +449,8 @@ int main (int argc, const char * const * const argv) {
 
 /*!
     @defined FRAME_SIZE
-    @discussion The size of a page frame. Equal to the size of a page.
+    @discussion The size of a page frame. Equal to the size of a page. Commented
+    out since PAGE_SIZE should always equal FRAME_SIZE.
 */
 //#define FRAME_SIZE PAGE_SIZE
 
@@ -498,7 +503,76 @@ typedef struct _pg_tbl_entry_t {
 */
 #define NUM_PAGE_FRAMES (P_MEM_SIZE/PAGE_SIZE)
 
+/*!
+    @defined NUM_BS_PAGES
+    @discussion The size of the backing store divided by the size of a page.
+*/
+#define NUM_BS_PAGES (BACKING_STORE_SIZE/PAGE_SIZE)
+
 static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
+
+/*!
+    @discussion Buffer used for destination of a read operation on the backing
+    store.
+*/
+static unsigned char page_io_buffer[PAGE_SIZE];
+
+/*!
+    @discussion The page frame number of the next free frame. When a page fault
+    occurs, the new page is read into physical memory at byte address ==
+    free_framen * PAGE_SIZE.
+*/
+static addr_t free_framen = 0;
+
+int backing_store_read(addr_t page_num) {
+    const char *bs_fname = "BACKING_STORE.bin";
+    static FILE *bs_fp;
+    size_t nb;
+
+    if (page_num >= NUM_BS_PAGES) {
+        fprintf(stderr, "page_num is out of bounds for backing store. %u >= %lu.\n", page_num, NUM_BS_PAGES);
+        assert(0);
+        return 1;
+    }
+
+    if (!bs_fp) { // Backing store file not open yet.
+        errno = 0;
+        bs_fp = fopen(bs_fname, "r");
+        if (!bs_fp) {
+            fprintf(stderr, "fopen(\"r\") returned NULL! filename = %s. \
+                    error = %s.\n", bs_fname, strerror(errno));
+            assert(0);
+            return 2;
+        }
+    }
+
+    errno = 0;
+    if(fseek(bs_fp, page_num * PAGE_SIZE, SEEK_SET)) {
+        fprintf(stderr, "fseek() error!  filename = %s. error = %s.\n", bs_fname, strerror(errno));
+        assert(0);
+        return 3;
+    }
+
+    errno = 0;
+
+    nb = fread(page_io_buffer, 1, sizeof(page_io_buffer), bs_fp);
+
+    if (nb < sizeof(page_io_buffer) && ferror(bs_fp)) {
+        fprintf(stderr, "fread() short byte count + error. filename = %s. error = %s.\n", bs_fname, strerror(errno));
+        assert(0);
+        return 4;
+    }
+
+    if (feof(bs_fp) && ferror(bs_fp)) {
+        fprintf(stderr, "fread() error! filename = %s. error = %s.\n", bs_fname, strerror(errno));
+        assert(0);
+        return 5;
+    }
+
+    memcpy(p_mem + free_framen++ * PAGE_SIZE, page_io_buffer, sizeof(page_io_buffer));
+
+    return 0;
+}
 
 /*!
     @discussion Translates the given virtual address to a physical address.
@@ -525,7 +599,11 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     if (page_table[page_num].im) { // The page is in memory.
         frame_num = page_table[page_num].fn;
     } else { // Page fault! Get the page from the backing store, update page_table.
-        ;
+        if(backing_store_read(page_num))
+            assert(0); // @TODO Handle gracefully with asserts off.
+        frame_num = free_framen - 1;
+        page_table[page_num].fn = frame_num;
+        page_table[page_num].im = 1;
     }
 
     assert(frame_num < NUM_PAGE_FRAMES);
@@ -534,9 +612,21 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     return 0;
 }
 
-/*!
-    @discussion The page frame number of the next free frame. When a page fault
-    occurs, the new page is read into physical memory at byte address ==
-    free_framen * PAGE_SIZE.
+/*
+    @discussion Translates each address.
 */
-static addr_t free_framen = 0;
+int translate_main(void) {
+    size_t i;
+    addr_t paddr;
+
+    for (i = 0; i < MAX_NUM_V_ADDRS; i++) {
+        if(translate_v2p_addr(vaddrs[i], &paddr)) {
+            assert(0);
+            return 1;
+        }
+        //Virtual address: 16916 Physical address: 20 Value: 0
+        printf("v addr = %u. p addr = %u. value = %d.\n", vaddrs[i], paddr, (signed char)p_mem[paddr]);
+    }
+
+    return 0;
+}
