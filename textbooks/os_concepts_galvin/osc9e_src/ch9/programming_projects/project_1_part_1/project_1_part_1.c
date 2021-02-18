@@ -180,12 +180,11 @@ typedef ADDR_UINT_T addr_t;
 */
 #define MAX_NUM_V_ADDRS 1000U
 
-static addr_t vaddrs[MAX_NUM_V_ADDRS]; /* Array of virtual addresses read
-                                          from addresses.txt. It is given
-                                          that each address fits in a 16-bit
-                                          integer and that there are 1000 of
-                                          them. */
-static size_t vaddrs_len; // Number of addresses read from addresses.txt
+/* Array of virtual addresses read from addresses.txt. It is given that each
+   address fits in a 16-bit integer and that there are 1000 of them. */
+static addr_t vaddrs[MAX_NUM_V_ADDRS];
+/* Number of addresses read from addresses.txt */
+static size_t vaddrs_len;
 
 /*!
     @defined V_ADDR_STR_SIZE
@@ -276,21 +275,21 @@ int init_vaddrs(const char *vaddrs_fname) {
 
         // FYI: strtol() with base = 0 provides handling for hex and octal.
         errno = 0;
-        t_vaddr = (unsigned long) strtol(t_addr_str, &endptr, 0);
+        t_vaddr = strtoul(t_addr_str, &endptr, 0);
 
         if (t_addr_str == endptr) {
-            fprintf(stderr, "strtol() found no digits at all! error = %s.\n", \
+            fprintf(stderr, "strtoul() found no digits at all! error = %s.\n", \
                    strerror(errno));
             return 3;
         }
 
         if (*endptr != '\n' && *endptr != '\0') {
-            fprintf(stderr, "strtol() returned unexpected endptr!\n");
+            fprintf(stderr, "strtoul() returned unexpected endptr!\n");
             return 4;
         }
 
-        if (errno != 0 && (t_vaddr == LONG_MAX || t_vaddr == LONG_MIN)) {
-            fprintf(stderr, "strtol() overflowed or underflowed! " \
+        if (errno != 0 && t_vaddr == ULONG_MAX) {
+            fprintf(stderr, "strtoul() overflowed! " \
                     "error = %s.\n", strerror(errno));
             return 5;
         }
@@ -497,7 +496,7 @@ typedef struct _pg_tbl_entry_t {
     locked:1,  // 1 = This page is locked into memory by the OS, it cannot be kicked out/replaced.
           :2;
 */
-} pg_tbl_entry_t; // pg_tbl_entry_t
+} pg_tbl_entry_t;
 
 /*!
     @defined PAGE_TABLE_LEN
