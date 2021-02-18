@@ -137,10 +137,16 @@ Modifications
 #include <limits.h>
 
 /*!
+    @defined ADDR_NBITS
+    @discussion The number of bits in a virtual address.
+*/
+#define ADDR_NBITS (16U)
+
+/*!
     @defined ADDR_UINT_T
     @discussion Unsigned integer type used to represent virtual addresses.
 */
-#define ADDR_UINT_T unsigned short
+#define ADDR_UINT_T unsigned long
 
 /*!
     @typedef addr_t
@@ -150,49 +156,13 @@ Modifications
 typedef ADDR_UINT_T addr_t;
 
 /*!
-    @defined ADDR_NBITS
-    @discussion The number of bits in a virtual address.
-*/
-#define ADDR_NBITS (sizeof(addr_t) * 8)
-
-/*!
     @defined MAX_V_ADDR
     @discussion The max value of a virtual address is equal to the max unsigned
     integer value that can be represented with the number of bits in a virtual
     address.
 
 */
-#define MAX_V_ADDR ((addr_t)~0UL) // @TODO is ((addr_t)-1) a better def.? (0-1)?
-
-/*
-    // @TODO Why didn't this work???? //#define MAX_V_ADDR (~((addr_t)0U))
-    // ANS: Consider the case of addr_t being 16-bits and an unsigned int
-    being 32-bits, then the first thing that happens is that 0x00000000 is
-    truncated to 0x0000. The bit-wise not produces the result 0xFFFF. Clearly,
-    to explain the erroneous results it must be that 0xFFFF is sign extended to
-    the number of bits in the expression in which it is used. So if we have
-    (unsigned long) > (unsigned long)(0xFFFF), that evaluates to
-    (unsigned long) > (0xFFFFFFFFFFFFFFFF).
-
-    $ a.out addresses_error.txt
-    ...
-    line # 999.
-    line is 45563
-    Virtual address # 998. 45563 = 0xB1FB
-    line # 1000.
-    line is 66666
-    Virtual address # 999. 1130 = 0x46A
-    Done.
-*/
-
-/*!
-    @defined MAX_V_ADDR_UL
-    @discussion MAX_V_ADDR value type cast to an unsigned long. Used for
-    verifying that addresses read from addresses.txt are within the valid range
-    for virtual addresses. addresses.txt is parsed using strtol(), hence the use
-    of long.
-*/
-#define MAX_V_ADDR_UL ((unsigned long) MAX_V_ADDR)
+#define MAX_V_ADDR ((1UL << ADDR_NBITS) - 1UL)
 
 /*!
     @defined MAX_NUM_V_ADDRS
@@ -202,17 +172,20 @@ typedef ADDR_UINT_T addr_t;
 #define MAX_NUM_V_ADDRS 1000U
 
 static addr_t vaddrs[MAX_NUM_V_ADDRS]; /* Array of virtual addresses read
-                                              from addresses.txt. It is given
-                                              that each address fits in a 16-bit
-                                              integer and that there are 1000 of
-                                              them. */
+                                          from addresses.txt. It is given
+                                          that each address fits in a 16-bit
+                                          integer and that there are 1000 of
+                                          them. */
+static size_t vaddrs_len; // Number of addresses read from addresses.txt
 
 /*!
     @defined V_ADDR_STR_SIZE
     @discussion Size of temporary string buffer for use with fgets() when
-    reading addresses.txt line by line. Although the initial implementation of
-    this program uses 16-bit virtual addresses the buffer size used here assumes
-    64-bits so that this value need
+    reading addresses.txt line by line.
+
+    More details:
+    Although the initial implementation of this program uses 16-bit virtual
+    addresses the buffer size used here assumes 64-bits so that this value need
     not be updated if the number of bits in a virtual address is increased. The
     buffer size calculation is:
     2^64 - 1
@@ -230,14 +203,14 @@ static addr_t vaddrs[MAX_NUM_V_ADDRS]; /* Array of virtual addresses read
     Finally,the value is arbitrarily increased to 32, the next nearest power of
     2.
 */
-#define V_ADDR_STR_SIZE (32)
+#define V_ADDR_STR_SIZE (32U)
 
 /*!
     @function init_vaddrs
     @discussion Initializes the vaddrs array according to the contents of the
     given filename.
     @param vaddrs_fname The filename of the file from which to read the virtual
-    addresses.
+    addresses e.g. addresses.txt.
     @result 0 if successful, otherwise error. The program should terminate.
 */
 int init_vaddrs(const char *vaddrs_fname) {
@@ -256,8 +229,8 @@ int init_vaddrs(const char *vaddrs_fname) {
     vaddrs_fp = fopen (vaddrs_fname, "r");
 
     if (vaddrs_fp == NULL) {
-        fprintf(stderr, "fopen(\"r\") returned NULL! filename = %s. \
-                error = %s.\n", vaddrs_fname, strerror(errno));
+        fprintf(stderr, "fopen(\"r\") returned NULL! filename = %s. "\
+                "error = %s.\n", vaddrs_fname, strerror(errno));
         return 2;
     }
 
@@ -305,28 +278,30 @@ int init_vaddrs(const char *vaddrs_fname) {
         }
 
         if (errno != 0 && (t_vaddr == LONG_MAX || t_vaddr == LONG_MIN)) {
-            fprintf(stderr, "strtol() overflowed or underflowed! \
-                    error = %s.\n", strerror(errno));
+            fprintf(stderr, "strtol() overflowed or underflowed! " \
+                    "error = %s.\n", strerror(errno));
             return 5;
         }
 
-        if (t_vaddr > MAX_V_ADDR_UL) {
-            fprintf(stderr, "Virtual address out of range (> %lu)! %lu \
-                    = 0x%lX\n", MAX_V_ADDR_UL, t_vaddr, t_vaddr);
+        if (t_vaddr > MAX_V_ADDR) {
+            fprintf(stderr, "Virtual address out of range (> %lu)! %lu "\
+                    "= 0x%lX\n", MAX_V_ADDR, t_vaddr, t_vaddr);
             return 6;
         }
 
         if (i >= MAX_NUM_V_ADDRS) {
-            fprintf(stderr, "Number of virtual addresses exceeds max allowed\
-                             (%d).\n", MAX_NUM_V_ADDRS);
+            fprintf(stderr, "Number of virtual addresses exceeds max allowed "\
+                             "(%d).\n", MAX_NUM_V_ADDRS);
             return 7;
         }
 
         vaddrs[i] = (addr_t) t_vaddr;
-        printf("Virtual address # %lu. %hu = 0x%hX\n", i, vaddrs[i], vaddrs[i]);
+        printf("Virtual address # %lu. %lu = 0x%lX\n", i, vaddrs[i], vaddrs[i]);
         i++;
 
     }
+
+    vaddrs_len = i;
 
     if (feof(vaddrs_fp) && ferror(vaddrs_fp)) {
         /* fgets() function does not distinguish between end-of-file and error,
@@ -339,8 +314,8 @@ int init_vaddrs(const char *vaddrs_fname) {
 
     errno = 0;
     if (fclose(vaddrs_fp)) {
-        fprintf(stderr, "fclose() returned error! filename = %s. \
-                error = %s.\n", vaddrs_fname, strerror(errno));
+        fprintf(stderr, "fclose() returned error! filename = %s. "\
+                "error = %s.\n", vaddrs_fname, strerror(errno));
         return 9;
     }
 
@@ -398,12 +373,13 @@ int main (int argc, const char * const * const argv) {
     assert(sizeof(short) == 2); // Verify the size of integers.
     assert(sizeof(int) == 4);
     assert(sizeof(long) == 8);
+    assert(ADDR_NBITS < sizeof(addr_t) * 8);
 
     if (argc != 1 && argc != 2) {
-        printf("Usage 1: ./a.out. The default input filename is \
-               addresses.txt.\n");
-        printf("Usage 2: ./a.out addresses.txt. addresses.txt can be any \
-                filename.\n");
+        printf("Usage 1: ./a.out. The default input filename is "\
+               "addresses.txt.\n");
+        printf("Usage 2: ./a.out addresses.txt. addresses.txt can be any "\
+                "filename.\n");
         return 1;
     }
 
@@ -443,9 +419,9 @@ int main (int argc, const char * const * const argv) {
 
 /*!
     @defined PAGE_NUM_NBITS
-    @discussion The number of bits used to represent a page number.
+    @discussion The number of bits used to represent a page number. Unused.
 */
-#define PAGE_NUM_NBITS (ADDR_NBITS - PAGE_OFFSET_NBITS)
+//#define PAGE_NUM_NBITS (ADDR_NBITS - PAGE_OFFSET_NBITS)
 
 /*!
     @defined FRAME_SIZE
@@ -530,7 +506,8 @@ int backing_store_read(addr_t page_num) {
     size_t nb;
 
     if (page_num >= NUM_BS_PAGES) {
-        fprintf(stderr, "page_num is out of bounds for backing store. %u >= %lu.\n", page_num, NUM_BS_PAGES);
+        fprintf(stderr, "page_num is out of bounds for backing store. " \
+                "%lu >= %lu.\n", page_num, NUM_BS_PAGES);
         assert(0);
         return 1;
     }
@@ -539,8 +516,8 @@ int backing_store_read(addr_t page_num) {
         errno = 0;
         bs_fp = fopen(bs_fname, "r");
         if (!bs_fp) {
-            fprintf(stderr, "fopen(\"r\") returned NULL! filename = %s. \
-                    error = %s.\n", bs_fname, strerror(errno));
+            fprintf(stderr, "fopen(\"r\") returned NULL! filename = %s. "\
+                    "error = %s.\n", bs_fname, strerror(errno));
             assert(0);
             return 2;
         }
@@ -548,7 +525,8 @@ int backing_store_read(addr_t page_num) {
 
     errno = 0;
     if(fseek(bs_fp, page_num * PAGE_SIZE, SEEK_SET)) {
-        fprintf(stderr, "fseek() error!  filename = %s. error = %s.\n", bs_fname, strerror(errno));
+        fprintf(stderr, "fseek() error!  filename = %s. error = %s.\n", \
+                bs_fname, strerror(errno));
         assert(0);
         return 3;
     }
@@ -558,13 +536,15 @@ int backing_store_read(addr_t page_num) {
     nb = fread(page_io_buffer, 1, sizeof(page_io_buffer), bs_fp);
 
     if (nb < sizeof(page_io_buffer) && ferror(bs_fp)) {
-        fprintf(stderr, "fread() short byte count + error. filename = %s. error = %s.\n", bs_fname, strerror(errno));
+        fprintf(stderr, "fread() short byte count + error. filename = %s. "
+                "error = %s.\n", bs_fname, strerror(errno));
         assert(0);
         return 4;
     }
 
     if (feof(bs_fp) && ferror(bs_fp)) {
-        fprintf(stderr, "fread() error! filename = %s. error = %s.\n", bs_fname, strerror(errno));
+        fprintf(stderr, "fread() error! filename = %s. error = %s.\n", \
+                bs_fname, strerror(errno));
         assert(0);
         return 5;
     }
@@ -625,7 +605,8 @@ int translate_main(void) {
             return 1;
         }
         //Virtual address: 16916 Physical address: 20 Value: 0
-        printf("v addr = %u. p addr = %u. value = %d.\n", vaddrs[i], paddr, (signed char)p_mem[paddr]);
+        printf("v addr = %lu. p addr = %lu. value = %d.\n",
+               vaddrs[i], paddr, (signed char)p_mem[paddr]);
     }
 
     return 0;
