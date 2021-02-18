@@ -162,10 +162,18 @@ typedef ADDR_UINT_T addr_t;
     address.
 
 */
-#define MAX_V_ADDR ((addr_t)~0UL)
+#define MAX_V_ADDR ((addr_t)~0UL) // @TODO is ((addr_t)-1) a better def.? (0-1)?
 
 /*
     // @TODO Why didn't this work???? //#define MAX_V_ADDR (~((addr_t)0U))
+    // ANS: Consider the case of addr_t being 16-bits and an unsigned int
+    being 32-bits, then the first thing that happens is that 0x00000000 is
+    truncated to 0x0000. The bit-wise not produces the result 0xFFFF. Clearly,
+    to explain the erroneous results it must be that 0xFFFF is sign extended to
+    the number of bits in the expression in which it is used. So if we have
+    (unsigned long) > (unsigned long)(0xFFFF), that evaluates to
+    (unsigned long) > (0xFFFFFFFFFFFFFFFF).
+
     $ a.out addresses_error.txt
     ...
     line # 999.
@@ -185,7 +193,6 @@ typedef ADDR_UINT_T addr_t;
     of long.
 */
 #define MAX_V_ADDR_UL ((unsigned long) MAX_V_ADDR)
-
 
 /*!
     @defined MAX_NUM_V_ADDRS
@@ -316,7 +323,7 @@ int init_vaddrs(const char *vaddrs_fname) {
         }
 
         vaddrs[i] = (addr_t) t_vaddr;
-        printf("Virtual address # %lu. %u = 0x%X\n", i, vaddrs[i], vaddrs[i]);
+        printf("Virtual address # %lu. %hu = 0x%hX\n", i, vaddrs[i], vaddrs[i]);
         i++;
 
     }
@@ -419,6 +426,8 @@ int main (int argc, const char * const * const argv) {
     @defined PAGE_OFFSET_NBITS
     @discussion The number of bits used to represent a byte offset into a page.
     This must be less than the number of bits in an address.
+
+    @TODO assert(PAGE_OFFSET_NBITS < ADDR_NBITS)
 */
 #define PAGE_OFFSET_NBITS (8)
 
@@ -438,48 +447,58 @@ int main (int argc, const char * const * const argv) {
     @defined FRAME_SIZE
     @discussion The size of a page frame. Equal to the size of a page.
 */
-#define FRAME_SIZE PAGE_SIZE
+//#define FRAME_SIZE PAGE_SIZE
 
 /*!
-    @defined PHYSICAL_MEM_NBITS
-    @discussion The number of bits required to address an individual byte in
-    physical memory.
+    @defined V_MEM_SIZE
+    @discussion The size of virtual memory in bytes.
+
+    @TODO This will probably not work with ADDR_NBITS == 64.
+    assert(ADDR_NBITS < 64).
 */
-#define PHYSICAL_MEM_NBITS (16)
+#define V_MEM_SIZE (1UL << ADDR_NBITS)
 
 /*!
-    @defined PHYSICAL_MEM_SIZE
+    @defined P_MEM_SIZE
     @discussion The size of physical memory in bytes.
 */
-#define PHYSICAL_MEM_SIZE (1UL << PHYSICAL_MEM_NBITS)
+#define P_MEM_SIZE V_MEM_SIZE
 
-static unsigned char p_mem[PHYSICAL_MEM_SIZE];
+/*!
+    @defined BACKING_STORE_SIZE
+    @discussion The size of the backing store memory in bytes.
+*/
+#define BACKING_STORE_SIZE V_MEM_SIZE
 
-/**/
+static unsigned char p_mem[P_MEM_SIZE];
 
 // Scratch work //@TODO
-#define V_MEM_SIZE (1 << 16)
-#define P_MEM_SIZE (1 << 16)
 
-
-#define BACKING_STORE_SIZE (1 << 16)
-
-
-
-typedef struct _page_table_entry_t {
-    addr_t fn; // frame number
+typedef struct _pg_tbl_entry_t {
+    addr_t fn;          // frame number
     unsigned char im:1; // 1 = the page is in memory at frame number fn, 0 = page fault, page is in backing store.
-// Currently unused fields.
-//mode:3, // UNIX style rwx permissions for this page.
-//cp_on_w:1, // 1 = This page is copy on write, 0 = not copy on write.
-//locked:1, // 1 = This page is locked into memory by the OS, it cannot be
-//kicked out/replaced.
-//      :2;
-} page_table_entry_t;
+/*
+    Thoughts on other fields - currently unused fields.
+    mode:3,    // UNIX style rwx permissions for this page.
+    cp_on_w:1, // 1 = This page is copy on write, 0 = not copy on write.
+    locked:1,  // 1 = This page is locked into memory by the OS, it cannot be kicked out/replaced.
+          :2;
+*/
+} pg_tbl_entry_t; // pg_tbl_entry_t
 
+/*!
+    @defined PAGE_TABLE_LEN
+    @discussion The length of the page table.
+*/
 #define PAGE_TABLE_LEN (V_MEM_SIZE/PAGE_SIZE)
 
-static page_table_entry_t page_table[PAGE_TABLE_LEN];
+/*!
+    @defined NUM_PAGE_FRAMES
+    @discussion The total number of page frames.
+*/
+#define NUM_PAGE_FRAMES (P_MEM_SIZE/PAGE_SIZE)
+
+static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
 
 /*!
     @discussion Translates the given virtual address to a physical address.
@@ -487,12 +506,37 @@ static page_table_entry_t page_table[PAGE_TABLE_LEN];
     @result 0 if successful. Otherwise error.
 */
 int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
+    addr_t page_offset, page_num, frame_num;
     /* consult the page table, if in mem. return physical address, else a page
        fault occurred, read the page from the backing store into physical memory
        update the page table, re-do the translation, return the physical
        address.
     */
+    if (paddr == NULL)
+        return 1;
+
+    page_offset = (vaddr & (PAGE_SIZE - 1));
+    page_num = (vaddr & (V_MEM_SIZE - 1)) >> PAGE_OFFSET_NBITS;
+    // get frame number from page table at index == page_num.
+    assert(page_num < PAGE_TABLE_LEN);
+
+    frame_num = 0;
+
+    if (page_table[page_num].im) { // The page is in memory.
+        frame_num = page_table[page_num].fn;
+    } else { // Page fault! Get the page from the backing store, update page_table.
+        ;
+    }
+
+    assert(frame_num < NUM_PAGE_FRAMES);
+
+    *paddr = (frame_num << PAGE_OFFSET_NBITS) | page_offset;
     return 0;
 }
 
-static addr_t next_free_frame_base_addr = 0;
+/*!
+    @discussion The page frame number of the next free frame. When a page fault
+    occurs, the new page is read into physical memory at byte address ==
+    free_framen * PAGE_SIZE.
+*/
+static addr_t free_framen = 0;
