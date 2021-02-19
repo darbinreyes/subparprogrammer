@@ -298,35 +298,6 @@ int init_vaddrs(const char *vaddrs_fname) {
     return 0;
 }
 
-/*!
-    @function get_arg_vaddrs_filename
-
-    @discussion Gets the addresses.txt filename argument.
-
-    @param argc The usual main() arg.
-    @param argv The usual main() arg.
-    @param fname The filename if successful.
-
-    @result 0 if successful. Error otherwise.
-*/
-int get_arg_vaddrs_filename (int argc, const char * const * const argv, \
-                             const char ** const fname) {
-    const char *vaddrs_fname = "addresses.txt";
-
-    if (argc < 1 || argc > 2 || argv == NULL || fname == NULL) {
-        assert(0);
-        return 1;
-    }
-
-    if (argc == 2) { // Use given filename instead of default.
-        vaddrs_fname = argv[1];
-    }
-
-    *fname = vaddrs_fname;
-
-    return 0;
-}
-
 int translate_v2p_addr(addr_t vaddr, addr_t *paddr);
 int p_mem_read(addr_t paddr, signed char *v);
 
