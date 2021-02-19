@@ -136,7 +136,7 @@ Modifications
 #include <stdlib.h>
 #include <limits.h>
 #include "vm.h"
-
+#include "args.h"
 
 /*!
     @defined MAX_NUM_V_ADDRS
@@ -313,7 +313,7 @@ int get_arg_vaddrs_filename (int argc, const char * const * const argv, \
                              const char ** const fname) {
     const char *vaddrs_fname = "addresses.txt";
 
-    if (argc < 1 || argv == NULL || fname == NULL) {
+    if (argc < 1 || argc > 2 || argv == NULL || fname == NULL) {
         assert(0);
         return 1;
     }
@@ -373,24 +373,12 @@ int translate_all(void) {
 int main (int argc, const char * const * const argv) {
     const char *fname = NULL;
 
-    if (argc < 1 || argv == NULL) {
-        assert(0);
-        return 1;
+    if (valid_int_sizes()) {
+      return 1;
     }
 
-    assert(sizeof(short) == 2); // Verify the size of integers.
-    assert(sizeof(int) == 4);
-    assert(sizeof(long) == 8);
-    /* This program only deals with virtual addresses less than 64-bits wide. */
-    assert(ADDR_NBITS < sizeof(addr_t) * 8);
-    assert(PAGE_OFFSET_NBITS < ADDR_NBITS);
-
-    if (argc != 1 && argc != 2) {
-        printf("Usage 1: ./a.out. The default input filename is "\
-               "addresses.txt.\n");
-        printf("Usage 2: ./a.out addresses.txt. addresses.txt can be any "\
-                "filename.\n");
-        return 1;
+    if (valid_args (argc, argv)) {
+      return 1;
     }
 
     if (get_arg_vaddrs_filename (argc, argv, &fname)) {

@@ -27,7 +27,7 @@ int valid_int_sizes(void) {
 
 /*!
     @function valid_args
-    @discussion Checks that the args passed to main() are valid.
+    @discussion General checks that the args passed to main() are valid.
     @param argc The usual main() arg.
     @param argv The usual main() arg.
     @result 0 if valid. Otherwise not valid.
@@ -38,7 +38,7 @@ int valid_args (int argc, const char * const * const argv) {
         return 1;
     }
 
-    if (argc <= 2) {
+    if (argc > 2) {
         fprintf(stderr, \
                 "Usage 1: ./a.out. The default input filename is "\
                "addresses.txt.\n"\
