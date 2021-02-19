@@ -138,38 +138,11 @@ Modifications
 #include "vm.h"
 #include "args.h"
 #include "get_vaddrs.h"
+#include "backing_store.h"
 
 int translate_v2p_addr(addr_t vaddr, addr_t *paddr);
 int p_mem_read(addr_t paddr, signed char *v);
-
-/*
-    @function translate_all
-    @discussion Translates all virtual addresses to physical addresses and
-    prints the result.
-    @result 0 if successful.
-*/
-int translate_all(void) {
-    size_t i;
-    addr_t paddr;
-    signed char v;
-
-    for (i = 0; i < vaddrs_len; i++) {
-        if(translate_v2p_addr(vaddrs[i], &paddr)) {
-            assert(0);
-            return 1;
-        }
-        //Virtual address: 16916 Physical address: 20 Value: 0
-        if(p_mem_read(paddr, &v)) {
-            assert(0);
-            return 2;
-        }
-
-        printf("Virtual address: %lu Physical address: %lu Value: %d\n",
-               vaddrs[i], paddr, v);
-    }
-
-    return 0;
-}
+int translate_all(void);
 
 /*!
 
@@ -214,78 +187,37 @@ int main (int argc, const char * const * const argv) {
     return 0;
 }
 
-/*!
-    @function backing_store_read
-
-    @discussion Reads a page (page_num) from the backing store into the
-    specified address in physical memory (dst).
-
-    @param page_num Identifies the location of a page on the backing to read
-    from.
-    @param dst The destination address in physical memory for the read.
-
+/*
+    @function translate_all
+    @discussion Translates all virtual addresses to physical addresses and
+    prints the result.
     @result 0 if successful.
 */
-int backing_store_read(addr_t page_num, unsigned char *dst) {
-    /*! @discussion Temporary buffer used for destination of a read operation on
-        the backing store. */
-    static unsigned char page_io_buffer[PAGE_SIZE];
-    const char *bs_fname = "BACKING_STORE.bin";
-    static FILE *bs_fp;
-    size_t nb;
+int translate_all(void) {
+    size_t i;
+    addr_t paddr;
+    signed char v;
 
-    if (dst == NULL) {
-        assert(0);
-        return 1;
-    }
+    for (i = 0; i < vaddrs_len; i++) {
+        if(translate_v2p_addr(vaddrs[i], &paddr)) {
+            assert(0);
+            return 1;
+        }
 
-    if (page_num >= NUM_BS_PAGES) {
-        fprintf(stderr, "page_num is out of bounds for backing store. " \
-                "%lu >= %lu.\n", page_num, NUM_BS_PAGES);
-        assert(0);
-        return 1;
-    }
-
-    if (!bs_fp) { // Backing store file not open yet.
-        errno = 0;
-        bs_fp = fopen(bs_fname, "r");
-        if (!bs_fp) {
-            fprintf(stderr, "fopen(\"r\") returned NULL! filename = %s. "\
-                    "error = %s.\n", bs_fname, strerror(errno));
+        // Virtual address: 16916 Physical address: 20 Value: 0
+        if(p_mem_read(paddr, &v)) {
             assert(0);
             return 2;
         }
-    }
 
-    errno = 0;
-    if(fseek(bs_fp, page_num * PAGE_SIZE, SEEK_SET)) {
-        fprintf(stderr, "fseek() error!  filename = %s. error = %s.\n", \
-                bs_fname, strerror(errno));
-        assert(0);
-        return 3;
+        printf("Virtual address: %lu Physical address: %lu Value: %d\n",
+               vaddrs[i], paddr, v);
     }
-
-    errno = 0;
-    nb = fread(page_io_buffer, 1, sizeof(page_io_buffer), bs_fp);
-    if (nb < sizeof(page_io_buffer) && ferror(bs_fp)) {
-        fprintf(stderr, "fread() short byte count + error. filename = %s. "
-                "error = %s.\n", bs_fname, strerror(errno));
-        assert(0);
-        return 4;
-    }
-
-    if (feof(bs_fp) && ferror(bs_fp)) {
-        fprintf(stderr, "fread() error! filename = %s. error = %s.\n", \
-                bs_fname, strerror(errno));
-        assert(0);
-        return 5;
-    }
-
-    memcpy(dst, page_io_buffer, sizeof(page_io_buffer));
 
     return 0;
 }
 
+/*! @discussion Represents physical memory. */
 static unsigned char p_mem[P_MEM_SIZE];
 
 /*!
