@@ -387,6 +387,12 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
 
         Concatenate the saved frame number and page offset to form the physical
         address.
+
+
+        >>>>>>>>>>>@NEXT Fix output values no longer match correct.txt. Also, the statistics did not change.
+        You are returning the a free frame number, but you need to know what
+        page is currently stored there and update the page table and TLB.
+
     */
     if (paddr == NULL) {
         assert(0);
