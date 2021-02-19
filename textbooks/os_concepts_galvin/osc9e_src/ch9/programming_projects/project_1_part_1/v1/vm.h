@@ -70,8 +70,9 @@ typedef ADDR_UINT_T addr_t;
     @defined P_MEM_SIZE
     @discussion The size of physical memory in bytes.
 */
-#define P_MEM_SIZE V_MEM_SIZE
-
+//#define P_MEM_SIZE V_MEM_SIZE
+//#define P_MEM_SIZE (1UL << (ADDR_NBITS - 1))
+#define P_MEM_SIZE (128 * PAGE_SIZE)
 /*!
     @defined BACKING_STORE_SIZE
     @discussion The size of the backing store memory in bytes.
