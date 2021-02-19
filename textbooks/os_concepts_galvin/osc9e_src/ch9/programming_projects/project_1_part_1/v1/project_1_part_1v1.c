@@ -129,7 +129,9 @@ Modifications
       use either FIFO or LRU page replacement.
      * Remark: It seems like FIFO page replacement would be trivial to
        implement, just use a circular array index. So an further work
-       would be implement LRU via a list based stack.
+       would be implement LRU via a list based stack. Also, in the case of
+       a smaller physical memory, we expect the page fault rate to increase and
+       TLB-hits to decrease.
 */
 
 #include <string.h>
