@@ -314,6 +314,44 @@ int update_tlb(addr_t page_num, addr_t frame_num) {
     return 0;
 }
 
+/*!
+    @function evict_page
+    @discussion When a page fault occurs and there are no free frames a page
+    must be evicted from memory in order to bring in a new page. This function
+    first selects a to evict from memory and then writes it to the backing
+    store. The eviction results in a free frame, the frame number of the freed
+    frame is returned if successful.
+
+    @param free_frame The freed frame if successful, otherwise untouched.
+
+    @result 0 if successful.
+*/
+int evict_page(addr_t *free_frame) {
+  static addr_t victim_pg = 0;
+
+  /* FIFO replacement is trivial to implement for this project, just used
+  a circular array index, the index = the frame to be replaced.
+  @IMPORTANT FIFO page replacement in this function depends on the page
+  frames being filled from lowest frame number (0) to highest frame number
+  (e.g. 127). Only when there are no free frames should this function be called.
+  Thus, once the 127th frame is filled, the next memory reference will page
+  fault, we will see that memory is full, at which point this function will be
+  called, and it will return free_frame = 0, which is indeed the FIFO page. The
+  next call will return free_frame = 1, etc.
+  */
+
+  if (free_frame == NULL) {
+    assert(0);
+    return 1;
+  }
+
+  *free_frame = (victim_pg++ % NUM_PAGE_FRAMES);
+
+  printf("Evicted page frame number %lu\n", *free_frame);
+
+  return 0;
+}
+
 /*! @discussion Represents physical memory. */
 static unsigned char p_mem[P_MEM_SIZE];
 
@@ -384,7 +422,17 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
               Once memory is full, free_framen will be determined according to FIFO.
               After that, we essentially have a free frame and the same code can be used to read the new page into the free frame.
         */
-        frame_num = free_framen;
+        if (free_framen >= NUM_PAGE_FRAMES) {
+          // No free frame available, page replacement required.
+          printf("Memory is full!\n");
+          if(evict_page(&frame_num)) {
+            assert(0);
+            return 1;
+          }
+        } else {
+          // Use a free frame.
+          frame_num = free_framen;
+        }
 
         if (frame_num >= NUM_PAGE_FRAMES) {
             fprintf(stderr, "frame_num is out of bounds %lu >= %lu.\n", \
