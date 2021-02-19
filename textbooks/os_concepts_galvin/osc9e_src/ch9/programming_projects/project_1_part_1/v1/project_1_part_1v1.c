@@ -371,6 +371,19 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     } else {
         // Page fault! Get the page from the backing store, update page_table.
         npf++; // Statistics
+        /*
+          Supporting physical memory smaller than virtual memory.
+          Reduce size of physical mem. from 256 to 128 frames.
+          if free_framen == NUM_PAGE_FRAMES
+              no more free page frames
+              a page must be evicted from memory to backing store
+              since we are never writing to a page we can skip writing the page from memory to the backing store.
+
+              all we need to do is decide which page will be be replaced.
+              FIFO replacement can be implemented using a circular array index.
+              Once memory is full, free_framen will be determined according to FIFO.
+              After that, we essentially have a free frame and the same code can be used to read the new page into the free frame.
+        */
         frame_num = free_framen;
 
         if (frame_num >= NUM_PAGE_FRAMES) {
