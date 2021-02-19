@@ -452,7 +452,8 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
 
         page_table[page_num].fn = frame_num;
         page_table[page_num].im = 1;
-        free_framen++;
+        if (free_framen < NUM_PAGE_FRAMES)
+          free_framen++;
     }
 
     assert(frame_num < NUM_PAGE_FRAMES);
