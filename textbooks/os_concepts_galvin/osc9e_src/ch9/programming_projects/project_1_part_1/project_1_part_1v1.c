@@ -236,6 +236,70 @@ typedef struct _tlb_entry_t {
     unsigned char valid:1;
 } tlb_entry_t;
 
+/*!
+  @defined TLB_LEN
+  @discussion The number of entries in the TLB.
+*/
+#define TLB_LEN (16U)
+
+/*! @discussion Represents the TLB. */
+static tlb_entry_t tlb[TLB_LEN];
+
+/*!
+    @function in_tlb
+    @discussion Consults the TLB for a translation.
+
+    @param page_num The page number.
+
+    @param frame_num On a TLB-hit, the corresponding frame number. On a
+    TLB-miss, untouched.
+
+    @result 1 on a TLB-hit, 0 on a TLB-miss.
+*/
+int in_tlb(addr_t page_num, addr_t *frame_num) {
+    size_t i;
+
+    if (frame_num == NULL) {
+        assert(0);
+        return 0;
+    }
+
+    for (i = 0; i < TLB_LEN; i++) {
+        if (tlb[i].valid && tlb[i].pn == page_num) {
+            //printf("TLB-hit!\n");
+            *frame_num = tlb[i].fn;
+            return 1;
+        }
+    }
+    //printf("TLB-miss!\n");
+    return 0;
+}
+
+/*!
+    @function update_tlb
+    @discussion Updates the TLB with a new translation entry - for use after a
+    page fault occurs. Entries are replaced according to FIFO.
+
+    @param page_num The page number.
+
+    @param frame_num The frame number.
+
+    @result 0 if successful.
+*/
+int update_tlb(addr_t page_num, addr_t frame_num) {
+    /* Implements FIFO TLB entry replacement using a circular array index. */
+    static size_t victim = 0;
+    tlb[victim].pn = page_num;
+    tlb[victim].fn = frame_num;
+    /* @IMPORTANT Since we are not required to replace any pages yet, once the
+    TLB is full, all entries remain valid, we only need to update the entry's
+    page number and frame number.*/
+    tlb[victim].valid = 1;
+    victim++;
+    victim = victim % TLB_LEN;
+    return 0;
+}
+
 /*! @discussion Represents physical memory. */
 static unsigned char p_mem[P_MEM_SIZE];
 
@@ -285,7 +349,9 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         return 1;
     }
 
-    if (page_table[page_num].im) {
+    if (in_tlb(page_num, &frame_num)) {
+      ; // TLB-hit
+    } else if (page_table[page_num].im) {
         // The page is in memory.
         frame_num = page_table[page_num].fn;
     } else {
@@ -302,6 +368,10 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         if(backing_store_read(page_num, p_mem + frame_num * PAGE_SIZE)) {
             assert(0);
             return 3;
+        }
+
+        if (update_tlb(page_num, frame_num)) {
+            assert(0); // @TODO For now, update_tlb() is always successful.
         }
 
         page_table[page_num].fn = frame_num;
