@@ -102,7 +102,7 @@ How to Run Your Program
 Statistics
 ===
     * The program should report:
-    1. page-fault rate = percent of address references that results in a page
+    1. page-fault rate = percent of address references that result in a page
     fault.
     2. TLB-hit rate = percent of address references that were resolved in the
     TLB. (My remark: nice to have, implement and compare FIFO vs. LRU TLB entry
@@ -127,6 +127,9 @@ Modifications
       frames instead of 256 page frames. This will require that you keep track
       of free page frames and that you implement a page replacement strategy:
       use either FIFO or LRU page replacement.
+     * Remark: It seems like FIFO page replacement would be trivial to
+       implement, just use a circular array index. So an further work
+       would be implement LRU via a list based stack.
 */
 
 #include <string.h>
@@ -144,6 +147,11 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr);
 int p_mem_read(addr_t paddr, signed char *v);
 int translate_all(void);
 
+/*! @discussion Statistics. */
+static size_t nrefs; // Total number of address references.
+static size_t npf; // Total number of page faults.
+static size_t ntlb_hits; // Total number of TLB-hits.
+
 /*!
 
     @function main
@@ -157,6 +165,7 @@ int translate_all(void);
 */
 int main (int argc, const char * const * const argv) {
     const char *fname = NULL;
+    double frac_pf, frac_tlb_h;
 
     if (valid_int_sizes()) {
       return 1;
@@ -182,7 +191,9 @@ int main (int argc, const char * const * const argv) {
         return 4;
     }
 
-    printf("Done.\n");
+    frac_pf = ((double)(npf * 100))/((double)nrefs);
+    frac_tlb_h = ((double)(ntlb_hits * 100))/((double)nrefs);
+    printf("Done. Statistics:\n N REFS %lu\n N PAGE FAULTS %lu (%%%f)\n N TLB HITS %lu (%%%f)\n", nrefs, npf, frac_pf, ntlb_hits, frac_tlb_h);
 
     return 0;
 }
@@ -212,6 +223,7 @@ int translate_all(void) {
 
         printf("Virtual address: %lu Physical address: %lu Value: %d\n",
                vaddrs[i], paddr, v);
+        nrefs++; // Statistics
     }
 
     return 0;
@@ -350,12 +362,13 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     }
 
     if (in_tlb(page_num, &frame_num)) {
-      ; // TLB-hit
+      ntlb_hits++; // Statistics. TLB-hit
     } else if (page_table[page_num].im) {
         // The page is in memory.
         frame_num = page_table[page_num].fn;
     } else {
         // Page fault! Get the page from the backing store, update page_table.
+        npf++; // Statistics
         frame_num = free_framen;
 
         if (frame_num >= NUM_PAGE_FRAMES) {
