@@ -1,3 +1,9 @@
+/*!
+    @header Be a pro, document it bro.
+    @discussion The nice thing about using headerdoc (doc. comments in general)
+    is that you save time in the future: viz. if you need to change code written
+    long ago you don't have to reconstruct WTF you did "7 months ago".
+*/
 /*
 
   Programming problem 3.22.
@@ -18,6 +24,22 @@
 const char * const shm_name = "collatz";
 #define SHM_SIZE 4096
 #define SHM_MODE 0666
+
+/*!
+    @defined MAX_SEQUENCE_STR_SIZE
+    @discussion -1 to account for the terminating'\0'.
+*/
+#define MAX_SEQUENCE_STR_SIZE (SHM_SIZE - 1)
+
+/*!
+    @defined ERROR_SEQUENCE_TRUNCATED
+    @discussion The Collatz sequence (as a string) had to be truncated because
+    the size of the string exceeded the size of the shared memory region. See
+    MAX_SEQUENCE_STR_SIZE.
+
+*/
+
+#define ERROR_SEQUENCE_TRUNCATED 8
 
 int child_p(int argc, char **argv);
 
@@ -48,7 +70,7 @@ int main(int argc, char **argv) {
       return 5;
     }
 
-    if (WEXITSTATUS(stat_loc) > 0 && WEXITSTATUS(stat_loc) < 8) {
+    if (WEXITSTATUS(stat_loc) > 0 && WEXITSTATUS(stat_loc) < ERROR_SEQUENCE_TRUNCATED) {
       printf("Child process terminated with ERROR status value = %d.\n", WEXITSTATUS(stat_loc));
       return 4;
     }
@@ -76,7 +98,7 @@ int main(int argc, char **argv) {
     }
 
     /* Read from the shared mem. object. */
-    if (WEXITSTATUS(stat_loc) == 8) {
+    if (WEXITSTATUS(stat_loc) == ERROR_SEQUENCE_TRUNCATED) {
       printf("Sequence was truncated.\n");
       printf("%s\n", (char *) shm_ptr);
     } else {
@@ -161,7 +183,8 @@ int child_p(int argc, char **argv) {
 
   /* Write to the share mem. object. */
   if(print_collatz(n, shm_ptr, 0) != 0) {
-    return 8;
+    //return 8;
+    return ERROR_SEQUENCE_TRUNCATED;
   }
 
   return 0;
@@ -171,14 +194,31 @@ int child_p(int argc, char **argv) {
 // FYI: I will not check for overflow.
 // FYI: The command line parameter validation will be very basic.
 // FYI: I will assume the Collatz conjecture is in fact true. If it is false, then there will exist values of n for which this program will never terminate.
+/*!
+
+    @discussion This is a recursive implementation for printing the sequence
+    corresponding to the Collatz conjecture.
+
+    @param n  The starting value for computing the next number in the Collatz
+              sequence.
+    @param shm_ptr  Pointer to the shared memory region.
+    @param bw Number of bytes written to the shared memory region so far.
+
+*/
 int print_collatz(unsigned long int n, char *shm_ptr, int bw) {
+  /*!
+    @discussion A unsigned long int converted to a decimal string will always
+    take (much) fewer characters than 128. The value 128 is an arbitrary upper
+    bound. */
   char tmp_str[128];
   assert(n > 0);
 
   // TODO: Check that we aren't writing more than the size of the shared mem.
   // object.
-  if (n == 1) {
+  if (n == 1) { // n == 1 is the base case.
     // Done.
+    /*! @discussion `man sprintf` These functions return the number of characters printed (not including
+     the trailing `\0' used to end output to strings) */
     bw += sprintf(tmp_str, "1.\n");
     if (bw < SHM_SIZE) {
       shm_ptr += sprintf(shm_ptr, "1.\n");
