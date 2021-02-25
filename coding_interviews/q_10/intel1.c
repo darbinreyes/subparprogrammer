@@ -1,3 +1,9 @@
+/*!
+
+
+```
+Given:
+
 struct data{
 
   int a:3; // bit fields 3 bits in size.
@@ -82,4 +88,74 @@ void main(){
 //
 //
 
+}
+
+```
+*/
+
+#include <stdio.h>
+#include <assert.h>
+
+int main(void);
+
+void test0 (void) {
+    //float pi = 3.14;
+    int pi = 0xDEADBEEF;
+
+    int i = 0;
+
+    unsigned char *ptr;
+
+    ptr = (unsigned char *) &pi;
+
+    assert(sizeof(void *) == 8);
+
+    printf("%X\n", (unsigned int) &pi); // address of pi
+    printf("%X\n", (unsigned int) &i);
+    printf("%X\n", (unsigned int) &ptr);
+    printf("%X\n", (unsigned int) main);
+
+    for (i = 0; i <= 7; i++){
+        printf("(%X)%X ", (unsigned int)ptr, (*(ptr)));
+        ptr++;
+    }
+
+/* Scratch Work
+
+===
+
+// i = 0 , ptr
+// i = 1 , ptr+1
+// i = 2 , ptr+2
+// i = 3 , ptr+3
+// i = 4 , ptr+4, 0x0C = 0000_1100B = 12 + 4 = 16 = 0x10 // We will print value
+of the byte at address (&(char*)pi)+4. // Since the stack grows toward lower
+memory address, this byte will be the low order byte of whatever happens to be
+in the stack above (towards bottom of the stack) our local variable pi. Usually
+that is the value of EBP (frame pointer) or EIP (instruction pointer return
+address).
+
+===
+
+Stack vars.
+<< stack bottom
+i   +4
+pi  0
+ptr
+<< stack top
+
+===
+
+*/
+    printf("\n");
+}
+
+int main(void) {
+    test0();
+    /* Scratch Work.
+      EF BE AD DE
+      Assuming i is on the stack after pi: <value of low order byte of i = 0x4>,
+      4 0 0 0 .
+    */
+    return 0;
 }
