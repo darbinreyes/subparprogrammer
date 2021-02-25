@@ -2,6 +2,7 @@
     @discussion Swap the specified bits in the given value.
 
 ```
+Given:
 1.
 Code Question: Given an integer, swap consecutive b bits starting from given
 position in binary. The bit to be swapped should not overlap with each other.
