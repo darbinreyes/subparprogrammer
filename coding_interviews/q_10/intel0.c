@@ -73,3 +73,20 @@ int swap_bits_v2(int *v, int n, int m) {
 
     return 0;
 }
+
+int main(void) {
+    int v = 0xA; // 1010B -> swap_bits(&v, 0, 3) -> 0011B = 0x3
+
+    swap_bits(&v, 0, 3);
+
+    assert(v == 0x3);
+
+    v = 0xAD; // 1010_1101B -> swap_bits_v2(&v, 1, 7) -> 0010_1111B = 0x2F
+
+    swap_bits_v2(&v, 1, 7);
+
+    assert(v == 0x2F);
+
+    printf("All good.\n");
+    return 0;
+}
