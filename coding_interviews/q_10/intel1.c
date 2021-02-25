@@ -150,8 +150,36 @@ ptr
     printf("\n");
 }
 
+struct data{
+
+  int a:3; // bit fields 3 bits in size.
+
+  int b:2; // 2
+
+  int c:3; // 3
+
+};
+
 int main(void) {
+    struct data s = {2, -6, 5};
     test0();
+
+    //s = {2, -6, 5};  // compiler error
+    //s.a = 2;  // 0010B
+    //s.b = -6; // -6 = -8 + 2 = 1010B -> truncated to 10B = "-2"
+    //s.c = 5;  // 0101B -> truncated to 101B = "-3"
+
+    printf("%d %d %d\n", s.a, s.b, s.c); // 2, 2, 5
+    /* correct: 2, -2, -3
+
+    Remark:
+    This was a little surprising. Bit-fields, if signed, are first truncated to
+    the size of the bit fields and the remaining high order bit remains the sign
+    bit.
+    e.g. 5 = 0101B -> truncated to 3-bits -> 101B = -4 + 1 = -3.
+
+    */
+
     /* Scratch Work.
       EF BE AD DE
       Assuming i is on the stack after pi: <value of low order byte of i = 0x4>,
