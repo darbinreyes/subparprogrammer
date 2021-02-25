@@ -46,20 +46,3 @@ int main()
       return 0;
 
 }
-
-// procress to understand and test and debug.
-/*
-1.
-Code Question: Given an integer, swap consecutive b bits starting from given
-position in binary. The bit to be swapped should not overlap with each other.
-
-Example: n =15 (15 > binary : 00001111)
-
-foooo() {
-p =2, q =5 (3rd and 6th bit from right)
-
-b = 2(No. of consecutive bits in each sequence)
-
-output: = 99 (binary--> 01100011)
-
-*/
