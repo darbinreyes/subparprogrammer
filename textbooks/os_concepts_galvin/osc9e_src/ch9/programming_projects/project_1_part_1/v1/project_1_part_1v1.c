@@ -372,6 +372,8 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     static addr_t free_framen = 0;
     static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
     addr_t page_offset, page_num, frame_num;
+    size_t i;
+
     /*
         Steps:
         Extract the page offset and page number from the virtual address.
@@ -389,9 +391,9 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         address.
 
 
-        >>>>>>>>>>>@NEXT Fix output values no longer match correct.txt. Also, the statistics did not change.
-        You are returning the a free frame number, but you need to know what
-        page is currently stored there and update the page table and TLB.
+        >>>>>>>>>>>@NEXT Fix output values no longer match correct.txt. Also,
+        the statistics did not change. You are returning a free frame number,
+        but you need to know what page is currently stored there and update the page table and TLB.
 
     */
     if (paddr == NULL) {
@@ -434,6 +436,21 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
           if(evict_page(&frame_num)) {
             assert(0);
             return 1;
+          }
+
+          /*!
+              @discussion The page being evicted is the one residing in page
+              frame number frame_num indicated by evict_page(). Since the page
+              currently resides in memory there is a corresponding page table
+              entry marked as valid. Find that page table entry and mark it as
+              invalid.
+          */
+          for (i = 0; i < PAGE_TABLE_LEN; i++) {
+              if (page_table[i].im && page_table[i].fn == frame_num) {
+                  page_table[i].im = 0; // No longer in memory.
+                  page_table[i].fn = PAGE_TABLE_LEN; // Mark with an invalid page number.
+                  break;
+              }
           }
         } else {
           // Use a free frame.
