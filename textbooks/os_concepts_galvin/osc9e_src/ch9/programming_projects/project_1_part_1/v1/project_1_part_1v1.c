@@ -347,7 +347,7 @@ int evict_page(addr_t *free_frame) {
 
   *free_frame = (victim_pg++ % NUM_PAGE_FRAMES);
 
-  printf("Evicted page frame number %lu\n", *free_frame);
+  //printf("Evicted page frame number %lu\n", *free_frame);
 
   return 0;
 }
@@ -432,7 +432,7 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         */
         if (free_framen >= NUM_PAGE_FRAMES) {
           // No free frame available, page replacement required.
-          printf("Memory is full!\n");
+          //printf("Memory is full!\n");
           if(evict_page(&frame_num)) {
             assert(0);
             return 1;
@@ -444,6 +444,29 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
               currently resides in memory there is a corresponding page table
               entry marked as valid. Find that page table entry and mark it as
               invalid.
+
+              Results
+              ===
+              v0 statistics - to get these results just change the #define for NUM_PAGE_FRAMES
+              N REFS 1000
+              N PAGE FAULTS 244 (%24.400000)
+              N TLB HITS 55 (%5.500000)
+
+              v1 statistics
+              N REFS 1000
+              N PAGE FAULTS 538 (%53.800000)
+              N TLB HITS 53 (%5.300000)
+
+              correct.txt
+              Virtual address: 48855 Physical address: 32983 Value: -75
+              v0 correct.txt
+              Virtual address: 48855 Physical address: 32983 Value: -75
+              v1 correct.txt
+              Virtual address: 48855 Physical address: 215 Value: -75
+
+              In v1, we expect a difference in at at least part of the physical
+              addresses since we have reduced the number of page frames.
+              @TODO Verify all values are the same for v1 case.
           */
           for (i = 0; i < PAGE_TABLE_LEN; i++) {
               if (page_table[i].im && page_table[i].fn == frame_num) {
