@@ -67,23 +67,29 @@ typedef ADDR_UINT_T addr_t;
 #define V_MEM_SIZE (1UL << ADDR_NBITS)
 
 /*!
-    @defined P_MEM_SIZE
-    @discussion The size of physical memory in bytes.
+
+    @discussion WITH_MODIFICATIONS - compile time environment variable that
+    reduces the size of physical memory as described under the "Modifications"
+    section of the project description. All this does is reduce the size of the
+    physical address space to half that of the virtual address space.
+    Specifically, physical memory is reduced from 256 page frames to 128 page
+    frames. To compile use `cc *.c -DWITH_MODIFICATIONS`, otherwise compile with
+    `cc *.c` to use 256 page frames.
+
 */
 #ifdef WITH_MODIFICATIONS
-/*!
-@discussion
-Compiles with the implementation of the extensions mentioned under the
-"Modifications" section of the project description. All this does is reduce the
-size of the physical address space to half that of the virtual address space.
-Specifically, physical memory is reduced from a 256 page frames to 128 page
-frames. To compile this version use `cc *.c -DWITH_MODIFICATIONS`, otherwise
-compile with `cc *.c`.
-*/
-#define P_MEM_SIZE (128 * PAGE_SIZE)
+    /*!
+        @defined P_MEM_SIZE
+        @discussion The size of physical memory in bytes.
+    */
+    #define P_MEM_SIZE (128 * PAGE_SIZE)
 #else
-#define P_MEM_SIZE V_MEM_SIZE
-//#define P_MEM_SIZE (1UL << (ADDR_NBITS - 1))
+    /*!
+        @defined P_MEM_SIZE
+        @discussion The size of physical memory in bytes, equal to the size of
+        the virtual address space.
+    */
+    #define P_MEM_SIZE V_MEM_SIZE
 #endif
 
 /*!
