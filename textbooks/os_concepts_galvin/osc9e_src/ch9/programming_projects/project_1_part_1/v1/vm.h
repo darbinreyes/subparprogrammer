@@ -70,9 +70,22 @@ typedef ADDR_UINT_T addr_t;
     @defined P_MEM_SIZE
     @discussion The size of physical memory in bytes.
 */
-//#define P_MEM_SIZE V_MEM_SIZE
-//#define P_MEM_SIZE (1UL << (ADDR_NBITS - 1))
+#ifdef WITH_MODIFICATIONS
+/*!
+@discussion
+Compiles with the implementation of the extensions mentioned under the
+"Modifications" section of the project description. All this does is reduce the
+size of the physical address space to half that of the virtual address space.
+Specifically, physical memory is reduced from a 256 page frames to 128 page
+frames. To compile this version use `cc *.c -DWITH_MODIFICATIONS`, otherwise
+compile with `cc *.c`.
+*/
 #define P_MEM_SIZE (128 * PAGE_SIZE)
+#else
+#define P_MEM_SIZE V_MEM_SIZE
+//#define P_MEM_SIZE (1UL << (ADDR_NBITS - 1))
+#endif
+
 /*!
     @defined BACKING_STORE_SIZE
     @discussion The size of the backing store memory in bytes.
