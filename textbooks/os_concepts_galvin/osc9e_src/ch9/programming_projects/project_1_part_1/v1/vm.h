@@ -13,7 +13,7 @@
 /*!
     @defined PAGE_OFFSET_NBITS
     @discussion The number of bits used to represent a byte offset into a page.
-    This must be less than the number of bits in an address.
+    This must be less than the number of bits in a virtual address.
 
     @TODO assert(PAGE_OFFSET_NBITS < ADDR_NBITS)
 */
@@ -21,7 +21,11 @@
 
 /*!
     @defined ADDR_UINT_T
-    @discussion Unsigned integer type used to represent virtual addresses.
+    @discussion Unsigned integer type used to represent virtual addresses. The
+    use of unsigned long here instead of e.g. unsigned short is to make it
+    easier to change the size of virtual addresses. Nothing is lost in terms of
+    correctness by doing this. This program was implemented and tested on a
+    machine having sizeof(unsigned long) == 8.
 */
 #define ADDR_UINT_T unsigned long
 
@@ -37,7 +41,6 @@ typedef ADDR_UINT_T addr_t;
     @discussion The max value of a virtual address is equal to the max unsigned
     integer value that can be represented with the number of bits in a virtual
     address.
-
 */
 #define MAX_V_ADDR ((1UL << ADDR_NBITS) - 1UL)
 
@@ -46,19 +49,6 @@ typedef ADDR_UINT_T addr_t;
     @discussion The size of a page in bytes.
 */
 #define PAGE_SIZE (1UL << PAGE_OFFSET_NBITS)
-
-/*!
-    @defined PAGE_NUM_NBITS
-    @discussion The number of bits used to represent a page number. Unused.
-*/
-//#define PAGE_NUM_NBITS (ADDR_NBITS - PAGE_OFFSET_NBITS)
-
-/*!
-    @defined FRAME_SIZE
-    @discussion The size of a page frame. Equal to the size of a page. Commented
-    out since PAGE_SIZE should always equal FRAME_SIZE.
-*/
-//#define FRAME_SIZE PAGE_SIZE
 
 /*!
     @defined V_MEM_SIZE
@@ -94,7 +84,7 @@ typedef ADDR_UINT_T addr_t;
 
 /*!
     @defined BACKING_STORE_SIZE
-    @discussion The size of the backing store memory in bytes.
+    @discussion The size of the backing store in bytes.
 */
 #define BACKING_STORE_SIZE V_MEM_SIZE
 
@@ -123,16 +113,17 @@ typedef ADDR_UINT_T addr_t;
 
     @field fn Frame number.
 
-    @field im In Memory. 1 = the page is in memory at frame number fn, 0 = page
-    fault, page is in backing store.
+    @field im In Memory. 1 = the page is in memory in page frame number fn,
+    0 = page fault, page is on the backing store.
 
-    @TODO
-    Thoughts on other fields - currently unused fields.
+    Other fields that could be included in the page table are:
     mode:3,    // UNIX style rwx permissions for this page.
-    cp_on_w:1, // 1 = This page is copy on write, 0 = not copy on write.
+    cp_on_w:1, // 1 = This page is copy-on-write, 0 = not copy-on-write.
     locked:1,  // 1 = This page is locked into memory by the OS, it cannot be
-                  kicked out/replaced.
-          :2;
+                  kicked out/replaced. Also called a "wired" in page.
+    dpl:2;     // On x86, this could be a memory descriptor privilege level
+                  (DPL). A value of 0 means this page contains memory accessible
+                  only by the kernel. 3 means this is a user level page.
 
 */
 typedef struct _pg_tbl_entry_t {
