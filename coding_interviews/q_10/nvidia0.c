@@ -36,5 +36,9 @@ int main(void) {
     v = 0x8;
     assert(num_set_bits(v) == 1);
 
+    v = 0x80000001;
+
+    assert(num_set_bits(v) == 2);
+
     return 0;
 }
