@@ -504,7 +504,16 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
               always be terminated by the break statement, not the test part of the
               for loop, since by definition a page being evicted must currently
               reside in memory, and hence have a corresponding valid entry in the
-              page table. */
+              page table.
+
+              @discussion @NEXT Convincing myself I have not introduced a bug/error.
+The fact that the TLB hit rate did not decrease, nor change at all may be OK.
+
+Suppose the random addresses given are such that FIFO replacement of pages and TLB entries happens to be ideal. Once there are no more free frames, the pages being evicted will be those pages brought into memory first and the TLB will be filled with entries that page faulted most recently. FIFO isn’t LRU, but we can still meaningfully talk about how long certain pages have resided in memory. The U in LRU is for USED  (read/written) not how long the page has been in memory. The page at the the front of the queue, the first in, is also the page that has resided in memory longest.
+
+So as long as the TLB is full of entries that have been in memory the least amount of time and we are evicting pages by FIFO, those evicted pages are the ones residing in memory for the longest amount of time. These pages are unlikely to overlap. Thus it is not completely out of the realm of possibility that the TLB hit rate did not change after accounting for TLB entry removal during page eviction.
+
+              */
               assert(0);
               return 1;
           }
