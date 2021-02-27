@@ -131,4 +131,29 @@ typedef struct _pg_tbl_entry_t {
     unsigned char im:1;
 } pg_tbl_entry_t;
 
+/*!
+    @typedef tlb_entry_t
+    @discussion Represents a translation look-aside buffer (TLB) entry. In
+    practice this would be implemented in hardware using associative memory. A
+    more accurate representation of a TLB would be a hash-table in which the
+    key is a page number and the value is a frame number. Since this project
+    isn't concerned with speed of execution the TLB is implemented as an array
+    that is linearly searched for a matching page number.
+    @field pn Page number.
+    @field fn Frame number.
+    @field valid 1 if this entry contains a valid frame number. 0 if this entry
+    is currently unused or is invalid.
+*/
+typedef struct _tlb_entry_t {
+    addr_t pn;
+    addr_t fn;
+    unsigned char valid:1;
+} tlb_entry_t;
+
+/*!
+  @defined TLB_LEN
+  @discussion The number of entries in the TLB.
+*/
+#define TLB_LEN (16U)
+
 #endif
