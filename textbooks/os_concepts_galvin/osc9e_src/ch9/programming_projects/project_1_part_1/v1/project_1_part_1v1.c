@@ -1,15 +1,21 @@
 /*!
 
     @header Chapter 9 Programming Project: Designing a Virtual Memory Manager
-    @discussion This implementation starts with *v0.c and adds a TLB.
+    @discussion
+    * This implementation starts with started with `v0/project_1_part_1v0.c`
+      and was extended by adding a TLB, statistics, and finally reducing the
+      size of physical memory. See `P_MEM_SIZE` in `vm.h`.
+    * What follows in this block comment is mostly identical to
+      what is in `v0/project_1_part_1v0.c`. The main difference is in the
+      correction of typos.
     * A program that translates logical to physical addresses.
     * Virtual address space size: 2^16 = 65536.
     * Given a file containing **logical addresses**.
     * We will simulate the use of a TLB and a page table.
     * Each logical address will be translated to its physical address.
 
-Specifics
-===
+# Specifics
+
     * The given file containing logical addresses is a list of
       **32-bit integers**.
     * You should mask off the rightmost 16-bits of each logical address.
@@ -27,11 +33,11 @@ Specifics
       number_of_frames * frame_size = 2^8 * 2^8 = 2^16 bytes, therefore the
       virtual address space size == the physical address space size.)
     * Physical memory of 65536 bytes = 2^16 bytes. (Hence above bullet point).
-    * Your program only needs to support reading physical address, not writing
+    * Your program only needs to support reading physical addresses, not writing
       to physical addresses.
 
-Address Translation
-===
+# Address Translation
+
     * Again, translation will involve both a TLB and a page table.
     * 1. Extract page number from logical address. (Read address from a line in
       file addresses.txt, mask out the low order 16 bits, take bits[15:8] as the
@@ -41,12 +47,12 @@ Address Translation
       address = <frame_number , page offset>.
       else, we have a TLB-miss, we consult the page-table for the frame number,
       again the physical address = <frame_number , page offset>.
-      If page table does not contain the frame number, a **page fault** has
+      If the page table does not contain a frame number, a **page fault** has
       occurred. Thus the page is not in memory, it must be read in from the
       backing store into physical memory.
 
-Handling Page Faults
-===
+# Handling Page Faults
+
     * The program will implement demand paging, i.e. a page is read into
       physical memory from the backing store only when a page fault occurs.
     * The backing store is represented by the given file BACKING_STORE.bin. This
@@ -78,29 +84,29 @@ Handling Page Faults
       size, and all of physical address space is available for demand paging. In
       practice, part of physical memory must be used for the e.g. OS, and MMI/O.
 
-Test File
-===
+# Test File
+
     * addresses.txt contains the logical addresses to be translated, one address
       per line. The byte value read from the corresponding physical address
       should be output as a signed char value.
 
-How to Begin
-===
+# How to Begin
+
     * Start by obtaining the page number and page offset.
     * Start without a TLB, use a page table only, add the TLB after you verify
     the program is correct using the page table only. Recall the TLB only speeds
-    things up, like normal the normal CPU caches.
+    things up, like normal CPU caches.
     * Recall that the TLB only has 16 entries, so a replacement strategy will be
       required: use FIFO or LRU.
 
-How to Run Your Program
-===
+# How to Run Your Program
+
     * Example: `./a.out addresses.txt`
     * addresses.txt contains 1000 logical addresses.
     * The program should output 3 values as indicated in the file correct.txt.
 
-Statistics
-===
+# Statistics
+
     * The program should report:
     1. page-fault rate = percent of address references that result in a page
     fault.
@@ -111,24 +117,23 @@ Statistics
       expect a high TLB hit rate. In practice, real programs exhibit memory
       access locality.
 
-My Remarks
-===
+# My Remarks
+
     * It is manifest that it is up to me to decide where in physical memory a
-      page being being read in from the backing store should be placed. The
+      page being read in from the backing store should be placed. The
       simplest choice seems to be the next free page of physical memory, we can
-      simple fill physical memory starting from lowest page number up the
+      simply fill physical memory starting from lowest page number up the
       highest page number.
 
-Modifications
-===
-    * I will treat this as "part 2" of the project.
+# Modifications
+
     * "Suggested": use a physical address space that is smaller than the virtual
       address space, specifically, make the physical address space 128 page
       frames instead of 256 page frames. This will require that you keep track
       of free page frames and that you implement a page replacement strategy:
       use either FIFO or LRU page replacement.
-     * Remark: It seems like FIFO page replacement would be trivial to
-       implement, just use a circular array index. So an further work
+    * Remark: It seems like FIFO page replacement would be trivial to
+       implement, just use a circular array index. So further work
        would be implement LRU via a list based stack. Also, in the case of
        a smaller physical memory, we expect the page fault rate to increase and
        TLB-hits to decrease.
@@ -195,7 +200,8 @@ int main (int argc, const char * const * const argv) {
 
     frac_pf = ((double)(npf * 100))/((double)nrefs);
     frac_tlb_h = ((double)(ntlb_hits * 100))/((double)nrefs);
-    printf("Done. Statistics:\n N REFS %lu\n N PAGE FAULTS %lu (%%%f)\n N TLB HITS %lu (%%%f)\n", nrefs, npf, frac_pf, ntlb_hits, frac_tlb_h);
+    printf("Done. Statistics:\n N REFS %lu\n N PAGE FAULTS %lu (%%%f)\n N TLB "\
+           "HITS %lu (%%%f)\n", nrefs, npf, frac_pf, ntlb_hits, frac_tlb_h);
 
     return 0;
 }
@@ -217,12 +223,12 @@ int translate_all(void) {
             return 1;
         }
 
-        // Virtual address: 16916 Physical address: 20 Value: 0
         if(p_mem_read(paddr, &v)) {
             assert(0);
             return 2;
         }
 
+        // E.g.: "Virtual address: 16916 Physical address: 20 Value: 0"
         printf("Virtual address: %lu Physical address: %lu Value: %d\n",
                vaddrs[i], paddr, v);
         nrefs++; // Statistics
@@ -230,31 +236,6 @@ int translate_all(void) {
 
     return 0;
 }
-
-/*!
-    @typedef tlb_entry_t
-    @discussion Represents a translation look-aside buffer (TLB) entry. In
-    practice this would be implemented in hardware using associative memory. A
-    more accurate representation of a TLB would be a hash-table in which the
-    key is a page number and the value is a frame number. Since this project
-    isn't concerned with speed of execution the TLB is implemented as an array
-    that is linearly searched for a matching page number.
-    @field pn Page number.
-    @field fn Frame number.
-    @field valid 1 if this entry contains a valid frame number. 0 if this entry
-    is currently unused.
-*/
-typedef struct _tlb_entry_t {
-    addr_t pn;
-    addr_t fn;
-    unsigned char valid:1;
-} tlb_entry_t;
-
-/*!
-  @defined TLB_LEN
-  @discussion The number of entries in the TLB.
-*/
-#define TLB_LEN (16U)
 
 /*! @discussion Represents the TLB. */
 static tlb_entry_t tlb[TLB_LEN];
@@ -290,7 +271,7 @@ int in_tlb(addr_t page_num, addr_t *frame_num) {
 }
 
 /*!
-    @function update_tlb
+    @function tlb_add
     @discussion Updates the TLB with a new translation entry - for use after a
     page fault occurs. Entries are replaced according to FIFO.
 
@@ -300,17 +281,57 @@ int in_tlb(addr_t page_num, addr_t *frame_num) {
 
     @result 0 if successful.
 */
-int update_tlb(addr_t page_num, addr_t frame_num) {
+int tlb_add(addr_t page_num, addr_t frame_num) {
     /* Implements FIFO TLB entry replacement using a circular array index. */
     static size_t victim = 0;
     tlb[victim].pn = page_num;
     tlb[victim].fn = frame_num;
-    /* @IMPORTANT Since we are not required to replace any pages yet, once the
+
+    /* @IMPORTANT Since we are not required to replace any pages, once the
     TLB is full, all entries remain valid, we only need to update the entry's
-    page number and frame number.*/
+    page number and frame number. */
+
     tlb[victim].valid = 1;
     victim++;
     victim = victim % TLB_LEN;
+    return 0;
+}
+
+/*!
+    @function tlb_rm
+
+    @discussion Removes the specified entry from the TLB. This operation is
+    necessary any time we evict a page from memory.
+
+    @param page_num The page number.
+
+    @param frame_num The frame number.
+
+    @result 0 if successful.
+*/
+int tlb_rm(addr_t page_num, addr_t frame_num) {
+    size_t i;
+
+    // Remark: TLB's are small, so in most cases we won't remove any entry.
+
+    //printf("TLB entry rm.\n");
+
+    for (i = 0; i < TLB_LEN; i++) {
+        if (tlb[i].valid && tlb[i].pn == page_num && tlb[i].fn == frame_num) {
+            // Remove entry.
+            tlb[i].valid = 0;
+            /* PAGE_TABLE_LEN is not a valid frame or page number, so it is a
+               good value to use for marking entries as removed. */
+            tlb[i].fn = PAGE_TABLE_LEN;
+            tlb[i].pn = PAGE_TABLE_LEN;
+            /* @IMPORTANT Possible bug. I never see this print. This implies
+            that each page that is evicted from memory by chance never happens
+            to have an entry in TLB. */
+            printf("TLB entry removed.\n");
+            break;
+        }
+    }
+
     return 0;
 }
 
@@ -410,7 +431,7 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     }
 
     if (in_tlb(page_num, &frame_num)) {
-      ntlb_hits++; // Statistics. TLB-hit
+        ntlb_hits++; // Statistics. TLB-hit
     } else if (page_table[page_num].im) {
         // The page is in memory.
         frame_num = page_table[page_num].fn;
@@ -439,14 +460,8 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
           }
 
           /*!
-              @discussion The page being evicted is the one residing in page
-              frame number frame_num indicated by evict_page(). Since the page
-              currently resides in memory there is a corresponding page table
-              entry marked as valid. Find that page table entry and mark it as
-              invalid.
+              # Results
 
-              Results
-              ===
               v0 statistics - to get these results just change the #define for NUM_PAGE_FRAMES
               N REFS 1000
               N PAGE FAULTS 244 (%24.400000)
@@ -468,13 +483,32 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
               addresses since we have reduced the number of page frames.
               @TODO Verify all values are the same for v1 case.
           */
+
           for (i = 0; i < PAGE_TABLE_LEN; i++) {
+              /*!
+                  @discussion The page being evicted is the one residing in page
+                  frame number frame_num indicated by evict_page(). Since the page
+                  currently resides in memory there is a corresponding page table
+                  entry marked as valid. Find that page table entry and mark it as
+                  invalid.
+              */
               if (page_table[i].im && page_table[i].fn == frame_num) {
                   page_table[i].im = 0; // No longer in memory.
                   page_table[i].fn = PAGE_TABLE_LEN; // Mark with an invalid page number.
                   break;
               }
           }
+
+          if (i >= PAGE_TABLE_LEN || tlb_rm(i, frame_num)) {
+              /*! @discussion Unless there is an bug, the for loop above should
+              always be terminated by the break statement, not the test part of the
+              for loop, since by definition a page being evicted must currently
+              reside in memory, and hence have a corresponding valid entry in the
+              page table. */
+              assert(0);
+              return 1;
+          }
+
         } else {
           // Use a free frame.
           frame_num = free_framen;
@@ -492,8 +526,9 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
             return 3;
         }
 
-        if (update_tlb(page_num, frame_num)) {
-            assert(0); // @TODO For now, update_tlb() is always successful.
+        if (tlb_add(page_num, frame_num)) {
+            assert(0);
+            return 1;
         }
 
         page_table[page_num].fn = frame_num;
