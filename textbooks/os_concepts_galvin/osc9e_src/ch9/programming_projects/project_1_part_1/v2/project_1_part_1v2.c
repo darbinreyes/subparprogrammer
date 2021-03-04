@@ -196,7 +196,7 @@ int main (int argc, const char * const * const argv) {
         return 3;
     }
 
-    // Translate all virtual addressese
+    // Translate all virtual addresses
     if (translate_all()) {
         return 4;
     }
