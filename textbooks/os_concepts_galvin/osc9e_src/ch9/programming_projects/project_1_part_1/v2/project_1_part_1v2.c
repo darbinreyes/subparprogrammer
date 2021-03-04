@@ -2,9 +2,8 @@
 
     @header Chapter 9 Programming Project: Designing a Virtual Memory Manager
     @discussion
-    * This implementation started with `v0/project_1_part_1v0.c`
-      and was extended by adding a TLB, statistics, and finally reducing the
-      size of physical memory. See `P_MEM_SIZE` in `vm.h`.
+    * This implementation started with `v1/project_1_part_1v1.c`
+      and was modified to fix a bug in the TLB entry replacement.
     * What follows in this block comment is mostly identical to
       what is in `v0/project_1_part_1v0.c`. The main difference is in the
       correction of typos.
