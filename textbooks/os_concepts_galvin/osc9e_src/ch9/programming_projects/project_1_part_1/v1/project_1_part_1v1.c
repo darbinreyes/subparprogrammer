@@ -323,10 +323,10 @@ int tlb_add(addr_t page_num, addr_t frame_num) {
     // At this point the next call will replace entry 0. Which is correct
     according to FIFO replacement.
 
-    victim = 1. (page_num, frame_num)=[1|3]
+    victim = 0. (page_num, frame_num)=[1|3]
 
-    [1|3]< replaced entry
-    [5|1]
+    [1|3] // replaced entry
+    [5|1]<
     [7|2]
 
     // Do we need to check whether or not a page is already in the TLB before
@@ -334,7 +334,8 @@ int tlb_add(addr_t page_num, addr_t frame_num) {
     evicted, we only replace when the TLB is full and an add occurs. The assert
     below performs this sanity check.
 
-
+    It seems that now we have a queue in which items can be removed from places
+    other than the head. In this case an array based queue will not suffice.
 
     */
     static size_t victim = 0;
@@ -401,7 +402,7 @@ int tlb_rm(addr_t page_num, addr_t frame_num) {
     @function evict_page
     @discussion When a page fault occurs and there are no free frames a page
     must be evicted from memory in order to bring in a new page. This function
-    first selects a to evict from memory and then writes it to the backing
+    first selects a page to evict from memory and then writes it to the backing
     store. The eviction results in a free frame, the frame number of the freed
     frame is returned if successful.
 
@@ -412,7 +413,7 @@ int tlb_rm(addr_t page_num, addr_t frame_num) {
 int evict_page(addr_t *free_frame) {
   static addr_t victim_pg = 0;
 
-  /* FIFO replacement is trivial to implement for this project, just used
+  /* FIFO replacement is trivial to implement for this project, just use
   a circular array index, the index = the frame to be replaced.
   @IMPORTANT FIFO page replacement in this function depends on the page
   frames being filled from lowest frame number (0) to highest frame number
@@ -421,6 +422,9 @@ int evict_page(addr_t *free_frame) {
   fault, we will see that memory is full, at which point this function will be
   called, and it will return free_frame = 0, which is indeed the FIFO page. The
   next call will return free_frame = 1, etc.
+  @TODO We can verify the correctness of the above remark by implementing FIFO
+  with a linked list. It should be too hard since most of the work will be done
+  once the TLB is fixed.
   */
 
   if (free_frame == NULL) {
@@ -475,8 +479,11 @@ static unsigned char p_mem[P_MEM_SIZE];
 int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     /*! @discussion The page frame number of the next free frame. When a page
         fault occurs, the new page is read into physical memory at byte address
-        == free_framen * PAGE_SIZE. */
+        == free_framen * PAGE_SIZE. Unless there are no free frames, in which
+        case the new page is read into memory after evicting a page to make
+        room. */
     static addr_t free_framen = 0;
+    /* Represents the page table. */
     static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
     addr_t page_offset, page_num, frame_num;
     size_t i;
@@ -489,20 +496,23 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         table entry.
 
         If the page table entry indicates that the page is in memory, save the
-        frame number from that page table entry. Otherwise a page fault has
-        occurred, i.e. the page is not in memory. Read the page from the backing
-        store into a free frame in physical memory, and update the page table.
-        Save the frame number of the free frame.
+        frame number from that page table entry. Concatenate the frame number
+        and page offset to form the physical address.
 
-        Concatenate the saved frame number and page offset to form the physical
+        Otherwise a page fault has occurred, i.e. the page is not in memory.
+
+        If a page fault occurs and there is a free frame, read the page from the
+        backing store into a free frame, update the page table, and add a
+        corresponding TLB entry to the TLB. Concatenate the frame number and
+        page offset to form the physical address.
+
+        If a page fault occurs and there are no free frames, evict a page from
+        memory, read the page from the backing store into the newly freed frame,
+        update the page table, and add a corresponding TLB entry to the TLB.
+        Concatenate the frame number and page offset to form the physical
         address.
-
-
-        >>>>>>>>>>>@NEXT Fix output values no longer match correct.txt. Also,
-        the statistics did not change. You are returning a free frame number,
-        but you need to know what page is currently stored there and update the page table and TLB.
-
     */
+
     if (paddr == NULL) {
         assert(0);
         return 1;
@@ -522,20 +532,25 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         // The page is in memory.
         frame_num = page_table[page_num].fn;
     } else {
-        // Page fault! Get the page from the backing store, update page_table.
+        /* Page fault! Get the page from the backing store, update page_table
+        and TLB. */
         npf++; // Statistics
-        /*
-          Supporting physical memory smaller than virtual memory.
-          Reduce size of physical mem. from 256 to 128 frames.
-          if free_framen == NUM_PAGE_FRAMES
-              no more free page frames
-              a page must be evicted from memory to backing store
-              since we are never writing to a page we can skip writing the page from memory to the backing store.
+        /*! @discussion
+          * Supporting physical memory smaller than virtual memory.
+          * Reduce size of physical mem. from 256 to 128 frames.
+          * if free_framen == NUM_PAGE_FRAMES
+              * no more free page frames
+              * a page must be evicted from memory to backing store
+              * since we are never writing to a page we can skip writing the
+                page from memory to the backing store.
 
-              all we need to do is decide which page will be be replaced.
-              FIFO replacement can be implemented using a circular array index.
-              Once memory is full, free_framen will be determined according to FIFO.
-              After that, we essentially have a free frame and the same code can be used to read the new page into the free frame.
+              * all we need to do is decide which page will be be replaced.
+              * FIFO replacement can be implemented using a circular array index.
+              * Once memory is full, page replacement will be determined
+                according to FIFO.
+              * After evicting a page, we have a free frame, and we proceed with
+                reading the into memory from the backing store and updating the
+                page table and TLB.
         */
         if (free_framen >= NUM_PAGE_FRAMES) {
           // No free frame available, page replacement required.
@@ -548,7 +563,7 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
           /*!
               # Results
 
-              v0 statistics - to get these results just change the #define for NUM_PAGE_FRAMES
+              v0 statistics
               N REFS 1000
               N PAGE FAULTS 244 (%24.400000)
               N TLB HITS 55 (%5.500000)
@@ -567,7 +582,6 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
 
               In v1, we expect a difference in at at least part of the physical
               addresses since we have reduced the number of page frames.
-              @TODO Verify all values are the same for v1 case.
           */
 
           for (i = 0; i < PAGE_TABLE_LEN; i++) {
@@ -580,17 +594,19 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
               */
               if (page_table[i].im && page_table[i].fn == frame_num) {
                   page_table[i].im = 0; // No longer in memory.
-                  page_table[i].fn = PAGE_TABLE_LEN; // Mark with an invalid page number.
+                  /* Mark with an invalid page number. */
+                  page_table[i].fn = PAGE_TABLE_LEN;
                   break;
               }
           }
 
           if (i >= PAGE_TABLE_LEN || tlb_rm(i, frame_num)) {
               /*! @discussion Unless there is an bug, the for loop above should
-              always be terminated by the break statement, not the test part of the
-              for loop, since by definition a page being evicted must currently
-              reside in memory, and hence have a corresponding valid entry in the
-              page table.*/
+              always be terminated by the break statement, not the test part of
+              the for loop, since by definition a page being evicted must
+              currently reside in memory, and hence have a corresponding valid
+              entry in the page table. If this page has an entry in the TLB
+              then tlb_rm() invalidates that entry. */
               assert(0);
               return 1;
           }
