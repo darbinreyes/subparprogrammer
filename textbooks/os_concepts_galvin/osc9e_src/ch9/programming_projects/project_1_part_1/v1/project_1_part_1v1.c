@@ -174,6 +174,7 @@ int main (int argc, const char * const * const argv) {
     const char *fname = NULL;
     double frac_pf, frac_tlb_h;
 
+    // Process command line args.
     if (valid_int_sizes()) {
       return 1;
     }
@@ -190,14 +191,17 @@ int main (int argc, const char * const * const argv) {
 
     printf("OK...\n");
 
+    // Get all virtual addresses
     if (init_vaddrs(fname)) {
         return 3;
     }
 
+    // Translate all virtual addressese
     if (translate_all()) {
         return 4;
     }
 
+    // Print statistics
     frac_pf = ((double)(npf * 100))/((double)nrefs);
     frac_tlb_h = ((double)(ntlb_hits * 100))/((double)nrefs);
     printf("Done. Statistics:\n N REFS %lu\n N PAGE FAULTS %lu (%%%f)\n N TLB "\
@@ -218,17 +222,20 @@ int translate_all(void) {
     signed char v;
 
     for (i = 0; i < vaddrs_len; i++) {
+        // Translate from virtual to physical address.
         if(translate_v2p_addr(vaddrs[i], &paddr)) {
             assert(0);
             return 1;
         }
 
+        // Read the value stored at the physical address.
         if(p_mem_read(paddr, &v)) {
             assert(0);
             return 2;
         }
 
-        // E.g.: "Virtual address: 16916 Physical address: 20 Value: 0"
+        /* Print result in specified format
+           e.g.: "Virtual address: 16916 Physical address: 20 Value: 0" */
         printf("Virtual address: %lu Physical address: %lu Value: %d\n",
                vaddrs[i], paddr, v);
         nrefs++; // Statistics
@@ -283,13 +290,32 @@ int in_tlb(addr_t page_num, addr_t *frame_num) {
 */
 int tlb_add(addr_t page_num, addr_t frame_num) {
     /* Implements FIFO TLB entry replacement using a circular array index. */
-    static size_t victim = 0;
-    tlb[victim].pn = page_num;
-    tlb[victim].fn = frame_num;
 
     /* @IMPORTANT Since we are not required to replace any pages, once the
     TLB is full, all entries remain valid, we only need to update the entry's
-    page number and frame number. */
+    page number and frame number. @TODO This is no longer true once we are
+    evicting pages from memory and thus TLB entries are being invalidated. We
+    only want to replace an entry if the TLB is full.
+    TLB_LEN = 3. victim = 0.
+
+    []<
+    []
+    []
+
+    TLB_LEN = 3. victim = 0.
+
+    []<
+    []
+    []
+
+    [2]<
+    [5]
+    [7]
+
+    */
+    static size_t victim = 0;
+    tlb[victim].pn = page_num;
+    tlb[victim].fn = frame_num;
 
     tlb[victim].valid = 1;
     victim++;
