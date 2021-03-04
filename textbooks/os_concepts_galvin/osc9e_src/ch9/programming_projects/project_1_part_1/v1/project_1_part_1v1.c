@@ -302,18 +302,54 @@ int tlb_add(addr_t page_num, addr_t frame_num) {
     []
     []
 
-    TLB_LEN = 3. victim = 0.
+    victim = 0. (page_num, frame_num)=[2|0]
 
+    [2|0] // State of TLB after call.
+    []< // victim index
+    []
+
+    victim = 1. (page_num, frame_num)=[5|1]
+
+    [2|0]
+    [5|1]
     []<
-    []
-    []
 
-    [2]<
-    [5]
-    [7]
+    victim = 2. (page_num, frame_num)=[7|2]
+
+    [2|0]<
+    [5|1]
+    [7|2]
+
+    // At this point the next call will replace entry 0. Which is correct
+    according to FIFO replacement.
+
+    victim = 1. (page_num, frame_num)=[1|3]
+
+    [1|3]< replaced entry
+    [5|1]
+    [7|2]
+
+    // Do we need to check whether or not a page is already in the TLB before
+    an add? We only add on a page fault, we only invalidate when a page is
+    evicted, we only replace when the TLB is full and an add occurs. The assert
+    below performs this sanity check.
+
+
 
     */
     static size_t victim = 0;
+    addr_t t;
+    size_t i;
+
+    assert(!in_tlb(page_num, &t)); // Sanity check.
+
+    for (i = 0; i < TLB_LEN; i++) {
+        if (!tlb[i].valid) {
+            printf("TLB not full\n");
+            break;
+        }
+    }
+
     tlb[victim].pn = page_num;
     tlb[victim].fn = frame_num;
 
