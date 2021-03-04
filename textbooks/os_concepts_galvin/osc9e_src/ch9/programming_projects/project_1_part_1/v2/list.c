@@ -3,8 +3,9 @@
     Mostly copied from the Linux open source:
     linux-headers-3.16.0-4-common/include/linux/types.h
     linux-headers-3.16.0-4-common/include/linux/list.h
-    /Users/darbinreyes/dev/private_dev/subparprogrammer/textbooks/os_concepts_galvin/osc9e_src/linux-headers-3.16.0-4-common/include/linux/kernel.h
-    /Users/darbinreyes/dev/private_dev/subparprogrammer/textbooks/os_concepts_galvin/osc9e_src/linux-headers-3.16.0-4-common/include/linux/stddef.h
+    linux-headers-3.16.0-4-common/include/linux/kernel.h
+    linux-headers-3.16.0-4-common/include/linux/stddef.h
+    linux-headers-3.16.0-4-common/include/linux/poison.h
 */
 
 #include <stdio.h>
@@ -111,6 +112,47 @@ static inline void list_add_tail(struct list_head *new, struct list_head *head)
          &pos->member != (head);                    \
          pos = list_next_entry(pos, member))
 
+/*
+ * Delete a list entry by making the prev/next entries
+ * point to each other.
+ *
+ * This is only for internal list manipulation where we know
+ * the prev/next entries already!
+ */
+static inline void __list_del(struct list_head * prev, struct list_head * next)
+{
+    next->prev = prev;
+    prev->next = next;
+}
+
+/**
+ * list_del - deletes entry from list.
+ * @entry: the element to delete from the list.
+ * Note: list_empty() on entry does not return true after this, the entry is
+ * in an undefined state.
+ */
+static inline void __list_del_entry(struct list_head *entry)
+{
+    __list_del(entry->prev, entry->next);
+}
+
+#define POISON_POINTER_DELTA 0
+
+/*
+ * These are non-NULL pointers that will result in page faults
+ * under normal circumstances, used to verify that nobody uses
+ * non-initialized list entries.
+ */
+#define LIST_POISON1  ((void *) 0x00100100 + POISON_POINTER_DELTA)
+#define LIST_POISON2  ((void *) 0x00200200 + POISON_POINTER_DELTA)
+
+static inline void list_del(struct list_head *entry)
+{
+    __list_del(entry->prev, entry->next);
+    entry->next = LIST_POISON1;
+    entry->prev = LIST_POISON2;
+}
+
 struct bday {
     int year;
     struct list_head list;
@@ -142,6 +184,18 @@ int main(void) {
         printf("year = %d\n", ptr->year);
     }
 
+    // list_del(&t->list); // remove head
+    list_del(pages_list.next); // remove head
+
+    list_for_each_entry(ptr, &pages_list, list) {
+        printf("x year = %d\n", ptr->year);
+    }
+
+    list_add_tail(&t->list, &pages_list);
+
+    list_for_each_entry(ptr, &pages_list, list) {
+        printf("y year = %d\n", ptr->year);
+    }
     // @TODO !!! call free()
     return 0;
 }
