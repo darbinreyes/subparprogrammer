@@ -16,7 +16,7 @@
 #define BACKING_STORE_FNAME "BACKING_STORE.bin"
 
 /*!
-    @function backing_store_read
+    @function backing_store_pg_in
 
     @discussion Reads a page (page_num) from the backing store into the
     specified address in physical memory (dst).
@@ -27,7 +27,7 @@
 
     @result 0 if successful.
 */
-int backing_store_read(addr_t page_num, unsigned char *dst) {
+int backing_store_pg_in(addr_t page_num, unsigned char *dst) {
     /*! @discussion Temporary buffer used for destination of a read operation on
         the backing store. */
     static unsigned char page_io_buffer[PAGE_SIZE];
