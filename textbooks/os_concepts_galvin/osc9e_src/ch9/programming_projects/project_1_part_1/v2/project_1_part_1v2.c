@@ -148,6 +148,7 @@
 #include "args.h"
 #include "get_vaddrs.h"
 #include "backing_store.h"
+#include "tlb.h"
 
 int translate_v2p_addr(addr_t vaddr, addr_t *paddr);
 int p_mem_read(addr_t paddr, signed char *v);
