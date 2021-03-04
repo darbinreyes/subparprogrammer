@@ -9,7 +9,7 @@
 #define MAX_NUM_V_ADDRS 1000U
 
 extern addr_t vaddrs[MAX_NUM_V_ADDRS];
-/* Number of addresses read from addresses.txt */
+
 extern size_t vaddrs_len;
 
 int init_vaddrs(const char *vaddrs_fname);
