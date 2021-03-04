@@ -149,9 +149,9 @@
 #include "get_vaddrs.h"
 #include "backing_store.h"
 #include "tlb.h"
+#include "pmem.h"
 
 int translate_v2p_addr(addr_t vaddr, addr_t *paddr);
-int p_mem_read(addr_t paddr, signed char *v);
 int translate_all(void);
 
 /*! @discussion Statistics. */
@@ -229,7 +229,7 @@ int translate_all(void) {
         }
 
         // Read the value stored at the physical address.
-        if(p_mem_read(paddr, &v)) {
+        if(p_mem_read_byte(paddr, &v)) {
             assert(0);
             return 2;
         }
@@ -284,9 +284,6 @@ int evict_page(addr_t *free_frame) {
 
   return 0;
 }
-
-/*! @discussion Represents physical memory. */
-static unsigned char p_mem[P_MEM_SIZE];
 
 /*
     @discussion @TODO @NEXT
@@ -469,7 +466,7 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
             return 2;
         }
 
-        if(backing_store_read(page_num, p_mem + frame_num * PAGE_SIZE)) {
+        if(backing_store_pg_in(page_num, p_mem_addr() + frame_num * PAGE_SIZE)) {
             assert(0);
             return 3;
         }
@@ -488,32 +485,5 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     assert(frame_num < NUM_PAGE_FRAMES);
 
     *paddr = (frame_num << PAGE_OFFSET_NBITS) | page_offset;
-    return 0;
-}
-
-/*!
-    @function p_mem_read
-
-    @discussion Returns the value of a byte in physical memory at the given
-    physical address.
-
-    @param paddr The physical address.
-
-    @param v If successful, the value of the byte at the address.
-
-    @result 0 if successful.
-*/
-int p_mem_read(addr_t paddr, signed char *v) {
-    if (paddr >= P_MEM_SIZE) {
-        assert(0);
-        return 1;
-    }
-
-    if (v == NULL) {
-        assert(0);
-        return 2;
-    }
-
-    *v = p_mem[paddr];
     return 0;
 }
