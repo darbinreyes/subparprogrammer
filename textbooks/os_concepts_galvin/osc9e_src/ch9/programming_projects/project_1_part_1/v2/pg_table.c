@@ -173,13 +173,36 @@ int page_replace(addr_t page_num, addr_t *frame_num) {
     return 0;
 }
 
-#define PHYSICAL_ADDR(fn, pgoff) ( ( (fn) << PAGE_OFFSET_NBITS ) | (pgoff) );
+/*!
+    @function no_tlb_translate_v2p_addr
 
+    @discussion Translates the given virtual address to a physical address NOT
+    using a TLB.
+
+    @param vaddr The virtual address.
+    @param paddr The physical address if successful.
+
+    @result 0 if successful. Otherwise error.
+*/
 int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
-    /*! @discussion The page frame number of the next free frame. */
+    /* @free_frame: The page frame number of the next free frame. Initially, all
+       page faults are serviced by inserting the page into a frame number equal
+       to @free_frame. If @free_frame equals @NUM_PAGE_FRAMES, there are no more
+       free frames and all subsequent page faults are serviced by page
+       replacement. */
     static addr_t free_frame = 0;
     addr_t page_offset, page_num, frame_num;
     size_t i;
+
+    if (vaddr > MAX_V_ADDR) {
+        assert(0);
+        return 1;
+    }
+
+    if (paddr == NULL) {
+        assert(0);
+        return 1;
+    }
 
     /*
         Steps:
@@ -204,13 +227,8 @@ int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         physical address.
     */
 
-    if (paddr == NULL) {
-        assert(0);
-        return 1;
-    }
-
-    page_offset = (vaddr & (PAGE_SIZE - 1));
-    page_num = (vaddr & (V_MEM_SIZE - 1)) >> PAGE_OFFSET_NBITS;
+    page_offset = ADDR_PAGE_OFFSET(vaddr);
+    page_num = ADDR_PAGE_NUM(vaddr);
 
     if (page_num >= PAGE_TABLE_LEN) {
         assert(0);
@@ -229,24 +247,25 @@ int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
 
     if (free_frame < NUM_PAGE_FRAMES) {
         // Use a free frame.
-        frame_num = free_frame;
+        frame_num = free_frame++;
         if(backing_store_pg_in(page_num, p_mem_addr() + frame_num * PAGE_SIZE)) {
           assert(0);
-          return 3;
+          return 1;
         }
 
         if(page_table_add(page_num, frame_num, NULL)) {
           assert(0);
-          return 3;
+          return 1;
         }
 
-        free_frame++;
-    } else {
-        // No free frame available, page replacement required.
-        if (page_replace(page_num, &frame_num)) {
-            assert(0);
-            return 3;
-        }
+        *paddr = PHYSICAL_ADDR(frame_num, page_offset);
+        return 0;
+    }
+
+    // No free frame available, page replacement required.
+    if (page_replace(page_num, &frame_num)) {
+        assert(0);
+        return 1;
     }
 
     *paddr = PHYSICAL_ADDR(frame_num, page_offset);
