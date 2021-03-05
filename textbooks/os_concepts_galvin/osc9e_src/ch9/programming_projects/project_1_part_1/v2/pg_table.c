@@ -35,35 +35,35 @@ static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
 
 /*!
     @discussion Updates the page table to reflect that a particular page is no
-    longer in memory because a page replacement took place.
+    longer in memory because a page replacement took place. Returns the frame
+    number of the entry before the entry is marked as invalid.
 
-    The page table is scanned for a valid page table entry with a frame
-    number == `frame_num` and, if found, marks that page table entry as invalid.
-    It is an error if no such page table entry is found.
 */
-int page_table_rm(addr_t frame_num) {
+int page_table_rm(addr_t page_num, addr_t *frame_num) {
     size_t i;
 
-    if (frame_num >= NUM_PAGE_FRAMES) {
+    if (page_num >= PAGE_TABLE_LEN) {
         assert(0);
         return 1;
     }
 
-    for (i = 0; i < PAGE_TABLE_LEN; i++) {
-        if (page_table[i].valid && page_table[i].fn == frame_num) {
-            page_table[i].valid = 0; // No longer in memory.
-            /* Mark with an invalid page number. */
-            page_table[i].fn = PAGE_TABLE_LEN;
-            break;
-        }
+    if (frame_num == NULL) {
+        assert(0);
+        return 1;
     }
 
-    if (i >= PAGE_TABLE_LEN) {
-        /*! @discussion By definition a page being evicted must currently reside
-            in memory, and hence have a corresponding valid entry in the page table. */
+    if(!page_table[page_num].valid) {
+        /* We should only be removing valid page table entries in the list
+           should be valid. */
         assert(0);
-        return 2;
+        return 1;
     }
+
+    page_table[page_num].valid = 0; // No longer in memory.
+
+    *frame_num = page_table[page_num].fn;
+    /* Mark with an invalid page number. */
+    page_table[page_num].fn = PAGE_TABLE_LEN;
 
     return 0;
 }
@@ -73,6 +73,9 @@ int page_table_rm(addr_t frame_num) {
     page replacement. The node points to the given associated page table entry.
     Memory for the node is obtained from malloc(), the caller is responsible for
     calling free().
+    Remark: We never need to remove an entry from the list. During page
+    replacement we reused the node at the front of the list and move it to the
+    back of the list.
 */
 int fifo_list_add(pg_tbl_entry_t *pte) {
     pg_list_t *t;
@@ -83,6 +86,7 @@ int fifo_list_add(pg_tbl_entry_t *pte) {
     }
 
     t = malloc(sizeof(*t));
+
     if (t == NULL) {
         assert(0);
         return 1;
@@ -102,7 +106,7 @@ int fifo_list_add(pg_tbl_entry_t *pte) {
     entry is marked as valid.
 
 */
-int page_table_add(addr_t page_num, addr_t frame_num, pg_list_t *pg_info_entry) {
+int page_table_add(addr_t page_num, addr_t frame_num) {
     if (page_num >= PAGE_TABLE_LEN) {
         assert(0);
         return 1;
@@ -121,28 +125,14 @@ int page_table_add(addr_t page_num, addr_t frame_num, pg_list_t *pg_info_entry) 
     page_table[page_num].fn = frame_num;
     page_table[page_num].valid = 1;
 
-    // START Update the FIFO list of pages.
     pg_list_t *ptr;
 
-    if (pg_info_entry == NULL) {
-        printf("Using new list entry.\n");
-        if (fifo_list_add(&page_table[page_num])){
-            assert(0);
-            return 1;
-        }
-    } else {
-        printf("Re-using list entry.\n");
-        pg_info_entry->pg_tbl_entry = &page_table[page_num];
-    }
-
     list_for_each_entry(ptr, &pages_list, list) {
-        /* TEMP. - for each list entry - print page_num and frame num.
-           NOTE: Even with vmem size == pmem size, only (243+1)/256 frames are
-           used. */
         printf("[%lu|%lu]->", (ptr->pg_tbl_entry - page_table), ptr->pg_tbl_entry->fn);
     }
+
     printf("\n");
-    // END Update the FIFO
+
     return 0;
 }
 
@@ -151,8 +141,8 @@ int page_table_add(addr_t page_num, addr_t frame_num, pg_list_t *pg_info_entry) 
     must be replaced. This function performs a page replacement.
 */
 int page_replace(addr_t page_num, addr_t *frame_num) {
-    static addr_t victim_frame = 0;
-    addr_t fifo_victim_frame;
+    addr_t victim_frame;
+    pg_list_t *t;
 
     if (page_num >= PAGE_TABLE_LEN) {
         assert(0);
@@ -164,47 +154,40 @@ int page_replace(addr_t page_num, addr_t *frame_num) {
         return 1;
     }
 
-    // START - use FIFO list to select victim page -----------------------------
+    if (list_empty(&pages_list)) {
+        /* We are performing page replacement, the list should not be empty, the
+           list should contain as many nodes as there are page frames. */
+        assert(0);
+        return 1;
+    }
 
-    // assert(list is not empty)
-
-    // The victim page is the page at the head of the list.
-
-    pg_list_t *t;
-
+    // The victim page is always the page at the head of the list.
     t = list_first_entry(&pages_list, pg_list_t, list);
-    fifo_victim_frame = t->pg_tbl_entry->fn;
-    assert(fifo_victim_frame == victim_frame); // TEMP. - verify the circular index implementation was correct.
-    // Do what page_table_rm() does, but we can skip the search.
-    assert(t->pg_tbl_entry->valid);
-    t->pg_tbl_entry->valid = 0; // No longer in memory.
-    /* Mark with an invalid page number. */
-    t->pg_tbl_entry->fn = PAGE_TABLE_LEN;
-    // Move the list entry from the head to the tail of the queue.
-    list_move_tail(&t->list, &pages_list);
-    // END - use FIFO list to select victim page -------------------------------
 
-    // if (page_table_rm(victim_frame)) {
-    //     assert(0);
-    //     return 2;
-    // }
+    if(page_table_rm(t->pg_tbl_entry - page_table, &victim_frame)) {
+        assert(0);
+        return 1;
+    }
 
-    if(backing_store_pg_in(page_num, p_mem_addr() + fifo_victim_frame * PAGE_SIZE)) {
+    if(backing_store_pg_in(page_num, p_mem_addr() + victim_frame * PAGE_SIZE)) {
       assert(0);
       return 3;
     }
 
-    if(page_table_add(page_num, fifo_victim_frame, t)) {
+    if(page_table_add(page_num, victim_frame)) {
         assert(0);
         return 4;
     }
 
-    *frame_num = fifo_victim_frame;
+    /* Update page table entry pointer of the list node to point to the entry of
+     the page that was paged in. */
+    t->pg_tbl_entry = &page_table[page_num];
 
-    //printf("Replaced page in frame number %lu\n", victim_frame);
+    /* Move the list entry from the head to the tail of the queue. This page is
+    now the one most recently brought into memory. */
+    list_move_tail(&t->list, &pages_list);
 
-    victim_frame++;
-    victim_frame = victim_frame % NUM_PAGE_FRAMES;
+    *frame_num = victim_frame;
 
     return 0;
 }
@@ -228,7 +211,6 @@ int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
        replacement. */
     static addr_t free_frame = 0;
     addr_t page_offset, page_num, frame_num;
-    size_t i;
 
     if (vaddr > MAX_V_ADDR) {
         assert(0);
@@ -289,9 +271,14 @@ int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
           return 1;
         }
 
-        if(page_table_add(page_num, frame_num, NULL)) {
+        if(page_table_add(page_num, frame_num)) {
           assert(0);
           return 1;
+        }
+
+        if (fifo_list_add(&page_table[page_num])){
+            assert(0);
+            return 1;
         }
 
         *paddr = PHYSICAL_ADDR(frame_num, page_offset);

@@ -173,4 +173,13 @@ static inline void list_move_tail(struct list_head *list,
     __list_del_entry(list);
     list_add_tail(list, head);
 }
+
+/**
+ * list_empty - tests whether a list is empty
+ * @head: the list to test.
+ */
+static inline int list_empty(const struct list_head *head)
+{
+    return head->next == head;
+}
 #endif
