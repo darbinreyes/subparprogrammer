@@ -36,7 +36,7 @@ static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
 /*!
     @discussion Updates the page table to reflect that a particular page is no
     longer in memory because a page replacement took place. Returns the frame
-    number of the entry before the entry is marked as invalid.
+    number originally stored in the entry.
 
 */
 int page_table_rm(addr_t page_num, addr_t *frame_num) {
@@ -124,14 +124,6 @@ int page_table_add(addr_t page_num, addr_t frame_num) {
 
     page_table[page_num].fn = frame_num;
     page_table[page_num].valid = 1;
-
-    pg_list_t *ptr;
-
-    list_for_each_entry(ptr, &pages_list, list) {
-        printf("[%lu|%lu]->", (ptr->pg_tbl_entry - page_table), ptr->pg_tbl_entry->fn);
-    }
-
-    printf("\n");
 
     return 0;
 }
@@ -280,17 +272,38 @@ int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
             assert(0);
             return 1;
         }
-
-        *paddr = PHYSICAL_ADDR(frame_num, page_offset);
-        return 0;
+    } else {
+        // No free frame available, page replacement required.
+        if (page_replace(page_num, &frame_num)) {
+            assert(0);
+            return 1;
+        }
     }
 
-    // No free frame available, page replacement required.
-    if (page_replace(page_num, &frame_num)) {
-        assert(0);
-        return 1;
+    pg_list_t *ptr;
+
+    list_for_each_entry(ptr, &pages_list, list) {
+        printf("[%lu|%lu]->", (ptr->pg_tbl_entry - page_table), ptr->pg_tbl_entry->fn);
     }
+
+    printf("\n");
 
     *paddr = PHYSICAL_ADDR(frame_num, page_offset);
     return 0;
+}
+
+/*!
+    @discussion Frees all dynamically allocated memory used. To be called only
+    when all address translations have been performed.
+*/
+void free_pages_list(void) {
+    // for each SAFE, free()
+/**
+ * list_for_each_entry_safe - iterate over list of given type safe against removal of list entry
+ * @pos:    the type * to use as a loop cursor.
+ * @n:        another type * to use as temporary storage
+ * @head:    the head for your list.
+ * @member:    the name of the list_struct within the struct.
+ */
+#define list_for_each_entry_safe(pos, n, head, member)
 }
