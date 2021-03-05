@@ -132,6 +132,24 @@ typedef struct _pg_tbl_entry_t {
 } pg_tbl_entry_t;
 
 /*!
+    @defined ADDR_PAGE_OFFSET(vaddr)
+    @discussion Returns the page offset field of the given virtual address.
+*/
+#define ADDR_PAGE_OFFSET(vaddr) ( (vaddr) & (PAGE_SIZE - 1))
+
+/*!
+    @defined ADDR_PAGE_NUM(vaddr)
+    @discussion Returns the page number field of the given virtual address.
+*/
+#define ADDR_PAGE_NUM(vaddr) ( ( (vaddr) & (V_MEM_SIZE - 1)) >> PAGE_OFFSET_NBITS )
+/*!
+    @defined PHYSICAL_ADDR(fn, pgoff)
+    @discussion Returns the physical address formed from the given frame number
+    and page offset.
+*/
+#define PHYSICAL_ADDR(fn, pgoff) ( ( (fn) << PAGE_OFFSET_NBITS ) | (pgoff) );
+
+/*!
     @typedef tlb_entry_t
     @discussion Represents a translation look-aside buffer (TLB) entry. In
     practice this would be implemented in hardware using associative memory. A

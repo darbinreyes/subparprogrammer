@@ -136,6 +136,14 @@
        would be implement LRU via a list based stack. Also, in the case of
        a smaller physical memory, we expect the page fault rate to increase and
        TLB-hits to decrease.
+
+# Misc.
+
+    * The given addresses.txt file only uses 244 out of the 256 total frames, so
+      without the "Modifications" above, physical memory is never completely
+      full.
+
+
 */
 
 #include <string.h>
