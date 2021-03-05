@@ -255,6 +255,8 @@ int translate_all(void) {
         nrefs++; // Statistics
     }
 
+    free_page_list();
+
     return 0;
 }
 
