@@ -7,12 +7,16 @@
 #include "backing_store.h"
 #include "vm.h"
 #include "pmem.h"
+#include "list.h"
 
 size_t npf; // Total number of page faults.
 
 /* Represents the page table. */
 static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
 
+/*!
+    @discussion
+*/
 int page_table_rm(addr_t frame_num) {
     size_t i;
 
@@ -22,8 +26,8 @@ int page_table_rm(addr_t frame_num) {
     }
 
     for (i = 0; i < PAGE_TABLE_LEN; i++) {
-        if (page_table[i].im && page_table[i].fn == frame_num) {
-            page_table[i].im = 0; // No longer in memory.
+        if (page_table[i].valid && page_table[i].fn == frame_num) {
+            page_table[i].valid = 0; // No longer in memory.
             /* Mark with an invalid page number. */
             page_table[i].fn = PAGE_TABLE_LEN;
             break;
@@ -55,13 +59,13 @@ int page_table_add(addr_t page_num, addr_t frame_num) {
         return 2;
     }
 
-    if(page_table[page_num].im) {
+    if(page_table[page_num].valid) {
         assert(0);
         return 3;
     }
 
     page_table[page_num].fn = frame_num;
-    page_table[page_num].im = 1;
+    page_table[page_num].valid = 1;
     return 0;
 }
 
@@ -151,14 +155,16 @@ int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         return 1;
     }
 
-    if (page_table[page_num].im) {
+    if (page_table[page_num].valid) {
         // The page is in memory.
         *paddr = PHYSICAL_ADDR(page_table[page_num].fn, page_offset);
         return 0;
     }
 
     /* Page fault! Must get the page from the backing store. */
+
     npf++; // Statistics
+
     if (free_frame < NUM_PAGE_FRAMES) {
         // Use a free frame.
         frame_num = free_frame;

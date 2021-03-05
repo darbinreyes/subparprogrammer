@@ -113,7 +113,7 @@ typedef ADDR_UINT_T addr_t;
 
     @field fn Frame number.
 
-    @field im In Memory. 1 = the page is in memory in page frame number fn,
+    @field valid 1 = the page is in memory in page frame number fn,
     0 = page fault, page is on the backing store.
 
     Other fields that could be included in the page table are:
@@ -128,7 +128,7 @@ typedef ADDR_UINT_T addr_t;
 */
 typedef struct _pg_tbl_entry_t {
     addr_t fn;
-    unsigned char im:1;
+    unsigned char valid:1;
 } pg_tbl_entry_t;
 
 /*!
