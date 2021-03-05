@@ -10,15 +10,25 @@
 #include "pmem.h"
 #include "list.h"
 
-struct pg_info {
+/*!
+    @typedef pg_list_t
+    @discussion Represents a node in the list that is used to implement
+    page replacement. Each node points to a valid page table entry which can be
+    used to determine the associated page number and frame number.
+    @field pg_tbl_entry The associated page table entry.
+    @field list Contains pointers to the next and previous nodes in the list.
+*/
+typedef struct _pg_list_t {
     pg_tbl_entry_t *pg_tbl_entry;
     struct list_head list;
-};
+} pg_list_t;
 
-// List of pages currently in memory in FIFO order.
+/* @pages_list Handle to the list of pages currently in memory. @pages_list.next
+points to the head of the list, @pages_list.prev points to the tail of the list.
+The list is maintained in FIFO order such that the head is the first-in page. */
 static LIST_HEAD(pages_list);
 
-size_t npf; // Total number of page faults.
+size_t npf; // @npf Total number of page faults.
 
 /* Represents the page table. */
 static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
@@ -60,13 +70,13 @@ int page_table_rm(addr_t frame_num) {
 
 /*!
     @discussion Updates the page table to reflect that a page is now in memory.
-    `page_num` is the page number that identifies the page table entry that will
-    be updated. `frame_num` is the frame number in which the page resides, it
+    @page_num is the page number that identifies the page table entry that will
+    be updated. @frame_num is the frame number in which the page resides, it
     will be saved in the identified page table entry. Finally, the page table
     entry is marked as valid.
 
 */
-int page_table_add(addr_t page_num, addr_t frame_num, struct pg_info *pg_info_entry) {
+int page_table_add(addr_t page_num, addr_t frame_num, pg_list_t *pg_info_entry) {
     if (page_num >= PAGE_TABLE_LEN) {
         assert(0);
         return 1;
@@ -86,7 +96,7 @@ int page_table_add(addr_t page_num, addr_t frame_num, struct pg_info *pg_info_en
     page_table[page_num].valid = 1;
 
     // START Update the FIFO list of pages.
-    struct pg_info *t, *ptr;
+    pg_list_t *t, *ptr;
 
     if (pg_info_entry == NULL) {
         printf("Using new list entry.\n");
@@ -134,9 +144,9 @@ int page_replace(addr_t page_num, addr_t *frame_num) {
 
     // The victim page is the page at the head of the list.
 
-    struct pg_info *t;
+    pg_list_t *t;
 
-    t = list_first_entry(&pages_list, struct pg_info, list);
+    t = list_first_entry(&pages_list, pg_list_t, list);
     fifo_victim_frame = t->pg_tbl_entry->fn;
     assert(fifo_victim_frame == victim_frame); // TEMP. - verify the circular index implementation was correct.
     // Do what page_table_rm() does, but we can skip the search.
