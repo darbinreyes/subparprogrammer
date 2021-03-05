@@ -330,6 +330,7 @@ int evict_page(addr_t *free_frame) {
 
     @result 0 if successful. Otherwise error.
 */
+#if 0
 int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     /*! @discussion The page frame number of the next free frame. When a page
         fault occurs, the new page is read into physical memory at byte address
@@ -496,6 +497,7 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     *paddr = (frame_num << PAGE_OFFSET_NBITS) | page_offset;
     return 0;
 }
+#endif
 
 int page_table_rm(addr_t frame_num) {
     size_t i;

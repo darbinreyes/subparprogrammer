@@ -159,7 +159,7 @@ struct bday {
 };
 
 static LIST_HEAD(pages_list);
-
+#if 0
 int main(void) {
     printf("Hello linux list\n");
     struct bday *t, *t2, *ptr;
@@ -199,3 +199,4 @@ int main(void) {
     // @TODO !!! call free()
     return 0;
 }
+#endif
