@@ -66,7 +66,7 @@ int page_table_rm(addr_t frame_num) {
     entry is marked as valid.
 
 */
-int page_table_add(addr_t page_num, addr_t frame_num) {
+int page_table_add(addr_t page_num, addr_t frame_num, struct pg_info *pg_info_entry) {
     if (page_num >= PAGE_TABLE_LEN) {
         assert(0);
         return 1;
@@ -87,12 +87,22 @@ int page_table_add(addr_t page_num, addr_t frame_num) {
 
     // START Update the FIFO list of pages.
     struct pg_info *t, *ptr;
-    t = malloc(sizeof(*t));
-    assert(t);
-    t->pg_tbl_entry = &page_table[page_num];
-    INIT_LIST_HEAD(&t->list);
-    list_add_tail(&t->list, &pages_list);
+
+    if (pg_info_entry == NULL) {
+        printf("Using new list entry.\n");
+        t = malloc(sizeof(*t));
+        assert(t);
+        t->pg_tbl_entry = &page_table[page_num];
+        INIT_LIST_HEAD(&t->list);
+        list_add_tail(&t->list, &pages_list);
+    } else {
+        printf("Re-using list entry.\n");
+        pg_info_entry->pg_tbl_entry = &page_table[page_num];
+    }
     list_for_each_entry(ptr, &pages_list, list) {
+        /* TEMP. - for each list entry - print page_num and frame num.
+           NOTE: Even with vmem size == pmem size, only (243+1)/256 frames are
+           used. */
         printf("[%lu|%lu]->", (ptr->pg_tbl_entry - page_table), ptr->pg_tbl_entry->fn);
     }
     printf("\n");
@@ -106,6 +116,7 @@ int page_table_add(addr_t page_num, addr_t frame_num) {
 */
 int page_replace(addr_t page_num, addr_t *frame_num) {
     static addr_t victim_frame = 0;
+    addr_t fifo_victim_frame;
 
     if (page_num >= PAGE_TABLE_LEN) {
         assert(0);
@@ -117,22 +128,42 @@ int page_replace(addr_t page_num, addr_t *frame_num) {
         return 1;
     }
 
-    if (page_table_rm(victim_frame)) {
-        assert(0);
-        return 2;
-    }
+    // START - use FIFO list to select victim page -----------------------------
 
-    if(backing_store_pg_in(page_num, p_mem_addr() + victim_frame * PAGE_SIZE)) {
+    // assert(list is not empty)
+
+    // The victim page is the page at the head of the list.
+
+    struct pg_info *t;
+
+    t = list_first_entry(&pages_list, struct pg_info, list);
+    fifo_victim_frame = t->pg_tbl_entry->fn;
+    assert(fifo_victim_frame == victim_frame); // TEMP. - verify the circular index implementation was correct.
+    // Do what page_table_rm() does, but we can skip the search.
+    assert(t->pg_tbl_entry->valid);
+    t->pg_tbl_entry->valid = 0; // No longer in memory.
+    /* Mark with an invalid page number. */
+    t->pg_tbl_entry->fn = PAGE_TABLE_LEN;
+    // Move the list entry from the head to the tail of the queue.
+    list_move_tail(&t->list, &pages_list);
+    // END - use FIFO list to select victim page -------------------------------
+
+    // if (page_table_rm(victim_frame)) {
+    //     assert(0);
+    //     return 2;
+    // }
+
+    if(backing_store_pg_in(page_num, p_mem_addr() + fifo_victim_frame * PAGE_SIZE)) {
       assert(0);
       return 3;
     }
 
-    if(page_table_add(page_num, victim_frame)) {
+    if(page_table_add(page_num, fifo_victim_frame, t)) {
         assert(0);
         return 4;
     }
 
-    *frame_num = victim_frame;
+    *frame_num = fifo_victim_frame;
 
     //printf("Replaced page in frame number %lu\n", victim_frame);
 
@@ -204,7 +235,7 @@ int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
           return 3;
         }
 
-        if(page_table_add(page_num, frame_num)) {
+        if(page_table_add(page_num, frame_num, NULL)) {
           assert(0);
           return 3;
         }

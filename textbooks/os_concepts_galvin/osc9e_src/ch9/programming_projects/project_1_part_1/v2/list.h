@@ -142,4 +142,35 @@ static inline void list_del(struct list_head *entry)
     entry->prev = LIST_POISON2;
 }
 
+/**
+ * list_entry - get the struct for this entry
+ * @ptr:    the &struct list_head pointer.
+ * @type:    the type of the struct this is embedded in.
+ * @member:    the name of the list_struct within the struct.
+ */
+#define list_entry(ptr, type, member) \
+    container_of(ptr, type, member)
+
+/**
+ * list_first_entry - get the first element from a list
+ * @ptr:    the list head to take the element from.
+ * @type:    the type of the struct this is embedded in.
+ * @member:    the name of the list_struct within the struct.
+ *
+ * Note, that list is expected to be not empty.
+ */
+#define list_first_entry(ptr, type, member) \
+    list_entry((ptr)->next, type, member)
+
+/**
+ * list_move_tail - delete from one list and add as another's tail
+ * @list: the entry to move
+ * @head: the head that will follow our entry
+ */
+static inline void list_move_tail(struct list_head *list,
+                  struct list_head *head)
+{
+    __list_del_entry(list);
+    list_add_tail(list, head);
+}
 #endif
