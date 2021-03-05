@@ -69,6 +69,32 @@ int page_table_rm(addr_t frame_num) {
 }
 
 /*!
+    @discussion Adds a list node to the tail of the FIFO list used to implement
+    page replacement. The node points to the given associated page table entry.
+    Memory for the node is obtained from malloc(), the caller is responsible for
+    calling free().
+*/
+int fifo_list_add(pg_tbl_entry_t *pte) {
+    pg_list_t *t;
+
+    if (pte == NULL) {
+        assert(0);
+        return 1;
+    }
+
+    t = malloc(sizeof(*t));
+    if (t == NULL) {
+        assert(0);
+        return 1;
+    }
+
+    t->pg_tbl_entry = pte;
+    INIT_LIST_HEAD(&t->list);
+    list_add_tail(&t->list, &pages_list);
+    return 0;
+}
+
+/*!
     @discussion Updates the page table to reflect that a page is now in memory.
     @page_num is the page number that identifies the page table entry that will
     be updated. @frame_num is the frame number in which the page resides, it
@@ -96,19 +122,19 @@ int page_table_add(addr_t page_num, addr_t frame_num, pg_list_t *pg_info_entry) 
     page_table[page_num].valid = 1;
 
     // START Update the FIFO list of pages.
-    pg_list_t *t, *ptr;
+    pg_list_t *ptr;
 
     if (pg_info_entry == NULL) {
         printf("Using new list entry.\n");
-        t = malloc(sizeof(*t));
-        assert(t);
-        t->pg_tbl_entry = &page_table[page_num];
-        INIT_LIST_HEAD(&t->list);
-        list_add_tail(&t->list, &pages_list);
+        if (fifo_list_add(&page_table[page_num])){
+            assert(0);
+            return 1;
+        }
     } else {
         printf("Re-using list entry.\n");
         pg_info_entry->pg_tbl_entry = &page_table[page_num];
     }
+
     list_for_each_entry(ptr, &pages_list, list) {
         /* TEMP. - for each list entry - print page_num and frame num.
            NOTE: Even with vmem size == pmem size, only (243+1)/256 frames are
