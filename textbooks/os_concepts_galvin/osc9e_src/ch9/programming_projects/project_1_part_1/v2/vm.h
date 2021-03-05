@@ -150,6 +150,13 @@ typedef struct _pg_tbl_entry_t {
 #define PHYSICAL_ADDR(fn, pgoff) ( ( (fn) << PAGE_OFFSET_NBITS ) | (pgoff) );
 
 /*!
+    @defined FRAME_NUM_ADDR(fn)
+    @discussion Returns the byte address of the given frame number. Equal to the
+    product of the frame number and page size.
+*/
+#define FRAME_NUM_ADDR(fn) ( (fn) * (PAGE_SIZE) )
+
+/*!
     @typedef tlb_entry_t
     @discussion Represents a translation look-aside buffer (TLB) entry. In
     practice this would be implemented in hardware using associative memory. A

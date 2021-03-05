@@ -10,6 +10,8 @@
 #include "pmem.h"
 #include "list.h"
 
+size_t npf; // @npf Total number of page faults.
+
 /*!
     @typedef pg_list_t
     @discussion Represents a node in the list that is used to implement
@@ -28,19 +30,23 @@ points to the head of the list, @page_list.prev points to the tail of the list.
 The list is maintained in FIFO order such that the head is the first-in page. */
 static LIST_HEAD(page_list);
 
-size_t npf; // @npf Total number of page faults.
-
-/* Represents the page table. */
+/* @page_table Represents the page table. */
 static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
 
 /*!
+    @function page_table_rm
+
     @discussion Updates the page table to reflect that a particular page is no
     longer in memory because a page replacement took place. Returns the frame
     number originally stored in the entry.
 
+    @param page_num The page table entry to invalidate.
+    @param frame_num The frame number originally stored in the page table entry,
+    if successful. Otherwise untouched.
+
+    @result 0 if successful.
 */
 int page_table_rm(addr_t page_num, addr_t *frame_num) {
-    size_t i;
 
     if (page_num >= PAGE_TABLE_LEN) {
         assert(0);
@@ -62,6 +68,7 @@ int page_table_rm(addr_t page_num, addr_t *frame_num) {
     page_table[page_num].valid = 0; // No longer in memory.
 
     *frame_num = page_table[page_num].fn;
+
     /* Mark with an invalid page number. */
     page_table[page_num].fn = PAGE_TABLE_LEN;
 
@@ -69,13 +76,20 @@ int page_table_rm(addr_t page_num, addr_t *frame_num) {
 }
 
 /*!
+    @function fifo_list_add
+
     @discussion Adds a list node to the tail of the FIFO list used to implement
-    page replacement. The node points to the given associated page table entry.
+    page replacement. The node is initialized to point to the provided page
+    table entry @pte.
     Memory for the node is obtained from malloc(), the caller is responsible for
     calling free().
     Remark: We never need to remove an entry from the list. During page
-    replacement we reused the node at the front of the list and move it to the
+    replacement we reuse the node at the front of the list and move it to the
     back of the list.
+
+    @param pte Pointer to a page table entry.
+
+    @result 0 if successful.
 */
 int fifo_list_add(pg_tbl_entry_t *pte) {
     pg_list_t *t;
@@ -99,12 +113,20 @@ int fifo_list_add(pg_tbl_entry_t *pte) {
 }
 
 /*!
+    @function page_table_add
+
     @discussion Updates the page table to reflect that a page is now in memory.
     @page_num is the page number that identifies the page table entry that will
     be updated. @frame_num is the frame number in which the page resides, it
     will be saved in the identified page table entry. Finally, the page table
     entry is marked as valid.
 
+    @param page_num A page number, this identifies the page table entry being
+    updated.
+
+    @param frame_num A frame number to save in the page table.
+
+    @result 0 if successful.
 */
 int page_table_add(addr_t page_num, addr_t frame_num) {
     if (page_num >= PAGE_TABLE_LEN) {
@@ -114,12 +136,12 @@ int page_table_add(addr_t page_num, addr_t frame_num) {
 
     if (frame_num >= NUM_PAGE_FRAMES) {
         assert(0);
-        return 2;
+        return 1;
     }
 
     if(page_table[page_num].valid) {
         assert(0);
-        return 3;
+        return 1;
     }
 
     page_table[page_num].fn = frame_num;
@@ -129,8 +151,17 @@ int page_table_add(addr_t page_num, addr_t frame_num) {
 }
 
 /*!
-    @discussion When a page fault occurs and there are no free frames a page
+    @function page_replace
+
+    @discussion When a page fault occurs and there are no free frames, a page
     must be replaced. This function performs a page replacement.
+
+    @param page_num The page number of the page that generated the page fault.
+
+    @param frame_num The frame number in which the requested page has been
+    placed, if successful. Otherwise untouched.
+
+    @result 0 if successful.
 */
 int page_replace(addr_t page_num, addr_t *frame_num) {
     addr_t victim_frame;
@@ -153,15 +184,17 @@ int page_replace(addr_t page_num, addr_t *frame_num) {
         return 1;
     }
 
-    // The victim page is always the page at the head of the list.
+    /* FIFO page replacement: the victim page is always the page at the
+       head of the list. */
     t = list_first_entry(&page_list, pg_list_t, list);
 
-    if(page_table_rm(t->pg_tbl_entry - page_table, &victim_frame)) {
+    if(page_table_rm(t->pg_tbl_entry - page_table, /* victim's page number */
+                     &victim_frame)) {
         assert(0);
         return 1;
     }
 
-    if(backing_store_pg_in(page_num, p_mem_addr() + victim_frame * PAGE_SIZE)) {
+    if(backing_store_pg_in(page_num, p_mem_addr() + FRAME_NUM_ADDR(victim_frame))) {
       assert(0);
       return 3;
     }
@@ -176,7 +209,7 @@ int page_replace(addr_t page_num, addr_t *frame_num) {
     t->pg_tbl_entry = &page_table[page_num];
 
     /* Move the list entry from the head to the tail of the queue. This page is
-    now the one most recently brought into memory. */
+    now the page most recently brought into memory. */
     list_move_tail(&t->list, &page_list);
 
     *frame_num = victim_frame;
@@ -191,9 +224,9 @@ int page_replace(addr_t page_num, addr_t *frame_num) {
     using a TLB.
 
     @param vaddr The virtual address.
-    @param paddr The physical address if successful.
+    @param paddr The physical address, if successful.
 
-    @result 0 if successful. Otherwise error.
+    @result 0 if successful.
 */
 int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     /* @free_frame: The page frame number of the next free frame. Initially, all
@@ -258,7 +291,7 @@ int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     if (free_frame < NUM_PAGE_FRAMES) {
         // Use a free frame.
         frame_num = free_frame++;
-        if(backing_store_pg_in(page_num, p_mem_addr() + frame_num * PAGE_SIZE)) {
+        if(backing_store_pg_in(page_num, p_mem_addr() + FRAME_NUM_ADDR(frame_num))) {
           assert(0);
           return 1;
         }
