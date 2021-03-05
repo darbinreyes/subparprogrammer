@@ -23,10 +23,10 @@ typedef struct _pg_list_t {
     struct list_head list;
 } pg_list_t;
 
-/* @pages_list Handle to the list of pages currently in memory. @pages_list.next
-points to the head of the list, @pages_list.prev points to the tail of the list.
+/* @page_list Handle to the list of pages currently in memory. @page_list.next
+points to the head of the list, @page_list.prev points to the tail of the list.
 The list is maintained in FIFO order such that the head is the first-in page. */
-static LIST_HEAD(pages_list);
+static LIST_HEAD(page_list);
 
 size_t npf; // @npf Total number of page faults.
 
@@ -94,7 +94,7 @@ int fifo_list_add(pg_tbl_entry_t *pte) {
 
     t->pg_tbl_entry = pte;
     INIT_LIST_HEAD(&t->list);
-    list_add_tail(&t->list, &pages_list);
+    list_add_tail(&t->list, &page_list);
     return 0;
 }
 
@@ -146,7 +146,7 @@ int page_replace(addr_t page_num, addr_t *frame_num) {
         return 1;
     }
 
-    if (list_empty(&pages_list)) {
+    if (list_empty(&page_list)) {
         /* We are performing page replacement, the list should not be empty, the
            list should contain as many nodes as there are page frames. */
         assert(0);
@@ -154,7 +154,7 @@ int page_replace(addr_t page_num, addr_t *frame_num) {
     }
 
     // The victim page is always the page at the head of the list.
-    t = list_first_entry(&pages_list, pg_list_t, list);
+    t = list_first_entry(&page_list, pg_list_t, list);
 
     if(page_table_rm(t->pg_tbl_entry - page_table, &victim_frame)) {
         assert(0);
@@ -177,7 +177,7 @@ int page_replace(addr_t page_num, addr_t *frame_num) {
 
     /* Move the list entry from the head to the tail of the queue. This page is
     now the one most recently brought into memory. */
-    list_move_tail(&t->list, &pages_list);
+    list_move_tail(&t->list, &page_list);
 
     *frame_num = victim_frame;
 
@@ -280,10 +280,10 @@ int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         }
     }
 
-    pg_list_t *ptr;
+    pg_list_t *pos;
 
-    list_for_each_entry(ptr, &pages_list, list) {
-        printf("[%lu|%lu]->", (ptr->pg_tbl_entry - page_table), ptr->pg_tbl_entry->fn);
+    list_for_each_entry(pos, &page_list, list) {
+        printf("[%lu|%lu]->", (pos->pg_tbl_entry - page_table), pos->pg_tbl_entry->fn);
     }
 
     printf("\n");
@@ -296,14 +296,14 @@ int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     @discussion Frees all dynamically allocated memory used. To be called only
     when all address translations have been performed.
 */
-void free_pages_list(void) {
-    // for each SAFE, free()
-/**
- * list_for_each_entry_safe - iterate over list of given type safe against removal of list entry
- * @pos:    the type * to use as a loop cursor.
- * @n:        another type * to use as temporary storage
- * @head:    the head for your list.
- * @member:    the name of the list_struct within the struct.
- */
-#define list_for_each_entry_safe(pos, n, head, member)
+void free_page_list(void) {
+     if (list_empty(&page_list))
+         return;
+
+     pg_list_t *pos, *n;
+
+     list_for_each_entry_safe(pos, n, &page_list, list) {
+         list_del(&pos->list);
+         free(pos);
+     }
 }
