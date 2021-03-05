@@ -3,11 +3,20 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <assert.h>
 #include "backing_store.h"
 #include "vm.h"
 #include "pmem.h"
 #include "list.h"
+
+struct pg_info {
+    pg_tbl_entry_t *pg_tbl_entry;
+    struct list_head list;
+};
+
+// List of pages currently in memory in FIFO order.
+static LIST_HEAD(pages_list);
 
 size_t npf; // Total number of page faults.
 
@@ -15,7 +24,12 @@ size_t npf; // Total number of page faults.
 static pg_tbl_entry_t page_table[PAGE_TABLE_LEN];
 
 /*!
-    @discussion
+    @discussion Updates the page table to reflect that a particular page is no
+    longer in memory because a page replacement took place.
+
+    The page table is scanned for a valid page table entry with a frame
+    number == `frame_num` and, if found, marks that page table entry as invalid.
+    It is an error if no such page table entry is found.
 */
 int page_table_rm(addr_t frame_num) {
     size_t i;
@@ -35,12 +49,8 @@ int page_table_rm(addr_t frame_num) {
     }
 
     if (i >= PAGE_TABLE_LEN) {
-        /*! @discussion Unless there is an bug, the for loop above should
-        always be terminated by the break statement, not the test part of
-        the for loop, since by definition a page being evicted must
-        currently reside in memory, and hence have a corresponding valid
-        entry in the page table. If this page has an entry in the TLB
-        then tlb_rm() invalidates that entry. */
+        /*! @discussion By definition a page being evicted must currently reside
+            in memory, and hence have a corresponding valid entry in the page table. */
         assert(0);
         return 2;
     }
@@ -48,6 +58,14 @@ int page_table_rm(addr_t frame_num) {
     return 0;
 }
 
+/*!
+    @discussion Updates the page table to reflect that a page is now in memory.
+    `page_num` is the page number that identifies the page table entry that will
+    be updated. `frame_num` is the frame number in which the page resides, it
+    will be saved in the identified page table entry. Finally, the page table
+    entry is marked as valid.
+
+*/
 int page_table_add(addr_t page_num, addr_t frame_num) {
     if (page_num >= PAGE_TABLE_LEN) {
         assert(0);
@@ -66,6 +84,19 @@ int page_table_add(addr_t page_num, addr_t frame_num) {
 
     page_table[page_num].fn = frame_num;
     page_table[page_num].valid = 1;
+
+    // START Update the FIFO list of pages.
+    struct pg_info *t, *ptr;
+    t = malloc(sizeof(*t));
+    assert(t);
+    t->pg_tbl_entry = &page_table[page_num];
+    INIT_LIST_HEAD(&t->list);
+    list_add_tail(&t->list, &pages_list);
+    list_for_each_entry(ptr, &pages_list, list) {
+        printf("[%lu|%lu]->", (ptr->pg_tbl_entry - page_table), ptr->pg_tbl_entry->fn);
+    }
+    printf("\n");
+    // END Update the FIFO
     return 0;
 }
 
