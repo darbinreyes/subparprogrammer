@@ -139,8 +139,6 @@ int tlb_rm(addr_t page_num, addr_t frame_num) {
 
     // Remark: TLB's are small, so in most cases we won't remove any entry.
 
-    //printf("TLB entry rm.\n");
-
     for (i = 0; i < TLB_LEN; i++) {
         if (tlb[i].valid && tlb[i].pn == page_num && tlb[i].fn == frame_num) {
             // Remove entry.
