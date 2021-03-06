@@ -297,8 +297,6 @@ int evict_page(addr_t *free_frame) {
 
   *free_frame = (victim_pg++ % NUM_PAGE_FRAMES);
 
-  //printf("Evicted page frame number %lu\n", *free_frame);
-
   return 0;
 }
 #endif
@@ -414,7 +412,7 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         */
         if (free_framen >= NUM_PAGE_FRAMES) {
           // No free frame available, page replacement required.
-          //printf("Memory is full!\n");
+
           if(evict_page(&frame_num)) {
             assert(0);
             return 1;

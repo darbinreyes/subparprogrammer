@@ -13,7 +13,7 @@
 #include <assert.h>
 #include "list.h"
 
-#if 0
+#if 0 // For testing, if needed.
 
 struct bday {
     int year;
