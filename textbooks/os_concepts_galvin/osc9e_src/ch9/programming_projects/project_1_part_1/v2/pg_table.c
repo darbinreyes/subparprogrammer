@@ -73,10 +73,12 @@ int page_table_rm(addr_t page_num, addr_t *frame_num) {
     /* Mark with an invalid page number. */
     page_table[page_num].fn = PAGE_TABLE_LEN;
 
+#ifndef NO_TLB
     if (tlb_rm(page_num, *frame_num)) {
         assert(0);
         return 1;
     }
+#endif
 
     return 0;
 }
@@ -240,7 +242,7 @@ void free_page_list(void) {
 }
 
 /*!
-    @function no_tlb_translate_v2p_addr
+    @function translate_v2p_addr
 
     @discussion Translates the given virtual address to a physical address.
 
@@ -304,11 +306,13 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         return 1;
     }
 
+#ifndef NO_TLB
     if (in_tlb(page_num, &frame_num)) {
         // Page is in memory. Translation resolved in the TLB.
         *paddr = PHYSICAL_ADDR(frame_num, page_offset);
         return 0;
     }
+#endif
 
     if (page_table[page_num].valid) {
         // The page is in memory.
@@ -345,10 +349,12 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
         }
     }
 
+#ifndef NO_TLB
     if (tlb_add(page_num, frame_num)) {
         assert(0);
         return 1;
     }
+#endif
 
     pg_list_t *pos;
 

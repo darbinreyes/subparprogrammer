@@ -33,10 +33,10 @@ run1: all
 	sim_vm_mngrv1.bin
 
 clean:
-	rm *.bin
+	rm sim_vm_mngrv2.bin sim_vm_mngrv1.bin
 
 sim_vm_mngrv2.bin: *.c
 	$(CC) $(CC_FLAGS) $^ -o $@ -DWITH_MODIFICATIONS
 
 sim_vm_mngrv1.bin: *.c
-	$(CC) $(CC_FLAGS) $^ -o $@
+	$(CC) $(CC_FLAGS) $^ -o $@ -DNO_TLB
