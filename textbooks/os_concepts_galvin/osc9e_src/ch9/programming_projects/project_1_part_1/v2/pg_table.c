@@ -340,13 +340,13 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
     }
 #endif
 
-    pg_list_t *pos;
+    // pg_list_t *pos;
 
-    list_for_each_entry(pos, &page_list, list) {
-        printf("[%lu|%lu]->", (pos->pg_tbl_entry - page_table), pos->pg_tbl_entry->fn);
-    }
+    // list_for_each_entry(pos, &page_list, list) {
+    //     printf("[%lu|%lu]->", (pos->pg_tbl_entry - page_table), pos->pg_tbl_entry->fn);
+    // }
 
-    printf("\n");
+    // printf("\n");
 
     *paddr = PHYSICAL_ADDR(frame_num, page_offset);
     return 0;
