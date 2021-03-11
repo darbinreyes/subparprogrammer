@@ -224,114 +224,6 @@ int page_replace(addr_t page_num, addr_t *frame_num) {
 }
 
 /*!
-    @function no_tlb_translate_v2p_addr
-
-    @discussion Translates the given virtual address to a physical address NOT
-    using a TLB.
-
-    @param vaddr The virtual address.
-    @param paddr The physical address, if successful.
-
-    @result 0 if successful.
-*/
-int no_tlb_translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
-    /* @free_frame: The page frame number of the next free frame. Initially, all
-       page faults are serviced by inserting the page into a frame number equal
-       to @free_frame. If @free_frame equals @NUM_PAGE_FRAMES, there are no more
-       free frames and all subsequent page faults are serviced by page
-       replacement. */
-    static addr_t free_frame = 0;
-    addr_t page_offset, page_num, frame_num;
-
-    if (vaddr > MAX_V_ADDR) {
-        assert(0);
-        return 1;
-    }
-
-    if (paddr == NULL) {
-        assert(0);
-        return 1;
-    }
-
-    /*
-        Steps:
-        Extract the page offset and page number from the virtual address.
-
-        Take the page number as an index into the page table to obtain the page
-        table entry.
-
-        If the page table entry indicates that the page is in memory, save the
-        frame number from that page table entry. Concatenate the frame number
-        and page offset to form the physical address.
-
-        Otherwise a page fault has occurred, i.e. the page is not in memory.
-
-        If a page fault occurs and there is a free frame, read the page from the
-        backing store into a free frame, and update the page table. Concatenate
-        the free frame number and page offset to form the physical address.
-
-        If a page fault occurs and there are no free frames, replace a page
-        currently in memory with the page that generated the page fault.
-        Concatenate the frame number of the new page and page offset to form the
-        physical address.
-    */
-
-    page_offset = ADDR_PAGE_OFFSET(vaddr);
-    page_num = ADDR_PAGE_NUM(vaddr);
-
-    if (page_num >= PAGE_TABLE_LEN) {
-        assert(0);
-        return 1;
-    }
-
-    if (page_table[page_num].valid) {
-        // The page is in memory.
-        *paddr = PHYSICAL_ADDR(page_table[page_num].fn, page_offset);
-        return 0;
-    }
-
-    /* Page fault! Must get the page from the backing store. */
-
-    npf++; // Statistics
-
-    if (free_frame < NUM_PAGE_FRAMES) {
-        // Use a free frame.
-        frame_num = free_frame++;
-        if(backing_store_pg_in(page_num, p_mem_addr() + FRAME_NUM_ADDR(frame_num))) {
-          assert(0);
-          return 1;
-        }
-
-        if(page_table_add(page_num, frame_num)) {
-          assert(0);
-          return 1;
-        }
-
-        if (fifo_list_add(&page_table[page_num])){
-            assert(0);
-            return 1;
-        }
-    } else {
-        // No free frame available, page replacement required.
-        if (page_replace(page_num, &frame_num)) {
-            assert(0);
-            return 1;
-        }
-    }
-
-    pg_list_t *pos;
-
-    list_for_each_entry(pos, &page_list, list) {
-        printf("[%lu|%lu]->", (pos->pg_tbl_entry - page_table), pos->pg_tbl_entry->fn);
-    }
-
-    printf("\n");
-
-    *paddr = PHYSICAL_ADDR(frame_num, page_offset);
-    return 0;
-}
-
-/*!
     @discussion Frees all dynamically allocated memory used. To be called only
     when all address translations have been performed.
 */
@@ -350,8 +242,7 @@ void free_page_list(void) {
 /*!
     @function no_tlb_translate_v2p_addr
 
-    @discussion Translates the given virtual address to a physical address NOT
-    using a TLB.
+    @discussion Translates the given virtual address to a physical address.
 
     @param vaddr The virtual address.
     @param paddr The physical address, if successful.
