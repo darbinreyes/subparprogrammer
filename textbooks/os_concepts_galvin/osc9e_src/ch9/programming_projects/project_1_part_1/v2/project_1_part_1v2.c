@@ -275,4 +275,6 @@ int translate_all(void) {
   * N PAGE FAULTS 538 (%53.800000)
   * N TLB HITS 53 (%5.300000)
 
+Output in all cases matches correct.txt. Verified using `cmp` command.
+
 */
