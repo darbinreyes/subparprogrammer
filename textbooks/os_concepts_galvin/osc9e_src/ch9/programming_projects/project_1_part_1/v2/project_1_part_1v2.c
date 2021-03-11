@@ -249,11 +249,15 @@ int translate_all(void) {
     }
 
     free_page_list();
+#ifndef NO_TLB
+    free_tlb_list();
+#endif
 
     return 0;
 }
 
 /*
+
 # Observed Statistics
 
 * No TLB, 256 frames, 256 pages:
