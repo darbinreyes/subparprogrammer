@@ -230,16 +230,16 @@ int translate_all(void) {
     for (i = 0; i < vaddrs_len; i++) {
         // Translate from virtual to physical address.
 
-        // if(translate_v2p_addr(vaddrs[i], &paddr)) {
-        //     assert(0);
-        //     return 1;
-        // }
-
-        // no_tlb_translate_v2p_addr
-        if(no_tlb_translate_v2p_addr(vaddrs[i], &paddr)) {
+        if(translate_v2p_addr(vaddrs[i], &paddr)) {
             assert(0);
             return 1;
         }
+
+        // no_tlb_translate_v2p_addr
+        // if(no_tlb_translate_v2p_addr(vaddrs[i], &paddr)) {
+        //     assert(0);
+        //     return 1;
+        // }
 
         // Read the value stored at the physical address.
         if(p_mem_read_byte(paddr, &v)) {

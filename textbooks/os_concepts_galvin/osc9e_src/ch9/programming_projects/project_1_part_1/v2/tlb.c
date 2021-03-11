@@ -2,13 +2,15 @@
     @header TLB related definitions.
 */
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
 #include "vm.h"
+#include "list.h"
 
 size_t ntlb_hits; // Total number of TLB-hits.
 
-typedef _tlb_list_t {
+typedef struct _tlb_list_t {
     tlb_entry_t *tlb_entry;
     struct list_head list;
 } tlb_list_t;
@@ -19,7 +21,7 @@ static LIST_HEAD(tlb_list);
 
 /*! @discussion Represents the TLB. */
 static tlb_entry_t tlb[TLB_LEN];
-static tlb_entry_count = 0;
+static size_t tlb_entry_count = 0;
 
 /*!
     @function in_tlb
@@ -53,6 +55,7 @@ int in_tlb(addr_t page_num, addr_t *frame_num) {
         if (tlb[i].valid && tlb[i].pn == page_num) {
             //printf("TLB-hit!\n");
             *frame_num = tlb[i].fn;
+            ntlb_hits++; // Statistics
             return 1;
         }
     }
@@ -174,16 +177,6 @@ int tlb_rm(addr_t page_num, addr_t frame_num) {
 
     for (i = 0; i < TLB_LEN; i++) {
         if (tlb[i].valid && tlb[i].pn == page_num && tlb[i].fn == frame_num) {
-            // Remove entry.
-            //tlb[i].valid = 0;
-            /* PAGE_TABLE_LEN is not a valid frame or page number, so it is a
-               good value to use for marking entries as removed. */
-            //tlb[i].fn = PAGE_TABLE_LEN;
-            //tlb[i].pn = PAGE_TABLE_LEN;
-            /* @IMPORTANT Possible bug. I never see this print. This implies
-            that each page that is evicted from memory by chance never happens
-            to have an entry in TLB. */
-            //printf("TLB entry removed.\n");
             break;
         }
     }
