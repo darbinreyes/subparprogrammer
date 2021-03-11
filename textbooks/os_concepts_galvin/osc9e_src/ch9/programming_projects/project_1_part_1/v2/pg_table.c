@@ -91,7 +91,7 @@ int page_table_rm(addr_t page_num, addr_t *frame_num) {
 
     @result 0 if successful.
 */
-int fifo_list_add(pg_tbl_entry_t *pte) {
+static int fifo_list_add(pg_tbl_entry_t *pte) {
     pg_list_t *t;
 
     if (pte == NULL) {
