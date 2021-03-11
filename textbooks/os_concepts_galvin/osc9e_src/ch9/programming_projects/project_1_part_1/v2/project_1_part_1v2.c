@@ -252,3 +252,23 @@ int translate_all(void) {
 
     return 0;
 }
+
+/*
+# Observed Statistics
+
+* No TLB, 256 frames, 256 pages:
+  * N REFS 1000
+  * N PAGE FAULTS 244 (%24.400000)
+
+* With TLB, 256 frames, 256 pages:
+  * N REFS 1000
+  * N PAGE FAULTS 244 (%24.400000)
+  * N TLB HITS 55 (%5.500000)
+
+
+* With TLB, 128 frames, 256 pages:
+  * N REFS 1000
+  * N PAGE FAULTS 538 (%53.800000)
+  * N TLB HITS 53 (%5.300000)
+
+*/
