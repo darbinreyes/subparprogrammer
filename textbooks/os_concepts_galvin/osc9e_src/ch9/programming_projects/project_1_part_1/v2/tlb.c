@@ -10,17 +10,25 @@
 
 size_t ntlb_hits; // Total number of TLB-hits.
 
+/*!
+    @typedef tlb_list_t
+    @discussion List node for FIFO list used to implement TLB entry replacement.
+    @field tlb_entry Pointer to the corresponding TLB entry.
+    @field list Contains pointers to previous and next nodes in the list.
+*/
 typedef struct _tlb_list_t {
     tlb_entry_t *tlb_entry;
     struct list_head list;
 } tlb_list_t;
 
+/* @tlb_list Handle to list of TLB entries in FIFO order. Used to implement FIFO
+   TLB entry replacement. */
 static LIST_HEAD(tlb_list);
 
-//static LIST_HEAD(tlb_free_list);
-
-/*! @discussion Represents the TLB. */
+/* @tlb Represents the TLB. */
 static tlb_entry_t tlb[TLB_LEN];
+
+/* @tlb_entry_count The number of valid entries currently in the TLB. */
 static size_t tlb_entry_count = 0;
 
 /*!
@@ -53,16 +61,22 @@ int in_tlb(addr_t page_num, addr_t *frame_num) {
 
     for (i = 0; i < TLB_LEN; i++) {
         if (tlb[i].valid && tlb[i].pn == page_num) {
-            //printf("TLB-hit!\n");
             *frame_num = tlb[i].fn;
             ntlb_hits++; // Statistics
             return 1;
         }
     }
-    //printf("TLB-miss!\n");
+
     return 0;
 }
 
+/*!
+    @function fifo_list_add
+    @discussion Adds an entry to the back of the FIFO list used to implement
+    FIFO TLB entry replacement.
+    @param tlbe The TLB entry to store in the list node.
+    @result 0 if successful.
+*/
 static int fifo_list_add(tlb_entry_t *tlbe) {
     tlb_list_t *t;
 
@@ -99,12 +113,6 @@ int tlb_add(addr_t page_num, addr_t frame_num) {
     size_t i;
     tlb_list_t *t;
 
-    /* Note: Although TLB entry replacement is FIFO, a page replacement may
-       require that we remove an list entry from the middle of the list. */
-
-    //addr_t t;
-    //assert(!in_tlb(page_num, &t)); // Sanity check.
-
     if (tlb_entry_count < TLB_LEN) {
         // Use a free TLB entry.
         for (i = 0; i < TLB_LEN; i++) {
@@ -137,7 +145,7 @@ int tlb_add(addr_t page_num, addr_t frame_num) {
         return 1;
     }
 
-    // Replaced entry is always at the front of the list.
+    // The replaced entry is always at the front of the list.
     t = list_first_entry(&tlb_list, tlb_list_t, list);
 
     if (!t->tlb_entry->valid) {
@@ -188,9 +196,13 @@ int tlb_rm(addr_t page_num, addr_t frame_num) {
 
     // Remove corresponding FIFO list node.
 
+    /* Note: Although TLB entry replacement is FIFO, a page replacement may
+       require that we remove an list entry from the middle of the list. */
+
     tlb_list_t *pos, *n;
 
     list_for_each_entry_safe(pos, n, &tlb_list, list) {
+
         if (pos->tlb_entry == &tlb[i]) {
             list_del(&pos->list);
             free(pos);
@@ -210,3 +222,20 @@ int tlb_rm(addr_t page_num, addr_t frame_num) {
 }
 
 // @TODO free all in list
+
+
+/*!
+    @discussion Frees all dynamically allocated memory used. To be called only
+    when all address translations have been performed.
+*/
+void free_tlb_list(void) {
+    tlb_list_t *pos, *n;
+
+    if (list_empty(&tlb_list))
+        return;
+
+    list_for_each_entry_safe(pos, n, &tlb_list, list) {
+        list_del(&pos->list);
+        free(pos);
+    }
+}

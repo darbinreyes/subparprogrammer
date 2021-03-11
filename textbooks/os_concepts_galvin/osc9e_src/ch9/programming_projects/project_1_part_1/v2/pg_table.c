@@ -226,22 +226,6 @@ int page_replace(addr_t page_num, addr_t *frame_num) {
 }
 
 /*!
-    @discussion Frees all dynamically allocated memory used. To be called only
-    when all address translations have been performed.
-*/
-void free_page_list(void) {
-     if (list_empty(&page_list))
-         return;
-
-     pg_list_t *pos, *n;
-
-     list_for_each_entry_safe(pos, n, &page_list, list) {
-         list_del(&pos->list);
-         free(pos);
-     }
-}
-
-/*!
     @function translate_v2p_addr
 
     @discussion Translates the given virtual address to a physical address.
@@ -366,4 +350,20 @@ int translate_v2p_addr(addr_t vaddr, addr_t *paddr) {
 
     *paddr = PHYSICAL_ADDR(frame_num, page_offset);
     return 0;
+}
+
+/*!
+    @discussion Frees all dynamically allocated memory used. To be called only
+    when all address translations have been performed.
+*/
+void free_page_list(void) {
+    pg_list_t *pos, *n;
+
+    if (list_empty(&page_list))
+        return;
+
+     list_for_each_entry_safe(pos, n, &page_list, list) {
+         list_del(&pos->list);
+         free(pos);
+     }
 }
