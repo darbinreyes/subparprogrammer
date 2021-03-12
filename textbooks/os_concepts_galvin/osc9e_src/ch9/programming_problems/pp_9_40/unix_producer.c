@@ -1,20 +1,97 @@
 /*!
-    @header Programming problem 9.40.
+    @header Programming problem 9.40. Producer process.
 */
 
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
 #include <errno.h>
+#include <sys/mman.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+const char * const shm_name = "collatz";
+#define SHM_SIZE 4096
+#define SHM_MODE 0666 // File mode in the usual UNIX format. See `man 2 chmod`.
+
+/*!
+    @defined MAX_SEQUENCE_STR_SIZE
+    @discussion -1 to account for the terminating '\0'.
+*/
+#define MAX_SEQUENCE_STR_SIZE (SHM_SIZE - 1)
+
+/*!
+    @defined ERROR_SEQUENCE_TRUNCATED
+    @discussion The Collatz sequence (as a string) had to be truncated because
+    the size of the string exceeded the size of the shared memory region. See
+    MAX_SEQUENCE_STR_SIZE.
+
+*/
+#define ERROR_SEQUENCE_TRUNCATED 2
 
 int get_arg(int argc, char **argv, long *n);
+int print_collatz(long n, char *shm_ptr, int bw);
 
 int main(int argc, char **argv) {
   long n;
+  int shm_fd;
+  void *shm_ptr;
+  int r;
 
   if (get_arg(argc, argv, &n)) {
       return 1;
   }
+
+  /* Remove the shared mem. object. */
+  if (shm_unlink(shm_name) == -1) { // Error.
+    perror("shm_unlink error"); // @TODO Is this cleaning up correctly?
+    //return 1;
+  }
+
+  /* Create shared mem. object */
+  errno = 0;
+  shm_fd = shm_open(shm_name, O_RDWR | O_CREAT | O_TRUNC, SHM_MODE);
+
+  if(shm_fd == -1) { // Error.
+    perror("FYI0");
+    //assert(errno == EINVAL);
+    //printf("%d\n", )
+    return 1;
+  }
+
+  /* Set size of shared mem. object. */
+  errno = 0;
+  if (ftruncate(shm_fd, SHM_SIZE) == -1) { // Error.
+    perror("FYI1");
+    //assert(errno == EINVAL);
+    return 1;
+  }
+
+  /* Mem. map the shared mem. object. */
+  /* void *mmap(void *addr, size_t len, int prot, int flags, int fd,
+     off_t offset); */
+  errno = 0;
+  //shm_ptr = mmap(0, SHM_SIZE, PROT_READ, MAP_SHARED, shm_fd, 0);
+  shm_ptr = mmap(0, SHM_SIZE, PROT_WRITE, MAP_SHARED, shm_fd, 0);
+
+  if (shm_ptr == MAP_FAILED) { // Error.
+    perror("FYI2");
+    return 1;
+  }
+
+  /* "The producer will generate the numbers specified in the Collatz conjecture
+  and write them to a shared memory object." */
+  //  int print_collatz(long n, char *shm_ptr, int bw);
+  r = print_collatz(n, shm_ptr, 0);
+
+  if (r != 0 && r == ERROR_SEQUENCE_TRUNCATED) {
+    printf("FYI3: The sequence was truncated.\n");
+  } else if (r != 0) {
+    printf("FYI4: print_collatz() return error status = %d.\n", r);
+  }
+
+  while (1)
+      ; // This is recommended by the given README file (README not README.md).
 
   return 0;
 }
@@ -84,4 +161,56 @@ int get_arg(int argc, char **argv, long *n) {
   *n = t;
 
   return 0;
+}
+
+/*!
+    @discussion This is a recursive implementation for printing the sequence
+    corresponding to the Collatz conjecture.
+
+    @param n  The starting value for computing the next number in the Collatz
+              sequence.
+    @param shm_ptr  Pointer to the shared memory region.
+    @param bw Number of bytes written to the shared memory region so far.
+
+    @result 0 if successful. ERROR_SEQUENCE_TRUNCATED if the sequence was
+    generated but truncated. Otherwise assume no sequence was generated.
+*/
+int print_collatz(long n, char *shm_ptr, int bw) {
+  char tmp_str[64]; /* The value 64 is an arbitrary upper bound for a long. */
+
+  if (n <= 0) { // Should not occur. The Collatz sequence ends at 1.
+    assert(0);
+    return 1;
+  }
+
+  if (n == 1) { // n == 1 is the base case. Done.
+    /* `man sprintf` These functions return the number of characters printed
+       (not including the trailing '\0' used to end output to strings) */
+    bw += sprintf(tmp_str, "1.\n");
+    if (bw < MAX_SEQUENCE_STR_SIZE) {
+      shm_ptr += sprintf(shm_ptr, "1.\n");
+      return 0;
+    } else {
+      return ERROR_SEQUENCE_TRUNCATED; // Sequence truncated.
+    }
+
+  } else {
+    bw += sprintf(tmp_str, "%ld, ", n);
+
+    if (bw < MAX_SEQUENCE_STR_SIZE) {
+      shm_ptr += sprintf(shm_ptr, "%ld, ", n);
+    } else {
+      return ERROR_SEQUENCE_TRUNCATED; // Sequence truncated.
+    }
+  }
+
+  if ((n & 0x01) == 0) {
+    // n is even
+    n >>= 1; // n = n/2
+  } else {
+    // n is odd
+    n = 3 * n + 1;
+  }
+
+  return print_collatz(n, shm_ptr, bw);
 }
