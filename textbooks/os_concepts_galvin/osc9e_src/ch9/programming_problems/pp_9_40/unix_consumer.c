@@ -7,11 +7,17 @@
 #include <fcntl.h>
 #include <assert.h>
 #include <errno.h>
+#include "unix_shm.h"
 
-#define SHM_SIZE 4096
+/*!
+  @function main
+  @discussion Main function for the consumer process. Opens the shared memory
+  object created by the producer procress, prints the contents, terminates.
 
-const char * const shm_name = "collatz";
-
+  @param argc The usual argc to main.
+  @param argv The usual argv to main.
+  @result 0 if successful.
+*/
 int main(void) {
   int shm_fd;
   void *shm_ptr;
@@ -23,6 +29,7 @@ int main(void) {
 
   if(shm_fd == -1) { // Error.
     perror("FYI0");
+    printf("Make sure the producer process running.\n");
     return 1;
   }
 
@@ -38,10 +45,9 @@ int main(void) {
   printf("%s\n", (char *) shm_ptr);
 
   /* Remove the shared mem. object. */
-  if (shm_unlink(shm_name) == -1) { // Error.
-    perror("shm_unlink error");
-    //return 3;
-  }
+  // if (shm_unlink(shm_name) == -1) { // Error.
+  //   perror("FYI shm_unlink");
+  // }
 
-
+  return 0;
 }
