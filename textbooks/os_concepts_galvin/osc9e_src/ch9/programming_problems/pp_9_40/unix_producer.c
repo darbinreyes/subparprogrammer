@@ -2,6 +2,11 @@
     @header Programming problem 9.40.
 */
 
+#include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
+#include <errno.h>
+
 int get_arg(int argc, char **argv, long *n);
 
 int main(int argc, char **argv) {
