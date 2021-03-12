@@ -12,6 +12,7 @@ Problem Statement.
 Problem Notes.
 ===
 
+Remark: March 12, 2021. I reviewed this code as part of completing programming problem 9.40 and discovered many problems. The following notes may no longer be entirely correct.
 
 This is a modified version of the program for programming problem 3.21. I used that program as a starting point.
 
