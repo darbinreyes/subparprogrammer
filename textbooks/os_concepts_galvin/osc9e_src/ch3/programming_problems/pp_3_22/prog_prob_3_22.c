@@ -1,13 +1,6 @@
 /*!
-    @header Be a pro, document it bro.
-    @discussion The nice thing about using headerdoc (doc. comments in general)
-    is that you save time in the future: viz. if you need to change code written
-    long ago you don't have to reconstruct WTF you did "7 months ago".
-*/
-/*
-
-  Programming problem 3.22.
-
+    @header Programming problem 3.22.
+    @discussion See README.md.
 */
 
 #include <unistd.h> // fork()
@@ -27,7 +20,7 @@ const char * const shm_name = "collatz";
 
 /*!
     @defined MAX_SEQUENCE_STR_SIZE
-    @discussion -1 to account for the terminating'\0'.
+    @discussion -1 to account for the terminating '\0'.
 */
 #define MAX_SEQUENCE_STR_SIZE (SHM_SIZE - 1)
 
@@ -38,7 +31,6 @@ const char * const shm_name = "collatz";
     MAX_SEQUENCE_STR_SIZE.
 
 */
-
 #define ERROR_SEQUENCE_TRUNCATED 8
 
 int child_p(int argc, char **argv);
@@ -116,41 +108,63 @@ int main(int argc, char **argv) {
 
 int print_collatz(unsigned long int n, char *shm_ptr, int bw);
 
+/*!
+    @defined USAGE_STR
+    @discussion The string to print when invalid input is given.
+*/
+#define USAGE_STR "Usage: Supply one integer argument greater than 0,"\
+                  " e.g. \"a.out 8\".\n"
+
+/*!
+    @function child_p
+    @discussion Function that does the work specified for child process:
+    generates the Collatz sequence. The sequence is written to the shared memory
+    object.
+    @param argc The usual arg to main()
+    @param argv The usual arg to main()
+    @result 0 if successful.
+*/
 int child_p(int argc, char **argv) {
-  unsigned long int n;
+  long n;
+  char *endptr;
   int shm_fd;
   void *shm_ptr;
 
   printf("This is the child process.\n");
-  /*
+  /* Get the command line argument. It should be a single positive integer >= 1.
+     */
 
-    Get the command line argument. It should be a single positive integer >=
-    1.
-
-  */
-  if (argc != 2 || argv[1][0] == '-') {
-    printf("Usage: Supply one integer argument greater than 0, e.g. \"a.out 8\". The argument is converted to unsigned long using strtoul().\n");
+  if (argc != 2) {
+    printf("%s", USAGE_STR);
     return 1;
   }
 
-  errno = 0; // strtoul() sets errno.
-
-  n = strtoul(argv[1], NULL, 10);
-  if (n == ULONG_MAX && errno == ERANGE) {
-    printf("Failed to convert argument \'%s\' to unsigned long. Overflow.\n", argv[1]);
-    perror("Fuck");
-    return 2;
+  if(argv[1][0] == '\0') {
+    printf("Empty string.\n");
+    printf("%s", USAGE_STR);
+    return 1;
   }
 
-  if(n == 0 && errno == EINVAL) {
-    printf("Failed to convert argument \'%s\' to unsigned long. No conversion.\n", argv[1]);
-    perror("Fuck");
-    return 3;
+  errno = 0; // strtol() sets errno.
+
+  n = strtol(argv[1], &endptr, 10);
+
+  if (endptr == argv[1]) {
+    printf("No digits at all.\n");
+    printf("%s", USAGE_STR);
+    return 1;
   }
 
-  if(n == 0) {
+  if (errno != 0) {
+    printf("Failed to convert argument \'%s\' to long.\n", argv[1]);
+    perror("FYI");
+    return 1;
+  }
+
+  if(n <= 0) {
     printf("Argument must be greater than 0.\n");
-    return 4;
+    printf("%s", USAGE_STR);
+    return 1;
   }
 
   /*
