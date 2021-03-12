@@ -249,7 +249,6 @@ int child_p(long n) {
 }
 
 /*!
-
     @discussion This is a recursive implementation for printing the sequence
     corresponding to the Collatz conjecture.
 
