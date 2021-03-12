@@ -24,25 +24,16 @@ CC := cc
 CC_FLAGS = -Wall -Wextra
 LD := ld
 
-all: sim_vm_mngrv2.bin sim_vm_mngrv1.bin sim_vm_mngrv0.bin
+all: producer.bin consumer.bin
 
-run: all
-	sim_vm_mngrv2.bin
-
-run1: all
-	sim_vm_mngrv1.bin
-
-run0: all
-	sim_vm_mngrv0.bin
+#run: all
+#	sim_vm_mngrv2.bin
 
 clean:
-	rm sim_vm_mngrv2.bin sim_vm_mngrv1.bin sim_vm_mngrv0.bin
+	rm producer.bin consumer.bin
 
-sim_vm_mngrv2.bin: *.c
-	$(CC) $(CC_FLAGS) $^ -o $@ -DWITH_MODIFICATIONS
-
-sim_vm_mngrv1.bin: *.c
+producer.bin: unix_producer.c
 	$(CC) $(CC_FLAGS) $^ -o $@
 
-sim_vm_mngrv0.bin: *.c
-	$(CC) $(CC_FLAGS) $^ -o $@ -DNO_TLB
+consumer.bin: unix_consumer.c
+	$(CC) $(CC_FLAGS) $^ -o $@
