@@ -45,6 +45,11 @@ int main(void) {
   printf("%s\n", (char *) shm_ptr);
 
   /* Remove the shared mem. object. */
+
+  /* FYI calling shm_unlink() here results in the consumer process only being
+     able to read the contents of the shared memory object once. You need to
+     restart the producer process for this process to work again. */
+
   // if (shm_unlink(shm_name) == -1) { // Error.
   //   perror("FYI shm_unlink");
   // }
