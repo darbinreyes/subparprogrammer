@@ -1,0 +1,1 @@
+Open source implementations of standard C library functions like `memmove()`. Also open source implementations of system calls like shm_open() on UNIX.
