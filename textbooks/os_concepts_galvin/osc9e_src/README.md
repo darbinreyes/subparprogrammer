@@ -28,6 +28,8 @@ For my detailed notes on using the Linux VM see these Evernote:
 
 # linux-headers-3.16.0-4-common/
 
+* It appears that the Linux kernel source (mentioned below) also contains most of the definitions in here. See subparprogrammer/textbooks/os_concepts_galvin/osc9e_src/linux-3.16.81/include/linux/list.h.
+
 This directory contains a copy of the code obtained from the directory `/usr/src/linux-headers-3.16.0-4-common/` inside of the Debian Linux VirtualBox VM that is provided with the Operating System Concepts textbook 9th edition. This is useful for completing the exercises in chapter 2, to see all the definitions in list.h. It is also a good reference for C code in general. The way in which the list is implemented is instructive. There appear to be corresponding man pages e.g. `man list_head` (inside the Linux VM).
 
 * To get this code explicitly from inside the Linux VM:
@@ -51,3 +53,18 @@ For my detailed notes on using the Linux VM see these Evernote:
 For detailed notes on how to get this source code from within the Linux VM see Evernote:
 * Programming Project 3.2.1 README.md Draft 0 - Operating System Concepts - by S&G&G
 * Chapter 2 - Operating System Structures - Operating System Concepts - by S&G&G
+
+
+* Getting this from github, **FYI: I have a clone of this under C_src/.**
+    * Go to https://github.com/torvalds/linux
+    * Under branches/master -> click on Tags -> Find tag v3.16.
+    * e.g. https://github.com/torvalds/linux/tree/v3.16
+    * Using git 
+```
+# how to clone a specific tag with Git.
+# clone the remote repository
+$ git clone <repository> .
+ 
+# switch to the specific tag
+$ git checkout tags/<tagname>
+```
