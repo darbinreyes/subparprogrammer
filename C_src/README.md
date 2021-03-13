@@ -1,6 +1,8 @@
-* TODO -see bottom - decide where to commit - everything is .gitignored to begin with.
+# C source code - reputable references
 
 Sometimes, I want to know how some C function I am using is actually implemented, for example, the standard C library function `memmove()`. This directory contains a collection of open source C code to use as a reference. Each directory contains a **Sublime Text project**, which is essential for quickly finding what I'm looking for.
+
+* TODO -see bottom - decide where to commit - everything is .gitignored to begin with.
 
 * Running list of C code that I want to see:
     * Standard C lib.
