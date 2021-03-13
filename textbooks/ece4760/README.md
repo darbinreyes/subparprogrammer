@@ -1,10 +1,10 @@
 Things related to the microcontroller course I took at Cornell. I took the
-course in Spring 2010.
+course in Spring 2010. There was no single textbook to go along with 
+the course, but the course home page points to many useful docs.
 
 * [LATEST homepage - Cornell University - ECE 4760 - Designing with Microcontrollers](http://people.ece.cornell.edu/land/courses/ece4760/)
 
-Related Links
-===
+# Related Links
 
 * [Lab 1](http://people.ece.cornell.edu/land/courses/ece4760/labs/s2010/lab1.html)
 * [Lab 1 sample code](http://people.ece.cornell.edu/land/courses/ece4760/labs/s2010/Sched1GCC644.c)
