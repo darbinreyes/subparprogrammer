@@ -14,7 +14,7 @@ Open context menu on mouse click | CTRL+click |
 
 * Mission control
     * CTRL+CMD+; | Show desktop
-    *
+  
 
 ### Evernote
 
