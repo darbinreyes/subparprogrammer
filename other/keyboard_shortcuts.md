@@ -25,8 +25,9 @@ Open context menu on mouse click | CTRL+click |
 
 * CTRL+d | EOF
 * CTRL+g | 007 Bell
-* CTRL+z | Run process in background
-* CTRL+c | Send interrupt signal
+* CTRL+z | SIGTSTP,  Stop signal generated from keyboard, Suspends current process, use `fg` to resume it.
+* CTRL+c |  SIGINT, interrupt program
+* CTRL+s / CTRL+q | stop/allow output to the screen 
 *        | Send kill signal
 *        | Send hang up signal
 
