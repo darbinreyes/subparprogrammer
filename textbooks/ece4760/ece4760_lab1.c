@@ -1,3 +1,8 @@
+/*
+  Question: Why is volatile used here?
+  ANS: We have global variables time1/2/3 that are modified inside an ISR.
+  FYI: I took Evernotes on "Nine ways to break your systems code using volatile".
+*/
 // Mega644 version
 
 #include <inttypes.h>
