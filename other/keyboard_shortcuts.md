@@ -33,6 +33,8 @@ RETURN is an example of a **control character** an **invisible character** that 
 
 Two other keys have special meaning: **DELETE**, sometimes called RUBOUT or some abbreviation, and **BREAK**, sometimes called **INTERRUPT**. On most UNIX systems, the **DELETE** key stops a program immediately, **without waiting for it to finish**. On some systems, **ctl-c** provides this service. And on some systems, depending on how the terminals are connected, **BREAK** is a **synonym** for **DELETE** or **ctl-c**.
 
+You can also force a program to **dump core** by typing ctl-\ if it is running in the foreground, or by the command kill -3 if it is in the background.
+
 * CTRL+d | EOF
 * CTRL+g | 007 Bell
 * CTRL+z | SIGTSTP,  Stop signal generated from keyboard, Suspends current process, use `fg` to resume it.
