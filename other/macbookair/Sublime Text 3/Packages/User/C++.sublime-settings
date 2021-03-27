@@ -1,1 +1,14 @@
-/Users/darbinreyes/Library/Application Support/Sublime Text 3/Packages/User/C++.sublime-settings
+{
+	"extensions":
+	[
+		"cpp",
+		"cc",
+		"cxx",
+		"c++",
+		"hpp",
+		"hxx",
+		"h++",
+		"inl",
+		"ipp"
+	]
+}

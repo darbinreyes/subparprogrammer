@@ -1,1 +1,7 @@
-/Users/darbinreyes/Library/Application Support/Sublime Text 3/Packages/User/C Improved 4 Me.sublime-settings
+{
+	"extensions":
+	[
+		"c",
+		"h"
+	]
+}
