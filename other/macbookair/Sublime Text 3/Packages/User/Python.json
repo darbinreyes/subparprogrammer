@@ -1,1 +1,10 @@
-/Users/darbinreyes/Library/Application Support/Sublime Text 3/Packages/User/Python.json
+{
+    "extensions":
+    [
+        ".py"
+    ],
+    // Sets the colors used within the text area
+    "color_scheme": "Packages/Color Scheme - Default/Amy.tmTheme",
+    // The number of spaces a tab is considered equal to
+    "tab_size": 4
+}
