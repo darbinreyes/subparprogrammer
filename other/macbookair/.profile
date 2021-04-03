@@ -186,3 +186,9 @@ git config --global alias.st status
 
 # Github: "paste the text below to add the GPG key to your bash profile"
 export GPG_TTY=$(tty)
+
+# [Fix for whatis/apropos](https://apple.stackexchange.com/questions/374025/errors-from-whatis-command-unable-to-rebuild-database-with-makewhatis)
+alias apropos='~/workarounds/apropos.macos_10.15.1'
+alias whatis='~/workarounds/apropos.macos_10.15.1'
+# Explicitly tell makewhatis where to look for man pages.
+export MANPATH="/usr/share/man:/usr/local/share/man:/opt/local/share/man:/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/share/man:/Library/Developer/CommandLineTools/usr/share/man"
