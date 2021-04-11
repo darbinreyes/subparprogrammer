@@ -5,12 +5,19 @@
 
 ## IMPORTANT: I have moved some projects to [their own repo](https://github.com/darbinreyes?tab=repositories). 
 
+## [Project 10](https://github.com/darbinreyes/os161): OS/161 assignments.
+* In separate [repo](https://github.com/darbinreyes/os161).
+
+## [Project 9](https://github.com/darbinreyes/os-from-scratch): OS from Scratch.
+* In separate [repo](https://github.com/darbinreyes/os-from-scratch).
+
 ## [Project 8](https://github.com/darbinreyes/subparprogrammer/tree/master/textbooks/os_concepts_galvin): Operating System Concepts. Textbook problems and projects.
+* Moved to [its own repo](https://github.com/darbinreyes/OSC9e-v1).
 * Current project status: IN PROGRESS. 
 * Complete programming problems and projects.
 
 ## [Project 7](https://github.com/darbinreyes/subparprogrammer/tree/master/coding_interviews): Document my solutions to coding interview questions.
-* Current project status: COMPLETED. 
+* Current project status: COMPLETED. Ongoing.
 
 ## Project 6: Transcribe NU lecture 1.
 * Current project status: NOT STARTED. 
