@@ -18,15 +18,15 @@ if [ "$MY_BASH_PROFILE_CALLED" = TRUE ]; then
 else
     if [ "$MAC_PORTS_PATH_RM" = TRUE ]; then
         echo Mac Ports Path Removed.
-        export PATH="~/bin:.:$PATH"
+        export PATH="$HOME/bin:.:$PATH"
     else
         echo Using Mac Ports path
-        export PATH="~/bin:.:/opt/local/include:/opt/local/bin:/opt/local/sbin:/opt/:$PATH" # !!! dont forget the ":" delimiter BITCH!
+        export PATH="$HOME/bin:.:/opt/local/include:/opt/local/bin:/opt/local/sbin:/opt/:$PATH" # !!! dont forget the ":" delimiter BITCH!
     fi
     echo my path = $PATH
     echo my python path = $PYTHONPATH
 fi
-
+# $HOME/os161/tools/bin:
 export MY_BASH_PROFILE_CALLED=TRUE # prevent PATH env. var. from being appended to on each call to sbash.
 
 # Make all GUI programs that are opened from my bash use my custom PATH. Fixes svn gui and sublimetext path issues.
