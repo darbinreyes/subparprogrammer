@@ -5,6 +5,9 @@
 
 ## IMPORTANT: I have moved some projects to [their own repo](https://github.com/darbinreyes?tab=repositories). 
 
+## [Project 11](https://github.com/darbinreyes/C-src): Compile reputable references for C standard code.
+* In separate [repo](https://github.com/darbinreyes/C-src).
+
 ## [Project 10](https://github.com/darbinreyes/os161): OS/161 assignments.
 * In separate [repo](https://github.com/darbinreyes/os161).
 
