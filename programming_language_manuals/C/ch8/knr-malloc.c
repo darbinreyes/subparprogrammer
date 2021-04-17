@@ -71,7 +71,25 @@ but if anything is written outside of the allocated space the list is likely to 
 
 The size field is necessary because the blocks controlled by malloc need not be contiguous
 
-it is not possible to compute sizes by pointer arithmetic. // @IMPORTANT
+it is not possible to compute sizes by pointer arithmetic. // @IMPORTANT. [Yet, it seems like we are making heavy use of pointer arithmetic in free().]
+
+The variable base is used to get started.
+
+If freep is NULL, as it is at the first call of malloc, then a degenerate[?] free list is created; [degenerate =]it contains one block of size zero, and points to itself.
+
+In any case, the free list is then **searched**.
+
+The search for a free block of adequate size begins at the point (freep)
+
+where the last block was found;
+
+this strategy helps keep the list homogeneous[?]. // if the search always starts at the lowest memory address, then the beginning of the list will become more fragmented than the end.
+
+If a too-big block is found, the **tail** end is returned to the user;
+
+in this way the header of the original needs only to have its size adjusted. // tail = the part toward high memory addresses.
+
+In all cases, the pointer returned to the user points to the free space within the block, which begins one unit beyond the header.
 ***********
 */
 
@@ -105,3 +123,195 @@ union header { /* block header */
 */
 typedef union header Header;
 
+static Header base; /* empty list get started */
+static Header *freep = NULL; /* start of free list */
+
+/* malloc: general-purpose storage allocator */
+void *malloc(unsigned nbytes)
+{
+    Header *p, *prevp;
+    Header *morecore(unsigned); // [It just occurred to me that this syntax makes it possible to make a function only locally visible. No need to move morecore() above this function, no need to declare morecore() as static.]
+    unsigned nunits;
+
+    nunits = (nbytes + sizeof(Header) - 1)/sizeof(Header) + 1; // [typo here] // round up to the nearest multiple of sizeof(Header). + 1 unit for the header
+    if ((prevp = freep) == NULL) { /* no free list yet */
+        base.s.ptr = freep = prevp = &base; // [typo here]
+        base.s.size = 0;
+    }
+
+    for (p = prevp->s.ptr; ; prevp = p, p = p->s.ptr) { // [prevp = block before, p = block after]
+        if (p->s.size >= nunits) { /* big enough */
+            if (p->s.ptr == nunits) /* exactly */
+                prevp->s.ptr = p->s.ptr; // [unlink block being returned, which is p]
+            else { /* allocate the tail end*/
+                p->s.size -= nunits; // [subtract size of block being returned to use]
+                p += p->s.size; // [pointer arithmetic]
+                p->s.size = nunits; // [size of block being returned]
+            }
+            freep = prevp; // [next search starts at the block before the one that was found during the current search]
+            return (void *)(p+1); // ["the pointer returned to the user points to the free space within the block, which begins one unit beyond the header."]
+        }
+
+        if (p == freep) /* wrapped around free list [therefore, no sufficiently sized block exists, we need to get a big enough block from the OS.]*/
+            if ((p = morecore(nunits)) == NULL) // [if morecore() returns non-NULL, the search will resume and terminate at the freshly obtained block. don't worry about the increment part of the loop, morecore() messes with it.]
+                return NULL; /* none left [i.e. the OS is telling there is no more free memory.] */
+    }
+}
+
+/*
+
+The function morecore obtains storage from the operating system.
+
+Since asking the system for memory is a comparatively expensive operation. we don't want to do that on every call to malloc,
+
+so morecore requests al least NALLOC units;
+
+this larger block will be chopped up as needed.
+
+After setting the size field, morecore inserts the additional memory into the arena **by calling free**. // so we can reuse the code that inserts a fresh block into the free list in increasing address order.
+
+The UNIX system call sbrk(n) returns a pointer to n more bytes of storage.
+
+sbrk returns -1 if there was no space,
+
+The -1 must be cast to char * so it can be compared with the return value. // This is only because we saved the return value is save in a char *.
+
+Again, casts make the function relatively immune to the details of pointer representation on different machines. // @TODO Think about this. How can pointer representation vary across machines?.
+
+There is still one assumption, however, that pointers to **different** blocks **returned by sbrk** can be meaningfully compared. // @TODO Why not? Also see above: "it is not possible to compute sizes by pointer arithmetic."
+
+This is not guaranteed by the standard, which permits pointer comparisons **only** within an array.
+
+Thus this version of malloc is portable only among machines for which general pointer comparison is meaningful. // machines or operating system implementations of sbrk>
+
+*/
+
+#define NALLOC 1024 /* minimum #units to request [from sbrk] */
+
+/* morecore: ask system for more memory */
+static Header *morecore(unsigned nu) // [note that the local declaration of this function in malloc() still works, even though we use static here. The somewhat equivalent of moving this definition function above malloc()'s.]
+{
+    char *cp, *sbrk(int);
+    Header *up; // [u = unit]
+
+    if (nu < NALLOC)
+        nu = NALLOC;
+    cp = sbrk(nu * sizeof(Header)); // [sbrk arg. is in bytes]
+    if (cp == (char *) -1) /* no space at all */
+        return NULL;
+    up = (Header *) cp;
+    free((void *)(up+1)); // [free expects a pointer to the byte after the header info.]"morecore inserts the additional memory into the arena **by calling free**"
+    return freep;
+}
+
+/*
+
+[free] scans the free list, starting at **freep**, looking for the place to insert the free block.
+
+This is either between two existing blocks or at the end of the list. // What about the beginning of the list? is base a considered a block?
+
+if the block being freed is adjacent to either neighbor, the adjacent blocks are combined.
+
+The only troubles are keeping the pointers pointing to the right things and the sizes correct.
+
+*/
+
+
+/* free: put block ap in the free list */
+void free(void *ap)
+{
+    Header *bp, *p;
+
+    bp = (Header *)ap - 1; /* point to block header */
+    for (p = freep; !(bp > p && bp < p->s.ptr); p = p->s.ptr)
+        if (p >= p->s.ptr && (bp > p || bp < p->s.ptr))
+            break; /* freed block at the start or end of the arena */
+
+    if (bp + bp->s.size == p->s.ptr) { /* join to upper nbr */ // [typo here]
+        bp->s.size += p->s.ptr->s.size;
+        bp->s.ptr = p->s.ptr->s.ptr;
+    } else
+        bp->s.ptr = p->s.ptr;
+    if (p + p->s.size == bp) { /* join to lower nbr */
+        p->s.size += bp->s.size;
+        p->s.ptr = bp->s.ptr;
+    } else
+        p->s.ptr = bp;
+
+    freep = p;
+}
+
+/*
+
+Although storage allocation is intrinsically machine-dependent, the code above illustrates how the machine dependencies can be **controlled and confined** to a very small part of the program.
+
+The use of typedef and union handles alignment (given [assuming] that sbrk supplies an appropriate pointer).
+
+Casts arrange that pointer conversions are made **explicit**, and even cope with a badly-designed **system** interface.
+
+Even though the details here are related to storage allocation, the **general approach** is applicable to other situations as well.
+
+*/
+
+
+/*
+    @remark This is very instructive but the number of typos is concerning.
+    I expect that I will have to fix runtime errors.
+
+Here are the as-is compilation errors. We know C was much laxer back then.
+
+```
+MacBook-Air:ch8 darbinreyes$ cc knr-malloc.c
+knr-malloc.c:127:24: error: use of undeclared identifier 'NULL'
+static Header *freep = NULL;
+                       ^
+knr-malloc.c:130:7: warning: incompatible redeclaration of library function
+      'malloc' [-Wincompatible-library-redeclaration]
+void *malloc(unsigned nbytes)
+      ^
+knr-malloc.c:130:7: note: 'malloc' is a builtin with type
+      'void *(unsigned long)'
+knr-malloc.c:137:28: error: use of undeclared identifier 'NULL'
+    if ((prevp = freep) == NULL) {
+                           ^
+knr-malloc.c:144:26: warning: comparison between pointer and integer
+      ('union header *' and 'unsigned int') [-Wpointer-integer-compare]
+            if (p->s.ptr == nunits)
+                ~~~~~~~~ ^  ~~~~~~
+knr-malloc.c:156:43: error: use of undeclared identifier 'NULL'
+            if ((p = morecore(nunits)) == NULL)
+                                          ^
+knr-malloc.c:157:24: error: use of undeclared identifier 'NULL'
+                return NULL;
+                       ^
+knr-malloc.c:192:16: error: static declaration of 'morecore' follows non-static
+      declaration
+static Header *morecore(unsigned nu)
+               ^
+knr-malloc.c:133:13: note: previous declaration is here
+    Header *morecore(unsigned);
+            ^
+knr-malloc.c:201:16: error: use of undeclared identifier 'NULL'
+        return NULL;
+               ^
+knr-malloc.c:203:5: error: implicit declaration of function 'free' is invalid in
+      C99 [-Werror,-Wimplicit-function-declaration]
+    free((void *)(up+1));
+    ^
+knr-malloc.c:221:6: error: conflicting types for 'free'
+void free(void *ap)
+     ^
+knr-malloc.c:203:5: note: previous implicit declaration is here
+    free((void *)(up+1));
+    ^
+2 warnings and 8 errors generated.
+```
+
+*/
+
+/*!
+    @function main
+*/
+int main(void) {
+    return 0;
+}
