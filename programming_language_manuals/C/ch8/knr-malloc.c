@@ -7,6 +7,7 @@
 #include <stdio.h> // NULL
 #include <string.h>
 #include <unistd.h>
+#include <errno.h>
 
 /*
 
@@ -198,6 +199,7 @@ Header *morecore(unsigned nu) // [note that the local declaration of this functi
     char *cp; //, *sbrk(int); // [Why didn't the compiler require that I include <unistd.h>? Is this suppressing the error? ANS: Yes]
     Header *up; // [u = unit]
     void knr_free(void *ap);
+
     /*!
         @discussion
         The compiler warns that sbrk() is deprecated.
@@ -207,11 +209,16 @@ Header *morecore(unsigned nu) // [note that the local declaration of this functi
              ^
         ```
     */
+
     if (nu < NALLOC)
         nu = NALLOC;
+
+    errno = 0;
     cp = sbrk(nu * sizeof(Header)); // [sbrk arg. is in bytes]
-    if (cp == (char *) -1) /* no space at all */
+    if (cp == (char *) -1) { /* no space at all */
+        perror("sbrk");
         return NULL;
+    }
     up = (Header *) cp;
     knr_free((void *)(up+1)); // [free expects a pointer to the byte after the header info.]"morecore inserts the additional memory into the arena **by calling free**"
     return freep;
@@ -332,6 +339,12 @@ int main(void) {
     char *p;
 
     p = knr_malloc(sz);
+
+    if (p == NULL) {
+        printf("knr_malloc returned NULL\n");
+        return 1;
+    }
+
     *p = 'T'; // Segmentation fault: 11 // @NEXT debug with lldb.
     //memcpy(p, str, sz);
     printf("%s\n", p);
