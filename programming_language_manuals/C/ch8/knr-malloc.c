@@ -4,6 +4,8 @@
     @discussion This is the implementation exactly as presented in the book.
 */
 
+#include <stdio.h> // NULL
+
 /*
 
 Calls to malloc and free may occur in any order; malloc calls upon the operating system to obtain more memory as necessary.
@@ -127,7 +129,7 @@ static Header base; /* empty list get started */
 static Header *freep = NULL; /* start of free list */
 
 /* malloc: general-purpose storage allocator */
-void *malloc(unsigned nbytes)
+void *knr_malloc(unsigned nbytes)
 {
     Header *p, *prevp;
     Header *morecore(unsigned); // [It just occurred to me that this syntax makes it possible to make a function only locally visible. No need to move morecore() above this function, no need to declare morecore() as static.]
@@ -141,7 +143,7 @@ void *malloc(unsigned nbytes)
 
     for (p = prevp->s.ptr; ; prevp = p, p = p->s.ptr) { // [prevp = block before, p = block after]
         if (p->s.size >= nunits) { /* big enough */
-            if (p->s.ptr == nunits) /* exactly */
+            if (p->s.size == nunits) /* exactly */
                 prevp->s.ptr = p->s.ptr; // [unlink block being returned, which is p]
             else { /* allocate the tail end*/
                 p->s.size -= nunits; // [subtract size of block being returned to use]
@@ -189,10 +191,11 @@ Thus this version of malloc is portable only among machines for which general po
 #define NALLOC 1024 /* minimum #units to request [from sbrk] */
 
 /* morecore: ask system for more memory */
-static Header *morecore(unsigned nu) // [note that the local declaration of this function in malloc() still works, even though we use static here. The somewhat equivalent of moving this definition function above malloc()'s.]
+Header *morecore(unsigned nu) // [note that the local declaration of this function in malloc() still works, even though we use static here. The somewhat equivalent of moving this definition function above malloc()'s.] // cc errors out on the mismatched use of static. Removed.
 {
     char *cp, *sbrk(int);
     Header *up; // [u = unit]
+    void knr_free(void *ap);
 
     if (nu < NALLOC)
         nu = NALLOC;
@@ -200,7 +203,7 @@ static Header *morecore(unsigned nu) // [note that the local declaration of this
     if (cp == (char *) -1) /* no space at all */
         return NULL;
     up = (Header *) cp;
-    free((void *)(up+1)); // [free expects a pointer to the byte after the header info.]"morecore inserts the additional memory into the arena **by calling free**"
+    knr_free((void *)(up+1)); // [free expects a pointer to the byte after the header info.]"morecore inserts the additional memory into the arena **by calling free**"
     return freep;
 }
 
@@ -218,7 +221,7 @@ The only troubles are keeping the pointers pointing to the right things and the 
 
 
 /* free: put block ap in the free list */
-void free(void *ap)
+void knr_free(void *ap)
 {
     Header *bp, *p;
 
@@ -276,7 +279,7 @@ knr-malloc.c:137:28: error: use of undeclared identifier 'NULL'
                            ^
 knr-malloc.c:144:26: warning: comparison between pointer and integer
       ('union header *' and 'unsigned int') [-Wpointer-integer-compare]
-            if (p->s.ptr == nunits)
+            if (p->s.ptr == nunits) // Darbin's typo
                 ~~~~~~~~ ^  ~~~~~~
 knr-malloc.c:156:43: error: use of undeclared identifier 'NULL'
             if ((p = morecore(nunits)) == NULL)
