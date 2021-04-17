@@ -6,6 +6,7 @@
 
 #include <stdio.h> // NULL
 #include <string.h>
+#include <unistd.h>
 
 /*
 
@@ -194,10 +195,18 @@ Thus this version of malloc is portable only among machines for which general po
 /* morecore: ask system for more memory */
 Header *morecore(unsigned nu) // [note that the local declaration of this function in malloc() still works, even though we use static here. The somewhat equivalent of moving this definition function above malloc()'s.] // cc errors out on the mismatched use of static. Removed.
 {
-    char *cp, *sbrk(int);
+    char *cp; //, *sbrk(int); // [Why didn't the compiler require that I include <unistd.h>? Is this suppressing the error? ANS: Yes]
     Header *up; // [u = unit]
     void knr_free(void *ap);
-
+    /*!
+        @discussion
+        The compiler warns that sbrk() is deprecated.
+        ```
+        knr-malloc.c:204:10: warning: 'sbrk' is deprecated [-Wdeprecated-declarations]
+        cp = sbrk(nu * sizeof(Header));
+             ^
+        ```
+    */
     if (nu < NALLOC)
         nu = NALLOC;
     cp = sbrk(nu * sizeof(Header)); // [sbrk arg. is in bytes]
