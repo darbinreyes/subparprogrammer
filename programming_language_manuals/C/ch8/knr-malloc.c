@@ -5,6 +5,7 @@
 */
 
 #include <stdio.h> // NULL
+#include <string.h>
 
 /*
 
@@ -316,5 +317,18 @@ knr-malloc.c:203:5: note: previous implicit declaration is here
     @function main
 */
 int main(void) {
+    #define STR0 "The lone and level sands stretch far away."
+    char *str = STR0;
+    int sz = sizeof (STR0);
+    char *p;
+
+    p = knr_malloc(sz);
+    *p = 'T'; // Segmentation fault: 11 // @NEXT debug with lldb.
+    //memcpy(p, str, sz);
+    printf("%s\n", p);
+    // knr_free(p);
+
+    printf("Done.\n");
+
     return 0;
 }
