@@ -230,6 +230,7 @@ Header *morecore(unsigned nu) // cc errors out on the mismatched use of static. 
         return NULL;
     }
     up = (Header *) cp;
+    up->s.size = nu;
     knr_free((void *)(up+1)); // [free expects a pointer to the byte after the header info.]"morecore inserts the additional memory into the arena **by calling free**"
     return freep;
 }
