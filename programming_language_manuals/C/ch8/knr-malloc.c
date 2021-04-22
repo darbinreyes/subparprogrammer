@@ -144,12 +144,12 @@ void *knr_malloc(unsigned nbytes)
         base.s.size = 0;
     }
 
-    for (p = prevp->s.ptr; ; prevp = p, p = p->s.ptr) { // [prevp = block before, p = block after]
+    for (p = prevp->s.ptr; ; prevp = p, p = p->s.ptr) { // [prevp = block before, p = block after] // Note prevp = freep in condition part of if above.
         if (p->s.size >= nunits) { /* big enough */
             if (p->s.size == nunits) /* exactly */
                 prevp->s.ptr = p->s.ptr; // [unlink block being returned, which is p]
             else { /* allocate the tail end*/
-                p->s.size -= nunits; // [subtract size of block being returned to use]
+                p->s.size -= nunits; // [subtract size of block being returned to user]
                 p += p->s.size; // [pointer arithmetic]
                 p->s.size = nunits; // [size of block being returned]
             }
@@ -194,7 +194,7 @@ Thus this version of malloc is portable only among machines for which general po
 #define NALLOC 1024 /* minimum #units to request [from sbrk] */
 
 /* morecore: ask system for more memory */
-Header *morecore(unsigned nu) // [note that the local declaration of this function in malloc() still works, even though we use static here. The somewhat equivalent of moving this definition function above malloc()'s.] // cc errors out on the mismatched use of static. Removed.
+Header *morecore(unsigned nu) // cc errors out on the mismatched use of static. Removed.
 {
     char *cp; //, *sbrk(int); // [Why didn't the compiler require that I include <unistd.h>? Is this suppressing the error? ANS: Yes]
     Header *up; // [u = unit]
@@ -209,6 +209,16 @@ Header *morecore(unsigned nu) // [note that the local declaration of this functi
              ^
         ```
     */
+
+    /* "The current value of the program break is reliably returned by sbrk(0)" */
+    errno = 0;
+    cp = sbrk(0);
+    if (cp == (char *) -1) { /* no space at all */
+        perror("sbrk");
+        return NULL;
+    }
+
+    printf("current program break = %p\n", (void *)cp);
 
     if (nu < NALLOC)
         nu = NALLOC;
