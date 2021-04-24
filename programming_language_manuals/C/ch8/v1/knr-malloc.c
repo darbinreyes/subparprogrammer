@@ -85,7 +85,10 @@ Header *morecore(unsigned nu) // cc errors out on the mismatched use of static. 
 
     /* "The current value of the program break is reliably returned by sbrk(0)" */
     errno = 0;
-    cp = sbrk(0);
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    cp = sbrk(0); // Fixes failure of sbrk() call below.
+    #pragma clang diagnostic pop
     if (cp == (char *) -1) { /* no space at all */
         perror("sbrk");
         return NULL;
@@ -97,7 +100,10 @@ Header *morecore(unsigned nu) // cc errors out on the mismatched use of static. 
         nu = NALLOC;
 
     errno = 0;
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wdeprecated-declarations"
     cp = sbrk(nu * sizeof(Header)); // [sbrk arg. is in bytes]
+    #pragma clang diagnostic pop
     if (cp == (char *) -1) { /* no space at all */
         perror("sbrk");
         return NULL;
@@ -132,6 +138,7 @@ void knr_free(void *ap)
     freep = p;
 }
 
+#if 0
 /*!
     @function main
 */
@@ -156,3 +163,5 @@ int main(void) {
 
     return 0;
 }
+
+#endif
