@@ -1,8 +1,8 @@
-CC = gcc
-MY_C_FILE =
-SEATEST_SRC_PATH = ../seatest/src
+CC = cc
+MY_C_FILE = knr-malloc.c # .h
+SEATEST_SRC_PATH = ../../../../../seatest/src
 FILES = seatest_project.c test_suite_one.c $(MY_C_FILE) $(SEATEST_SRC_PATH)/seatest.c
-OUT_EXE = seatest_project
+OUT_EXE = seatest_project.out
 
 build: $(FILES)
 	$(CC) -O0 -g -o $(OUT_EXE) $(FILES) -I $(SEATEST_SRC_PATH)
