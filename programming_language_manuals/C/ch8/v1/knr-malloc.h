@@ -3,5 +3,7 @@
 
 void *knr_malloc(unsigned nbytes);
 void knr_free(void *ap);
+void print_free_list(void);
+void print_free_list(void);
 
 #endif

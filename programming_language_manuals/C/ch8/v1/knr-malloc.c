@@ -8,36 +8,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
-
-/*!
-    @typedef Align
-*/
-typedef long Align; /* for alignment to long boundary */
-
-/*!
-    @union header
-
-    @field s
-    @field x
-*/
-union header { /* block header */
-    /*!
-        @struct
-
-        @field ptr
-        @field size
-    */
-    struct {
-        union header *ptr; /* next block if on free list */
-        unsigned size; /* size of this block */
-    } s;
-    Align x; /* force alignment of blocks */
-};
-
-/*!
-    @typedef Header
-*/
-typedef union header Header;
+#include "private-knr-malloc.h"
+void print_free_list(void);
 
 static Header base; /* empty list get started */
 static Header *freep = NULL; /* start of free list */
@@ -54,6 +26,8 @@ void *knr_malloc(unsigned nbytes)
         base.s.ptr = freep = prevp = &base; // [typo here]
         base.s.size = 0;
     }
+    printf("knr_malloc() entry\n");
+    print_free_list();
 
     for (p = prevp->s.ptr; ; prevp = p, p = p->s.ptr) { // [prevp = block before, p = block after] // Note prevp = freep in condition part of if above.
         if (p->s.size >= nunits) { /* big enough */
@@ -68,9 +42,12 @@ void *knr_malloc(unsigned nbytes)
             return (void *)(p+1); // ["the pointer returned to the user points to the free space within the block, which begins one unit beyond the header."]
         }
 
-        if (p == freep) /* wrapped around free list [therefore, no sufficiently sized block exists, we need to get a big enough block from the OS.]*/
+        if (p == freep) { /* wrapped around free list [therefore, no sufficiently sized block exists, we need to get a big enough block from the OS.]*/
             if ((p = morecore(nunits)) == NULL) // [if morecore() returns non-NULL, the search will resume and terminate at the freshly obtained block. don't worry about the increment part of the loop, morecore() messes with it.]
                 return NULL; /* none left [i.e. the OS is telling there is no more free memory.] */
+            printf("knr_malloc() AFTER morecore()\n");
+            print_free_list();
+        }
     }
 }
 
@@ -165,3 +142,21 @@ int main(void) {
 }
 
 #endif
+
+void print_free_list(void) {
+    Header *bp = freep;
+
+    if (bp->s.ptr == bp) {
+        printf("List EMPTY.\n");
+        return;
+    }
+
+    printf("[p=%p, size=%u]->", bp, bp->s.size);
+
+    for (bp = bp->s.ptr; bp != freep; bp = bp->s.ptr) {
+        printf("[p=%p, size=%u]->", bp, bp->s.size);
+    }
+
+    printf("\n");
+    return;
+}
