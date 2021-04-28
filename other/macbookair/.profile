@@ -21,7 +21,11 @@ else
         export PATH="$HOME/bin:.:$PATH"
     else
         echo Using Mac Ports path
-        export PATH="$HOME/bin:.:/opt/local/include:/opt/local/bin:/opt/local/sbin:/opt/:$PATH" # !!! dont forget the ":" delimiter BITCH!
+        # @IMPORTANT using a ~ character does NOT work here, you must use $HOME instead.
+        PATH="$HOME/bin:.:/opt/local/include:/opt/local/bin:/opt/local/sbin:/opt/:$PATH" # !!! dont forget the ":" delimiter BITCH!
+        # Add python 2.7 bin directory to path.
+        PATH="/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH"
+        export PATH
     fi
     echo my path = $PATH
     echo my python path = $PYTHONPATH
