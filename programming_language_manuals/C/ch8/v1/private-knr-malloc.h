@@ -31,4 +31,10 @@ union header { /* block header */
 */
 typedef union header Header;
 
+/*!
+    @defined NBYTES_TO_NUNITS
+    @discussion Round up size in bytes to the nearest multiple of sizeof(Header). + 1 unit for the header
+*/
+#define NBYTES_TO_NUNITS(nb) ( ( (nb) + sizeof(Header) - 1)/sizeof(Header) + 1 )
+
 #endif
