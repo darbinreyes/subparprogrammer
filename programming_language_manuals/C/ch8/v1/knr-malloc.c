@@ -1,7 +1,7 @@
 /*!
     @header Implementation of malloc() and free() from K&R chapter 8.7
     Example - A Storage Allocator.
-    @discussion This is the implementation exactly as presented in the book.
+    @discussion This is the implementation as presented in the book with my modifications.
 */
 
 #include <stdio.h> // NULL
@@ -21,7 +21,7 @@ void *knr_malloc(unsigned nbytes)
     Header *morecore(unsigned); // [It just occurred to me that this syntax makes it possible to make a function only locally visible. No need to move morecore() above this function, no need to declare morecore() as static.]
     unsigned nunits;
 
-    nunits = (nbytes + sizeof(Header) - 1)/sizeof(Header) + 1; // [typo here] // round up to the nearest multiple of sizeof(Header). + 1 unit for the header
+    nunits = NBYTES_TO_NUNITS(nbytes); // [typo here]
     if ((prevp = freep) == NULL) { /* no free list yet */
         base.s.ptr = freep = prevp = &base; // [typo here]
         base.s.size = 0;
@@ -52,7 +52,10 @@ void *knr_malloc(unsigned nbytes)
 }
 
 #define NALLOC 1024 /* minimum #units to request [from sbrk] */
-
+/*
+    Question: [How to free memory that has been allocated by sbrk()? Can I use munmap?](https://stackoverflow.com/questions/63481614/how-to-free-memory-that-has-been-allocated-by-sbrk-can-i-use-munmap)
+    ANS: Call sbrk() with a negative argument in FILO/LIFO (stack) order.
+*/
 /* morecore: ask system for more memory */
 Header *morecore(unsigned nu) // cc errors out on the mismatched use of static. Removed.
 {

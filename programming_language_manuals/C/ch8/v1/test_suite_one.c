@@ -16,14 +16,16 @@
 void test_0()
 {
     #define STR0 "The lone and level sands stretch far away."
-    char *str = STR0;
-    int sz = sizeof (STR0);
+    #define STR0_SIZE (sizeof(STR0))
+    #define STR0_USIZE (NBYTES_TO_NUNITS(STR0_SIZE))
     char *p;
+    Header *hp;
 
-    printf("Size of unit = Size of header = %lu\n", sizeof(Header));
-    printf("Size of STR0 = %lu\n", sizeof(STR0));
+    assert_true(sizeof(Header) == 16);
 
-    p = knr_malloc(sz);
+    printf("Size of STR0 (bytes, units) = (%lu, %lu)\n", STR0_SIZE, STR0_USIZE);
+
+    p = knr_malloc(STR0_SIZE);
 
     assert_true(p != NULL);
 
@@ -35,10 +37,16 @@ void test_0()
     printf("AFTER knr_malloc()\n");
     print_free_list();
 
-    memcpy(p, str, sz);
+    // Test that we can write to the block without errors.
+    memcpy(p, STR0, STR0_SIZE);
+    assert_string_equal(STR0, p);
 
-    assert_string_equal(str, p);
+    // Verify the size of the returned block
+    hp = (Header *) p;
+    hp--;
+    assert_true(hp->s.size == STR0_USIZE);
 
+    // Test that free works without error
     knr_free(p);
     printf("AFTER knr_free()\n");
     print_free_list();
@@ -96,6 +104,6 @@ void test_fixture_one( void )
 {
   test_fixture_start();               // starts a fixture
   run_test(test_0);
-  run_test(test_1);
+  //run_test(test_1);
   test_fixture_end();                 // ends a fixture
 }
