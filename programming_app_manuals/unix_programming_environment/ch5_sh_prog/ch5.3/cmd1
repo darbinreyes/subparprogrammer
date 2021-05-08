@@ -1,0 +1,5 @@
+until who | grep $1
+do
+	echo sleeping
+	sleep 1
+done

@@ -1,0 +1,592 @@
+Last login: Fri Jan 15 21:42:16 on ttys003
+Using Mac Ports path
+my path = ~/bin:.:/opt/local/include:/opt/local/bin:/opt/local/sbin:/opt/:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/MacGPG2/bin:/opt/X11/bin:/Library/Apple/usr/bin
+my python path =
+Proxy set for home.
+Git set for home.
+cdMacBook-Air:pp_9_39 darbinreyes$ cd /tmp
+MacBook-Air:tmp darbinreyes$ ls
+AlTest1.err                com.google.Keystone
+AlTest1.out                debian-10.7.0-amd64-netinst.iso
+CommCenter.KeepAlive.Enabled        kali-linux-2020.4-installer-amd64.iso
+adobegc.log                parallels_crash_dumps
+com.apple.launchd.QqnPbzD9Fh        powerlog
+com.apple.launchd.bqDFI6tNE2        ubuntu-20.04.1-desktop-amd64.iso
+com.apple.launchd.vLddc6xlwl
+MacBook-Air:tmp darbinreyes$ >test.txt
+MacBook-Air:tmp darbinreyes$ vim test.txt
+MacBook-Air:tmp darbinreyes$ cat test.txt
+A traveler from an antique land once said
+
+Look at my works, ye mighty, and despair!
+The lone rocks
+
+In the sand and shit like that
+MacBook-Air:tmp darbinreyes$ cat test.txt | sed '/./s/^/    /'
+    A traveler from an antique land once said
+
+    Look at my works, ye mighty, and despair!
+    The lone rocks
+
+    In the sand and shit like that
+MacBook-Air:tmp darbinreyes$ cat test.txt | sed '/./s/^/    /' | subl
+MacBook-Air:tmp darbinreyes$ cat test.txt | sed 's/^/    /' | subl
+MacBook-Air:tmp darbinreyes$ cat test.txt | sed '/^$/!s/^/    /' | subl
+MacBook-Air:tmp darbinreyes$ ls
+AlTest1.err                com.google.Keystone
+AlTest1.out                debian-10.7.0-amd64-netinst.iso
+CommCenter.KeepAlive.Enabled        kali-linux-2020.4-installer-amd64.iso
+adobegc.log                parallels_crash_dumps
+com.apple.launchd.QqnPbzD9Fh        powerlog
+com.apple.launchd.bqDFI6tNE2        test.txt
+com.apple.launchd.vLddc6xlwl        ubuntu-20.04.1-desktop-amd64.iso
+MacBook-Air:tmp darbinreyes$ >byron.txt
+MacBook-Air:tmp darbinreyes$ subl byron.txt
+MacBook-Air:tmp darbinreyes$ ls
+AlTest1.err                com.google.Keystone
+AlTest1.out                debian-10.7.0-amd64-netinst.iso
+CommCenter.KeepAlive.Enabled        kali-linux-2020.4-installer-amd64.iso
+adobegc.log                parallels_crash_dumps
+byron.txt                powerlog
+com.apple.launchd.QqnPbzD9Fh        test.txt
+com.apple.launchd.bqDFI6tNE2        ubuntu-20.04.1-desktop-amd64.iso
+com.apple.launchd.vLddc6xlwl
+MacBook-Air:tmp darbinreyes$ cd /Users/darbinreyes/dev/private_dev/subparprogrammer/
+MacBook-Air:subparprogrammer darbinreyes$ ls
+LICENSE                other
+README.md            programming_language_manuals
+c_projects            python_projects
+cat.txt                servers
+coding_interviews        textbooks
+dijkstra            web_projects
+main.png
+MacBook-Air:subparprogrammer darbinreyes$ ls programming_language_manuals/
+C    Python
+MacBook-Air:subparprogrammer darbinreyes$ ls other/
+README.md    macbookair
+MacBook-Air:subparprogrammer darbinreyes$ ls textbooks/
+README.md        data_structures_carrano    os_concepts_galvin
+MacBook-Air:subparprogrammer darbinreyes$ mkdir programming_app_manuals
+MacBook-Air:subparprogrammer darbinreyes$ ls
+LICENSE                other
+README.md            programming_app_manuals
+c_projects            programming_language_manuals
+cat.txt                python_projects
+coding_interviews        servers
+dijkstra            textbooks
+main.png            web_projects
+MacBook-Air:subparprogrammer darbinreyes$ cd programming_app_manuals/
+MacBook-Air:programming_app_manuals darbinreyes$ ls
+MacBook-Air:programming_app_manuals darbinreyes$ mkdir unix_programming_environment
+MacBook-Air:programming_app_manuals darbinreyes$ ls
+unix_programming_environment
+MacBook-Air:programming_app_manuals darbinreyes$ cd unix_programming_environment/
+MacBook-Air:unix_programming_environment darbinreyes$ ls
+MacBook-Air:unix_programming_environment darbinreyes$ mkdir ch4_filters
+MacBook-Air:unix_programming_environment darbinreyes$ ls
+ch4_filters
+MacBook-Air:unix_programming_environment darbinreyes$ cd ch4_filters/
+MacBook-Air:ch4_filters darbinreyes$ ls
+MacBook-Air:ch4_filters darbinreyes$ ls
+MacBook-Air:ch4_filters darbinreyes$ cp /tmp/byron.txt .
+MacBook-Air:ch4_filters darbinreyes$ ls
+byron.txt
+MacBook-Air:ch4_filters darbinreyes$ cp byron.txt byron1.txt
+MacBook-Air:ch4_filters darbinreyes$ mv byron.txt byron0.txt
+MacBook-Air:ch4_filters darbinreyes$ ls
+byron0.txt    byron1.txt
+MacBook-Air:ch4_filters darbinreyes$ subl byron1.txt
+MacBook-Air:ch4_filters darbinreyes$ cat byron1.txt
+Ozymandias
+BY PERCY BYSSHE SHELLEY
+
+I met a traveler from an antique land,
+
+Who said—“Two vast and trunk-less legs of stone
+
+Stand in the desert. . . . Near them, on the sand,
+
+Half sunk a shattered visage lies, whose frown,
+
+And wrinkled lip, and sneer of cold command,
+
+Tell that its sculptor well those passions read
+
+Which yet survive, stamped on these lifeless things,
+
+The hand that mocked them, and the heart that fed;
+
+And on the pedestal, these words appear:
+
+My name is Ozymandias, King of Kings;
+
+Look on my Works, ye Mighty, and despair!
+
+Nothing beside remains. Round the decay
+
+Of that colossal Wreck, boundless and bare
+
+The lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$ cat byron1.txt | sed '/^$/!s/^/xxxx/'
+xxxxOzymandias
+xxxxBY PERCY BYSSHE SHELLEY
+
+xxxxI met a traveler from an antique land,
+
+xxxxWho said—“Two vast and trunk-less legs of stone
+
+xxxxStand in the desert. . . . Near them, on the sand,
+
+xxxxHalf sunk a shattered visage lies, whose frown,
+
+xxxxAnd wrinkled lip, and sneer of cold command,
+
+xxxxTell that its sculptor well those passions read
+
+xxxxWhich yet survive, stamped on these lifeless things,
+
+xxxxThe hand that mocked them, and the heart that fed;
+
+xxxxAnd on the pedestal, these words appear:
+
+xxxxMy name is Ozymandias, King of Kings;
+
+xxxxLook on my Works, ye Mighty, and despair!
+
+xxxxNothing beside remains. Round the decay
+
+xxxxOf that colossal Wreck, boundless and bare
+
+xxxxThe lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$ echo 'cat byron1.txt | sed '/^$/!s/^/xxxx/'' > tsed0
+-sh: !s/^/xxxx/'': event not found
+MacBook-Air:ch4_filters darbinreyes$ echo 'cat byron1.txt | sed \'/^$/!s/^/xxxx/\'' > tsed0
+-sh: !s/^/xxxx/\'': event not found
+MacBook-Air:ch4_filters darbinreyes$ echo "cat byron1.txt | sed '/^$/!s/^/xxxx/'" > tsed0
+-sh: !s/^/xxxx/'": event not found
+MacBook-Air:ch4_filters darbinreyes$ echo 'cat byron1.txt | sed '/^$/\!s/^/xxxx/'' > tsed0
+MacBook-Air:ch4_filters darbinreyes$ cat tsed0
+cat byron1.txt | sed /^$/!s/^/xxxx/
+MacBook-Air:ch4_filters darbinreyes$ echo "cat byron1.txt | sed \'/^$/\!s/^/xxxx/\'" > tsed0
+MacBook-Air:ch4_filters darbinreyes$ cat tsed0
+cat byron1.txt | sed \'/^$/\!s/^/xxxx/\'
+MacBook-Air:ch4_filters darbinreyes$ cx tsed0
+MacBook-Air:ch4_filters darbinreyes$ ts
+tsed0        tset         tsig-keygen  tsort        tstclnt
+MacBook-Air:ch4_filters darbinreyes$ ts
+tsed0        tset         tsig-keygen  tsort        tstclnt
+MacBook-Air:ch4_filters darbinreyes$ tsed0
+sed: 1: "'/^$/!s/^/xxxx/'": invalid command code '
+MacBook-Air:ch4_filters darbinreyes$ echo 'cat byron1.txt | sed '/^$/\!s/^/xxxx/'' > tsed0
+MacBook-Air:ch4_filters darbinreyes$ cat tsed0
+cat byron1.txt | sed /^$/!s/^/xxxx/
+MacBook-Air:ch4_filters darbinreyes$ echo "cat byron1.txt | sed '/^$/\!s/^/xxxx/'" > tsed0
+MacBook-Air:ch4_filters darbinreyes$ cat tsed0
+cat byron1.txt | sed '/^$/\!s/^/xxxx/'
+MacBook-Air:ch4_filters darbinreyes$ tsed0
+sed: 1: "/^$/\!s/^/xxxx/": invalid command code \
+MacBook-Air:ch4_filters darbinreyes$ subl
+MacBook-Air:ch4_filters darbinreyes$ subl tsed0
+MacBook-Air:ch4_filters darbinreyes$ tsed0
+xxxxOzymandias
+xxxxBY PERCY BYSSHE SHELLEY
+
+xxxxI met a traveler from an antique land,
+
+xxxxWho said—“Two vast and trunk-less legs of stone
+
+xxxxStand in the desert. . . . Near them, on the sand,
+
+xxxxHalf sunk a shattered visage lies, whose frown,
+
+xxxxAnd wrinkled lip, and sneer of cold command,
+
+xxxxTell that its sculptor well those passions read
+
+xxxxWhich yet survive, stamped on these lifeless things,
+
+xxxxThe hand that mocked them, and the heart that fed;
+
+xxxxAnd on the pedestal, these words appear:
+
+xxxxMy name is Ozymandias, King of Kings;
+
+xxxxLook on my Works, ye Mighty, and despair!
+
+xxxxNothing beside remains. Round the decay
+
+xxxxOf that colossal Wreck, boundless and bare
+
+xxxxThe lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed 3q
+Ozymandias
+BY PERCY BYSSHE SHELLEY
+
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt
+Ozymandias
+BY PERCY BYSSHE SHELLEY
+
+I met a traveler from an antique land,
+Who said—“Two vast and trunk-less legs of stone
+Stand in the desert. . . . Near them, on the sand,
+Half sunk a shattered visage lies, whose frown,
+And wrinkled lip, and sneer of cold command,
+Tell that its sculptor well those passions read
+Which yet survive, stamped on these lifeless things,
+The hand that mocked them, and the heart that fed;
+And on the pedestal, these words appear:
+My name is Ozymandias, King of Kings;
+Look on my Works, ye Mighty, and despair!
+Nothing beside remains. Round the decay
+Of that colossal Wreck, boundless and bare
+The lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed 's/^/xxx/
+> 3q'
+xxxOzymandias
+xxxBY PERCY BYSSHE SHELLEY
+xxx
+MacBook-Air:ch4_filters darbinreyes$ man head
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed '/visage/q'
+Ozymandias
+BY PERCY BYSSHE SHELLEY
+
+I met a traveler from an antique land,
+Who said—“Two vast and trunk-less legs of stone
+Stand in the desert. . . . Near them, on the sand,
+Half sunk a shattered visage lies, whose frown,
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed '/the/d'
+Ozymandias
+BY PERCY BYSSHE SHELLEY
+
+I met a traveler from an antique land,
+Who said—“Two vast and trunk-less legs of stone
+Half sunk a shattered visage lies, whose frown,
+And wrinkled lip, and sneer of cold command,
+Tell that its sculptor well those passions read
+My name is Ozymandias, King of Kings;
+Look on my Works, ye Mighty, and despair!
+Of that colossal Wreck, boundless and bare
+The lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed
+Ozymandias
+BY PERCY BYSSHE SHELLEY
+
+I met a traveler from an antique land,
+Who said—“Two vast and trunk-less legs of stone
+Stand in the desert. . . . Near them, on the sand,
+Half sunk a shattered visage lies, whose frown,
+And wrinkled lip, and sneer of cold command,
+Tell that its sculptor well those passions read
+Which yet survive, stamped on these lifeless things,
+The hand that mocked them, and the heart that fed;
+And on the pedestal, these words appear:
+My name is Ozymandias, King of Kings;
+Look on my Works, ye Mighty, and despair!
+Nothing beside remains. Round the decay
+Of that colossal Wreck, boundless and bare
+The lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed -n
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed -n '/sands/p/'
+sed: 1: "/sands/p/": extra characters at the end of p command
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed -n '/sands/p'
+The lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$ ls
+byron0.txt    byron1.txt    tsed0
+MacBook-Air:ch4_filters darbinreyes$ rm tsed0
+MacBook-Air:ch4_filters darbinreyes$ >sed.txt
+MacBook-Air:ch4_filters darbinreyes$ subl sed.txt
+MacBook-Air:ch4_filters darbinreyes$ man grep
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed 's/$/\
+> /'
+Ozymandias
+
+BY PERCY BYSSHE SHELLEY
+
+
+
+I met a traveler from an antique land,
+
+Who said—“Two vast and trunk-less legs of stone
+
+Stand in the desert. . . . Near them, on the sand,
+
+Half sunk a shattered visage lies, whose frown,
+
+And wrinkled lip, and sneer of cold command,
+
+Tell that its sculptor well those passions read
+
+Which yet survive, stamped on these lifeless things,
+
+The hand that mocked them, and the heart that fed;
+
+And on the pedestal, these words appear:
+
+My name is Ozymandias, King of Kings;
+
+Look on my Works, ye Mighty, and despair!
+
+Nothing beside remains. Round the decay
+
+Of that colossal Wreck, boundless and bare
+
+The lone and level sands stretch far away.”
+
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed
+Ozymandias
+BY PERCY BYSSHE SHELLEY
+
+I met a traveler from an antique land,
+Who said—“Two vast and trunk-less legs of stone
+Stand in the desert. . . . Near them, on the sand,
+Half sunk a shattered visage lies, whose frown,
+And wrinkled lip, and sneer of cold command,
+Tell that its sculptor well those passions read
+Which yet survive, stamped on these lifeless things,
+The hand that mocked them, and the heart that fed;
+And on the pedestal, these words appear:
+My name is Ozymandias, King of Kings;
+Look on my Works, ye Mighty, and despair!
+Nothing beside remains. Round the decay
+Of that colossal Wreck, boundless and bare
+The lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed 's/[ ][ ]*/\
+> /g'
+Ozymandias
+BY
+PERCY
+BYSSHE
+SHELLEY
+
+I
+met
+a
+traveler
+from
+an
+antique
+land,
+Who
+said—“Two
+vast
+and
+trunk-less
+legs
+of
+stone
+Stand
+in
+the
+desert.
+.
+.
+.
+Near
+them,
+on
+the
+sand,
+Half
+sunk
+a
+shattered
+visage
+lies,
+whose
+frown,
+And
+wrinkled
+lip,
+and
+sneer
+of
+cold
+command,
+Tell
+that
+its
+sculptor
+well
+those
+passions
+read
+Which
+yet
+survive,
+stamped
+on
+these
+lifeless
+things,
+The
+hand
+that
+mocked
+them,
+and
+the
+heart
+that
+fed;
+And
+on
+the
+pedestal,
+these
+words
+appear:
+My
+name
+is
+Ozymandias,
+King
+of
+Kings;
+Look
+on
+my
+Works,
+ye
+Mighty,
+and
+despair!
+Nothing
+beside
+remains.
+Round
+the
+decay
+Of
+that
+colossal
+Wreck,
+boundless
+and
+bare
+The
+lone
+and
+level
+sands
+stretch
+far
+away.”
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed '5,7p'
+Ozymandias
+BY PERCY BYSSHE SHELLEY
+
+I met a traveler from an antique land,
+Who said—“Two vast and trunk-less legs of stone
+Who said—“Two vast and trunk-less legs of stone
+Stand in the desert. . . . Near them, on the sand,
+Stand in the desert. . . . Near them, on the sand,
+Half sunk a shattered visage lies, whose frown,
+Half sunk a shattered visage lies, whose frown,
+And wrinkled lip, and sneer of cold command,
+Tell that its sculptor well those passions read
+Which yet survive, stamped on these lifeless things,
+The hand that mocked them, and the heart that fed;
+And on the pedestal, these words appear:
+My name is Ozymandias, King of Kings;
+Look on my Works, ye Mighty, and despair!
+Nothing beside remains. Round the decay
+Of that colossal Wreck, boundless and bare
+The lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed -n '5,7p'
+Who said—“Two vast and trunk-less legs of stone
+Stand in the desert. . . . Near them, on the sand,
+Half sunk a shattered visage lies, whose frown,
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed -n '5,7d'
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed '5,7d'
+Ozymandias
+BY PERCY BYSSHE SHELLEY
+
+I met a traveler from an antique land,
+And wrinkled lip, and sneer of cold command,
+Tell that its sculptor well those passions read
+Which yet survive, stamped on these lifeless things,
+The hand that mocked them, and the heart that fed;
+And on the pedestal, these words appear:
+My name is Ozymandias, King of Kings;
+Look on my Works, ye Mighty, and despair!
+Nothing beside remains. Round the decay
+Of that colossal Wreck, boundless and bare
+The lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed '1,/^$/d'
+I met a traveler from an antique land,
+Who said—“Two vast and trunk-less legs of stone
+Stand in the desert. . . . Near them, on the sand,
+Half sunk a shattered visage lies, whose frown,
+And wrinkled lip, and sneer of cold command,
+Tell that its sculptor well those passions read
+Which yet survive, stamped on these lifeless things,
+The hand that mocked them, and the heart that fed;
+And on the pedestal, these words appear:
+My name is Ozymandias, King of Kings;
+Look on my Works, ye Mighty, and despair!
+Nothing beside remains. Round the decay
+Of that colossal Wreck, boundless and bare
+The lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed '$d'
+Ozymandias
+BY PERCY BYSSHE SHELLEY
+
+I met a traveler from an antique land,
+Who said—“Two vast and trunk-less legs of stone
+Stand in the desert. . . . Near them, on the sand,
+Half sunk a shattered visage lies, whose frown,
+And wrinkled lip, and sneer of cold command,
+Tell that its sculptor well those passions read
+Which yet survive, stamped on these lifeless things,
+The hand that mocked them, and the heart that fed;
+And on the pedestal, these words appear:
+My name is Ozymandias, King of Kings;
+Look on my Works, ye Mighty, and despair!
+Nothing beside remains. Round the decay
+Of that colossal Wreck, boundless and bare
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt | sed -n '/^$/,/^Half/p'
+
+I met a traveler from an antique land,
+Who said—“Two vast and trunk-less legs of stone
+Stand in the desert. . . . Near them, on the sand,
+Half sunk a shattered visage lies, whose frown,
+MacBook-Air:ch4_filters darbinreyes$ sed 's/King/Pussy/gw u.out' byron0.txt >output
+MacBook-Air:ch4_filters darbinreyes$ cat u.out
+My name is Ozymandias, Pussy of Pussys;
+MacBook-Air:ch4_filters darbinreyes$ cat output
+Ozymandias
+BY PERCY BYSSHE SHELLEY
+
+I met a traveler from an antique land,
+Who said—“Two vast and trunk-less legs of stone
+Stand in the desert. . . . Near them, on the sand,
+Half sunk a shattered visage lies, whose frown,
+And wrinkled lip, and sneer of cold command,
+Tell that its sculptor well those passions read
+Which yet survive, stamped on these lifeless things,
+The hand that mocked them, and the heart that fed;
+And on the pedestal, these words appear:
+My name is Ozymandias, Pussy of Pussys;
+Look on my Works, ye Mighty, and despair!
+Nothing beside remains. Round the decay
+Of that colossal Wreck, boundless and bare
+The lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$ cat byron0.txt
+Ozymandias
+BY PERCY BYSSHE SHELLEY
+
+I met a traveler from an antique land,
+Who said—“Two vast and trunk-less legs of stone
+Stand in the desert. . . . Near them, on the sand,
+Half sunk a shattered visage lies, whose frown,
+And wrinkled lip, and sneer of cold command,
+Tell that its sculptor well those passions read
+Which yet survive, stamped on these lifeless things,
+The hand that mocked them, and the heart that fed;
+And on the pedestal, these words appear:
+My name is Ozymandias, King of Kings;
+Look on my Works, ye Mighty, and despair!
+Nothing beside remains. Round the decay
+Of that colossal Wreck, boundless and bare
+The lone and level sands stretch far away.”
+MacBook-Air:ch4_filters darbinreyes$

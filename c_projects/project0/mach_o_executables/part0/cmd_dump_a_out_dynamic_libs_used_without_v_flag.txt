@@ -1,0 +1,4 @@
+MacBook-Air:part0 darbinreyes$ xcrun otool -L a.out
+a.out:
+  /usr/lib/libSystem.B.dylib (compatibility version 1.0.0, current version 1281.100.1)
+MacBook-Air:part0 darbinreyes$

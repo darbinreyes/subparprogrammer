@@ -19,6 +19,10 @@ Code and notes related to Dijkstra.
 
 * ... but this can have only strengthened my conviction that I had to rely on **arguments**, [rather than experiments](https://youtu.be/VCtxk_k8KEU?t=593). [mathematical proofs rather than test cases]
 
+* It was only slowly that we learned that **good taste** and a **systematic mind** were greater assets for **a reliable programmer** than his inclination to solve **puzzles**.
+
+* The **competent programmer** is fully aware of the strictly limited size of his own skull; therefore he approaches the programming task in full humility, and among other things he **avoids clever tricks like the plague**.
+
 * A study of program structure had revealed that programs —even alternative programs for the same task and with the same mathematical content— can differ tremendously in their **intellectual manageability**. A number of **rules** have been discovered, violation of which will either seriously impair or totally destroy the **intellectual manageability** of the program.
 
 * In this connection it might be worth-while to point out that the purpose of **abstracting** is not to be vague, but to create a new semantic level in which one can be **absolutely precise**.

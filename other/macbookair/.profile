@@ -1,5 +1,10 @@
 # !!!!!!!!!!!! This is NOT a bash script, its a config file !!!!!! see Evernote notes on this
 # !!! Don't forget to push changes to .profile to /Users/darbinreyes/dev/private_dev/misc/my_bash/profiles/ local git repo.
+# Dec. 31, 2020 - Maybe in the future: switch default shell.
+# The default interactive shell is now zsh.
+# To update your account to use zsh, please run `chsh -s /bin/zsh`.
+# For more details, please visit https://support.apple.com/kb/HT208050.
+# MacBook-Air:os-from-scratch darbinreyes$
 #####################
 # My PATH additions
 #####################
@@ -13,9 +18,14 @@ if [ "$MY_BASH_PROFILE_CALLED" = TRUE ]; then
 else
     if [ "$MAC_PORTS_PATH_RM" = TRUE ]; then
         echo Mac Ports Path Removed.
+        export PATH="$HOME/bin:.:$PATH"
     else
         echo Using Mac Ports path
-        export PATH="/opt/local/include:/opt/local/bin:/opt/local/sbin:/opt/:$PATH" # !!! dont forget the ":" delimiter BITCH!
+        # @IMPORTANT using a ~ character does NOT work here, you must use $HOME instead.
+        PATH="$HOME/bin:.:/opt/local/include:/opt/local/bin:/opt/local/sbin:/opt/:$PATH" # !!! dont forget the ":" delimiter BITCH!
+        # Add python 2.7 bin directory to path.
+        PATH="/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH"
+        export PATH
     fi
     echo my path = $PATH
     echo my python path = $PYTHONPATH
@@ -180,3 +190,9 @@ git config --global alias.st status
 
 # Github: "paste the text below to add the GPG key to your bash profile"
 export GPG_TTY=$(tty)
+
+# [Fix for whatis/apropos](https://apple.stackexchange.com/questions/374025/errors-from-whatis-command-unable-to-rebuild-database-with-makewhatis)
+alias apropos='~/workarounds/apropos.macos_10.15.1'
+alias whatis='~/workarounds/apropos.macos_10.15.1'
+# Explicitly tell makewhatis where to look for man pages.
+export MANPATH="/usr/share/man:/usr/local/share/man:/opt/local/share/man:/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/share/man:/Library/Developer/CommandLineTools/usr/share/man"
