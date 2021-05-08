@@ -1,0 +1,22 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"C Improved",
+		"C++ Starting Kit",
+		"C++11",
+		"C99",
+		"Cscope",
+		"EJS 2",
+		"Emmet",
+		"Flow",
+		"GAS-x86 (or x64) highlighting scheme",
+		"HexViewer",
+		"MIPS Syntax",
+		"NASM x86 Assembly",
+		"Package Control"
+	]
+}

@@ -1,0 +1,4 @@
+if test "$1" = hello
+then
+	echo poopoo
+fi

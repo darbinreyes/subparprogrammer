@@ -1,0 +1,117 @@
+Output of xcrun size -x -l -m a.out
+#######
+Segment __PAGEZERO: 0x100000000 (vmaddr 0x0 fileoff 0)
+Segment __TEXT: 0x1000 (vmaddr 0x100000000 fileoff 0)
+  Section __text: 0x31 (addr 0x100000f50 offset 3920)
+  Section __stubs: 0x6 (addr 0x100000f82 offset 3970)
+  Section __stub_helper: 0x1a (addr 0x100000f88 offset 3976)
+  Section __cstring: 0xe (addr 0x100000fa2 offset 4002)
+  Section __unwind_info: 0x48 (addr 0x100000fb0 offset 4016)
+  total 0xa7
+Segment __DATA_CONST: 0x1000 (vmaddr 0x100001000 fileoff 4096)
+  Section __got: 0x8 (addr 0x100001000 offset 4096)
+  total 0x8
+Segment __DATA: 0x1000 (vmaddr 0x100002000 fileoff 8192)
+  Section __la_symbol_ptr: 0x8 (addr 0x100002000 offset 8192)
+  Section __data: 0x8 (addr 0x100002008 offset 8200)
+  total 0x10
+Segment __LINKEDIT: 0x1000 (vmaddr 0x100003000 fileoff 12288)
+total 0x100004000
+
+#######
+1. __PAGEZERO
+  no sections.
+2. __TEXT
+  has sections:
+  __text
+  __stubs
+  __stub_helper
+  __cstring // 0xe == 14 == sizeof("Hello World!\n") - 1
+__unwind_info
+3. __DATA_CONST
+  has sections:
+  __got
+4. __DATA
+  has sections:
+  __la_symbol_ptr
+  __data
+5. __LINKEDIT
+  no sections
+
+####### Remarks
+
+0x100000f50 // first instruction
+0x100000f50 // address of the __TEXT,__text
+// What about below 0x100000f50?
+Note 0x1000 = 2^12 = 4KB
+0x100000f50
+0x100003000
+0x100000000 // Size of __PAGEZERO segment = 4GB.
+
+Notice the last occurence of "fileoff" = 12288.
+Since a.out is 12556 bytes, the 12288 is clearly an offset into a.out itself.
+
+Except for the __PAGEZERO segment, the size of all segments is 1 page = 4KB.
+Segment lines show "vmaddr"
+section lines show "addr"
+
+Within the __TEXT segment, I confirmed that all sections are adjacent to one another, assuming padding is done to ensure alignment to 2 byte (1 word) boundaries.
+
+Note in __TEXT,__unwind_info 0x100000fb0 + 0x48 = '0x100000ff8' = 4294971384
+
+####### More Remarks
+
+Size of __TEXT segment is 0xa7 = 343 bytes.
+
+The __TEXT segments starts at 0x100000000, and ends at 0x100000000+0x1000 = start_address+ 1 page size.
+
+Thus its contents lie below address 0x100001000.
+
+The last __TEXT,__unwind_info section occurs immediately below 0x100000ff8, i.e.:
+
+0x100000ff7: // last byte address of __TEXT,__unwind_info
+1 0x100000ff8: 00  .
+2 0x100000ff9: 00  .
+3 0x100000ffa: 00  .
+4 0x100000ffb: 00  .
+5 0x100000ffc: 00  .
+6 0x100000ffd: 00  .
+7 0x100000ffe: 00  .
+8 0x100000fff: 00  . // last byte address of the __TEXT segment.
+0x100001000: 78  x
+
+That last byte address of __TEXT,__unwind_info is so close to the end of the segment
+that it suggest the following explanation for the address of the first instruction
+being 0x100000f50, viz.
+
+Guess:
+By convention, the machine instructions are placed at the higher address end of
+segment
+AND
+the machine instructions are required to be aligned to a 16 byte boundary.
+
+If this guess is correct, then
+
+"address of first instruction" = ("__TEXT segment start address" + "__TEXT segment size") - round_to_next_multiple_of_16.("total size of sections in __TEXT segment")
+
+round_to_next_multiple_of_16.(s) =
+if s % 16 == 0
+  return s
+else
+  return ((s / 16) + 1)* 16;
+
+Here is the calculation:
+
+(0x100000000+0x1000) - round16(0xa7)
+=
+(0x100000000+0x1000)-(0xa7//16 + 1)*16; hex(_) = 4294971216
+=
+0x100000f50
+
+and the address of the first instruction is:
+
+0x100000f50
+
+therefore my guess is correct.
+
+Q.E.D.

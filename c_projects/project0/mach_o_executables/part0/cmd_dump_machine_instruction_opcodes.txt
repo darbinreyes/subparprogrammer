@@ -1,0 +1,9 @@
+Output of xcrun otool -s __TEXT __text a.out
+#######
+a.out:
+Contents of (__TEXT,__text) section
+0000000100000f50  55 48 89 e5 48 83 ec 20 c7 45 fc 00 00 00 00 89
+0000000100000f60  7d f8 48 89 75 f0 48 8d 3d 35 00 00 00 b0 00 e8
+0000000100000f70  0e 00 00 00 31 c9 89 45 ec 89 c8 48 83 c4 20 5d
+0000000100000f80  c3
+

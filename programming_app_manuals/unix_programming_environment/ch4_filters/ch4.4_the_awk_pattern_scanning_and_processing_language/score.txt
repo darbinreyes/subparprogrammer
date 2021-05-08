@@ -1,0 +1,7 @@
+Susie 400
+John 100
+Mary 200
+Mary 300
+John 100
+Susie 100
+Mary 100
