@@ -11,7 +11,7 @@
 #include "private-knr-malloc.h"
 void print_free_list(void);
 
-static Header base; /* empty list get started */
+Header base; /* empty list get started */
 static Header *freep = NULL; /* start of free list */
 
 /* malloc: general-purpose storage allocator */

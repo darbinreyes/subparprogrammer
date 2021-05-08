@@ -12,6 +12,7 @@
 
 */
 
+extern Header base;
 
 void test_0()
 {
@@ -19,7 +20,7 @@ void test_0()
     #define STR0_SIZE (sizeof(STR0))
     #define STR0_USIZE (NBYTES_TO_NUNITS(STR0_SIZE))
     char *p;
-    Header *hp;
+    Header *hp, *tp;
 
     assert_true(sizeof(Header) == 16);
 
@@ -45,6 +46,11 @@ void test_0()
     hp = (Header *) p;
     hp--;
     assert_true(hp->s.size == STR0_USIZE);
+
+    // Verify that the tail end of the free block was returned.
+    tp = &base;
+    tp = tp->s.ptr;
+    assert_true((tp + tp->s.size) == hp);
 
     // Test that free works without error
     knr_free(p);
