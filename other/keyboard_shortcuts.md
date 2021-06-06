@@ -15,6 +15,7 @@ Open context menu on mouse click | CTRL+click |
 * Mission control
     * CTRL+CMD+; | Show desktop
   
+![screenshot-kb-sc.png](screenshot-kb-sc.png)
 
 ### Evernote
 
