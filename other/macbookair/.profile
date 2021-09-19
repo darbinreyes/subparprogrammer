@@ -34,7 +34,7 @@ fi
 export MY_BASH_PROFILE_CALLED=TRUE # prevent PATH env. var. from being appended to on each call to sbash.
 
 # Make all GUI programs that are opened from my bash use my custom PATH. Fixes svn gui and sublimetext path issues.
-launchctl setenv PATH $PATH
+#launchctl setenv PATH $PATH
 
 #####################
 # END My PATH additions
@@ -43,13 +43,12 @@ launchctl setenv PATH $PATH
 # bash config. related
 #######################
 alias sbash='source ~/.profile'
-alias ebash='subl ~/.profile'
+alias ebash='code ~/.profile'
 #######################
 # subl config. projects
 #######################
-alias emacportscfg='subl /Users/darbinreyes/dev/private_dev/subl_config_projects/macportsconfig/macportsconfig.sublime-project'
-alias egitcfg='subl /Users/darbinreyes/dev/private_dev/subl_config_projects/gitconfig/gitconfig.sublime-project'
-alias esvncfg='subl /Users/darbinreyes/dev/private_dev/subl_config_projects/svnconfig/svnconfig.sublime-project'
+alias eportcfg='code /Users/darbinreyes/dev/private_dev/subl-config-projects/macportsconfig/mac-ports-config.code-workspace'
+alias egitcfg='code /Users/darbinreyes/dev/private_dev/subl-config-projects/gitconfig/git-config.code-workspace'
 #######################
 # END bash config. related
 #######################
@@ -59,6 +58,7 @@ alias esvncfg='subl /Users/darbinreyes/dev/private_dev/subl_config_projects/svnc
 alias guid='uuidgen'
 alias flashstk500='avrdude -c stk500 -p m644 -e  -U flash:w:lab0.hex -P /dev/cu.usbserial-FTGFF0GH -v'
 alias buildstk500='make'
+alias ls='ls -G'
 alias ll='ls -l -a -G'
 alias where='which'
 ## Recursively searches current directory for file names that match *.txt.
@@ -74,16 +74,20 @@ alias speedtest='curl -o /dev/null http://speedtest.wdc01.softlayer.com/download
 # Find a specific process by name
 alias grep-proc='ps -ax | grep '
 alias restart-mac-audio='sudo killall coreaudiod'
-
+# How to play sounds from the terminal
+alias spsound0="afplay '/Users/darbinreyes/Movies/Wondershare Filmora9/Output/south-park/sp-s02e01-clips-for-win10/sp-s02e01-clips-for-win10-agree.mp3'"
+alias spsound1="afplay '/Users/darbinreyes/Movies/Wondershare Filmora9/Output/south-park/sp-s02e01-clips-for-win10/sp-s02e01-clips-for-win10-relax1.mp3'"
+alias say0="say 'Relax guy.'"
 #######################
 # END Misc. OS related
 #######################
 #######################
-# SublimeText related
+# SublimeText/Code related
 #######################
 # make sublimetext the default system text editor
-alias sublgui='sudo open /Applications/Sublime\ Text.app/'
-export EDITOR='subl -w'
+# alias sublgui='sudo open /Applications/Sublime\ Text.app/'
+# export EDITOR='subl -w'
+export EDITOR='code -w'
 #######################
 # END SublimeText related
 #######################
@@ -196,3 +200,4 @@ alias apropos='~/workarounds/apropos.macos_10.15.1'
 alias whatis='~/workarounds/apropos.macos_10.15.1'
 # Explicitly tell makewhatis where to look for man pages.
 export MANPATH="/usr/share/man:/usr/local/share/man:/opt/local/share/man:/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/share/man:/Library/Developer/CommandLineTools/usr/share/man"
+eval "$(/opt/homebrew/bin/brew shellenv)"
