@@ -75,8 +75,9 @@ alias speedtest='curl -o /dev/null http://speedtest.wdc01.softlayer.com/download
 alias grep-proc='ps -ax | grep '
 alias restart-mac-audio='sudo killall coreaudiod'
 # How to play sounds from the terminal
-alias spsound0="afplay '/Users/darbinreyes/Movies/Wondershare Filmora9/Output/south-park/sp-s02e01-clips-for-win10/sp-s02e01-clips-for-win10-agree.mp3'"
-alias spsound1="afplay '/Users/darbinreyes/Movies/Wondershare Filmora9/Output/south-park/sp-s02e01-clips-for-win10/sp-s02e01-clips-for-win10-relax1.mp3'"
+alias fart0="afplay '/Users/darbinreyes/Movies/Wondershare Filmora9/Output/south-park/sp-s02e01-clips-for-win10/the-fart.mp3'"
+alias fart1="afplay '/Users/darbinreyes/Movies/Wondershare Filmora9/Output/south-park/sp-s02e01-clips-for-win10/sp-s02e01-clips-for-win10-agree.mp3'"
+alias fart2="afplay '/Users/darbinreyes/Movies/Wondershare Filmora9/Output/south-park/sp-s02e01-clips-for-win10/sp-s02e01-clips-for-win10-relax1.mp3'"
 alias say0="say 'Relax guy.'"
 #######################
 # END Misc. OS related
