@@ -1,4 +1,10 @@
-# !!!!!!!!!!!! This is NOT a bash script, its a config file !!!!!! see Evernote notes on this
+echo '#########################################################################'
+echo "On September 19, 2021 - bash ignores this file, so the Terminal app is
+probably telling it to read .profile first."
+echo "Hello from .bash_profile, FYI, I'm only run for login shells and I have
+priority over .profile."
+echo '#########################################################################'
+# !!!!!!!!!!!! .profile is NOT a bash script, its a config file !!!!!! see Evernote notes on this
 # !!! Don't forget to push changes to .profile to /Users/darbinreyes/dev/private_dev/misc/my_bash/profiles/ local git repo.
 # Dec. 31, 2020 - Maybe in the future: switch default shell.
 # The default interactive shell is now zsh.
@@ -42,8 +48,8 @@ export MY_BASH_PROFILE_CALLED=TRUE # prevent PATH env. var. from being appended 
 #######################
 # bash config. related
 #######################
-alias sbash='source ~/.profile'
-alias ebash='code ~/.profile'
+alias sbash='source ~/.bash_profile'
+alias ebash='code ~/.bash_profile'
 #######################
 # subl config. projects
 #######################
@@ -88,7 +94,8 @@ alias say0="say 'Relax guy.'"
 # make sublimetext the default system text editor
 # alias sublgui='sudo open /Applications/Sublime\ Text.app/'
 # export EDITOR='subl -w'
-export EDITOR='code -w'
+# export EDITOR='code -w' # This env var is intended for non-GUI editors
+export EDITOR=vim
 #######################
 # END SublimeText related
 #######################
@@ -202,3 +209,24 @@ alias whatis='~/workarounds/apropos.macos_10.15.1'
 # Explicitly tell makewhatis where to look for man pages.
 export MANPATH="/usr/share/man:/usr/local/share/man:/opt/local/share/man:/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/share/man:/Library/Developer/CommandLineTools/usr/share/man"
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# OS161:START
+MYOS161="$HOME/dev/private_dev/os161"
+MYOS="$MYOS161"
+MYOSROOT="$MYOS161/root"
+MYOSSRC="$MYOS161/src"
+MYKERNCONF="$MYOS161/src/kern/conf"
+MYKERNCC="$MYOS161/src/kern/compile/DUMBVM"
+MYOSTOOLS="$MYOS161/tools/bin"
+MYOSMAN="$MYOS161/tools/share/man"
+alias cdos="cd $MYOS"
+alias cdosr="cd $MYOSROOT"
+alias cdoss="cd $MYOSSRC"
+alias initos=". initos161"
+# OS161:END
+
+# SUBPARPROGRAMMER:START
+#PRIVATEDEV="$HOME/dev/private_dev/subparprogrammer"
+#SPPREPO="$HOME/dev/private_dev/subparprogrammer"
+#alias
+# SUBPARPROGRAMMER:ENDxxx
