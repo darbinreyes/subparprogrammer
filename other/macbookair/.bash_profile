@@ -1,201 +1,129 @@
-echo '#########################################################################'
-echo "On September 19, 2021 - bash ignores this file, so the Terminal app is
-probably telling it to read .profile first."
-echo "Hello from .bash_profile, FYI, I'm only run for login shells and I have
-priority over .profile."
-echo '#########################################################################'
-# !!!!!!!!!!!! .profile is NOT a bash script, its a config file !!!!!! see Evernote notes on this
-# !!! Don't forget to push changes to .profile to /Users/darbinreyes/dev/private_dev/misc/my_bash/profiles/ local git repo.
-# Dec. 31, 2020 - Maybe in the future: switch default shell.
-# The default interactive shell is now zsh.
-# To update your account to use zsh, please run `chsh -s /bin/zsh`.
-# For more details, please visit https://support.apple.com/kb/HT208050.
-# MacBook-Air:os-from-scratch darbinreyes$
-#####################
-# My PATH additions
-#####################
-# MacPorts Installer addition on 2014-04-18_at_15:25:40: adding an appropriate PATH variable for use with MacPorts.
-export PROXYHOME=TRUE
-export GITHOME=TRUE
-export MAC_PORTS_PATH_RM=#TRUE ## hides macports binaries.
+# command line tips:START
 
-if [ "$MY_BASH_PROFILE_CALLED" = TRUE ]; then
-    echo donezo path = $PATH
-else
-    if [ "$MAC_PORTS_PATH_RM" = TRUE ]; then
-        echo Mac Ports Path Removed.
-        export PATH="$HOME/bin:.:$PATH"
-    else
-        echo Using Mac Ports path
-        # @IMPORTANT using a ~ character does NOT work here, you must use $HOME instead.
-        PATH="$HOME/bin:.:/opt/local/include:/opt/local/bin:/opt/local/sbin:/opt/:$PATH" # !!! dont forget the ":" delimiter BITCH!
-        # Add python 2.7 bin directory to path.
-        PATH="/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH"
-        export PATH
-    fi
-    echo my path = $PATH
-    echo my python path = $PYTHONPATH
-fi
-
-export MY_BASH_PROFILE_CALLED=TRUE # prevent PATH env. var. from being appended to on each call to sbash.
-
-# Make all GUI programs that are opened from my bash use my custom PATH. Fixes svn gui and sublimetext path issues.
-#launchctl setenv PATH $PATH
-
-#####################
-# END My PATH additions
-#####################
-#######################
-# bash config. related
-#######################
-alias sbash='source ~/.bash_profile'
-alias ebash='code ~/.bash_profile'
-#######################
-# subl config. projects
-#######################
-alias eportcfg='code /Users/darbinreyes/dev/private_dev/subl-config-projects/macportsconfig/mac-ports-config.code-workspace'
-alias egitcfg='code /Users/darbinreyes/dev/private_dev/subl-config-projects/gitconfig/git-config.code-workspace'
-#######################
-# END bash config. related
-#######################
-#######################
-# Misc. OS related
-#######################
-alias guid='uuidgen'
-alias flashstk500='avrdude -c stk500 -p m644 -e  -U flash:w:lab0.hex -P /dev/cu.usbserial-FTGFF0GH -v'
-alias buildstk500='make'
-alias ls='ls -G'
-alias ll='ls -l -a -G'
-alias where='which'
-## Recursively searches current directory for file names that match *.txt.
-## and prints any lines in those txt files which match the word "RIS"
-#find . -name "*.txt" -print | xargs grep "RIS"
-# If you get an error like "find: ./sbin/authserver: Permission denied", don't use this alias. Use `sudo find . -name`.
-alias find-filename='find . -name '
-alias myrmdir='rm -drf'
-# run a speed test from bash per http://osxdaily.com/2013/07/31/speed-test-command-line/
-alias speedtest='curl -o /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip'
-
-
-# Find a specific process by name
-alias grep-proc='ps -ax | grep '
-alias restart-mac-audio='sudo killall coreaudiod'
-# How to play sounds from the terminal
-alias fart0="afplay '/Users/darbinreyes/Movies/Wondershare Filmora9/Output/south-park/sp-s02e01-clips-for-win10/the-fart.mp3'"
-alias fart1="afplay '/Users/darbinreyes/Movies/Wondershare Filmora9/Output/south-park/sp-s02e01-clips-for-win10/sp-s02e01-clips-for-win10-agree.mp3'"
-alias fart2="afplay '/Users/darbinreyes/Movies/Wondershare Filmora9/Output/south-park/sp-s02e01-clips-for-win10/sp-s02e01-clips-for-win10-relax1.mp3'"
-alias say0="say 'Relax guy.'"
-#######################
-# END Misc. OS related
-#######################
-#######################
-# SublimeText/Code related
-#######################
-# make sublimetext the default system text editor
-# alias sublgui='sudo open /Applications/Sublime\ Text.app/'
-# export EDITOR='subl -w'
-# export EDITOR='code -w' # This env var is intended for non-GUI editors
-export EDITOR=vim
-#######################
-# END SublimeText related
-#######################
-#######################
-# Network related
-#######################
-alias myip='curl -4 icanhazip.com'
-# Export no_proxy=localhost,127.0.0.0/8,*.local
-# Add mysql to path https://trac.macports.org/wiki/howto/MAMP
-export PATH=$PATH:/opt/local/lib/mysql51/bin
-#######################
-# Network related
-#######################
-
-if [ "$PROXYHOME" = TRUE ]; then
-    export http_proxy=
-    export https_proxy=
-    echo Proxy set for home. $http_proxy $https_proxy
-else
-    export http_proxy=
-    export https_proxy=
-    echo Proxy set for work. $http_proxy $https_proxy
-fi
-
-export HTTP_PROXY=$http_proxy
-export HTTPS_PROXY=$https_proxy
+# Make-bash-alias-that-takes-parameter:
+# http://stackoverflow.com/questions/7131670/make-bash-alias-that-takes-parameter
 
 # Example usage of curl: https://www.drupal.org/node/1795770
 
-# Make-bash-alias-that-takes-parameter: http://stackoverflow.com/questions/7131670/make-bash-alias-that-takes-parameter
+# EXAMPLE `find` command that recursively searches current directory for file
+# names that match *.txt and prints any lines inside those txt files which match
+# the word "RIS" `find . -name "*.txt" -print | xargs grep "RIS"`
+# If you get an error like "find: ./sbin/authserver: Permission denied", don't
+# use this alias. Use `sudo find . -name`.
 
-#######################
-# SVN related
-#######################
+# command line tips:END
 
-### SVN command aliases.
+echo '#########################################################################'
+echo "Hello from .bash_profile, FYI, I'm only run for login shells and I have
+priority over .profile."
+echo '#########################################################################'
 
-#alias svn='colorsvn'
-alias swbr='svn switch '
-alias sstat='svn status'
-alias svdiff='svn diff'
-alias slog='svn log -l 3 '
-alias supd='svn update '
-alias svchout='svn checkout '
+# important PATH stuff:START
 
-# Svn copy <trunk-branch-url> ^relative-url-new-feature-branch
-# http://svnbook.red-bean.com/en/1.7/svn.branchmerge.using.html
+# XXXHOME variables: Currently I don't use my personal machine for work anymore
+PROXYHOME=TRUE
+GITHOME=TRUE
+MAC_PORTS_PATH_RM= # TRUE # hides macports binaries.
 
-alias sbr='svn copy '
-alias svngui='sudo open /Applications/svnX.app'
-#######################
-# END SVN related
-#######################
-#######################
-# Git related
-#######################
+if [ "$MY_BASH_PROFILE_CALLED" = TRUE ]; then
+	echo "Already run"
+else
+	if [ "$MAC_PORTS_PATH_RM" = TRUE ]; then
+		echo "Mac Ports removed from PATH"
+		PATH="$HOME/bin:.:$PATH"
+	else
+		echo "Mac Ports prepended to PATH"
+		# Add python 2.7 bin directory to path.
+		PATH="/opt/local/Library/Frameworks/Python.framework/Versions/2.7/bin:$PATH"
+		# IMPORTANT using a ~ character does NOT work here, you must use $HOME instead.
+		# !!! dont forget the ":" delimiter BITCH!
+		PATH="$HOME/bin:.:/opt/local/include:/opt/local/bin:/opt/local/sbin:/opt/:$PATH"
+	fi
+	echo "PATH = $PATH"
+	echo "PYTHONPATH = $PYTHONPATH"
+fi
 
-# Reminder : Command to tell git to use the same proxy as bash. 'git config --global http.proxy $http_proxy'
+export PATH
 
-alias gstat='git status'
-# git-FYI: how to view a diff via cmd line. run "git diff --cached" in working copy. or use "git gui &"
+# important PATH stuff:END
+
+# prevent PATH env. var. from being appended to on each call to sbash.
+MY_BASH_PROFILE_CALLED=TRUE
+
+# miscelaneous:START
+
+alias sbash='source ~/.bash_profile'
+alias ebash='code ~/.bash_profile'
+
+alias find-filename='find . -name '
+alias ls='ls -G'
+alias ll='ls -l -a -G'
+alias where='which'
+export EDITOR=vim
+
+# How to play sounds from the terminal
+FARTPATH="/Users/darbinreyes/Movies/Wondershare\ Filmora9/Output/south-park/sp-s02e01-clips-for-win10"
+alias fart0="afplay $FARTPATH/the-fart.mp3 &"
+alias fart1="afplay $FARTPATH/sp-s02e01-clips-for-win10-agree.mp3 &"
+alias fart2="afplay $FARTPATH/sp-s02e01-clips-for-win10-relax1.mp3 &"
+alias say0="say 'Relax guy' &"
+
+# miscelaneous:END
+
+# network:START
+
+alias myip='curl -4 icanhazip.com'
+
+if [ "$PROXYHOME" = TRUE ]; then
+    http_proxy=
+    https_proxy=
+    echo "Proxy set for home. $http_proxy $https_proxy"
+else
+    http_proxy=
+    https_proxy=
+    echo "Proxy set for work. $http_proxy $https_proxy"
+fi
+
+export http_proxy
+export https_proxy
+export HTTP_PROXY=$http_proxy
+export HTTPS_PROXY=$https_proxy
+
+# network:END
+
+# git:START
+
+# Reminder : Command to tell git to use the same proxy as bash.
+# 'git config --global http.proxy $http_proxy'
+
 # Make it easy to change my git config based on work vs. personal coding.
 
 if [ "$GITHOME" = TRUE ]; then
-    echo Git set for home.
-    git config --global user.email 1085688+darbinreyes@users.noreply.github.com
-    git config --global sendemail.smtpEncryption tls
-    git config --global sendemail.smtpserver smtp.gmail.com
-    git config --global sendemail.smtpUser darbin.e.reyes@gmail.com
-    git config --global sendemail.from darbin.e.reyes@gmail.com
-    git config --global sendemail.smtpServerPort 587
-    git config --global http.proxy ""
-    git config --global commit.gpgsign true
-    #git config --global -l
+    echo "Git set for home."
+	git config --global user.email 1085688+darbinreyes@users.noreply.github.com
+	git config --global sendemail.smtpEncryption tls
+	git config --global sendemail.smtpserver smtp.gmail.com
+	git config --global sendemail.smtpUser darbin.e.reyes@gmail.com
+	git config --global sendemail.from darbin.e.reyes@gmail.com
+	git config --global sendemail.smtpServerPort 587
+	git config --global http.proxy ""
+	git config --global commit.gpgsign true
 else
-    echo Git set for work.
-    git config --global user.email
-    git config --global sendemail.smtpserver
-    git config --global sendemail.from
-    git config --global http.proxy
-    #git config --global -l
+	echo "Git set for work."
+	git config --global user.email
+	git config --global sendemail.smtpserver
+	git config --global sendemail.from
+	git config --global http.proxy
 fi
 
-### Git settings for both work and home.
-# Git Aliases https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases
+# Git settings for both work and home.
+
 git config --global alias.co checkout
 git config --global alias.br branch
 git config --global alias.ci commit
 git config --global alias.st status
 
-#######################
-# END Git related
-#######################
-
-##
-# Your previous /Users/darbinreyes/.profile file was backed up as /Users/darbinreyes/.profile.macports-saved_2016-11-11_at_22:18:16
-##
-
-# MacPorts Installer addition on 2016-11-11_at_22:18:16: adding an appropriate PATH variable for use with MacPorts.
-# Finished adapting your PATH environment variable for use with MacPorts.
+# git:END
 
 # Tell node where to look for global modules.
 # export NODE_PATH=/opt/local/lib/node_modules
@@ -208,25 +136,30 @@ alias apropos='~/workarounds/apropos.macos_10.15.1'
 alias whatis='~/workarounds/apropos.macos_10.15.1'
 # Explicitly tell makewhatis where to look for man pages.
 export MANPATH="/usr/share/man:/usr/local/share/man:/opt/local/share/man:/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/share/man:/Library/Developer/CommandLineTools/usr/share/man"
+
+# brew is useful when Mac Ports fails e.g. originally added to install qemu
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# OS161:START
-MYOS161="$HOME/dev/private_dev/os161"
-MYOS="$MYOS161"
+# private development:START
+
+# Commonly used paths
+PRIVATE_DEV="$HOME/dev/private_dev"
+SPPREPO="$PRIVATE_DEV/subparprogrammer"
+alias cdspp="cd $SPPREPO"
+
+# os161:START
+MYOS161="$PRIVATE_DEV/os161"
 MYOSROOT="$MYOS161/root"
 MYOSSRC="$MYOS161/src"
 MYKERNCONF="$MYOS161/src/kern/conf"
 MYKERNCC="$MYOS161/src/kern/compile/DUMBVM"
 MYOSTOOLS="$MYOS161/tools/bin"
 MYOSMAN="$MYOS161/tools/share/man"
-alias cdos="cd $MYOS"
+alias cdos="cd $MYOS161"
 alias cdosr="cd $MYOSROOT"
 alias cdoss="cd $MYOSSRC"
 alias initos=". initos161"
-# OS161:END
+# os161:END
 
-# SUBPARPROGRAMMER:START
-#PRIVATEDEV="$HOME/dev/private_dev/subparprogrammer"
-#SPPREPO="$HOME/dev/private_dev/subparprogrammer"
-#alias
-# SUBPARPROGRAMMER:ENDxxx
+# private development:END
+
