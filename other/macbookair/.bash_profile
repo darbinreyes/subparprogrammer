@@ -158,7 +158,8 @@ MYOSMAN="$MYOS161/tools/share/man"
 alias cdos="cd $MYOS161"
 alias cdosr="cd $MYOSROOT"
 alias cdoss="cd $MYOSSRC"
-alias initos=". initos161"
+alias initos="pushd $MYOS161 && . initos161; popd"
+alias reinitos="pushd $MYOS161 && SCRIPT_ALREADY_RUN=; . initos161; popd"
 # os161:END
 
 # private development:END
