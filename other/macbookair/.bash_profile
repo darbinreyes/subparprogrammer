@@ -148,11 +148,12 @@ SPPREPO="$PRIVATE_DEV/subparprogrammer"
 alias cdspp="cd $SPPREPO"
 
 # os161:START
+KERNEL_CONFIG='DUMBVM'
 MYOS161="$PRIVATE_DEV/os161"
 MYOSROOT="$MYOS161/root"
 MYOSSRC="$MYOS161/src"
 MYKERNCONF="$MYOS161/src/kern/conf"
-MYKERNCC="$MYOS161/src/kern/compile/DUMBVM"
+MYKERNCC="$MYOS161/src/kern/compile/$KERNEL_CONFIG"
 MYOSTOOLS="$MYOS161/tools/bin"
 MYOSMAN="$MYOS161/tools/share/man"
 alias cdos="cd $MYOS161"
